@@ -1,10 +1,25 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideTransloco } from '@jsverse/transloco';
 import { App } from './app';
+import { TranslocoHttpLoader } from './core/i18n/transloco-loader';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideTransloco({
+          config: {
+            availableLangs: ['en', 'es'],
+            defaultLang: 'en',
+          },
+          loader: TranslocoHttpLoader,
+        }),
+      ],
     }).compileComponents();
   });
 
@@ -14,10 +29,12 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title', async () => {
+  it('should toggle language', () => {
     const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, sumaq-yachay');
+    const app = fixture.componentInstance;
+    app.setLanguage('es');
+    expect(app.getActiveLang()).toBe('es');
+    app.setLanguage('en');
+    expect(app.getActiveLang()).toBe('en');
   });
 });

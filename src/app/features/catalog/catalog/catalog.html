@@ -1,0 +1,169 @@
+<div class="catalog-page">
+  <!-- Top Navigation / Hero Header -->
+  <header class="catalog-header">
+    <div class="header-main">
+      <div class="brand">
+        <div class="brand-badge">{{ 'CATALOG.HEADER.BADGE' | transloco }}</div>
+        <h1 class="brand-title">{{ 'CATALOG.HEADER.TITLE' | transloco }}</h1>
+        <p class="brand-subtitle">{{ 'CATALOG.HEADER.SUBTITLE' | transloco }}</p>
+      </div>
+
+      <div class="header-actions">
+        <!-- Settings Trigger -->
+        <button
+          type="button"
+          class="btn-icon"
+          (click)="showSettings.set(!showSettings())"
+          [class.active]="showSettings()"
+          [title]="'CATALOG.HEADER.API_SETTINGS' | transloco"
+        >
+          <svg viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+          </svg>
+          <span>{{ 'CATALOG.HEADER.API_SETTINGS' | transloco }}</span>
+        </button>
+
+        <!-- Sync Remote Button (HTTP GET) -->
+        <button
+          type="button"
+          class="btn btn-sync"
+          [disabled]="catalogService.isLoading()"
+          (click)="handleSync()"
+          [title]="'CATALOG.HEADER.SYNC_REMOTE' | transloco"
+        >
+          <svg class="icon" [class.spinning]="catalogService.isLoading()" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+          </svg>
+          <span>{{ catalogService.isLoading() ? ('CATALOG.HEADER.SYNCING' | transloco) : ('CATALOG.HEADER.SYNC_REMOTE' | transloco) }}</span>
+        </button>
+
+        <!-- Register New Source Button (HTTP POST) -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="openCreateModal()"
+          [title]="'CATALOG.HEADER.REGISTER_SOURCE' | transloco"
+        >
+          <svg class="icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+          </svg>
+          <span>{{ 'CATALOG.HEADER.REGISTER_SOURCE' | transloco }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Collapsible GAS Endpoint Configuration Panel -->
+    @if (showSettings()) {
+      <div class="settings-drawer">
+        <div class="settings-content">
+          <div class="settings-info">
+            <h4>{{ 'CATALOG.SETTINGS.TITLE' | transloco }}</h4>
+            <p>{{ 'CATALOG.SETTINGS.DESCRIPTION' | transloco }}</p>
+          </div>
+          <div class="settings-form">
+            <input
+              type="url"
+              [(ngModel)]="apiUrlInput"
+              [placeholder]="'CATALOG.SETTINGS.PLACEHOLDER' | transloco"
+              class="url-input"
+            />
+            <button type="button" class="btn btn-save" (click)="saveApiConfig()">{{ 'CATALOG.SETTINGS.SAVE' | transloco }}</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Stat Metrics Row -->
+    <div class="metrics-bar">
+      <div class="metric-card">
+        <span class="metric-label">{{ 'CATALOG.METRICS.TOTAL' | transloco }}</span>
+        <span class="metric-value">{{ catalogService.stats().total }}</span>
+      </div>
+      <div class="metric-card tech">
+        <span class="metric-label">{{ 'CATALOG.METRICS.TECHNICAL' | transloco }}</span>
+        <span class="metric-value">{{ catalogService.stats().technical }}</span>
+      </div>
+      <div class="metric-card phil">
+        <span class="metric-label">{{ 'CATALOG.METRICS.PHILOSOPHY' | transloco }}</span>
+        <span class="metric-value">{{ catalogService.stats().philosophy }}</span>
+      </div>
+      <div class="metric-card fict">
+        <span class="metric-label">{{ 'CATALOG.METRICS.FICTION' | transloco }}</span>
+        <span class="metric-value">{{ catalogService.stats().fiction }}</span>
+      </div>
+      <div class="metric-card active-metric">
+        <span class="metric-label">{{ 'CATALOG.METRICS.ACTIVE' | transloco }}</span>
+        <span class="metric-value">{{ catalogService.stats().active }}</span>
+      </div>
+      @if (catalogService.stats().pendingSync > 0) {
+        <div class="metric-card pending-metric">
+          <span class="metric-label">{{ 'CATALOG.METRICS.PENDING' | transloco }}</span>
+          <span class="metric-value">{{ catalogService.stats().pendingSync }}</span>
+        </div>
+      }
+    </div>
+  </header>
+
+  <!-- Error Notification Alert -->
+  @if (catalogService.errorMessage()) {
+    <div class="alert-banner">
+      <div class="alert-content">
+        <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+        <span>{{ catalogService.errorMessage() }}</span>
+      </div>
+      <button class="alert-close" (click)="catalogService.errorMessage.set(null)">✕</button>
+    </div>
+  }
+
+  <!-- Main Content Area -->
+  <main class="catalog-main">
+    <!-- Filter Bar -->
+    <app-catalog-filter
+      [selectedCategory]="catalogService.selectedCategory()"
+      [searchQuery]="catalogService.searchQuery()"
+      [showActiveOnly]="catalogService.showActiveOnly()"
+      [totalCount]="catalogService.stats().total"
+      [techCount]="catalogService.stats().technical"
+      [philCount]="catalogService.stats().philosophy"
+      [fictCount]="catalogService.stats().fiction"
+      (categoryChange)="catalogService.setCategory($event)"
+      (searchChange)="catalogService.setSearchQuery($event)"
+      (activeOnlyChange)="catalogService.setShowActiveOnly($event)"
+    />
+
+    <!-- Catalog Items Grid -->
+    @if (catalogService.filteredItems().length > 0) {
+      <div class="catalog-grid">
+        @for (item of catalogService.filteredItems(); track item.id) {
+          <app-catalog-card
+            [item]="item"
+            (toggleActive)="handleToggleActive($event)"
+            (edit)="openEditModal($event)"
+            (delete)="handleDeleteItem($event)"
+          />
+        }
+      </div>
+    } @else {
+      <!-- Empty State -->
+      <div class="empty-state">
+        <div class="empty-icon">📚</div>
+        <h3>{{ 'CATALOG.EMPTY.TITLE' | transloco }}</h3>
+        <p>{{ 'CATALOG.EMPTY.DESC' | transloco }}</p>
+        <button type="button" class="btn btn-primary mt-2" (click)="openCreateModal()">
+          {{ 'CATALOG.EMPTY.ACTION' | transloco }}
+        </button>
+      </div>
+    }
+  </main>
+
+  <!-- Form Modal for Create & Edit -->
+  @if (isModalOpen()) {
+    <app-catalog-form-modal
+      [editItem]="selectedItemForEdit()"
+      (save)="handleSaveItem($event)"
+      (close)="closeModal()"
+    />
+  }
+</div>

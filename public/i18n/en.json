@@ -1,0 +1,84 @@
+{
+  "NAV": {
+    "BRAND_NAME": "Sumaq Yachay",
+    "BRAND_TAGLINE": "Beautiful Knowledge",
+    "CATALOG": "Catalog"
+  },
+  "CATALOG": {
+    "HEADER": {
+      "BADGE": "Master Index",
+      "TITLE": "Sumaq Yachay",
+      "SUBTITLE": "Knowledge Base & Study Catalog",
+      "API_SETTINGS": "API Settings",
+      "SYNC_REMOTE": "Sync Remote (GET)",
+      "SYNCING": "Syncing...",
+      "REGISTER_SOURCE": "Register Source"
+    },
+    "SETTINGS": {
+      "TITLE": "Google Apps Script Web App Endpoint",
+      "DESCRIPTION": "Enter the deployed Web App URL (Execute as: Me, Who has access: Anyone) to enable bi-directional sync.",
+      "PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
+      "SAVE": "Save URL"
+    },
+    "METRICS": {
+      "TOTAL": "Total Registered",
+      "TECHNICAL": "Technical",
+      "PHILOSOPHY": "Philosophy",
+      "FICTION": "Fiction",
+      "ACTIVE": "Active Sources",
+      "PENDING": "Pending / Error"
+    },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Search catalogs by name, type, or description...",
+      "ALL": "All",
+      "TECHNICAL": "Technical",
+      "PHILOSOPHY": "Philosophy",
+      "FICTION": "Fiction",
+      "ACTIVE_ONLY": "Active Only"
+    },
+    "CARD": {
+      "NO_DESCRIPTION": "No description provided.",
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "DELETE_CONFIRM": "Are you sure you want to remove this data source from local storage?"
+    },
+    "SYNC_STATUS": {
+      "SYNCED": "Synced",
+      "PENDING": "Pending",
+      "FAILED": "Sync Failed"
+    },
+    "MODAL": {
+      "TITLE_CREATE": "Register New Data Source",
+      "TITLE_EDIT": "Edit Catalog Source",
+      "NAME_LABEL": "Catalog Name",
+      "NAME_PLACEHOLDER": "e.g., Distributed Systems & Kafka",
+      "NAME_ERROR": "Name is required (max 100 characters).",
+      "SHEET_LABEL": "Google Sheet ID or URL",
+      "SHEET_PLACEHOLDER": "e.g., 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms or full Google Sheet URL",
+      "SHEET_HINT": "Paste full spreadsheet URL or the unique Sheet ID.",
+      "SHEET_ERROR": "A valid Google Sheet ID or URL is required.",
+      "CATEGORY_LABEL": "Category",
+      "TYPE_LABEL": "Schema Type",
+      "TYPES": {
+        "ENTITIES": "Entities (Glossary / Definitions)",
+        "RELATIONS": "Relations (Graph / Topology)",
+        "EXCERPTS": "Excerpts (Quotes / Passages)",
+        "TIMELINES": "Timelines (Chronological Arcs)",
+        "SCENARIOS": "Scenarios (Active Recall / Cases)"
+      },
+      "DESCRIPTION_LABEL": "Description (Optional)",
+      "DESCRIPTION_PLACEHOLDER": "Brief summary of the topics or concepts covered...",
+      "ACTIVE_LABEL": "Mark as Active in Master Index",
+      "CANCEL": "Cancel",
+      "SUBMIT_CREATE": "Register Source",
+      "SUBMIT_EDIT": "Save Changes"
+    },
+    "EMPTY": {
+      "TITLE": "No Catalog Sources Found",
+      "DESC": "No data sources match the selected category or search filters.",
+      "ACTION": "Register New Source"
+    }
+  }
+}

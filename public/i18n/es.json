@@ -1,0 +1,84 @@
+{
+  "NAV": {
+    "BRAND_NAME": "Sumaq Yachay",
+    "BRAND_TAGLINE": "Conocimiento Hermoso",
+    "CATALOG": "Catálogo"
+  },
+  "CATALOG": {
+    "HEADER": {
+      "BADGE": "Índice Maestro",
+      "TITLE": "Sumaq Yachay",
+      "SUBTITLE": "Base de Conocimiento y Catálogo de Estudio",
+      "API_SETTINGS": "Configuración API",
+      "SYNC_REMOTE": "Sincronizar Remoto (GET)",
+      "SYNCING": "Sincronizando...",
+      "REGISTER_SOURCE": "Registrar Fuente"
+    },
+    "SETTINGS": {
+      "TITLE": "Punto de Enlace Google Apps Script Web App",
+      "DESCRIPTION": "Ingresa la URL de la Web App desplegada (Ejecutar como: Yo, Quién tiene acceso: Cualquiera) para habilitar la sincronización bidireccional.",
+      "PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
+      "SAVE": "Guardar URL"
+    },
+    "METRICS": {
+      "TOTAL": "Total Registrados",
+      "TECHNICAL": "Técnico",
+      "PHILOSOPHY": "Filosofía",
+      "FICTION": "Ficción",
+      "ACTIVE": "Fuentes Activas",
+      "PENDING": "Pendiente / Error"
+    },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Buscar catálogos por nombre, tipo o descripción...",
+      "ALL": "Todos",
+      "TECHNICAL": "Técnico",
+      "PHILOSOPHY": "Filosofía",
+      "FICTION": "Ficción",
+      "ACTIVE_ONLY": "Solo Activos"
+    },
+    "CARD": {
+      "NO_DESCRIPTION": "Sin descripción proporcionada.",
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo",
+      "EDIT": "Editar",
+      "DELETE": "Eliminar",
+      "DELETE_CONFIRM": "¿Estás seguro de que deseas eliminar esta fuente de datos del almacenamiento local?"
+    },
+    "SYNC_STATUS": {
+      "SYNCED": "Sincronizado",
+      "PENDING": "Pendiente",
+      "FAILED": "Fallo de Sincronización"
+    },
+    "MODAL": {
+      "TITLE_CREATE": "Registrar Nueva Fuente de Datos",
+      "TITLE_EDIT": "Editar Fuente del Catálogo",
+      "NAME_LABEL": "Nombre del Catálogo",
+      "NAME_PLACEHOLDER": "ej. Sistemas Distribuidos & Kafka",
+      "NAME_ERROR": "El nombre es obligatorio (máx. 100 caracteres).",
+      "SHEET_LABEL": "ID o URL de Google Sheet",
+      "SHEET_PLACEHOLDER": "ej. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms o URL completa",
+      "SHEET_HINT": "Pega la URL completa de la hoja o el ID único.",
+      "SHEET_ERROR": "Se requiere un ID o URL válida de Google Sheet.",
+      "CATEGORY_LABEL": "Categoría",
+      "TYPE_LABEL": "Tipo de Esquema",
+      "TYPES": {
+        "ENTITIES": "Entidades (Glosario / Definiciones)",
+        "RELATIONS": "Relaciones (Grafo / Topología)",
+        "EXCERPTS": "Extractos (Citas / Pasajes)",
+        "TIMELINES": "Líneas de Tiempo (Arcos Cronológicos)",
+        "SCENARIOS": "Escenarios (Recuperación Activa / Casos)"
+      },
+      "DESCRIPTION_LABEL": "Descripción (Opcional)",
+      "DESCRIPTION_PLACEHOLDER": "Breve resumen de los temas o conceptos cubiertos...",
+      "ACTIVE_LABEL": "Marcar como Activo en el Índice Maestro",
+      "CANCEL": "Cancelar",
+      "SUBMIT_CREATE": "Registrar Fuente",
+      "SUBMIT_EDIT": "Guardar Cambios"
+    },
+    "EMPTY": {
+      "TITLE": "No se encontraron fuentes en el catálogo",
+      "DESC": "Ninguna fuente de datos coincide con la categoría o filtros seleccionados.",
+      "ACTION": "Registrar Nueva Fuente"
+    }
+  }
+}
