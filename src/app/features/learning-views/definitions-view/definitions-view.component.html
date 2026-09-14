@@ -1,0 +1,17 @@
+<div class="definitions-view">
+  @if (rows().length === 0) {
+    <p class="empty-state">No definitions found in this sheet.</p>
+  } @else {
+    <div class="definitions-grid">
+      @for (row of rows(); track row.id) {
+        <div class="definition-card">
+          <h4 class="term">{{ row.word }}</h4>
+          <p class="definition">{{ row.definition }}</p>
+          @if (row.synonims) {
+            <p class="synonims"><strong>Synonyms:</strong> {{ row.synonims }}</p>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

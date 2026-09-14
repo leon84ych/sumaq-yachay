@@ -1,0 +1,36 @@
+.definitions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.definition-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.term {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  color: var(--primary);
+}
+
+.definition {
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+}
+
+.synonims {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #666);
+  margin: 0;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-secondary, #666);
+  padding: 2rem 0;
+}

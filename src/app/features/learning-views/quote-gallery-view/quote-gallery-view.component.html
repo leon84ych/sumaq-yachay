@@ -1,0 +1,20 @@
+<div class="quote-gallery-view">
+  @if (rows().length === 0) {
+    <p class="empty-state">No quotes found in this sheet.</p>
+  } @else {
+    <div class="quote-grid">
+      @for (row of rows(); track row.id) {
+        <figure class="quote-card">
+          <blockquote>&ldquo;{{ row.quote }}&rdquo;</blockquote>
+          <figcaption>
+            <strong>{{ row.author }}</strong> — <em>{{ row.book }}</em>
+            @if (row.page) { <span class="page">p. {{ row.page }}</span> }
+          </figcaption>
+          @if (row.analysis) {
+            <p class="analysis">{{ row.analysis }}</p>
+          }
+        </figure>
+      }
+    </div>
+  }
+</div>

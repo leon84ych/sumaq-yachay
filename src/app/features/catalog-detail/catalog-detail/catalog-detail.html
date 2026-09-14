@@ -1,0 +1,19 @@
+<div class="detail-page">
+  @if (item(); as entry) {
+    <app-catalog-overview [item]="entry" />
+    <app-catalog-sheet-tabs
+      [sheetNames]="domainDataService.sheetNames()"
+      [activeSheetName]="activeSheetName()"
+      (selectTab)="selectTab($event)"
+    />
+    <app-sheet-view-resolver [sheet]="activeSheet()" />
+  } @else if (catalogService.isLoading()) {
+    <p class="state-message">{{ 'CATALOG_DETAIL.LOADING' | transloco }}</p>
+  } @else {
+    <div class="not-found">
+      <h2>{{ 'CATALOG_DETAIL.NOT_FOUND.TITLE' | transloco }}</h2>
+      <p>{{ 'CATALOG_DETAIL.NOT_FOUND.DESC' | transloco }}</p>
+    </div>
+  }
+</div>
+

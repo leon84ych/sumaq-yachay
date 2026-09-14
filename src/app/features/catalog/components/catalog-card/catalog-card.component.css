@@ -9,6 +9,7 @@
   box-shadow: var(--shadow-sm);
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   position: relative;
+  cursor: pointer;
 }
 
 .card:hover {

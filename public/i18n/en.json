@@ -87,5 +87,12 @@
     "ERRORS": {
       "malformedCatalog": "Malformed catalog response received."
     }
+  },
+  "CATALOG_DETAIL": {
+    "LOADING": "Loading catalog entry...",
+    "NOT_FOUND": {
+      "TITLE": "Entry Not Found",
+      "DESC": "This catalog entry doesn't exist locally. Try syncing or go back to the Catalog."
+    }
   }
 }

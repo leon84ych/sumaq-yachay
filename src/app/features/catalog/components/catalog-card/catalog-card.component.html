@@ -1,4 +1,4 @@
-<div class="card" [class.inactive]="!item().active">
+<div class="card" [class.inactive]="!item().active" [routerLink]="['/catalog', item().id]">
   <!-- Card Header -->
   <div class="card-header">
     <div class="badges">
@@ -39,7 +39,7 @@
   </div>
 
   <!-- Card Footer -->
-  <div class="card-footer">
+  <div class="card-footer" (click)="$event.stopPropagation()">
     <label class="active-toggle" title="Toggle active in Master Index">
       <input type="checkbox" [checked]="item().active" (change)="toggleActive.emit(item())" />
       <span class="status-label">{{ (item().active ? 'CATALOG.CARD.ACTIVE' : 'CATALOG.CARD.INACTIVE') | transloco }}</span>

@@ -1,0 +1,14 @@
+<div class="sheet-tabs" role="tablist">
+  @for (name of sheetNames(); track name) {
+    <button
+      type="button"
+      class="tab-button"
+      role="tab"
+      [class.active]="name === activeSheetName()"
+      [attr.aria-selected]="name === activeSheetName()"
+      (click)="selectTab.emit(name)"
+    >
+      {{ name }}
+    </button>
+  }
+</div>

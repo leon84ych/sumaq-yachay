@@ -87,5 +87,12 @@
     "ERRORS": {
       "malformedCatalog": "Se recibió una respuesta de catálogo malformada."
     }
+  },
+  "CATALOG_DETAIL": {
+    "LOADING": "Cargando entrada del catálogo...",
+    "NOT_FOUND": {
+      "TITLE": "Entrada No Encontrada",
+      "DESC": "Esta entrada del catálogo no existe localmente. Intenta sincronizar o vuelve al Catálogo."
+    }
   }
 }

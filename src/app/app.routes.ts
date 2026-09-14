@@ -12,6 +12,13 @@ export const routes: Routes = [
       import('./features/catalog/catalog/catalog').then((m) => m.Catalog),
   },
   {
+    path: 'catalog/:id',
+    loadComponent: () =>
+      import('./features/catalog-detail/catalog-detail/catalog-detail').then(
+        (m) => m.CatalogDetail
+      ),
+  },
+  {
     path: '**',
     redirectTo: 'catalog',
   },
