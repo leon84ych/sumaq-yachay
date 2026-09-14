@@ -145,11 +145,9 @@ export class CatalogService {
     // 2. Prepare POST payload for Apps Script
     const payload: CatalogPostPayload = {
       action: isEdit ? 'UPDATE_CATALOG_ITEM' : 'CREATE_CATALOG_ITEM',
-      sheetName: 'MasterIndex',
       id: item.id,
       rowValues: [
         item.id,
-        item.sheetId,
         item.subject,
         item.topic,
         item.name,
@@ -226,7 +224,6 @@ export class CatalogService {
     const samples: CatalogItem[] = [
       {
         id: 'cat-tech-01',
-        sheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
         name: 'Logic and programing',
         subject: 'Computer Science',
         topic: 'Programming',
@@ -238,7 +235,6 @@ export class CatalogService {
       },
       {
         id: 'cat-phil-01',
-        sheetId: '1cDEfGhIjKlMnOpQrStUvWxYz0123456789ABCDEFGH',
         name: 'Basic Philosophy Concepts',
         subject: 'Philosophy',
         topic: 'Philosophy',

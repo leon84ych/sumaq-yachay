@@ -42,7 +42,8 @@
       "INACTIVE": "Inactive",
       "EDIT": "Edit",
       "DELETE": "Delete",
-      "DELETE_CONFIRM": "Are you sure you want to remove this data source from local storage?"
+      "DELETE_CONFIRM": "Are you sure you want to remove this data source from local storage?",
+      "VIEW_SOURCE": "Source"
     },
     "SYNC_STATUS": {
       "SYNCED": "Synced",
@@ -56,7 +57,7 @@
       "NAME_PLACEHOLDER": "e.g., Distributed Systems & Kafka",
       "NAME_ERROR": "Name is required (max 100 characters).",
       "SHEET_LABEL": "Google Sheet ID or URL",
-      "SHEET_PLACEHOLDER": "e.g., 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms or full Google Sheet URL",
+      "SHEET_PLACEHOLDER": "Google Sheet ID orURL",
       "SHEET_HINT": "Paste full spreadsheet URL or the unique Sheet ID.",
       "SHEET_ERROR": "A valid Google Sheet ID or URL is required.",
       "SUBJECT_LABEL": "Subject",
@@ -68,8 +69,9 @@
       "AUTHOR_LABEL": "Author",
       "AUTHOR_PLACEHOLDER": "Enter author name...",
       "AUTHOR_ERROR": "Author name is required.",
-      "SOURCE_LABEL": "Source URL",
-      "SOURCE_PLACEHOLDER": "https://example.com",
+      "SOURCE_LABEL": "Source",
+      "SOURCE_PLACEHOLDER": "PDF, URL, Video, etc.",
+      "SHEET_PROTECTED_WARNING": "This value must be changed within the Google Sheet interface.",      
       "DESCRIPTION_LABEL": "Description (Optional)",
       "DESCRIPTION_PLACEHOLDER": "Brief summary of the topics or concepts covered...",
       "ACTIVE_LABEL": "Mark as Active in Master Index",

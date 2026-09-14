@@ -25,7 +25,7 @@ export class CatalogFormModalComponent {
   // 1. Updated FormControls to match the new schema properties
   form = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(100)]],
-    sheetId: ['', Validators.required],
+    sheetId: [''],
     subject: ['', Validators.required],
     topic: ['', Validators.required],
     author: ['', Validators.required],
@@ -41,7 +41,6 @@ export class CatalogFormModalComponent {
         // 2. Map existing payload keys to the reactive controls
         this.form.patchValue({
           name: item.name,
-          sheetId: item.sheetId,
           subject: item.subject,
           topic: item.topic,
           author: item.author,
@@ -85,7 +84,6 @@ export class CatalogFormModalComponent {
     const payload: Omit<CatalogItem, 'updatedAt' | 'syncStatus'> = {
       id: existing ? existing.id : 'cat-' + Date.now().toString(36),
       name: formValue.name!,
-      sheetId: formValue.sheetId!,
       subject: formValue.subject!,
       topic: formValue.topic!,
       author: formValue.author!,

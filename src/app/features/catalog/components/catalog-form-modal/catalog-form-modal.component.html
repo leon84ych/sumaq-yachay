@@ -16,24 +16,12 @@
         }
       </div>
 
-      <!-- Sheet ID / URL Field -->
-      <div class="form-group">
-        <label for="sheetId">{{ 'CATALOG.MODAL.SHEET_LABEL' | transloco }} <span class="required">*</span></label>
-        <input id="sheetId" type="text" formControlName="sheetId"
-          [placeholder]="'CATALOG.MODAL.SHEET_PLACEHOLDER' | transloco" (blur)="sanitizeSheetId()"
-          class="form-control" />
-        <small class="field-hint">{{ 'CATALOG.MODAL.SHEET_HINT' | transloco }}</small>
-        @if (form.get('sheetId')?.touched && form.get('sheetId')?.invalid) {
-        <span class="field-error">{{ 'CATALOG.MODAL.SHEET_ERROR' | transloco }}</span>
-        }
-      </div>
-
       <!-- Subject & Topic Row -->
       <div class="form-row">
         <div class="form-group flex-1">
           <label for="subject">{{ 'CATALOG.MODAL.SUBJECT_LABEL' | transloco }} <span class="required">*</span></label>
-          <input id="subject" type="text" formControlName="subject" [placeholder]="'CATALOG.MODAL.SUBJECT_PLACEHOLDER' | transloco"
-            class="form-control" />
+          <input id="subject" type="text" formControlName="subject"
+            [placeholder]="'CATALOG.MODAL.SUBJECT_PLACEHOLDER' | transloco" class="form-control" />
           @if (form.get('subject')?.touched && form.get('subject')?.invalid) {
           <span class="field-error">{{ 'CATALOG.MODAL.SUBJECT_ERROR' | transloco }}</span>
           }
@@ -41,8 +29,8 @@
 
         <div class="form-group flex-1">
           <label for="topic">{{ 'CATALOG.MODAL.TOPIC_LABEL' | transloco }} <span class="required">*</span></label>
-          <input id="topic" type="text" formControlName="topic" [placeholder]="'CATALOG.MODAL.TOPIC_PLACEHOLDER' | transloco"
-            class="form-control" />
+          <input id="topic" type="text" formControlName="topic"
+            [placeholder]="'CATALOG.MODAL.TOPIC_PLACEHOLDER' | transloco" class="form-control" />
           @if (form.get('topic')?.touched && form.get('topic')?.invalid) {
           <span class="field-error">{{ 'CATALOG.MODAL.TOPIC_ERROR' | transloco }}</span>
           }
@@ -53,8 +41,8 @@
       <div class="form-row">
         <div class="form-group flex-1">
           <label for="author">{{ 'CATALOG.MODAL.AUTHOR_LABEL' | transloco }} <span class="required">*</span></label>
-          <input id="author" type="text" formControlName="author" [placeholder]="'CATALOG.MODAL.AUTHOR_PLACEHOLDER' | transloco"
-            class="form-control" />
+          <input id="author" type="text" formControlName="author"
+            [placeholder]="'CATALOG.MODAL.AUTHOR_PLACEHOLDER' | transloco" class="form-control" />
           @if (form.get('author')?.touched && form.get('author')?.invalid) {
           <span class="field-error">{{ 'CATALOG.MODAL.AUTHOR_ERROR' | transloco }}</span>
           }
@@ -62,8 +50,8 @@
 
         <div class="form-group flex-1">
           <label for="source">{{ 'CATALOG.MODAL.SOURCE_LABEL' | transloco }}</label>
-          <input id="source" type="text" formControlName="source" [placeholder]="'CATALOG.MODAL.SOURCE_PLACEHOLDER' | transloco"
-            class="form-control" />
+          <input id="source" type="text" formControlName="source"
+            [placeholder]="'CATALOG.MODAL.SOURCE_PLACEHOLDER' | transloco" class="form-control" />
         </div>
       </div>
 

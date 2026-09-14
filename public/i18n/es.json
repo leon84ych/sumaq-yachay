@@ -42,7 +42,8 @@
       "INACTIVE": "Inactivo",
       "EDIT": "Editar",
       "DELETE": "Eliminar",
-      "DELETE_CONFIRM": "¿Estás seguro de que deseas eliminar esta fuente de datos del almacenamiento local?"
+      "DELETE_CONFIRM": "¿Estás seguro de que deseas eliminar esta fuente de datos del almacenamiento local?",
+      "VIEW_SOURCE": "Fuente"
     },
     "SYNC_STATUS": {
       "SYNCED": "Sincronizado",
@@ -56,7 +57,7 @@
       "NAME_PLACEHOLDER": "ej., Sistemas Distribuidos y Kafka",
       "NAME_ERROR": "El nombre es requerido (máx 100 caracteres).",
       "SHEET_LABEL": "ID o URL de Google Sheet",
-      "SHEET_PLACEHOLDER": "ej., 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms o URL completa de Google Sheet",
+      "SHEET_PLACEHOLDER": "ID o URL de Google Sheet",
       "SHEET_HINT": "Pegue la URL completa de la hoja de cálculo o el ID único de la hoja.",
       "SHEET_ERROR": "Se requiere un ID o URL válido de Google Sheet.",
       "SUBJECT_LABEL": "Materia",
@@ -68,8 +69,9 @@
       "AUTHOR_LABEL": "Autor",
       "AUTHOR_PLACEHOLDER": "Ingrese el nombre del autor...",
       "AUTHOR_ERROR": "El nombre del autor es requerido.",
-      "SOURCE_LABEL": "URL de la Fuente",
-      "SOURCE_PLACEHOLDER": "https://ejemplo.com",
+      "SOURCE_LABEL": "Fuentes",
+      "SOURCE_PLACEHOLDER": "PDF, URL, Vídeo, etc.",
+      "SHEET_PROTECTED_WARNING": "Este valor debe ser modificado dentro de la interfaz de Google Sheets.",
       "DESCRIPTION_LABEL": "Descripción (Opcional)",
       "DESCRIPTION_PLACEHOLDER": "Breve resumen de los temas o conceptos cubiertos...",
       "ACTIVE_LABEL": "Marcar como Activo en el Índice Maestro",

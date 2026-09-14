@@ -2,8 +2,7 @@
 export type SyncState = 'synced' | 'pending' | 'error';
 
 export interface CatalogItem {
-  id: string;               // Unique UUID or SheetID
-  sheetId: string;          // Google Sheet ID or URL
+  id: string;               // Unique ID
   subject: string;          // Entity schema subject
   topic: string;            // Entity schema topic
   name: string;             // Human-readable title

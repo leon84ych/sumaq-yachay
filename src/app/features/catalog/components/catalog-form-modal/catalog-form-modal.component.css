@@ -194,3 +194,32 @@ textarea.form-control {
 .btn-primary:hover:not(:disabled) {
   background: var(--primary-hover);
 }
+
+
+/* Style for the locked input field */
+.read-only-input {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+  border-color: #e5e7eb;
+}
+
+/* Warning message container box styling */
+.field-warning-banner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 6px 10px;
+  background-color: #fffbeb;
+  border-left: 3px solid #f59e0b;
+  border-radius: 4px;
+  color: #b45309;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+.warning-icon {
+  flex-shrink: 0;
+  color: #d97706;
+}

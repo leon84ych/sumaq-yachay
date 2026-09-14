@@ -8,7 +8,7 @@ export class AppDatabase extends Dexie {
   constructor() {
     super('SumaqYachayDB');
     this.version(1).stores({
-      catalogs: 'id, sheetId, category, type, active, syncStatus, updatedAt',
+      catalogs: 'id, subject, topic, name, author, description, source, active, syncStatus, updatedAt',
     });
   }
 }
