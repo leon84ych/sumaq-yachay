@@ -50,8 +50,8 @@
 ## Architectural Layers & Responsibilities
 
 ### 1. Data Source Layer (Google Sheets)
-* **Master Index Sheet:** Serves as the central directory. It lists all active content sheets, specifying their `Type` (`words`, `concepts`, `relations`), `Sheet ID`, and operational metadata.
-* **Domain Content Sheets:**
+* **Master Index Sheet (Catalog):** Serves as the central directory of study entries (`subject`, `topic`, `name`, `author`, `description`, `source`, `active`). A reserved first row holds the linked **Domain Data Spreadsheet ID** — this value is configured manually inside Google Sheets only. It is never surfaced in the Catalog UI and cannot be created, edited, or deleted through the app, for security reasons (see *Security & Privacy Considerations*).
+* **Domain Data Sheets:** Individual named tabs (e.g. `Words`, `Concepts`, `Relations`) inside the linked Domain Data Spreadsheet. A sheet is no longer classified by an explicit `Type` column — the **tab/sheet name itself** determines which schema and component renders its rows.
   * **Words & Definitions:** Key-value style tables with word terms, phonetic guides, and definitions.
   * **Concepts & Multiple Definitions:** One-to-many structures linking a single concept to multiple explanatory records.
   * **Concept Relations:** Edge-list tables defining relational structures between nodes/concepts for dynamic rendering.
@@ -71,7 +71,7 @@
 
 ### 4. Presentation Layer (Angular Frontend)
 * **Reactive Core:** Built with Angular signals, reactive components, and standalone design patterns.
-* **Dynamic Component Dispatcher:** Resolves visual layouts dynamically based on schema type (`WordsViewComponent`, `ConceptsViewComponent`, `RelationsGraphComponent`).
+* **Dynamic Component Dispatcher:** Resolves visual layouts dynamically based on the **Domain Data Sheet's name** (e.g. a `Concepts` tab renders `ConceptsViewComponent`, a `Relations` tab renders `RelationsGraphComponent`), rather than an explicit type field.
 * **Settings & Onboarding:** Manages Web App URL configurations, manual trigger re-syncs, and storage status metrics.
 
 ---
@@ -105,6 +105,7 @@ Because this architecture relies on free-tier consumer Google accounts (`@gmail.
 * **Data Ownership:** Content remains entirely within the user's personal Google Drive and local browser storage.
 * **Zero Central Backend:** No intermediary backend server stores, tracks, or routes user data.
 * **Endpoint Protection:** The Apps Script Web App URL functions as a secret token. While deployed as "Anyone", access requires possession of the unique URL string.
+* **SheetID Isolation:** The Domain Data Spreadsheet ID is resolved internally by Apps Script (from its own reserved config row) and is never sent to, stored by, or accepted from the Angular client. This prevents an attacker from guessing or substituting another user's Sheet ID to read foreign data.
 
 ---
 

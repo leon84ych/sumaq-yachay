@@ -34,7 +34,7 @@ export class CatalogService {
       const matchesQuery =
         !query ||
         item.name.toLowerCase().includes(query) ||
-        //item.type.toLowerCase().includes(query) ||
+        item.subject.toLowerCase().includes(query) ||
         (item.description && item.description.toLowerCase().includes(query));
 
       return matchesSubject && matchesActive && matchesQuery;
@@ -224,9 +224,9 @@ export class CatalogService {
     const samples: CatalogItem[] = [
       {
         id: 'cat-tech-01',
-        name: 'Logic and programing',
         subject: 'Computer Science',
         topic: 'Programming',
+        name: 'Logic and programing',
         author: 'John Doe',
         active: true,
         description: 'Core concepts of programing logic, data structures, and algorithms.',
@@ -235,9 +235,9 @@ export class CatalogService {
       },
       {
         id: 'cat-phil-01',
-        name: 'Basic Philosophy Concepts',
         subject: 'Philosophy',
         topic: 'Philosophy',
+        name: 'Basic Philosophy Concepts',
         author: 'Jane Smith',
         active: true,
         description: 'Classic philosophical concepts, thinkers, and schools of thought.',

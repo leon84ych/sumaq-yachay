@@ -5,7 +5,6 @@ import { ConfigService } from '../../../core/services/config.service';
 import { map } from 'rxjs/operators';
 import {
   CatalogPostPayload,
-  CatalogPostResponse,
   GetCatalogResponse,
 } from '../models/catalog-api.model';
 
@@ -13,7 +12,7 @@ import {
   providedIn: 'root',
 })
 export class CatalogApiService {
-  private http = inject(HttpClient);
+
   private config = inject(ConfigService);
 
   /**

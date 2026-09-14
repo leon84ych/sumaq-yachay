@@ -4,6 +4,8 @@ This specification details the technical architecture, spreadsheet schemas, Inde
 
 These components automatically transform raw study data stored in Google Sheets into interactive review activities to reinforce retention through active recall and spaced repetition.
 
+> **Sheet-Name-Driven Rendering:** As in [LEARNING_COMPONENTS_SPEC.md](./LEARNING_COMPONENTS_SPEC.md), source sheets are identified by their **tab name**, not an explicit `type` column. The `sheetId` field below is a local sync key equal to the tab name — the real Domain Data Spreadsheet ID never leaves Apps Script (see [BACKEND_ARCHITECTURE.md](./BACKEND_ARCHITECTURE.md#-sheetid-security-model)).
+
 ---
 
 ## 🎯 Quiz Component Catalog & Technical Specs

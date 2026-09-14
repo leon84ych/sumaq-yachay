@@ -2,6 +2,8 @@
 
 This specification outlines the technical design, spreadsheet schemas, IndexedDB database models, use cases, and recommended implementation order for the visual learning components in `sumaq-yachay`.
 
+> **Sheet-Name-Driven Rendering:** Each component below corresponds to a Google Sheet **tab name** (e.g. `Definitions`, `ProcessSequence`, `Relations`) rather than an explicit `type` column — the Angular dispatcher picks the matching view based on that name. The `sheetId` field in the Dexie.js schemas below is a **local sync key equal to the source tab name**; it is not the Google Spreadsheet ID. The actual Domain Data Spreadsheet ID is resolved only inside Apps Script and is never transmitted to the client (see [BACKEND_ARCHITECTURE.md](./BACKEND_ARCHITECTURE.md#-sheetid-security-model)).
+
 ---
 
 ## 🎯 Component Catalog & Specifications
