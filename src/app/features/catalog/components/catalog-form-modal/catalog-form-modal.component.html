@@ -1,0 +1,96 @@
+<div class="modal-overlay" (click)="onBackdropClick($event)">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h2>{{ (editItem() ? 'CATALOG.MODAL.TITLE_EDIT' : 'CATALOG.MODAL.TITLE_CREATE') | transloco }}</h2>
+      <button type="button" class="btn-close" (click)="close.emit()">✕</button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="modal-form">
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name">{{ 'CATALOG.MODAL.NAME_LABEL' | transloco }} <span class="required">*</span></label>
+        <input id="name" type="text" formControlName="name" [placeholder]="'CATALOG.MODAL.NAME_PLACEHOLDER' | transloco"
+          class="form-control" />
+        @if (form.get('name')?.touched && form.get('name')?.invalid) {
+        <span class="field-error">{{ 'CATALOG.MODAL.NAME_ERROR' | transloco }}</span>
+        }
+      </div>
+
+      <!-- Sheet ID / URL Field -->
+      <div class="form-group">
+        <label for="sheetId">{{ 'CATALOG.MODAL.SHEET_LABEL' | transloco }} <span class="required">*</span></label>
+        <input id="sheetId" type="text" formControlName="sheetId"
+          [placeholder]="'CATALOG.MODAL.SHEET_PLACEHOLDER' | transloco" (blur)="sanitizeSheetId()"
+          class="form-control" />
+        <small class="field-hint">{{ 'CATALOG.MODAL.SHEET_HINT' | transloco }}</small>
+        @if (form.get('sheetId')?.touched && form.get('sheetId')?.invalid) {
+        <span class="field-error">{{ 'CATALOG.MODAL.SHEET_ERROR' | transloco }}</span>
+        }
+      </div>
+
+      <!-- Subject & Topic Row -->
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label for="subject">{{ 'CATALOG.MODAL.SUBJECT_LABEL' | transloco }} <span class="required">*</span></label>
+          <input id="subject" type="text" formControlName="subject" [placeholder]="'CATALOG.MODAL.SUBJECT_PLACEHOLDER' | transloco"
+            class="form-control" />
+          @if (form.get('subject')?.touched && form.get('subject')?.invalid) {
+          <span class="field-error">{{ 'CATALOG.MODAL.SUBJECT_ERROR' | transloco }}</span>
+          }
+        </div>
+
+        <div class="form-group flex-1">
+          <label for="topic">{{ 'CATALOG.MODAL.TOPIC_LABEL' | transloco }} <span class="required">*</span></label>
+          <input id="topic" type="text" formControlName="topic" [placeholder]="'CATALOG.MODAL.TOPIC_PLACEHOLDER' | transloco"
+            class="form-control" />
+          @if (form.get('topic')?.touched && form.get('topic')?.invalid) {
+          <span class="field-error">{{ 'CATALOG.MODAL.TOPIC_ERROR' | transloco }}</span>
+          }
+        </div>
+      </div>
+
+      <!-- Author & Source Row -->
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label for="author">{{ 'CATALOG.MODAL.AUTHOR_LABEL' | transloco }} <span class="required">*</span></label>
+          <input id="author" type="text" formControlName="author" [placeholder]="'CATALOG.MODAL.AUTHOR_PLACEHOLDER' | transloco"
+            class="form-control" />
+          @if (form.get('author')?.touched && form.get('author')?.invalid) {
+          <span class="field-error">{{ 'CATALOG.MODAL.AUTHOR_ERROR' | transloco }}</span>
+          }
+        </div>
+
+        <div class="form-group flex-1">
+          <label for="source">{{ 'CATALOG.MODAL.SOURCE_LABEL' | transloco }}</label>
+          <input id="source" type="text" formControlName="source" [placeholder]="'CATALOG.MODAL.SOURCE_PLACEHOLDER' | transloco"
+            class="form-control" />
+        </div>
+      </div>
+
+      <!-- Description Field -->
+      <div class="form-group">
+        <label for="description">{{ 'CATALOG.MODAL.DESCRIPTION_LABEL' | transloco }}</label>
+        <textarea id="description" formControlName="description" rows="3"
+          [placeholder]="'CATALOG.MODAL.DESCRIPTION_PLACEHOLDER' | transloco" class="form-control"></textarea>
+      </div>
+
+      <!-- Active Checkbox -->
+      <div class="form-group-checkbox">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="active" />
+          <span>{{ 'CATALOG.MODAL.ACTIVE_LABEL' | transloco }}</span>
+        </label>
+      </div>
+
+      <!-- Modal Actions -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close.emit()">
+          {{ 'CATALOG.MODAL.CANCEL' | transloco }}
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+          {{ (editItem() ? 'CATALOG.MODAL.SUBMIT_EDIT' : 'CATALOG.MODAL.SUBMIT_CREATE') | transloco }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

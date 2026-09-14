@@ -2,7 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { CatalogApiService } from './catalog-api.service';
-import { CatalogCategory, CatalogItem } from '../models/catalog-item.model';
+import { CatalogItem } from '../models/catalog-item.model';
 import { CatalogPostPayload } from '../models/catalog-api.model';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class CatalogService {
 
   // State Signals
   readonly items = signal<CatalogItem[]>([]);
-  readonly selectedCategory = signal<CatalogCategory | 'ALL'>('ALL');
+  readonly selectedSubject = signal<string>('ALL');
   readonly searchQuery = signal<string>('');
   readonly showActiveOnly = signal<boolean>(false);
   readonly isLoading = signal<boolean>(false);
@@ -24,32 +24,45 @@ export class CatalogService {
   // Computed Derived State
   readonly filteredItems = computed(() => {
     const list = this.items();
-    const category = this.selectedCategory();
+    const subject = this.selectedSubject();
     const query = this.searchQuery().toLowerCase().trim();
     const activeOnly = this.showActiveOnly();
 
     return list.filter((item) => {
-      const matchesCategory = category === 'ALL' || item.category === category;
+      const matchesSubject = subject === 'ALL' || item.subject === subject;
       const matchesActive = !activeOnly || item.active;
       const matchesQuery =
         !query ||
         item.name.toLowerCase().includes(query) ||
-        item.type.toLowerCase().includes(query) ||
+        //item.type.toLowerCase().includes(query) ||
         (item.description && item.description.toLowerCase().includes(query));
 
-      return matchesCategory && matchesActive && matchesQuery;
+      return matchesSubject && matchesActive && matchesQuery;
     });
   });
 
   readonly stats = computed(() => {
     const all = this.items();
+
+    let total = 0;
+    let active = 0;
+    let pendingSync = 0;
+
+    const subjects: Record<string, number> = {};
+
+    for (const item of all) {
+      total++;
+      if (item.active) active++;
+      if (item.syncStatus === 'pending' || item.syncStatus === 'error') pendingSync++;
+      const subjectKey = item.subject?.trim() || 'Unknown';
+      subjects[subjectKey] = (subjects[subjectKey] || 0) + 1;
+    }
+
     return {
-      total: all.length,
-      technical: all.filter((i) => i.category === 'Technical').length,
-      philosophy: all.filter((i) => i.category === 'Philosophy').length,
-      fiction: all.filter((i) => i.category === 'Fiction').length,
-      active: all.filter((i) => i.active).length,
-      pendingSync: all.filter((i) => i.syncStatus === 'pending' || i.syncStatus === 'error').length,
+      total,
+      active,
+      pendingSync,
+      subjects // This contains your dynamic counts per subject
     };
   });
 
@@ -87,6 +100,7 @@ export class CatalogService {
 
     try {
       const response = await firstValueFrom(this.apiService.getCatalog());
+      console.log('Remote sync response:', response);
       if (response && response.status === 'success' && Array.isArray(response.data)) {
         const normalized: CatalogItem[] = response.data.map((item) => ({
           ...item,
@@ -102,7 +116,7 @@ export class CatalogService {
         this.items.set(normalized);
         this.lastSyncedAt.set(new Date().toLocaleTimeString());
       } else {
-        throw new Error(response.message || 'Malformed catalog response received');
+        throw new Error(response.message || 'CATALOG.ERRORS.malformedCatalog');
       }
     } catch (err: unknown) {
       const errorMsg = err instanceof Error ? err.message : 'Unknown error during remote sync';
@@ -136,11 +150,13 @@ export class CatalogService {
       rowValues: [
         item.id,
         item.sheetId,
+        item.subject,
+        item.topic,
         item.name,
-        item.category,
-        item.type,
-        item.active,
-        now,
+        item.author,
+        item.description || '',
+        item.source || '',
+        item.active
       ],
     };
 
@@ -182,8 +198,8 @@ export class CatalogService {
   }
 
   // Filter modifiers
-  setCategory(category: CatalogCategory | 'ALL'): void {
-    this.selectedCategory.set(category);
+  setSubject(subject: string): void {
+    this.selectedSubject.set(subject);
   }
 
   setSearchQuery(query: string): void {
@@ -211,36 +227,27 @@ export class CatalogService {
       {
         id: 'cat-tech-01',
         sheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-        name: 'Distributed Systems & Kafka',
-        category: 'Technical',
-        type: 'entities',
+        name: 'Logic and programing',
+        subject: 'Computer Science',
+        topic: 'Programming',
+        author: 'John Doe',
         active: true,
-        description: 'Core concepts, brokers, partitions, consumer groups, and failover topologies.',
+        description: 'Core concepts of programing logic, data structures, and algorithms.',
         updatedAt: new Date().toISOString(),
         syncStatus: 'synced',
       },
       {
         id: 'cat-phil-01',
         sheetId: '1cDEfGhIjKlMnOpQrStUvWxYz0123456789ABCDEFGH',
-        name: 'Nietzschean Philosophy & Dialectics',
-        category: 'Philosophy',
-        type: 'excerpts',
+        name: 'Basic Philosophy Concepts',
+        subject: 'Philosophy',
+        topic: 'Philosophy',
+        author: 'Jane Smith',
         active: true,
-        description: 'Aphorisms, will to power, eternal recurrence, and contextual excerpts.',
+        description: 'Classic philosophical concepts, thinkers, and schools of thought.',
         updatedAt: new Date().toISOString(),
         syncStatus: 'synced',
-      },
-      {
-        id: 'cat-fict-01',
-        sheetId: '1zXYwVuTsRqPoNmLkJiHgFeDcBa9876543210ZYXWVU',
-        name: 'The House of the Spirits (Allende)',
-        category: 'Fiction',
-        type: 'timelines',
-        active: true,
-        description: 'Character lineage, magical realism motifs, and historical plot chronology.',
-        updatedAt: new Date().toISOString(),
-        syncStatus: 'synced',
-      },
+      }
     ];
 
     await this.dbService.db.catalogs.bulkPut(samples);

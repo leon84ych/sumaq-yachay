@@ -1,0 +1,57 @@
+<div class="filter-panel">
+  <!-- Search Input -->
+  <div class="search-box">
+    <svg class="search-icon" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+    </svg>
+    <input
+      type="text"
+      [placeholder]="'CATALOG.FILTER.SEARCH_PLACEHOLDER' | transloco"
+      [ngModel]="searchQuery()"
+      (ngModelChange)="searchChange.emit($event)"
+      class="search-input"
+    />
+    @if (searchQuery()) {
+      <button class="clear-btn" (click)="searchChange.emit('')" title="Clear search">✕</button>
+    }
+  </div>
+
+  <!-- Dynamic Subject Filter Pills -->
+  <div class="filter-controls">
+    <div class="category-pills">
+      <!-- "ALL" Master Pill -->
+      <button
+        type="button"
+        class="pill"
+        [class.active]="selectedSubject() === 'ALL'"
+        (click)="subjectChange.emit('ALL')"
+      >
+        {{ 'CATALOG.FILTER.ALL' | transloco }}
+        <span class="count-badge">{{ totalCount() }}</span>
+      </button>
+
+      <!-- DYNAMIC PILLS BASED ON SHEET DATA SUBJECTS -->
+      @for (subject of subjectCounts() | keyvalue; track subject.key) {
+        <button
+          type="button"
+          class="pill pill-dynamic"
+          [class.active]="selectedSubject() === subject.key"
+          (click)="subjectChange.emit(subject.key)"
+        >
+          <span>{{ subject.key }}</span>
+          <span class="count-badge">{{ subject.value }}</span>
+        </button>
+      }
+    </div>
+
+    <!-- Active Only Toggle -->
+    <label class="toggle-container">
+      <input
+        type="checkbox"
+        [checked]="showActiveOnly()"
+        (change)="activeOnlyChange.emit($any($event.target).checked)"
+      />
+      <span class="toggle-label">{{ 'CATALOG.FILTER.ACTIVE_ONLY' | transloco }}</span>
+    </label>
+  </div>
+</div>

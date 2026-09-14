@@ -49,7 +49,7 @@ This specification outlines the technical design, spreadsheet schemas, IndexedDB
   export interface ProcessStepEntity {
     id?: number;
     sheetId: string;
-    processName: string;
+    name: string;
     stepNumber: number;
     actionTitle: string;
     prerequisites?: string;

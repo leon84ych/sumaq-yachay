@@ -24,7 +24,7 @@
       "TOTAL": "Total Registrados",
       "TECHNICAL": "Técnico",
       "PHILOSOPHY": "Filosofía",
-      "FICTION": "Ficción",
+      "NARRATIVE": "Narrativa",
       "ACTIVE": "Fuentes Activas",
       "PENDING": "Pendiente / Error"
     },
@@ -33,7 +33,7 @@
       "ALL": "Todos",
       "TECHNICAL": "Técnico",
       "PHILOSOPHY": "Filosofía",
-      "FICTION": "Ficción",
+      "NARRATIVE": "Narrativa",
       "ACTIVE_ONLY": "Solo Activos"
     },
     "CARD": {
@@ -53,21 +53,23 @@
       "TITLE_CREATE": "Registrar Nueva Fuente de Datos",
       "TITLE_EDIT": "Editar Fuente del Catálogo",
       "NAME_LABEL": "Nombre del Catálogo",
-      "NAME_PLACEHOLDER": "ej. Sistemas Distribuidos & Kafka",
-      "NAME_ERROR": "El nombre es obligatorio (máx. 100 caracteres).",
+      "NAME_PLACEHOLDER": "ej., Sistemas Distribuidos y Kafka",
+      "NAME_ERROR": "El nombre es requerido (máx 100 caracteres).",
       "SHEET_LABEL": "ID o URL de Google Sheet",
-      "SHEET_PLACEHOLDER": "ej. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms o URL completa",
-      "SHEET_HINT": "Pega la URL completa de la hoja o el ID único.",
-      "SHEET_ERROR": "Se requiere un ID o URL válida de Google Sheet.",
-      "CATEGORY_LABEL": "Categoría",
-      "TYPE_LABEL": "Tipo de Esquema",
-      "TYPES": {
-        "ENTITIES": "Entidades (Glosario / Definiciones)",
-        "RELATIONS": "Relaciones (Grafo / Topología)",
-        "EXCERPTS": "Extractos (Citas / Pasajes)",
-        "TIMELINES": "Líneas de Tiempo (Arcos Cronológicos)",
-        "SCENARIOS": "Escenarios (Recuperación Activa / Casos)"
-      },
+      "SHEET_PLACEHOLDER": "ej., 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms o URL completa de Google Sheet",
+      "SHEET_HINT": "Pegue la URL completa de la hoja de cálculo o el ID único de la hoja.",
+      "SHEET_ERROR": "Se requiere un ID o URL válido de Google Sheet.",
+      "SUBJECT_LABEL": "Materia",
+      "SUBJECT_PLACEHOLDER": "Ingrese la materia de la entrada...",
+      "SUBJECT_ERROR": "La materia es requerida.",
+      "TOPIC_LABEL": "Tema",
+      "TOPIC_PLACEHOLDER": "Ingrese el tema del esquema...",
+      "TOPIC_ERROR": "El tema es requerido.",
+      "AUTHOR_LABEL": "Autor",
+      "AUTHOR_PLACEHOLDER": "Ingrese el nombre del autor...",
+      "AUTHOR_ERROR": "El nombre del autor es requerido.",
+      "SOURCE_LABEL": "URL de la Fuente",
+      "SOURCE_PLACEHOLDER": "https://ejemplo.com",
       "DESCRIPTION_LABEL": "Descripción (Opcional)",
       "DESCRIPTION_PLACEHOLDER": "Breve resumen de los temas o conceptos cubiertos...",
       "ACTIVE_LABEL": "Marcar como Activo en el Índice Maestro",
@@ -79,6 +81,9 @@
       "TITLE": "No se encontraron fuentes en el catálogo",
       "DESC": "Ninguna fuente de datos coincide con la categoría o filtros seleccionados.",
       "ACTION": "Registrar Nueva Fuente"
+    },
+    "ERRORS": {
+      "malformedCatalog": "Se recibió una respuesta de catálogo malformada."
     }
   }
 }

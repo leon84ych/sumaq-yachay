@@ -79,18 +79,15 @@
         <span class="metric-label">{{ 'CATALOG.METRICS.TOTAL' | transloco }}</span>
         <span class="metric-value">{{ catalogService.stats().total }}</span>
       </div>
-      <div class="metric-card tech">
-        <span class="metric-label">{{ 'CATALOG.METRICS.TECHNICAL' | transloco }}</span>
-        <span class="metric-value">{{ catalogService.stats().technical }}</span>
-      </div>
-      <div class="metric-card phil">
-        <span class="metric-label">{{ 'CATALOG.METRICS.PHILOSOPHY' | transloco }}</span>
-        <span class="metric-value">{{ catalogService.stats().philosophy }}</span>
-      </div>
-      <div class="metric-card fict">
-        <span class="metric-label">{{ 'CATALOG.METRICS.FICTION' | transloco }}</span>
-        <span class="metric-value">{{ catalogService.stats().fiction }}</span>
-      </div>
+
+      <!-- DYNAMIC SUBJECT METRIC CARDS -->
+      @for (sub of catalogService.stats().subjects | keyvalue; track sub.key) {
+        <div class="metric-card subject-card">
+          <span class="metric-label">{{ sub.key }}</span>
+          <span class="metric-value">{{ sub.value }}</span>
+        </div>
+      }
+
       <div class="metric-card active-metric">
         <span class="metric-label">{{ 'CATALOG.METRICS.ACTIVE' | transloco }}</span>
         <span class="metric-value">{{ catalogService.stats().active }}</span>
@@ -111,7 +108,7 @@
         <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
         </svg>
-        <span>{{ catalogService.errorMessage() }}</span>
+        <span>{{ catalogService.errorMessage() | transloco }}</span>
       </div>
       <button class="alert-close" (click)="catalogService.errorMessage.set(null)">✕</button>
     </div>
@@ -121,14 +118,12 @@
   <main class="catalog-main">
     <!-- Filter Bar -->
     <app-catalog-filter
-      [selectedCategory]="catalogService.selectedCategory()"
+      [selectedSubject]="catalogService.selectedSubject()"
       [searchQuery]="catalogService.searchQuery()"
       [showActiveOnly]="catalogService.showActiveOnly()"
       [totalCount]="catalogService.stats().total"
-      [techCount]="catalogService.stats().technical"
-      [philCount]="catalogService.stats().philosophy"
-      [fictCount]="catalogService.stats().fiction"
-      (categoryChange)="catalogService.setCategory($event)"
+      [subjectCounts]="catalogService.stats().subjects"
+      (subjectChange)="catalogService.setSubject($event)"
       (searchChange)="catalogService.setSearchQuery($event)"
       (activeOnlyChange)="catalogService.setShowActiveOnly($event)"
     />

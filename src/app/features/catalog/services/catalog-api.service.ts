@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { from, Observable, throwError } from 'rxjs';
 import { ConfigService } from '../../../core/services/config.service';
+import { map } from 'rxjs/operators';
 import {
   CatalogPostPayload,
   CatalogPostResponse,
@@ -23,8 +24,18 @@ export class CatalogApiService {
     if (!webAppUrl) {
       return throwError(() => new Error('Google Apps Script Web App URL is not configured.'));
     }
-    const endpoint = `${webAppUrl}${webAppUrl.includes('?') ? '&' : '?'}action=GET_CATALOG`;
-    return this.http.get<GetCatalogResponse>(endpoint);
+
+    const fetchPromise: Promise<unknown> = fetch(webAppUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      });
+      
+    return from(fetchPromise).pipe(
+      map(data => data as GetCatalogResponse)
+    );
   }
 
   /**

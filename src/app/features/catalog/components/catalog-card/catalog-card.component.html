@@ -1,0 +1,61 @@
+<div class="card" [class.inactive]="!item().active">
+  <!-- Card Header -->
+  <div class="card-header">
+    <div class="badges">
+      <!-- Subject Badge (Dynamic) -->
+      <span class="category-badge subject-badge">
+        {{ item().subject }}
+      </span>
+      <!-- Topic Badge (Dynamic) -->
+      <span class="type-badge topic-badge">
+        {{ item().topic }}
+      </span>
+    </div>
+    <app-catalog-sync-badge [status]="item().syncStatus" />
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <h3 class="card-title">{{ item().name }}</h3>
+    
+    <!-- Author Row -->
+    <div class="author-meta">
+      <small>By: <strong>{{ item().author }}</strong></small>
+    </div>
+
+    <p class="card-desc">{{ item().description || ('CATALOG.CARD.NO_DESCRIPTION' | transloco) }}</p>
+
+    <!-- Metadata Grid (Sheet ID & Source URL) -->
+    <div class="meta-links-group">
+      @if (item().source) {
+        <div class="sheet-meta source-meta">
+          <svg class="meta-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a1 1 0 00-1.414 0l-3 3a4 4 0 005.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3a2 2 0 012.828 0 1 1 0 001.414-1.414z" clip-rule="evenodd" />
+          </svg>
+          <a [href]="item().source" target="_blank" rel="noopener noreferrer" class="source-link" [title]="item().source">
+            {{ 'CATALOG.CARD.VIEW_SOURCE' | transloco }}
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Card Footer -->
+  <div class="card-footer">
+    <label class="active-toggle" title="Toggle active in Master Index">
+      <input type="checkbox" [checked]="item().active" (change)="toggleActive.emit(item())" />
+      <span class="status-label">{{ (item().active ? 'CATALOG.CARD.ACTIVE' : 'CATALOG.CARD.INACTIVE') | transloco }}</span>
+    </label>
+
+    <div class="card-actions">
+      <button type="button" class="btn-action edit" (click)="edit.emit(item())"
+        [title]="'CATALOG.CARD.EDIT' | transloco">
+        {{ 'CATALOG.CARD.EDIT' | transloco }}
+      </button>
+      <button type="button" class="btn-action delete" (click)="delete.emit(item().id)"
+        [title]="'CATALOG.CARD.DELETE' | transloco">
+        {{ 'CATALOG.CARD.DELETE' | transloco }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -24,7 +24,7 @@
       "TOTAL": "Total Registered",
       "TECHNICAL": "Technical",
       "PHILOSOPHY": "Philosophy",
-      "FICTION": "Fiction",
+      "NARRATIVE": "Narrative",
       "ACTIVE": "Active Sources",
       "PENDING": "Pending / Error"
     },
@@ -33,7 +33,7 @@
       "ALL": "All",
       "TECHNICAL": "Technical",
       "PHILOSOPHY": "Philosophy",
-      "FICTION": "Fiction",
+      "NARRATIVE": "Narrative",
       "ACTIVE_ONLY": "Active Only"
     },
     "CARD": {
@@ -59,15 +59,17 @@
       "SHEET_PLACEHOLDER": "e.g., 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms or full Google Sheet URL",
       "SHEET_HINT": "Paste full spreadsheet URL or the unique Sheet ID.",
       "SHEET_ERROR": "A valid Google Sheet ID or URL is required.",
-      "CATEGORY_LABEL": "Category",
-      "TYPE_LABEL": "Schema Type",
-      "TYPES": {
-        "ENTITIES": "Entities (Glossary / Definitions)",
-        "RELATIONS": "Relations (Graph / Topology)",
-        "EXCERPTS": "Excerpts (Quotes / Passages)",
-        "TIMELINES": "Timelines (Chronological Arcs)",
-        "SCENARIOS": "Scenarios (Active Recall / Cases)"
-      },
+      "SUBJECT_LABEL": "Subject",
+      "SUBJECT_PLACEHOLDER": "Enter entry subject...",
+      "SUBJECT_ERROR": "Subject is required.",
+      "TOPIC_LABEL": "Topic",
+      "TOPIC_PLACEHOLDER": "Enter schema topic...",
+      "TOPIC_ERROR": "Topic is required.",
+      "AUTHOR_LABEL": "Author",
+      "AUTHOR_PLACEHOLDER": "Enter author name...",
+      "AUTHOR_ERROR": "Author name is required.",
+      "SOURCE_LABEL": "Source URL",
+      "SOURCE_PLACEHOLDER": "https://example.com",
       "DESCRIPTION_LABEL": "Description (Optional)",
       "DESCRIPTION_PLACEHOLDER": "Brief summary of the topics or concepts covered...",
       "ACTIVE_LABEL": "Mark as Active in Master Index",
@@ -79,6 +81,9 @@
       "TITLE": "No Catalog Sources Found",
       "DESC": "No data sources match the selected category or search filters.",
       "ACTION": "Register New Source"
+    },
+    "ERRORS": {
+      "malformedCatalog": "Malformed catalog response received."
     }
   }
 }

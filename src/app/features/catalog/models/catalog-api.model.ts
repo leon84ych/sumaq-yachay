@@ -14,11 +14,13 @@ export interface CatalogPostPayload {
   rowValues: [
     string,   // [0] ID / UUID
     string,   // [1] SheetID
-    string,   // [2] Name
-    string,   // [3] Category
-    string,   // [4] Type
-    boolean,  // [5] Active (TRUE / FALSE)
-    string    // [6] UpdatedAt ISO String
+    string,   // [2] Subject
+    string,   // [3] Topic
+    string,   // [4] Name
+    string,   // [5] Author
+    string,   // [6] Description
+    string,   // [7] Source
+    boolean  // [8] Active (TRUE / FALSE)
   ];
 }
 
