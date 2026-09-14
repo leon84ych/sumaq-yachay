@@ -1,0 +1,99 @@
+{
+  "NAV": {
+    "BRAND_NAME": "Sumaq Yachay",
+    "BRAND_TAGLINE": "Conocimiento Hermoso",
+    "CATALOG": "Catálogo"
+  },
+  "CATALOG": {
+    "HEADER": {
+      "BADGE": "Índice Maestro",
+      "TITLE": "Sumaq Yachay",
+      "SUBTITLE": "Base de Conocimiento y Catálogo de Estudio",
+      "API_SETTINGS": "Configuración API",
+      "SYNC_REMOTE": "Sincronizar Remoto (GET)",
+      "SYNCING": "Sincronizando...",
+      "REGISTER_SOURCE": "Registrar Fuente"
+    },
+    "SETTINGS": {
+      "TITLE": "Punto de Enlace Google Apps Script Web App",
+      "DESCRIPTION": "Ingresa la URL de la Web App desplegada (Ejecutar como: Yo, Quién tiene acceso: Cualquiera) para habilitar la sincronización bidireccional.",
+      "PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
+      "SAVE": "Guardar URL"
+    },
+    "METRICS": {
+      "TOTAL": "Total Registrados",
+      "TECHNICAL": "Técnico",
+      "PHILOSOPHY": "Filosofía",
+      "NARRATIVE": "Narrativa",
+      "ACTIVE": "Fuentes Activas",
+      "PENDING": "Pendiente / Error"
+    },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Buscar catálogos por nombre, tipo o descripción...",
+      "ALL": "Todos",
+      "TECHNICAL": "Técnico",
+      "PHILOSOPHY": "Filosofía",
+      "NARRATIVE": "Narrativa",
+      "ACTIVE_ONLY": "Solo Activos"
+    },
+    "CARD": {
+      "NO_DESCRIPTION": "Sin descripción proporcionada.",
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo",
+      "EDIT": "Editar",
+      "DELETE": "Eliminar",
+      "DELETE_CONFIRM": "¿Estás seguro de que deseas eliminar esta fuente de datos del almacenamiento local?",
+      "VIEW_SOURCE": "Fuente"
+    },
+    "SYNC_STATUS": {
+      "SYNCED": "Sincronizado",
+      "PENDING": "Pendiente",
+      "FAILED": "Fallo de Sincronización"
+    },
+    "MODAL": {
+      "TITLE_CREATE": "Registrar Nueva Fuente de Datos",
+      "TITLE_EDIT": "Editar Fuente del Catálogo",
+      "NAME_LABEL": "Nombre del Catálogo",
+      "NAME_PLACEHOLDER": "ej., Sistemas Distribuidos y Kafka",
+      "NAME_ERROR": "El nombre es requerido (máx 100 caracteres).",
+      "SHEET_LABEL": "ID o URL de Google Sheet",
+      "SHEET_PLACEHOLDER": "ID o URL de Google Sheet",
+      "SHEET_HINT": "Pegue la URL completa de la hoja de cálculo o el ID único de la hoja.",
+      "SHEET_ERROR": "Se requiere un ID o URL válido de Google Sheet.",
+      "SUBJECT_LABEL": "Materia",
+      "SUBJECT_PLACEHOLDER": "Ingrese la materia de la entrada...",
+      "SUBJECT_ERROR": "La materia es requerida.",
+      "TOPIC_LABEL": "Tema",
+      "TOPIC_PLACEHOLDER": "Ingrese el tema del esquema...",
+      "TOPIC_ERROR": "El tema es requerido.",
+      "AUTHOR_LABEL": "Autor",
+      "AUTHOR_PLACEHOLDER": "Ingrese el nombre del autor...",
+      "AUTHOR_ERROR": "El nombre del autor es requerido.",
+      "SOURCE_LABEL": "Fuentes",
+      "SOURCE_PLACEHOLDER": "PDF, URL, Vídeo, etc.",
+      "SHEET_PROTECTED_WARNING": "Este valor debe ser modificado dentro de la interfaz de Google Sheets.",
+      "DESCRIPTION_LABEL": "Descripción (Opcional)",
+      "DESCRIPTION_PLACEHOLDER": "Breve resumen de los temas o conceptos cubiertos...",
+      "ACTIVE_LABEL": "Marcar como Activo en el Índice Maestro",
+      "CANCEL": "Cancelar",
+      "SUBMIT_CREATE": "Registrar Fuente",
+      "SUBMIT_EDIT": "Guardar Cambios"
+    },
+    "EMPTY": {
+      "TITLE": "No se encontraron fuentes en el catálogo",
+      "DESC": "Ninguna fuente de datos coincide con la categoría o filtros seleccionados.",
+      "ACTION": "Registrar Nueva Fuente"
+    },
+    "ERRORS": {
+      "malformedCatalog": "Se recibió una respuesta de catálogo malformada."
+    }
+  },
+  "CATALOG_DETAIL": {
+    "LOADING": "Cargando entrada del catálogo...",
+    "UNSUPPORTED_SHEET": "Este tipo de hoja no está soportado para visualización aún.",
+    "NOT_FOUND": {
+      "TITLE": "Entrada No Encontrada",
+      "DESC": "Esta entrada del catálogo no existe localmente. Intenta sincronizar o vuelve al Catálogo."
+    }
+  }
+}
