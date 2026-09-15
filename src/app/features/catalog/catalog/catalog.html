@@ -72,33 +72,6 @@
         </div>
       </div>
     }
-
-    <!-- Stat Metrics Row -->
-    <div class="metrics-bar">
-      <div class="metric-card">
-        <span class="metric-label">{{ 'CATALOG.METRICS.TOTAL' | transloco }}</span>
-        <span class="metric-value">{{ catalogService.stats().total }}</span>
-      </div>
-
-      <!-- DYNAMIC SUBJECT METRIC CARDS -->
-      @for (sub of catalogService.stats().subjects | keyvalue; track sub.key) {
-        <div class="metric-card subject-card">
-          <span class="metric-label">{{ sub.key }}</span>
-          <span class="metric-value">{{ sub.value }}</span>
-        </div>
-      }
-
-      <div class="metric-card active-metric">
-        <span class="metric-label">{{ 'CATALOG.METRICS.ACTIVE' | transloco }}</span>
-        <span class="metric-value">{{ catalogService.stats().active }}</span>
-      </div>
-      @if (catalogService.stats().pendingSync > 0) {
-        <div class="metric-card pending-metric">
-          <span class="metric-label">{{ 'CATALOG.METRICS.PENDING' | transloco }}</span>
-          <span class="metric-value">{{ catalogService.stats().pendingSync }}</span>
-        </div>
-      }
-    </div>
   </header>
 
   <!-- Error Notification Alert -->

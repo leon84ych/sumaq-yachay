@@ -16,15 +16,24 @@ export class CatalogApiService {
   private config = inject(ConfigService);
 
   /**
-   * HTTP GET: Fetches catalog entries from the Master Index Sheet via Google Apps Script
+   * GET: Retrieves catalog rows matching the modular architecture pattern
+   * @param target Defaults to 'CATALOG'. Can pass 'INVENTORY', etc.
    */
-  getCatalog(): Observable<GetCatalogResponse> {
+  getCatalog(target: string = 'CATALOG'): Observable<GetCatalogResponse> {
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
       return throwError(() => new Error('Google Apps Script Web App URL is not configured.'));
     }
 
-    const fetchPromise: Promise<unknown> = fetch(webAppUrl)
+    // Build standard query parameters matching Router.gs expectations
+    const queryParams = new URLSearchParams({
+      action: 'GET_CATALOG',
+      target: target
+    }).toString();
+
+    const fullUrl = `${webAppUrl}?${queryParams}`;
+
+    const fetchPromise: Promise<unknown> = fetch(fullUrl)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

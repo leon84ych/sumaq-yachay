@@ -21,7 +21,7 @@ export class DomainDataApiService {
       return throwError(() => new Error('Google Apps Script Web App URL is not configured.'));
     }
 
-    const endpoint = `${webAppUrl}?action=GET_DOMAIN_SHEETS&catalogId=${encodeURIComponent(catalogId)}`;
+    const endpoint = `${webAppUrl}?action=GET_SHEETS_NAMES&catalogId=${encodeURIComponent(catalogId)}`;
     const fetchPromise: Promise<unknown> = fetch(endpoint).then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

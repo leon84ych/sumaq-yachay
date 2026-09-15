@@ -90,6 +90,7 @@
   },
   "CATALOG_DETAIL": {
     "LOADING": "Cargando entrada del catálogo...",
+    "UNSUPPORTED_SHEET": "Este tipo de hoja no está soportado para visualización aún.",
     "NOT_FOUND": {
       "TITLE": "Entrada No Encontrada",
       "DESC": "Esta entrada del catálogo no existe localmente. Intenta sincronizar o vuelve al Catálogo."

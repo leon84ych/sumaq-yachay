@@ -4,11 +4,12 @@ import { DefinitionsViewComponent } from '../../../learning-views/definitions-vi
 import { QuoteGalleryViewComponent } from '../../../learning-views/quote-gallery-view/quote-gallery-view.component';
 import { DefinitionRow, DomainSheet, QuoteRow } from '../../models/domain-sheet.model';
 import { resolveSheetViewKind } from '../../models/sheet-view.registry';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-sheet-view-resolver',
   standalone: true,
-  imports: [CommonModule, DefinitionsViewComponent, QuoteGalleryViewComponent],
+  imports: [CommonModule, TranslocoPipe, DefinitionsViewComponent, QuoteGalleryViewComponent],
   templateUrl: './sheet-view-resolver.component.html',
 })
 export class SheetViewResolverComponent {

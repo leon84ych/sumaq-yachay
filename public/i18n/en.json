@@ -90,6 +90,7 @@
   },
   "CATALOG_DETAIL": {
     "LOADING": "Loading catalog entry...",
+    "UNSUPPORTED_SHEET": "This sheet type isn't supported for viewing yet.",
     "NOT_FOUND": {
       "TITLE": "Entry Not Found",
       "DESC": "This catalog entry doesn't exist locally. Try syncing or go back to the Catalog."

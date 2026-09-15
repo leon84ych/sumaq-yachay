@@ -128,12 +128,12 @@ this.version(2).stores({
 // services/domain-data-api.service.ts
 getDomainSheets(catalogId: string): Observable<GetDomainSheetsResponse> {
   const webAppUrl = this.config.getWebAppUrl();
-  const endpoint = `${webAppUrl}?action=GET_DOMAIN_SHEETS&catalogId=${encodeURIComponent(catalogId)}`;
+  const endpoint = `${webAppUrl}?action=GET_SHEETS_NAMES&catalogId=${encodeURIComponent(catalogId)}`;
   return from(fetch(endpoint).then((r) => r.json()));
 }
 ```
 
-* Apps Script's `doGet(e)` branches on `action=GET_DOMAIN_SHEETS`, looks up the row for `catalogId` in the Master Index (never trusting a client-supplied Sheet ID), opens the linked Domain Data Spreadsheet via its internally-resolved `SheetID`, and returns every tab's rows grouped by tab name.
+* Apps Script's `doGet(e)` branches on `action=GET_SHEETS_NAMES`, looks up the row for `catalogId` in the Master Index (never trusting a client-supplied Sheet ID), opens the linked Domain Data Spreadsheet via its internally-resolved `SheetID`, and returns every tab's rows grouped by tab name.
 * If the Catalog entry has no linked Domain Data Spreadsheet yet, respond with `sheets: []` and `status: 'success'` so the UI shows an empty state rather than an error.
 
 ---
@@ -173,7 +173,7 @@ getDomainSheets(catalogId: string): Observable<GetDomainSheetsResponse> {
   1. Define `DomainSheet`/`GetDomainSheetsResponse` models.
   2. Add `domainSheets` Dexie table (schema version bump).
   3. Implement `DomainDataApiService.getDomainSheets()` and `DomainDataService` (signals + cache-first load + background refresh).
-  4. Extend the Apps Script `doGet(e)` handler with `action=GET_DOMAIN_SHEETS` (internal-only `SheetID` resolution per [SheetID Security Model](./BACKEND_ARCHITECTURE.md#-sheetid-security-model)).
+  4. Extend the Apps Script `doGet(e)` handler with `action=GET_SHEETS_NAMES` (internal-only `SheetID` resolution per [SheetID Security Model](./BACKEND_ARCHITECTURE.md#-sheetid-security-model)).
 * **Milestone B:** Given a Catalog entry with a linked Domain Data Spreadsheet, the app fetches and caches its tabs' rows offline.
 
 ### Phase C — Sheet Tabs & Dynamic View Dispatch — ⬜ Not Started
@@ -211,7 +211,7 @@ getDomainSheets(catalogId: string): Observable<GetDomainSheetsResponse> {
 | 2 | Build `CatalogOverviewComponent` | A |
 | 3 | Define `DomainSheet` models + Dexie schema bump | B |
 | 4 | Implement `DomainDataApiService` + `DomainDataService` | B |
-| 5 | Extend Apps Script `doGet` with `GET_DOMAIN_SHEETS` | B |
+| 5 | Extend Apps Script `doGet` with `GET_SHEETS_NAMES` | B |
 | 6 | Build `CatalogSheetTabsComponent` | C |
 | 7 | Build `sheet-view.registry.ts` + `SheetViewResolverComponent` + fallback view | C |
 | 8 | Build the 7 `learning-views/*` components | D |
