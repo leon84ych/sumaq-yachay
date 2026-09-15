@@ -2,23 +2,34 @@
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
     "BRAND_TAGLINE": "Beautiful Knowledge",
-    "CATALOG": "Catalog"
+    "CATALOG": "Catalog",
+    "SETTINGS": {
+      "TITLE": "Settings",
+      "DESCRIPTION": "Choose where the app reads and writes Catalog data from, and adjust appearance.",
+      "SOURCE_URL": "Google Apps Script Web App URL",
+      "SOURCE_SAMPLE": "Sample Responses (offline, no network calls)",
+      "URL_PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
+      "SAVE": "Save URL",
+      "SAMPLE_HINT": "Reads local files under public/sample-responses/. No GET or POST requests are sent while this source is selected.",
+      "APPEARANCE": "Appearance",
+      "THEME_LABEL": "Theme",
+      "TEXT_SIZE_LABEL": "Text Size",
+      "LANGUAGE_LABEL": "Language"
+    },
+    "THEME": {
+      "LIGHT": "Light",
+      "DARK": "Dark"
+    }
   },
   "CATALOG": {
+    "SAMPLE_DATA_BANNER": "⚠️ Using sample data from public/sample-responses/ — not connected to the live Google Sheet.",
     "HEADER": {
       "BADGE": "Master Index",
       "TITLE": "Sumaq Yachay",
       "SUBTITLE": "Knowledge Base & Study Catalog",
-      "API_SETTINGS": "API Settings",
       "SYNC_REMOTE": "Sync Remote (GET)",
       "SYNCING": "Syncing...",
       "REGISTER_SOURCE": "Register Source"
-    },
-    "SETTINGS": {
-      "TITLE": "Google Apps Script Web App Endpoint",
-      "DESCRIPTION": "Enter the deployed Web App URL (Execute as: Me, Who has access: Anyone) to enable bi-directional sync.",
-      "PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
-      "SAVE": "Save URL"
     },
     "METRICS": {
       "TOTAL": "Total Registered",
@@ -85,7 +96,8 @@
       "ACTION": "Register New Source"
     },
     "ERRORS": {
-      "malformedCatalog": "Malformed catalog response received."
+      "malformedCatalog": "Malformed catalog response received.",
+      "syncFailed": "Failed to reach the Web App endpoint. Verify the URL ends with /exec, the deployment is redeployed with 'Anyone' access, you're online, and no VPN/proxy is blocking script.google.com."
     }
   },
   "CATALOG_DETAIL": {

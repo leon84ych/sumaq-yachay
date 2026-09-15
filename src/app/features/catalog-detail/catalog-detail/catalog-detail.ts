@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { ConfigService } from '../../../core/services/config.service';
 import { CatalogService } from '../../catalog/services/catalog.service';
 import { CatalogOverviewComponent } from '../components/catalog-overview/catalog-overview.component';
 import { CatalogSheetTabsComponent } from '../components/catalog-sheet-tabs/catalog-sheet-tabs.component';
@@ -26,6 +27,7 @@ export class CatalogDetail {
   private route = inject(ActivatedRoute);
   readonly catalogService = inject(CatalogService);
   readonly domainDataService = inject(DomainDataService);
+  readonly configService = inject(ConfigService);
 
   private readonly paramMap = toSignal(this.route.paramMap);
 

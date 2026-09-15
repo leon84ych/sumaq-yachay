@@ -1,0 +1,28 @@
+{
+  "status": "success",
+  "timestamp": "2026-09-15T00:00:00.000Z",
+  "data": [
+    {
+      "id": "cat-tech-01",
+      "subject": "Computer Science",
+      "topic": "Programming",
+      "name": "Logic and Programming",
+      "author": "John Doe",
+      "description": "Core concepts of programming logic, data structures, and algorithms.",
+      "source": "",
+      "active": true,
+      "updatedAt": "2026-09-15T00:00:00.000Z"
+    },
+    {
+      "id": "cat-phil-01",
+      "subject": "Philosophy",
+      "topic": "Philosophy",
+      "name": "Basic Philosophy Concepts",
+      "author": "Jane Smith",
+      "description": "Classic philosophical concepts, thinkers, and schools of thought.",
+      "source": "",
+      "active": true,
+      "updatedAt": "2026-09-15T00:00:00.000Z"
+    }
+  ]
+}

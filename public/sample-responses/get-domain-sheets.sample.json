@@ -1,0 +1,24 @@
+{
+  "status": "success",
+  "data": {
+    "status": "success",
+    "catalogId": "cat-tech-01",
+    "sheets": [
+      {
+        "index": 0,
+        "name": "Definitions",
+        "rows": [
+          { "id": "d1", "word": "Algorithm", "definition": "A step-by-step procedure for solving a problem.", "synonims": "procedure, method" },
+          { "id": "d2", "word": "Recursion", "definition": "A function that calls itself to solve smaller instances of a problem.", "synonims": "self-reference" }
+        ]
+      },
+      {
+        "index": 1,
+        "name": "Quotes",
+        "rows": [
+          { "id": "q1", "quote": "Premature optimization is the root of all evil.", "book": "The Art of Computer Programming", "author": "Donald Knuth", "page": "268", "analysis": "Warns against optimizing before profiling." }
+        ]
+      }
+    ]
+  }
+}

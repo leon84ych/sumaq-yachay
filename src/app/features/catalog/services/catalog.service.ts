@@ -120,7 +120,9 @@ export class CatalogService {
       }
     } catch (err: unknown) {
       const errorMsg = err instanceof Error ? err.message : 'Unknown error during remote sync';
-      this.errorMessage.set(errorMsg);
+      // Network/CORS failures surface the raw browser message (e.g. "Failed to fetch"),
+      // which isn't a translation key — map to a stable i18n key instead.
+      this.errorMessage.set('CATALOG.ERRORS.syncFailed');
       console.warn('Sync from remote failed; maintaining local cache:', errorMsg);
     } finally {
       this.isLoading.set(false);

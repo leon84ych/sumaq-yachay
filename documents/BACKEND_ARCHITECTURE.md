@@ -166,7 +166,21 @@ Under this model, each user maintains an isolated instance of the Google Apps Sc
 
 ---
 
-## 🔒 SheetID Security Model
+## � Troubleshooting: "CORS" Errors on `fetch()`
+
+A browser message like `No 'Access-Control-Allow-Origin' header is present` almost always means the request **never reached a successful `doGet`/`doPost` execution** — Apps Script only attaches CORS headers to a normal `200` response. Common root causes, in order of likelihood:
+
+* **Stale Deployment:** Editing the script does **not** update the live `/exec` URL. After code changes, use **Deploy > Manage deployments > Edit (pencil) > New version**, otherwise the old code (missing newer `action` handlers like `GET_SHEETS_NAMES`) keeps running and returns a 404/error page with no CORS headers.
+* **Wrong/Truncated URL:** The saved Web App URL must end in `/exec` with no trailing slash (a trailing slash produces `.../exec/?action=...`, which Apps Script 404s on). `ConfigService.setWebAppUrl()` now strips trailing slashes automatically.
+* **Access Level Changed:** Confirm **Who has access** is still `Anyone` on the active deployment — if it was narrowed, unauthenticated `GET` requests fail before any JSON/CORS headers are produced.
+* **Unhandled `action` Parameter:** If `doGet(e)` doesn't branch on the `action` query param the client sent (`GET_CATALOG`, `GET_SHEETS_NAMES`, etc.), Apps Script's default error output also lacks CORS headers.
+* **Local Network/VPN Blocking:** A corporate VPN, proxy, or DNS filter can block or intercept `script.google.com`/`script.googleusercontent.com` outright, producing the same "no CORS header" symptom even though the deployment itself is fine (verify by testing from another network/device, or temporarily disabling the VPN).
+
+The Angular client already treats any such fetch failure as `errorMessage: 'CATALOG.ERRORS.syncFailed'` (see `CatalogService.syncFromRemote()`) rather than surfacing the raw, untranslated browser message.
+
+---
+
+## �🔒 SheetID Security Model
 
 * **Single Source of Truth:** The Domain Data Spreadsheet ID is the first element of the Master Index Sheet, editable exclusively by the user directly within their Google account/Sheet.
 * **No Client Exposure:** The Catalog GET/POST payloads never include the Spreadsheet ID. The Angular client cannot read, create, update, or delete it.

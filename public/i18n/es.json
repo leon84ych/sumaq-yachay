@@ -2,23 +2,34 @@
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
     "BRAND_TAGLINE": "Conocimiento Hermoso",
-    "CATALOG": "Catálogo"
+    "CATALOG": "Catálogo",
+    "SETTINGS": {
+      "TITLE": "Configuración",
+      "DESCRIPTION": "Elige de dónde lee y escribe la aplicación los datos del Catálogo, y ajusta la apariencia.",
+      "SOURCE_URL": "URL de Google Apps Script Web App",
+      "SOURCE_SAMPLE": "Respuestas de Muestra (sin conexión, sin llamadas de red)",
+      "URL_PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
+      "SAVE": "Guardar URL",
+      "SAMPLE_HINT": "Lee los archivos locales en public/sample-responses/. No se envían solicitudes GET ni POST mientras este origen esté seleccionado.",
+      "APPEARANCE": "Apariencia",
+      "THEME_LABEL": "Tema",
+      "TEXT_SIZE_LABEL": "Tamaño de Texto",
+      "LANGUAGE_LABEL": "Idioma"
+    },
+    "THEME": {
+      "LIGHT": "Claro",
+      "DARK": "Oscuro"
+    }
   },
   "CATALOG": {
+    "SAMPLE_DATA_BANNER": "⚠️ Usando datos de muestra de public/sample-responses/ — no conectado a la hoja de Google en vivo.",
     "HEADER": {
       "BADGE": "Índice Maestro",
       "TITLE": "Sumaq Yachay",
       "SUBTITLE": "Base de Conocimiento y Catálogo de Estudio",
-      "API_SETTINGS": "Configuración API",
       "SYNC_REMOTE": "Sincronizar Remoto (GET)",
       "SYNCING": "Sincronizando...",
       "REGISTER_SOURCE": "Registrar Fuente"
-    },
-    "SETTINGS": {
-      "TITLE": "Punto de Enlace Google Apps Script Web App",
-      "DESCRIPTION": "Ingresa la URL de la Web App desplegada (Ejecutar como: Yo, Quién tiene acceso: Cualquiera) para habilitar la sincronización bidireccional.",
-      "PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
-      "SAVE": "Guardar URL"
     },
     "METRICS": {
       "TOTAL": "Total Registrados",
@@ -85,7 +96,8 @@
       "ACTION": "Registrar Nueva Fuente"
     },
     "ERRORS": {
-      "malformedCatalog": "Se recibió una respuesta de catálogo malformada."
+      "malformedCatalog": "Se recibió una respuesta de catálogo malformada.",
+      "syncFailed": "No se pudo conectar con el endpoint de la Web App. Verifica que la URL termine en /exec, que el despliegue tenga acceso 'Cualquiera', que estés conectado a internet, y que ninguna VPN/proxy esté bloqueando script.google.com."
     }
   },
   "CATALOG_DETAIL": {

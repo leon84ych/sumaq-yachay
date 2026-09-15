@@ -1,4 +1,8 @@
 <div class="detail-page">
+  @if (configService.useSampleData() || configService.sampleDataFallbackActive()) {
+    <div class="sample-data-banner">{{ 'CATALOG.SAMPLE_DATA_BANNER' | transloco }}</div>
+  }
+
   @if (item(); as entry) {
     <app-catalog-overview [item]="entry" />
     <app-catalog-sheet-tabs

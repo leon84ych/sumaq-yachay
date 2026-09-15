@@ -4,6 +4,11 @@ import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { DomainDataApiService } from './domain-data-api.service';
 import { DomainSheet } from '../models/domain-sheet.model';
 
+// Tabs are rendered in the order defined by each sheet's `index`.
+function sortByIndex(sheets: DomainSheet[]): DomainSheet[] {
+  return [...sheets].sort((a, b) => a.index - b.index);
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -28,7 +33,7 @@ export class DomainDataService {
 
     const cached = await this.dbService.db.domainSheets.where('catalogId').equals(catalogId).toArray();
     if (this.loadedCatalogId === catalogId) {
-      this.sheets.set(cached);
+      this.sheets.set(sortByIndex(cached));
     }
 
     await this.refreshFromRemote(catalogId);
@@ -53,7 +58,7 @@ export class DomainDataService {
         });
 
         if (this.loadedCatalogId === catalogId) {
-          this.sheets.set(normalized);
+          this.sheets.set(sortByIndex(normalized));
         }
       } else {
         throw new Error(response?.message || 'Malformed domain sheets response.');

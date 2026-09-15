@@ -6,7 +6,7 @@
 }
 
 .app-navbar {
-  background-color: var(--primary);
+  background-color: var(--nav-bg);
   color: #ffffff;
   box-shadow: var(--shadow-md);
   position: sticky;
@@ -34,7 +34,7 @@
 .brand-symbol {
   width: 34px;
   height: 34px;
-  background-color: var(--secondary);
+  background-color: var(--nav-accent);
   color: #ffffff;
   border-radius: var(--radius-sm);
   display: flex;
@@ -97,7 +97,7 @@
 }
 
 .nav-link.active {
-  background-color: var(--secondary);
+  background-color: var(--nav-accent);
   color: #ffffff;
 }
 
@@ -142,6 +142,204 @@
 .lang-divider {
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.3);
+}
+
+.nav-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-sm);
+  color: #e3ebed;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.nav-icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.nav-icon-btn:hover,
+.nav-icon-btn.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.settings-drawer {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.settings-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.settings-info h4 {
+  margin: 0 0 0.25rem;
+  font-size: 0.9rem;
+}
+
+.settings-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #cfe0e3;
+}
+
+.source-options {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.source-option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.settings-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.url-input {
+  flex: 1;
+  min-width: 260px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.url-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.btn-save {
+  background: var(--secondary);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-save:hover {
+  filter: brightness(1.1);
+}
+
+.sample-hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #cfe0e3;
+}
+
+.settings-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 0.25rem 0;
+  width: 100%;
+}
+
+.appearance-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.appearance-label {
+  font-size: 0.85rem;
+  color: #cfe0e3;
+}
+
+.theme-switch {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.theme-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: none;
+  color: #e3ebed;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.theme-option svg {
+  width: 14px;
+  height: 14px;
+}
+
+.theme-option:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.theme-option.active {
+  background-color: var(--accent);
+  color: var(--on-accent, #2B210B);
+  border-color: var(--accent);
+}
+
+.font-size-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.font-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: none;
+  color: #e3ebed;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.font-btn:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.font-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.font-scale-value {
+  font-size: 0.8rem;
+  color: #cfe0e3;
+  min-width: 3.5ch;
+  text-align: center;
 }
 
 .app-main {

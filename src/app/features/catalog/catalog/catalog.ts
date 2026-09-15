@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { CatalogService } from '../services/catalog.service';
 import { ConfigService } from '../../../core/services/config.service';
@@ -14,7 +13,6 @@ import { CatalogItem } from '../models/catalog-item.model';
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
     TranslocoPipe,
     CatalogCardComponent,
     CatalogFilterComponent,
@@ -31,10 +29,6 @@ export class Catalog {
   // Modal State
   readonly isModalOpen = signal<boolean>(false);
   readonly selectedItemForEdit = signal<CatalogItem | null>(null);
-
-  // Settings Panel State
-  readonly showSettings = signal<boolean>(false);
-  apiUrlInput = this.configService.getWebAppUrl();
 
   openCreateModal(): void {
     this.selectedItemForEdit.set(null);
@@ -72,10 +66,5 @@ export class Catalog {
 
   async handleSync(): Promise<void> {
     await this.catalogService.syncFromRemote();
-  }
-
-  saveApiConfig(): void {
-    this.configService.setWebAppUrl(this.apiUrlInput);
-    this.showSettings.set(false);
   }
 }
