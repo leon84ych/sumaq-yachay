@@ -38,10 +38,12 @@ export class DomainDataService {
     this.isLoading.set(true);
     try {
       const response = await firstValueFrom(this.apiService.getDomainSheets(catalogId));
-      if (response && response.status === 'success' && Array.isArray(response.sheets)) {
-        const normalized: DomainSheet[] = response.sheets.map((sheet) => ({
+      
+      if (response && response.status === 'success' && Array.isArray(response.data?.sheets)) {
+        const normalized: DomainSheet[] = response.data.sheets.map((sheet) => ({
           catalogId,
           name: sheet.name,
+          index: sheet.index,
           rows: sheet.rows,
         }));
 
@@ -63,5 +65,5 @@ export class DomainDataService {
     } finally {
       this.isLoading.set(false);
     }
-  }
+}
 }
