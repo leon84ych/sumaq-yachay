@@ -4,6 +4,7 @@ import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { CatalogApiService } from './catalog-api.service';
 import { CatalogItem } from '../models/catalog-item.model';
 import { CatalogPostPayload } from '../models/catalog-api.model';
+import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ import { CatalogPostPayload } from '../models/catalog-api.model';
 export class CatalogService {
   private dbService = inject(AppDbService);
   private apiService = inject(CatalogApiService);
+  private authService = inject(GoogleAuthService);
 
   // State Signals
   readonly items = signal<CatalogItem[]>([]);
@@ -95,19 +97,24 @@ export class CatalogService {
    * HTTP GET: Syncs the catalog from Google Apps Script Web App
    */
   async syncFromRemote(): Promise<void> {
+    // Check authentication state before making the network call
+    if (!this.authService.idToken()) {
+      this.errorMessage.set('CATALOG.ERRORS.authRequired');
+      console.warn('Sync aborted: User is not authenticated with Google.');
+      return;
+    }
+
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
     try {
       const response = await firstValueFrom(this.apiService.getCatalog());
-      console.log('Remote sync response:', response);
       if (response && response.status === 'success' && Array.isArray(response.data)) {
         const normalized: CatalogItem[] = response.data.map((item) => ({
           ...item,
           syncStatus: 'synced',
         }));
 
-        // Atomic update in IndexedDB
         await this.dbService.db.transaction('rw', this.dbService.db.catalogs, async () => {
           await this.dbService.db.catalogs.clear();
           await this.dbService.db.catalogs.bulkPut(normalized);
@@ -119,11 +126,8 @@ export class CatalogService {
         throw new Error(response.message || 'CATALOG.ERRORS.malformedCatalog');
       }
     } catch (err: unknown) {
-      const errorMsg = err instanceof Error ? err.message : 'Unknown error during remote sync';
-      // Network/CORS failures surface the raw browser message (e.g. "Failed to fetch"),
-      // which isn't a translation key — map to a stable i18n key instead.
       this.errorMessage.set('CATALOG.ERRORS.syncFailed');
-      console.warn('Sync from remote failed; maintaining local cache:', errorMsg);
+      console.warn('Sync from remote failed; maintaining local cache:', err);
     } finally {
       this.isLoading.set(false);
     }
@@ -148,6 +152,7 @@ export class CatalogService {
     const payload: CatalogPostPayload = {
       action: isEdit ? 'UPDATE_CATALOG_ITEM' : 'CREATE_CATALOG_ITEM',
       id: item.id,
+      row: item.row,
       rowValues: [
         item.id,
         item.subject,
@@ -234,6 +239,7 @@ export class CatalogService {
         description: 'Core concepts of programing logic, data structures, and algorithms.',
         updatedAt: new Date().toISOString(),
         syncStatus: 'synced',
+        row: 1,
       },
       {
         id: 'cat-phil-01',
@@ -245,6 +251,7 @@ export class CatalogService {
         description: 'Classic philosophical concepts, thinkers, and schools of thought.',
         updatedAt: new Date().toISOString(),
         syncStatus: 'synced',
+        row: 2,
       }
     ];
 

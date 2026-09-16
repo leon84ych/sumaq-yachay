@@ -1,8 +1,8 @@
 export interface DomainSheet {
-  catalogId: string;                    // Owning Catalog entry id (local key only, not sent to Sheets)
-  name: string;                         // Raw tab name as returned by Apps Script (e.g. "Definitions")
-  index: number;                        // Tab index as returned by Apps Script
-  rows: Record<string, unknown>[];      // Row objects keyed by column header
+  row: number;                         // Owning Catalog entry row (local cache key, not sent to Sheets)
+  name: string;                        // Raw tab name as returned by Apps Script (e.g. "Definitions")
+  index: number;                       // Tab index as returned by Apps Script
+  rows: Record<string, unknown>[];     // Row objects keyed by column header
 }
 
 
@@ -11,7 +11,6 @@ export interface GetDomainSheetsResponse {
   message?: string;
   data: {
     status: 'success' | 'error';
-    catalogId: string;
     message?: string;
     sheets: Array<{
       index: number;

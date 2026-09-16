@@ -1,15 +1,28 @@
 {
+  "AUTH": {
+    "LOGIN": "Entrar",
+    "LOGOUT": "Salir",
+    "SIGN_IN": "Iniciar sesión con Google",
+    "SIGN_OUT": "Cerrar sesión"
+  },
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
     "BRAND_TAGLINE": "Conocimiento Hermoso",
     "CATALOG": "Catálogo",
     "SETTINGS": {
       "TITLE": "Configuración",
+      "LOGIN": "Entrar",
+      "LOGOUT": "Salir",
       "DESCRIPTION": "Elige de dónde lee y escribe la aplicación los datos del Catálogo, y ajusta la apariencia.",
       "SOURCE_URL": "URL de Google Apps Script Web App",
       "SOURCE_SAMPLE": "Respuestas de Muestra (sin conexión, sin llamadas de red)",
       "URL_PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
-      "SAVE": "Guardar URL",
+      "TIMEOUT_LABEL": "Tiempo de espera de Apps Script",
+      "TIMEOUT_30S": "30 segundos",
+      "TIMEOUT_1M": "1 minuto",
+      "TIMEOUT_3M": "3 minutos",
+      "TIMEOUT_6M": "6 minutos",
+      "SAVE": "Guardar Cambios",
       "SAMPLE_HINT": "Lee los archivos locales en public/sample-responses/. No se envían solicitudes GET ni POST mientras este origen esté seleccionado.",
       "APPEARANCE": "Apariencia",
       "THEME_LABEL": "Tema",
@@ -64,6 +77,9 @@
     "MODAL": {
       "TITLE_CREATE": "Registrar Nueva Fuente de Datos",
       "TITLE_EDIT": "Editar Fuente del Catálogo",
+      "ID_LABEL": "ID del Catálogo",
+      "ID_PLACEHOLDER": "ej., cat-2024-001",
+      "ID_ERROR": "El ID es requerido (máx 100 caracteres).",
       "NAME_LABEL": "Nombre del Catálogo",
       "NAME_PLACEHOLDER": "ej., Sistemas Distribuidos y Kafka",
       "NAME_ERROR": "El nombre es requerido (máx 100 caracteres).",

@@ -13,7 +13,7 @@
         <button
           type="button"
           class="btn btn-sync"
-          [disabled]="catalogService.isLoading()"
+          [disabled]="!authService.idToken() || catalogService.isLoading()"
           (click)="handleSync()"
           [title]="'CATALOG.HEADER.SYNC_REMOTE' | transloco"
         >

@@ -10,6 +10,7 @@ export interface GetCatalogResponse {
 export interface CatalogPostPayload {
   action: 'CREATE_CATALOG_ITEM' | 'UPDATE_CATALOG_ITEM';
   id: string;
+  row: number;  // Row number in Master Index (1-based, for display only)
   rowValues: [
     string,   // [0] ID / UUID
     string,   // [1] Subject

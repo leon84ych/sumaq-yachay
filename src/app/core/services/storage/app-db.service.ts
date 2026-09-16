@@ -5,16 +5,13 @@ import { DomainSheet } from '../../../features/catalog-detail/models/domain-shee
 
 export class AppDatabase extends Dexie {
   catalogs!: Table<CatalogItem, string>;
-  domainSheets!: Table<DomainSheet, [string, string]>;
+  domainSheets!: Table<DomainSheet, [number, string]>;
 
   constructor() {
     super('SumaqYachayDB');
     this.version(1).stores({
       catalogs: 'id, subject, topic, name, author, description, source, active, syncStatus, updatedAt',
-    });
-    this.version(2).stores({
-      catalogs: 'id, subject, topic, name, author, description, source, active, syncStatus, updatedAt',
-      domainSheets: '[catalogId+name], catalogId, name',
+      domainSheets: '[row+id], row, id',
     });
   }
 }

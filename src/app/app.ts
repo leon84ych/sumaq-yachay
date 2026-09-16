@@ -2,7 +2,8 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ConfigService, DataSource } from './core/services/config.service';
+import { ConfigService, DataSource, GAS_TIMEOUT_OPTIONS } from './core/services/config.service';
+import { LoginComponent } from './features/authentication/components/login/login.component';
 
 const THEME_KEY = 'sumaq_yachay_theme';
 const FONT_SCALE_KEY = 'sumaq_yachay_font_scale';
@@ -15,7 +16,7 @@ const DEFAULT_FONT_SCALE_INDEX = 1; // 100%
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, FormsModule, TranslocoPipe],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, FormsModule, TranslocoPipe, LoginComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -27,6 +28,8 @@ export class App {
   // Global Data Source Settings Panel State
   readonly showSettings = signal<boolean>(false);
   apiUrlInput = this.configService.getWebAppUrl();
+  gasTimeoutInput = this.configService.getGasTimeoutMs();
+  readonly gasTimeoutOptions = GAS_TIMEOUT_OPTIONS;
 
   // Theme State
   readonly theme = signal<Theme>(this.loadInitialTheme());
@@ -62,6 +65,7 @@ export class App {
 
   saveApiConfig(): void {
     this.configService.setWebAppUrl(this.apiUrlInput);
+    this.configService.setGasTimeoutMs(this.gasTimeoutInput);
     this.configService.setDataSource('url');
     this.showSettings.set(false);
   }

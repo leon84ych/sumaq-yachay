@@ -24,6 +24,7 @@ export class CatalogFormModalComponent {
 
   // 1. Updated FormControls to match the new schema properties
   form = this.fb.group({
+    id: ['', [Validators.required, Validators.maxLength(100)]],
     name: ['', [Validators.required, Validators.maxLength(100)]],
     sheetId: [''],
     subject: ['', Validators.required],
@@ -40,6 +41,7 @@ export class CatalogFormModalComponent {
       if (item) {
         // 2. Map existing payload keys to the reactive controls
         this.form.patchValue({
+          id: item.id,
           name: item.name,
           subject: item.subject,
           topic: item.topic,
@@ -51,6 +53,7 @@ export class CatalogFormModalComponent {
       } else {
         // Reset defaults when adding a brand new item
         this.form.reset({
+          id: '',
           name: '',
           sheetId: '',
           subject: '',
@@ -79,10 +82,11 @@ export class CatalogFormModalComponent {
 
     const formValue = this.form.getRawValue();
     const existing = this.editItem();
+    const nextId = String(formValue.id ?? '').trim();
 
     // 3. Construct payload aligning perfectly with the updated Omit contract
     const payload: Omit<CatalogItem, 'updatedAt' | 'syncStatus'> = {
-      id: existing ? existing.id : 'cat-' + Date.now().toString(36),
+      id: nextId || (existing ? existing.id : 'cat-' + Date.now().toString(36)),
       name: formValue.name!,
       subject: formValue.subject!,
       topic: formValue.topic!,
@@ -90,6 +94,7 @@ export class CatalogFormModalComponent {
       description: formValue.description || '',
       source: formValue.source || '',
       active: !!formValue.active,
+      row: existing ? existing.row : 0,
     };
 
     this.save.emit({

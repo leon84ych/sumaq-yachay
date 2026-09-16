@@ -11,11 +11,11 @@ export class DomainDataApiService {
   private config = inject(ConfigService);
 
   /**
-   * HTTP GET: Fetches every Domain Data Sheet tab (name + rows) for one Catalog entry.
+   * HTTP GET: Fetches every Domain Data Sheet tab (name + rows) for one Catalog row.
    * The linked Spreadsheet's SheetID is resolved by Apps Script internally and is
    * never sent as a request parameter nor included in the response.
    */
-  getDomainSheets(catalogId: string): Observable<GetDomainSheetsResponse> {
+  getDomainSheets(row: number): Observable<GetDomainSheetsResponse> {
     const sampleUrl = '/sample-responses/get-domain-sheets.sample.json';
 
     if (this.config.useSampleData()) {
@@ -29,7 +29,7 @@ export class DomainDataApiService {
       return throwError(() => new Error('Google Apps Script Web App URL is not configured.'));
     }
 
-    const endpoint = `${webAppUrl}?action=GET_SHEETS_NAMES&catalogId=${encodeURIComponent(catalogId)}`;
+    const endpoint = `${webAppUrl}?action=GET_SHEETS_NAMES&row=${encodeURIComponent(row)}`;
 
     // Falls back to the local sample response if the live endpoint 404s (e.g. stale deployment).
     const fetchPromise: Promise<unknown> = fetch(endpoint).then((response) => {

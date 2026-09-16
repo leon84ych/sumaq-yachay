@@ -25,7 +25,9 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"]
+            "styles": [
+              "src/styles.css"
+            ]
           },
           "configurations": {
             "production": {
@@ -53,6 +55,12 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "headers": {
+              "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
+              "Cross-Origin-Embedder-Policy": "unsafe-none"
+            }
+          },
           "configurations": {
             "production": {
               "buildTarget": "sumaq-yachay:build:production"

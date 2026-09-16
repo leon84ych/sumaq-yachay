@@ -20,44 +20,44 @@ export class DomainDataService {
   readonly isLoading = signal<boolean>(false);
   readonly errorMessage = signal<string | null>(null);
 
-  private loadedCatalogId: string | null = null;
+  private loadedRow: number | null = null;
 
   readonly sheetNames = computed(() => this.sheets().map((sheet) => sheet.name));
 
   /**
    * Cache-first load for one Catalog entry's Domain Data Sheets, then refreshes in the background.
    */
-  async loadForCatalog(catalogId: string): Promise<void> {
-    this.loadedCatalogId = catalogId;
+  async loadForCatalog(row: number): Promise<void> {
+    this.loadedRow = row;
     this.errorMessage.set(null);
 
-    const cached = await this.dbService.db.domainSheets.where('catalogId').equals(catalogId).toArray();
-    if (this.loadedCatalogId === catalogId) {
+    const cached = await this.dbService.db.domainSheets.where('row').equals(row).toArray();
+    if (this.loadedRow === row) {
       this.sheets.set(sortByIndex(cached));
     }
 
-    await this.refreshFromRemote(catalogId);
+    await this.refreshFromRemote(row);
   }
 
-  private async refreshFromRemote(catalogId: string): Promise<void> {
+  private async refreshFromRemote(row: number): Promise<void> {
     this.isLoading.set(true);
     try {
-      const response = await firstValueFrom(this.apiService.getDomainSheets(catalogId));
-      
+      const response = await firstValueFrom(this.apiService.getDomainSheets(row));
+
       if (response && response.status === 'success' && Array.isArray(response.data?.sheets)) {
         const normalized: DomainSheet[] = response.data.sheets.map((sheet) => ({
-          catalogId,
+          row,
           name: sheet.name,
           index: sheet.index,
           rows: sheet.rows,
         }));
 
         await this.dbService.db.transaction('rw', this.dbService.db.domainSheets, async () => {
-          await this.dbService.db.domainSheets.where('catalogId').equals(catalogId).delete();
+          await this.dbService.db.domainSheets.where('row').equals(row).delete();
           await this.dbService.db.domainSheets.bulkPut(normalized);
         });
 
-        if (this.loadedCatalogId === catalogId) {
+        if (this.loadedRow === row) {
           this.sheets.set(sortByIndex(normalized));
         }
       } else {
@@ -70,5 +70,5 @@ export class DomainDataService {
     } finally {
       this.isLoading.set(false);
     }
-}
+  }
 }

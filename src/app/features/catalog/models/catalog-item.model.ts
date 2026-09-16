@@ -12,4 +12,5 @@ export interface CatalogItem {
   active: boolean;          // Active flag in Master Index
   updatedAt: string;        // ISO-8601 timestamp
   syncStatus?: SyncState;   // Local sync tracking flag
+  row: number;              // Row number in Master Index (1-based, for display only)
 }

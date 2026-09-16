@@ -46,10 +46,10 @@ export class CatalogDetail {
   constructor() {
     // Load the entry's Domain Data Sheets whenever the routed id changes.
     effect(() => {
-      const id = this.itemId();
-      if (id) {
+      const row = this.item()?.row;
+      if (row !== undefined && row !== null) {
         this.activeSheetName.set(null);
-        void this.domainDataService.loadForCatalog(id);
+        void this.domainDataService.loadForCatalog(row);
       }
     });
 

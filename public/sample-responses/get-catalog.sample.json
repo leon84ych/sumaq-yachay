@@ -1,28 +1,58 @@
 {
-  "status": "success",
-  "timestamp": "2026-09-15T00:00:00.000Z",
-  "data": [
-    {
-      "id": "cat-tech-01",
-      "subject": "Computer Science",
-      "topic": "Programming",
-      "name": "Logic and Programming",
-      "author": "John Doe",
-      "description": "Core concepts of programming logic, data structures, and algorithms.",
-      "source": "",
-      "active": true,
-      "updatedAt": "2026-09-15T00:00:00.000Z"
-    },
-    {
-      "id": "cat-phil-01",
-      "subject": "Philosophy",
-      "topic": "Philosophy",
-      "name": "Basic Philosophy Concepts",
-      "author": "Jane Smith",
-      "description": "Classic philosophical concepts, thinkers, and schools of thought.",
-      "source": "",
-      "active": true,
-      "updatedAt": "2026-09-15T00:00:00.000Z"
-    }
-  ]
+    "status": "success",
+    "message": "Data retrieved.",
+    "data": [
+        {
+            "id": "Nietzche-Zaratustra",
+            "subject": "Filosofía",
+            "topic": "Zaratustra",
+            "name": "Nietzche",
+            "author": "Notas de lectura de Zaratustra",
+            "description": "",
+            "source": true,
+            "active": true,
+            "updatedAt": "2026-09-11T05:00:00.000Z",
+            "syncStatus": "",
+            "row": 1
+        },
+        {
+            "id": "Kafka-01",
+            "subject": "Tecnología",
+            "topic": "Kafka Managment",
+            "name": "Kafka Learing Series",
+            "author": "Patrich Steart",
+            "description": "Notas de estudio de Kafka  para prepararme para la certificación de Confluence",
+            "source": " KafkaSeries PDF ",
+            "active": true,
+            "updatedAt": "2026-09-12T05:00:00.000Z",
+            "syncStatus": "",
+            "row": 2
+        },
+        {
+            "id": "CienAnnosSoledad",
+            "subject": "Literatura",
+            "topic": "Realimso Mágico",
+            "name": "Cien años de Soledad",
+            "author": "Garcia Marquez",
+            "description": "Nietzche ",
+            "source": "",
+            "active": true,
+            "updatedAt": "2026-09-13T05:00:00.000Z",
+            "syncStatus": "",
+            "row": 3
+        },
+        {
+            "id": "LifeOnEarth",
+            "subject": "Biología",
+            "topic": "Naturaleza",
+            "name": "Life On Earth 2000",
+            "author": "Audestik Birers",
+            "description": "Biologia 10 y 11 ",
+            "source": "Muchos Libros",
+            "active": true,
+            "updatedAt": "",
+            "syncStatus": "",
+            "row": 4
+        }
+    ]
 }

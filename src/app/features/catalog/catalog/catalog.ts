@@ -7,6 +7,7 @@ import { CatalogCardComponent } from '../components/catalog-card/catalog-card.co
 import { CatalogFilterComponent } from '../components/catalog-filter/catalog-filter.component';
 import { CatalogFormModalComponent } from '../components/catalog-form-modal/catalog-form-modal.component';
 import { CatalogItem } from '../models/catalog-item.model';
+import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 
 @Component({
   selector: 'app-catalog',
@@ -24,6 +25,7 @@ import { CatalogItem } from '../models/catalog-item.model';
 export class Catalog {
   readonly catalogService = inject(CatalogService);
   readonly configService = inject(ConfigService);
+  readonly authService = inject(GoogleAuthService);
   private transloco = inject(TranslocoService);
 
   // Modal State

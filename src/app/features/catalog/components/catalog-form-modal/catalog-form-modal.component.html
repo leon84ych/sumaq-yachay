@@ -1,11 +1,24 @@
 <div class="modal-overlay" (click)="onBackdropClick($event)">
   <div class="modal-dialog">
     <div class="modal-header">
-      <h2>{{ (editItem() ? 'CATALOG.MODAL.TITLE_EDIT' : 'CATALOG.MODAL.TITLE_CREATE') | transloco }}</h2>
+      <h2>
+        {{ (editItem() ? 'CATALOG.MODAL.TITLE_EDIT' : 'CATALOG.MODAL.TITLE_CREATE') | transloco }}
+        {{ editItem() ? ' #' + editItem()!.row : '' }}
+      </h2>
       <button type="button" class="btn-close" (click)="close.emit()">✕</button>
     </div>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="modal-form">
+      <!-- ID Field -->
+      <div class="form-group">
+        <label for="id">{{ 'CATALOG.MODAL.ID_LABEL' | transloco }} <span class="required">*</span></label>
+        <input id="id" type="text" formControlName="id" [placeholder]="'CATALOG.MODAL.ID_PLACEHOLDER' | transloco"
+          class="form-control" />
+        @if (form.get('id')?.touched && form.get('id')?.invalid) {
+        <span class="field-error">{{ 'CATALOG.MODAL.ID_ERROR' | transloco }}</span>
+        }
+      </div>
+
       <!-- Name Field -->
       <div class="form-group">
         <label for="name">{{ 'CATALOG.MODAL.NAME_LABEL' | transloco }} <span class="required">*</span></label>

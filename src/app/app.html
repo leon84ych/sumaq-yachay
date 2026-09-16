@@ -18,22 +18,21 @@
         <nav class="nav-links">
           <a routerLink="/catalog" routerLinkActive="active" class="nav-link">
             <svg class="nav-link-icon" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
+              <path
+                d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
             </svg>
             <span>{{ 'NAV.CATALOG' | transloco }}</span>
           </a>
         </nav>
 
+        <app-login></app-login>
         <!-- Data Source Settings Trigger -->
-        <button
-          type="button"
-          class="nav-icon-btn"
-          [class.active]="showSettings()"
-          (click)="showSettings.set(!showSettings())"
-          [title]="'NAV.SETTINGS.TITLE' | transloco"
-        >
+        <button type="button" class="nav-icon-btn" [class.active]="showSettings()"
+          (click)="showSettings.set(!showSettings())" [title]="'NAV.SETTINGS.TITLE' | transloco">
           <svg viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+            <path fill-rule="evenodd"
+              d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+              clip-rule="evenodd" />
           </svg>
         </button>
       </div>
@@ -41,119 +40,109 @@
 
     <!-- Global Data Source Configuration Drawer -->
     @if (showSettings()) {
-      <div class="settings-drawer">
-        <div class="settings-content">
-          <div class="settings-info">
-            <h4>{{ 'NAV.SETTINGS.TITLE' | transloco }}</h4>
-            <p>{{ 'NAV.SETTINGS.DESCRIPTION' | transloco }}</p>
+    <div class="settings-drawer">
+      <div class="settings-content">
+
+        <div class="settings-info">
+          <h4>{{ 'NAV.SETTINGS.TITLE' | transloco }}</h4>
+          <p>{{ 'NAV.SETTINGS.DESCRIPTION' | transloco }}</p>
+        </div>
+
+        <div class="source-options" role="radiogroup">
+          <label class="source-option">
+            <input type="radio" name="dataSource" [checked]="configService.dataSource() === 'url'"
+              (change)="selectDataSource('url')" />
+            {{ 'NAV.SETTINGS.SOURCE_URL' | transloco }}
+          </label>
+          <label class="source-option">
+            <input type="radio" name="dataSource" [checked]="configService.dataSource() === 'sample'"
+              (change)="selectDataSource('sample')" />
+            {{ 'NAV.SETTINGS.SOURCE_SAMPLE' | transloco }}
+          </label>
+        </div>
+
+        @if (configService.dataSource() === 'url') {
+        <div class="settings-form">
+          <input type="url" [(ngModel)]="apiUrlInput" [placeholder]="'NAV.SETTINGS.URL_PLACEHOLDER' | transloco"
+            class="url-input" />
+          <label class="appearance-label">{{ 'NAV.SETTINGS.TIMEOUT_LABEL' | transloco }}</label>
+          <select [(ngModel)]="gasTimeoutInput" class="url-input" aria-label="Google Apps Script timeout">
+            <option [ngValue]="30000">{{ 'NAV.SETTINGS.TIMEOUT_30S' | transloco }}</option>
+            <option [ngValue]="60000">{{ 'NAV.SETTINGS.TIMEOUT_1M' | transloco }}</option>
+            <option [ngValue]="180000">{{ 'NAV.SETTINGS.TIMEOUT_3M' | transloco }}</option>
+            <option [ngValue]="360000">{{ 'NAV.SETTINGS.TIMEOUT_6M' | transloco }}</option>
+          </select>
+          <button type="button" class="btn-save" (click)="saveApiConfig()">{{ 'NAV.SETTINGS.SAVE' | transloco
+            }}</button>
+        </div>
+        } @else {
+        <div class="settings-form">
+          <label class="appearance-label">{{ 'NAV.SETTINGS.TIMEOUT_LABEL' | transloco }}</label>
+          <select [(ngModel)]="gasTimeoutInput" class="url-input" aria-label="Google Apps Script timeout">
+            <option [ngValue]="30000">{{ 'NAV.SETTINGS.TIMEOUT_30S' | transloco }}</option>
+            <option [ngValue]="60000">{{ 'NAV.SETTINGS.TIMEOUT_1M' | transloco }}</option>
+            <option [ngValue]="180000">{{ 'NAV.SETTINGS.TIMEOUT_3M' | transloco }}</option>
+            <option [ngValue]="360000">{{ 'NAV.SETTINGS.TIMEOUT_6M' | transloco }}</option>
+          </select>
+          <button type="button" class="btn-save" (click)="saveApiConfig()">{{ 'NAV.SETTINGS.SAVE' | transloco
+            }}</button>
+          <p class="sample-hint">{{ 'NAV.SETTINGS.SAMPLE_HINT' | transloco }}</p>
+        </div>
+        }
+
+        <hr class="settings-divider" />
+
+
+        <div class="settings-info">
+          <h4>{{ 'NAV.SETTINGS.APPEARANCE' | transloco }}</h4>
+        </div>
+
+        <div class="appearance-row">
+          <span class="appearance-label">{{ 'NAV.SETTINGS.THEME_LABEL' | transloco }}</span>
+          <div class="theme-switch" role="radiogroup">
+            <button type="button" class="theme-option" [class.active]="theme() === 'light'" (click)="setTheme('light')">
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  d="M10 3a1 1 0 011 1v1a1 1 0 11-2 0V4a1 1 0 011-1zm4.24 2.34a1 1 0 011.42 1.42l-.71.7a1 1 0 11-1.41-1.41l.7-.71zM17 9a1 1 0 110 2h-1a1 1 0 110-2h1zM6.34 6.34a1 1 0 00-1.42-1.42l-.7.71a1 1 0 001.41 1.41l.71-.7zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zm10.83 2.83a1 1 0 011.41 0l.71.7a1 1 0 01-1.42 1.42l-.7-.71a1 1 0 010-1.41zM10 15a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.24-1.17a1 1 0 010 1.41l-.71.71a1 1 0 01-1.41-1.42l.7-.7a1 1 0 011.42 0zM10 6a4 4 0 100 8 4 4 0 000-8z" />
+              </svg>
+              {{ 'NAV.THEME.LIGHT' | transloco }}
+            </button>
+            <button type="button" class="theme-option" [class.active]="theme() === 'dark'" (click)="setTheme('dark')">
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+              </svg>
+              {{ 'NAV.THEME.DARK' | transloco }}
+            </button>
           </div>
+        </div>
 
-          <div class="source-options" role="radiogroup">
-            <label class="source-option">
-              <input
-                type="radio"
-                name="dataSource"
-                [checked]="configService.dataSource() === 'url'"
-                (change)="selectDataSource('url')"
-              />
-              {{ 'NAV.SETTINGS.SOURCE_URL' | transloco }}
-            </label>
-            <label class="source-option">
-              <input
-                type="radio"
-                name="dataSource"
-                [checked]="configService.dataSource() === 'sample'"
-                (change)="selectDataSource('sample')"
-              />
-              {{ 'NAV.SETTINGS.SOURCE_SAMPLE' | transloco }}
-            </label>
+        <div class="appearance-row">
+          <span class="appearance-label">{{ 'NAV.SETTINGS.TEXT_SIZE_LABEL' | transloco }}</span>
+          <div class="font-size-control">
+            <button type="button" class="font-btn" [disabled]="isMinFontScale()" (click)="decreaseFontSize()"
+              title="A-">A-</button>
+            <span class="font-scale-value">{{ fontScale() }}%</span>
+            <button type="button" class="font-btn" [disabled]="isMaxFontScale()" (click)="increaseFontSize()"
+              title="A+">A+</button>
           </div>
+        </div>
 
-          @if (configService.dataSource() === 'url') {
-            <div class="settings-form">
-              <input
-                type="url"
-                [(ngModel)]="apiUrlInput"
-                [placeholder]="'NAV.SETTINGS.URL_PLACEHOLDER' | transloco"
-                class="url-input"
-              />
-              <button type="button" class="btn-save" (click)="saveApiConfig()">{{ 'NAV.SETTINGS.SAVE' | transloco }}</button>
-            </div>
-          } @else {
-            <p class="sample-hint">{{ 'NAV.SETTINGS.SAMPLE_HINT' | transloco }}</p>
-          }
-
-          <hr class="settings-divider" />
-
-          <div class="settings-info">
-            <h4>{{ 'NAV.SETTINGS.APPEARANCE' | transloco }}</h4>
-          </div>
-
-          <div class="appearance-row">
-            <span class="appearance-label">{{ 'NAV.SETTINGS.THEME_LABEL' | transloco }}</span>
-            <div class="theme-switch" role="radiogroup">
-              <button type="button" class="theme-option" [class.active]="theme() === 'light'" (click)="setTheme('light')">
-                <svg viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M10 3a1 1 0 011 1v1a1 1 0 11-2 0V4a1 1 0 011-1zm4.24 2.34a1 1 0 011.42 1.42l-.71.7a1 1 0 11-1.41-1.41l.7-.71zM17 9a1 1 0 110 2h-1a1 1 0 110-2h1zM6.34 6.34a1 1 0 00-1.42-1.42l-.7.71a1 1 0 001.41 1.41l.71-.7zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zm10.83 2.83a1 1 0 011.41 0l.71.7a1 1 0 01-1.42 1.42l-.7-.71a1 1 0 010-1.41zM10 15a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.24-1.17a1 1 0 010 1.41l-.71.71a1 1 0 01-1.41-1.42l.7-.7a1 1 0 011.42 0zM10 6a4 4 0 100 8 4 4 0 000-8z" />
-                </svg>
-                {{ 'NAV.THEME.LIGHT' | transloco }}
-              </button>
-              <button type="button" class="theme-option" [class.active]="theme() === 'dark'" (click)="setTheme('dark')">
-                <svg viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                </svg>
-                {{ 'NAV.THEME.DARK' | transloco }}
-              </button>
-            </div>
-          </div>
-
-          <div class="appearance-row">
-            <span class="appearance-label">{{ 'NAV.SETTINGS.TEXT_SIZE_LABEL' | transloco }}</span>
-            <div class="font-size-control">
-              <button
-                type="button"
-                class="font-btn"
-                [disabled]="isMinFontScale()"
-                (click)="decreaseFontSize()"
-                title="A-"
-              >A-</button>
-              <span class="font-scale-value">{{ fontScale() }}%</span>
-              <button
-                type="button"
-                class="font-btn"
-                [disabled]="isMaxFontScale()"
-                (click)="increaseFontSize()"
-                title="A+"
-              >A+</button>
-            </div>
-          </div>
-
-          <div class="appearance-row">
-            <span class="appearance-label">{{ 'NAV.SETTINGS.LANGUAGE_LABEL' | transloco }}</span>
-            <div class="lang-switcher" role="group" aria-label="Language selector">
-              <button
-                type="button"
-                class="lang-btn"
-                [class.active]="getActiveLang() === 'en'"
-                (click)="setLanguage('en')"
-                title="English"
-              >
-                EN
-              </button>
-              <span class="lang-divider">/</span>
-              <button
-                type="button"
-                class="lang-btn"
-                [class.active]="getActiveLang() === 'es'"
-                (click)="setLanguage('es')"
-                title="Español"
-              >
-                ES
-              </button>
-            </div>
+        <div class="appearance-row">
+          <span class="appearance-label">{{ 'NAV.SETTINGS.LANGUAGE_LABEL' | transloco }}</span>
+          <div class="lang-switcher" role="group" aria-label="Language selector">
+            <button type="button" class="lang-btn" [class.active]="getActiveLang() === 'en'" (click)="setLanguage('en')"
+              title="English">
+              EN
+            </button>
+            <span class="lang-divider">/</span>
+            <button type="button" class="lang-btn" [class.active]="getActiveLang() === 'es'" (click)="setLanguage('es')"
+              title="Español">
+              ES
+            </button>
           </div>
         </div>
       </div>
+    </div>
     }
   </header>
 
@@ -162,4 +151,3 @@
     <router-outlet />
   </main>
 </div>
-
