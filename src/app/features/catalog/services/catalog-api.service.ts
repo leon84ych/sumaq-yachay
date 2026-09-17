@@ -6,7 +6,6 @@ import {
   CatalogPostPayload,
   GetCatalogResponse,
 } from '../models/catalog-api.model';
-//import { GoogleUnkownService } from '../../../core/services/google-unknown.service';
 
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 
@@ -124,55 +123,61 @@ export class CatalogApiService {
   }
 
   saveCatalogItem(payload: CatalogPostPayload): Observable<any> {
-    if (this.config.useSampleData()) {
-      return of({
-        status: 'success',
-        message: 'Sample data mode: change kept locally only, not sent to Google Sheets.',
-      });
-    }
-
-    const webAppUrl = this.config.getWebAppUrl();
-    const timeoutMs = this.config.getGasTimeoutMs();
-
-    // 1. Retrieve the token
-    const token = this.authService.idToken();
-    if (!token) {
-      return throwError(() => new Error('User is not authenticated with Google.'));
-    }
-
-    // 2. Attach token to the JSON payload for POST requests
-    const authenticatedPayload = {
-      ...payload,
-      idToken: token // <-- Pass to GAS
-    };
-
-    const fetchPromise = new Promise((resolve, reject) => {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => {
-        controller.abort();
-        reject(new Error(`Google Apps Script call timed out after ${timeoutMs}ms.`));
-      }, timeoutMs);
-
-      fetch(webAppUrl, {
-        method: 'POST',
-        mode: 'no-cors', 
-        signal: controller.signal,
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8'
-        },
-        body: JSON.stringify(authenticatedPayload) // <-- Send authenticated payload
-      })
-        .then(() => {
-          clearTimeout(timeoutId);
-          resolve({
-            status: 'success',
-            message: 'Opaque request completed and data pushed to Google Sheets successfully.'
-          });
-        })
-        // ... (keep existing catch block)
+  if (this.config.useSampleData()) {
+    return of({
+      status: 'success',
+      message: 'Sample data mode: change kept locally only, not sent to Google Sheets.',
     });
-
-    return from(fetchPromise);
   }
+
+  const webAppUrl = this.config.getWebAppUrl();
+  const timeoutMs = this.config.getGasTimeoutMs();
+
+  // 1. Retrieve the token
+  const token = this.authService.idToken();
+  if (!token) {
+    return throwError(() => new Error('User is not authenticated with Google.'));
+  }
+
+  // 2. Attach token to payload
+  const authenticatedPayload = {
+    ...payload,
+    idToken: token
+  };
+
+  const fetchPromise = new Promise((resolve, reject) => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+      reject(new Error(`Google Apps Script call timed out after ${timeoutMs}ms.`));
+    }, timeoutMs);
+
+    fetch(webAppUrl, {
+      method: 'POST',
+      redirect: 'follow', // Automatically follow GAS 302 redirects
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8' // Keeps simple POST, avoids CORS preflight
+      },
+      body: JSON.stringify(authenticatedPayload)
+    })
+      .then((response) => {
+        clearTimeout(timeoutId);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json(); // Read and parse the actual JSON payload
+      })
+      .then((data) => {
+        resolve(data); // Returns { status: 'success', message: '...', data: { ... } }
+      })
+      .catch((err) => {
+        clearTimeout(timeoutId);
+        reject(err);
+      });
+  });
+
+  return from(fetchPromise);
+}
 
 }

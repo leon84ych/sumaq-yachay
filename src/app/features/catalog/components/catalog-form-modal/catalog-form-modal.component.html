@@ -13,7 +13,7 @@
       <div class="form-group">
         <label for="id">{{ 'CATALOG.MODAL.ID_LABEL' | transloco }} <span class="required">*</span></label>
         <input id="id" type="text" formControlName="id" [placeholder]="'CATALOG.MODAL.ID_PLACEHOLDER' | transloco"
-          class="form-control" />
+          class="form-control" [disabled]="!!editItem()" />
         @if (form.get('id')?.touched && form.get('id')?.invalid) {
         <span class="field-error">{{ 'CATALOG.MODAL.ID_ERROR' | transloco }}</span>
         }

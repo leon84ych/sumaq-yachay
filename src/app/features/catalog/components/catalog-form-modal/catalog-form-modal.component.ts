@@ -39,6 +39,7 @@ export class CatalogFormModalComponent {
     effect(() => {
       const item = this.editItem();
       if (item) {
+        this.form.get('id')?.disable();
         // 2. Map existing payload keys to the reactive controls
         this.form.patchValue({
           id: item.id,
@@ -51,6 +52,7 @@ export class CatalogFormModalComponent {
           active: item.active,
         });
       } else {
+        this.form.get('id')?.enable();
         // Reset defaults when adding a brand new item
         this.form.reset({
           id: '',

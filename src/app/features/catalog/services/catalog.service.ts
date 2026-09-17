@@ -130,7 +130,13 @@ export class CatalogService {
         this.items.set(normalized);
         this.lastSyncedAt.set(new Date().toLocaleTimeString());
       } else {
-        throw new Error(response.message || 'CATALOG.ERRORS.malformedCatalog');
+        const message = typeof response?.message === 'string' ? response.message : '';
+        if (response?.status === 'error' && message.includes('Invalid or expired Google token')) {
+          console.warn('Google token expired; logging the user out.');
+          this.authService.logout();
+        }
+
+        throw new Error(message || 'CATALOG.ERRORS.malformedCatalog');
       }
     } catch (err: unknown) {
       this.errorMessage.set('CATALOG.ERRORS.syncFailed');
@@ -140,16 +146,28 @@ export class CatalogService {
     }
   }
 
+
+
   /**
-   * HTTP POST: Optimistically save or update an item locally and push to Google Sheets
-   */
-  async saveItem(itemInput: Omit<CatalogItem, 'updatedAt' | 'syncStatus'>, isEdit: boolean): Promise<void> {
+ * HTTP POST: Optimistically save or update an item locally and push to Google Sheets
+ */
+  async saveItem(
+    itemInput: Omit<CatalogItem, 'updatedAt' | 'syncStatus'>,
+    isEdit: boolean,
+    originalId?: string // Pass original ID to handle primary key renames during edits
+  ): Promise<void> {
     const now = new Date().toISOString();
     const item: CatalogItem = {
       ...itemInput,
       updatedAt: now,
       syncStatus: 'pending',
     };
+
+    // Handle key mutation in IndexedDB if the ID changed during an edit
+    if (isEdit && originalId && originalId !== item.id) {
+      await this.dbService.db.catalogs.delete(originalId);
+      this.removeLocalItemFromState(originalId); // Helper to clear state array
+    }
 
     // 1. Optimistic local update
     await this.dbService.db.catalogs.put(item);
@@ -175,15 +193,24 @@ export class CatalogService {
     // 3. Send over HTTP POST to GAS
     try {
       const res = await firstValueFrom(this.apiService.saveCatalogItem(payload));
+
       if (res && res.status === 'success') {
-        const syncedItem: CatalogItem = { ...item, syncStatus: 'synced' };
+        const serverData = res.data || {};
+
+        const syncedItem: CatalogItem = {
+          ...item,
+          row: serverData.row || item.row,
+          updatedAt: serverData.updatedAt || item.updatedAt,
+          syncStatus: serverData.syncStatus || 'synced',
+        };
+
         await this.dbService.db.catalogs.put(syncedItem);
         this.updateLocalItemInState(syncedItem);
       } else {
         throw new Error(res?.message || 'Remote save failed');
       }
     } catch (err: unknown) {
-      console.error('Remote POST save failed, marked as error/pending:', err);
+      console.error('Remote POST save failed, marked as error:', err);
       const errorItem: CatalogItem = { ...item, syncStatus: 'error' };
       await this.dbService.db.catalogs.put(errorItem);
       this.updateLocalItemInState(errorItem);
@@ -264,5 +291,12 @@ export class CatalogService {
 
     await this.dbService.db.catalogs.bulkPut(samples);
     this.items.set(samples);
+  }
+
+  /**
+ * Removes an item from the local reactive state array by its ID
+ */
+  private removeLocalItemFromState(idToRemove: string): void {
+    this.items.update(currentItems => currentItems.filter(item => item.id !== idToRemove));
   }
 }
