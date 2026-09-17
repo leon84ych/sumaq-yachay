@@ -77,13 +77,6 @@
         </div>
         } @else {
         <div class="settings-form">
-          <label class="appearance-label">{{ 'NAV.SETTINGS.TIMEOUT_LABEL' | transloco }}</label>
-          <select [(ngModel)]="gasTimeoutInput" class="url-input" aria-label="Google Apps Script timeout">
-            <option [ngValue]="30000">{{ 'NAV.SETTINGS.TIMEOUT_30S' | transloco }}</option>
-            <option [ngValue]="60000">{{ 'NAV.SETTINGS.TIMEOUT_1M' | transloco }}</option>
-            <option [ngValue]="180000">{{ 'NAV.SETTINGS.TIMEOUT_3M' | transloco }}</option>
-            <option [ngValue]="360000">{{ 'NAV.SETTINGS.TIMEOUT_6M' | transloco }}</option>
-          </select>
           <button type="button" class="btn-save" (click)="saveApiConfig()">{{ 'NAV.SETTINGS.SAVE' | transloco
             }}</button>
           <p class="sample-hint">{{ 'NAV.SETTINGS.SAMPLE_HINT' | transloco }}</p>

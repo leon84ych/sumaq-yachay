@@ -58,6 +58,8 @@
 
 ### 2. Integration / API Layer (Google Apps Script Web App)
 * **Serverless Execution:** Runs directly inside the user's Google account context.
+* **Identity-Verified Requests:** Every `GET`/`POST` call carries the caller's Google ID token (issued client-side by Google Identity Services). Apps Script verifies the token before touching `SpreadsheetApp`; requests with a missing/invalid token are rejected.
+* **Auto-Provisioning:** Resolves the Master Index Spreadsheet **for the verified identity**, creating it automatically on first use. When a user creates their first Catalog item, the linked Domain Data Spreadsheet is likewise created on demand if it doesn't already exist — no manual template copying required.
 * **Unified Payload Generation:**
   * Parses the Master Index Sheet.
   * Extracts records from all active linked Google Sheets via `SpreadsheetApp`.
@@ -71,18 +73,20 @@
 
 ### 4. Presentation Layer (Angular Frontend)
 * **Reactive Core:** Built with Angular signals, reactive components, and standalone design patterns.
+* **Authentication:** `LoginComponent` + `GoogleAuthService` render the Google Sign-In button (Google Identity Services), cache the resulting ID token, and expose the signed-in user's profile. Sync/write actions are blocked client-side until the user is signed in.
 * **Dynamic Component Dispatcher:** Resolves visual layouts dynamically based on the **Domain Data Sheet's name** (e.g. a `Concepts` tab renders `ConceptsViewComponent`, a `Relations` tab renders `RelationsGraphComponent`), rather than an explicit type field.
-* **Settings & Onboarding:** Manages Web App URL configurations, manual trigger re-syncs, and storage status metrics.
+* **Settings & Onboarding:** Manages Web App URL configuration, GAS request timeout, sample-data mode, theme/text-size, language, and manual trigger re-syncs from a single top-bar settings drawer.
 
 ---
 
 ## Data Flow & Synchronization Strategy
 
 1. **App Initialization:** The Angular client boots up and queries IndexedDB directly. Rendered components display the most recent cached dataset instantly.
-2. **Sync Trigger:** An automated background request or manual user action fires an `HTTP GET` to the configured Google Apps Script Web App URL.
-3. **Payload Ingestion:** The client receives normalized JSON objects from Google Apps Script.
-4. **Atomic Update:** A Dexie read-write transaction overwrites or merges local IndexedDB records.
-5. **Reactive UI Refresh:** Observable/Signal streams notify visual components of store changes, triggering instant UI updates without manual reloads.
+2. **Sign-In Gate:** The user signs in with Google (GIS). The resulting ID token is required before any sync/write action proceeds; unauthenticated attempts are blocked client-side (`CATALOG.ERRORS.authRequired`).
+3. **Sync Trigger:** An automated background request or manual user action fires an `HTTP GET` (with `idToken`) to the configured Google Apps Script Web App URL.
+4. **Payload Ingestion:** The client receives normalized JSON objects from Google Apps Script. On first use, Apps Script may have just auto-created the Master Index/Domain Data files for this identity before responding.
+5. **Atomic Update:** A Dexie read-write transaction overwrites or merges local IndexedDB records.
+6. **Reactive UI Refresh:** Observable/Signal streams notify visual components of store changes, triggering instant UI updates without manual reloads.
 
 ---
 
@@ -104,8 +108,9 @@ Because this architecture relies on free-tier consumer Google accounts (`@gmail.
 
 * **Data Ownership:** Content remains entirely within the user's personal Google Drive and local browser storage.
 * **Zero Central Backend:** No intermediary backend server stores, tracks, or routes user data.
-* **Endpoint Protection:** The Apps Script Web App URL functions as a secret token. While deployed as "Anyone", access requires possession of the unique URL string.
+* **Identity-Verified Endpoint:** Every request must carry a valid Google ID token (from Google Identity Services sign-in); Apps Script verifies it before any Sheets access. This replaces the earlier "secret URL" trust model with per-request identity verification.
 * **SheetID Isolation:** The Domain Data Spreadsheet ID is resolved internally by Apps Script (from its own reserved config row) and is never sent to, stored by, or accepted from the Angular client. This prevents an attacker from guessing or substituting another user's Sheet ID to read foreign data.
+* **Auto-Provisioning Scope:** Files are only ever created for, and scoped to, the verified identity making the request — auto-provisioning never creates or touches another user's Master Index or Domain Data files.
 
 ---
 

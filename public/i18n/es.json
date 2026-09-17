@@ -41,6 +41,7 @@
       "TITLE": "Sumaq Yachay",
       "SUBTITLE": "Base de Conocimiento y Catálogo de Estudio",
       "SYNC_REMOTE": "Sincronizar Remoto (GET)",
+      "SYNC_LOCAL": "Sincronizar Local",
       "SYNCING": "Sincronizando...",
       "REGISTER_SOURCE": "Registrar Fuente"
     },

@@ -21,6 +21,9 @@ The Master Index Sheet's first row is a **reserved config cell** holding the lin
 - Is **never** listed, created, updated, or deleted through the Catalog UI/API — no `sheetId` field exists on `CatalogItem`.
 - Is resolved server-side by Apps Script only (see [BACKEND_ARCHITECTURE.md](./BACKEND_ARCHITECTURE.md#-sheetid-security-model)) and never appears in any GET/POST payload.
 
+### Authentication Requirement
+All Catalog GET/POST calls require the user to be **signed in with Google** (`GoogleAuthService`). The signed-in ID token is attached to every request; `CatalogService` refuses to call the Web App at all when no token is present, surfacing `CATALOG.ERRORS.authRequired` instead. See [BACKEND_ARCHITECTURE.md](./BACKEND_ARCHITECTURE.md#-authentication--auto-provisioning) for the server-side verification and auto-provisioning behavior this enables (Master Index/Domain Data files are created automatically for a new identity on first use).
+
 ---
 
 ## 2. Directory & Component Structure
@@ -84,10 +87,13 @@ export interface CatalogItem {
   active: boolean;          // Active flag in Master Index
   updatedAt: string;        // ISO-8601 timestamp
   syncStatus?: SyncState;   // Local sync tracking flag
+  row: number;              // Row number in Master Index (1-based, display/update targeting only)
 }
 ```
 
 ### 3.2 API Contracts (`catalog-api.model.ts`)
+
+> **Authentication:** Every request now requires the signed-in user's Google **ID token** (from `GoogleAuthService`). It travels as an `idToken` query parameter on `GET` and as an `idToken` field on the `POST` payload — see [BACKEND_ARCHITECTURE.md](./BACKEND_ARCHITECTURE.md#-authentication--auto-provisioning). Requests are never sent without a token; the client blocks with `CATALOG.ERRORS.authRequired` instead.
 
 ```typescript
 // GET Response from GAS
@@ -102,6 +108,7 @@ export interface GetCatalogResponse {
 export interface CatalogPostPayload {
   action: 'CREATE_CATALOG_ITEM' | 'UPDATE_CATALOG_ITEM';
   id: string;
+  row: number;  // Row number in Master Index (1-based, for update targeting)
   rowValues: [
     string,   // [0] ID / UUID
     string,   // [1] Subject
@@ -112,6 +119,7 @@ export interface CatalogPostPayload {
     string,   // [6] Source
     boolean   // [7] Active (TRUE / FALSE)
   ];
+  idToken?: string; // Attached by CatalogApiService before sending, not authored by the caller
 }
 
 // POST Response from GAS
@@ -121,6 +129,8 @@ export interface CatalogPostResponse {
   message?: string;
 }
 ```
+
+> **Auto-Provisioning on First Create:** `CREATE_CATALOG_ITEM` no longer assumes the Master Index (or, for the first entry that references one, its Domain Data Spreadsheet) already exists. If Apps Script finds no file yet for the verified identity, it creates it as part of the same request before writing the row — replacing the old "copy the template sheet first" onboarding step.
 
 ---
 
@@ -300,3 +310,4 @@ export class AppDatabase extends Dexie {
 | **6** | Build `CatalogFormModalComponent` | Reactive forms for subject/topic/name/author/description/source | ✅ Done |
 | **7** | Integrate Smart `CatalogComponent` & Route | Connect components to `app.routes.ts` | ✅ Done |
 | **8** | Unit & Integration Testing | Test offline fallback, search filter, and mock HTTP responses | ⬜ Pending |
+| **9** | Add Google Sign-In gate | `GoogleAuthService`/`LoginComponent`; attach `idToken` to GET/POST; block unauthenticated calls | ✅ Done |

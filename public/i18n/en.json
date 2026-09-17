@@ -41,6 +41,7 @@
       "TITLE": "Sumaq Yachay",
       "SUBTITLE": "Knowledge Base & Study Catalog",
       "SYNC_REMOTE": "Sync Remote (GET)",
+      "SYNC_LOCAL": "Sync Local",
       "SYNCING": "Syncing...",
       "REGISTER_SOURCE": "Register Source"
     },

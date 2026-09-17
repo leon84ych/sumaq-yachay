@@ -1,6 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
+import { ConfigService } from '../../../core/services/config.service';
 import { CatalogApiService } from './catalog-api.service';
 import { CatalogItem } from '../models/catalog-item.model';
 import { CatalogPostPayload } from '../models/catalog-api.model';
@@ -13,6 +14,7 @@ export class CatalogService {
   private dbService = inject(AppDbService);
   private apiService = inject(CatalogApiService);
   private authService = inject(GoogleAuthService);
+  private configService = inject(ConfigService);
 
   // State Signals
   readonly items = signal<CatalogItem[]>([]);
@@ -74,6 +76,11 @@ export class CatalogService {
 
   async init(): Promise<void> {
     await this.loadFromLocal();
+    // Auto-refresh in the background: always in sample-data mode, or when already authenticated.
+    // Skipped silently otherwise so an unauthenticated user isn't shown the auth-required error on load.
+    if (this.configService.useSampleData() || this.authService.idToken()) {
+      void this.syncFromRemote();
+    }
   }
 
   /**
@@ -97,8 +104,8 @@ export class CatalogService {
    * HTTP GET: Syncs the catalog from Google Apps Script Web App
    */
   async syncFromRemote(): Promise<void> {
-    // Check authentication state before making the network call
-    if (!this.authService.idToken()) {
+    // Sample data mode is fully offline; skip the authentication requirement.
+    if (!this.configService.useSampleData() && !this.authService.idToken()) {
       this.errorMessage.set('CATALOG.ERRORS.authRequired');
       console.warn('Sync aborted: User is not authenticated with Google.');
       return;

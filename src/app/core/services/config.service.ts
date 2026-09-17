@@ -21,8 +21,8 @@ export class ConfigService {
   readonly webAppUrl = this.urlSignal.asReadonly();
   readonly dataSource = this.dataSourceSignal.asReadonly();
   readonly gasRequestTimeoutMs = this.timeoutSignal.asReadonly();
-  /** True when the active source is 'sample' (also used as a quick check by the *ApiServices). */
-  readonly useSampleData = computed(() => this.dataSourceSignal() === 'sample');
+  /** True when the active source is 'sample', or 'url' but no Web App URL is configured yet. */
+  readonly useSampleData = computed(() => this.dataSourceSignal() === 'sample' || !this.urlSignal());
   readonly sampleDataFallbackActive = this.sampleDataFallbackSignal.asReadonly();
 
   getWebAppUrl(): string {

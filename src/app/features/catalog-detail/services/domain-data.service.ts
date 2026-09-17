@@ -47,6 +47,7 @@ export class DomainDataService {
       if (response && response.status === 'success' && Array.isArray(response.data?.sheets)) {
         const normalized: DomainSheet[] = response.data.sheets.map((sheet) => ({
           row,
+          id: sheet.name.trim().toLowerCase(),
           name: sheet.name,
           index: sheet.index,
           rows: sheet.rows,

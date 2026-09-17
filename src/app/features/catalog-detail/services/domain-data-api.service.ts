@@ -20,7 +20,9 @@ export class DomainDataApiService {
 
     if (this.config.useSampleData()) {
       this.config.setSampleDataFallbackActive(false);
-      const fetchPromise: Promise<unknown> = fetch(sampleUrl).then((response) => response.json());
+      const fetchPromise: Promise<unknown> = fetch(sampleUrl)
+        .then((response) => response.json())
+        .then((data) => this.pickSampleResponseForRow(data, row));
       return from(fetchPromise).pipe(map((data) => data as GetDomainSheetsResponse));
     }
 
@@ -36,7 +38,9 @@ export class DomainDataApiService {
       if (response.status === 404) {
         console.warn(`GET ${endpoint} returned 404; falling back to sample data (${sampleUrl}).`);
         this.config.setSampleDataFallbackActive(true);
-        return fetch(sampleUrl).then((sampleResponse) => sampleResponse.json());
+        return fetch(sampleUrl)
+          .then((sampleResponse) => sampleResponse.json())
+          .then((data) => this.pickSampleResponseForRow(data, row));
       }
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -47,4 +51,15 @@ export class DomainDataApiService {
 
     return from(fetchPromise).pipe(map((data) => data as GetDomainSheetsResponse));
   }
+
+  /**
+   * The sample file holds one response per Catalog row; pick the match, falling back to the first entry.
+   */
+  private pickSampleResponseForRow(data: unknown, row: number): unknown {
+    if (!Array.isArray(data)) {
+      return data;
+    }
+    return data.find((entry) => entry?.data?.row === row) ?? data[0];
+  }
+
 }

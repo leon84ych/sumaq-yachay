@@ -45,6 +45,24 @@ This document outlines the sequential development phases, requirements, prerequi
 
 ---
 
+### Phase 1.5: Google Authentication & Auto-Provisioning Security Layer — ✅ Done
+**Objective:** Replace the manual "Template Copy" onboarding and open (`Anyone`) access model with authenticated, per-identity requests and automatic backend file provisioning.
+
+* **Requirements:**
+  * Google Identity Services (GIS) sign-in button + ID token issuance on the client.
+  * Apps Script `doGet(e)`/`doPost(e)` verify the ID token before any `SpreadsheetApp` access; requests without a valid token are rejected.
+  * Auto-create the Master Index Spreadsheet (per identity) and per-item Domain Data Spreadsheet on first use, instead of requiring the user to manually copy a template sheet.
+  * User-configurable GAS request timeout (30s / 1m / 3m / 6m) to tolerate the slower first-run auto-provisioning call.
+* **Tasks:**
+  1. ✅ Build `GoogleAuthService` (token storage, decode, logout) + `LoginComponent` (GIS button, signed-in user badge).
+  2. ✅ Attach `idToken` to every `CatalogApiService` GET (query param) and POST (payload field); block calls client-side when unauthenticated (`CATALOG.ERRORS.authRequired`).
+  3. ✅ Add `ConfigService.gasRequestTimeoutMs` (`GAS_TIMEOUT_OPTIONS`) with a Settings-drawer selector, wired into the GET/POST `AbortController` timeout + sample-data fallback.
+  4. ✅ Document backend-side token verification and create-on-first-use provisioning behavior for Master Index & Domain Data files (see [BACKEND_ARCHITECTURE.md](./BACKEND_ARCHITECTURE.md#-authentication--auto-provisioning)).
+* **Milestone 1.5:** ✅ Users sign in with Google before any sync/write; the backend auto-provisions their Master Index and Domain Data files on first use with no manual spreadsheet copying.
+* **Estimated Time:** 6 – 9 Hours
+
+---
+
 ### Phase 2: Structural Learning Components, Plot Timelines & Form Write-Back Engine — 🟡 Partially Done
 **Objective:** Establish ordered workflows, character matrices, plot timelines, dynamic forms, and background write-back functionality.
 
@@ -98,10 +116,11 @@ This document outlines the sequential development phases, requirements, prerequi
 | Phase | Description | Estimate (3x Revised) | Status |
 | :--- | :--- | :--- | :--- |
 | **Phase 1** | Connection Setup, Catalog Registry & Sync Pipeline | 15 – 21 Hours | ✅ Done |
+| **Phase 1.5** | Google Authentication & Auto-Provisioning Security Layer | 6 – 9 Hours | ✅ Done |
 | **Phase 2** | Plot Timelines, Character Matrices & Form Write-Back Engine | 21 – 30 Hours | 🟡 Partially Done (Catalog CRUD only) |
 | **Phase 3** | Character/System Graphs (Mermaid), Mind Maps & Quiz Engines | 30 – 42 Hours | ⬜ Not Started |
 | **Phase 4** | Hybrid Image Handlers, Domain Polish & Deployment | 12 – 18 Hours | ⬜ Not Started |
-| **Total** | **Complete Implementation** | **78 – 111 Hours** | 🟡 In Progress |
+| **Total** | **Complete Implementation** | **84 – 120 Hours** | 🟡 In Progress |
 
 ---
 

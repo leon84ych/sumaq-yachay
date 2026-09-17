@@ -66,7 +66,7 @@ export class App {
   saveApiConfig(): void {
     this.configService.setWebAppUrl(this.apiUrlInput);
     this.configService.setGasTimeoutMs(this.gasTimeoutInput);
-    this.configService.setDataSource('url');
+    this.configService.setDataSource(this.configService.dataSource());
     this.showSettings.set(false);
   }
 
