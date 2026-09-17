@@ -1,0 +1,58 @@
+{
+    "status": "success",
+    "message": "Data retrieved.",
+    "data": [
+        {
+            "id": "Nietzche-Zaratustra",
+            "subject": "Filosofía",
+            "topic": "Zaratustra",
+            "name": "Nietzche",
+            "author": "Notas de lectura de Zaratustra",
+            "description": "",
+            "source": true,
+            "active": true,
+            "updatedAt": "2026-09-11T05:00:00.000Z",
+            "syncStatus": "",
+            "row": 2
+        },
+        {
+            "id": "Kafka-01",
+            "subject": "Tecnología",
+            "topic": "Kafka Managment",
+            "name": "Kafka Learing Series",
+            "author": "Patrich Steart",
+            "description": "Notas de estudio de Kafka  para prepararme para la certificación de Confluence",
+            "source": " KafkaSeries PDF ",
+            "active": true,
+            "updatedAt": "2026-09-12T05:00:00.000Z",
+            "syncStatus": "",
+            "row": 3
+        },
+        {
+            "id": "CienAnnosSoledad",
+            "subject": "Literatura",
+            "topic": "Realimso Mágico",
+            "name": "Cien años de Soledad",
+            "author": "Garcia Marquez",
+            "description": "Nietzche ",
+            "source": "",
+            "active": true,
+            "updatedAt": "2026-09-13T05:00:00.000Z",
+            "syncStatus": "",
+            "row": 4
+        },
+        {
+            "id": "LifeOnEarth",
+            "subject": "Biología",
+            "topic": "Naturaleza",
+            "name": "Life On Earth 2000",
+            "author": "Audestik Birers",
+            "description": "Biologia 10 y 11 ",
+            "source": "Muchos Libros",
+            "active": true,
+            "updatedAt": "",
+            "syncStatus": "",
+            "row": 5
+        }
+    ]
+}

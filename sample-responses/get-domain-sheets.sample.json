@@ -1,0 +1,81 @@
+[
+  {
+    "status": "success",
+    "data": {
+      "status": "success",
+      "row": 1,
+      "catalogId": "cat-tech-01",
+      "sheets": [
+        {
+          "index": 0,
+          "name": "Definitions",
+          "rows": [
+            { "id": "d1", "word": "Algorithm", "definition": "A step-by-step procedure for solving a problem.", "synonims": "procedure, method" },
+            { "id": "d2", "word": "Recursion", "definition": "A function that calls itself to solve smaller instances of a problem.", "synonims": "self-reference" }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "Quotes",
+          "rows": [
+            { "id": "q1", "quote": "Premature optimization is the root of all evil.", "book": "The Art of Computer Programming", "author": "Donald Knuth", "page": "268", "analysis": "Warns against optimizing before profiling." }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "status": "success",
+    "data": {
+      "status": "success",
+      "row": 2,
+      "catalogId": "Nietzche-Zaratustra",
+      "sheets": [
+        {
+          "index": 0,
+          "name": "Definitions",
+          "rows": [
+            { "id": "d1", "word": "Übermensch", "definition": "El 'superhombre' o 'más allá del hombre': el ideal de quien crea sus propios valores tras la muerte de Dios.", "synonims": "superhombre" },
+            { "id": "d2", "word": "Eterno Retorno", "definition": "La idea de que el universo y todos sus eventos se repiten infinitamente de forma idéntica.", "synonims": "recurrencia eterna" },
+            { "id": "d3", "word": "Voluntad de Poder", "definition": "El impulso fundamental que, según Nietzsche, mueve a todo ser vivo a crecer, expandirse y superarse.", "synonims": "voluntad de dominio" }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "Quotes",
+          "rows": [
+            { "id": "q1", "quote": "Dios ha muerto. Y nosotros lo hemos matado.", "book": "Así habló Zaratustra", "author": "Friedrich Nietzsche", "page": "12", "analysis": "Marca el colapso de los valores metafísicos tradicionales y la necesidad de crear nuevos valores." },
+            { "id": "q2", "quote": "El hombre es una cuerda tendida entre el animal y el superhombre.", "book": "Así habló Zaratustra", "author": "Friedrich Nietzsche", "page": "34", "analysis": "Describe al ser humano como un estado de transición hacia el Übermensch." }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "status": "success",
+    "data": {
+      "status": "success",
+      "row": 3,
+      "catalogId": "Kafka-01",
+      "sheets": [
+        {
+          "index": 0,
+          "name": "Definitions",
+          "rows": [
+            { "id": "d1", "word": "Broker", "definition": "Un servidor de Kafka que almacena datos y atiende solicitudes de productores y consumidores.", "synonims": "nodo de Kafka" },
+            { "id": "d2", "word": "Topic", "definition": "Una categoría o feed con nombre al cual los productores publican registros.", "synonims": "tema" },
+            { "id": "d3", "word": "Partition", "definition": "Una división ordenada e inmutable de un topic que permite paralelizar el consumo.", "synonims": "partición" },
+            { "id": "d4", "word": "Consumer Group", "definition": "Un conjunto de consumidores que cooperan para consumir datos de uno o más topics.", "synonims": "grupo de consumidores" }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "Quotes",
+          "rows": [
+            { "id": "q1", "quote": "Kafka is designed to allow a single cluster to serve as the central data backbone for a large organization.", "book": "Kafka: The Definitive Guide", "author": "Neha Narkhede, Gwen Shapira, Todd Palino", "page": "3", "analysis": "Resume la visión de Kafka como columna vertebral de datos para arquitecturas de streaming." }
+          ]
+        }
+      ]
+    }
+  }
+]
