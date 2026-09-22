@@ -16,7 +16,7 @@ export class DomainDataApiService {
    * never sent as a request parameter nor included in the response.
    */
   getDomainSheets(row: number): Observable<GetDomainSheetsResponse> {
-    const sampleUrl = '/sample-responses/get-domain-sheets.sample.json';
+    const sampleUrl = 'sample-responses/get-domain-sheets.sample.json';
 
     if (this.config.useSampleData()) {
       this.config.setSampleDataFallbackActive(false);

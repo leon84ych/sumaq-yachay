@@ -24,7 +24,7 @@ export class CatalogApiService {
   getCatalog(target: string = 'CATALOG'): Observable<GetCatalogResponse> {
     if (this.config.useSampleData()) {
       this.config.setSampleDataFallbackActive(false);
-      return this.fetchJson('/sample-responses/get-catalog.sample.json');
+      return this.fetchJson('sample-responses/get-catalog.sample.json');
     }
 
     const webAppUrl = this.config.getWebAppUrl();
@@ -47,7 +47,7 @@ export class CatalogApiService {
 
     const fullUrl = `${webAppUrl}?${queryParams}`;
 
-    return this.fetchJsonWithSampleFallback(fullUrl, '/sample-responses/get-catalog.sample.json');
+    return this.fetchJsonWithSampleFallback(fullUrl, 'sample-responses/get-catalog.sample.json');
   }
 
   private fetchJson(url: string): Observable<GetCatalogResponse> {

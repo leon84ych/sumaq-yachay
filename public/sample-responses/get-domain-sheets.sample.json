@@ -3,31 +3,6 @@
     "status": "success",
     "data": {
       "status": "success",
-      "row": 1,
-      "catalogId": "cat-tech-01",
-      "sheets": [
-        {
-          "index": 0,
-          "name": "Definitions",
-          "rows": [
-            { "id": "d1", "word": "Algorithm", "definition": "A step-by-step procedure for solving a problem.", "synonims": "procedure, method" },
-            { "id": "d2", "word": "Recursion", "definition": "A function that calls itself to solve smaller instances of a problem.", "synonims": "self-reference" }
-          ]
-        },
-        {
-          "index": 1,
-          "name": "Quotes",
-          "rows": [
-            { "id": "q1", "quote": "Premature optimization is the root of all evil.", "book": "The Art of Computer Programming", "author": "Donald Knuth", "page": "268", "analysis": "Warns against optimizing before profiling." }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "status": "success",
-    "data": {
-      "status": "success",
       "row": 2,
       "catalogId": "Nietzche-Zaratustra",
       "sheets": [
@@ -73,6 +48,58 @@
           "name": "Quotes",
           "rows": [
             { "id": "q1", "quote": "Kafka is designed to allow a single cluster to serve as the central data backbone for a large organization.", "book": "Kafka: The Definitive Guide", "author": "Neha Narkhede, Gwen Shapira, Todd Palino", "page": "3", "analysis": "Resume la visión de Kafka como columna vertebral de datos para arquitecturas de streaming." }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "status": "success",
+    "data": {
+      "status": "success",
+      "row": 4,
+      "catalogId": "CienAnnosSoledad",
+      "sheets": [
+        {
+          "index": 0,
+          "name": "Definitions",
+          "rows": [
+            { "id": "d1", "word": "Macondo", "definition": "Pueblo ficticio donde se desarrolla la historia y que representa la memoria colectiva de la familia Buendía.", "synonims": "pueblo, hogar" },
+            { "id": "d2", "word": "Realismo mágico", "definition": "Estilo narrativo que mezcla lo cotidiano con elementos fantásticos sin explicación racional.", "synonims": "fantasía realista" }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "Quotes",
+          "rows": [
+            { "id": "q1", "quote": "La historia de la familia Buendía se repite como un ciclo inexorable.", "book": "Cien años de soledad", "author": "Gabriel García Márquez", "page": "8", "analysis": "Subraya el tiempo circular y la repetición de destinos." },
+            { "id": "q2", "quote": "La memoria es un río que vuelve siempre a sus orillas.", "book": "Cien años de soledad", "author": "Gabriel García Márquez", "page": "54", "analysis": "Resalta la importancia de la memoria colectiva y la inevitabilidad del pasado." }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "status": "success",
+    "data": {
+      "status": "success",
+      "row": 5,
+      "catalogId": "LifeOnEarth",
+      "sheets": [
+        {
+          "index": 0,
+          "name": "Definitions",
+          "rows": [
+            { "id": "d1", "word": "Photosynthesis", "definition": "Process by which plants convert light energy into chemical energy to produce sugars and oxygen.", "synonims": "photosynthesis" },
+            { "id": "d2", "word": "Ecosystem", "definition": "A biological community of interacting organisms and their physical environment.", "synonims": "ecosystem, habitat" }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "Quotes",
+          "rows": [
+            { "id": "q1", "quote": "Life persists because every organism is part of a larger network of dependence and adaptation.", "book": "Principles of Ecology", "author": "Dr. Elena Ruiz", "page": "17", "analysis": "Connects survival to interdependence within ecosystems." },
+            { "id": "q2", "quote": "Evolution is the record of countless experiments in survival.", "book": "Life on Earth", "author": "David Attenborough", "page": "93", "analysis": "Frames biodiversity as the result of adaptive change over time." }
           ]
         }
       ]
