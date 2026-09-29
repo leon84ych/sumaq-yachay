@@ -1,8 +1,10 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
+import { ConfigService } from '../../../core/services/config.service';
 import { DomainDataApiService } from './domain-data-api.service';
 import { DomainSheet } from '../models/domain-sheet.model';
+import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 
 // Tabs are rendered in the order defined by each sheet's `index`.
 function sortByIndex(sheets: DomainSheet[]): DomainSheet[] {
@@ -15,6 +17,8 @@ function sortByIndex(sheets: DomainSheet[]): DomainSheet[] {
 export class DomainDataService {
   private dbService = inject(AppDbService);
   private apiService = inject(DomainDataApiService);
+  private authService = inject(GoogleAuthService);
+  private configService = inject(ConfigService);
 
   readonly sheets = signal<DomainSheet[]>([]);
   readonly isLoading = signal<boolean>(false);
@@ -36,16 +40,29 @@ export class DomainDataService {
       this.sheets.set(sortByIndex(cached));
     }
 
-    await this.refreshFromRemote(row);
+    // Auto-refresh in the background: always in sample-data mode, or when already authenticated.
+    if (this.configService.useSampleData() || this.authService.idToken()) {
+      await this.refreshFromRemote(row);
+    }
   }
 
   private async refreshFromRemote(row: number): Promise<void> {
+    const idToken = this.authService.idToken();
+    if (!this.configService.useSampleData() && !idToken) {
+      this.errorMessage.set('CATALOG.ERRORS.authRequired');
+      console.warn('Sync aborted: User is not authenticated with Google.');
+      return;
+    }
+
     this.isLoading.set(true);
     try {
+      // Pass idToken to the API service request
       const response = await firstValueFrom(this.apiService.getDomainSheets(row));
 
-      if (response && response.status === 'success' && Array.isArray(response.data?.sheets)) {
-        const normalized: DomainSheet[] = response.data.sheets.map((sheet) => ({
+      if (response && response.status === 'success') {
+        const rawSheets = Array.isArray(response.data?.sheets) ? response.data.sheets : [];
+        
+        const normalized: DomainSheet[] = rawSheets.map((sheet) => ({
           row,
           id: sheet.name.trim().toLowerCase(),
           name: sheet.name,
@@ -55,14 +72,25 @@ export class DomainDataService {
 
         await this.dbService.db.transaction('rw', this.dbService.db.domainSheets, async () => {
           await this.dbService.db.domainSheets.where('row').equals(row).delete();
-          await this.dbService.db.domainSheets.bulkPut(normalized);
+          if (normalized.length > 0) {
+            await this.dbService.db.domainSheets.bulkPut(normalized);
+          }
         });
 
         if (this.loadedRow === row) {
           this.sheets.set(sortByIndex(normalized));
         }
       } else {
-        throw new Error(response?.message || 'Malformed domain sheets response.');
+        const message = typeof response?.message === 'string' ? response.message : '';
+        if (
+          response?.status === 'error' &&
+          (message.includes('Invalid or expired Google token') || message.includes('Missing idToken parameter'))
+        ) {
+          console.warn('Google token expired or missing; logging the user out.');
+          this.authService.logout();
+        }
+
+        throw new Error(message || 'Malformed domain sheets response.');
       }
     } catch (err: unknown) {
       const errorMsg = err instanceof Error ? err.message : 'Unknown error fetching domain sheets';

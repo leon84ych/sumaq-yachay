@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { from, Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConfigService } from '../../../core/services/config.service';
+import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { GetDomainSheetsResponse } from '../models/domain-sheet.model';
 
 @Injectable({
@@ -9,11 +10,11 @@ import { GetDomainSheetsResponse } from '../models/domain-sheet.model';
 })
 export class DomainDataApiService {
   private config = inject(ConfigService);
+  private authService = inject(GoogleAuthService);
 
   /**
    * HTTP GET: Fetches every Domain Data Sheet tab (name + rows) for one Catalog row.
-   * The linked Spreadsheet's SheetID is resolved by Apps Script internally and is
-   * never sent as a request parameter nor included in the response.
+   * Includes the user's Google ID token for backend authentication.
    */
   getDomainSheets(row: number): Observable<GetDomainSheetsResponse> {
     const sampleUrl = 'sample-responses/get-domain-sheets.sample.json';
@@ -31,7 +32,12 @@ export class DomainDataApiService {
       return throwError(() => new Error('Google Apps Script Web App URL is not configured.'));
     }
 
-    const endpoint = `${webAppUrl}?action=GET_SHEETS_NAMES&row=${encodeURIComponent(row)}`;
+    const idToken = this.authService.idToken();
+    let endpoint = `${webAppUrl}?action=GET_SHEETS_NAMES&row=${encodeURIComponent(row)}`;
+    
+    if (idToken) {
+      endpoint += `&idToken=${encodeURIComponent(idToken)}`;
+    }
 
     // Falls back to the local sample response if the live endpoint 404s (e.g. stale deployment).
     const fetchPromise: Promise<unknown> = fetch(endpoint).then((response) => {
@@ -61,5 +67,4 @@ export class DomainDataApiService {
     }
     return data.find((entry) => entry?.data?.row === row) ?? data[0];
   }
-
 }

@@ -1,14 +1,40 @@
-<div class="sheet-tabs" role="tablist">
-  @for (name of sheetNames(); track name) {
-    <button
-      type="button"
-      class="tab-button"
-      role="tab"
-      [class.active]="name === activeSheetName()"
-      [attr.aria-selected]="name === activeSheetName()"
-      (click)="selectTab.emit(name)"
-    >
-      {{ name }}
-    </button>
-  }
+<div class="sheet-tabs-container" role="region" aria-label="Catalog Sheets Navigation">
+  <div class="sheet-tabs" role="tablist">
+    @for (name of sheetNames(); track name) {
+      <button
+        type="button"
+        class="tab-button"
+        role="tab"
+        [class.active]="name === activeSheetName()"
+        [attr.aria-selected]="name === activeSheetName()"
+        (click)="selectTab.emit(name)"
+      >
+        {{ name }}
+      </button>
+    }
+  </div>
+
+  <!-- Add Domain Control -->
+  <div class="add-domain-wrapper">
+    @if (!isAdding()) {
+      <button 
+        type="button" 
+        class="add-tab-btn" 
+        (click)="toggleAddMode(true)"
+        title="Add new domain sheet"
+      >
+        <span class="plus-icon">+</span> {{ 'CATALOG_DETAIL.DOMAIN' | transloco }}
+      </button>
+    } @else {
+      <div class="domain-selector-form">
+        <select #domainSelect class="domain-select" (change)="onDomainSelected(domainSelect.value)">
+          <option value="" disabled selected>{{ 'CATALOG_DETAIL.SELECT_DOMAIN' | transloco }}</option>
+          @for (domain of availableDomains; track domain) {
+            <option [value]="domain">{{ 'CATALOG_DETAIL.DOMAINS.'+domain | transloco }}</option>
+          }
+        </select>
+        <button type="button" class="cancel-btn" (click)="toggleAddMode(false)">✕</button>
+      </div>
+    }
+  </div>
 </div>

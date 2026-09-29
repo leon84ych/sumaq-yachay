@@ -99,7 +99,7 @@
       "AUTHOR_ERROR": "Author name is required.",
       "SOURCE_LABEL": "Source",
       "SOURCE_PLACEHOLDER": "PDF, URL, Video, etc.",
-      "SHEET_PROTECTED_WARNING": "This value must be changed within the Google Sheet interface.",      
+      "SHEET_PROTECTED_WARNING": "This value must be changed within the Google Sheet interface.",
       "DESCRIPTION_LABEL": "Description (Optional)",
       "DESCRIPTION_PLACEHOLDER": "Brief summary of the topics or concepts covered...",
       "ACTIVE_LABEL": "Mark as Active in Master Index",
@@ -120,6 +120,17 @@
   "CATALOG_DETAIL": {
     "LOADING": "Loading catalog entry...",
     "UNSUPPORTED_SHEET": "This sheet type isn't supported for viewing yet.",
+    "DOMAIN": "Domain",
+    "SELECT_DOMAIN": "Select Domain",
+    "DOMAINS": {
+      "INDEX": "Master Index",
+      "CONCEPTS": "Concepts",
+      "QUOTES": "Quotes",
+      "TIMELINE": "Timeline",
+      "RELATIONS": "Relations",
+      "GLOSARY": "Glossary",
+      "QUESTIONS": "Questions"
+    },
     "NOT_FOUND": {
       "TITLE": "Entry Not Found",
       "DESC": "This catalog entry doesn't exist locally. Try syncing or go back to the Catalog."
