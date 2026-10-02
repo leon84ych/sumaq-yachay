@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { QuoteRow } from '../../catalog-detail/models/domain-sheet.model';
 
 @Component({
-  selector: 'app-quote-gallery-view',
+  selector: 'app-quote-gallery',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './quote-gallery-view.component.html',
-  styleUrls: ['./quote-gallery-view.component.css'],
+  templateUrl: './quote-gallery.component.html',
+  styleUrls: ['./quote-gallery.component.css'],
 })
-export class QuoteGalleryViewComponent {
+export class QuoteGalleryComponent {
   readonly rows = input.required<QuoteRow[]>();
 }

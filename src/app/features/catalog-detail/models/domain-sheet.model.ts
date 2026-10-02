@@ -23,7 +23,7 @@ export interface GetDomainSheetsResponse {
 
 // --- Known per-sheet row shapes (Phase D: Definitions & Quotes) ---
 
-export interface DefinitionRow {
+export interface ConceptRow {
   id: string;
   word: string;
   definition: string;
@@ -37,4 +37,15 @@ export interface QuoteRow {
   analysis?: string;
   author: string;
   page?: string;
+}
+
+
+
+export interface IndexRow {
+  id: string;
+  chapter: string;
+  theme: string;
+  subtheme: string;
+  tag: string;
+  syncStatus: 'synced' | 'pending' | 'error';
 }

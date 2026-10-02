@@ -1,0 +1,67 @@
+<div class="index-view-container">
+  <div class="header-actions">
+    <h2>{{ 'DOMAINS.INDEX.TITLE' | transloco }}</h2>
+    @if (!isAdding()) {
+      <button type="button" class="btn-primary" (click)="toggleAddMode(true)">
+        + {{ 'DOMAINS.INDEX.ADD_ENTRY' | transloco }}
+      </button>
+    }
+  </div>
+
+  <!-- Add Entry Form Modal / Inline Panel -->
+  @if (isAdding()) {
+    <div class="add-entry-form">
+      <h3>{{ 'DOMAINS.INDEX.NEW_ENTRY_TITLE' | transloco }}</h3>
+      <div class="form-group">
+        <label>{{ 'DOMAINS.INDEX.CHAPTER' | transloco }}</label>
+        <input type="text" [ngModel]="newChapter()" (ngModelChange)="newChapter.set($event)" placeholder="e.g. Chapter 1" />
+      </div>
+      <div class="form-group">
+        <label>{{ 'DOMAINS.INDEX.THEME' | transloco }}</label>
+        <input type="text" [ngModel]="newTheme()" (ngModelChange)="newTheme.set($event)" placeholder="e.g. Core Concepts" />
+      </div>
+      <div class="form-group">
+        <label>{{ 'DOMAINS.INDEX.SUBTHEME' | transloco }}</label>
+        <input type="text" [ngModel]="newSubtheme()" (ngModelChange)="newSubtheme.set($event)" placeholder="e.g. Definitions" />
+      </div>
+      <div class="form-group">
+        <label>{{ 'DOMAINS.INDEX.TAG' | transloco }}</label>
+        <input type="text" [ngModel]="newTag()" (ngModelChange)="newTag.set($event)" placeholder="e.g. #core-def" />
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn-submit" (click)="addIndexEntry()">{{ 'COMMON.SAVE' | transloco }}</button>
+        <button type="button" class="btn-cancel" (click)="toggleAddMode(false)">{{ 'COMMON.CANCEL' | transloco }}</button>
+      </div>
+    </div>
+  }
+
+  <!-- Index Table / Nested List Rendering -->
+  <div class="index-table-wrapper">
+    <table class="index-table">
+      <thead>
+        <tr>
+          <th>{{ 'DOMAINS.INDEX.CHAPTER' | transloco }}</th>
+          <th>{{ 'DOMAINS.INDEX.THEME' | transloco }}</th>
+          <th>{{ 'DOMAINS.INDEX.SUBTHEME' | transloco }}</th>
+          <th>{{ 'DOMAINS.INDEX.TAG' | transloco }}</th>
+          <th>{{ 'DOMAINS.INDEX.STATUS' | transloco }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of rows(); track row['id'] ?? row['tag']) {
+          <tr>
+            <td>{{ row['chapter'] }}</td>
+            <td>{{ row['theme'] }}</td>
+            <td>{{ row['subtheme'] }}</td>
+            <td><span class="tag-badge">{{ row['tag'] }}</span></td>
+            <td><span class="status-indicator" [class.synced]="row['syncStatus'] === 'synced'">{{ row['syncStatus'] }}</span></td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -14,7 +14,6 @@ export class DomainDataApiService {
 
   /**
    * HTTP GET: Fetches every Domain Data Sheet tab (name + rows) for one Catalog row.
-   * Includes the user's Google ID token for backend authentication.
    */
   getDomainSheets(row: number): Observable<GetDomainSheetsResponse> {
     const sampleUrl = 'sample-responses/get-domain-sheets.sample.json';
@@ -39,7 +38,6 @@ export class DomainDataApiService {
       endpoint += `&idToken=${encodeURIComponent(idToken)}`;
     }
 
-    // Falls back to the local sample response if the live endpoint 404s (e.g. stale deployment).
     const fetchPromise: Promise<unknown> = fetch(endpoint).then((response) => {
       if (response.status === 404) {
         console.warn(`GET ${endpoint} returned 404; falling back to sample data (${sampleUrl}).`);
@@ -59,8 +57,44 @@ export class DomainDataApiService {
   }
 
   /**
-   * The sample file holds one response per Catalog row; pick the match, falling back to the first entry.
+   * HTTP POST: Creates a new user-defined domain sheet with custom headers.
    */
+  createSheet(row: number, sheetName: string, headers: string[]): Observable<any> {
+    const webAppUrl = this.config.getWebAppUrl();
+    if (!webAppUrl) {
+      return throwError(() => new Error('Google Apps Script Web App URL is not configured.'));
+    }
+
+    const idToken = this.authService.idToken();
+    if (!idToken && !this.config.useSampleData()) {
+      return throwError(() => new Error('Authentication required to create a sheet.'));
+    }
+
+    // Construct the payload matching what doPost() and Router.routePost expect
+    const payload = {
+      action: 'CREATE_SHEET',
+      row: row,
+      sheetName: sheetName,
+      headers: headers,
+      idToken: idToken
+    };
+
+    const fetchPromise = fetch(webAppUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8', // Standard workaround for GAS CORS/POST handling
+      },
+      body: JSON.stringify(payload)
+    }).then(async (response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    });
+
+    return from(fetchPromise);
+  }
+
   private pickSampleResponseForRow(data: unknown, row: number): unknown {
     if (!Array.isArray(data)) {
       return data;

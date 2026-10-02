@@ -8,19 +8,86 @@
       "sheets": [
         {
           "index": 0,
-          "name": "Definitions",
+          "name": "INDEX",
           "rows": [
-            { "id": "d1", "word": "Übermensch", "definition": "El 'superhombre' o 'más allá del hombre': el ideal de quien crea sus propios valores tras la muerte de Dios.", "synonims": "superhombre" },
-            { "id": "d2", "word": "Eterno Retorno", "definition": "La idea de que el universo y todos sus eventos se repiten infinitamente de forma idéntica.", "synonims": "recurrencia eterna" },
-            { "id": "d3", "word": "Voluntad de Poder", "definition": "El impulso fundamental que, según Nietzsche, mueve a todo ser vivo a crecer, expandirse y superarse.", "synonims": "voluntad de dominio" }
+            {
+              "id": "idx_1",
+              "chapter": "Prólogo",
+              "theme": "El Superhombre",
+              "subtheme": "Definición y tránsito humano",
+              "tag": "#overman",
+              "syncStatus": "synced"
+            },
+            {
+              "id": "idx_2",
+              "chapter": "Primera Parte",
+              "theme": "La Muerte de Dios",
+              "subtheme": "Colapso metafísico",
+              "tag": "#death-of-god",
+              "syncStatus": "synced"
+            },
+            {
+              "id": "idx_3",
+              "chapter": "Tercera Parte",
+              "theme": "El Eterno Retorno",
+              "subtheme": "Recurrencia universal",
+              "tag": "#eternal-return",
+              "syncStatus": "synced"
+            },
+            {
+              "id": "idx_4",
+              "chapter": "Cuarta Parte",
+              "theme": "Voluntad de Poder",
+              "subtheme": "Impulso vital y expansión",
+              "tag": "#will-to-power",
+              "syncStatus": "synced"
+            }
           ]
         },
         {
           "index": 1,
-          "name": "Quotes",
+          "name": "CONCEPTS",
           "rows": [
-            { "id": "q1", "quote": "Dios ha muerto. Y nosotros lo hemos matado.", "book": "Así habló Zaratustra", "author": "Friedrich Nietzsche", "page": "12", "analysis": "Marca el colapso de los valores metafísicos tradicionales y la necesidad de crear nuevos valores." },
-            { "id": "q2", "quote": "El hombre es una cuerda tendida entre el animal y el superhombre.", "book": "Así habló Zaratustra", "author": "Friedrich Nietzsche", "page": "34", "analysis": "Describe al ser humano como un estado de transición hacia el Übermensch." }
+            {
+              "id": "d1",
+              "word": "Übermensch",
+              "definition": "El 'superhombre' o 'más allá del hombre': el ideal de quien crea sus propios valores tras la muerte de Dios.",
+              "synonims": "superhombre"
+            },
+            {
+              "id": "d2",
+              "word": "Eterno Retorno",
+              "definition": "La idea de que el universo y todos sus eventos se repiten infinitamente de forma idéntica.",
+              "synonims": "recurrencia eterna"
+            },
+            {
+              "id": "d3",
+              "word": "Voluntad de Poder",
+              "definition": "El impulso fundamental que, según Nietzsche, mueve a todo ser vivo a crecer, expandirse y superarse.",
+              "synonims": "voluntad de dominio"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "name": "QUOTES",
+          "rows": [
+            {
+              "id": "q1",
+              "quote": "Dios ha muerto. Y nosotros lo hemos matado.",
+              "book": "Así habló Zaratustra",
+              "author": "Friedrich Nietzsche",
+              "page": "12",
+              "analysis": "Marca el colapso de los valores metafísicos tradicionales y la necesidad de crear nuevos valores."
+            },
+            {
+              "id": "q2",
+              "quote": "El hombre es una cuerda tendida entre el animal y el superhombre.",
+              "book": "Así habló Zaratustra",
+              "author": "Friedrich Nietzsche",
+              "page": "34",
+              "analysis": "Describe al ser humano como un estado de transición hacia el Übermensch."
+            }
           ]
         }
       ]
@@ -34,20 +101,47 @@
       "catalogId": "Kafka-01",
       "sheets": [
         {
-          "index": 0,
-          "name": "Definitions",
+          "index": 1,
+          "name": "CONCEPTS",
           "rows": [
-            { "id": "d1", "word": "Broker", "definition": "Un servidor de Kafka que almacena datos y atiende solicitudes de productores y consumidores.", "synonims": "nodo de Kafka" },
-            { "id": "d2", "word": "Topic", "definition": "Una categoría o feed con nombre al cual los productores publican registros.", "synonims": "tema" },
-            { "id": "d3", "word": "Partition", "definition": "Una división ordenada e inmutable de un topic que permite paralelizar el consumo.", "synonims": "partición" },
-            { "id": "d4", "word": "Consumer Group", "definition": "Un conjunto de consumidores que cooperan para consumir datos de uno o más topics.", "synonims": "grupo de consumidores" }
+            {
+              "id": "d1",
+              "word": "Broker",
+              "definition": "Un servidor de Kafka que almacena datos y atiende solicitudes de productores y consumidores.",
+              "synonims": "nodo de Kafka"
+            },
+            {
+              "id": "d2",
+              "word": "Topic",
+              "definition": "Una categoría o feed con nombre al cual los productores publican registros.",
+              "synonims": "tema"
+            },
+            {
+              "id": "d3",
+              "word": "Partition",
+              "definition": "Una división ordenada e inmutable de un topic que permite paralelizar el consumo.",
+              "synonims": "partición"
+            },
+            {
+              "id": "d4",
+              "word": "Consumer Group",
+              "definition": "Un conjunto de consumidores que cooperan para consumir datos de uno o más topics.",
+              "synonims": "grupo de consumidores"
+            }
           ]
         },
         {
-          "index": 1,
-          "name": "Quotes",
+          "index": 2,
+          "name": "QUOTES",
           "rows": [
-            { "id": "q1", "quote": "Kafka is designed to allow a single cluster to serve as the central data backbone for a large organization.", "book": "Kafka: The Definitive Guide", "author": "Neha Narkhede, Gwen Shapira, Todd Palino", "page": "3", "analysis": "Resume la visión de Kafka como columna vertebral de datos para arquitecturas de streaming." }
+            {
+              "id": "q1",
+              "quote": "Kafka is designed to allow a single cluster to serve as the central data backbone for a large organization.",
+              "book": "Kafka: The Definitive Guide",
+              "author": "Neha Narkhede, Gwen Shapira, Todd Palino",
+              "page": "3",
+              "analysis": "Resume la visión de Kafka como columna vertebral de datos para arquitecturas de streaming."
+            }
           ]
         }
       ]
@@ -64,16 +158,40 @@
           "index": 0,
           "name": "Definitions",
           "rows": [
-            { "id": "d1", "word": "Macondo", "definition": "Pueblo ficticio donde se desarrolla la historia y que representa la memoria colectiva de la familia Buendía.", "synonims": "pueblo, hogar" },
-            { "id": "d2", "word": "Realismo mágico", "definition": "Estilo narrativo que mezcla lo cotidiano con elementos fantásticos sin explicación racional.", "synonims": "fantasía realista" }
+            {
+              "id": "d1",
+              "word": "Macondo",
+              "definition": "Pueblo ficticio donde se desarrolla la historia y que representa la memoria colectiva de la familia Buendía.",
+              "synonims": "pueblo, hogar"
+            },
+            {
+              "id": "d2",
+              "word": "Realismo mágico",
+              "definition": "Estilo narrativo que mezcla lo cotidiano con elementos fantásticos sin explicación racional.",
+              "synonims": "fantasía realista"
+            }
           ]
         },
         {
           "index": 1,
           "name": "Quotes",
           "rows": [
-            { "id": "q1", "quote": "La historia de la familia Buendía se repite como un ciclo inexorable.", "book": "Cien años de soledad", "author": "Gabriel García Márquez", "page": "8", "analysis": "Subraya el tiempo circular y la repetición de destinos." },
-            { "id": "q2", "quote": "La memoria es un río que vuelve siempre a sus orillas.", "book": "Cien años de soledad", "author": "Gabriel García Márquez", "page": "54", "analysis": "Resalta la importancia de la memoria colectiva y la inevitabilidad del pasado." }
+            {
+              "id": "q1",
+              "quote": "La historia de la familia Buendía se repite como un ciclo inexorable.",
+              "book": "Cien años de soledad",
+              "author": "Gabriel García Márquez",
+              "page": "8",
+              "analysis": "Subraya el tiempo circular y la repetición de destinos."
+            },
+            {
+              "id": "q2",
+              "quote": "La memoria es un río que vuelve siempre a sus orillas.",
+              "book": "Cien años de soledad",
+              "author": "Gabriel García Márquez",
+              "page": "54",
+              "analysis": "Resalta la importancia de la memoria colectiva y la inevitabilidad del pasado."
+            }
           ]
         }
       ]
@@ -90,16 +208,40 @@
           "index": 0,
           "name": "Definitions",
           "rows": [
-            { "id": "d1", "word": "Photosynthesis", "definition": "Process by which plants convert light energy into chemical energy to produce sugars and oxygen.", "synonims": "photosynthesis" },
-            { "id": "d2", "word": "Ecosystem", "definition": "A biological community of interacting organisms and their physical environment.", "synonims": "ecosystem, habitat" }
+            {
+              "id": "d1",
+              "word": "Photosynthesis",
+              "definition": "Process by which plants convert light energy into chemical energy to produce sugars and oxygen.",
+              "synonims": "photosynthesis"
+            },
+            {
+              "id": "d2",
+              "word": "Ecosystem",
+              "definition": "A biological community of interacting organisms and their physical environment.",
+              "synonims": "ecosystem, habitat"
+            }
           ]
         },
         {
           "index": 1,
           "name": "Quotes",
           "rows": [
-            { "id": "q1", "quote": "Life persists because every organism is part of a larger network of dependence and adaptation.", "book": "Principles of Ecology", "author": "Dr. Elena Ruiz", "page": "17", "analysis": "Connects survival to interdependence within ecosystems." },
-            { "id": "q2", "quote": "Evolution is the record of countless experiments in survival.", "book": "Life on Earth", "author": "David Attenborough", "page": "93", "analysis": "Frames biodiversity as the result of adaptive change over time." }
+            {
+              "id": "q1",
+              "quote": "Life persists because every organism is part of a larger network of dependence and adaptation.",
+              "book": "Principles of Ecology",
+              "author": "Dr. Elena Ruiz",
+              "page": "17",
+              "analysis": "Connects survival to interdependence within ecosystems."
+            },
+            {
+              "id": "q2",
+              "quote": "Evolution is the record of countless experiments in survival.",
+              "book": "Life on Earth",
+              "author": "David Attenborough",
+              "page": "93",
+              "analysis": "Frames biodiversity as the result of adaptive change over time."
+            }
           ]
         }
       ]

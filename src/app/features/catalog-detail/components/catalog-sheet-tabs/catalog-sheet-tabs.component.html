@@ -9,7 +9,7 @@
         [attr.aria-selected]="name === activeSheetName()"
         (click)="selectTab.emit(name)"
       >
-        {{ name }}
+        {{ 'DOMAINS.DOMAINS.' + name | transloco }}
       </button>
     }
   </div>
@@ -29,8 +29,8 @@
       <div class="domain-selector-form">
         <select #domainSelect class="domain-select" (change)="onDomainSelected(domainSelect.value)">
           <option value="" disabled selected>{{ 'CATALOG_DETAIL.SELECT_DOMAIN' | transloco }}</option>
-          @for (domain of availableDomains; track domain) {
-            <option [value]="domain">{{ 'CATALOG_DETAIL.DOMAINS.'+domain | transloco }}</option>
+          @for (domain of availableDomains(); track domain) {
+            <option [value]="domain">{{ 'DOMAINS.DOMAINS.'+domain | transloco }}</option>
           }
         </select>
         <button type="button" class="cancel-btn" (click)="toggleAddMode(false)">✕</button>

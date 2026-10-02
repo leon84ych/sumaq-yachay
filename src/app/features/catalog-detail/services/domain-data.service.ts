@@ -6,7 +6,6 @@ import { DomainDataApiService } from './domain-data-api.service';
 import { DomainSheet } from '../models/domain-sheet.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 
-// Tabs are rendered in the order defined by each sheet's `index`.
 function sortByIndex(sheets: DomainSheet[]): DomainSheet[] {
   return [...sheets].sort((a, b) => a.index - b.index);
 }
@@ -28,9 +27,6 @@ export class DomainDataService {
 
   readonly sheetNames = computed(() => this.sheets().map((sheet) => sheet.name));
 
-  /**
-   * Cache-first load for one Catalog entry's Domain Data Sheets, then refreshes in the background.
-   */
   async loadForCatalog(row: number): Promise<void> {
     this.loadedRow = row;
     this.errorMessage.set(null);
@@ -40,9 +36,39 @@ export class DomainDataService {
       this.sheets.set(sortByIndex(cached));
     }
 
-    // Auto-refresh in the background: always in sample-data mode, or when already authenticated.
     if (this.configService.useSampleData() || this.authService.idToken()) {
       await this.refreshFromRemote(row);
+    }
+  }
+
+  /**
+   * Provisions a brand new domain sheet with user-defined name and headers.
+   */
+  async createDomainSheet(sheetName: string, headers: string[]): Promise<void> {
+    if (!this.loadedRow) {
+      throw new Error('No active catalog row selected.');
+    }
+
+    const row = this.loadedRow;
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      const response = await firstValueFrom(this.apiService.createSheet(row, sheetName, headers));
+      
+      if (response && response.status === 'success') {
+        // Refresh sheets state from remote to pull the newly generated structure
+        await this.refreshFromRemote(row);
+      } else {
+        throw new Error(response?.message || 'Failed to create sheet.');
+      }
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : 'Unknown error creating domain sheet';
+      this.errorMessage.set(errorMsg);
+      console.warn('Create sheet failed:', errorMsg);
+      throw err;
+    } finally {
+      this.isLoading.set(false);
     }
   }
 
@@ -56,7 +82,6 @@ export class DomainDataService {
 
     this.isLoading.set(true);
     try {
-      // Pass idToken to the API service request
       const response = await firstValueFrom(this.apiService.getDomainSheets(row));
 
       if (response && response.status === 'success') {
