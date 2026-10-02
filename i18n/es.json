@@ -120,9 +120,43 @@
   "CATALOG_DETAIL": {
     "LOADING": "Cargando entrada del catálogo...",
     "UNSUPPORTED_SHEET": "Este tipo de hoja no está soportado para visualización aún.",
+    "DOMAIN": "Dominio",
+    "SELECT_DOMAIN": "Seleccionar dominio",
     "NOT_FOUND": {
       "TITLE": "Entrada No Encontrada",
       "DESC": "Esta entrada del catálogo no existe localmente. Intenta sincronizar o vuelve al Catálogo."
     }
+  }, 
+  "DOMAINS":{
+    "DOMAINS": {
+      "INDEX": "Índice",
+      "QUOTES": "Citas",
+      "TIMELINE": "Línea de Tiempo",
+      "RELATIONS": "Relaciones",
+      "CONCEPTS": "Conceptos",
+      "GLOSARY": "Glosario",
+      "QUESTIONS": "Preguntas"
+    },
+    "INDEX": {
+      "TITLE": "Índice",
+      "CHAPTER": "Capitulo",
+      "THEME": "Tema",
+      "SUBTHEME": "Subtema",
+      "TAG": "Etiqueta",
+      "STATUS": "Estado",
+      "ADD_ENTRY": "Agregar Entrada",
+      "NEW_ENTRY_TITLE": "Agregar Nueva Entrada"
+    }
+  },
+  "COMMON": {
+    "SAVE" : "Guardar",
+    "CANCEL": "Cancelar",
+    "DELETE": "Eliminar",
+    "EDIT": "Editar",
+    "VIEW": "Ver",
+    "NO_ENTRIES": "No se encontraron entradas.",
+    "LOADING": "Cargando...",
+    "ERROR": "Ocurrió un error. Por favor, inténtalo de nuevo.",
+    "RETRY": "Reintentar"
   }
 }
