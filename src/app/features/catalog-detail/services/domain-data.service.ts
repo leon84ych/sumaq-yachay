@@ -14,6 +14,7 @@ function sortByIndex(sheets: DomainSheet[]): DomainSheet[] {
   providedIn: 'root',
 })
 export class DomainDataService {
+
   private dbService = inject(AppDbService);
   private apiService = inject(DomainDataApiService);
   private authService = inject(GoogleAuthService);
@@ -55,7 +56,7 @@ export class DomainDataService {
 
     try {
       const response = await firstValueFrom(this.apiService.createSheet(row, sheetName, headers));
-      
+
       if (response && response.status === 'success') {
         // Refresh sheets state from remote to pull the newly generated structure
         await this.refreshFromRemote(row);
@@ -72,6 +73,130 @@ export class DomainDataService {
     }
   }
 
+/**
+   * HTTP POST: Optimistically save or update domain sheet rows locally and push to Google Sheets.
+   */
+  async updateDomainSheetRows(sheetName: string, updatedRows: Record<string, unknown>[]): Promise<void> {
+    if (!this.loadedRow) {
+      throw new Error('No active catalog row selected.');
+    }
+
+    const row = this.loadedRow;
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    // 1. Marcar las filas como 'pending' para la actualización optimista local
+    const rowsWithPendingStatus = updatedRows.map(r => ({
+      ...r,
+      syncStatus: 'pending'
+    }));
+
+    try {
+      // Guardar localmente usando el índice 'row' y filtrando por nombre de hoja en memoria
+      await this.dbService.db.transaction('rw', this.dbService.db.domainSheets, async () => {
+        const sheetsForCatalogRow = await this.dbService.db.domainSheets
+          .where('row')
+          .equals(row)
+          .toArray();
+
+        let targetSheet = sheetsForCatalogRow.find(s => s.name === sheetName);
+        if (targetSheet) {
+          targetSheet.rows = rowsWithPendingStatus;
+          await this.dbService.db.domainSheets.put(targetSheet);
+        } else {
+          // Si la hoja no existía localmente todavía, la inicializamos
+          targetSheet = {
+            row,
+            id: sheetName.trim().toLowerCase(),
+            name: sheetName,
+            index: sheetsForCatalogRow.length,
+            rows: rowsWithPendingStatus
+          };
+          await this.dbService.db.domainSheets.put(targetSheet);
+        }
+      });
+
+      this.updateLocalSheetRowsState(sheetName, rowsWithPendingStatus);
+
+      // 2. Enviar la petición POST al servidor de Google Apps Script
+      const response = await firstValueFrom(this.apiService.updateRows(row, sheetName, updatedRows));
+
+      if (response && response.status === 'success') {
+        // 3. Al recibir la respuesta exitosa, cambiar el estado local a 'synced'
+        const rowsWithSyncedStatus = updatedRows.map(r => ({
+          ...r,
+          syncStatus: 'synced'
+        }));
+
+        await this.dbService.db.transaction('rw', this.dbService.db.domainSheets, async () => {
+          const sheetsForCatalogRow = await this.dbService.db.domainSheets
+            .where('row')
+            .equals(row)
+            .toArray();
+
+          const targetSheet = sheetsForCatalogRow.find(s => s.name === sheetName);
+          if (targetSheet) {
+            targetSheet.rows = rowsWithSyncedStatus;
+            await this.dbService.db.domainSheets.put(targetSheet);
+          }
+        });
+
+        this.updateLocalSheetRowsState(sheetName, rowsWithSyncedStatus);
+      } else {
+        const message = typeof response?.message === 'string' ? response.message : '';
+        if (
+          response?.status === 'error' &&
+          (message.includes('Invalid or expired Google token') || message.includes('Missing idToken parameter'))
+        ) {
+          console.warn('Google token expired or missing; logging the user out.');
+          this.authService.logout();
+        }
+
+        throw new Error(message || 'Failed to update domain sheet rows.');
+      }
+    } catch (err: unknown) {
+      // 4. Si ocurre un error, marcar las filas con estado 'error'
+      const rowsWithErrorStatus = updatedRows.map(r => ({
+        ...r,
+        syncStatus: 'error'
+      }));
+
+      await this.dbService.db.transaction('rw', this.dbService.db.domainSheets, async () => {
+        const sheetsForCatalogRow = await this.dbService.db.domainSheets
+          .where('row')
+          .equals(row)
+          .toArray();
+
+        const targetSheet = sheetsForCatalogRow.find(s => s.name === sheetName);
+        if (targetSheet) {
+          targetSheet.rows = rowsWithErrorStatus;
+          await this.dbService.db.domainSheets.put(targetSheet);
+        }
+      });
+
+      this.updateLocalSheetRowsState(sheetName, rowsWithErrorStatus);
+
+      const errorMsg = err instanceof Error ? err.message : 'Unknown error updating domain sheet rows';
+      this.errorMessage.set(errorMsg);
+      console.warn('Update domain sheet rows failed:', errorMsg);
+      throw err;
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
+
+  private updateLocalSheetRowsState(sheetName: string, newRows: Record<string, unknown>[]): void {
+    this.sheets.update((currentSheets) => {
+      return currentSheets.map((sheet) => {
+        if (sheet.name === sheetName) {
+          return { ...sheet, rows: newRows };
+        }
+        return sheet;
+      });
+    });
+  }
+
+
   private async refreshFromRemote(row: number): Promise<void> {
     const idToken = this.authService.idToken();
     if (!this.configService.useSampleData() && !idToken) {
@@ -86,7 +211,7 @@ export class DomainDataService {
 
       if (response && response.status === 'success') {
         const rawSheets = Array.isArray(response.data?.sheets) ? response.data.sheets : [];
-        
+
         const normalized: DomainSheet[] = rawSheets.map((sheet) => ({
           row,
           id: sheet.name.trim().toLowerCase(),

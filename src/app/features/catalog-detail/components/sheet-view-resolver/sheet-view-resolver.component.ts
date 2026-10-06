@@ -20,6 +20,7 @@ export class SheetViewResolverComponent {
     return current ? current.name : 'unsupported';
   });
 
+  readonly currentSheet = computed(() => this.sheet() as DomainSheet);
   readonly conceptRows = computed(() => (this.sheet()?.rows ?? []) as unknown as ConceptRow[]);
   readonly quoteRows = computed(() => (this.sheet()?.rows ?? []) as unknown as QuoteRow[]);
   readonly indexRows = computed(() => (this.sheet()?.rows ?? []) as unknown as IndexRow[]);

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
-import { IndexRow } from '../../catalog-detail/models/domain-sheet.model';
+import { DomainSheet, IndexRow } from '../../catalog-detail/models/domain-sheet.model';
 
 @Component({
   selector: 'app-index',
@@ -15,6 +15,7 @@ import { IndexRow } from '../../catalog-detail/models/domain-sheet.model';
 export class IndexComponent {
 
   readonly rows = input.required<IndexRow[]>();
+  readonly currentSheet = input.required<DomainSheet>();
 
   private domainDataService = inject(DomainDataService);
 
@@ -65,7 +66,7 @@ export class IndexComponent {
     
     // Call your service update method here (e.g. updating item/row)
     try {
-      // await this.domainDataService.updateDomainSheetRows(currentSheet.name, updatedRows);
+      await this.domainDataService.updateDomainSheetRows(this.currentSheet().name, updatedRows);
       this.toggleAddMode(false);
     } catch (err) {
       console.error('Failed to add index entry:', err);

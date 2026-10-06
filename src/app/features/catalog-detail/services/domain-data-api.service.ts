@@ -33,7 +33,7 @@ export class DomainDataApiService {
 
     const idToken = this.authService.idToken();
     let endpoint = `${webAppUrl}?action=GET_SHEETS_NAMES&row=${encodeURIComponent(row)}`;
-    
+
     if (idToken) {
       endpoint += `&idToken=${encodeURIComponent(idToken)}`;
     }
@@ -100,5 +100,47 @@ export class DomainDataApiService {
       return data;
     }
     return data.find((entry) => entry?.data?.row === row) ?? data[0];
+  }
+
+  /**
+   * HTTP POST / Action: Updates rows for a specific domain sheet.
+   */
+  updateRows(row: number, sheetName: string, updatedRows: Record<string, unknown>[]): Observable<any> {
+    const webAppUrl = this.config.getWebAppUrl();
+    if (!webAppUrl) {
+      return throwError(() => new Error('Google Apps Script Web App URL is not configured.'));
+    }
+
+    const idToken = this.authService.idToken();
+    if (!idToken && !this.config.useSampleData()) {
+      return throwError(() => new Error('Authentication required to update sheet rows.'));
+    }
+
+    const payload = {
+      action: 'UPDATE_SHEET_ROWS',
+      row: row,
+      sheetName: sheetName,
+      rows: updatedRows,
+      idToken: idToken
+    };
+
+    const fetchPromise = fetch(webAppUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8', // Solución estándar para evitar bloqueos CORS y preflight en GAS
+      },
+      body: JSON.stringify(payload),
+    }).then(async (response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data && data.status === 'error') {
+        throw new Error(data.message || 'Failed to update domain sheet rows.');
+      }
+      return data;
+    });
+
+    return from(fetchPromise);
   }
 }

@@ -1,6 +1,6 @@
 @switch (viewKind()) {
 @case ('INDEX') {
-<app-index [rows]="indexRows()" />
+<app-index [currentSheet]="currentSheet()" [rows]="indexRows()" />
 }
 @case ('CONCEPTS') {
 <app-concepts [rows]="conceptRows()" />
