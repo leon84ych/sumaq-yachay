@@ -3,7 +3,8 @@
     "LOGIN": "Entrar",
     "LOGOUT": "Salir",
     "SIGN_IN": "Iniciar sesión con Google",
-    "SIGN_OUT": "Cerrar sesión"
+    "SIGN_OUT": "Cerrar sesión",
+    "NOT_SIGNED_IN": "No autenticado en esta aplicación"
   },
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
@@ -13,9 +14,8 @@
       "TITLE": "Configuración",
       "LOGIN": "Entrar",
       "LOGOUT": "Salir",
-      "DESCRIPTION": "Elige de dónde lee y escribe la aplicación los datos del Catálogo, y ajusta la apariencia.",
+      "DESCRIPTION": "Configura la URL de la aplicación web de Google Apps Script y ajusta la apariencia.",
       "SOURCE_URL": "URL de Google Apps Script Web App",
-      "SOURCE_SAMPLE": "Respuestas de Muestra (sin conexión, sin llamadas de red)",
       "URL_PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
       "TIMEOUT_LABEL": "Tiempo de espera de Apps Script",
       "TIMEOUT_30S": "30 segundos",
@@ -23,7 +23,6 @@
       "TIMEOUT_3M": "3 minutos",
       "TIMEOUT_6M": "6 minutos",
       "SAVE": "Guardar Cambios",
-      "SAMPLE_HINT": "Lee los archivos locales en public/sample-responses/. No se envían solicitudes GET ni POST mientras este origen esté seleccionado.",
       "APPEARANCE": "Apariencia",
       "THEME_LABEL": "Tema",
       "TEXT_SIZE_LABEL": "Tamaño de Texto",
@@ -35,7 +34,6 @@
     }
   },
   "CATALOG": {
-    "SAMPLE_DATA_BANNER": "⚠️ Usando datos de muestra de public/sample-responses/ — no conectado a la hoja de Google en vivo.",
     "HEADER": {
       "BADGE": "Índice Maestro",
       "TITLE": "Sumaq Yachay",
@@ -119,24 +117,25 @@
   },
   "CATALOG_DETAIL": {
     "LOADING": "Cargando entrada del catálogo...",
+    "NO_DEFINITIONS": "No se encontraron definiciones en esta hoja.",
+    "SYNONYMS": "Sinonimos:",
     "UNSUPPORTED_SHEET": "Este tipo de hoja no está soportado para visualización aún.",
     "DOMAIN": "Dominio",
     "SELECT_DOMAIN": "Seleccionar dominio",
     "NOT_FOUND": {
       "TITLE": "Entrada No Encontrada",
       "DESC": "Esta entrada del catálogo no existe localmente. Intenta sincronizar o vuelve al Catálogo."
-    }
-  }, 
-  "DOMAINS":{
-    "DOMAINS": {
-      "INDEX": "Índice",
-      "QUOTES": "Citas",
-      "TIMELINE": "Línea de Tiempo",
-      "RELATIONS": "Relaciones",
-      "CONCEPTS": "Conceptos",
-      "GLOSARY": "Glosario",
-      "QUESTIONS": "Preguntas"
     },
+    "ERRORS": {
+      "WEB_APP_URL_NOT_CONFIGURED": "No está configurada la URL de la aplicación web de Google Apps Script.",
+      "AUTHENTICATION_REQUIRED_CREATE": "Se requiere autenticación para crear una hoja.",
+      "AUTHENTICATION_REQUIRED_UPDATE": "Se requiere autenticación para actualizar las filas de la hoja.",
+      "HTTP_REQUEST_FAILED": "La petición HTTP falló con estado {{status}}.",
+      "UPDATE_ROWS_FAILED": "No se pudieron actualizar las filas de la hoja de dominio.",
+      "GET_SHEETS_FAILED": "No se pudieron obtener las hojas de dominio."
+    }
+  },
+  "DOMAINS": {
     "INDEX": {
       "TITLE": "Índice",
       "CHAPTER": "Capitulo",
@@ -146,10 +145,28 @@
       "STATUS": "Estado",
       "ADD_ENTRY": "Agregar Entrada",
       "NEW_ENTRY_TITLE": "Agregar Nueva Entrada"
+    },
+    "DOMAINS": {
+      "INDEX": "Índice",
+      "QUOTES": "Citas",
+      "TIMELINE": "Línea de Tiempo",
+      "RELATIONS": "Relaciones",
+      "CONCEPTS": "Conceptos",
+      "GLOSARY": "Glosario",
+      "QUESTIONS": "Preguntas"
+    },
+    "CONCEPTS": {
+      "NEW_ENTRY_TITLE": "Agregar Nuevo Concepto",
+      "TERM": "Término",
+      "DEFINITION": "Definición",
+      "CATEGORY": "Categoría",
+      "SOURCE": "Fuente",
+      "TAGS": "Etiquetas",
+      "CHARACTERS_LEFT": "{{count}} caracteres restantes"
     }
   },
   "COMMON": {
-    "SAVE" : "Guardar",
+    "SAVE": "Guardar",
     "CANCEL": "Cancelar",
     "DELETE": "Eliminar",
     "EDIT": "Editar",
@@ -157,6 +174,12 @@
     "NO_ENTRIES": "No se encontraron entradas.",
     "LOADING": "Cargando...",
     "ERROR": "Ocurrió un error. Por favor, inténtalo de nuevo.",
-    "RETRY": "Reintentar"
+    "RETRY": "Reintentar",
+    "STATUS": {
+      "synced": "Sincronizado",
+      "pending": "Pendiente",
+      "failed": "Fallo de Sincronización",
+      "error": "Error"
+    }
   }
 }
