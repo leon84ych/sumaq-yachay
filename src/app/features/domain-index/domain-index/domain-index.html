@@ -1,15 +1,7 @@
 <div class="index-view-container">
-  <div class="header-actions">
-    <h2>{{ 'DOMAINS.INDEX.TITLE' | transloco }}</h2>
-    @if (!isAdding()) {
-      <button type="button" class="btn-primary" (click)="toggleAddMode(true)">
-        + {{ 'DOMAINS.INDEX.ADD_ENTRY' | transloco }}
-      </button>
-    }
-  </div>
 
   <!-- Add Entry Form Modal / Inline Panel -->
-  @if (isAdding()) {
+  @if (isAddingEntry()) {
     <div class="add-entry-form">
       <h3>{{ 'DOMAINS.INDEX.NEW_ENTRY_TITLE' | transloco }}</h3>
       <div class="form-group">
@@ -30,7 +22,7 @@
       </div>
       <div class="form-actions">
         <button type="button" class="btn-submit" (click)="addIndexEntry()">{{ 'COMMON.SAVE' | transloco }}</button>
-        <button type="button" class="btn-cancel" (click)="toggleAddMode(false)">{{ 'COMMON.CANCEL' | transloco }}</button>
+        <button type="button" class="btn-cancel" (click)="resetForm()">{{ 'COMMON.CANCEL' | transloco }}</button>
       </div>
     </div>
   }
@@ -50,11 +42,11 @@
       <tbody>
         @for (row of rows(); track row['id'] ?? row['tag']) {
           <tr>
-            <td>{{ row['chapter'] }}</td>
-            <td>{{ row['theme'] }}</td>
-            <td>{{ row['subtheme'] }}</td>
-            <td><span class="tag-badge">{{ row['tag'] }}</span></td>
-            <td><span class="status-indicator" [class.synced]="row['syncStatus'] === 'synced'">{{ row['syncStatus'] }}</span></td>
+            <td [attr.data-label]="'DOMAINS.INDEX.CHAPTER' | transloco">{{ row['chapter'] }}</td>
+            <td [attr.data-label]="'DOMAINS.INDEX.THEME' | transloco">{{ row['theme'] }}</td>
+            <td [attr.data-label]="'DOMAINS.INDEX.SUBTHEME' | transloco">{{ row['subtheme'] }}</td>
+            <td [attr.data-label]="'DOMAINS.INDEX.TAG' | transloco"><span class="tag-badge">{{ row['tag'] }}</span></td>
+            <td [attr.data-label]="'DOMAINS.INDEX.STATUS' | transloco"><span class="status-indicator" [class.synced]="row['syncStatus'] === 'synced'">{{ 'COMMON.STATUS.' + row['syncStatus'] | transloco}}</span></td>
           </tr>
         } @empty {
           <tr>

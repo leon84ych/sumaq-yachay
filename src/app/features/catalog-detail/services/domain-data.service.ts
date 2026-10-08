@@ -1,10 +1,10 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
-import { ConfigService } from '../../../core/services/config.service';
 import { DomainDataApiService } from './domain-data-api.service';
 import { DomainSheet } from '../models/domain-sheet.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
+import { GlobalLoadingService } from '../../../core/services/global-loading.service';
 
 function sortByIndex(sheets: DomainSheet[]): DomainSheet[] {
   return [...sheets].sort((a, b) => a.index - b.index);
@@ -18,7 +18,7 @@ export class DomainDataService {
   private dbService = inject(AppDbService);
   private apiService = inject(DomainDataApiService);
   private authService = inject(GoogleAuthService);
-  private configService = inject(ConfigService);
+  private globalLoadingService = inject(GlobalLoadingService);
 
   readonly sheets = signal<DomainSheet[]>([]);
   readonly isLoading = signal<boolean>(false);
@@ -29,16 +29,21 @@ export class DomainDataService {
   readonly sheetNames = computed(() => this.sheets().map((sheet) => sheet.name));
 
   async loadForCatalog(row: number): Promise<void> {
+    const operation = this.globalLoadingService.begin();
     this.loadedRow = row;
     this.errorMessage.set(null);
 
-    const cached = await this.dbService.db.domainSheets.where('row').equals(row).toArray();
-    if (this.loadedRow === row) {
-      this.sheets.set(sortByIndex(cached));
-    }
+    try {
+      const cached = await this.dbService.db.domainSheets.where('row').equals(row).toArray();
+      if (this.loadedRow === row) {
+        this.sheets.set(sortByIndex(cached));
+      }
 
-    if (this.configService.useSampleData() || this.authService.idToken()) {
-      await this.refreshFromRemote(row);
+      if (this.authService.idToken()) {
+        await this.refreshFromRemote(row);
+      }
+    } finally {
+      this.globalLoadingService.end(operation);
     }
   }
 
@@ -51,6 +56,7 @@ export class DomainDataService {
     }
 
     const row = this.loadedRow;
+    const operation = this.globalLoadingService.begin();
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
@@ -69,6 +75,7 @@ export class DomainDataService {
       console.warn('Create sheet failed:', errorMsg);
       throw err;
     } finally {
+      this.globalLoadingService.end(operation);
       this.isLoading.set(false);
     }
   }
@@ -82,6 +89,7 @@ export class DomainDataService {
     }
 
     const row = this.loadedRow;
+    const operation = this.globalLoadingService.begin();
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
@@ -181,6 +189,7 @@ export class DomainDataService {
       console.warn('Update domain sheet rows failed:', errorMsg);
       throw err;
     } finally {
+      this.globalLoadingService.end(operation);
       this.isLoading.set(false);
     }
   }
@@ -199,12 +208,13 @@ export class DomainDataService {
 
   private async refreshFromRemote(row: number): Promise<void> {
     const idToken = this.authService.idToken();
-    if (!this.configService.useSampleData() && !idToken) {
+    if (!idToken) {
       this.errorMessage.set('CATALOG.ERRORS.authRequired');
       console.warn('Sync aborted: User is not authenticated with Google.');
       return;
     }
 
+    const operation = this.globalLoadingService.begin();
     this.isLoading.set(true);
     try {
       const response = await firstValueFrom(this.apiService.getDomainSheets(row));
@@ -247,6 +257,7 @@ export class DomainDataService {
       this.errorMessage.set(errorMsg);
       console.warn('Domain sheets remote fetch failed; keeping local cache:', errorMsg);
     } finally {
+      this.globalLoadingService.end(operation);
       this.isLoading.set(false);
     }
   }

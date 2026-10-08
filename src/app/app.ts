@@ -2,7 +2,9 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ConfigService, DataSource, GAS_TIMEOUT_OPTIONS } from './core/services/config.service';
+import { ConfigService, GAS_TIMEOUT_OPTIONS } from './core/services/config.service';
+import { GlobalErrorService } from './core/services/global-error.service';
+import { GlobalLoadingComponent } from './core/components/global-loading/global-loading.component';
 import { LoginComponent } from './features/authentication/components/login/login.component';
 
 const THEME_KEY = 'sumaq_yachay_theme';
@@ -16,13 +18,22 @@ const DEFAULT_FONT_SCALE_INDEX = 1; // 100%
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, FormsModule, TranslocoPipe, LoginComponent],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    FormsModule,
+    TranslocoPipe,
+    LoginComponent,
+    GlobalLoadingComponent,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   readonly translocoService = inject(TranslocoService);
   readonly configService = inject(ConfigService);
+  readonly globalErrorService = inject(GlobalErrorService);
   protected readonly title = signal('sumaq-yachay');
 
   // Global Data Source Settings Panel State
@@ -59,14 +70,9 @@ export class App {
     return this.translocoService.getActiveLang();
   }
 
-  selectDataSource(source: DataSource): void {
-    this.configService.setDataSource(source);
-  }
-
   saveApiConfig(): void {
     this.configService.setWebAppUrl(this.apiUrlInput);
     this.configService.setGasTimeoutMs(this.gasTimeoutInput);
-    this.configService.setDataSource(this.configService.dataSource());
     this.showSettings.set(false);
   }
 

@@ -1,14 +1,86 @@
 <div class="definitions-view">
+  @if (isAddingEntry()) {
+    <div class="add-entry-form">
+      <h3>{{ 'DOMAINS.CONCEPTS.NEW_ENTRY_TITLE' | transloco }}</h3>
+      <div class="form-group">
+        <label for="concept-term">{{ 'DOMAINS.CONCEPTS.TERM' | transloco }}</label>
+        <input
+          id="concept-term"
+          type="text"
+          [ngModel]="newTerm()"
+          (ngModelChange)="newTerm.set($event)"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="concept-definition">{{ 'DOMAINS.CONCEPTS.DEFINITION' | transloco }}</label>
+        <textarea
+          id="concept-definition"
+          rows="4"
+          [attr.maxLength]="definitionMaxLength"
+          [ngModel]="newDefinition()"
+          (ngModelChange)="newDefinition.set($event)"
+          required
+        ></textarea>
+        <small class="character-count">
+          {{ 'DOMAINS.CONCEPTS.CHARACTERS_LEFT' | transloco: { count: definitionCharactersRemaining() } }}
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="concept-category">{{ 'DOMAINS.CONCEPTS.CATEGORY' | transloco }}</label>
+        <input
+          id="concept-category"
+          type="text"
+          [ngModel]="newCategory()"
+          (ngModelChange)="newCategory.set($event)"
+        />
+      </div>
+      <div class="form-group">
+        <label for="concept-source">{{ 'DOMAINS.CONCEPTS.SOURCE' | transloco }}</label>
+        <input
+          id="concept-source"
+          type="text"
+          [ngModel]="newSource()"
+          (ngModelChange)="newSource.set($event)"
+        />
+      </div>
+      <div class="form-group">
+        <label for="concept-tags">{{ 'DOMAINS.CONCEPTS.TAGS' | transloco }}</label>
+        <input
+          id="concept-tags"
+          type="text"
+          [ngModel]="newTags()"
+          (ngModelChange)="newTags.set($event)"
+          placeholder="e.g. #research, #definitions"
+        />
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn-submit" (click)="addConcept()">
+          {{ 'COMMON.SAVE' | transloco }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="resetForm()">
+          {{ 'COMMON.CANCEL' | transloco }}
+        </button>
+      </div>
+    </div>
+  }
+
   @if (rows().length === 0) {
-    <p class="empty-state">No definitions found in this sheet.</p>
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
   } @else {
     <div class="definitions-grid">
       @for (row of rows(); track row.id) {
         <div class="definition-card">
-          <h4 class="term">{{ row.word }}</h4>
+          <h4 class="term">{{ row.term }}</h4>
           <p class="definition">{{ row.definition }}</p>
-          @if (row.synonims) {
-            <p class="synonims"><strong>Synonyms:</strong> {{ row.synonims }}</p>
+          @if (row.category) {
+            <p class="category"><strong>{{ 'DOMAINS.CONCEPTS.CATEGORY' | transloco }}</strong> {{ row.category }}</p>
+          }
+          @if (row.source) {
+            <p class="source"><strong>{{ 'DOMAINS.CONCEPTS.SOURCE' | transloco }}</strong> {{ row.source }}</p>
+          }
+          @if (row.tags) {
+            <p class="tags"><strong>{{ 'DOMAINS.CONCEPTS.TAGS' | transloco }}</strong> {{ row.tags }}</p>
           }
         </div>
       }

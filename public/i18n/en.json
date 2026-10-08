@@ -3,7 +3,11 @@
     "LOGIN": "Login",
     "LOGOUT": "Logout",
     "SIGN_IN": "Sign in with Google",
-    "SIGN_OUT": "Sign out"
+    "SIGN_OUT": "Sign out",
+    "NOT_SIGNED_IN": "Not signed in to this application"
+  },
+  "COMMON": {
+    "LOADING": "Loading..."
   },
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
@@ -13,9 +17,8 @@
       "TITLE": "Settings",
       "LOGIN": "Login",
       "LOGOUT": "Logout",
-      "DESCRIPTION": "Choose where the app reads and writes Catalog data from, and adjust appearance.",
+      "DESCRIPTION": "Configure the Google Apps Script Web App URL and adjust appearance.",
       "SOURCE_URL": "Google Apps Script Web App URL",
-      "SOURCE_SAMPLE": "Sample Responses (offline, no network calls)",
       "URL_PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
       "TIMEOUT_LABEL": "Google Apps Script Timeout",
       "TIMEOUT_30S": "30 seconds",
@@ -23,7 +26,6 @@
       "TIMEOUT_3M": "3 minutes",
       "TIMEOUT_6M": "6 minutes",
       "SAVE": "Save Changes",
-      "SAMPLE_HINT": "Reads local files under public/sample-responses/. No GET or POST requests are sent while this source is selected.",
       "APPEARANCE": "Appearance",
       "THEME_LABEL": "Theme",
       "TEXT_SIZE_LABEL": "Text Size",
@@ -35,7 +37,6 @@
     }
   },
   "CATALOG": {
-    "SAMPLE_DATA_BANNER": "⚠️ Using sample data from public/sample-responses/ — not connected to the live Google Sheet.",
     "HEADER": {
       "BADGE": "Master Index",
       "TITLE": "Sumaq Yachay",
@@ -119,6 +120,17 @@
   },
   "CATALOG_DETAIL": {
     "LOADING": "Loading catalog entry...",
+    "NO_DEFINITIONS": "No definitions found in this sheet.",
+    "SYNONYMS": "Synonyms:",
+    "CONCEPTS": {
+      "NEW_ENTRY_TITLE": "Add New Concept",
+      "TERM": "Term",
+      "DEFINITION": "Definition",
+      "CATEGORY": "Category",
+      "SOURCE": "Source",
+      "TAGS": "Tags",
+      "CHARACTERS_LEFT": "{{count}} characters remaining"
+    },
     "UNSUPPORTED_SHEET": "This sheet type isn't supported for viewing yet.",
     "DOMAIN": "Domain",
     "SELECT_DOMAIN": "Select Domain",
@@ -134,6 +146,14 @@
     "NOT_FOUND": {
       "TITLE": "Entry Not Found",
       "DESC": "This catalog entry doesn't exist locally. Try syncing or go back to the Catalog."
+    },
+    "ERRORS": {
+      "WEB_APP_URL_NOT_CONFIGURED": "Google Apps Script Web App URL is not configured.",
+      "AUTHENTICATION_REQUIRED_CREATE": "Authentication required to create a sheet.",
+      "AUTHENTICATION_REQUIRED_UPDATE": "Authentication required to update sheet rows.",
+      "HTTP_REQUEST_FAILED": "HTTP request failed with status {{status}}.",
+      "UPDATE_ROWS_FAILED": "Failed to update domain sheet rows.",
+      "GET_SHEETS_FAILED": "Failed to fetch domain sheets."
     }
   }
 }

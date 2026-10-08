@@ -43,6 +43,8 @@ export class CatalogDetail {
     () => this.domainDataService.sheets().find((s) => s.name === this.activeSheetName()) ?? null
   );
 
+  readonly isAddingEntry = signal<boolean>(false);
+
   constructor() {
     // Load the entry's Domain Data Sheets whenever the routed id changes.
     effect(() => {
@@ -64,6 +66,10 @@ export class CatalogDetail {
 
   selectTab(name: string): void {
     this.activeSheetName.set(name);
+  }
+
+  toggleAddingEntry(): void {
+    this.isAddingEntry.update((isAddingEntry) => !isAddingEntry);
   }
 }
 

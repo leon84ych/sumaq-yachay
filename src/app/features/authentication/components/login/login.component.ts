@@ -11,15 +11,18 @@ declare const google: any;
   imports: [CommonModule, TranslocoPipe],
   template: `
     <div class="auth-container">
-      @if (authService.currentUser(); as user) {
+      @if (authService.isSignedIn() && authService.currentUser(); as user) {
         <div class="user-badge">
           <img [src]="user.picture" [alt]="user.name" class="avatar" />
           <span class="user-name">{{ user.name }}</span>
-          <button type="button" (click)="logout()" class="btn-logout">{{'AUTH.SIGN_OUT' | transloco}}</button>
+          <button type="button" (click)="logout()" class="btn-logout">{{ 'AUTH.SIGN_OUT' | transloco }}</button>
         </div>
       } @else {
-        <div class="google-login-wrap" [attr.aria-label]="'AUTH.SIGN_IN' | transloco">
-          <div id="google-btn" class="google-btn" aria-label="Google Sign In">{{'AUTH.SIGN_IN' | transloco}}</div>
+        <div class="google-login-wrap" aria-live="polite">
+          <span class="not-signed-in-message">{{ 'AUTH.NOT_SIGNED_IN' | transloco }}</span>
+          <button type="button" (click)="signIn()" class="btn-sign-in">
+            {{ 'AUTH.SIGN_IN' | transloco }}
+          </button>
         </div>
       }
     </div>
@@ -78,29 +81,39 @@ declare const google: any;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 0.55rem;
       min-height: 0;
     }
 
-    .google-btn {
+    .not-signed-in-message {
+      color: #e3ebed;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .btn-sign-in {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 0;
-      height: 34px;
-      width: 34px;
-      max-width: 34px;
-      overflow: hidden;
-      vertical-align: middle;
+      min-height: 34px;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
     }
 
-    .google-btn ::ng-deep > div,
-    .google-btn iframe {
-      height: 34px !important;
-      min-height: 18px !important;
-      max-height: 34px !important;
-      width: 34px !important;
-      max-width: 34px !important;
-      min-width: 18px !important;
+    .btn-sign-in:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    @media (max-width: 600px) {
+      .user-name {
+        display: none;
+      }
     }
   `,
 })
@@ -110,21 +123,29 @@ export class LoginComponent implements AfterViewInit {
   private readonly CLIENT_ID = '893818536709-k4m6pqgihkr146oteca8p3vr7b8auh55.apps.googleusercontent.com';
 
   ngAfterViewInit(): void {
-    this.initGoogleButton();
+    if (!this.authService.isSignedIn()) {
+      this.authService.clearSession();
+    }
+
+    this.initializeGoogleIdentity();
   }
 
-  private initGoogleButton(): void {
-    if (this.authService.idToken()) return;
+  private initializeGoogleIdentity(): void {
+    if (this.authService.isSignedIn()) return;
 
     if (typeof google !== 'undefined' && google.accounts?.id) {
-      this.authService.renderGoogleButton('google-btn', this.CLIENT_ID);
+      this.authService.initializeGoogleIdentity(this.CLIENT_ID);
     } else {
-      setTimeout(() => this.initGoogleButton(), 100);
+      setTimeout(() => this.initializeGoogleIdentity(), 100);
     }
+  }
+
+  signIn(): void {
+    this.authService.signIn();
   }
 
   logout(): void {
     this.authService.logout();
-    setTimeout(() => this.initGoogleButton(), 0);
+    setTimeout(() => this.initializeGoogleIdentity(), 0);
   }
 }

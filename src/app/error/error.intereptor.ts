@@ -1,29 +1,37 @@
-import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { DomainDataService } from '../features/catalog-detail/services/domain-data.service'; 
+import { catchError, throwError } from 'rxjs';
+import { GlobalErrorService } from '../core/services/global-error.service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  const domainDataService = inject(DomainDataService);
+  const globalErrorService = inject(GlobalErrorService);
 
   return next(req).pipe(
-    catchError((error: HttpErrorResponse) => {
-      let errorMessage = 'An unexpected error occurred.';
+    catchError((error: unknown) => {
+      const httpError =
+        error instanceof HttpErrorResponse ? error : new HttpErrorResponse({ error });
+      const errorMessage = getErrorMessage(httpError);
 
-      if (error.error instanceof ErrorEvent) {
-        // Client-side or network error
-        errorMessage = `Client Error: ${error.error.message}`;
-      } else {
-        // Server-side response error
-        errorMessage = error.error?.message || `Server Error Status: ${error.status}`;
-      }
-
-      // Automatically push the error message to your service's error signal so the UI updates
-      domainDataService.errorMessage.set(errorMessage);
-
-      console.error('HTTP Interceptor caught error:', errorMessage);
+      globalErrorService.show(errorMessage);
+      console.error('HTTP interceptor caught error:', errorMessage);
 
       return throwError(() => new Error(errorMessage));
     })
   );
 };
+
+function getErrorMessage(error: HttpErrorResponse): string {
+  if (error.error instanceof ErrorEvent) {
+    return `Client error: ${error.error.message}`;
+  }
+
+  if (typeof error.error === 'string' && error.error.trim()) {
+    return `Request failed (${error.status}): ${error.error.trim()}`;
+  }
+
+  if (error.error && typeof error.error.message === 'string' && error.error.message.trim()) {
+    return `Request failed (${error.status}): ${error.error.message.trim()}`;
+  }
+
+  return `Request failed with status ${error.status || 'unknown'}.`;
+}

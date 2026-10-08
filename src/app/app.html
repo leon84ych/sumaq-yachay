@@ -1,4 +1,6 @@
 ﻿<div class="app-layout">
+  <app-global-loading />
+
   <!-- Global Top Navbar -->
   <header class="app-navbar">
     <div class="nav-container">
@@ -38,6 +40,18 @@
       </div>
     </div>
 
+    @if (globalErrorService.message()) {
+      <div class="global-error-banner" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="global-error-content">
+          <svg class="global-error-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+          </svg>
+          <span class="global-error-message">{{ globalErrorService.message() }}</span>
+        </div>
+        <button type="button" class="global-error-close" aria-label="Dismiss error" (click)="globalErrorService.clear()">✕</button>
+      </div>
+    }
+
     <!-- Global Data Source Configuration Drawer -->
     @if (showSettings()) {
     <div class="settings-drawer">
@@ -48,20 +62,6 @@
           <p>{{ 'NAV.SETTINGS.DESCRIPTION' | transloco }}</p>
         </div>
 
-        <div class="source-options" role="radiogroup">
-          <label class="source-option">
-            <input type="radio" name="dataSource" [checked]="configService.dataSource() === 'url'"
-              (change)="selectDataSource('url')" />
-            {{ 'NAV.SETTINGS.SOURCE_URL' | transloco }}
-          </label>
-          <label class="source-option">
-            <input type="radio" name="dataSource" [checked]="configService.dataSource() === 'sample'"
-              (change)="selectDataSource('sample')" />
-            {{ 'NAV.SETTINGS.SOURCE_SAMPLE' | transloco }}
-          </label>
-        </div>
-
-        @if (configService.dataSource() === 'url') {
         <div class="settings-form">
           <input type="url" [(ngModel)]="apiUrlInput" [placeholder]="'NAV.SETTINGS.URL_PLACEHOLDER' | transloco"
             class="url-input" />
@@ -75,13 +75,6 @@
           <button type="button" class="btn-save" (click)="saveApiConfig()">{{ 'NAV.SETTINGS.SAVE' | transloco
             }}</button>
         </div>
-        } @else {
-        <div class="settings-form">
-          <button type="button" class="btn-save" (click)="saveApiConfig()">{{ 'NAV.SETTINGS.SAVE' | transloco
-            }}</button>
-          <p class="sample-hint">{{ 'NAV.SETTINGS.SAMPLE_HINT' | transloco }}</p>
-        </div>
-        }
 
         <hr class="settings-divider" />
 

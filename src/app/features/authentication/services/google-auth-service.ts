@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare const google: any;
 
@@ -12,18 +13,17 @@ export interface UserProfile {
   providedIn: 'root',
 })
 export class GoogleAuthService {
+  private readonly router = inject(Router);
   private readonly TOKEN_KEY = 'g_id_token';
+  private readonly storedToken = this.getStoredToken();
+  private googleInitialized = false;
 
   // State Signals
-  readonly idToken = signal<string | null>(this.getStoredToken());
-  readonly currentUser = signal<UserProfile | null>(this.decodeUserFromToken(this.getStoredToken()));
+  readonly idToken = signal<string | null>(this.storedToken);
+  readonly currentUser = signal<UserProfile | null>(this.decodeUserFromToken(this.storedToken));
 
-  /**
-   * Initializes GIS and mounts the Google Sign-In button into a DOM element.
-   */
-  renderGoogleButton(elementId: string, clientId: string): void {
-    if (typeof google === 'undefined' || !google.accounts?.id) {
-      console.warn('Google Identity Services SDK not loaded yet.');
+  initializeGoogleIdentity(clientId: string): void {
+    if (this.googleInitialized || typeof google === 'undefined' || !google.accounts?.id) {
       return;
     }
 
@@ -32,32 +32,75 @@ export class GoogleAuthService {
       callback: (response: { credential: string }) => this.handleCredentialResponse(response.credential),
       auto_select: false,
     });
-    const targetElement = document.getElementById(elementId);
-    if (targetElement) {
-      google.accounts.id.renderButton(targetElement, {
-        theme: 'outline',
-        size: 'large',
-        type: 'standard',
-        shape: 'rectangular',
-        text: 'signin_with',
-      });
-    }
+    this.googleInitialized = true;
   }
 
-  logout(): void {
+  signIn(): void {
+    if (!this.googleInitialized || typeof google === 'undefined' || !google.accounts?.id) {
+      console.warn('Google Identity Services is not ready yet.');
+      return;
+    }
+
+    google.accounts.id.prompt();
+  }
+
+  isSignedIn(): boolean {
+    return Boolean(this.idToken() && this.currentUser());
+  }
+
+  clearSession(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     this.idToken.set(null);
     this.currentUser.set(null);
   }
 
+  logout(): void {
+    this.clearSession();
+  }
+
   private handleCredentialResponse(token: string): void {
+    const user = this.decodeUserFromToken(token);
+    if (!user || this.isTokenExpired(token)) {
+      this.clearSession();
+      return;
+    }
+
     localStorage.setItem(this.TOKEN_KEY, token);
     this.idToken.set(token);
-    this.currentUser.set(this.decodeUserFromToken(token));
+    this.currentUser.set(user);
+    this.router.navigateByUrl('/catalog');
   }
 
   private getStoredToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
+    const token = localStorage.getItem(this.TOKEN_KEY);
+    const user = this.decodeUserFromToken(token);
+
+    if (!user || this.isTokenExpired(token)) {
+      localStorage.removeItem(this.TOKEN_KEY);
+      return null;
+    }
+
+    return token;
+  }
+
+  private isTokenExpired(token: string | null): boolean {
+    if (!token) return true;
+
+    try {
+      const payloadBase64 = token.split('.')[1];
+      const base64 = payloadBase64.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = JSON.parse(
+        decodeURIComponent(
+          atob(base64)
+            .split('')
+            .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+            .join('')
+        )
+      );
+      return typeof jsonPayload.exp !== 'number' || jsonPayload.exp <= Date.now() / 1000;
+    } catch {
+      return true;
+    }
   }
 
   private decodeUserFromToken(token: string | null): UserProfile | null {

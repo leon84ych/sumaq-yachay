@@ -1,9 +1,19 @@
 @switch (viewKind()) {
 @case ('INDEX') {
-<app-index [currentSheet]="currentSheet()" [rows]="indexRows()" />
+<app-index
+  [currentSheet]="currentSheet()"
+  [rows]="indexRows()"
+  [isAddingEntry]="isAddingEntry()"
+  (closeEntry)="closeEntry.emit()"
+/>
 }
 @case ('CONCEPTS') {
-<app-concepts [rows]="conceptRows()" />
+<app-concepts
+  [rows]="conceptRows()"
+  [currentSheet]="currentSheet()"
+  [isAddingEntry]="isAddingEntry()"
+  (closeEntry)="closeEntry.emit()"
+/>
 }
 @case ('QUOTES') {
 <app-quote-gallery [rows]="quoteRows()" />

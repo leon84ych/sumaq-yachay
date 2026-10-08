@@ -23,11 +23,19 @@ export interface GetDomainSheetsResponse {
 
 // --- Known per-sheet row shapes (Phase D: Definitions & Quotes) ---
 
-export interface ConceptRow {
+
+export interface DomainSheetRow extends Record<string, unknown> {
   id: string;
-  word: string;
+  tags?: string;
+  syncStatus: 'synced' | 'pending' | 'error';
+}
+
+export interface ConceptRow extends DomainSheetRow{
+  term: string;
   definition: string;
-  synonims?: string;
+  category?: string;
+  source?: string;
+
 }
 
 export interface QuoteRow {
@@ -41,11 +49,9 @@ export interface QuoteRow {
 
 
 
-export interface IndexRow {
-  id: string;
+export interface IndexRow extends DomainSheetRow{
   chapter: string;
   theme: string;
   subtheme: string;
   tag: string;
-  syncStatus: 'synced' | 'pending' | 'error';
 }

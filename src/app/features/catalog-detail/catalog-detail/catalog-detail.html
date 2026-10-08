@@ -1,16 +1,17 @@
 <div class="detail-page">
-  @if (configService.useSampleData() || configService.sampleDataFallbackActive()) {
-    <div class="sample-data-banner">{{ 'CATALOG.SAMPLE_DATA_BANNER' | transloco }}</div>
-  }
-
   @if (item(); as entry) {
     <app-catalog-overview [item]="entry" />
     <app-catalog-sheet-tabs
       [sheetNames]="domainDataService.sheetNames()"
       [activeSheetName]="activeSheetName()"
       (selectTab)="selectTab($event)"
+      (addEntry)="toggleAddingEntry()"
     />
-    <app-sheet-view-resolver [sheet]="activeSheet()" />
+    <app-sheet-view-resolver
+      [sheet]="activeSheet()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="isAddingEntry.set(false)"
+    />
   } @else if (catalogService.isLoading()) {
     <p class="state-message">{{ 'CATALOG_DETAIL.LOADING' | transloco }}</p>
   } @else {

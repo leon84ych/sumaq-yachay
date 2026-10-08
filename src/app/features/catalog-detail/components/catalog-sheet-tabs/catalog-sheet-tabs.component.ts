@@ -1,6 +1,7 @@
 import { Component, input, output, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { GlobalErrorService } from '../../../../core/services/global-error.service';
 import { DomainDataService } from '../../services/domain-data.service';
 
 @Component({
@@ -12,22 +13,25 @@ import { DomainDataService } from '../../services/domain-data.service';
 })
 export class CatalogSheetTabsComponent {
   private domainDataService = inject(DomainDataService);
+  private globalErrorService = inject(GlobalErrorService);
 
   readonly sheetNames = input.required<string[]>();
   readonly activeSheetName = input<string | null>(null);
-  
+
   readonly selectTab = output<string>();
   readonly addSheet = output<string>();
+  readonly addEntry = output<void>();
+
 
   // Full master list of all available domain types
   private readonly allAvailableDomains = [
-      'INDEX',
-      'QUOTES',
-      'TIMELINE',
-      'RELATIONS',
-      'CONCEPTS',
-      'GLOSARY',
-      'QUESTIONS'
+    'INDEX',
+    'QUOTES',
+    'TIMELINE',
+    'RELATIONS',
+    'CONCEPTS',
+    'GLOSARY',
+    'QUESTIONS'
   ];
 
   // Computed property that filters out domains that have already been created as sheets
@@ -54,6 +58,8 @@ export class CatalogSheetTabsComponent {
       this.addSheet.emit(domainName);
       this.selectTab.emit(domainName);
     } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to create domain sheet.';
+      this.globalErrorService.show(errorMessage);
       console.error('Failed to create domain sheet:', err);
     } finally {
       this.isCreating.set(false);
@@ -61,7 +67,7 @@ export class CatalogSheetTabsComponent {
     }
   }
 
-private getDefaultHeadersForDomain(domain: string): string[] {
+  private getDefaultHeadersForDomain(domain: string): string[] {
     switch (domain) {
       case 'INDEX':
         return ['id', 'chapter', 'theme', 'subtheme', 'tag', 'syncStatus'];
@@ -79,7 +85,7 @@ private getDefaultHeadersForDomain(domain: string): string[] {
         return ['id', 'question', 'answer', 'difficulty', 'status', 'syncStatus'];
       default:
         // Fallback for any unknown domain
-        return ['id', 'tag', 'syncStatus']; 
+        return ['id', 'tag', 'syncStatus'];
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable, computed, inject, signal } from '@angular/core';
+import { effect, Injectable, computed, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config.service';
@@ -6,6 +6,7 @@ import { CatalogApiService } from './catalog-api.service';
 import { CatalogItem } from '../models/catalog-item.model';
 import { CatalogPostPayload } from '../models/catalog-api.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
+import { GlobalLoadingService } from '../../../core/services/global-loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,7 @@ export class CatalogService {
   private apiService = inject(CatalogApiService);
   private authService = inject(GoogleAuthService);
   private configService = inject(ConfigService);
+  private globalLoadingService = inject(GlobalLoadingService);
 
   // State Signals
   readonly items = signal<CatalogItem[]>([]);
@@ -72,15 +74,17 @@ export class CatalogService {
 
   constructor() {
     this.init();
+
+    effect(() => {
+      const token = this.authService.idToken();
+      if (!token) return;
+
+      void this.syncFromRemote();
+    });
   }
 
   async init(): Promise<void> {
     await this.loadFromLocal();
-    // Auto-refresh in the background: always in sample-data mode, or when already authenticated.
-    // Skipped silently otherwise so an unauthenticated user isn't shown the auth-required error on load.
-    if (this.configService.useSampleData() || this.authService.idToken()) {
-      void this.syncFromRemote();
-    }
   }
 
   /**
@@ -104,13 +108,13 @@ export class CatalogService {
    * HTTP GET: Syncs the catalog from Google Apps Script Web App
    */
   async syncFromRemote(): Promise<void> {
-    // Sample data mode is fully offline; skip the authentication requirement.
-    if (!this.configService.useSampleData() && !this.authService.idToken()) {
+    if (!this.authService.idToken()) {
       this.errorMessage.set('CATALOG.ERRORS.authRequired');
       console.warn('Sync aborted: User is not authenticated with Google.');
       return;
     }
 
+    const operation = this.globalLoadingService.begin();
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
@@ -142,6 +146,7 @@ export class CatalogService {
       this.errorMessage.set('CATALOG.ERRORS.syncFailed');
       console.warn('Sync from remote failed; maintaining local cache:', err);
     } finally {
+      this.globalLoadingService.end(operation);
       this.isLoading.set(false);
     }
   }
@@ -168,6 +173,8 @@ export class CatalogService {
       await this.dbService.db.catalogs.delete(originalId);
       this.removeLocalItemFromState(originalId); // Helper to clear state array
     }
+
+    const operation = this.globalLoadingService.begin();
 
     // 1. Optimistic local update
     await this.dbService.db.catalogs.put(item);
@@ -214,6 +221,8 @@ export class CatalogService {
       const errorItem: CatalogItem = { ...item, syncStatus: 'error' };
       await this.dbService.db.catalogs.put(errorItem);
       this.updateLocalItemInState(errorItem);
+    } finally {
+      this.globalLoadingService.end(operation);
     }
   }
 

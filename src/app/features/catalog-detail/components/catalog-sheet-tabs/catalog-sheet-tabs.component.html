@@ -16,6 +16,11 @@
 
   <!-- Add Domain Control -->
   <div class="add-domain-wrapper">
+    @if (activeSheetName()) {
+      <button type="button" class="btn-primary" (click)="addEntry.emit()">
+        + {{ 'DOMAINS.INDEX.ADD_ENTRY' | transloco }}
+      </button>
+    }
     @if (!isAdding()) {
       <button 
         type="button" 

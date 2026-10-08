@@ -1,7 +1,8 @@
-import { Component, input, signal, inject } from '@angular/core';
+import { Component, input, output, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet, IndexRow } from '../../catalog-detail/models/domain-sheet.model';
 
@@ -16,29 +17,25 @@ export class IndexComponent {
 
   readonly rows = input.required<IndexRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
+  readonly isAddingEntry = input<boolean>(false);
+  readonly closeEntry = output<void>();
 
   private domainDataService = inject(DomainDataService);
+  private globalErrorService = inject(GlobalErrorService);
 
 
   // Form state for adding a new index entry
-  readonly isAdding = signal<boolean>(false);
   readonly newChapter = signal<string>('');
   readonly newTheme = signal<string>('');
   readonly newSubtheme = signal<string>('');
   readonly newTag = signal<string>('');
 
-  toggleAddMode(show: boolean) {
-    this.isAdding.set(show);
-    if (!show) {
-      this.resetForm();
-    }
-  }
-
-  private resetForm() {
+  public resetForm() {
     this.newChapter.set('');
     this.newTheme.set('');
     this.newSubtheme.set('');
     this.newTag.set('');
+    this.closeEntry.emit();
   }
 
   async addIndexEntry() {
@@ -67,8 +64,10 @@ export class IndexComponent {
     // Call your service update method here (e.g. updating item/row)
     try {
       await this.domainDataService.updateDomainSheetRows(this.currentSheet().name, updatedRows);
-      this.toggleAddMode(false);
+      this.resetForm();
     } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to add index entry.';
+      this.globalErrorService.show(errorMessage);
       console.error('Failed to add index entry:', err);
     }
   }

@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConceptsComponent } from '../../../domain-concepts/domain-concept/concept.component';
 import { QuoteGalleryComponent } from '../../../domain-quotes/domain-quote/quote-gallery.component';
@@ -14,6 +14,9 @@ import { IndexComponent } from '../../../domain-index/domain-index/domain-index'
 })
 export class SheetViewResolverComponent {
   readonly sheet = input<DomainSheet | null>(null);
+
+  readonly isAddingEntry = input<boolean>(false);
+  readonly closeEntry = output<void>();
 
   readonly viewKind = computed(() => {
     const current = this.sheet();

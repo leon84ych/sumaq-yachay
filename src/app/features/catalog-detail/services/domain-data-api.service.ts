@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
+import { TranslocoService } from '@jsverse/transloco';
 import { from, Observable, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ConfigService } from '../../../core/services/config.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { GetDomainSheetsResponse } from '../models/domain-sheet.model';
@@ -11,24 +11,17 @@ import { GetDomainSheetsResponse } from '../models/domain-sheet.model';
 export class DomainDataApiService {
   private config = inject(ConfigService);
   private authService = inject(GoogleAuthService);
+  private transloco = inject(TranslocoService);
 
   /**
    * HTTP GET: Fetches every Domain Data Sheet tab (name + rows) for one Catalog row.
    */
   getDomainSheets(row: number): Observable<GetDomainSheetsResponse> {
-    const sampleUrl = 'sample-responses/get-domain-sheets.sample.json';
-
-    if (this.config.useSampleData()) {
-      this.config.setSampleDataFallbackActive(false);
-      const fetchPromise: Promise<unknown> = fetch(sampleUrl)
-        .then((response) => response.json())
-        .then((data) => this.pickSampleResponseForRow(data, row));
-      return from(fetchPromise).pipe(map((data) => data as GetDomainSheetsResponse));
-    }
-
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
-      return throwError(() => new Error('Google Apps Script Web App URL is not configured.'));
+      return throwError(() =>
+        new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'))
+      );
     }
 
     const idToken = this.authService.idToken();
@@ -38,22 +31,18 @@ export class DomainDataApiService {
       endpoint += `&idToken=${encodeURIComponent(idToken)}`;
     }
 
-    const fetchPromise: Promise<unknown> = fetch(endpoint).then((response) => {
-      if (response.status === 404) {
-        console.warn(`GET ${endpoint} returned 404; falling back to sample data (${sampleUrl}).`);
-        this.config.setSampleDataFallbackActive(true);
-        return fetch(sampleUrl)
-          .then((sampleResponse) => sampleResponse.json())
-          .then((data) => this.pickSampleResponseForRow(data, row));
-      }
+    const fetchPromise: Promise<GetDomainSheetsResponse> = fetch(endpoint).then(async (response) => {
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(
+          this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+            status: response.status,
+          })
+        );
       }
-      this.config.setSampleDataFallbackActive(false);
-      return response.json();
+      return response.json() as Promise<GetDomainSheetsResponse>;
     });
 
-    return from(fetchPromise).pipe(map((data) => data as GetDomainSheetsResponse));
+    return from(fetchPromise);
   }
 
   /**
@@ -62,12 +51,16 @@ export class DomainDataApiService {
   createSheet(row: number, sheetName: string, headers: string[]): Observable<any> {
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
-      return throwError(() => new Error('Google Apps Script Web App URL is not configured.'));
+      return throwError(() =>
+        new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'))
+      );
     }
 
     const idToken = this.authService.idToken();
-    if (!idToken && !this.config.useSampleData()) {
-      return throwError(() => new Error('Authentication required to create a sheet.'));
+    if (!idToken) {
+      return throwError(() =>
+        new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.AUTHENTICATION_REQUIRED_CREATE'))
+      );
     }
 
     // Construct the payload matching what doPost() and Router.routePost expect
@@ -87,19 +80,16 @@ export class DomainDataApiService {
       body: JSON.stringify(payload)
     }).then(async (response) => {
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(
+          this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+            status: response.status,
+          })
+        );
       }
       return response.json();
     });
 
     return from(fetchPromise);
-  }
-
-  private pickSampleResponseForRow(data: unknown, row: number): unknown {
-    if (!Array.isArray(data)) {
-      return data;
-    }
-    return data.find((entry) => entry?.data?.row === row) ?? data[0];
   }
 
   /**
@@ -108,12 +98,16 @@ export class DomainDataApiService {
   updateRows(row: number, sheetName: string, updatedRows: Record<string, unknown>[]): Observable<any> {
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
-      return throwError(() => new Error('Google Apps Script Web App URL is not configured.'));
+      return throwError(() =>
+        new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'))
+      );
     }
 
     const idToken = this.authService.idToken();
-    if (!idToken && !this.config.useSampleData()) {
-      return throwError(() => new Error('Authentication required to update sheet rows.'));
+    if (!idToken) {
+      return throwError(() =>
+        new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.AUTHENTICATION_REQUIRED_UPDATE'))
+      );
     }
 
     const payload = {
@@ -132,11 +126,18 @@ export class DomainDataApiService {
       body: JSON.stringify(payload),
     }).then(async (response) => {
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(
+          this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+            status: response.status,
+          })
+        );
       }
       const data = await response.json();
       if (data && data.status === 'error') {
-        throw new Error(data.message || 'Failed to update domain sheet rows.');
+        throw new Error(
+          data.message ||
+            this.transloco.translate('CATALOG_DETAIL.ERRORS.UPDATE_ROWS_FAILED')
+        );
       }
       return data;
     });
