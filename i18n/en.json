@@ -155,5 +155,16 @@
       "UPDATE_ROWS_FAILED": "Failed to update domain sheet rows.",
       "GET_SHEETS_FAILED": "Failed to fetch domain sheets."
     }
+  },
+  "DOMAINS": {
+    "QUOTE": {
+      "NEW_ENTRY_TITLE": "Add New Quote",
+      "QUOTE": "Quote",
+      "ANALYSIS": "Analysis",
+      "BOOK": "Book",
+      "AUTHOR": "Author",
+      "PAGE": "Page",
+      "CHARACTERS_LEFT": "{{count}} characters remaining"
+    }
   }
 }

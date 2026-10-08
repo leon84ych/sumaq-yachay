@@ -163,6 +163,15 @@
       "SOURCE": "Fuente",
       "TAGS": "Etiquetas",
       "CHARACTERS_LEFT": "{{count}} caracteres restantes"
+    },
+    "QUOTE": {
+      "NEW_ENTRY_TITLE": "Agregar Nueva Cita",
+      "QUOTE": "Cita",
+      "ANALYSIS": "Análisis",
+      "BOOK": "Libro",
+      "AUTHOR": "Autor",
+      "PAGE": "Página",
+      "CHARACTERS_LEFT": "{{count}} caracteres restantes"
     }
   },
   "COMMON": {
