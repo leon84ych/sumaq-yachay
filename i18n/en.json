@@ -164,6 +164,17 @@
       "BOOK": "Book",
       "AUTHOR": "Author",
       "PAGE": "Page",
+      "TAGS": "Tags",
+      "CHARACTERS_LEFT": "{{count}} characters remaining"
+    },
+    "PASSAGE": {
+      "NEW_ENTRY_TITLE": "Add New Passage",
+      "TITLE": "Title",
+      "PASSAGE_TEXT": "Passage Text",
+      "BOOK": "Book",
+      "AUTHOR": "Author",
+      "PAGE": "Page",
+      "TAGS": "Tags",
       "CHARACTERS_LEFT": "{{count}} characters remaining"
     }
   }

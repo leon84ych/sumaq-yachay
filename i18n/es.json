@@ -143,7 +143,7 @@
       "SUBTHEME": "Subtema",
       "TAG": "Etiqueta",
       "STATUS": "Estado",
-      "ADD_ENTRY": "Agregar Entrada",
+      "ADD_ENTRY": "Entrada",
       "NEW_ENTRY_TITLE": "Agregar Nueva Entrada"
     },
     "DOMAINS": {
@@ -171,6 +171,17 @@
       "BOOK": "Libro",
       "AUTHOR": "Autor",
       "PAGE": "Página",
+      "TAGS": "Etiquetas",
+      "CHARACTERS_LEFT": "{{count}} caracteres restantes"
+    },
+    "PASSAGE": {
+      "NEW_ENTRY_TITLE": "Agregar Nuevo Pasaje",
+      "TITLE": "Título",
+      "PASSAGE_TEXT": "Texto del Pasaje",
+      "BOOK": "Libro",
+      "AUTHOR": "Autor",
+      "PAGE": "Página",
+      "TAGS": "Etiquetas",
       "CHARACTERS_LEFT": "{{count}} caracteres restantes"
     }
   },
