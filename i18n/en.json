@@ -65,6 +65,7 @@
     },
     "CARD": {
       "NO_DESCRIPTION": "No description provided.",
+      "ENTRIES": "Entries",
       "ACTIVE": "Active",
       "INACTIVE": "Inactive",
       "EDIT": "Edit",

@@ -62,6 +62,7 @@
     },
     "CARD": {
       "NO_DESCRIPTION": "Sin descripción proporcionada.",
+      "ENTRIES": "Entradas",
       "ACTIVE": "Activo",
       "INACTIVE": "Inactivo",
       "EDIT": "Editar",
