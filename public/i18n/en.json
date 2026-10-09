@@ -15,6 +15,8 @@
     "LOADING": "Loading...",
     "RETRY": "Retry",
     "DOWNLOAD_IMAGES": "Download as Image",
+    "REVEAL_ANALYSIS": "Reveal analysis",
+    "SHOW_QUOTE": "Show quote",
     "ERROR": "An error occurred. Please try again.",
     "STATUS": {
       "synced": "Synced",
@@ -190,13 +192,16 @@
     },
     "QUOTE": {
       "NEW_ENTRY_TITLE": "Add New Quote",
+      "DOWNLOAD_QUOTE_IMAGE": "Download quote image",
+      "DOWNLOAD_ANALYSIS_IMAGE": "Download reflection image",
       "QUOTE": "Quote",
       "ANALYSIS": "Analysis",
       "BOOK": "Book",
       "AUTHOR": "Author",
       "PAGE": "Page",
       "TAGS": "Tags",
-      "CHARACTERS_LEFT": "{{count}} characters remaining"
+      "CHARACTERS_LEFT": "{{count}} characters remaining",
+      "REFLECTION": "A thought to keep"
     },
     "PASSAGE": {
       "NEW_ENTRY_TITLE": "Add New Passage",

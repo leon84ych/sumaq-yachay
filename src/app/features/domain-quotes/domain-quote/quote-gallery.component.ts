@@ -26,6 +26,8 @@ import { DomainSheet, QuoteRow } from '../../catalog-detail/models/domain-sheet.
   styleUrls: ['./quote-gallery.component.css'],
 })
 export class QuoteGalleryComponent {
+  readonly applicationName = document.title || 'sumaq-yachay';
+  readonly baseDomain = window.location.hostname;
   readonly rows = input.required<QuoteRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
   readonly bookName = input<string>('');
@@ -41,6 +43,7 @@ export class QuoteGalleryComponent {
   readonly newTags = signal<string>('');
   readonly exportRow = signal<QuoteRow | null>(null);
   readonly isExporting = signal(false);
+  readonly flippedQuoteIndexes = signal<ReadonlySet<number>>(new Set());
   readonly quoteMaxLength = 600;
   readonly quoteCharactersRemaining = computed(() => this.quoteMaxLength - this.newQuote().length);
 
@@ -75,8 +78,40 @@ export class QuoteGalleryComponent {
     this.closeEntry.emit();
   }
 
-  async downloadImages(row: QuoteRow): Promise<void> {
+  isFlipped(index: number): boolean {
+    return this.flippedQuoteIndexes().has(index);
+  }
+
+  toggleCard(row: QuoteRow, index: number): void {
+    if (!row.analysis) {
+      return;
+    }
+
+    this.flippedQuoteIndexes.update((flippedIndexes) => {
+      const nextFlippedIndexes = new Set(flippedIndexes);
+      if (nextFlippedIndexes.has(index)) {
+        nextFlippedIndexes.delete(index);
+      } else {
+        nextFlippedIndexes.add(index);
+      }
+      return nextFlippedIndexes;
+    });
+  }
+
+  onCardKeydown(event: KeyboardEvent, row: QuoteRow, index: number): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.toggleCard(row, index);
+    }
+  }
+
+  async downloadImage(event: MouseEvent, row: QuoteRow, side: 'quote' | 'analysis'): Promise<void> {
+    event.stopPropagation();
+
     if (this.isExporting()) {
+      return;
+    }
+    if (side === 'analysis' && !row.analysis) {
       return;
     }
 
@@ -85,17 +120,17 @@ export class QuoteGalleryComponent {
     this.changeDetectorRef.detectChanges();
 
     try {
-      const quoteCard = this.ghostQuoteCard?.nativeElement;
-      const analysisCard = this.ghostAnalysisCard?.nativeElement;
+      const exportCard =
+        side === 'quote'
+          ? this.ghostQuoteCard?.nativeElement
+          : this.ghostAnalysisCard?.nativeElement;
 
-      if (!quoteCard || !analysisCard) {
+      if (!exportCard) {
         throw new Error('Quote image templates are unavailable.');
       }
 
-      await downloadJpeg(quoteCard, `quote-${row.id}.jpg`);
-      if (row.analysis) {
-        await downloadJpeg(analysisCard, `analysis-${row.id}.jpg`);
-      }
+      const filename = side === 'quote' ? `quote-${row.id}.jpg` : `analysis-${row.id}.jpg`;
+      await downloadJpeg(exportCard, filename);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to export quote images.';
       this.globalErrorService.show(message);

@@ -172,13 +172,17 @@
     },
     "QUOTE": {
       "NEW_ENTRY_TITLE": "Agregar Nueva Cita",
+      "CARD_BRAND": "SUMAQ YACHAY · CITA",
+      "DOWNLOAD_QUOTE_IMAGE": "Descargar imagen de la cita",
+      "DOWNLOAD_ANALYSIS_IMAGE": "Descargar imagen de la reflexión",
       "QUOTE": "Cita",
       "ANALYSIS": "Análisis",
       "BOOK": "Libro",
       "AUTHOR": "Autor",
       "PAGE": "Página",
       "TAGS": "Etiquetas",
-      "CHARACTERS_LEFT": "{{count}} caracteres restantes"
+      "CHARACTERS_LEFT": "{{count}} caracteres restantes",
+      "REFLECTION": "Para reflexionar"
     },
     "PASSAGE": {
       "NEW_ENTRY_TITLE": "Agregar Nuevo Pasaje",
@@ -202,6 +206,8 @@
     "ERROR": "Ocurrió un error. Por favor, inténtalo de nuevo.",
     "RETRY": "Reintentar",
     "DOWNLOAD_IMAGES": "Descargar como imágen",
+    "REVEAL_ANALYSIS": "Mostrar análisis",
+    "SHOW_QUOTE": "Mostrar cita",
     "STATUS": {
       "synced": "Sincronizado",
       "pending": "Pendiente",

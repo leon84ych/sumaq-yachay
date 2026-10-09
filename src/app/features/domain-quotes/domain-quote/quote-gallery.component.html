@@ -79,38 +79,90 @@
     <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
   } @else {
     <div class="quote-grid">
-      @for (row of rows(); track row.id) {
-        <figure class="quote-card">
+      @for (row of rows(); track $index) {
+        <article class="quote-card-visible-wrapper" [class.is-flipped]="isFlipped($index)">
           <div class="quote-card-header">
-            <button
-              type="button"
-              class="download-image-btn"
-              [disabled]="isExporting()"
-              [attr.aria-label]="'COMMON.DOWNLOAD_IMAGES' | transloco"
-              [title]="'COMMON.DOWNLOAD_IMAGES' | transloco"
-              (click)="downloadImages(row)"
-            >
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
-              </svg>
-            </button>
-          </div>
-          <blockquote>&ldquo;{{ row.quote }}&rdquo;</blockquote>
-          <figcaption>
-            <strong>{{ row.author }}</strong> — <em>{{ row.book }}</em>
-            @if (row.page) {
-              <span class="page">p. {{ row.page }}</span>
+            @if (isFlipped($index)) {
+              <button
+                type="button"
+                class="download-image-btn"
+                [disabled]="isExporting()"
+                [attr.aria-label]="'DOMAINS.QUOTE.DOWNLOAD_ANALYSIS_IMAGE' | transloco"
+                [title]="'DOMAINS.QUOTE.DOWNLOAD_ANALYSIS_IMAGE' | transloco"
+                (click)="downloadImage($event, row, 'analysis')"
+              >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
+                </svg>
+              </button>
+            } @else {
+              <button
+                type="button"
+                class="download-image-btn"
+                [disabled]="isExporting()"
+                [attr.aria-label]="'DOMAINS.QUOTE.DOWNLOAD_QUOTE_IMAGE' | transloco"
+                [title]="'DOMAINS.QUOTE.DOWNLOAD_QUOTE_IMAGE' | transloco"
+                (click)="downloadImage($event, row, 'quote')"
+              >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
+                </svg>
+              </button>
             }
-          </figcaption>
-          @if (row.analysis) {
-            <p class="analysis">{{ row.analysis }}</p>
-          }
-          @if (row.tags) {
-            <p class="tags">
-              <strong>{{ 'DOMAINS.QUOTE.TAGS' | transloco }}</strong> {{ row.tags }}
-            </p>
-          }
-        </figure>
+            <span class="quote-card-eyebrow">
+              {{ 'NAV.BRAND_NAME' | transloco }} ·
+              @if (isFlipped($index)) {
+                {{ 'DOMAINS.QUOTE.REFLECTION' | transloco }}
+              } @else {
+                {{ 'DOMAINS.QUOTE.QUOTE' | transloco }}
+              }
+            </span>
+          </div>
+          <div
+            class="quote-card-inner"
+            [class.is-flipped]="isFlipped($index)"
+            [class.is-flippable]="!!row.analysis"
+            [attr.role]="row.analysis ? 'button' : null"
+            [attr.tabindex]="row.analysis ? 0 : null"
+            [attr.aria-pressed]="row.analysis ? isFlipped($index) : null"
+            [attr.aria-label]="
+              isFlipped($index)
+                ? ('COMMON.SHOW_QUOTE' | transloco)
+                : ('COMMON.REVEAL_ANALYSIS' | transloco)
+            "
+            (click)="toggleCard(row, $index)"
+            (keydown)="onCardKeydown($event, row, $index)"
+          >
+            <div class="card-face-front">
+              <blockquote>&ldquo;{{ row.quote }}&rdquo;</blockquote>
+              <figcaption>
+                <strong>{{ row.author }}</strong>
+                <em>{{ row.book }}</em>
+                @if (row.page) {
+                  <span class="page">p. {{ row.page }}</span>
+                }
+              </figcaption>
+              @if (row.tags) {
+                <p class="tags">
+                  <strong>{{ 'DOMAINS.QUOTE.TAGS' | transloco }}</strong> {{ row.tags }}
+                </p>
+              }
+              @if (row.analysis) {
+                <span class="flip-hint">{{ 'COMMON.REVEAL_ANALYSIS' | transloco }}</span>
+              }
+            </div>
+            @if (row.analysis) {
+              <div class="card-face-back">
+                <p class="analysis">{{ row.analysis }}</p>
+                <footer class="flip-card-footer">
+                  <strong>{{ row.author }}</strong>
+                  <span>{{ row.book }}</span>
+                  <span class="flip-hint">{{ 'COMMON.SHOW_QUOTE' | transloco }}</span>
+                </footer>
+              </div>
+            }
+          </div>
+        </article>
       }
     </div>
   }
@@ -122,7 +174,9 @@
       aria-hidden="true"
       inert
     >
-      <span class="ghost-card-eyebrow">SUMAQ YACHAY · QUOTE</span>
+      <span class="ghost-card-eyebrow"
+        >{{ 'NAV.BRAND_NAME' | transloco }} · {{ 'DOMAINS.QUOTE.QUOTE' | transloco }}</span
+      >
       <blockquote class="ghost-quote-text">
         &ldquo;{{
           quoteToExport.quote ||
@@ -132,6 +186,10 @@
       <footer class="ghost-card-footer">
         <strong>{{ quoteToExport.author }}</strong>
         <span>{{ quoteToExport.book }}</span>
+        @if (quoteToExport.page) {
+          <span>p. {{ quoteToExport.page }}</span>
+        }
+        <small class="ghost-card-origin">{{ applicationName }} · {{ baseDomain }}</small>
       </footer>
     </article>
 
@@ -141,12 +199,18 @@
       aria-hidden="true"
       inert
     >
-      <span class="ghost-card-eyebrow">SUMAQ YACHAY · REFLECTION</span>
-      <h2 class="ghost-analysis-title">A thought to keep</h2>
+      <span class="ghost-card-eyebrow"
+        >{{ 'NAV.BRAND_NAME' | transloco }} · {{ 'DOMAINS.QUOTE.ANALYSIS' | transloco }}</span
+      >
+      <h2 class="ghost-analysis-title">{{ 'DOMAINS.QUOTE.REFLECTION' | transloco }}</h2>
       <p class="ghost-analysis-text">{{ quoteToExport.analysis }}</p>
       <footer class="ghost-card-footer">
         <strong>{{ quoteToExport.author }}</strong>
         <span>{{ quoteToExport.book }}</span>
+        @if (quoteToExport.page) {
+          <span>p. {{ quoteToExport.page }}</span>
+        }
+        <small class="ghost-card-origin">{{ applicationName }} · {{ baseDomain }}</small>
       </footer>
     </article>
   }
