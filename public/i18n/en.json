@@ -6,7 +6,22 @@
     "SIGN_OUT": "Sign out"
   },
   "COMMON": {
-    "LOADING": "Loading..."
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "VIEW": "View",
+    "NO_ENTRIES": "No entries found.",
+    "LOADING": "Loading...",
+    "RETRY": "Retry",
+    "DOWNLOAD_IMAGES": "Download as Image",
+    "ERROR": "An error occurred. Please try again.",
+    "STATUS": {
+      "synced": "Synced",
+      "pending": "Pending",
+      "failed": "Sync Failed",
+      "error": "Error"
+    }
   },
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
@@ -90,7 +105,7 @@
       "NAME_PLACEHOLDER": "e.g., Distributed Systems & Kafka",
       "NAME_ERROR": "Name is required (max 100 characters).",
       "SHEET_LABEL": "Google Sheet ID or URL",
-      "SHEET_PLACEHOLDER": "Google Sheet ID orURL",
+      "SHEET_PLACEHOLDER": "Google Sheet ID or URL",
       "SHEET_HINT": "Paste full spreadsheet URL or the unique Sheet ID.",
       "SHEET_ERROR": "A valid Google Sheet ID or URL is required.",
       "SUBJECT_LABEL": "Subject",
@@ -126,27 +141,9 @@
     "LOADING": "Loading catalog entry...",
     "NO_DEFINITIONS": "No definitions found in this sheet.",
     "SYNONYMS": "Synonyms:",
-    "CONCEPTS": {
-      "NEW_ENTRY_TITLE": "Add New Concept",
-      "TERM": "Term",
-      "DEFINITION": "Definition",
-      "CATEGORY": "Category",
-      "SOURCE": "Source",
-      "TAGS": "Tags",
-      "CHARACTERS_LEFT": "{{count}} characters remaining"
-    },
     "UNSUPPORTED_SHEET": "This sheet type isn't supported for viewing yet.",
     "DOMAIN": "Domain",
     "SELECT_DOMAIN": "Select Domain",
-    "DOMAINS": {
-      "INDEX": "Index",
-      "CONCEPTS": "Concepts",
-      "QUOTES": "Quotes",
-      "TIMELINE": "Timeline",
-      "RELATIONS": "Relations",
-      "GLOSARY": "Glossary",
-      "QUESTIONS": "Questions"
-    },
     "NOT_FOUND": {
       "TITLE": "Entry Not Found",
       "DESC": "This catalog entry doesn't exist locally. Try syncing or go back to the Catalog."
@@ -161,6 +158,36 @@
     }
   },
   "DOMAINS": {
+    "INDEX": {
+      "TITLE": "Index",
+      "CHAPTER": "Chapter",
+      "THEME": "Theme",
+      "SUBTHEME": "Subtheme",
+      "TAG": "Tag",
+      "STATUS": "Status",
+      "ADD_ENTRY": "Entry",
+      "NEW_ENTRY_TITLE": "Add New Entry"
+    },
+    "DOMAINS": {
+      "INDEX": "Index",
+      "QUOTES": "Quotes",
+      "TIMELINE": "Timeline",
+      "RELATIONS": "Relations",
+      "CONCEPTS": "Concepts",
+      "GLOSARY": "Glossary",
+      "QUESTIONS": "Questions",
+      "PASSAGE": "Passages"
+    },
+    "CONCEPTS": {
+      "NEW_ENTRY_TITLE": "Add New Concept",
+      "TERM": "Term",
+      "DEFINITION": "Definition",
+      "CATEGORY": "Category",
+      "SOURCE": "Source",
+      "TAGS": "Tags",
+      "CHARACTERS_LEFT": "{{count}} characters remaining",
+      "DOWNLOAD_IMAGES": "Download quote images"
+    },
     "QUOTE": {
       "NEW_ENTRY_TITLE": "Add New Quote",
       "QUOTE": "Quote",

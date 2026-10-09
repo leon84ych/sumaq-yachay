@@ -72,6 +72,49 @@
   margin: 0;
 }
 
+.quote-card,
+.quote-card * {
+  -webkit-text-fill-color: currentColor;
+}
+
+.quote-card-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.25rem;
+}
+
+.download-image-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.download-image-btn:hover:not(:disabled) {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.download-image-btn:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+.download-image-btn svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
 blockquote {
   margin: 0 0 0.6rem;
   font-style: italic;
@@ -103,4 +146,77 @@ figcaption {
   text-align: center;
   color: var(--text-secondary, #666);
   padding: 2rem 0;
+}
+
+.ghost-export-container {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 42px;
+  background: #1a1a1a;
+  color: #f4efe5;
+  -webkit-text-fill-color: currentColor;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.ghost-export-container * {
+  -webkit-text-fill-color: currentColor;
+}
+
+.ghost-quote-card {
+  border: 1px solid #65563a;
+}
+
+.ghost-analysis-card {
+  border-top: 5px solid #c7a66a;
+}
+
+.ghost-card-eyebrow {
+  color: #d3b67c;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ghost-quote-text {
+  margin: 0;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.ghost-analysis-title {
+  margin: 0;
+  color: #d3b67c;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.ghost-analysis-text {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.ghost-card-footer {
+  display: grid;
+  gap: 6px;
+  border-top: 1px solid #65563a;
+  padding-top: 16px;
+  font-size: 14px;
+}
+
+.ghost-card-footer span {
+  color: #c3b9a7;
+  font-size: 13px;
 }

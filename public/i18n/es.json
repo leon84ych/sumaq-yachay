@@ -167,7 +167,8 @@
       "CATEGORY": "Categoría",
       "SOURCE": "Fuente",
       "TAGS": "Etiquetas",
-      "CHARACTERS_LEFT": "{{count}} caracteres restantes"
+      "CHARACTERS_LEFT": "{{count}} caracteres restantes",
+      "DOWNLOAD_IMAGES": "Descargar imágenes de la cita"
     },
     "QUOTE": {
       "NEW_ENTRY_TITLE": "Agregar Nueva Cita",
@@ -200,6 +201,7 @@
     "LOADING": "Cargando...",
     "ERROR": "Ocurrió un error. Por favor, inténtalo de nuevo.",
     "RETRY": "Reintentar",
+    "DOWNLOAD_IMAGES": "Descargar como imágen",
     "STATUS": {
       "synced": "Sincronizado",
       "pending": "Pendiente",

@@ -81,19 +81,73 @@
     <div class="quote-grid">
       @for (row of rows(); track row.id) {
         <figure class="quote-card">
+          <div class="quote-card-header">
+            <button
+              type="button"
+              class="download-image-btn"
+              [disabled]="isExporting()"
+              [attr.aria-label]="'COMMON.DOWNLOAD_IMAGES' | transloco"
+              [title]="'COMMON.DOWNLOAD_IMAGES' | transloco"
+              (click)="downloadImages(row)"
+            >
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
+              </svg>
+            </button>
+          </div>
           <blockquote>&ldquo;{{ row.quote }}&rdquo;</blockquote>
           <figcaption>
             <strong>{{ row.author }}</strong> — <em>{{ row.book }}</em>
-            @if (row.page) { <span class="page">p. {{ row.page }}</span> }
+            @if (row.page) {
+              <span class="page">p. {{ row.page }}</span>
+            }
           </figcaption>
           @if (row.analysis) {
             <p class="analysis">{{ row.analysis }}</p>
           }
           @if (row.tags) {
-            <p class="tags"><strong>{{ 'DOMAINS.QUOTE.TAGS' | transloco }}</strong> {{ row.tags }}</p>
+            <p class="tags">
+              <strong>{{ 'DOMAINS.QUOTE.TAGS' | transloco }}</strong> {{ row.tags }}
+            </p>
           }
         </figure>
       }
     </div>
+  }
+
+  @if (exportRow(); as quoteToExport) {
+    <article
+      #ghostQuoteCard
+      class="ghost-export-container ghost-quote-card"
+      aria-hidden="true"
+      inert
+    >
+      <span class="ghost-card-eyebrow">SUMAQ YACHAY · QUOTE</span>
+      <blockquote class="ghost-quote-text">
+        &ldquo;{{
+          quoteToExport.quote ||
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat.'
+        }}&rdquo;
+      </blockquote>
+      <footer class="ghost-card-footer">
+        <strong>{{ quoteToExport.author }}</strong>
+        <span>{{ quoteToExport.book }}</span>
+      </footer>
+    </article>
+
+    <article
+      #ghostAnalysisCard
+      class="ghost-export-container ghost-analysis-card"
+      aria-hidden="true"
+      inert
+    >
+      <span class="ghost-card-eyebrow">SUMAQ YACHAY · REFLECTION</span>
+      <h2 class="ghost-analysis-title">A thought to keep</h2>
+      <p class="ghost-analysis-text">{{ quoteToExport.analysis }}</p>
+      <footer class="ghost-card-footer">
+        <strong>{{ quoteToExport.author }}</strong>
+        <span>{{ quoteToExport.book }}</span>
+      </footer>
+    </article>
   }
 </div>

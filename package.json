@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test", 
+    "test": "ng test",
     "deploy": "ng build --base-href \"https://leon84ych.github.io/sumaq-yachay/\" && npx angular-cli-ghpages --dir=dist/sumaq-yachay/browser"
   },
   "private": true,
@@ -20,6 +20,7 @@
     "@angular/router": "^22.0.0",
     "@jsverse/transloco": "^8.4.0",
     "dexie": "^4.4.6",
+    "html-to-image": "^1.11.13",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
