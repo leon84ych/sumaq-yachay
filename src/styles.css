@@ -128,41 +128,42 @@ a:hover {
 }
 
 .btn-submit {
-  background-color: #4B8B6C;
-  border: 1px solid #3b7055;
+  background-color: var(--secondary);
+  border: 1px solid var(--secondary-hover);
   border-radius: 6px;
   padding: 0.4rem 0.85rem;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #ffffff;
+  color: var(--surface);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.15s ease, opacity 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .btn-submit:hover {
-  background-color: #3b7055;
+  background-color: var(--secondary-hover);
+  border-color: var(--secondary-hover);
 }
 
 .btn-cancel {
-  background-color: var(--surface-subtle, #f1f5f9);
-  border: 1px solid var(--border, #cbd5e1);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 6px;
   padding: 0.4rem 0.75rem;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #ef4444;
+  color: var(--error);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .btn-cancel:hover {
-  background-color: #fef2f2;
-  border-color: #ef4444;
+  background-color: var(--error-light);
+  border-color: var(--error);
 }
 

@@ -12,6 +12,8 @@
     "BRAND_NAME": "Sumaq Yachay",
     "BRAND_TAGLINE": "Beautiful Knowledge",
     "CATALOG": "Catalog",
+    "LEARN": "Learn",
+    "QUIZ": "Quiz",
     "SETTINGS": {
       "TITLE": "Settings",
       "LOGIN": "Login",

@@ -24,11 +24,11 @@
     @if (!isAdding()) {
       <button 
         type="button" 
-        class="add-tab-btn" 
+        class="btn-primary" 
         (click)="toggleAddMode(true)"
         title="Add new domain sheet"
       >
-        <span class="plus-icon">+</span> {{ 'CATALOG_DETAIL.DOMAIN' | transloco }}
+        + {{ 'CATALOG_DETAIL.DOMAIN' | transloco }}
       </button>
     } @else {
       <div class="domain-selector-form">

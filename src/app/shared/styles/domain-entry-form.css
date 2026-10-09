@@ -1,0 +1,34 @@
+.add-entry-form {
+  background-color: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.add-entry-form h3 {
+  color: var(--text);
+}
+
+.add-entry-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.add-entry-form .form-group input,
+.add-entry-form .form-group textarea,
+.add-entry-form .form-control {
+  background-color: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.add-entry-form .form-group input:focus,
+.add-entry-form .form-group textarea:focus,
+.add-entry-form .form-control:focus {
+  border-color: var(--border-focus);
+  outline-color: color-mix(in srgb, var(--border-focus) 24%, transparent);
+}
+
+.add-entry-form .character-count {
+  color: var(--text-muted);
+}
