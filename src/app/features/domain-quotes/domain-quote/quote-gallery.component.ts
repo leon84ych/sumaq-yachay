@@ -43,9 +43,24 @@ export class QuoteGalleryComponent {
   readonly newTags = signal<string>('');
   readonly exportRow = signal<QuoteRow | null>(null);
   readonly isExporting = signal(false);
+  readonly searchTerm = signal('');
   readonly flippedQuoteIndexes = signal<ReadonlySet<number>>(new Set());
   readonly quoteMaxLength = 600;
   readonly quoteCharactersRemaining = computed(() => this.quoteMaxLength - this.newQuote().length);
+  readonly filteredRows = computed(() => {
+    const query = this.searchTerm().trim().toLocaleLowerCase();
+    return this.rows()
+      .map((row, index) => ({ row, index }))
+      .filter(
+        ({ row }) =>
+          !query ||
+          [row.quote, row.analysis, row.author, row.book, row.page, row.tags].some((value) =>
+            String(value ?? '')
+              .toLocaleLowerCase()
+              .includes(query),
+          ),
+      );
+  });
 
   @ViewChild('ghostQuoteCard') private ghostQuoteCard?: ElementRef<HTMLElement>;
   @ViewChild('ghostAnalysisCard') private ghostAnalysisCard?: ElementRef<HTMLElement>;

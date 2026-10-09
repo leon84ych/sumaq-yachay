@@ -23,7 +23,18 @@ export const DOMAIN_DEFINITIONS: Record<DomainName, DomainDefinition> = {
         headers: ['id', 'quote','analysis', 'author', 'page', 'tags', 'syncStatus'],
     },
     PASSAGES: {
-        headers: ['id', 'title', 'passageText', 'book', 'author', 'page', 'tags', 'syncStatus'],
+        headers: [
+            'id',
+            'title',
+            'passageText',
+            'book',
+            'author',
+            'page',
+            'tags',
+            'feed',
+            'contributor',
+            'syncStatus',
+        ],
     },
     TIMELINE: {
         headers: ['id', 'date', 'event', 'description', 'significance', 'syncStatus'],

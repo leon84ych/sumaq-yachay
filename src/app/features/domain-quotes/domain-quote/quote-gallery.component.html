@@ -78,93 +78,116 @@
   @if (rows().length === 0) {
     <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
   } @else {
-    <div class="quote-grid">
-      @for (row of rows(); track $index) {
-        <article class="quote-card-visible-wrapper" [class.is-flipped]="isFlipped($index)">
-          <div class="quote-card-header">
-            @if (isFlipped($index)) {
-              <button
-                type="button"
-                class="download-image-btn"
-                [disabled]="isExporting()"
-                [attr.aria-label]="'DOMAINS.QUOTE.DOWNLOAD_ANALYSIS_IMAGE' | transloco"
-                [title]="'DOMAINS.QUOTE.DOWNLOAD_ANALYSIS_IMAGE' | transloco"
-                (click)="downloadImage($event, row, 'analysis')"
-              >
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
-                </svg>
-              </button>
-            } @else {
-              <button
-                type="button"
-                class="download-image-btn"
-                [disabled]="isExporting()"
-                [attr.aria-label]="'DOMAINS.QUOTE.DOWNLOAD_QUOTE_IMAGE' | transloco"
-                [title]="'DOMAINS.QUOTE.DOWNLOAD_QUOTE_IMAGE' | transloco"
-                (click)="downloadImage($event, row, 'quote')"
-              >
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
-                </svg>
-              </button>
-            }
-            <span class="quote-card-eyebrow">
-              {{ 'NAV.BRAND_NAME' | transloco }} ·
-              @if (isFlipped($index)) {
-                {{ 'DOMAINS.QUOTE.REFLECTION' | transloco }}
+    <label class="domain-search">
+      <span class="visually-hidden">{{ 'DOMAINS.QUOTE.SEARCH' | transloco }}</span>
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="8.75" cy="8.75" r="5.75" />
+        <path d="m13 13 4 4" />
+      </svg>
+      <input
+        type="search"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        [placeholder]="'DOMAINS.QUOTE.SEARCH' | transloco"
+      />
+    </label>
+    @if (filteredRows().length === 0) {
+      <p class="empty-state">{{ 'DOMAINS.QUOTE.NO_MATCHES' | transloco }}</p>
+    } @else {
+      <div class="quote-grid">
+        @for (quoteItem of filteredRows(); track quoteItem.index) {
+          @let row = quoteItem.row;
+          @let quoteIndex = quoteItem.index;
+          <article class="quote-card-visible-wrapper" [class.is-flipped]="isFlipped(quoteIndex)">
+            <div class="quote-card-header">
+              @if (isFlipped(quoteIndex)) {
+                <button
+                  type="button"
+                  class="download-image-btn"
+                  [disabled]="isExporting()"
+                  [attr.aria-label]="'DOMAINS.QUOTE.DOWNLOAD_ANALYSIS_IMAGE' | transloco"
+                  [title]="'DOMAINS.QUOTE.DOWNLOAD_ANALYSIS_IMAGE' | transloco"
+                  (click)="downloadImage($event, row, 'analysis')"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
+                  </svg>
+                </button>
               } @else {
-                {{ 'DOMAINS.QUOTE.QUOTE' | transloco }}
+                <button
+                  type="button"
+                  class="download-image-btn"
+                  [disabled]="isExporting()"
+                  [attr.aria-label]="'DOMAINS.QUOTE.DOWNLOAD_QUOTE_IMAGE' | transloco"
+                  [title]="'DOMAINS.QUOTE.DOWNLOAD_QUOTE_IMAGE' | transloco"
+                  (click)="downloadImage($event, row, 'quote')"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
+                  </svg>
+                </button>
               }
-            </span>
-          </div>
-          <div
-            class="quote-card-inner"
-            [class.is-flipped]="isFlipped($index)"
-            [class.is-flippable]="!!row.analysis"
-            [attr.role]="row.analysis ? 'button' : null"
-            [attr.tabindex]="row.analysis ? 0 : null"
-            [attr.aria-pressed]="row.analysis ? isFlipped($index) : null"
-            [attr.aria-label]="
-              isFlipped($index)
-                ? ('COMMON.SHOW_QUOTE' | transloco)
-                : ('COMMON.REVEAL_ANALYSIS' | transloco)
-            "
-            (click)="toggleCard(row, $index)"
-            (keydown)="onCardKeydown($event, row, $index)"
-          >
-            <div class="card-face-front">
-              <blockquote>&ldquo;{{ row.quote }}&rdquo;</blockquote>
-              <figcaption>
-                <strong>{{ row.author }}</strong>
-                <em>{{ row.book }}</em>
-                @if (row.page) {
-                  <span class="page">p. {{ row.page }}</span>
+              <span class="quote-card-eyebrow">
+                {{ 'NAV.BRAND_NAME' | transloco }} ·
+                @if (isFlipped(quoteIndex)) {
+                  {{ 'DOMAINS.QUOTE.REFLECTION' | transloco }}
+                } @else {
+                  {{ 'DOMAINS.QUOTE.QUOTE' | transloco }}
                 }
-              </figcaption>
-              @if (row.tags) {
-                <p class="tags">
-                  <strong>{{ 'DOMAINS.QUOTE.TAGS' | transloco }}</strong> {{ row.tags }}
-                </p>
-              }
+              </span>
+            </div>
+            <div
+              class="quote-card-inner"
+              [class.is-flipped]="isFlipped(quoteIndex)"
+              [class.is-flippable]="!!row.analysis"
+              [attr.role]="row.analysis ? 'button' : null"
+              [attr.tabindex]="row.analysis ? 0 : null"
+              [attr.aria-pressed]="row.analysis ? isFlipped(quoteIndex) : null"
+              [attr.aria-label]="
+                isFlipped(quoteIndex)
+                  ? ('COMMON.SHOW_QUOTE' | transloco)
+                  : ('COMMON.REVEAL_ANALYSIS' | transloco)
+              "
+              (click)="toggleCard(row, quoteIndex)"
+              (keydown)="onCardKeydown($event, row, quoteIndex)"
+            >
+              <div class="card-face-front">
+                <span class="quote-watermark" aria-hidden="true">“</span>
+                <blockquote>&ldquo;{{ row.quote }}&rdquo;</blockquote>
+                <figcaption class="quote-meta">
+                  <strong>{{ row.author }}</strong>
+                  @if (row.page) {
+                    <span class="quote-page"
+                      >· {{ 'DOMAINS.QUOTE.PAGE_SHORT' | transloco }} {{ row.page }}</span
+                    >
+                  }
+                  <em class="quote-book">{{ row.book }}</em>
+                </figcaption>
+                @if (row.tags) {
+                  <div class="quote-tags" [attr.aria-label]="'DOMAINS.QUOTE.TAGS' | transloco">
+                    <span class="quote-tag-chip">{{ row.tags }}</span>
+                  </div>
+                }
+                @if (row.analysis) {
+                  <span class="flip-hint">{{ 'COMMON.REVEAL_ANALYSIS' | transloco }}</span>
+                }
+              </div>
               @if (row.analysis) {
-                <span class="flip-hint">{{ 'COMMON.REVEAL_ANALYSIS' | transloco }}</span>
+                <div class="card-face-back">
+                  <span class="quote-watermark" aria-hidden="true">“</span>
+                  <p class="analysis">{{ row.analysis }}</p>
+                  <footer class="flip-card-footer">
+                    <strong>{{ row.author }}</strong>
+                    <span>{{ row.book }}</span>
+                    <span class="flip-hint">{{ 'COMMON.SHOW_QUOTE' | transloco }}</span>
+                  </footer>
+                </div>
               }
             </div>
-            @if (row.analysis) {
-              <div class="card-face-back">
-                <p class="analysis">{{ row.analysis }}</p>
-                <footer class="flip-card-footer">
-                  <strong>{{ row.author }}</strong>
-                  <span>{{ row.book }}</span>
-                  <span class="flip-hint">{{ 'COMMON.SHOW_QUOTE' | transloco }}</span>
-                </footer>
-              </div>
-            }
-          </div>
-        </article>
-      }
-    </div>
+          </article>
+        }
+      </div>
+    }
   }
 
   @if (exportRow(); as quoteToExport) {

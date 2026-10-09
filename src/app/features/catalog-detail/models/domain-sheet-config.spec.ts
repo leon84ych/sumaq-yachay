@@ -15,9 +15,7 @@ describe('domain sheet configuration', () => {
         'PASSAGES',
         'TIMELINE',
         'RELATIONS',
-        
-        
-        'WORDS',
+        'GLOSARY',
         'QUESTIONS',
       ])
     );
@@ -31,6 +29,8 @@ describe('domain sheet configuration', () => {
       'author',
       'page',
       'tags',
+      'feed',
+      'contributor',
       'syncStatus',
     ]);
   });

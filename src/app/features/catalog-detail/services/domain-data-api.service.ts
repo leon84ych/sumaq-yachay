@@ -3,7 +3,11 @@ import { TranslocoService } from '@jsverse/transloco';
 import { from, Observable, throwError } from 'rxjs';
 import { ConfigService } from '../../../core/services/config.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
-import { GetDomainSheetsResponse } from '../models/domain-sheet.model';
+import { GetDomainSheetsResponse, PaginatedDomainRowsResponse } from '../models/domain-sheet.model';
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
 
 @Injectable({
   providedIn: 'root',
@@ -19,8 +23,9 @@ export class DomainDataApiService {
   getDomainSheets(row: number): Observable<GetDomainSheetsResponse> {
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
-      return throwError(() =>
-        new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'))
+      return throwError(
+        () =>
+          new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED')),
       );
     }
 
@@ -31,18 +36,93 @@ export class DomainDataApiService {
       endpoint += `&idToken=${encodeURIComponent(idToken)}`;
     }
 
-    const fetchPromise: Promise<GetDomainSheetsResponse> = fetch(endpoint).then(async (response) => {
+    const fetchPromise: Promise<GetDomainSheetsResponse> = fetch(endpoint).then(
+      async (response) => {
+        if (!response.ok) {
+          throw new Error(
+            this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+              status: response.status,
+            }),
+          );
+        }
+        return response.json() as Promise<GetDomainSheetsResponse>;
+      },
+    );
+
+    return from(fetchPromise);
+  }
+
+  getPaginatedRows(
+    row: number,
+    sheetName: string,
+    page: number,
+    pageSize: number,
+  ): Observable<PaginatedDomainRowsResponse> {
+    const webAppUrl = this.config.getWebAppUrl();
+    if (!webAppUrl) {
+      return throwError(
+        () =>
+          new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED')),
+      );
+    }
+
+    const idToken = this.authService.idToken();
+    if (!idToken) {
+      return throwError(
+        () =>
+          new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.AUTHENTICATION_REQUIRED_READ')),
+      );
+    }
+
+    const endpoint = new URL(webAppUrl);
+    endpoint.searchParams.set('action', 'GET_PAGINATED_ROWS');
+    endpoint.searchParams.set('row', String(row));
+    endpoint.searchParams.set('sheetName', sheetName);
+    endpoint.searchParams.set('page', String(page));
+    endpoint.searchParams.set('pageSize', String(pageSize));
+    endpoint.searchParams.set('idToken', idToken);
+
+    const fetchPromise = fetch(endpoint).then(async (response) => {
       if (!response.ok) {
         throw new Error(
           this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
             status: response.status,
-          })
+          }),
         );
       }
-      return response.json() as Promise<GetDomainSheetsResponse>;
+
+      let data: unknown = await response.json();
+      while (isRecord(data)) {
+        if (data['status'] === 'error') {
+          throw new Error(
+            typeof data['message'] === 'string'
+              ? data['message']
+              : 'Failed to fetch paginated domain rows.',
+          );
+        }
+        if (Array.isArray(data['rows'])) {
+          return {
+            row: this.readNumber(data['row'], row),
+            sheetName: String(data['sheetName'] ?? sheetName),
+            page: this.readNumber(data['page'], page),
+            pageSize: this.readNumber(data['pageSize'], pageSize),
+            totalRows: this.readNumber(data['totalRows'], data['rows'].length),
+            totalPages: this.readNumber(data['totalPages'], page),
+            rows: data['rows'].filter(isRecord),
+          };
+        }
+        data = data['data'];
+      }
+
+      throw new Error('Malformed paginated domain response: rows array is missing.');
     });
 
     return from(fetchPromise);
+  }
+
+  private readNumber(value: unknown, fallback: number): number {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : fallback;
   }
 
   /**
@@ -51,15 +131,19 @@ export class DomainDataApiService {
   createSheet(row: number, sheetName: string, headers: string[]): Observable<any> {
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
-      return throwError(() =>
-        new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'))
+      return throwError(
+        () =>
+          new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED')),
       );
     }
 
     const idToken = this.authService.idToken();
     if (!idToken) {
-      return throwError(() =>
-        new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.AUTHENTICATION_REQUIRED_CREATE'))
+      return throwError(
+        () =>
+          new Error(
+            this.transloco.translate('CATALOG_DETAIL.ERRORS.AUTHENTICATION_REQUIRED_CREATE'),
+          ),
       );
     }
 
@@ -69,7 +153,7 @@ export class DomainDataApiService {
       row: row,
       sheetName: sheetName,
       headers: headers,
-      idToken: idToken
+      idToken: idToken,
     };
 
     const fetchPromise = fetch(webAppUrl, {
@@ -77,13 +161,13 @@ export class DomainDataApiService {
       headers: {
         'Content-Type': 'text/plain;charset=utf-8', // Standard workaround for GAS CORS/POST handling
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     }).then(async (response) => {
       if (!response.ok) {
         throw new Error(
           this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
             status: response.status,
-          })
+          }),
         );
       }
       return response.json();
@@ -95,18 +179,26 @@ export class DomainDataApiService {
   /**
    * HTTP POST / Action: Updates rows for a specific domain sheet.
    */
-  updateRows(row: number, sheetName: string, updatedRows: Record<string, unknown>[]): Observable<any> {
+  updateRows(
+    row: number,
+    sheetName: string,
+    updatedRows: Record<string, unknown>[],
+  ): Observable<any> {
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
-      return throwError(() =>
-        new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'))
+      return throwError(
+        () =>
+          new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED')),
       );
     }
 
     const idToken = this.authService.idToken();
     if (!idToken) {
-      return throwError(() =>
-        new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.AUTHENTICATION_REQUIRED_UPDATE'))
+      return throwError(
+        () =>
+          new Error(
+            this.transloco.translate('CATALOG_DETAIL.ERRORS.AUTHENTICATION_REQUIRED_UPDATE'),
+          ),
       );
     }
 
@@ -115,7 +207,7 @@ export class DomainDataApiService {
       row: row,
       sheetName: sheetName,
       rows: updatedRows,
-      idToken: idToken
+      idToken: idToken,
     };
 
     const fetchPromise = fetch(webAppUrl, {
@@ -129,14 +221,13 @@ export class DomainDataApiService {
         throw new Error(
           this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
             status: response.status,
-          })
+          }),
         );
       }
       const data = await response.json();
       if (data && data.status === 'error') {
         throw new Error(
-          data.message ||
-            this.transloco.translate('CATALOG_DETAIL.ERRORS.UPDATE_ROWS_FAILED')
+          data.message || this.transloco.translate('CATALOG_DETAIL.ERRORS.UPDATE_ROWS_FAILED'),
         );
       }
       return data;

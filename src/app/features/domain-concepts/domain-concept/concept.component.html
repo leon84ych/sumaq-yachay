@@ -23,24 +23,42 @@
           required
         ></textarea>
         <small class="character-count">
-          {{ 'DOMAINS.CONCEPTS.CHARACTERS_LEFT' | transloco: { count: definitionCharactersRemaining() } }}
+          {{
+            'DOMAINS.CONCEPTS.CHARACTERS_LEFT'
+              | transloco: { count: definitionCharactersRemaining() }
+          }}
         </small>
       </div>
       <div class="form-group">
         <label for="concept-category">{{ 'DOMAINS.CONCEPTS.CATEGORY' | transloco }}</label>
-        <input
+        <select
           id="concept-category"
-          type="text"
           [ngModel]="newCategory()"
           (ngModelChange)="newCategory.set($event)"
-        />
+        >
+          <option value="">{{ 'DOMAINS.CONCEPTS.SELECT_CATEGORY' | transloco }}</option>
+          @for (category of nodeCategories; track category) {
+            <option [value]="category">
+              {{ 'DOMAINS.CONCEPTS.CATEGORY_OPTIONS.' + category | transloco }}
+            </option>
+          }
+        </select>
+        @if (newCategory() === 'other') {
+          <input
+            id="concept-custom-category"
+            type="text"
+            [ngModel]="customCategory()"
+            (ngModelChange)="customCategory.set($event)"
+            [placeholder]="'DOMAINS.CONCEPTS.CUSTOM_CATEGORY' | transloco"
+          />
+        }
       </div>
       <div class="form-group">
         <label for="concept-source">{{ 'DOMAINS.CONCEPTS.SOURCE' | transloco }}</label>
         <input
           id="concept-source"
           type="text"
-          [ngModel]="newSource()"
+          [ngModel]="source()"
           (ngModelChange)="newSource.set($event)"
         />
       </div>
@@ -68,22 +86,66 @@
   @if (rows().length === 0) {
     <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
   } @else {
-    <div class="definitions-grid">
-      @for (row of rows(); track row.id) {
-        <div class="definition-card">
-          <h4 class="term">{{ row.term }}</h4>
-          <p class="definition">{{ row.definition }}</p>
-          @if (row.category) {
-            <p class="category"><strong>{{ 'DOMAINS.CONCEPTS.CATEGORY' | transloco }}</strong> {{ row.category }}</p>
-          }
-          @if (row.source) {
-            <p class="source"><strong>{{ 'DOMAINS.CONCEPTS.SOURCE' | transloco }}</strong> {{ row.source }}</p>
-          }
-          @if (row.tags) {
-            <p class="tags"><strong>{{ 'DOMAINS.CONCEPTS.TAGS' | transloco }}</strong> {{ row.tags }}</p>
-          }
-        </div>
-      }
+    <div class="concept-toolbar">
+      <label class="concept-search">
+        <span class="visually-hidden">{{ 'DOMAINS.CONCEPTS.SEARCH' | transloco }}</span>
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="8.75" cy="8.75" r="5.75" />
+          <path d="m13 13 4 4" />
+        </svg>
+        <input
+          type="search"
+          [ngModel]="searchTerm()"
+          (ngModelChange)="searchTerm.set($event)"
+          [placeholder]="'DOMAINS.CONCEPTS.SEARCH' | transloco"
+        />
+      </label>
     </div>
+    @if (filteredRows().length === 0) {
+      <p class="empty-state">{{ 'DOMAINS.CONCEPTS.NO_MATCHES' | transloco }}</p>
+    } @else {
+      <div class="definitions-grid">
+        @for (row of filteredRows(); track row.id) {
+          <article class="definition-card">
+            <header class="definition-card-header">
+              <h4 class="term">{{ row.term }}</h4>
+              @if (row.category) {
+                <span class="category-badge">
+                  @if (isNodeCategory(row.category)) {
+                    {{ 'DOMAINS.CONCEPTS.CATEGORY_OPTIONS.' + row.category | transloco }}
+                  } @else {
+                    {{ row.category }}
+                  }
+                </span>
+              }
+            </header>
+            <p class="definition">{{ row.definition }}</p>
+            @if (row.source) {
+              <p class="source">
+                <strong>{{ 'DOMAINS.CONCEPTS.SOURCE' | transloco }}</strong> {{ row.source }}
+              </p>
+            }
+            @if (row.tags) {
+              <div class="concept-tags" [attr.aria-label]="'DOMAINS.CONCEPTS.TAGS' | transloco">
+                @for (tag of splitTags(row.tags); track $index) {
+                  <span class="concept-tag">{{ tag }}</span>
+                }
+              </div>
+            }
+            <footer class="definition-card-footer">
+              <button type="button" class="relations-button" (click)="viewRelations(row)">
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <circle cx="5" cy="10" r="2" />
+                  <circle cx="15" cy="5" r="2" />
+                  <circle cx="15" cy="15" r="2" />
+                  <path d="m7 9 6-3M7 11l6 3" />
+                </svg>
+                {{ 'DOMAINS.CONCEPTS.VIEW_RELATIONS' | transloco }}
+              </button>
+            </footer>
+          </article>
+        }
+      </div>
+    }
   }
 </div>

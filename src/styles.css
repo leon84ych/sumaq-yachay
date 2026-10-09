@@ -2,75 +2,95 @@
 :root {
   color-scheme: light;
 
-  --primary: #1F5563;      /* Andean Lake Blue */
+  --primary: #1f5563; /* Andean Lake Blue */
   --primary-hover: #163f4a;
   --primary-light: #e9f1f3;
-  --secondary: #4B8B6C;    /* Mountain Valley Green */
+  --secondary: #4b8b6c; /* Mountain Valley Green */
   --secondary-hover: #3b7157;
   --secondary-light: #edf5f1;
-  --accent: #E5B85C;       /* Sun Gold */
+  --accent: #e5b85c; /* Sun Gold */
   --accent-hover: #d3a444;
   --accent-light: #fdf8ee;
 
-  --background: #F7F9F8;
-  --surface: #FFFFFF;
-  --text: #22313A;
+  --background: #f7f9f8;
+  --surface: #ffffff;
+  --text: #22313a;
   --text-muted: #627684;
-  --border: #E1E7E5;
-  --border-focus: #1F5563;
+  --border: #e1e7e5;
+  --border-focus: #1f5563;
 
-  --success: #4B8B6C;
+  --quote-card-surface: #ffffff;
+  --quote-card-border: #e2e8f0;
+  --quote-card-text: #0f172a;
+  --quote-card-muted: #64748b;
+  --quote-watermark: rgba(203, 213, 225, 0.3);
+  --quote-tag-surface: #f1f5f9;
+  --quote-tag-text: #334155;
+  --quote-tag-border: #e2e8f0;
+
+  --success: #4b8b6c;
   --success-light: #edf5f1;
-  --warning: #E5B85C;
+  --warning: #e5b85c;
   --warning-light: #fdf8ee;
-  --error: #B4433D;
+  --error: #b4433d;
   --error-light: #fcedeb;
 
   /* Fixed navigation chrome — intentionally NOT redefined in [data-theme="dark"].
      --primary lightens in dark mode (meant for text/links/icons on dark surfaces),
      which made the navbar unreadable when reused there. The nav keeps this constant
      dark background across both themes so contrast never regresses. */
-  --nav-bg: #1F5563;
-  --nav-accent: #4B8B6C;   /* Fixed Mountain Valley Green for nav highlights (brand symbol, active link) */
+  --nav-bg: #1f5563;
+  --nav-accent: #4b8b6c; /* Fixed Mountain Valley Green for nav highlights (brand symbol, active link) */
 
   --shadow-sm: 0 1px 2px 0 rgba(34, 49, 58, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(34, 49, 58, 0.08), 0 2px 4px -2px rgba(34, 49, 58, 0.05);
   --shadow-lg: 0 10px 15px -3px rgba(34, 49, 58, 0.1), 0 4px 6px -4px rgba(34, 49, 58, 0.05);
-  
+
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
   --radius-full: 9999px;
 
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 /* Dark Mode — Sumaq Yachay (see documents/ColorScheme.md) */
-[data-theme="dark"] {
+[data-theme='dark'] {
   color-scheme: dark;
 
-  --primary: #79C4D3;          /* Moonlit Andean Lake */
-  --primary-hover: #9BD6E1;
+  --primary: #79c4d3; /* Moonlit Andean Lake */
+  --primary-hover: #9bd6e1;
   --primary-light: rgba(121, 196, 211, 0.16);
-  --secondary: #79C99B;        /* High-contrast Valley Green */
-  --secondary-hover: #98D8B2;
+  --secondary: #79c99b; /* High-contrast Valley Green */
+  --secondary-hover: #98d8b2;
   --secondary-light: rgba(121, 201, 155, 0.16);
-  --accent: #F2C96D;           /* Warm Sun Gold */
-  --accent-hover: #F7D98F;
+  --accent: #f2c96d; /* Warm Sun Gold */
+  --accent-hover: #f7d98f;
   --accent-light: rgba(242, 201, 109, 0.16);
 
   --background: #101716;
   --surface: #182321;
-  --text: #F1F5F3;
-  --text-muted: #B9C6C1;
+  --text: #f1f5f3;
+  --text-muted: #b9c6c1;
   --border: #465853;
-  --border-focus: #F2C96D;
+  --border-focus: #f2c96d;
 
-  --success: #79C99B;
+  --quote-card-surface: #1e293b;
+  --quote-card-border: #334155;
+  --quote-card-text: #f8fafc;
+  --quote-card-muted: #94a3b8;
+  --quote-watermark: rgba(51, 65, 85, 0.2);
+  --quote-tag-surface: rgba(2, 44, 34, 0.4);
+  --quote-tag-text: #6ee7b7;
+  --quote-tag-border: rgba(6, 78, 59, 0.4);
+
+  --success: #79c99b;
   --success-light: rgba(121, 201, 155, 0.16);
-  --warning: #F2C96D;
+  --warning: #f2c96d;
   --warning-light: rgba(242, 201, 109, 0.16);
-  --error: #FF8A82;
+  --error: #ff8a82;
   --error-light: rgba(255, 138, 130, 0.16);
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
@@ -78,7 +98,9 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.45), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -90,10 +112,15 @@ body {
   color: var(--text);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font: inherit;
 }
 
@@ -118,7 +145,9 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .btn-primary:hover {
@@ -139,7 +168,10 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .btn-submit:hover {
@@ -159,7 +191,10 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .btn-cancel:hover {
@@ -167,3 +202,89 @@ a:hover {
   border-color: var(--error);
 }
 
+.load-more-container {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 0;
+}
+
+.load-more-button {
+  min-width: 10rem;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+  justify-content: center;
+}
+
+.load-more-button:hover:not(:disabled) {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.load-more-button:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.load-more-button:disabled {
+  cursor: progress;
+  opacity: 0.65;
+}
+
+.load-more-error {
+  color: var(--error);
+  text-align: center;
+}
+
+.domain-search {
+  display: flex;
+  width: min(100%, 680px);
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0 auto 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.55rem 0.75rem;
+  background: var(--surface);
+  color: var(--text-muted);
+}
+
+.domain-search:focus-within {
+  border-color: var(--border-focus);
+  outline: 2px solid color-mix(in srgb, var(--border-focus) 25%, transparent);
+}
+
+.domain-search svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: 0 0 auto;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.domain-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+}
+
+.domain-search input::placeholder {
+  color: var(--text-muted);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}

@@ -59,13 +59,28 @@
 
 .quote-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+  width: min(100%, 680px);
+  gap: 1.5rem;
+  margin-inline: auto;
 }
 
 .quote-card-visible-wrapper {
   position: relative;
   perspective: 1000px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.quote-card-visible-wrapper:hover {
+  transform: translateY(-2px);
+}
+
+.quote-card-visible-wrapper:hover .card-face-front,
+.quote-card-visible-wrapper:hover .card-face-back {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
 }
 
 .quote-card-header {
@@ -112,6 +127,7 @@
 
 .card-face-front,
 .card-face-back {
+  position: relative;
   grid-area: 1 / 1;
   display: flex;
   min-width: 0;
@@ -120,10 +136,14 @@
   gap: 1rem;
   overflow: auto;
   padding: 1.25rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  background: var(--surface);
+  border: 1px solid var(--quote-card-border);
+  border-radius: 12px;
+  background: var(--quote-card-surface);
+  color: var(--quote-card-text);
   box-shadow: var(--shadow-sm);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
@@ -138,7 +158,19 @@
 
 .card-face-back {
   transform: rotateY(180deg);
-  background: var(--primary-light);
+}
+
+.quote-watermark {
+  position: absolute;
+  z-index: 0;
+  top: 0.25rem;
+  right: 1rem;
+  color: var(--quote-watermark);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 4rem;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
 }
 
 .quote-card-inner,
@@ -155,7 +187,9 @@
 
 .card-face-front blockquote {
   margin: auto 0;
-  color: var(--text);
+  position: relative;
+  z-index: 1;
+  color: var(--quote-card-text);
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 1.25rem;
   font-style: italic;
@@ -165,27 +199,54 @@
 
 .card-face-front figcaption,
 .flip-card-footer {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
   gap: 0.25rem;
-  border-top: 1px solid var(--border);
-  padding-top: 0.75rem;
-  color: var(--text-muted);
+  color: var(--quote-card-muted);
   font-size: 0.85rem;
+  font-weight: 500;
 }
 
-.card-face-front figcaption strong,
+.card-face-front .quote-meta strong,
 .flip-card-footer strong {
-  color: var(--text);
+  color: var(--quote-card-muted);
+}
+
+.quote-page {
+  color: var(--quote-card-muted);
+}
+
+.quote-book {
+  flex-basis: 100%;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .card-face-front .page {
   margin-left: 0;
 }
 
-.card-face-front .tags {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 0.8rem;
+.quote-tags {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.quote-tag-chip {
+  max-width: 100%;
+  border: 1px solid var(--quote-tag-border);
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  background: var(--quote-tag-surface);
+  color: var(--quote-tag-text);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
 }
 
 .flip-hint {
@@ -204,8 +265,10 @@
 }
 
 .card-face-back .analysis {
-  margin-top: 30px;
-  color: var(--text);
+  position: relative;
+  z-index: 1;
+  margin: auto 0;
+  color: var(--quote-card-text);
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 1rem;
   line-height: 1.6;

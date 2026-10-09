@@ -15,13 +15,16 @@
 }
 
 .add-entry-form .form-group input,
-.add-entry-form .form-group textarea {
+.add-entry-form .form-group textarea,
+.add-entry-form .form-group select {
   width: 100%;
   min-height: 2.75rem;
   padding: 0.5rem;
   border-width: 1px;
   border-style: solid;
   border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
   font: inherit;
   line-height: 1.4;
 }
@@ -31,9 +34,12 @@
 }
 
 .add-entry-form .form-group input:focus,
-.add-entry-form .form-group textarea:focus {
+.add-entry-form .form-group textarea:focus,
+.add-entry-form .form-group select:focus {
+  border-color: var(--border-focus);
   outline-width: 2px;
   outline-style: solid;
+  outline-color: var(--border-focus);
   outline-offset: 1px;
 }
 
@@ -59,39 +65,198 @@
 
 .definitions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 1rem;
 }
 
+.concept-toolbar {
+  margin-bottom: 1rem;
+}
+
+.concept-search {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.55rem 0.75rem;
+  background: var(--surface);
+  color: var(--text-muted);
+}
+
+.concept-search:focus-within {
+  border-color: var(--border-focus);
+  outline: 2px solid color-mix(in srgb, var(--border-focus) 25%, transparent);
+}
+
+.concept-search svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: 0 0 auto;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.concept-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+}
+
+.concept-search input::placeholder {
+  color: var(--text-muted);
+}
+
 .definition-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.85rem;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 1rem;
   box-shadow: var(--shadow-sm);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.definition-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-md);
+}
+
+.definition-card-header {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem;
 }
 
 .term {
-  margin: 0 0 0.4rem;
-  font-size: 1.05rem;
+  min-width: 0;
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 650;
   color: var(--primary);
+  overflow-wrap: anywhere;
+}
+
+.category-badge {
+  max-width: 100%;
+  border: 1px solid var(--quote-tag-border);
+  border-radius: var(--radius-full);
+  padding: 0.2rem 0.6rem;
+  background: var(--quote-tag-surface);
+  color: var(--quote-tag-text);
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .definition {
-  margin: 0 0 0.5rem;
-  line-height: 1.4;
+  margin: 0;
+  color: var(--text);
+  line-height: 1.55;
 }
 
-.category,
-.source,
-.tags {
-  font-size: 0.85rem;
-  color: var(--text-secondary, #666);
+.source {
   margin: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+
+.source strong {
+  color: var(--text);
+}
+
+.concept-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.concept-tag {
+  max-width: 100%;
+  border: 1px solid var(--quote-tag-border);
+  border-radius: var(--radius-full);
+  padding: 0.15rem 0.55rem;
+  background: var(--quote-tag-surface);
+  color: var(--quote-tag-text);
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}
+
+.definition-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding-top: 0.65rem;
+}
+
+.relations-button {
+  display: inline-flex;
+  min-height: 2.25rem;
+  align-items: center;
+  gap: 0.4rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.5rem;
+  background: transparent;
+  color: var(--primary);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.relations-button:hover {
+  background: var(--primary-light);
+}
+
+.relations-button:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.relations-button svg {
+  width: 1rem;
+  height: 1rem;
+  stroke: currentColor;
+  stroke-width: 1.5;
 }
 
 .empty-state {
   text-align: center;
-  color: var(--text-secondary, #666);
+  color: var(--text-muted);
   padding: 2rem 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@media (max-width: 600px) {
+  .definition-card-header {
+    flex-direction: column;
+  }
 }

@@ -25,4 +25,18 @@ describe('normalizeIndexRows', () => {
       },
     ]);
   });
+
+  it('reads tags with singular or plural and lowercase or title-case headers', () => {
+    const rows = normalizeIndexRows([
+      { Tag: '#chapter', chapter: '1' },
+      { tags: '#theme-a, #theme-b', chapter: '2' },
+      { Tags: '#theme-c; #theme-d', chapter: '3' },
+    ]);
+
+    expect(rows.map((row) => row.tag)).toEqual([
+      '#chapter',
+      '#theme-a, #theme-b',
+      '#theme-c; #theme-d',
+    ]);
+  });
 });

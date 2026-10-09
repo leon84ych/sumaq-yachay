@@ -8,12 +8,16 @@ export interface IndexViewRow extends Record<string, unknown> {
 }
 
 export function normalizeIndexRows(rows: readonly Record<string, unknown>[]): IndexViewRow[] {
-  return rows.map((row) => ({
-    id: String(row['id'] ?? ''),
-    chapter: String(row['chapter'] ?? ''),
-    theme: String(row['theme'] ?? ''),
-    subtheme: String(row['subtheme'] ?? ''),
-    tag: String(row['tag'] ?? ''),
-    syncStatus: row['syncStatus'] === 'synced' ? 'synced' : 'pending',
-  }));
+  return rows.map((row) => {
+    const tag = row['tag'] ?? row['tags'] ?? row['Tag'] ?? row['Tags'];
+
+    return {
+      id: String(row['id'] ?? ''),
+      chapter: String(row['chapter'] ?? ''),
+      theme: String(row['theme'] ?? ''),
+      subtheme: String(row['subtheme'] ?? ''),
+      tag: String(tag ?? ''),
+      syncStatus: row['syncStatus'] === 'synced' ? 'synced' : 'pending',
+    };
+  });
 }

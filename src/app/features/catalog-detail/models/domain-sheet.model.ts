@@ -1,11 +1,10 @@
 export interface DomainSheet {
-  row: number;                         // Owning Catalog entry row (local cache key, not sent to Sheets)
-  id: string;                          // Tab name lowercased; second half of the [row+id] primary key
-  name: string;                        // Raw tab name as returned by Apps Script (e.g. "Definitions")
-  index: number;                       // Tab index as returned by Apps Script
-  rows: Record<string, unknown>[];     // Row objects keyed by column header
+  row: number; // Owning Catalog entry row (local cache key, not sent to Sheets)
+  id: string; // Tab name lowercased; second half of the [row+id] primary key
+  name: string; // Raw tab name as returned by Apps Script (e.g. "Definitions")
+  index: number; // Tab index as returned by Apps Script
+  rows: Record<string, unknown>[]; // Row objects keyed by column header
 }
-
 
 export interface GetDomainSheetsResponse {
   status: 'success' | 'error';
@@ -21,8 +20,17 @@ export interface GetDomainSheetsResponse {
   };
 }
 
-// --- Known per-sheet row shapes (Phase D: Definitions & Quotes) ---
+export interface PaginatedDomainRowsResponse {
+  row: number;
+  sheetName: string;
+  page: number;
+  pageSize: number;
+  totalRows: number;
+  totalPages: number;
+  rows: Record<string, unknown>[];
+}
 
+// --- Known per-sheet row shapes (Phase D: Definitions & Quotes) ---
 
 export interface DomainSheetRow extends Record<string, unknown> {
   id: string; // Row ID within the sheet
@@ -32,14 +40,14 @@ export interface DomainSheetRow extends Record<string, unknown> {
   syncStatus: 'synced' | 'pending' | 'error';
 }
 
-export interface ConceptRow extends DomainSheetRow{
+export interface ConceptRow extends DomainSheetRow {
   term: string;
   definition: string;
   category?: string;
   source?: string;
 }
 
-export interface QuoteRow extends DomainSheetRow{
+export interface QuoteRow extends DomainSheetRow {
   quote: string;
   analysis?: string;
   book: string;
@@ -47,7 +55,7 @@ export interface QuoteRow extends DomainSheetRow{
   page?: string;
 }
 
-export interface PassagesRow extends DomainSheetRow{
+export interface PassagesRow extends DomainSheetRow {
   title: string;
   passageText: string;
   book: string;
@@ -55,7 +63,7 @@ export interface PassagesRow extends DomainSheetRow{
   page?: string;
 }
 
-export interface IndexRow extends DomainSheetRow{
+export interface IndexRow extends DomainSheetRow {
   chapter: string;
   theme: string;
   subtheme: string;

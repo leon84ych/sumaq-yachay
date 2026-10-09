@@ -18,6 +18,15 @@ type DomainTableName =
   | 'glosary'
   | 'questions';
 
+interface SheetPaginationState {
+  page: number;
+  totalPages: number | null;
+  isLoading: boolean;
+  error: string | null;
+}
+
+const DOMAIN_PAGE_SIZE = 50;
+
 interface PersistedDomainRow extends Record<string, unknown> {
   id: string;
   row: number;
@@ -55,10 +64,99 @@ export class DomainDataService {
   readonly sheets = signal<DomainSheet[]>([]);
   readonly isLoading = signal<boolean>(false);
   readonly errorMessage = signal<string | null>(null);
+  readonly pagination = signal<Record<string, SheetPaginationState>>({});
 
   private loadedRow: number | null = null;
 
   readonly sheetNames = computed(() => this.sheets().map((sheet) => sheet.name));
+
+  canLoadMore(sheetName: string): boolean {
+    const state = this.pagination()[this.paginationKey(sheetName)];
+    return !state || state.totalPages === null || state.page < state.totalPages;
+  }
+
+  async loadNextPage(sheetName: string): Promise<void> {
+    const row = this.loadedRow;
+    const sheet = this.sheets().find((candidate) => candidate.name === sheetName);
+    if (row === null || !sheet || !this.canLoadMore(sheetName)) {
+      return;
+    }
+
+    const key = this.paginationKey(sheetName);
+    const previousState = this.pagination()[key];
+    if (previousState?.isLoading) {
+      return;
+    }
+
+    const lastLoadedPage = previousState?.page ?? Math.floor(sheet.rows.length / DOMAIN_PAGE_SIZE);
+    const nextPage = lastLoadedPage + 1;
+    const useGlobalLoading = sheet.rows.length === 0;
+    const operation = useGlobalLoading ? this.globalLoadingService.begin() : null;
+    this.pagination.update((current) => ({
+      ...current,
+      [key]: {
+        page: lastLoadedPage,
+        totalPages: previousState?.totalPages ?? null,
+        isLoading: true,
+        error: null,
+      },
+    }));
+
+    try {
+      const response = await firstValueFrom(
+        this.apiService.getPaginatedRows(row, sheetName, nextPage, DOMAIN_PAGE_SIZE),
+      );
+      if (!Array.isArray(response?.rows)) {
+        throw new Error('Malformed paginated domain response: rows array is missing.');
+      }
+
+      const tableName = this.getDomainTableName(sheetName);
+      const pageRows = response.rows.map((sourceRow, index) => {
+        const normalizedRow = this.normalizePaginatedRow(sourceRow);
+        return {
+          ...normalizedRow,
+          id: String(normalizedRow['id'] ?? `${tableName}_${row}_${nextPage}_${index}`),
+          row,
+          syncStatus: 'synced',
+        };
+      });
+      const persistedRows = this.preparePersistedRows(tableName, row, pageRows);
+      const table = this.domainTable(tableName);
+      await table.bulkPut(persistedRows);
+
+      this.sheets.update((currentSheets) =>
+        currentSheets.map((currentSheet) =>
+          currentSheet.name === sheetName
+            ? { ...currentSheet, rows: this.mergeRows(currentSheet.rows, pageRows) }
+            : currentSheet,
+        ),
+      );
+      this.pagination.update((current) => ({
+        ...current,
+        [key]: {
+          page: response.page,
+          totalPages: response.totalPages,
+          isLoading: false,
+          error: null,
+        },
+      }));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to load more rows.';
+      this.pagination.update((current) => ({
+        ...current,
+        [key]: {
+          page: lastLoadedPage,
+          totalPages: previousState?.totalPages ?? null,
+          isLoading: false,
+          error: message,
+        },
+      }));
+    } finally {
+      if (operation !== null) {
+        this.globalLoadingService.end(operation);
+      }
+    }
+  }
 
   async loadForCatalog(row: number): Promise<void> {
     this.loadedRow = row;
@@ -81,8 +179,15 @@ export class DomainDataService {
         return;
       }
 
-      this.isLoading.set(false);
-      if (this.authService.idToken()) {
+      if (!this.authService.idToken()) {
+        this.isLoading.set(false);
+        return;
+      }
+
+      if (localSheets.length === 0) {
+        await this.refreshFromRemote(row);
+      } else {
+        this.isLoading.set(false);
         void this.refreshFromRemote(row, true);
       }
     } catch (err: unknown) {
@@ -241,13 +346,25 @@ export class DomainDataService {
       }
 
       const rawSheets = Array.isArray(response.data?.sheets) ? response.data.sheets : [];
-      const normalized: DomainSheet[] = rawSheets.map((sheet) => ({
-        row,
-        id: sheet.name.trim().toLowerCase(),
-        name: sheet.name,
-        index: sheet.index,
-        rows: sheet.rows,
-      }));
+      const cachedSheets = await this.loadFromLocal(row);
+      const normalized: DomainSheet[] = [];
+      for (const sheet of rawSheets) {
+        const name = sheet.name.trim();
+        if (!name || !DOMAIN_TABLES[name.toUpperCase()]) {
+          continue;
+        }
+        const cachedSheet = cachedSheets.find(
+          (candidate) => candidate.name.toUpperCase() === name.toUpperCase(),
+        );
+
+        normalized.push({
+          row,
+          id: name.toLowerCase(),
+          name,
+          index: sheet.index,
+          rows: sheet.rows.length > 0 ? sheet.rows : (cachedSheet?.rows ?? []),
+        });
+      }
 
       const tables = [
         this.dbService.db.domainSheets,
@@ -255,15 +372,15 @@ export class DomainDataService {
       ];
       await this.dbService.db.transaction('rw', tables, async (transaction) => {
         await transaction.table('domainSheets').put({ row, count: normalized.length });
-        for (const tableName of DOMAIN_TABLE_NAMES) {
+        for (const sheet of normalized) {
+          if (sheet.rows.length === 0) {
+            continue;
+          }
+
+          const tableName = this.getDomainTableName(sheet.name);
           const table = transaction.table(tableName) as Table<PersistedDomainRow, string>;
           await table.where('row').equals(row).delete();
-        }
-
-        for (const sheet of normalized) {
-          const tableName = this.getDomainTableName(sheet.name);
           const persistedRows = this.preparePersistedRows(tableName, row, sheet.rows);
-          const table = transaction.table(tableName) as Table<PersistedDomainRow, string>;
           await table.bulkPut(persistedRows);
         }
       });
@@ -296,10 +413,7 @@ export class DomainDataService {
           id: name.toLowerCase(),
           name,
           index: localSheets.length,
-          rows: rows.map((record) => {
-            const { id, row: _, tag, syncStatus, ...data } = record;
-            return data;
-          }),
+          rows: rows.map(({ row: _catalogRow, ...record }) => record),
         });
       }
     }
@@ -337,6 +451,58 @@ export class DomainDataService {
       throw new Error(`Unsupported domain sheet: ${sheetName}`);
     }
     return tableName;
+  }
+
+  private paginationKey(sheetName: string): string {
+    return `${this.loadedRow ?? 'none'}:${sheetName.toUpperCase()}`;
+  }
+
+  private normalizePaginatedRow(sourceRow: Record<string, unknown>): Record<string, unknown> {
+    const headerNames: Record<string, string> = {
+      id: 'id',
+      term: 'term',
+      definition: 'definition',
+      title: 'title',
+      passagetext: 'passageText',
+      book: 'book',
+      author: 'author',
+      page: 'page',
+      tags: 'tags',
+      tag: 'tag',
+      feed: 'feed',
+      contributor: 'contributor',
+      chapter: 'chapter',
+      theme: 'theme',
+      subtheme: 'subtheme',
+      quote: 'quote',
+      analysis: 'analysis',
+      category: 'category',
+      source: 'source',
+      syncstatus: 'syncStatus',
+    };
+
+    return Object.fromEntries(
+      Object.entries(sourceRow).map(([key, value]) => [
+        headerNames[key.replace(/[^a-z0-9]/gi, '').toLowerCase()] ?? key,
+        value,
+      ]),
+    );
+  }
+
+  private mergeRows(
+    currentRows: Record<string, unknown>[],
+    incomingRows: Record<string, unknown>[],
+  ): Record<string, unknown>[] {
+    const rowsById = new Map<string, Record<string, unknown>>();
+
+    currentRows.forEach((row, index) => {
+      rowsById.set(String(row['id'] ?? `cached-${index}`), row);
+    });
+    incomingRows.forEach((row, index) => {
+      rowsById.set(String(row['id'] ?? `incoming-${index}`), row);
+    });
+
+    return [...rowsById.values()];
   }
 
   private domainTable(tableName: DomainTableName): Table<PersistedDomainRow, string> {

@@ -78,13 +78,23 @@
                   <article class="index-entry">
                     <div class="entry-heading">
                       <strong>{{ row.subtheme || row.theme }}</strong>
-                      <span class="tag-badge">{{ row.tag }}</span>
+                      <div class="entry-tags" [attr.aria-label]="'DOMAINS.INDEX.TAG' | transloco">
+                        @for (tag of splitTags(row.tag); track $index) {
+                          <span class="tag-badge">{{ tag }}</span>
+                        }
+                      </div>
                     </div>
                     <span
                       class="status-indicator"
                       [class.synced]="row.syncStatus === 'synced'"
+                      [attr.aria-label]="'COMMON.STATUS.' + row.syncStatus | transloco"
+                      [attr.title]="'COMMON.STATUS.' + row.syncStatus | transloco"
+                      role="img"
+                      tabindex="0"
                     >
-                      {{ 'COMMON.STATUS.' + row.syncStatus | transloco }}
+                      <span class="status-label">{{
+                        'COMMON.STATUS.' + row.syncStatus | transloco
+                      }}</span>
                     </span>
                   </article>
                 }

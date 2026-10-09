@@ -3,7 +3,9 @@
     <div class="add-entry-form">
       <h3>{{ 'DOMAINS.PASSAGE.NEW_ENTRY_TITLE' | transloco }}</h3>
       <div class="form-group">
-        <label id="passage-title-label" for="passage-title">{{ 'DOMAINS.PASSAGE.TITLE' | transloco }}</label>
+        <label id="passage-title-label" for="passage-title">{{
+          'DOMAINS.PASSAGE.TITLE' | transloco
+        }}</label>
         <div
           id="passage-title"
           class="form-control form-control-inline"
@@ -14,7 +16,9 @@
         ></div>
       </div>
       <div class="form-group">
-        <label id="passage-text-label" for="passage-text">{{ 'DOMAINS.PASSAGE.PASSAGE_TEXT' | transloco }}</label>
+        <label id="passage-text-label" for="passage-text">{{
+          'DOMAINS.PASSAGE.PASSAGE_TEXT' | transloco
+        }}</label>
         <div
           id="passage-text"
           class="form-control"
@@ -25,11 +29,16 @@
           (input)="onPassageTextInput($event)"
         ></div>
         <small id="passage-text-count" class="character-count">
-          {{ 'DOMAINS.PASSAGE.CHARACTERS_LEFT' | transloco: { count: passageTextCharactersRemaining() } }}
+          {{
+            'DOMAINS.PASSAGE.CHARACTERS_LEFT'
+              | transloco: { count: passageTextCharactersRemaining() }
+          }}
         </small>
       </div>
       <div class="form-group">
-        <label id="passage-book-label" for="passage-book">{{ 'DOMAINS.PASSAGE.BOOK' | transloco }}</label>
+        <label id="passage-book-label" for="passage-book">{{
+          'DOMAINS.PASSAGE.BOOK' | transloco
+        }}</label>
         <div
           id="passage-book"
           class="form-control form-control-inline"
@@ -37,10 +46,14 @@
           role="textbox"
           aria-labelledby="passage-book-label"
           (input)="newBook.set($any($event.target).textContent?.trim() ?? '')"
-        ></div>
+        >
+          {{ bookName() }}
+        </div>
       </div>
       <div class="form-group">
-        <label id="passage-author-label" for="passage-author">{{ 'DOMAINS.PASSAGE.AUTHOR' | transloco }}</label>
+        <label id="passage-author-label" for="passage-author">{{
+          'DOMAINS.PASSAGE.AUTHOR' | transloco
+        }}</label>
         <div
           id="passage-author"
           class="form-control form-control-inline"
@@ -48,10 +61,14 @@
           role="textbox"
           aria-labelledby="passage-author-label"
           (input)="newAuthor.set($any($event.target).textContent?.trim() ?? '')"
-        ></div>
+        >
+          {{ bookAuthor() }}
+        </div>
       </div>
       <div class="form-group">
-        <label id="passage-page-label" for="passage-page">{{ 'DOMAINS.PASSAGE.PAGE' | transloco }}</label>
+        <label id="passage-page-label" for="passage-page">{{
+          'DOMAINS.PASSAGE.PAGE' | transloco
+        }}</label>
         <div
           id="passage-page"
           class="form-control form-control-inline"
@@ -62,7 +79,9 @@
         ></div>
       </div>
       <div class="form-group">
-        <label id="passage-tags-label" for="passage-tags">{{ 'DOMAINS.PASSAGE.TAGS' | transloco }}</label>
+        <label id="passage-tags-label" for="passage-tags">{{
+          'DOMAINS.PASSAGE.TAGS' | transloco
+        }}</label>
         <div
           id="passage-tags"
           class="form-control form-control-inline"
@@ -86,20 +105,232 @@
   @if (rows().length === 0) {
     <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
   } @else {
-    <div class="passage-grid">
-      @for (row of rows(); track row.id) {
-        <article class="passage-card">
-          <h4>{{ row.title }}</h4>
-          <p class="passage-text">{{ row.passageText }}</p>
-          <figcaption>
-            <strong>{{ row.author }}</strong> — <em>{{ row.book }}</em>
-            @if (row.page) { <span class="page">p. {{ row.page }}</span> }
-          </figcaption>
-          @if (row.tags) {
-            <p class="tags"><strong>{{ 'DOMAINS.PASSAGE.TAGS' | transloco }}</strong> {{ row.tags }}</p>
+    <label class="domain-search">
+      <span class="visually-hidden">{{ 'DOMAINS.PASSAGE.SEARCH' | transloco }}</span>
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="8.75" cy="8.75" r="5.75" />
+        <path d="m13 13 4 4" />
+      </svg>
+      <input
+        type="search"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        [placeholder]="'DOMAINS.PASSAGE.SEARCH' | transloco"
+      />
+    </label>
+    @if (filteredRows().length === 0) {
+      <p class="empty-state">{{ 'DOMAINS.PASSAGE.NO_MATCHES' | transloco }}</p>
+    } @else {
+      <div class="passage-grid">
+        @for (row of filteredRows(); track row.id) {
+          <article class="passage-card">
+            <header class="passage-card-header">
+              <h4>{{ row.title }}</h4>
+              <span class="reading-time">
+                {{
+                  'DOMAINS.PASSAGE.READING_TIME'
+                    | transloco: { minutes: estimateReadingMinutes(row.passageText) }
+                }}
+              </span>
+            </header>
+            <p class="passage-preview">{{ row.passageText }}</p>
+            <div class="passage-meta">
+              <strong>{{ row.author }}</strong>
+              <span>{{ row.book }}</span>
+              @if (row.page) {
+                <span>p. {{ row.page }}</span>
+              }
+            </div>
+            @if (row.tags) {
+              <div class="passage-tags" [attr.aria-label]="'DOMAINS.PASSAGE.TAGS' | transloco">
+                @for (tag of splitTags(row.tags); track $index) {
+                  <span class="passage-tag">{{ tag }}</span>
+                }
+              </div>
+            }
+            <button type="button" class="read-passage-button" (click)="openReader(row)">
+              {{ 'DOMAINS.PASSAGE.READ_PASSAGE' | transloco }}
+            </button>
+          </article>
+        }
+      </div>
+    }
+  }
+
+  @if (selectedPassage(); as passage) {
+    <div class="reader-backdrop">
+      <section
+        class="reader-sheet"
+        [class.reader-theme-dark]="readerTheme() === 'dark'"
+        [class.reader-theme-light]="readerTheme() === 'light'"
+        role="dialog"
+        aria-modal="true"
+        [attr.aria-label]="passage.title"
+        tabindex="-1"
+      >
+        <div
+          class="reading-progress-track"
+          role="progressbar"
+          [attr.aria-valuenow]="readingProgress()"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          <span class="reading-progress-bar" [style.width.%]="readingProgress()"></span>
+        </div>
+
+        <header class="reader-header">
+          <button type="button" class="reader-back-button" (click)="closeReader()">
+            <span aria-hidden="true">←</span>
+            {{ 'COMMON.BACK' | transloco }}
+          </button>
+          <div
+            class="reader-controls"
+            [attr.aria-label]="'DOMAINS.PASSAGE.READER_CONTROLS' | transloco"
+          >
+            <div class="reader-font-size-control">
+              <button
+                type="button"
+                class="reader-control-button"
+                [disabled]="readerFontSize() <= 1"
+                [attr.aria-label]="'DOMAINS.PASSAGE.DECREASE_FONT_SIZE' | transloco"
+                [title]="'DOMAINS.PASSAGE.DECREASE_FONT_SIZE' | transloco"
+                (click)="adjustReaderFontSize(-0.125)"
+              >
+                A−
+              </button>
+              <span class="reader-font-size-value">{{ readerFontSizePercent() }}%</span>
+              <button
+                type="button"
+                class="reader-control-button"
+                [disabled]="readerFontSize() >= 2"
+                [attr.aria-label]="'DOMAINS.PASSAGE.INCREASE_FONT_SIZE' | transloco"
+                [title]="'DOMAINS.PASSAGE.INCREASE_FONT_SIZE' | transloco"
+                (click)="adjustReaderFontSize(0.125)"
+              >
+                A+
+              </button>
+            </div>
+            <select
+              class="reader-font-select"
+              [value]="readerFontFamily()"
+              [attr.aria-label]="'DOMAINS.PASSAGE.FONT_FAMILY' | transloco"
+              (change)="setReaderFontFamily($event)"
+            >
+              <option value="serif">{{ 'DOMAINS.PASSAGE.FONT_SERIF' | transloco }}</option>
+              <option value="sans">{{ 'DOMAINS.PASSAGE.FONT_SANS' | transloco }}</option>
+            </select>
+            <button
+              type="button"
+              class="reader-control-button reader-copy-button"
+              [attr.aria-label]="'DOMAINS.PASSAGE.COPY_TEXT' | transloco"
+              [title]="'DOMAINS.PASSAGE.COPY_TEXT' | transloco"
+              (click)="copyPassageText()"
+            >
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path
+                  d="M7 6V4.5A1.5 1.5 0 0 1 8.5 3h7A1.5 1.5 0 0 1 17 4.5v8a1.5 1.5 0 0 1-1.5 1.5H14M5.5 7H12a1.5 1.5 0 0 1 1.5 1.5v7A1.5 1.5 0 0 1 12 17H5.5A1.5 1.5 0 0 1 4 15.5v-7A1.5 1.5 0 0 1 5.5 7Z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="reader-control-button"
+              [class.active]="readerJustified()"
+              [attr.aria-pressed]="readerJustified()"
+              [attr.aria-label]="'DOMAINS.PASSAGE.JUSTIFY_TEXT' | transloco"
+              [title]="'DOMAINS.PASSAGE.JUSTIFY_TEXT' | transloco"
+              (click)="toggleReaderJustification()"
+            >
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M3 4h14v1.5H3zm0 3.5h14V9H3zm0 3.5h14v1.5H3zm0 3.5h14V16H3z" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="reader-control-button reader-theme-button"
+              [attr.aria-label]="
+                (readerTheme() === 'dark'
+                  ? 'DOMAINS.PASSAGE.THEME_LIGHT'
+                  : 'DOMAINS.PASSAGE.THEME_DARK'
+                ) | transloco
+              "
+              [title]="
+                (readerTheme() === 'dark'
+                  ? 'DOMAINS.PASSAGE.THEME_LIGHT'
+                  : 'DOMAINS.PASSAGE.THEME_DARK'
+                ) | transloco
+              "
+              (click)="toggleReaderTheme()"
+            >
+              @if (readerTheme() === 'dark') {
+                {{ 'DOMAINS.PASSAGE.THEME_LIGHT' | transloco }}
+              } @else {
+                {{ 'DOMAINS.PASSAGE.THEME_DARK' | transloco }}
+              }
+            </button>
+          </div>
+          @if (copyStatus() !== 'idle') {
+            <span class="reader-copy-feedback" role="status" aria-live="polite">
+              {{
+                (copyStatus() === 'copied'
+                  ? 'DOMAINS.PASSAGE.COPIED'
+                  : 'DOMAINS.PASSAGE.COPY_FAILED'
+                ) | transloco
+              }}
+            </span>
           }
-        </article>
-      }
+          <button
+            type="button"
+            class="reader-close-button"
+            [attr.aria-label]="'COMMON.CLOSE' | transloco"
+            (click)="closeReader()"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </header>
+
+        <div class="reader-scroll" (scroll)="updateReadingProgress($event)">
+          <article class="reader-content">
+            <p class="reader-kicker">{{ 'NAV.BRAND_NAME' | transloco }}</p>
+            <h1>{{ passage.title }}</h1>
+            <div class="reader-meta">
+              <strong>{{ passage.author }}</strong>
+              <span>{{ passage.book }}</span>
+              @if (passage.page) {
+                <span>p. {{ passage.page }}</span>
+              }
+              <span>
+                {{
+                  'DOMAINS.PASSAGE.READING_TIME'
+                    | transloco: { minutes: estimateReadingMinutes(passage.passageText) }
+                }}
+              </span>
+            </div>
+            <div
+              class="reader-text"
+              [class.reader-font-sans]="readerFontFamily() === 'sans'"
+              [class.reader-justified]="readerJustified()"
+              [style.font-size.rem]="readerFontSize()"
+            >
+              {{ passage.passageText }}
+            </div>
+            @if (passage.tags) {
+              <div
+                class="passage-tags reader-tags"
+                [attr.aria-label]="'DOMAINS.PASSAGE.TAGS' | transloco"
+              >
+                @for (tag of splitTags(passage.tags); track $index) {
+                  <span class="passage-tag">{{ tag }}</span>
+                }
+              </div>
+            }
+          </article>
+        </div>
+      </section>
     </div>
   }
 </div>

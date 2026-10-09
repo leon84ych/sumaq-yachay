@@ -39,10 +39,11 @@ export class IndexViewComponent {
   private readonly globalErrorService = inject(GlobalErrorService);
 
   readonly hierarchy = computed<IndexHierarchyGroup[]>(() => {
-    const sortedRows = normalizeIndexRows(this.rows()).sort((left, right) =>
-      left.chapter.localeCompare(right.chapter) ||
-      left.theme.localeCompare(right.theme) ||
-      left.subtheme.localeCompare(right.subtheme)
+    const sortedRows = normalizeIndexRows(this.rows()).sort(
+      (left, right) =>
+        left.chapter.localeCompare(right.chapter) ||
+        left.theme.localeCompare(right.theme) ||
+        left.subtheme.localeCompare(right.subtheme),
     );
 
     const groups = new Map<string, IndexHierarchyGroup>();
@@ -65,6 +66,13 @@ export class IndexViewComponent {
 
     return [...groups.values()];
   });
+
+  splitTags(value: string): string[] {
+    return value
+      .split(/[,;\n]/)
+      .map((tag) => tag.trim())
+      .filter(Boolean);
+  }
 
   resetForm(): void {
     this.newChapter.set('');
@@ -94,10 +102,10 @@ export class IndexViewComponent {
     };
 
     try {
-      await this.domainDataService.updateDomainSheetRows(
-        this.currentSheet().name,
-        [...this.rows(), newRow]
-      );
+      await this.domainDataService.updateDomainSheetRows(this.currentSheet().name, [
+        ...this.rows(),
+        newRow,
+      ]);
       this.resetForm();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to add index entry.';
