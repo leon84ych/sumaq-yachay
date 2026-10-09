@@ -1,0 +1,105 @@
+<div class="passage-view">
+  @if (isAddingEntry()) {
+    <div class="add-entry-form">
+      <h3>{{ 'DOMAINS.PASSAGE.NEW_ENTRY_TITLE' | transloco }}</h3>
+      <div class="form-group">
+        <label id="passage-title-label" for="passage-title">{{ 'DOMAINS.PASSAGE.TITLE' | transloco }}</label>
+        <div
+          id="passage-title"
+          class="form-control form-control-inline"
+          contenteditable="true"
+          role="textbox"
+          aria-labelledby="passage-title-label"
+          (input)="newTitle.set($any($event.target).textContent?.trim() ?? '')"
+        ></div>
+      </div>
+      <div class="form-group">
+        <label id="passage-text-label" for="passage-text">{{ 'DOMAINS.PASSAGE.PASSAGE_TEXT' | transloco }}</label>
+        <div
+          id="passage-text"
+          class="form-control"
+          contenteditable="true"
+          role="textbox"
+          aria-labelledby="passage-text-label"
+          aria-describedby="passage-text-count"
+          (input)="onPassageTextInput($event)"
+        ></div>
+        <small id="passage-text-count" class="character-count">
+          {{ 'DOMAINS.PASSAGE.CHARACTERS_LEFT' | transloco: { count: passageTextCharactersRemaining() } }}
+        </small>
+      </div>
+      <div class="form-group">
+        <label id="passage-book-label" for="passage-book">{{ 'DOMAINS.PASSAGE.BOOK' | transloco }}</label>
+        <div
+          id="passage-book"
+          class="form-control form-control-inline"
+          contenteditable="true"
+          role="textbox"
+          aria-labelledby="passage-book-label"
+          (input)="newBook.set($any($event.target).textContent?.trim() ?? '')"
+        ></div>
+      </div>
+      <div class="form-group">
+        <label id="passage-author-label" for="passage-author">{{ 'DOMAINS.PASSAGE.AUTHOR' | transloco }}</label>
+        <div
+          id="passage-author"
+          class="form-control form-control-inline"
+          contenteditable="true"
+          role="textbox"
+          aria-labelledby="passage-author-label"
+          (input)="newAuthor.set($any($event.target).textContent?.trim() ?? '')"
+        ></div>
+      </div>
+      <div class="form-group">
+        <label id="passage-page-label" for="passage-page">{{ 'DOMAINS.PASSAGE.PAGE' | transloco }}</label>
+        <div
+          id="passage-page"
+          class="form-control form-control-inline"
+          contenteditable="true"
+          role="textbox"
+          aria-labelledby="passage-page-label"
+          (input)="newPage.set($any($event.target).textContent?.trim() ?? '')"
+        ></div>
+      </div>
+      <div class="form-group">
+        <label id="passage-tags-label" for="passage-tags">{{ 'DOMAINS.PASSAGE.TAGS' | transloco }}</label>
+        <div
+          id="passage-tags"
+          class="form-control form-control-inline"
+          contenteditable="true"
+          role="textbox"
+          aria-labelledby="passage-tags-label"
+          (input)="newTags.set($any($event.target).textContent?.trim() ?? '')"
+        ></div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn-submit" (click)="addPassage()">
+          {{ 'COMMON.SAVE' | transloco }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="resetForm()">
+          {{ 'COMMON.CANCEL' | transloco }}
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (rows().length === 0) {
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+    <div class="passage-grid">
+      @for (row of rows(); track row.id) {
+        <article class="passage-card">
+          <h4>{{ row.title }}</h4>
+          <p class="passage-text">{{ row.passageText }}</p>
+          <figcaption>
+            <strong>{{ row.author }}</strong> — <em>{{ row.book }}</em>
+            @if (row.page) { <span class="page">p. {{ row.page }}</span> }
+          </figcaption>
+          @if (row.tags) {
+            <p class="tags"><strong>{{ 'DOMAINS.PASSAGE.TAGS' | transloco }}</strong> {{ row.tags }}</p>
+          }
+        </article>
+      }
+    </div>
+  }
+</div>

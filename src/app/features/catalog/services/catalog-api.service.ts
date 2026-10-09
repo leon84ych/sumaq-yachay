@@ -1,4 +1,5 @@
 import { Injectable, inject } from '@angular/core';
+import { TranslocoService } from '@jsverse/transloco';
 import { from, Observable, throwError } from 'rxjs';
 import { ConfigService } from '../../../core/services/config.service';
 import { map } from 'rxjs/operators';
@@ -16,6 +17,7 @@ export class CatalogApiService {
 
   private config = inject(ConfigService);
   private authService = inject(GoogleAuthService);
+  private transloco = inject(TranslocoService);
 
   /**
    * GET: Retrieves catalog rows matching the modular architecture pattern
@@ -61,9 +63,19 @@ export class CatalogApiService {
           }
           return response.json();
         })
-        .then((data) => {
+        .then((data: GetCatalogResponse) => {
+          const message = data.message?.toLowerCase() ?? '';
+          if (
+            data.status === 'error' &&
+            message.includes('invalid or expired google token')
+          ) {
+            throw new Error(
+              this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED')
+            );
+          }
+
           clearTimeout(timeoutId);
-          resolve(data as GetCatalogResponse);
+          resolve(data);
         })
         .catch((error) => {
           clearTimeout(timeoutId);

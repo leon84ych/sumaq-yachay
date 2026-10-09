@@ -23,7 +23,9 @@
   font-weight: 600;
   color: var(--text-secondary, #666);
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .tab-button:hover {
@@ -53,7 +55,9 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .add-tab-btn:hover {
@@ -78,7 +82,8 @@
   font-size: 0.85rem;
   border: 1px solid var(--border, #cbd5e1);
   border-radius: 6px;
-  background-color: #fff;
+  background-color: var(--surface, #fff);
+  color: var(--text, #22313a);
   outline: none;
   cursor: pointer;
 }

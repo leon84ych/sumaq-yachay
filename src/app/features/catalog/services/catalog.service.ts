@@ -7,6 +7,7 @@ import { CatalogItem } from '../models/catalog-item.model';
 import { CatalogPostPayload } from '../models/catalog-api.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { GlobalLoadingService } from '../../../core/services/global-loading.service';
+import { mapCatalogItemToRowValues } from './catalog-row-values';
 
 @Injectable({
   providedIn: 'root',
@@ -91,16 +92,23 @@ export class CatalogService {
    * Load stored items from IndexedDB
    */
   async loadFromLocal(): Promise<void> {
+    this.isLoading.set(true);
     try {
       const localItems = await this.dbService.db.catalogs.toArray();
-      if (localItems.length > 0) {
-        this.items.set(localItems);
-      } else {
-        // Seed default template items if database is freshly initialized
-        await this.seedInitialData();
+      const generatedSampleIds = new Set(['cat-tech-01', 'cat-phil-01']);
+      const userItems = localItems.filter((item) => !generatedSampleIds.has(item.id));
+
+      if (userItems.length !== localItems.length) {
+        await this.dbService.db.catalogs.bulkDelete(
+          localItems.filter((item) => generatedSampleIds.has(item.id)).map((item) => item.id)
+        );
       }
+
+      this.items.set(userItems);
     } catch (err) {
       console.error('Failed to load catalogs from IndexedDB:', err);
+    } finally {
+      this.isLoading.set(false);
     }
   }
 
@@ -121,6 +129,31 @@ export class CatalogService {
     try {
       const response = await firstValueFrom(this.apiService.getCatalog());
       if (response && response.status === 'success' && Array.isArray(response.data)) {
+        if (response.data.length === 0) {
+          const tables = [
+            this.dbService.db.catalogs,
+            this.dbService.db.domainSheets,
+            this.dbService.db.indexTopics,
+            this.dbService.db.concepts,
+            this.dbService.db.quotes,
+            this.dbService.db.passages,
+            this.dbService.db.timeline,
+            this.dbService.db.relations,
+            this.dbService.db.glosary,
+            this.dbService.db.questions,
+          ];
+
+          await this.dbService.db.transaction('rw', tables, async () => {
+            for (const table of tables) {
+              await table.clear();
+            }
+          });
+
+          this.items.set([]);
+          this.lastSyncedAt.set(new Date().toLocaleTimeString());
+          return;
+        }
+
         const normalized: CatalogItem[] = response.data.map((item) => ({
           ...item,
           syncStatus: 'synced',
@@ -171,7 +204,7 @@ export class CatalogService {
     // Handle key mutation in IndexedDB if the ID changed during an edit
     if (isEdit && originalId && originalId !== item.id) {
       await this.dbService.db.catalogs.delete(originalId);
-      this.removeLocalItemFromState(originalId); // Helper to clear state array
+      this.removeLocalItemInState(originalId); // Helper to clear state array
     }
 
     const operation = this.globalLoadingService.begin();
@@ -185,16 +218,7 @@ export class CatalogService {
       action: isEdit ? 'UPDATE_CATALOG_ITEM' : 'CREATE_CATALOG_ITEM',
       id: item.id,
       row: item.row,
-      rowValues: [
-        item.id,
-        item.subject,
-        item.topic,
-        item.name,
-        item.author,
-        item.description || '',
-        item.source || '',
-        item.active
-      ],
+      rowValues: mapCatalogItemToRowValues(item),
     };
 
     // 3. Send over HTTP POST to GAS
@@ -270,42 +294,10 @@ export class CatalogService {
     });
   }
 
-  private async seedInitialData(): Promise<void> {
-    const samples: CatalogItem[] = [
-      {
-        id: 'cat-tech-01',
-        subject: 'Computer Science',
-        topic: 'Programming',
-        name: 'Logic and programing',
-        author: 'John Doe',
-        active: true,
-        description: 'Core concepts of programing logic, data structures, and algorithms.',
-        updatedAt: new Date().toISOString(),
-        syncStatus: 'synced',
-        row: 1,
-      },
-      {
-        id: 'cat-phil-01',
-        subject: 'Philosophy',
-        topic: 'Philosophy',
-        name: 'Basic Philosophy Concepts',
-        author: 'Jane Smith',
-        active: true,
-        description: 'Classic philosophical concepts, thinkers, and schools of thought.',
-        updatedAt: new Date().toISOString(),
-        syncStatus: 'synced',
-        row: 2,
-      }
-    ];
-
-    await this.dbService.db.catalogs.bulkPut(samples);
-    this.items.set(samples);
-  }
-
   /**
  * Removes an item from the local reactive state array by its ID
  */
-  private removeLocalItemFromState(idToRemove: string): void {
+  private removeLocalItemInState(idToRemove: string): void {
     this.items.update(currentItems => currentItems.filter(item => item.id !== idToRemove));
   }
 }

@@ -1,6 +1,6 @@
 @switch (viewKind()) {
 @case ('INDEX') {
-<app-index
+<app-index-view
   [currentSheet]="currentSheet()"
   [rows]="indexRows()"
   [isAddingEntry]="isAddingEntry()"
@@ -16,7 +16,24 @@
 />
 }
 @case ('QUOTES') {
-<app-quote-gallery [rows]="quoteRows()" />
+<app-quote-gallery
+  [rows]="quoteRows()"
+  [currentSheet]="currentSheet()"
+  [bookName]="bookName()"
+  [bookAuthor]="bookAuthor()"
+  [isAddingEntry]="isAddingEntry()"
+  (closeEntry)="closeEntry.emit()"
+/>
+}
+@case ('PASSAGES') {
+<app-passages
+  [rows]="passageRows()"
+  [currentSheet]="currentSheet()"
+  [bookName]="bookName()"
+  [bookAuthor]="bookAuthor()"
+  [isAddingEntry]="isAddingEntry()"
+  (closeEntry)="closeEntry.emit()"
+/>
 }
 @default {
 <p class="unsupported-sheet">{{ 'CATALOG_DETAIL.UNSUPPORTED_SHEET' | transloco }}</p>

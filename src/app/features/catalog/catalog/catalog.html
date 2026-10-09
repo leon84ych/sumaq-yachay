@@ -67,7 +67,11 @@
     />
 
     <!-- Catalog Items Grid -->
-    @if (catalogService.filteredItems().length > 0) {
+    @if (catalogService.isLoading()) {
+      <div class="state-message" role="status" aria-live="polite">
+        {{ 'CATALOG.HEADER.SYNCING' | transloco }}
+      </div>
+    } @else if (catalogService.filteredItems().length > 0) {
       <div class="catalog-grid">
         @for (item of catalogService.filteredItems(); track item.id) {
           <app-catalog-card

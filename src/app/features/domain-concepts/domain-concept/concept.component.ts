@@ -59,6 +59,8 @@ export class ConceptsComponent {
       ...(category ? { category } : {}),
       ...(source ? { source } : {}),
       ...(tags ? { tags } : {}),
+      feed: 5,
+      contributor: 'currentUser',
       syncStatus: 'pending',
     };
 

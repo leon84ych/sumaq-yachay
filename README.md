@@ -11,6 +11,7 @@ It features a **Universal 5-Entity Learning Schema** that seamlessly adapts to t
 - [Universal 5-Entity Learning Schema](#-universal-5-entity-learning-schema)
 - [Backend (BE) Configuration & Google Apps Script Setup](#-backend-be-configuration--google-apps-script-setup)
 - [Getting Started & Local Development](#-getting-started--local-development)
+- [GitHub Pages Deployment](#-github-pages-deployment)
 - [Code Generation & Build Commands](#-code-generation--build-commands)
 - [Implementation & AI Roadmaps](#-implementation--ai-roadmaps)
 
@@ -205,6 +206,49 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 ```bash
 ng serve
+```
+
+---
+
+## 🚀 GitHub Pages Deployment
+
+This project is configured as a GitHub Pages project site at:
+
+https://leon84ych.github.io/sumaq-yachay/
+
+### Prerequisites
+
+- A GitHub repository with GitHub Pages enabled.
+- Node.js and npm installed.
+- The repository remote configured as `https://github.com/leon84ych/sumaq-yachay.git`.
+
+### Deploy
+
+From the repository root, run:
+
+```bash
+npm install
+npm run deploy
+```
+
+The `deploy` script performs the following steps:
+
+1. Builds the Angular application in production mode.
+2. Sets the Angular base URL to the project's GitHub Pages URL.
+3. Publishes the generated `dist/sumaq-yachay/browser` directory to the GitHub Pages branch.
+
+The deployment command uses the following base URL:
+
+```text
+https://leon84ych.github.io/sumaq-yachay/
+```
+
+If the deployment fails, verify that the repository has a `gh-pages` branch or that GitHub Pages is configured to publish from the branch used by `angular-cli-ghpages`.
+
+To verify the deployment after publishing, open:
+
+```text
+https://leon84ych.github.io/sumaq-yachay/
 ```
 
 ---

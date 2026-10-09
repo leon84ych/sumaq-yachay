@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/global-error.service';
 import { DomainDataService } from '../../services/domain-data.service';
+import {
+  ALL_AVAILABLE_DOMAINS,
+  getDefaultHeadersForDomain,
+} from '../../models/domain-sheet-config';
 
 @Component({
   selector: 'app-catalog-sheet-tabs',
@@ -22,22 +26,10 @@ export class CatalogSheetTabsComponent {
   readonly addSheet = output<string>();
   readonly addEntry = output<void>();
 
-
-  // Full master list of all available domain types
-  private readonly allAvailableDomains = [
-    'INDEX',
-    'QUOTES',
-    'TIMELINE',
-    'RELATIONS',
-    'CONCEPTS',
-    'GLOSARY',
-    'QUESTIONS'
-  ];
-
   // Computed property that filters out domains that have already been created as sheets
   readonly availableDomains = computed(() => {
     const existing = this.sheetNames().map(name => name.toUpperCase());
-    return this.allAvailableDomains.filter(domain => !existing.includes(domain));
+    return ALL_AVAILABLE_DOMAINS.filter(domain => !existing.includes(domain));
   });
 
   readonly isAdding = signal<boolean>(false);
@@ -52,8 +44,8 @@ export class CatalogSheetTabsComponent {
 
     this.isCreating.set(true);
     try {
-      const headers = this.getDefaultHeadersForDomain(domainName);
-      await this.domainDataService.createDomainSheet(domainName, headers);
+      const headers = getDefaultHeadersForDomain(domainName);
+      await this.domainDataService.createDomainSheet(domainName, [...headers]);
 
       this.addSheet.emit(domainName);
       this.selectTab.emit(domainName);
@@ -64,28 +56,6 @@ export class CatalogSheetTabsComponent {
     } finally {
       this.isCreating.set(false);
       this.toggleAddMode(false);
-    }
-  }
-
-  private getDefaultHeadersForDomain(domain: string): string[] {
-    switch (domain) {
-      case 'INDEX':
-        return ['id', 'chapter', 'theme', 'subtheme', 'tag', 'syncStatus'];
-      case 'QUOTES':
-        return ['id', 'quote', 'author', 'page', 'tags', 'syncStatus'];
-      case 'TIMELINE':
-        return ['id', 'date', 'event', 'description', 'significance', 'syncStatus'];
-      case 'GLOSARY':
-        return ['id', 'label', 'definition', 'examples', 'syncStatus'];
-      case 'CONCEPTS':
-        return ['id', 'term', 'definition', 'category', 'source', 'syncStatus'];
-      case 'RELATIONS':
-        return ['id', 'sourceNode', 'targetNode', 'relationshipType', 'weight', 'syncStatus'];
-      case 'QUESTIONS':
-        return ['id', 'question', 'answer', 'difficulty', 'status', 'syncStatus'];
-      default:
-        // Fallback for any unknown domain
-        return ['id', 'tag', 'syncStatus'];
     }
   }
 }

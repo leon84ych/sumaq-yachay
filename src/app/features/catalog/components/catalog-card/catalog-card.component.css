@@ -96,6 +96,24 @@
   overflow: hidden;
 }
 
+.entry-count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-muted);
+  background: var(--background);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+}
+
+.entry-count strong {
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
 .sheet-meta {
   display: inline-flex;
   align-items: center;

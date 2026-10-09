@@ -28,6 +28,11 @@
 
     <p class="card-desc">{{ item().description || ('CATALOG.CARD.NO_DESCRIPTION' | transloco) }}</p>
 
+    <div class="entry-count">
+      <span>{{ 'CATALOG.CARD.ENTRIES' | transloco }}</span>
+      <strong>{{ item().count }}</strong>
+    </div>
+
     <!-- Metadata Grid (Sheet ID & Source URL) -->
     <div class="meta-links-group">
       @if (item().source) {

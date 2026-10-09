@@ -14,15 +14,25 @@
   gap: 0.25rem;
 }
 
-.form-group input,
-.form-group textarea {
+.form-control {
+  min-height: 2.75rem;
   padding: 0.5rem;
   border: 1px solid var(--border, #cbd5e1);
   border-radius: 4px;
+  background: var(--surface, #fff);
+  color: var(--text-primary, #111827);
   font: inherit;
+  line-height: 1.4;
+  outline: none;
 }
 
-.form-group textarea {
+.form-control:focus {
+  border-color: var(--primary, #2563eb);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary, #2563eb) 18%, transparent);
+}
+
+.form-control[contenteditable='true'] {
+  min-height: 7rem;
   resize: vertical;
 }
 
@@ -37,25 +47,32 @@
   margin-top: 0.5rem;
 }
 
-.quote-grid {
+.form-control-inline {
+  min-height: 2.75rem;
+}
+
+.passage-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
 }
 
-.quote-card {
+.passage-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 1.1rem;
   box-shadow: var(--shadow-sm);
-  margin: 0;
 }
 
-blockquote {
+.passage-card h4 {
   margin: 0 0 0.6rem;
-  font-style: italic;
-  line-height: 1.4;
+}
+
+.passage-text {
+  margin: 0 0 0.8rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
 }
 
 figcaption {
@@ -65,12 +82,6 @@ figcaption {
 
 .page {
   margin-left: 0.4rem;
-}
-
-.analysis {
-  margin: 0.6rem 0 0;
-  font-size: 0.85rem;
-  line-height: 1.4;
 }
 
 .tags {

@@ -19,7 +19,7 @@ declare const google: any;
         </div>
       } @else {
         <div class="google-login-wrap" aria-live="polite">
-          <span class="not-signed-in-message">{{ 'AUTH.NOT_SIGNED_IN' | transloco }}</span>
+
           <button type="button" (click)="signIn()" class="btn-sign-in">
             {{ 'AUTH.SIGN_IN' | transloco }}
           </button>

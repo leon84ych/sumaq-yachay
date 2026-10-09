@@ -1,6 +1,82 @@
 <div class="quote-gallery-view">
+  @if (isAddingEntry()) {
+    <div class="add-entry-form">
+      <h3>{{ 'DOMAINS.QUOTE.NEW_ENTRY_TITLE' | transloco }}</h3>
+      <div class="form-group">
+        <label for="quote-text">{{ 'DOMAINS.QUOTE.QUOTE' | transloco }}</label>
+        <textarea
+          id="quote-text"
+          rows="4"
+          [attr.maxLength]="quoteMaxLength"
+          [ngModel]="newQuote()"
+          (ngModelChange)="newQuote.set($event)"
+          required
+        ></textarea>
+        <small class="character-count">
+          {{ 'DOMAINS.QUOTE.CHARACTERS_LEFT' | transloco: { count: quoteCharactersRemaining() } }}
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="quote-analysis">{{ 'DOMAINS.QUOTE.ANALYSIS' | transloco }}</label>
+        <textarea
+          id="quote-analysis"
+          rows="3"
+          [ngModel]="newAnalysis()"
+          (ngModelChange)="newAnalysis.set($event)"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="quote-book">{{ 'DOMAINS.QUOTE.BOOK' | transloco }}</label>
+        <input
+          id="quote-book"
+          type="text"
+          [ngModel]="newBook()"
+          (ngModelChange)="newBook.set($event)"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="quote-author">{{ 'DOMAINS.QUOTE.AUTHOR' | transloco }}</label>
+        <input
+          id="quote-author"
+          type="text"
+          [ngModel]="newAuthor()"
+          (ngModelChange)="newAuthor.set($event)"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="quote-page">{{ 'DOMAINS.QUOTE.PAGE' | transloco }}</label>
+        <input
+          id="quote-page"
+          type="text"
+          [ngModel]="newPage()"
+          (ngModelChange)="newPage.set($event)"
+        />
+      </div>
+      <div class="form-group">
+        <label for="quote-tags">{{ 'DOMAINS.QUOTE.TAGS' | transloco }}</label>
+        <input
+          id="quote-tags"
+          type="text"
+          [ngModel]="newTags()"
+          (ngModelChange)="newTags.set($event)"
+          placeholder="e.g. #research, #quotes"
+        />
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn-submit" (click)="addQuote()">
+          {{ 'COMMON.SAVE' | transloco }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="resetForm()">
+          {{ 'COMMON.CANCEL' | transloco }}
+        </button>
+      </div>
+    </div>
+  }
+
   @if (rows().length === 0) {
-    <p class="empty-state">No quotes found in this sheet.</p>
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
   } @else {
     <div class="quote-grid">
       @for (row of rows(); track row.id) {
@@ -12,6 +88,9 @@
           </figcaption>
           @if (row.analysis) {
             <p class="analysis">{{ row.analysis }}</p>
+          }
+          @if (row.tags) {
+            <p class="tags"><strong>{{ 'DOMAINS.QUOTE.TAGS' | transloco }}</strong> {{ row.tags }}</p>
           }
         </figure>
       }

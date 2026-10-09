@@ -2,9 +2,8 @@
   "AUTH": {
     "LOGIN": "Login",
     "LOGOUT": "Logout",
-    "SIGN_IN": "Sign in with Google",
-    "SIGN_OUT": "Sign out",
-    "NOT_SIGNED_IN": "Not signed in to this application"
+    "SIGN_IN": "Sign in",
+    "SIGN_OUT": "Sign out"
   },
   "COMMON": {
     "LOADING": "Loading..."
@@ -26,6 +25,8 @@
       "TIMEOUT_3M": "3 minutes",
       "TIMEOUT_6M": "6 minutes",
       "SAVE": "Save Changes",
+      "LOCAL_FIRST_LABEL": "Local First",
+      "LOCAL_FIRST_DESCRIPTION": "Load IndexedDB data first and refresh GET/POST requests in the background.",
       "APPEARANCE": "Appearance",
       "THEME_LABEL": "Theme",
       "TEXT_SIZE_LABEL": "Text Size",
@@ -64,6 +65,7 @@
     },
     "CARD": {
       "NO_DESCRIPTION": "No description provided.",
+      "ENTRIES": "Entries",
       "ACTIVE": "Active",
       "INACTIVE": "Inactive",
       "EDIT": "Edit",
@@ -154,6 +156,28 @@
       "HTTP_REQUEST_FAILED": "HTTP request failed with status {{status}}.",
       "UPDATE_ROWS_FAILED": "Failed to update domain sheet rows.",
       "GET_SHEETS_FAILED": "Failed to fetch domain sheets."
+    }
+  },
+  "DOMAINS": {
+    "QUOTE": {
+      "NEW_ENTRY_TITLE": "Add New Quote",
+      "QUOTE": "Quote",
+      "ANALYSIS": "Analysis",
+      "BOOK": "Book",
+      "AUTHOR": "Author",
+      "PAGE": "Page",
+      "TAGS": "Tags",
+      "CHARACTERS_LEFT": "{{count}} characters remaining"
+    },
+    "PASSAGE": {
+      "NEW_ENTRY_TITLE": "Add New Passage",
+      "TITLE": "Title",
+      "PASSAGE_TEXT": "Passage Text",
+      "BOOK": "Book",
+      "AUTHOR": "Author",
+      "PAGE": "Page",
+      "TAGS": "Tags",
+      "CHARACTERS_LEFT": "{{count}} characters remaining"
     }
   }
 }

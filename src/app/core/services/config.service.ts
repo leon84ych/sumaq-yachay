@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 
 const WEB_APP_URL_KEY = 'sumaq_yachay_web_app_url';
 const GAS_TIMEOUT_KEY = 'sumaq_yachay_gas_timeout_ms';
+const LOCAL_FIRST_KEY = 'sumaq_yachay_local_first_enabled';
 
 export const GAS_TIMEOUT_OPTIONS = [30000, 60000, 180000, 360000] as const;
 
@@ -13,9 +14,11 @@ export type GasTimeoutMs = (typeof GAS_TIMEOUT_OPTIONS)[number];
 export class ConfigService {
   private urlSignal = signal<string>(this.loadStoredUrl());
   private timeoutSignal = signal<GasTimeoutMs>(this.loadStoredGasTimeout());
+  private localFirstSignal = signal<boolean>(this.loadStoredLocalFirstEnabled());
 
   readonly webAppUrl = this.urlSignal.asReadonly();
   readonly gasRequestTimeoutMs = this.timeoutSignal.asReadonly();
+  readonly localFirstEnabled = this.localFirstSignal.asReadonly();
 
   getWebAppUrl(): string {
     return this.urlSignal();
@@ -43,6 +46,15 @@ export class ConfigService {
     localStorage.setItem(GAS_TIMEOUT_KEY, String(safeTimeout));
   }
 
+  isLocalFirstEnabled(): boolean {
+    return this.localFirstSignal();
+  }
+
+  setLocalFirstEnabled(enabled: boolean): void {
+    this.localFirstSignal.set(enabled);
+    localStorage.setItem(LOCAL_FIRST_KEY, String(enabled));
+  }
+
   private loadStoredUrl(): string {
     try {
       return localStorage.getItem(WEB_APP_URL_KEY) || '';
@@ -61,5 +73,13 @@ export class ConfigService {
       // fall through to default below
     }
     return 60000;
+  }
+
+  private loadStoredLocalFirstEnabled(): boolean {
+    try {
+      return localStorage.getItem(LOCAL_FIRST_KEY) !== 'false';
+    } catch {
+      return true;
+    }
   }
 }

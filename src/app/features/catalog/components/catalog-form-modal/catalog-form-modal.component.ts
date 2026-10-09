@@ -97,6 +97,7 @@ export class CatalogFormModalComponent {
       source: formValue.source || '',
       active: !!formValue.active,
       row: existing ? existing.row : 0,
+      count:0,
     };
 
     this.save.emit({

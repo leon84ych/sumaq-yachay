@@ -1,5 +1,7 @@
 <div class="detail-page">
-  @if (item(); as entry) {
+  @if (domainDataService.isLoading()) {
+    <p class="state-message">{{ 'CATALOG_DETAIL.LOADING' | transloco }}</p>
+  } @else if (item(); as entry) {
     <app-catalog-overview [item]="entry" />
     <app-catalog-sheet-tabs
       [sheetNames]="domainDataService.sheetNames()"
@@ -9,11 +11,11 @@
     />
     <app-sheet-view-resolver
       [sheet]="activeSheet()"
+      [bookName]="item()?.name ?? ''"
+      [bookAuthor]="item()?.author ?? ''"
       [isAddingEntry]="isAddingEntry()"
       (closeEntry)="isAddingEntry.set(false)"
     />
-  } @else if (catalogService.isLoading()) {
-    <p class="state-message">{{ 'CATALOG_DETAIL.LOADING' | transloco }}</p>
   } @else {
     <div class="not-found">
       <h2>{{ 'CATALOG_DETAIL.NOT_FOUND.TITLE' | transloco }}</h2>

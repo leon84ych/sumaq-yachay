@@ -41,6 +41,7 @@ export class App {
   apiUrlInput = this.configService.getWebAppUrl();
   gasTimeoutInput = this.configService.getGasTimeoutMs();
   readonly gasTimeoutOptions = GAS_TIMEOUT_OPTIONS;
+  readonly localFirstEnabled = this.configService.localFirstEnabled;
 
   // Theme State
   readonly theme = signal<Theme>(this.loadInitialTheme());
@@ -74,6 +75,10 @@ export class App {
     this.configService.setWebAppUrl(this.apiUrlInput);
     this.configService.setGasTimeoutMs(this.gasTimeoutInput);
     this.showSettings.set(false);
+  }
+
+  setLocalFirstEnabled(enabled: boolean): void {
+    this.configService.setLocalFirstEnabled(enabled);
   }
 
   setTheme(theme: Theme): void {
@@ -114,7 +119,8 @@ export class App {
     } catch {
       // localStorage unavailable — fall through to system preference
     }
-    const prefersDark = typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+    const prefersDark =
+      typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)').matches;
     return prefersDark ? 'dark' : 'light';
   }
 
@@ -130,4 +136,3 @@ export class App {
     return DEFAULT_FONT_SCALE_INDEX;
   }
 }
-

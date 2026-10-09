@@ -1,0 +1,98 @@
+<section class="index-view-container">
+  @if (isAddingEntry()) {
+    <div class="add-entry-form">
+      <h3>{{ 'DOMAINS.INDEX.NEW_ENTRY_TITLE' | transloco }}</h3>
+
+      <div class="form-group">
+        <label for="index-chapter">{{ 'DOMAINS.INDEX.CHAPTER' | transloco }}</label>
+        <input
+          id="index-chapter"
+          type="text"
+          [ngModel]="newChapter()"
+          (ngModelChange)="newChapter.set($event)"
+          placeholder="e.g. Chapter 1"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="index-theme">{{ 'DOMAINS.INDEX.THEME' | transloco }}</label>
+        <input
+          id="index-theme"
+          type="text"
+          [ngModel]="newTheme()"
+          (ngModelChange)="newTheme.set($event)"
+          placeholder="e.g. Core Concepts"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="index-subtheme">{{ 'DOMAINS.INDEX.SUBTHEME' | transloco }}</label>
+        <input
+          id="index-subtheme"
+          type="text"
+          [ngModel]="newSubtheme()"
+          (ngModelChange)="newSubtheme.set($event)"
+          placeholder="e.g. Definitions"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="index-tag">{{ 'DOMAINS.INDEX.TAG' | transloco }}</label>
+        <input
+          id="index-tag"
+          type="text"
+          [ngModel]="newTag()"
+          (ngModelChange)="newTag.set($event)"
+          placeholder="e.g. #core-def"
+          required
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-submit" (click)="addIndexEntry()">
+          {{ 'COMMON.SAVE' | transloco }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="resetForm()">
+          {{ 'COMMON.CANCEL' | transloco }}
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (rows().length === 0) {
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+    <div class="hierarchy-list">
+      @for (chapterGroup of hierarchy(); track chapterGroup.chapter) {
+        <section class="chapter-group">
+          <h3>{{ chapterGroup.chapter }}</h3>
+
+          @for (themeGroup of chapterGroup.themes; track themeGroup.theme) {
+            <section class="theme-group">
+              <h4>{{ themeGroup.theme }}</h4>
+
+              <div class="entry-list">
+                @for (row of themeGroup.rows; track row.id) {
+                  <article class="index-entry">
+                    <div class="entry-heading">
+                      <strong>{{ row.subtheme || row.theme }}</strong>
+                      <span class="tag-badge">{{ row.tag }}</span>
+                    </div>
+                    <span
+                      class="status-indicator"
+                      [class.synced]="row.syncStatus === 'synced'"
+                    >
+                      {{ 'COMMON.STATUS.' + row.syncStatus | transloco }}
+                    </span>
+                  </article>
+                }
+              </div>
+            </section>
+          }
+        </section>
+      }
+    </div>
+  }
+</section>

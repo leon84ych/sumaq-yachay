@@ -2,9 +2,8 @@
   "AUTH": {
     "LOGIN": "Entrar",
     "LOGOUT": "Salir",
-    "SIGN_IN": "Iniciar sesión con Google",
-    "SIGN_OUT": "Cerrar sesión",
-    "NOT_SIGNED_IN": "No autenticado en esta aplicación"
+    "SIGN_IN": "Entrar",
+    "SIGN_OUT": "Salir"
   },
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
@@ -23,6 +22,8 @@
       "TIMEOUT_3M": "3 minutos",
       "TIMEOUT_6M": "6 minutos",
       "SAVE": "Guardar Cambios",
+      "LOCAL_FIRST_LABEL": "Local Primero",
+      "LOCAL_FIRST_DESCRIPTION": "Carga primero los datos de IndexedDB y actualiza GET/POST en segundo plano.",
       "APPEARANCE": "Apariencia",
       "THEME_LABEL": "Tema",
       "TEXT_SIZE_LABEL": "Tamaño de Texto",
@@ -37,7 +38,7 @@
     "HEADER": {
       "BADGE": "Índice Maestro",
       "TITLE": "Sumaq Yachay",
-      "SUBTITLE": "Base de Conocimiento y Catálogo de Estudio",
+      "SUBTITLE": "Base de Conocimiento",
       "SYNC_REMOTE": "Sincronizar Remoto (GET)",
       "SYNC_LOCAL": "Sincronizar Local",
       "SYNCING": "Sincronizando...",
@@ -61,6 +62,7 @@
     },
     "CARD": {
       "NO_DESCRIPTION": "Sin descripción proporcionada.",
+      "ENTRIES": "Entradas",
       "ACTIVE": "Activo",
       "INACTIVE": "Inactivo",
       "EDIT": "Editar",
@@ -143,7 +145,7 @@
       "SUBTHEME": "Subtema",
       "TAG": "Etiqueta",
       "STATUS": "Estado",
-      "ADD_ENTRY": "Agregar Entrada",
+      "ADD_ENTRY": "Entrada",
       "NEW_ENTRY_TITLE": "Agregar Nueva Entrada"
     },
     "DOMAINS": {
@@ -153,7 +155,8 @@
       "RELATIONS": "Relaciones",
       "CONCEPTS": "Conceptos",
       "GLOSARY": "Glosario",
-      "QUESTIONS": "Preguntas"
+      "QUESTIONS": "Preguntas",
+      "PASSAGE": "Pasajes"
     },
     "CONCEPTS": {
       "NEW_ENTRY_TITLE": "Agregar Nuevo Concepto",
@@ -161,6 +164,26 @@
       "DEFINITION": "Definición",
       "CATEGORY": "Categoría",
       "SOURCE": "Fuente",
+      "TAGS": "Etiquetas",
+      "CHARACTERS_LEFT": "{{count}} caracteres restantes"
+    },
+    "QUOTE": {
+      "NEW_ENTRY_TITLE": "Agregar Nueva Cita",
+      "QUOTE": "Cita",
+      "ANALYSIS": "Análisis",
+      "BOOK": "Libro",
+      "AUTHOR": "Autor",
+      "PAGE": "Página",
+      "TAGS": "Etiquetas",
+      "CHARACTERS_LEFT": "{{count}} caracteres restantes"
+    },
+    "PASSAGE": {
+      "NEW_ENTRY_TITLE": "Agregar Nuevo Pasaje",
+      "TITLE": "Título",
+      "PASSAGE_TEXT": "Texto del Pasaje",
+      "BOOK": "Libro",
+      "AUTHOR": "Autor",
+      "PAGE": "Página",
       "TAGS": "Etiquetas",
       "CHARACTERS_LEFT": "{{count}} caracteres restantes"
     }
