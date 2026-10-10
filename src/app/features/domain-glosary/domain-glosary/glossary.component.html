@@ -1,0 +1,200 @@
+<div class="glossary-view">
+  @if (isAddingEntry()) {
+    <div class="add-entry-form">
+      <h3>{{ 'DOMAINS.GLOSSARY.NEW_ENTRY_TITLE' | transloco }}</h3>
+
+      <div class="form-group">
+        <label for="glossary-term">{{ 'DOMAINS.GLOSSARY.TERM' | transloco }}</label>
+        <input
+          id="glossary-term"
+          type="text"
+          [ngModel]="newTerm()"
+          (ngModelChange)="newTerm.set($event)"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="glossary-definition">{{ 'DOMAINS.GLOSSARY.DEFINITION' | transloco }}</label>
+        <textarea
+          id="glossary-definition"
+          rows="4"
+          [attr.maxLength]="definitionMaxLength"
+          [ngModel]="newDefinition()"
+          (ngModelChange)="newDefinition.set($event)"
+          required
+        ></textarea>
+        <small class="character-count">
+          {{
+            'DOMAINS.GLOSSARY.CHARACTERS_LEFT'
+              | transloco: { count: definitionCharactersRemaining() }
+          }}
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="glossary-part-of-speech">{{ 'DOMAINS.GLOSSARY.PART_OF_SPEECH' | transloco }}</label>
+        <select
+          id="glossary-part-of-speech"
+          [ngModel]="newPartOfSpeech()"
+          (ngModelChange)="newPartOfSpeech.set($event)"
+        >
+          <option value="">{{ 'DOMAINS.GLOSSARY.SELECT_PART_OF_SPEECH' | transloco }}</option>
+          @for (pos of partsOfSpeech; track pos) {
+            <option [value]="pos">
+              {{ 'DOMAINS.GLOSSARY.POS_OPTIONS.' + pos | transloco }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="glossary-etymology">{{ 'DOMAINS.GLOSSARY.ETYMOLOGY' | transloco }}</label>
+        <input
+          id="glossary-etymology"
+          type="text"
+          [ngModel]="newEtymology()"
+          (ngModelChange)="newEtymology.set($event)"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="glossary-synonyms">{{ 'DOMAINS.GLOSSARY.SYNONYMS' | transloco }}</label>
+        <input
+          id="glossary-synonyms"
+          type="text"
+          [ngModel]="newSynonyms()"
+          (ngModelChange)="newSynonyms.set($event)"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="glossary-context">{{ 'DOMAINS.GLOSSARY.CONTEXT_SENTENCE' | transloco }}</label>
+        <textarea
+          id="glossary-context"
+          rows="2"
+          [ngModel]="newContextSentence()"
+          (ngModelChange)="newContextSentence.set($event)"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="glossary-source">{{ 'DOMAINS.GLOSSARY.SOURCE' | transloco }}</label>
+        <input
+          id="glossary-source"
+          type="text"
+          [ngModel]="source()"
+          (ngModelChange)="newSource.set($event)"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="glossary-page">{{ 'DOMAINS.GLOSSARY.PAGE' | transloco }}</label>
+        <input
+          id="glossary-page"
+          type="text"
+          [ngModel]="newPage()"
+          (ngModelChange)="newPage.set($event)"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="glossary-tags">{{ 'DOMAINS.GLOSSARY.TAGS' | transloco }}</label>
+        <app-tag-picker
+          [ariaLabel]="'DOMAINS.GLOSSARY.TAGS' | transloco"
+          inputId="glossary-tags"
+          [bookRow]="currentSheet().row"
+          [value]="newTags()"
+          (valueChange)="newTags.set($event)"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-submit" (click)="addEntry()">
+          {{ 'COMMON.SAVE' | transloco }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="resetForm()">
+          {{ 'COMMON.CANCEL' | transloco }}
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (rows().length === 0) {
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+    <div class="glossary-toolbar">
+      <label class="domain-search">
+        <span class="visually-hidden">{{ 'DOMAINS.GLOSSARY.SEARCH' | transloco }}</span>
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="8.75" cy="8.75" r="5.75" />
+          <path d="m13 13 4 4" />
+        </svg>
+        <input
+          type="search"
+          [ngModel]="searchTerm()"
+          (ngModelChange)="searchTerm.set($event)"
+          [placeholder]="'DOMAINS.GLOSSARY.SEARCH' | transloco"
+        />
+      </label>
+    </div>
+
+    @if (filteredRows().length === 0) {
+      <p class="empty-state">{{ 'DOMAINS.GLOSSARY.NO_MATCHES' | transloco }}</p>
+    } @else {
+      <div class="glossary-grid">
+        @for (row of filteredRows(); track row.id) {
+          <article class="glossary-card">
+            <header class="glossary-card-header">
+              <h4 class="term">{{ row.term }}</h4>
+              @if (row.partOfSpeech) {
+                <span class="pos-badge">
+                  {{ 'DOMAINS.GLOSSARY.POS_OPTIONS.' + row.partOfSpeech | transloco }}
+                </span>
+              }
+            </header>
+
+            <p class="definition">{{ row.definition }}</p>
+
+            @if (row.etymology) {
+              <p class="etymology">
+                <strong>{{ 'DOMAINS.GLOSSARY.ETYMOLOGY' | transloco }}:</strong> {{ row.etymology }}
+              </p>
+            }
+
+            @if (row.synonyms) {
+              <p class="synonyms">
+                <strong>{{ 'DOMAINS.GLOSSARY.SYNONYMS' | transloco }}:</strong> {{ row.synonyms }}
+              </p>
+            }
+
+            @if (row.contextSentence) {
+              <blockquote class="context-sentence">
+                "{{ row.contextSentence }}"
+              </blockquote>
+            }
+
+            @if (row.source || row.page) {
+              <p class="source-info">
+                @if (row.source) {
+                  <span><strong>{{ 'DOMAINS.GLOSSARY.SOURCE' | transloco }}:</strong> {{ row.source }}</span>
+                }
+                @if (row.page) {
+                  <span class="page-badge">pág. {{ row.page }}</span>
+                }
+              </p>
+            }
+
+            @if (row.tags) {
+              <div class="glossary-tags" [attr.aria-label]="'DOMAINS.GLOSSARY.TAGS' | transloco">
+                @for (tag of splitTags(row.tags); track $index) {
+                  <span class="concept-tag">{{ tag }}</span>
+                }
+              </div>
+            }
+          </article>
+        }
+      </div>
+    }
+  }
+</div>

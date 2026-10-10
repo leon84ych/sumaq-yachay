@@ -133,6 +133,12 @@
               </div>
             }
             <footer class="definition-card-footer">
+              <app-concept-quiz-generator
+                [concept]="row"
+                [sourceDomain]="currentSheet().name"
+                [bookRow]="currentSheet().row"
+                [bookName]="bookName()"
+              />
               <button type="button" class="relations-button" (click)="viewRelations(row)">
                 <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <circle cx="5" cy="10" r="2" />

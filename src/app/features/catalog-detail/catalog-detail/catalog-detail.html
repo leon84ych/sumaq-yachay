@@ -2,12 +2,50 @@
   @if (domainDataService.isLoading()) {
     <p class="state-message">{{ 'CATALOG_DETAIL.LOADING' | transloco }}</p>
   } @else if (item(); as entry) {
-    <app-catalog-overview [item]="entry" />
+    <div class="detail-header">
+      <app-catalog-overview [item]="entry" />
+      <div class="detail-actions">
+        @if (activeSheetName()) {
+          <button type="button" class="btn-primary" (click)="toggleAddingEntry()">
+            + {{ 'DOMAINS.INDEX.ADD_ENTRY' | transloco }}
+          </button>
+        }
+        @if (isAddingDomain()) {
+          <div class="detail-domain-selector">
+            <select
+              #domainSelect
+              class="domain-select"
+              [disabled]="isCreatingDomain()"
+              (change)="onDomainSelected(domainSelect.value)"
+            >
+              <option value="" disabled selected>
+                {{ 'CATALOG_DETAIL.SELECT_DOMAIN' | transloco }}
+              </option>
+              @for (domain of availableDomains(); track domain) {
+                <option [value]="domain">{{ 'DOMAINS.DOMAINS.' + domain | transloco }}</option>
+              }
+            </select>
+            <button
+              type="button"
+              class="cancel-btn"
+              [disabled]="isCreatingDomain()"
+              [attr.aria-label]="'COMMON.CANCEL' | transloco"
+              (click)="isAddingDomain.set(false)"
+            >
+              ×
+            </button>
+          </div>
+        } @else {
+          <button type="button" class="btn-primary" (click)="isAddingDomain.set(true)">
+            + {{ 'CATALOG_DETAIL.DOMAIN' | transloco }}
+          </button>
+        }
+      </div>
+    </div>
     <app-catalog-sheet-tabs
       [sheetNames]="domainDataService.sheetNames()"
       [activeSheetName]="activeSheetName()"
       (selectTab)="selectTab($event)"
-      (addEntry)="toggleAddingEntry()"
     />
     <app-sheet-view-resolver
       [sheet]="activeSheet()"
@@ -23,4 +61,3 @@
     </div>
   }
 </div>
-

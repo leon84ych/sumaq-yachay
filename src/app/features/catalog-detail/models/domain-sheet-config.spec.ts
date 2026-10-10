@@ -13,11 +13,12 @@ describe('domain sheet configuration', () => {
         'QUOTES',
         'CONCEPTS',
         'PASSAGES',
+        'CHARACTER',
         'TIMELINE',
         'RELATIONS',
         'GLOSARY',
         'QUESTIONS',
-      ])
+      ]),
     );
     expect(DOMAIN_DEFINITIONS.QUOTES.headers).toContain('tags');
     expect(DOMAIN_DEFINITIONS.CONCEPTS.headers).toContain('source');
@@ -33,11 +34,55 @@ describe('domain sheet configuration', () => {
       'contributor',
       'syncStatus',
     ]);
+    expect(DOMAIN_DEFINITIONS.CHARACTER.headers).toEqual([
+      'id',
+      'name',
+      'role',
+      'description',
+      'archetype',
+      'source',
+      'tags',
+      'feed',
+      'contributor',
+      'syncStatus',
+    ]);
+    expect(DOMAIN_DEFINITIONS.GLOSARY.headers).toEqual([
+      'id',
+      'term',
+      'definition',
+      'partOfSpeech',
+      'etymology',
+      'synonyms',
+      'contextSentence',
+      'source',
+      'page',
+      'tags',
+      'feed',
+      'contributor',
+      'syncStatus',
+    ]);
+    expect(DOMAIN_DEFINITIONS.QUESTIONS.headers).toEqual([
+      'id',
+      'question',
+      'answer',
+      'type',
+      'options',
+      'sourceDomain',
+      'sourceRowId',
+      'sourceTerm',
+      'bookRow',
+      'bookName',
+      'page',
+      'difficulty',
+      'aiGenerated',
+      'tags',
+      'feed',
+      'contributor',
+      'syncStatus',
+    ]);
   });
 
   it('normalizes domain names when retrieving headers', () => {
-    expect(getDefaultHeadersForDomain('quotes')).toEqual(
-      DOMAIN_DEFINITIONS.QUOTES.headers
-    );
+    expect(getDefaultHeadersForDomain('quotes')).toEqual(DOMAIN_DEFINITIONS.QUOTES.headers);
   });
 });

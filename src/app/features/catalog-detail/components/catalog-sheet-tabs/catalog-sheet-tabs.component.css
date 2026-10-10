@@ -37,24 +37,6 @@
   border-bottom-color: var(--primary, #3b82f6);
 }
 
-.add-domain-wrapper {
-  display: flex;
-  align-items: center;
-  padding-bottom: 0.5rem;
-}
-
-.add-domain-wrapper .btn-primary {
-  background-color: var(--surface);
-  border: 1px dashed var(--border);
-  color: var(--text);
-}
-
-.add-domain-wrapper .btn-primary:hover {
-  background-color: var(--primary-light);
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
 .add-tab-btn {
   background-color: var(--surface-subtle, #f1f5f9);
   border: 1px dashed var(--border, #cbd5e1);
@@ -76,27 +58,6 @@
   background-color: var(--surface-hover, #e2e8f0);
   border-color: var(--primary, #3b82f6);
   color: var(--primary, #3b82f6);
-}
-
-.domain-selector-form {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.domain-select {
-  padding: 0.35rem 0.5rem;
-  font-size: 0.85rem;
-  border: 1px solid var(--border, #cbd5e1);
-  border-radius: 6px;
-  background-color: var(--surface, #fff);
-  color: var(--text, #22313a);
-  outline: none;
-  cursor: pointer;
-}
-
-.domain-select:focus {
-  border-color: var(--primary, #3b82f6);
 }
 
 .cancel-btn {

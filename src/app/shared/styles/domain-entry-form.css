@@ -1,10 +1,18 @@
 .add-entry-form {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 6px;
   background-color: var(--surface);
   color: var(--text);
   border-color: var(--border);
 }
 
 .add-entry-form h3 {
+  margin: 0;
   color: var(--text);
 }
 
@@ -16,19 +24,64 @@
 
 .add-entry-form .form-group input,
 .add-entry-form .form-group textarea,
+.add-entry-form .form-group select,
 .add-entry-form .form-control {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.5rem;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
   background-color: var(--surface);
   color: var(--text);
   border-color: var(--border);
+  font: inherit;
+  line-height: 1.4;
+}
+
+.add-entry-form .form-group textarea {
+  resize: vertical;
 }
 
 .add-entry-form .form-group input:focus,
 .add-entry-form .form-group textarea:focus,
+.add-entry-form .form-group select:focus,
 .add-entry-form .form-control:focus {
   border-color: var(--border-focus);
-  outline-color: color-mix(in srgb, var(--border-focus) 24%, transparent);
+  outline: 2px solid color-mix(in srgb, var(--border-focus) 24%, transparent);
+  outline-offset: 1px;
+}
+
+.add-entry-form .form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.add-entry-form .form-actions .btn-submit,
+.add-entry-form .form-actions .btn-cancel {
+  padding: 0.55rem 0.9rem;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .add-entry-form .character-count {
   color: var(--text-muted);
+  text-align: right;
+}
+
+.add-entry-form .form-control-inline {
+  min-height: 2.75rem;
+}
+
+.add-entry-form .form-control[contenteditable='true']:not(.form-control-inline) {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.add-entry-form .form-control:focus {
+  outline-color: color-mix(in srgb, var(--border-focus) 24%, transparent);
 }

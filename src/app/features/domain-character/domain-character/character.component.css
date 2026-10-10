@@ -1,0 +1,134 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.characters-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 1rem;
+}
+
+.character-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 1px solid var(--quote-card-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  background: var(--quote-card-surface);
+  color: var(--quote-card-text);
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.character-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-md);
+}
+
+.character-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.character-card-header .name {
+  min-width: 0;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--quote-card-text);
+  overflow-wrap: anywhere;
+}
+
+.role-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--quote-tag-surface);
+  color: var(--text-secondary);
+  border: 1px solid var(--quote-tag-border);
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.archetype,
+.source {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.character-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.character-tag {
+  border: 1px solid var(--quote-tag-border);
+  border-radius: var(--radius-full);
+  background: var(--quote-tag-surface, var(--surface-subtle));
+  color: var(--quote-tag-text, var(--primary));
+  font-size: 0.75rem;
+  padding: 0.15rem 0.55rem;
+}
+
+.character-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding-top: 0.65rem;
+}
+
+.character-relations-button {
+  display: inline-flex;
+  min-height: 2.25rem;
+  align-items: center;
+  gap: 0.4rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.5rem;
+  background: transparent;
+  color: var(--primary);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.character-relations-button:hover {
+  background: var(--primary-light);
+}
+
+.character-relations-button:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.character-relations-button svg {
+  width: 1rem;
+  height: 1rem;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}

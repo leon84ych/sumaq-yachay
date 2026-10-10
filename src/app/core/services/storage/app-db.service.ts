@@ -71,6 +71,23 @@ export interface Passage {
   syncStatus: 'pending' | 'synced' | 'error';
 }
 
+export interface Character {
+  id: string;
+  row: number;
+  book?: string;
+  author?: string;
+  tag: string;
+  name: string;
+  role: string;
+  description?: string;
+  archetype?: string;
+  source?: string;
+  tags?: string;
+  feed: number;
+  contributor: string;
+  syncStatus: 'pending' | 'synced' | 'error';
+}
+
 export interface TimelineEntry {
   id: string;
   row: number;
@@ -102,10 +119,16 @@ export interface GlossaryEntry {
   row: number;
   book?: string;
   author?: string;
-  tag: string;
-  label: string;
+  term: string;
   definition: string;
-  examples: string;
+  partOfSpeech?: string;
+  etymology?: string;
+  synonyms?: string;
+  contextSentence?: string;
+  page?: string;
+  tags?: string;
+  feed: number;
+  contributor: string;
   syncStatus: 'pending' | 'synced' | 'error';
 }
 
@@ -130,6 +153,7 @@ export class AppDatabase extends Dexie {
   concepts!: Table<Concept, string>;
   quotes!: Table<Quote, string>;
   passages!: Table<Passage, string>;
+  characters!: Table<Character, string>;
   timeline!: Table<TimelineEntry, string>;
   relations!: Table<Relation, string>;
   glosary!: Table<GlossaryEntry, string>;
@@ -146,6 +170,7 @@ export class AppDatabase extends Dexie {
       concepts: 'id, [row+tag], row, tag, book, author',
       quotes: 'id, [row+tag], row, tag, book, author',
       passages: 'id, [row+tag], row, tag, book, author',
+      characters: 'id, [row+tag], row, tag, book, author',
       timeline: 'id, [row+tag], row, tag, book, author',
       relations: 'id, [row+tag], row, tag, book, author',
       glosary: 'id, [row+tag], row, tag, book, author',

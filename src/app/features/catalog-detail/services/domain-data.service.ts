@@ -13,6 +13,7 @@ type DomainTableName =
   | 'concepts'
   | 'quotes'
   | 'passages'
+  | 'characters'
   | 'timeline'
   | 'relations'
   | 'glosary'
@@ -48,6 +49,7 @@ const DOMAIN_TABLES: Record<string, DomainTableName> = {
   CONCEPTS: 'concepts',
   QUOTES: 'quotes',
   PASSAGES: 'passages',
+  CHARACTER: 'characters',
   TIMELINE: 'timeline',
   RELATIONS: 'relations',
   GLOSARY: 'glosary',
@@ -365,6 +367,17 @@ export class DomainDataService {
     }
   }
 
+  async getLocalDomainSheetRows(sheetName: string): Promise<Record<string, unknown>[]> {
+    if (this.loadedRow === null) {
+      return [];
+    }
+
+    const localSheets = await this.loadFromLocal(this.loadedRow);
+    return (
+      localSheets.find((sheet) => sheet.name.toUpperCase() === sheetName.toUpperCase())?.rows ?? []
+    );
+  }
+
   private normalizeRecordTags(
     record: Record<string, unknown>,
     sheetName: string,
@@ -602,8 +615,14 @@ export class DomainDataService {
   private normalizePaginatedRow(sourceRow: Record<string, unknown>): Record<string, unknown> {
     const headerNames: Record<string, string> = {
       id: 'id',
+      name: 'name',
+      role: 'role',
       term: 'term',
       definition: 'definition',
+      partofspeech: 'partOfSpeech',
+      etymology: 'etymology',
+      synonyms: 'synonyms',
+      contextsentence: 'contextSentence',
       title: 'title',
       passagetext: 'passageText',
       book: 'book',
@@ -619,6 +638,7 @@ export class DomainDataService {
       quote: 'quote',
       analysis: 'analysis',
       category: 'category',
+      archetype: 'archetype',
       source: 'source',
       syncstatus: 'syncStatus',
     };

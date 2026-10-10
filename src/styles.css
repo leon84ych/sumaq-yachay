@@ -134,13 +134,13 @@ a:hover {
 }
 
 .btn-primary {
-  background-color: var(--surface-subtle, #f1f5f9);
-  border: 1px dashed var(--border, #cbd5e1);
+  background-color: var(--surface);
+  border: 1px dashed var(--border);
   border-radius: 6px;
   padding: 0.4rem 0.75rem;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--text-main, #334155);
+  color: var(--text);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -151,9 +151,9 @@ a:hover {
 }
 
 .btn-primary:hover {
-  background-color: var(--surface-hover, #e2e8f0);
-  border-color: var(--primary, #3b82f6);
-  color: var(--primary, #3b82f6);
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .btn-submit {

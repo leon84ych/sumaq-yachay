@@ -159,7 +159,8 @@
       "CONCEPTS": "Conceptos",
       "GLOSARY": "Glosario",
       "QUESTIONS": "Preguntas",
-      "PASSAGES": "Pasajes"
+      "PASSAGES": "Pasajes",
+      "CHARACTER": "Personajes"
     },
     "CONCEPTS": {
       "NEW_ENTRY_TITLE": "Agregar Nuevo Concepto",
@@ -183,6 +184,34 @@
       "NO_MATCHES": "Ningún concepto coincide con la búsqueda.",
       "VIEW_RELATIONS": "Ver conexiones",
       "DOWNLOAD_IMAGES": "Descargar imágenes de la cita"
+    },
+    "QUESTIONS": {
+      "NEW_ENTRY_TITLE": "Agregar pregunta",
+      "QUESTION": "Pregunta",
+      "ANSWER": "Respuesta o explicación",
+      "TYPE": "Tipo de pregunta",
+      "SOURCE_DOMAIN": "Dominio de origen",
+      "SOURCE_TERM": "Término de origen",
+      "PAGE": "Página",
+      "DIFFICULTY": "Dificultad",
+      "TAGS": "Etiquetas",
+      "SEARCH": "Buscar preguntas, respuestas o términos de origen...",
+      "NO_MATCHES": "Ninguna pregunta coincide con la búsqueda.",
+      "GENERATE_FROM": "Generar pregunta sobre {{term}}",
+      "GENERATE": "Generar y guardar",
+      "GENERATING": "Generando pregunta...",
+      "AI_UNAVAILABLE": "La IA integrada del navegador no está disponible.",
+      "TYPE_OPTIONS": {
+        "flashcard": "Tarjeta de memoria",
+        "multiple-choice": "Opción múltiple",
+        "true-false": "Verdadero o falso",
+        "open": "Pregunta abierta"
+      },
+      "DIFFICULTY_OPTIONS": {
+        "easy": "Fácil",
+        "medium": "Media",
+        "hard": "Difícil"
+      }
     },
     "QUOTE": {
       "NEW_ENTRY_TITLE": "Agregar Nueva Cita",
@@ -226,6 +255,51 @@
       "PAGE": "Página",
       "TAGS": "Etiquetas",
       "CHARACTERS_LEFT": "{{count}} caracteres restantes"
+    },
+    "GLOSSARY": {
+      "NEW_ENTRY_TITLE": "Agregar término al glosario",
+      "TERM": "Término",
+      "DEFINITION": "Definición",
+      "CHARACTERS_LEFT": "{{count}} caracteres restantes",
+      "PART_OF_SPEECH": "Tipo de palabra",
+      "SELECT_PART_OF_SPEECH": "Selecciona el tipo de palabra",
+      "POS_OPTIONS": {
+        "Sustantivo": "Sustantivo",
+        "Adjetivo": "Adjetivo",
+        "Verbo": "Verbo",
+        "Adverbio": "Adverbio",
+        "Locución": "Locución",
+        "Otro": "Otro"
+      },
+      "ETYMOLOGY": "Etimología",
+      "SYNONYMS": "Sinónimos",
+      "CONTEXT_SENTENCE": "Frase de contexto",
+      "SOURCE": "Fuente",
+      "PAGE": "Página",
+      "TAGS": "Etiquetas",
+      "SEARCH": "Buscar términos del glosario...",
+      "NO_MATCHES": "Ningún término coincide con la búsqueda."
+    },
+    "CHARACTERS": {
+      "NEW_ENTRY": "Nuevo Personaje",
+      "NEW_ENTRY_TITLE": "Agregar Personaje",
+      "NAME": "Nombre del Personaje",
+      "ROLE": "Rol / Papel",
+      "DESCRIPTION": "Descripción / Perfil",
+      "ARCHETYPE": "Arquetipo",
+      "SOURCE": "Fuente / Origen",
+      "TAGS": "Etiquetas (#hashtags)",
+      "CHARACTERS_LEFT": "{{count}} caracteres restantes",
+      "SEARCH": "Buscar personajes...",
+      "NO_MATCHES": "Ningún personaje coincide con la búsqueda.",
+      "VIEW_RELATIONS": "Ver relaciones",
+      "ROLE_OPTIONS": {
+        "protagonist": "Protagonista",
+        "antagonist": "Antagonista",
+        "supporting": "Personaje secundario",
+        "historical": "Personaje histórico",
+        "mythical": "Personaje mítico"
+      }
     }
   },
   "COMMON": {

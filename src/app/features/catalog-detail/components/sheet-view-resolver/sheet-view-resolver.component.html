@@ -36,6 +36,33 @@
       (closeEntry)="closeEntry.emit()"
     />
   }
+  @case ('CHARACTER') {
+    <app-character
+      [rows]="characterRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @case ('GLOSARY') {
+    <app-glossary
+      [rows]="glossaryRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @case ('QUESTIONS') {
+    <app-questions
+      [rows]="questionRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
   @default {
     <p class="unsupported-sheet">{{ 'CATALOG_DETAIL.UNSUPPORTED_SHEET' | transloco }}</p>
   }

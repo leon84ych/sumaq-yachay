@@ -63,6 +63,16 @@ export interface PassagesRow extends DomainSheetRow {
   page?: string;
 }
 
+export type CharacterRole = 'protagonist' | 'antagonist' | 'supporting' | 'historical' | 'mythical';
+
+export interface CharacterRow extends DomainSheetRow {
+  name: string;
+  role: CharacterRole;
+  description?: string;
+  archetype?: string;
+  source?: string;
+}
+
 export interface IndexRow extends DomainSheetRow {
   chapter: string;
   theme: string;

@@ -1,0 +1,169 @@
+<div class="questions-view">
+  @if (isAddingEntry()) {
+    <form class="add-entry-form" (submit)="$event.preventDefault(); addQuestion()">
+      <h3>{{ 'DOMAINS.QUESTIONS.NEW_ENTRY_TITLE' | transloco }}</h3>
+      <div class="form-group">
+        <label for="question-text">{{ 'DOMAINS.QUESTIONS.QUESTION' | transloco }}</label>
+        <textarea
+          id="question-text"
+          rows="3"
+          maxlength="500"
+          [ngModel]="newQuestion()"
+          (ngModelChange)="newQuestion.set($event)"
+          name="question"
+          required
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="question-answer">{{ 'DOMAINS.QUESTIONS.ANSWER' | transloco }}</label>
+        <textarea
+          id="question-answer"
+          rows="3"
+          maxlength="500"
+          [ngModel]="newAnswer()"
+          (ngModelChange)="newAnswer.set($event)"
+          name="answer"
+          required
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="question-type">{{ 'DOMAINS.QUESTIONS.TYPE' | transloco }}</label>
+        <select
+          id="question-type"
+          [ngModel]="newType()"
+          (ngModelChange)="newType.set($event)"
+          name="type"
+          required
+        >
+          @for (type of questionTypes; track type) {
+            <option [value]="type">
+              {{ 'DOMAINS.QUESTIONS.TYPE_OPTIONS.' + type | transloco }}
+            </option>
+          }
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="question-source-domain">{{
+          'DOMAINS.QUESTIONS.SOURCE_DOMAIN' | transloco
+        }}</label>
+        <input
+          id="question-source-domain"
+          type="text"
+          [ngModel]="newSourceDomain()"
+          (ngModelChange)="newSourceDomain.set($event)"
+          name="sourceDomain"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="question-source-term">{{ 'DOMAINS.QUESTIONS.SOURCE_TERM' | transloco }}</label>
+        <input
+          id="question-source-term"
+          type="text"
+          [ngModel]="newSourceTerm()"
+          (ngModelChange)="newSourceTerm.set($event)"
+          name="sourceTerm"
+        />
+      </div>
+      <div class="question-form-row">
+        <div class="form-group">
+          <label for="question-page">{{ 'DOMAINS.QUESTIONS.PAGE' | transloco }}</label>
+          <input
+            id="question-page"
+            type="text"
+            [ngModel]="newPage()"
+            (ngModelChange)="newPage.set($event)"
+            name="page"
+          />
+        </div>
+        <div class="form-group">
+          <label for="question-difficulty">{{ 'DOMAINS.QUESTIONS.DIFFICULTY' | transloco }}</label>
+          <select
+            id="question-difficulty"
+            [ngModel]="newDifficulty()"
+            (ngModelChange)="newDifficulty.set($event)"
+            name="difficulty"
+          >
+            <option value=""></option>
+            @for (difficulty of difficulties; track difficulty) {
+              <option [value]="difficulty">
+                {{ 'DOMAINS.QUESTIONS.DIFFICULTY_OPTIONS.' + difficulty | transloco }}
+              </option>
+            }
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="question-tags">{{ 'DOMAINS.QUESTIONS.TAGS' | transloco }}</label>
+        <app-tag-picker
+          [ariaLabel]="'DOMAINS.QUESTIONS.TAGS' | transloco"
+          inputId="question-tags"
+          [bookRow]="currentSheet().row"
+          [value]="newTags()"
+          (valueChange)="newTags.set($event)"
+        />
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn-submit" [disabled]="isSaving()">
+          {{ 'COMMON.SAVE' | transloco }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="resetForm()">
+          {{ 'COMMON.CANCEL' | transloco }}
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (rows().length === 0) {
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+    <label class="domain-search question-search">
+      <span class="visually-hidden">{{ 'DOMAINS.QUESTIONS.SEARCH' | transloco }}</span>
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="8.75" cy="8.75" r="5.75" />
+        <path d="m13 13 4 4" />
+      </svg>
+      <input
+        type="search"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        [placeholder]="'DOMAINS.QUESTIONS.SEARCH' | transloco"
+      />
+    </label>
+    @if (filteredRows().length === 0) {
+      <p class="empty-state">{{ 'DOMAINS.QUESTIONS.NO_MATCHES' | transloco }}</p>
+    } @else {
+      <div class="questions-grid">
+        @for (row of filteredRows(); track row.id) {
+          <article class="question-card">
+            <header class="question-card-header">
+              <span class="question-type">
+                {{ 'DOMAINS.QUESTIONS.TYPE_OPTIONS.' + row.type | transloco }}
+              </span>
+              @if (row.difficulty) {
+                <span class="question-difficulty">
+                  {{ 'DOMAINS.QUESTIONS.DIFFICULTY_OPTIONS.' + row.difficulty | transloco }}
+                </span>
+              }
+            </header>
+            <h3>{{ row.question }}</h3>
+            <p class="question-answer">{{ row.answer }}</p>
+            <p class="question-source">
+              {{ row.sourceTerm || row.sourceDomain }}
+              @if (row.page) {
+                <span> · {{ row.page }}</span>
+              }
+            </p>
+            @if (row.tags) {
+              <div class="question-tags" [attr.aria-label]="'DOMAINS.QUESTIONS.TAGS' | transloco">
+                @for (tag of splitTags(row.tags); track $index) {
+                  <span class="question-tag">{{ tag }}</span>
+                }
+              </div>
+            }
+          </article>
+        }
+      </div>
+    }
+  }
+</div>

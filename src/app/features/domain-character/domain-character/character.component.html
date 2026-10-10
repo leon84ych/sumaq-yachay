@@ -1,0 +1,165 @@
+<div class="characters-view">
+  @if (isAddingEntry()) {
+    <div class="add-entry-form">
+      <h3>{{ 'DOMAINS.CHARACTERS.NEW_ENTRY_TITLE' | transloco }}</h3>
+
+      <div class="form-group">
+        <label for="character-name">{{ 'DOMAINS.CHARACTERS.NAME' | transloco }}</label>
+        <input
+          id="character-name"
+          type="text"
+          [ngModel]="newName()"
+          (ngModelChange)="newName.set($event)"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="character-role">{{ 'DOMAINS.CHARACTERS.ROLE' | transloco }}</label>
+        <select
+          id="character-role"
+          [ngModel]="newRole()"
+          (ngModelChange)="newRole.set($event)"
+          required
+        >
+          @for (role of characterRoles; track role) {
+            <option [value]="role">
+              {{ roleTranslationKey(role) | transloco }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="character-description">{{
+          'DOMAINS.CHARACTERS.DESCRIPTION' | transloco
+        }}</label>
+        <textarea
+          id="character-description"
+          rows="4"
+          [attr.maxLength]="descriptionMaxLength"
+          [ngModel]="newDescription()"
+          (ngModelChange)="newDescription.set($event)"
+        ></textarea>
+        <small class="character-count">
+          {{
+            'DOMAINS.CHARACTERS.CHARACTERS_LEFT'
+              | transloco: { count: descriptionCharactersRemaining() }
+          }}
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="character-archetype">{{ 'DOMAINS.CHARACTERS.ARCHETYPE' | transloco }}</label>
+        <input
+          id="character-archetype"
+          type="text"
+          [ngModel]="newArchetype()"
+          (ngModelChange)="newArchetype.set($event)"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="character-source">{{ 'DOMAINS.CHARACTERS.SOURCE' | transloco }}</label>
+        <input
+          id="character-source"
+          type="text"
+          [ngModel]="source()"
+          (ngModelChange)="newSource.set($event)"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="character-tags">{{ 'DOMAINS.CHARACTERS.TAGS' | transloco }}</label>
+        <app-tag-picker
+          [ariaLabel]="'DOMAINS.CHARACTERS.TAGS' | transloco"
+          inputId="character-tags"
+          [bookRow]="currentSheet().row"
+          [value]="newTags()"
+          (valueChange)="newTags.set($event)"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-submit" (click)="addCharacter()">
+          {{ 'COMMON.SAVE' | transloco }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="resetForm()">
+          {{ 'COMMON.CANCEL' | transloco }}
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (rows().length === 0) {
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+    <label class="domain-search">
+      <span class="visually-hidden">{{ 'DOMAINS.CHARACTERS.SEARCH' | transloco }}</span>
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="8.75" cy="8.75" r="5.75" />
+        <path d="m13 13 4 4" />
+      </svg>
+      <input
+        type="search"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        [placeholder]="'DOMAINS.CHARACTERS.SEARCH' | transloco"
+      />
+    </label>
+
+    @if (filteredRows().length === 0) {
+      <p class="empty-state">{{ 'DOMAINS.CHARACTERS.NO_MATCHES' | transloco }}</p>
+    } @else {
+      <div class="characters-grid">
+        @for (row of filteredRows(); track row.id) {
+          <article class="character-card">
+            <header class="character-card-header">
+              <h4 class="name">{{ row.name }}</h4>
+              <span class="role-badge">
+                {{ roleTranslationKey(row.role) | transloco }}
+              </span>
+            </header>
+
+            @if (row.description) {
+              <p class="description">{{ row.description }}</p>
+            }
+
+            @if (row.archetype) {
+              <p class="archetype">
+                <strong>{{ 'DOMAINS.CHARACTERS.ARCHETYPE' | transloco }}:</strong>
+                {{ row.archetype }}
+              </p>
+            }
+
+            @if (row.source) {
+              <p class="source">
+                <strong>{{ 'DOMAINS.CHARACTERS.SOURCE' | transloco }}:</strong> {{ row.source }}
+              </p>
+            }
+
+            @if (row.tags) {
+              <div class="character-tags" [attr.aria-label]="'DOMAINS.CHARACTERS.TAGS' | transloco">
+                @for (tag of splitTags(row.tags); track $index) {
+                  <span class="character-tag">{{ tag }}</span>
+                }
+              </div>
+            }
+
+            <footer class="character-card-footer">
+              <button type="button" class="character-relations-button" (click)="viewRelations(row)">
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <circle cx="5" cy="10" r="2" />
+                  <circle cx="15" cy="5" r="2" />
+                  <circle cx="15" cy="15" r="2" />
+                  <path d="m7 9 6-3M7 11l6 3" />
+                </svg>
+                {{ 'DOMAINS.CHARACTERS.VIEW_RELATIONS' | transloco }}
+              </button>
+            </footer>
+          </article>
+        }
+      </div>
+    }
+  }
+</div>

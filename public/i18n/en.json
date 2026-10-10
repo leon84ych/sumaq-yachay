@@ -184,7 +184,8 @@
       "CONCEPTS": "Concepts",
       "GLOSARY": "Glossary",
       "QUESTIONS": "Questions",
-      "PASSAGE": "Passages"
+      "PASSAGE": "Passages",
+      "CHARACTER": "Characters"
     },
     "CONCEPTS": {
       "NEW_ENTRY_TITLE": "Add New Concept",
@@ -208,6 +209,34 @@
       "NO_MATCHES": "No concepts match your search.",
       "VIEW_RELATIONS": "View connections",
       "DOWNLOAD_IMAGES": "Download quote images"
+    },
+    "QUESTIONS": {
+      "NEW_ENTRY_TITLE": "Add question",
+      "QUESTION": "Question",
+      "ANSWER": "Answer or explanation",
+      "TYPE": "Question type",
+      "SOURCE_DOMAIN": "Source domain",
+      "SOURCE_TERM": "Source term",
+      "PAGE": "Page",
+      "DIFFICULTY": "Difficulty",
+      "TAGS": "Tags",
+      "SEARCH": "Search questions, answers, or source terms...",
+      "NO_MATCHES": "No questions match your search.",
+      "GENERATE_FROM": "Generate a question about {{term}}",
+      "GENERATE": "Generate and save",
+      "GENERATING": "Generating question...",
+      "AI_UNAVAILABLE": "Browser built-in AI is not available.",
+      "TYPE_OPTIONS": {
+        "flashcard": "Flashcard",
+        "multiple-choice": "Multiple choice",
+        "true-false": "True or false",
+        "open": "Open question"
+      },
+      "DIFFICULTY_OPTIONS": {
+        "easy": "Easy",
+        "medium": "Medium",
+        "hard": "Hard"
+      }
     },
     "QUOTE": {
       "NEW_ENTRY_TITLE": "Add New Quote",
@@ -250,6 +279,51 @@
       "PAGE": "Page",
       "TAGS": "Tags",
       "CHARACTERS_LEFT": "{{count}} characters remaining"
+    },
+    "GLOSSARY": {
+      "NEW_ENTRY_TITLE": "Add Glossary Term",
+      "TERM": "Term",
+      "DEFINITION": "Definition",
+      "CHARACTERS_LEFT": "{{count}} characters remaining",
+      "PART_OF_SPEECH": "Part of speech",
+      "SELECT_PART_OF_SPEECH": "Select part of speech",
+      "POS_OPTIONS": {
+        "Sustantivo": "Noun",
+        "Adjetivo": "Adjective",
+        "Verbo": "Verb",
+        "Adverbio": "Adverb",
+        "Locución": "Phrase",
+        "Otro": "Other"
+      },
+      "ETYMOLOGY": "Etymology",
+      "SYNONYMS": "Synonyms",
+      "CONTEXT_SENTENCE": "Context sentence",
+      "SOURCE": "Source",
+      "PAGE": "Page",
+      "TAGS": "Tags",
+      "SEARCH": "Search glossary terms...",
+      "NO_MATCHES": "No glossary terms match your search."
+    },
+    "CHARACTERS": {
+      "NEW_ENTRY": "New Character",
+      "NEW_ENTRY_TITLE": "Add Character",
+      "NAME": "Character Name",
+      "ROLE": "Role",
+      "DESCRIPTION": "Description / Profile",
+      "ARCHETYPE": "Archetype",
+      "SOURCE": "Source / Origin",
+      "TAGS": "Tags (#hashtags)",
+      "CHARACTERS_LEFT": "{{count}} characters remaining",
+      "SEARCH": "Search characters...",
+      "NO_MATCHES": "No characters match your search.",
+      "VIEW_RELATIONS": "View relations",
+      "ROLE_OPTIONS": {
+        "protagonist": "Protagonist",
+        "antagonist": "Antagonist",
+        "supporting": "Supporting character",
+        "historical": "Historical figure",
+        "mythical": "Mythical character"
+      }
     }
   }
 }

@@ -1,0 +1,40 @@
+<div class="question-generator">
+  <button
+    type="button"
+    class="question-generator-trigger"
+    [attr.aria-label]="'DOMAINS.QUESTIONS.GENERATE_FROM' | transloco: { term: sourceTerm() }"
+    [attr.aria-expanded]="isOpen()"
+    (click)="toggleOpen()"
+  >
+    <span aria-hidden="true">?</span>
+  </button>
+  @if (isOpen()) {
+    <div class="question-generator-controls">
+      <label class="visually-hidden" [for]="'question-type-' + sourceRowId()">
+        {{ 'DOMAINS.QUESTIONS.TYPE' | transloco }}
+      </label>
+      <select
+        [id]="'question-type-' + sourceRowId()"
+        [value]="selectedType()"
+        [disabled]="isGenerating()"
+        (change)="setQuestionType($any($event.target).value)"
+      >
+        @for (type of questionTypes; track type) {
+          <option [value]="type">{{ 'DOMAINS.QUESTIONS.TYPE_OPTIONS.' + type | transloco }}</option>
+        }
+      </select>
+      <button
+        type="button"
+        class="question-generator-submit"
+        [disabled]="isGenerating()"
+        (click)="generateAndSave()"
+      >
+        @if (isGenerating()) {
+          {{ 'DOMAINS.QUESTIONS.GENERATING' | transloco }}
+        } @else {
+          {{ 'DOMAINS.QUESTIONS.GENERATE' | transloco }}
+        }
+      </button>
+    </div>
+  }
+</div>

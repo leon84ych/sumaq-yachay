@@ -4,9 +4,71 @@
   padding: 1.5rem;
 }
 
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.detail-header app-catalog-overview {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.detail-actions,
+.detail-domain-selector {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.detail-actions .btn-primary {
+  white-space: nowrap;
+}
+
+.detail-domain-selector .domain-select {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.65rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.detail-domain-selector .domain-select:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.detail-domain-selector .cancel-btn {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+}
+
 .state-message,
 .not-found {
   text-align: center;
   padding: 3rem 1rem;
   color: var(--text-secondary, #666);
+}
+
+@media (max-width: 640px) {
+  .detail-page {
+    padding: 1rem;
+  }
+
+  .detail-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .detail-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
