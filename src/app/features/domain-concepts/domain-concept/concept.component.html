@@ -64,12 +64,12 @@
       </div>
       <div class="form-group">
         <label for="concept-tags">{{ 'DOMAINS.CONCEPTS.TAGS' | transloco }}</label>
-        <input
-          id="concept-tags"
-          type="text"
-          [ngModel]="newTags()"
-          (ngModelChange)="newTags.set($event)"
-          placeholder="e.g. #research, #definitions"
+        <app-tag-picker
+          [ariaLabel]="'DOMAINS.CONCEPTS.TAGS' | transloco"
+          inputId="concept-tags"
+          [bookRow]="currentSheet().row"
+          [value]="newTags()"
+          (valueChange)="newTags.set($event)"
         />
       </div>
       <div class="form-actions">

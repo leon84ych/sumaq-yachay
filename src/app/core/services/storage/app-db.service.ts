@@ -7,9 +7,24 @@ export interface DomainSheetCount {
   count: number;
 }
 
+export interface BookTag {
+  id: string;
+  scope?: 'book' | 'catalog';
+  row?: number;
+  book?: string;
+  author?: string;
+  subject?: string;
+  topic?: string;
+  tag: string;
+  domain?: string;
+  usageCount?: number;
+}
+
 export interface IndexTopic {
   id: string;
   row: number;
+  book?: string;
+  author?: string;
   tag: string;
   chapter: string;
   theme: string;
@@ -20,6 +35,8 @@ export interface IndexTopic {
 export interface Concept {
   id: string;
   row: number;
+  book?: string;
+  author?: string;
   tag: string;
   term: string;
   definition: string;
@@ -31,10 +48,11 @@ export interface Concept {
 export interface Quote {
   id: string;
   row: number;
+  book?: string;
+  author: string;
   tag: string;
   quote: string;
   analysis: string;
-  author: string;
   page: string;
   tags: string;
   syncStatus: 'pending' | 'synced' | 'error';
@@ -43,11 +61,11 @@ export interface Quote {
 export interface Passage {
   id: string;
   row: number;
+  book: string;
+  author: string;
   tag: string;
   title: string;
   passageText: string;
-  book: string;
-  author: string;
   page: string;
   tags: string;
   syncStatus: 'pending' | 'synced' | 'error';
@@ -56,6 +74,8 @@ export interface Passage {
 export interface TimelineEntry {
   id: string;
   row: number;
+  book?: string;
+  author?: string;
   tag: string;
   date: string;
   event: string;
@@ -67,6 +87,8 @@ export interface TimelineEntry {
 export interface Relation {
   id: string;
   row: number;
+  book?: string;
+  author?: string;
   tag: string;
   sourceNode: string;
   targetNode: string;
@@ -78,6 +100,8 @@ export interface Relation {
 export interface GlossaryEntry {
   id: string;
   row: number;
+  book?: string;
+  author?: string;
   tag: string;
   label: string;
   definition: string;
@@ -88,6 +112,8 @@ export interface GlossaryEntry {
 export interface Question {
   id: string;
   row: number;
+  book?: string;
+  author?: string;
   tag: string;
   question: string;
   answer: string;
@@ -99,6 +125,7 @@ export interface Question {
 export class AppDatabase extends Dexie {
   catalogs!: Table<CatalogItem, string>;
   domainSheets!: Table<DomainSheetCount, number>;
+  bookTags!: Table<BookTag, string>;
   indexTopics!: Table<IndexTopic, string>;
   concepts!: Table<Concept, string>;
   quotes!: Table<Quote, string>;
@@ -114,14 +141,15 @@ export class AppDatabase extends Dexie {
       catalogs:
         'id, subject, topic, name, author, description, source, active, syncStatus, updatedAt',
       domainSheets: 'row, count',
-      indexTopics: 'id, [row+tag], row, tag',
-      concepts: 'id, [row+tag], row, tag',
-      quotes: 'id, [row+tag], row, tag',
-      passages: 'id, [row+tag], row, tag',
-      timeline: 'id, [row+tag], row, tag',
-      relations: 'id, [row+tag], row, tag',
-      glosary: 'id, [row+tag], row, tag',
-      questions: 'id, [row+tag], row, tag',
+      bookTags: 'id, [row+tag], row, tag, scope, subject, topic, book, author',
+      indexTopics: 'id, [row+tag], row, tag, book, author',
+      concepts: 'id, [row+tag], row, tag, book, author',
+      quotes: 'id, [row+tag], row, tag, book, author',
+      passages: 'id, [row+tag], row, tag, book, author',
+      timeline: 'id, [row+tag], row, tag, book, author',
+      relations: 'id, [row+tag], row, tag, book, author',
+      glosary: 'id, [row+tag], row, tag, book, author',
+      questions: 'id, [row+tag], row, tag, book, author',
     });
   }
 }

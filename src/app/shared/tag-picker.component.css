@@ -1,0 +1,122 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.tag-picker {
+  position: relative;
+  width: 100%;
+  min-height: 2.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.tag-picker.is-focused {
+  border-color: var(--border-focus);
+  outline: 2px solid color-mix(in srgb, var(--border-focus) 25%, transparent);
+  outline-offset: 1px;
+}
+
+.tag-picker-chips {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.35rem 0.5rem;
+}
+
+.tag-picker-chip {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.3rem;
+  border: 1px solid var(--quote-tag-border);
+  border-radius: var(--radius-full);
+  padding: 0.15rem 0.35rem 0.15rem 0.6rem;
+  background: var(--quote-tag-surface);
+  color: var(--quote-tag-text);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.tag-picker-remove {
+  display: inline-flex;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.tag-picker-remove:hover {
+  background: var(--primary-light);
+}
+
+.tag-picker-chips input {
+  width: 8rem;
+  min-width: 5rem;
+  min-height: 1.8rem;
+  flex: 1 1 8rem;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+.tag-picker-chips input::placeholder {
+  color: var(--text-muted);
+}
+
+.tag-picker-suggestions {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 0.25rem);
+  right: 0;
+  left: 0;
+  max-height: 14rem;
+  overflow-y: auto;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.25rem;
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  list-style: none;
+}
+
+.tag-picker-suggestions button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border: 0;
+  border-radius: 4px;
+  padding: 0.5rem 0.65rem;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tag-picker-suggestions button:hover,
+.tag-picker-suggestions button:focus-visible {
+  outline: 0;
+  background: var(--primary-light);
+}
+
+.tag-picker-suggestions small {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}

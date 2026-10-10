@@ -1,0 +1,45 @@
+<div class="[domain-name]-view">
+  <!-- 1. Formulario de Adición -->
+  @if (isAddingEntry()) {
+    <div class="add-entry-form">
+      <h3>{{ 'DOMAINS.[DOMAIN].NEW_ENTRY_TITLE' | transloco }}</h3>
+      
+      <!-- Campos dinámicos del formulario -->
+      
+      <div class="form-actions">
+        <button type="button" class="btn-submit" (click)="addEntry()">
+          {{ 'COMMON.SAVE' | transloco }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="resetForm()">
+          {{ 'COMMON.CANCEL' | transloco }}
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- 2. Barra de Búsqueda Superior -->
+  <div class="domain-toolbar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        [placeholder]="'COMMON.SEARCH_PLACEHOLDER' | transloco"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+      />
+    </div>
+  </div>
+
+  <!-- 3. Lista de Tarjetas / Estado Vacío -->
+  @if (filteredRows().length === 0) {
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+    <div class="[domain-name]-grid">
+      @for (row of filteredRows(); track row.id) {
+        <article class="domain-card">
+          <!-- Renderizado específico según la definición del dominio -->
+        </article>
+      }
+    </div>
+  }
+</div>

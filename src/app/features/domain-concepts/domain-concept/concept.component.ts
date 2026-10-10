@@ -5,6 +5,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { ConceptRow, DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
+import { TagPickerComponent } from '../../../shared/tag-picker.component';
 
 const NODE_CATEGORIES = [
   'theory-model',
@@ -18,7 +19,7 @@ const NODE_CATEGORIES = [
 @Component({
   selector: 'app-concepts',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe],
+  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
   templateUrl: './concept.component.html',
   styleUrls: ['./concept.component.css'],
 })

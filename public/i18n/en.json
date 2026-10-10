@@ -16,6 +16,8 @@
     "NO_ENTRIES": "No entries found.",
     "LOADING": "Loading...",
     "LOAD_MORE": "Load more",
+    "ADD_TAG": "Add a tag...",
+    "REMOVE_TAG": "Remove {{tag}}",
     "RETRY": "Retry",
     "DOWNLOAD_IMAGES": "Download as Image",
     "REVEAL_ANALYSIS": "Reveal analysis",

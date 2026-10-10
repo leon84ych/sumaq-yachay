@@ -1,7 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Table } from 'dexie';
 import { firstValueFrom } from 'rxjs';
-import { AppDbService } from '../../../core/services/storage/app-db.service';
+import { AppDbService, BookTag } from '../../../core/services/storage/app-db.service';
 import { DomainDataApiService } from './domain-data-api.service';
 import { DomainSheet } from '../models/domain-sheet.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
@@ -23,6 +23,15 @@ interface SheetPaginationState {
   totalPages: number | null;
   isLoading: boolean;
   error: string | null;
+}
+
+export interface BookTagContext {
+  row: number;
+  book?: string;
+  author?: string;
+  subject?: string;
+  topic?: string;
+  domain?: string;
 }
 
 const DOMAIN_PAGE_SIZE = 50;
@@ -69,6 +78,53 @@ export class DomainDataService {
   private loadedRow: number | null = null;
 
   readonly sheetNames = computed(() => this.sheets().map((sheet) => sheet.name));
+
+  extractAndNormalizeTags(rawTags: string): string[] {
+    const uniqueTags = new Set<string>();
+    for (const value of rawTags.split(/[\s,;]+/)) {
+      const tag = value.trim().replace(/^#+/, '').toLocaleLowerCase();
+      if (tag) {
+        uniqueTags.add(`#${tag}`);
+      }
+    }
+    return [...uniqueTags];
+  }
+
+  async upsertBookTags(tags: string[], bookContext: BookTagContext): Promise<void> {
+    const normalizedTags = this.extractAndNormalizeTags(tags.join(' '));
+    if (normalizedTags.length === 0) {
+      return;
+    }
+
+    const table = this.dbService.db.bookTags;
+    await this.dbService.db.transaction('rw', table, async () => {
+      for (const tag of normalizedTags) {
+        const id = `${bookContext.row}_${tag}`;
+        const existing = await table.get(id);
+        await table.put({
+          ...existing,
+          id,
+          scope: 'book',
+          row: bookContext.row,
+          book: bookContext.book ?? existing?.book ?? String(bookContext.row),
+          ...((bookContext.author ?? existing?.author)
+            ? { author: bookContext.author ?? existing?.author }
+            : {}),
+          ...((bookContext.subject ?? existing?.subject)
+            ? { subject: bookContext.subject ?? existing?.subject }
+            : {}),
+          ...((bookContext.topic ?? existing?.topic)
+            ? { topic: bookContext.topic ?? existing?.topic }
+            : {}),
+          ...((bookContext.domain ?? existing?.domain)
+            ? { domain: bookContext.domain ?? existing?.domain }
+            : {}),
+          tag,
+          usageCount: (existing?.usageCount ?? 0) + 1,
+        });
+      }
+    });
+  }
 
   canLoadMore(sheetName: string): boolean {
     const state = this.pagination()[this.paginationKey(sheetName)];
@@ -122,15 +178,17 @@ export class DomainDataService {
       });
       const persistedRows = this.preparePersistedRows(tableName, row, pageRows);
       const table = this.domainTable(tableName);
-      await table.bulkPut(persistedRows);
-
-      this.sheets.update((currentSheets) =>
-        currentSheets.map((currentSheet) =>
-          currentSheet.name === sheetName
-            ? { ...currentSheet, rows: this.mergeRows(currentSheet.rows, pageRows) }
-            : currentSheet,
-        ),
+      const nextSheets = this.sheets().map((currentSheet) =>
+        currentSheet.name === sheetName
+          ? { ...currentSheet, rows: this.mergeRows(currentSheet.rows, pageRows) }
+          : currentSheet,
       );
+      const bookTags = await this.buildBookTags(row, nextSheets);
+      await this.dbService.db.transaction('rw', [table, this.dbService.db.bookTags], async () => {
+        await table.bulkPut(persistedRows);
+        await this.replaceBookTagsForCatalog(row, bookTags);
+      });
+      this.sheets.set(nextSheets);
       this.pagination.update((current) => ({
         ...current,
         [key]: {
@@ -237,13 +295,39 @@ export class DomainDataService {
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
-    const rowsWithPendingStatus = updatedRows.map((record) => ({
-      ...record,
-      syncStatus: 'pending',
-    }));
-
     try {
       const tableName = this.getDomainTableName(sheetName);
+      const existingRows = this.sheets().find((sheet) => sheet.name === sheetName)?.rows ?? [];
+      const newRowStart = Math.min(existingRows.length, updatedRows.length);
+      const newRows = updatedRows.slice(newRowStart);
+      const catalogItem = (await this.dbService.db.catalogs.toArray()).find(
+        (item) => item.row === row,
+      );
+      const normalizedNewRows = newRows.map((record) =>
+        this.normalizeRecordTags(record, sheetName),
+      );
+
+      for (const record of normalizedNewRows) {
+        const tags = this.extractAndNormalizeTags(
+          [record['tags'], record['tag']]
+            .filter((value): value is string => typeof value === 'string')
+            .join(' '),
+        );
+        await this.upsertBookTags(tags, {
+          row,
+          book: this.optionalString(record['book']) ?? catalogItem?.name,
+          author: this.optionalString(record['author']) ?? catalogItem?.author,
+          subject: catalogItem?.subject,
+          topic: catalogItem?.topic,
+          domain: sheetName,
+        });
+      }
+
+      const normalizedRows = [...updatedRows.slice(0, newRowStart), ...normalizedNewRows];
+      const rowsWithPendingStatus = normalizedRows.map((record) => ({
+        ...record,
+        syncStatus: 'pending',
+      }));
       const persistedRows = this.preparePersistedRows(tableName, row, rowsWithPendingStatus);
       const table = this.domainTable(tableName);
 
@@ -254,37 +338,7 @@ export class DomainDataService {
       await this.dbService.db.domainSheets.put({ row, count: this.sheets().length || 1 });
       this.updateLocalSheetRowsState(sheetName, rowsWithPendingStatus);
 
-      if (this.configService.isLocalFirstEnabled()) {
-        void this.syncRemoteUpdate(row, sheetName, tableName, updatedRows);
-        return;
-      }
-
-      const response = await firstValueFrom(
-        this.apiService.updateRows(row, sheetName, updatedRows),
-      );
-      if (response && response.status === 'success') {
-        const rowsWithSyncedStatus = updatedRows.map((record) => ({
-          ...record,
-          syncStatus: 'synced',
-        }));
-        const syncedRows = this.preparePersistedRows(tableName, row, rowsWithSyncedStatus);
-
-        await this.dbService.db.transaction('rw', table, async () => {
-          await table.where('row').equals(row).delete();
-          await table.bulkPut(syncedRows);
-        });
-        this.updateLocalSheetRowsState(sheetName, rowsWithSyncedStatus);
-      } else {
-        const message = typeof response?.message === 'string' ? response.message : '';
-        if (
-          response?.status === 'error' &&
-          (message.includes('Invalid or expired Google token') ||
-            message.includes('Missing idToken parameter'))
-        ) {
-          this.authService.logout();
-        }
-        throw new Error(message || 'Failed to update domain sheet rows.');
-      }
+      void this.syncRemoteUpdate(row, sheetName, tableName, normalizedRows);
     } catch (err: unknown) {
       const rowsWithErrorStatus = updatedRows.map((record) => ({
         ...record,
@@ -309,6 +363,30 @@ export class DomainDataService {
       this.globalLoadingService.end(operation);
       this.isLoading.set(false);
     }
+  }
+
+  private normalizeRecordTags(
+    record: Record<string, unknown>,
+    sheetName: string,
+  ): Record<string, unknown> {
+    const rawTags = [record['tags'], record['tag']]
+      .filter((value): value is string => typeof value === 'string')
+      .join(' ');
+    const normalizedTags = this.extractAndNormalizeTags(rawTags).join(' ');
+    const normalizedRecord = { ...record };
+
+    if (Object.hasOwn(record, 'tags') || ['QUOTES', 'PASSAGES'].includes(sheetName.toUpperCase())) {
+      normalizedRecord['tags'] = normalizedTags;
+    }
+    if (Object.hasOwn(record, 'tag')) {
+      normalizedRecord['tag'] = normalizedTags;
+    }
+
+    return normalizedRecord;
+  }
+
+  private optionalString(value: unknown): string | undefined {
+    return typeof value === 'string' && value.trim() ? value.trim() : undefined;
   }
 
   private updateLocalSheetRowsState(sheetName: string, newRows: Record<string, unknown>[]): void {
@@ -365,13 +443,16 @@ export class DomainDataService {
           rows: sheet.rows.length > 0 ? sheet.rows : (cachedSheet?.rows ?? []),
         });
       }
+      const bookTags = await this.buildBookTags(row, normalized);
 
       const tables = [
         this.dbService.db.domainSheets,
+        this.dbService.db.bookTags,
         ...DOMAIN_TABLE_NAMES.map((name) => this.domainTable(name)),
       ];
       await this.dbService.db.transaction('rw', tables, async (transaction) => {
         await transaction.table('domainSheets').put({ row, count: normalized.length });
+        await this.replaceBookTagsForCatalog(row, bookTags);
         for (const sheet of normalized) {
           if (sheet.rows.length === 0) {
             continue;
@@ -451,6 +532,67 @@ export class DomainDataService {
       throw new Error(`Unsupported domain sheet: ${sheetName}`);
     }
     return tableName;
+  }
+
+  private async buildBookTags(row: number, sheets: DomainSheet[]): Promise<BookTag[]> {
+    const catalogItem = (await this.dbService.db.catalogs.toArray()).find(
+      (item) => item.row === row,
+    );
+    const book = catalogItem?.name.trim() || String(row);
+    const author = catalogItem?.author.trim() || undefined;
+    const counts = new Map<string, BookTag>();
+
+    for (const sheet of sortByIndex(sheets)) {
+      const tableName = DOMAIN_TABLES[sheet.name.toUpperCase()];
+      if (!tableName) {
+        continue;
+      }
+
+      for (const sourceRow of sheet.rows) {
+        const rawTags =
+          sourceRow['tags'] ?? sourceRow['Tags'] ?? sourceRow['tag'] ?? sourceRow['Tag'];
+        if (typeof rawTags !== 'string') {
+          continue;
+        }
+
+        for (const tag of rawTags
+          .split(/[\s,;]+/)
+          .map((value) => value.trim())
+          .filter(Boolean)) {
+          if (new RegExp(`^${tableName}_\\d+$`).test(tag)) {
+            continue;
+          }
+
+          const id = `${row}_${tag.toLocaleLowerCase()}`;
+          const existing = counts.get(id);
+          if (existing) {
+            existing.usageCount = (existing.usageCount ?? 0) + 1;
+          } else {
+            counts.set(id, {
+              id,
+              scope: 'book',
+              row,
+              book,
+              ...(author ? { author } : {}),
+              ...(catalogItem?.subject ? { subject: catalogItem.subject } : {}),
+              ...(catalogItem?.topic ? { topic: catalogItem.topic } : {}),
+              tag,
+              domain: sheet.name,
+              usageCount: 1,
+            });
+          }
+        }
+      }
+    }
+
+    return [...counts.values()];
+  }
+
+  private async replaceBookTagsForCatalog(row: number, bookTags: BookTag[]): Promise<void> {
+    await this.dbService.db.bookTags.where('row').equals(row).delete();
+    if (bookTags.length > 0) {
+      await this.dbService.db.bookTags.bulkPut(bookTags);
+    }
   }
 
   private paginationKey(sheetName: string): string {

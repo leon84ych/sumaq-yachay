@@ -40,13 +40,12 @@
 
       <div class="form-group">
         <label for="index-tag">{{ 'DOMAINS.INDEX.TAG' | transloco }}</label>
-        <input
-          id="index-tag"
-          type="text"
-          [ngModel]="newTag()"
-          (ngModelChange)="newTag.set($event)"
-          placeholder="e.g. #core-def"
-          required
+        <app-tag-picker
+          [ariaLabel]="'DOMAINS.INDEX.TAG' | transloco"
+          inputId="index-tag"
+          [bookRow]="currentSheet().row"
+          [value]="newTag()"
+          (valueChange)="newTag.set($event)"
         />
       </div>
 

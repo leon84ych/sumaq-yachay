@@ -82,14 +82,13 @@
         <label id="passage-tags-label" for="passage-tags">{{
           'DOMAINS.PASSAGE.TAGS' | transloco
         }}</label>
-        <div
-          id="passage-tags"
-          class="form-control form-control-inline"
-          contenteditable="true"
-          role="textbox"
-          aria-labelledby="passage-tags-label"
-          (input)="newTags.set($any($event.target).textContent?.trim() ?? '')"
-        ></div>
+        <app-tag-picker
+          [ariaLabel]="'DOMAINS.PASSAGE.TAGS' | transloco"
+          inputId="passage-tags"
+          [bookRow]="currentSheet().row"
+          [value]="newTags()"
+          (valueChange)="newTags.set($event)"
+        />
       </div>
       <div class="form-actions">
         <button type="button" class="btn-submit" (click)="addPassage()">

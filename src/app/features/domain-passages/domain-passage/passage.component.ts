@@ -14,11 +14,12 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet, PassagesRow } from '../../catalog-detail/models/domain-sheet.model';
+import { TagPickerComponent } from '../../../shared/tag-picker.component';
 
 @Component({
   selector: 'app-passages',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe],
+  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
   templateUrl: './passage.component.html',
   styleUrls: ['./passage.component.css'],
   host: {
@@ -90,7 +91,7 @@ export class PassageComponent {
 
   splitTags(tags: string): string[] {
     return tags
-      .split(/\s+/)
+      .split(/[\s,;]+/)
       .map((tag) => tag.trim())
       .filter(Boolean);
   }

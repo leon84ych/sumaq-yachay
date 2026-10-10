@@ -56,12 +56,12 @@
       </div>
       <div class="form-group">
         <label for="quote-tags">{{ 'DOMAINS.QUOTE.TAGS' | transloco }}</label>
-        <input
-          id="quote-tags"
-          type="text"
-          [ngModel]="newTags()"
-          (ngModelChange)="newTags.set($event)"
-          placeholder="e.g. #research, #quotes"
+        <app-tag-picker
+          [ariaLabel]="'DOMAINS.QUOTE.TAGS' | transloco"
+          inputId="quote-tags"
+          [bookRow]="currentSheet().row"
+          [value]="newTags()"
+          (valueChange)="newTags.set($event)"
         />
       </div>
       <div class="form-actions">
@@ -165,7 +165,9 @@
                 </figcaption>
                 @if (row.tags) {
                   <div class="quote-tags" [attr.aria-label]="'DOMAINS.QUOTE.TAGS' | transloco">
-                    <span class="quote-tag-chip">{{ row.tags }}</span>
+                    @for (tag of splitTags(row.tags); track $index) {
+                      <span class="quote-tag-chip">{{ tag }}</span>
+                    }
                   </div>
                 }
                 @if (row.analysis) {

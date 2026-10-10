@@ -6,6 +6,7 @@ import { GlobalErrorService } from '../../../core/services/global-error.service'
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { IndexViewRow, normalizeIndexRows } from './index-view-row';
+import { TagPickerComponent } from '../../../shared/tag-picker.component';
 
 export type { IndexViewRow } from './index-view-row';
 
@@ -20,7 +21,7 @@ interface IndexHierarchyGroup {
 @Component({
   selector: 'app-index-view',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe],
+  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
   templateUrl: './index-view.component.html',
   styleUrls: ['./index-view.component.css'],
 })
@@ -69,7 +70,7 @@ export class IndexViewComponent {
 
   splitTags(value: string): string[] {
     return value
-      .split(/[,;\n]/)
+      .split(/[\s,;]+/)
       .map((tag) => tag.trim())
       .filter(Boolean);
   }

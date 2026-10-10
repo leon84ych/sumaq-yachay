@@ -17,11 +17,12 @@ import { GlobalErrorService } from '../../../core/services/global-error.service'
 import { downloadJpeg } from '../../../shared/utils/image-export';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet, QuoteRow } from '../../catalog-detail/models/domain-sheet.model';
+import { TagPickerComponent } from '../../../shared/tag-picker.component';
 
 @Component({
   selector: 'app-quote-gallery',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe],
+  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
   templateUrl: './quote-gallery.component.html',
   styleUrls: ['./quote-gallery.component.css'],
 })
@@ -61,6 +62,13 @@ export class QuoteGalleryComponent {
           ),
       );
   });
+
+  splitTags(tags: string): string[] {
+    return tags
+      .split(/[\s,;]+/)
+      .map((tag) => tag.trim())
+      .filter(Boolean);
+  }
 
   @ViewChild('ghostQuoteCard') private ghostQuoteCard?: ElementRef<HTMLElement>;
   @ViewChild('ghostAnalysisCard') private ghostAnalysisCard?: ElementRef<HTMLElement>;

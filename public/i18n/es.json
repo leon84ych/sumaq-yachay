@@ -239,6 +239,8 @@
     "NO_ENTRIES": "No se encontraron entradas.",
     "LOADING": "Cargando...",
     "LOAD_MORE": "Cargar más",
+    "ADD_TAG": "Agregar etiqueta...",
+    "REMOVE_TAG": "Quitar {{tag}}",
     "ERROR": "Ocurrió un error. Por favor, inténtalo de nuevo.",
     "RETRY": "Reintentar",
     "DOWNLOAD_IMAGES": "Descargar como imágen",

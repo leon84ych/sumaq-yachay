@@ -1,0 +1,50 @@
+<div class="tag-picker" [class.is-focused]="isFocused()">
+  <div class="tag-picker-chips">
+    @for (tag of selectedTags(); track tag) {
+      <span class="tag-picker-chip">
+        {{ tag }}
+        <button
+          type="button"
+          class="tag-picker-remove"
+          [attr.aria-label]="'COMMON.REMOVE_TAG' | transloco: { tag: tag }"
+          (click)="removeTag(tag)"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </span>
+    }
+    <input
+      [id]="inputId() || null"
+      type="text"
+      role="combobox"
+      aria-autocomplete="list"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-expanded]="isFocused() && matchingSuggestions().length > 0"
+      [value]="inputValue()"
+      [placeholder]="selectedTags().length ? '' : ('COMMON.ADD_TAG' | transloco)"
+      (input)="onInput($any($event.target).value)"
+      (keydown)="onInputKeydown($event)"
+      (focus)="setFocused(true)"
+      (blur)="onInputBlur()"
+    />
+  </div>
+
+  @if (isFocused() && matchingSuggestions().length > 0) {
+    <ul class="tag-picker-suggestions" role="listbox">
+      @for (suggestion of matchingSuggestions(); track suggestion.id) {
+        <li role="option" [attr.aria-selected]="false">
+          <button
+            type="button"
+            (mousedown)="$event.preventDefault()"
+            (click)="addTag(suggestion.tag)"
+          >
+            <span>{{ suggestion.tag }}</span>
+            @if (suggestion.usageCount) {
+              <small>{{ suggestion.usageCount }}</small>
+            }
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>
