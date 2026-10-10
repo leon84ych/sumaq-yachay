@@ -54,7 +54,17 @@
       "APPEARANCE": "Appearance",
       "THEME_LABEL": "Theme",
       "TEXT_SIZE_LABEL": "Text Size",
-      "LANGUAGE_LABEL": "Language"
+      "LANGUAGE_LABEL": "Language",
+      "LANGUAGE_SELECTOR": "Language selector",
+      "LOCAL_DATA_TITLE": "Local data",
+      "LOCAL_DATA_DESCRIPTION": "Clear all data stored in this browser. Server data will not be changed.",
+      "CLEAR_LOCAL_DATA": "Delete all local data",
+      "CLEAR_CONFIRMATION": "This permanently deletes every local database table in this browser. The server is not affected. Continue?",
+      "CLEAR_CANCEL": "Cancel",
+      "CLEAR_CONFIRM_BUTTON": "Delete everything",
+      "CLEARING": "Deleting...",
+      "CLEAR_SUCCESS": "Local database cleared. Refresh the page before syncing with the server.",
+      "CLEAR_ERROR": "Could not clear the local database. Try again."
     },
     "THEME": {
       "LIGHT": "Light",
@@ -185,7 +195,8 @@
       "GLOSARY": "Glossary",
       "QUESTIONS": "Questions",
       "PASSAGE": "Passages",
-      "CHARACTER": "Characters"
+      "CHARACTER": "Characters",
+      "PLACES": "Places"
     },
     "CONCEPTS": {
       "NEW_ENTRY_TITLE": "Add New Concept",
@@ -309,6 +320,8 @@
       "NEW_ENTRY_TITLE": "Add Character",
       "NAME": "Character Name",
       "ROLE": "Role",
+      "NATURE": "Character Nature",
+      "COLOR": "Character Color",
       "DESCRIPTION": "Description / Profile",
       "ARCHETYPE": "Archetype",
       "SOURCE": "Source / Origin",
@@ -323,6 +336,39 @@
         "supporting": "Supporting character",
         "historical": "Historical figure",
         "mythical": "Mythical character"
+      },
+      "NATURE_OPTIONS": {
+        "historical": "Historical",
+        "fictitious": "Fictitious",
+        "inspired": "Inspired"
+      }
+    },
+    "PLACES": {
+      "NEW_ENTRY": "New Place",
+      "NEW_ENTRY_TITLE": "Add Place",
+      "NAME": "Place Name",
+      "NAME_PLACEHOLDER": "e.g. Macondo",
+      "TYPE": "Place Type",
+      "NATURE": "Place Nature",
+      "COORDINATES": "Coordinates",
+      "COLOR": "Map Color",
+      "DESCRIPTION": "Description",
+      "SOURCE": "Source / Origin",
+      "TAGS": "Tags (#hashtags)",
+      "CHARACTERS_LEFT": "{{count}} characters remaining",
+      "SEARCH": "Search places...",
+      "NO_MATCHES": "No places match your search.",
+      "TYPE_OPTIONS": {
+        "CITY": "City",
+        "COUNTRY": "Country",
+        "BUILDING": "Building",
+        "REGION": "Region",
+        "INSTITUTION": "Institution"
+      },
+      "NATURE_OPTIONS": {
+        "REAL": "Real",
+        "FICTIONAL": "Fictional",
+        "INSPIRED": "Inspired"
       }
     }
   }
