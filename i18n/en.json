@@ -6,12 +6,36 @@
     "SIGN_OUT": "Sign out"
   },
   "COMMON": {
-    "LOADING": "Loading..."
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "BACK": "Back",
+    "CLOSE": "Close",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "VIEW": "View",
+    "NO_ENTRIES": "No entries found.",
+    "LOADING": "Loading...",
+    "LOAD_MORE": "Load more",
+    "ADD_TAG": "Add a tag...",
+    "REMOVE_TAG": "Remove {{tag}}",
+    "RETRY": "Retry",
+    "DOWNLOAD_IMAGES": "Download as Image",
+    "REVEAL_ANALYSIS": "Reveal analysis",
+    "SHOW_QUOTE": "Show quote",
+    "ERROR": "An error occurred. Please try again.",
+    "STATUS": {
+      "synced": "Synced",
+      "pending": "Pending",
+      "failed": "Sync Failed",
+      "error": "Error"
+    }
   },
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
     "BRAND_TAGLINE": "Beautiful Knowledge",
     "CATALOG": "Catalog",
+    "LEARN": "Learn",
+    "QUIZ": "Quiz",
     "SETTINGS": {
       "TITLE": "Settings",
       "LOGIN": "Login",
@@ -88,7 +112,7 @@
       "NAME_PLACEHOLDER": "e.g., Distributed Systems & Kafka",
       "NAME_ERROR": "Name is required (max 100 characters).",
       "SHEET_LABEL": "Google Sheet ID or URL",
-      "SHEET_PLACEHOLDER": "Google Sheet ID orURL",
+      "SHEET_PLACEHOLDER": "Google Sheet ID or URL",
       "SHEET_HINT": "Paste full spreadsheet URL or the unique Sheet ID.",
       "SHEET_ERROR": "A valid Google Sheet ID or URL is required.",
       "SUBJECT_LABEL": "Subject",
@@ -124,27 +148,9 @@
     "LOADING": "Loading catalog entry...",
     "NO_DEFINITIONS": "No definitions found in this sheet.",
     "SYNONYMS": "Synonyms:",
-    "CONCEPTS": {
-      "NEW_ENTRY_TITLE": "Add New Concept",
-      "TERM": "Term",
-      "DEFINITION": "Definition",
-      "CATEGORY": "Category",
-      "SOURCE": "Source",
-      "TAGS": "Tags",
-      "CHARACTERS_LEFT": "{{count}} characters remaining"
-    },
     "UNSUPPORTED_SHEET": "This sheet type isn't supported for viewing yet.",
     "DOMAIN": "Domain",
     "SELECT_DOMAIN": "Select Domain",
-    "DOMAINS": {
-      "INDEX": "Index",
-      "CONCEPTS": "Concepts",
-      "QUOTES": "Quotes",
-      "TIMELINE": "Timeline",
-      "RELATIONS": "Relations",
-      "GLOSARY": "Glossary",
-      "QUESTIONS": "Questions"
-    },
     "NOT_FOUND": {
       "TITLE": "Entry Not Found",
       "DESC": "This catalog entry doesn't exist locally. Try syncing or go back to the Catalog."
@@ -153,31 +159,171 @@
       "WEB_APP_URL_NOT_CONFIGURED": "Google Apps Script Web App URL is not configured.",
       "AUTHENTICATION_REQUIRED_CREATE": "Authentication required to create a sheet.",
       "AUTHENTICATION_REQUIRED_UPDATE": "Authentication required to update sheet rows.",
+      "AUTHENTICATION_REQUIRED_READ": "Authentication required to load domain rows.",
       "HTTP_REQUEST_FAILED": "HTTP request failed with status {{status}}.",
       "UPDATE_ROWS_FAILED": "Failed to update domain sheet rows.",
       "GET_SHEETS_FAILED": "Failed to fetch domain sheets."
     }
   },
   "DOMAINS": {
+    "INDEX": {
+      "TITLE": "Index",
+      "CHAPTER": "Chapter",
+      "THEME": "Theme",
+      "SUBTHEME": "Subtheme",
+      "TAG": "Tag",
+      "STATUS": "Status",
+      "ADD_ENTRY": "Entry",
+      "NEW_ENTRY_TITLE": "Add New Entry"
+    },
+    "DOMAINS": {
+      "INDEX": "Index",
+      "QUOTES": "Quotes",
+      "TIMELINE": "Timeline",
+      "RELATIONS": "Relations",
+      "CONCEPTS": "Concepts",
+      "GLOSARY": "Glossary",
+      "QUESTIONS": "Questions",
+      "PASSAGE": "Passages",
+      "CHARACTER": "Characters"
+    },
+    "CONCEPTS": {
+      "NEW_ENTRY_TITLE": "Add New Concept",
+      "TERM": "Term",
+      "DEFINITION": "Definition",
+      "CATEGORY": "Category",
+      "SOURCE": "Source",
+      "TAGS": "Tags",
+      "CHARACTERS_LEFT": "{{count}} characters remaining",
+      "SELECT_CATEGORY": "Select node nature",
+      "CUSTOM_CATEGORY": "Enter a custom category",
+      "CATEGORY_OPTIONS": {
+        "theory-model": "Theory / Model",
+        "phenomenon-process": "Phenomenon / Process",
+        "principle-axiom": "Principle / Axiom",
+        "paradigm-school": "Paradigm / School",
+        "technical-construct": "Technical Construct",
+        "other": "Other..."
+      },
+      "SEARCH": "Search concepts by term, category, or tags...",
+      "NO_MATCHES": "No concepts match your search.",
+      "VIEW_RELATIONS": "View connections",
+      "DOWNLOAD_IMAGES": "Download quote images"
+    },
+    "QUESTIONS": {
+      "NEW_ENTRY_TITLE": "Add question",
+      "QUESTION": "Question",
+      "ANSWER": "Answer or explanation",
+      "TYPE": "Question type",
+      "SOURCE_DOMAIN": "Source domain",
+      "SOURCE_TERM": "Source term",
+      "PAGE": "Page",
+      "DIFFICULTY": "Difficulty",
+      "TAGS": "Tags",
+      "SEARCH": "Search questions, answers, or source terms...",
+      "NO_MATCHES": "No questions match your search.",
+      "GENERATE_FROM": "Generate a question about {{term}}",
+      "GENERATE": "Generate and save",
+      "GENERATING": "Generating question...",
+      "AI_UNAVAILABLE": "Browser built-in AI is not available.",
+      "TYPE_OPTIONS": {
+        "flashcard": "Flashcard",
+        "multiple-choice": "Multiple choice",
+        "true-false": "True or false",
+        "open": "Open question"
+      },
+      "DIFFICULTY_OPTIONS": {
+        "easy": "Easy",
+        "medium": "Medium",
+        "hard": "Hard"
+      }
+    },
     "QUOTE": {
       "NEW_ENTRY_TITLE": "Add New Quote",
+      "SEARCH": "Search quotes by text, author, book, page, or tags...",
+      "NO_MATCHES": "No quotes match your search.",
+      "DOWNLOAD_QUOTE_IMAGE": "Download quote image",
+      "DOWNLOAD_ANALYSIS_IMAGE": "Download reflection image",
       "QUOTE": "Quote",
       "ANALYSIS": "Analysis",
+      "BOOK": "Book",
+      "AUTHOR": "Author",
+      "PAGE": "Page",
+      "PAGE_SHORT": "p.",
+      "TAGS": "Tags",
+      "CHARACTERS_LEFT": "{{count}} characters remaining",
+      "REFLECTION": "A thought to keep"
+    },
+    "PASSAGE": {
+      "NEW_ENTRY_TITLE": "Add New Passage",
+      "SEARCH": "Search passages by text, author, book, page, or tags...",
+      "NO_MATCHES": "No passages match your search.",
+      "TITLE": "Title",
+      "PASSAGE_TEXT": "Passage Text",
+      "READ_PASSAGE": "Read passage",
+      "READING_TIME": "{{minutes}} min read",
+      "READER_CONTROLS": "Reading controls",
+      "DECREASE_FONT_SIZE": "Decrease text size",
+      "INCREASE_FONT_SIZE": "Increase text size",
+      "FONT_FAMILY": "Reading font",
+      "FONT_SERIF": "Serif",
+      "FONT_SANS": "Sans serif",
+      "JUSTIFY_TEXT": "Justify text",
+      "COPY_TEXT": "Copy passage",
+      "COPIED": "Passage copied",
+      "COPY_FAILED": "Could not copy passage",
+      "THEME_LIGHT": "Light theme",
+      "THEME_DARK": "Dark theme",
       "BOOK": "Book",
       "AUTHOR": "Author",
       "PAGE": "Page",
       "TAGS": "Tags",
       "CHARACTERS_LEFT": "{{count}} characters remaining"
     },
-    "PASSAGE": {
-      "NEW_ENTRY_TITLE": "Add New Passage",
-      "TITLE": "Title",
-      "PASSAGE_TEXT": "Passage Text",
-      "BOOK": "Book",
-      "AUTHOR": "Author",
+    "GLOSSARY": {
+      "NEW_ENTRY_TITLE": "Add Glossary Term",
+      "TERM": "Term",
+      "DEFINITION": "Definition",
+      "CHARACTERS_LEFT": "{{count}} characters remaining",
+      "PART_OF_SPEECH": "Part of speech",
+      "SELECT_PART_OF_SPEECH": "Select part of speech",
+      "POS_OPTIONS": {
+        "Sustantivo": "Noun",
+        "Adjetivo": "Adjective",
+        "Verbo": "Verb",
+        "Adverbio": "Adverb",
+        "Locución": "Phrase",
+        "Otro": "Other"
+      },
+      "ETYMOLOGY": "Etymology",
+      "SYNONYMS": "Synonyms",
+      "CONTEXT_SENTENCE": "Context sentence",
+      "SOURCE": "Source",
       "PAGE": "Page",
       "TAGS": "Tags",
-      "CHARACTERS_LEFT": "{{count}} characters remaining"
+      "SEARCH": "Search glossary terms...",
+      "NO_MATCHES": "No glossary terms match your search."
+    },
+    "CHARACTERS": {
+      "NEW_ENTRY": "New Character",
+      "NEW_ENTRY_TITLE": "Add Character",
+      "NAME": "Character Name",
+      "ROLE": "Role",
+      "DESCRIPTION": "Description / Profile",
+      "ARCHETYPE": "Archetype",
+      "SOURCE": "Source / Origin",
+      "TAGS": "Tags (#hashtags)",
+      "CHARACTERS_LEFT": "{{count}} characters remaining",
+      "SEARCH": "Search characters...",
+      "NO_MATCHES": "No characters match your search.",
+      "VIEW_RELATIONS": "View relations",
+      "ROLE_OPTIONS": {
+        "protagonist": "Protagonist",
+        "antagonist": "Antagonist",
+        "supporting": "Supporting character",
+        "historical": "Historical figure",
+        "mythical": "Mythical character"
+      }
     }
   }
 }
