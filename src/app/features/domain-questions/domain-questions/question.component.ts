@@ -6,7 +6,7 @@ import { GlobalErrorService } from '../../../core/services/global-error.service'
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
-import { QuestionDifficulty, QuestionRow, QuestionType } from './question.model';
+import { QuestionDifficulty, QuestionRow, QuestionType } from '../model/domain-question-row.model';
 
 const QUESTION_TYPES: QuestionType[] = ['flashcard', 'multiple-choice', 'true-false', 'open'];
 const QUESTION_DIFFICULTIES: QuestionDifficulty[] = ['easy', 'medium', 'hard'];

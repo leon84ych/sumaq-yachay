@@ -135,6 +135,18 @@
                   {{ 'DOMAINS.QUOTE.QUOTE' | transloco }}
                 }
               </span>
+              <span
+                class="status-indicator"
+                [class.synced]="row.syncStatus === 'synced'"
+                [attr.aria-label]="'COMMON.STATUS.' + row.syncStatus | transloco"
+                [attr.title]="'COMMON.STATUS.' + row.syncStatus | transloco"
+                role="img"
+                tabindex="0"
+              >
+                <span class="status-label">{{
+                  'COMMON.STATUS.' + row.syncStatus | transloco
+                }}</span>
+              </span>
             </div>
             <div
               class="quote-card-inner"

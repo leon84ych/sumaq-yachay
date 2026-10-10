@@ -2,11 +2,12 @@ import { Component, computed, inject, input, output, signal } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { GlobalErrorService } from '../../../core/services/global-error.service';
-import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
-import { ConceptRow, DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
-import { TagPickerComponent } from '../../../shared/tag-picker.component';
-import { ConceptQuizGeneratorComponent } from '../concept-quiz/concept-quiz.component';
+import { GlobalErrorService } from '../../../../core/services/global-error.service';
+import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
+import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
+import { TagPickerComponent } from '../../../../shared/tag-picker.component';
+import { ConceptQuizGeneratorComponent } from '../../concept-quiz/concept-quiz.component';
+import { ConceptRow } from '../../model/domain-concept-row.model';
 
 const NODE_CATEGORIES = [
   'theory-model',
@@ -18,7 +19,7 @@ const NODE_CATEGORIES = [
 ] as const;
 
 @Component({
-  selector: 'app-concepts',
+  selector: 'app-domain-concept',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,10 +28,10 @@ const NODE_CATEGORIES = [
     TagPickerComponent,
     ConceptQuizGeneratorComponent,
   ],
-  templateUrl: './concept.component.html',
-  styleUrls: ['./concept.component.css'],
+  templateUrl: './domain-concept.component.html',
+  styleUrls: ['./domain-concept.component.css'],
 })
-export class ConceptsComponent {
+export class DomainConceptsComponent {
   readonly rows = input.required<ConceptRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
   readonly bookName = input<string>('');

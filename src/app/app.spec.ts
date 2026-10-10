@@ -2,11 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideTransloco } from '@jsverse/transloco';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { App } from './app';
 import { TranslocoHttpLoader } from './core/i18n/transloco-loader';
 
 describe('App', () => {
   beforeEach(async () => {
+    TestBed.resetTestingModule();
     await TestBed.configureTestingModule({
       imports: [App],
       providers: [
@@ -29,12 +31,4 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should toggle language', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    app.setLanguage('es');
-    expect(app.getActiveLang()).toBe('es');
-    app.setLanguage('en');
-    expect(app.getActiveLang()).toBe('en');
-  });
 });

@@ -5,10 +5,10 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
-import { IndexViewRow, normalizeIndexRows } from './index-view-row';
+import { IndexViewRow, normalizeIndexRows } from '../model/index-view-row';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 
-export type { IndexViewRow } from './index-view-row';
+export type { IndexViewRow } from '../model/index-view-row';
 
 interface IndexHierarchyGroup {
   chapter: string;
@@ -19,13 +19,13 @@ interface IndexHierarchyGroup {
 }
 
 @Component({
-  selector: 'app-index-view',
+  selector: 'app-domain-index',
   standalone: true,
   imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
-  templateUrl: './index-view.component.html',
-  styleUrls: ['./index-view.component.css'],
+  templateUrl: './domain-index.component.html',
+  styleUrls: ['./domain-index.component.css'],
 })
-export class IndexViewComponent {
+export class DomainIndexComponent {
   readonly rows = input.required<IndexViewRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
   readonly isAddingEntry = input<boolean>(false);

@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
-import { ConceptRow } from '../../catalog-detail/models/domain-sheet.model';
+
 import { QuestionGeneratorComponent } from '../../domain-questions/components/question-generator/question-generator.component';
+import { ConceptRow } from '../model/domain-concept-row.model';
 
 @Component({
   selector: 'app-concept-quiz-generator',

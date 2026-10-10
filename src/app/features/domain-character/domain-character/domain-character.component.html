@@ -24,7 +24,24 @@
         >
           @for (role of characterRoles; track role) {
             <option [value]="role">
-              {{ roleTranslationKey(role) | transloco }}
+              {{ 'DOMAINS.CHARACTERS.ROLE_OPTIONS.'+role | transloco }}
+            </option>
+          }
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="character-nature">{{ 'DOMAINS.CHARACTERS.NATURE' | transloco }}</label>
+        <select
+          id="character-nature"
+          [ngModel]="newNature()"
+          (ngModelChange)="newNature.set($event)"
+          required
+        >
+          @for (nature of characterNatures; track nature) {
+            <option [value]="nature">
+              {{ 'DOMAINS.CHARACTERS.NATURE_OPTIONS.' + nature | transloco }}
             </option>
           }
         </select>
@@ -56,6 +73,16 @@
           type="text"
           [ngModel]="newArchetype()"
           (ngModelChange)="newArchetype.set($event)"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="character-color">{{ 'DOMAINS.CHARACTERS.COLOR' | transloco }}</label>
+        <input
+          id="character-color"
+          type="color"
+          [ngModel]="newColor()"
+          (ngModelChange)="newColor.set($event)"
         />
       </div>
 
@@ -114,10 +141,30 @@
       <div class="characters-grid">
         @for (row of filteredRows(); track row.id) {
           <article class="character-card">
-            <header class="character-card-header">
+            <header
+              class="character-card-header"
+              [style.borderBottomColor]="row.color || 'var(--border)'"
+            >
               <h4 class="name">{{ row.name }}</h4>
               <span class="role-badge">
-                {{ roleTranslationKey(row.role) | transloco }}
+                {{ 'DOMAINS.CHARACTERS.ROLE_OPTIONS.'+row.role | transloco }}
+              </span>
+              @if (row.nature) {
+                <span class="nature-badge">
+                  {{ 'DOMAINS.CHARACTERS.NATURE_OPTIONS.' + row.nature | transloco }}
+                </span>
+              }
+              <span
+                class="status-indicator"
+                [class.synced]="row.syncStatus === 'synced'"
+                [attr.aria-label]="'COMMON.STATUS.' + row.syncStatus | transloco"
+                [attr.title]="'COMMON.STATUS.' + row.syncStatus | transloco"
+                role="img"
+                tabindex="0"
+              >
+                <span class="status-label">{{
+                  'COMMON.STATUS.' + row.syncStatus | transloco
+                }}</span>
               </span>
             </header>
 

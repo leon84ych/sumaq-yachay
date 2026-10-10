@@ -4,6 +4,7 @@ export type DomainName =
   | 'QUOTES'
   | 'PASSAGES'
   | 'CHARACTER'
+  | 'PLACES'
   | 'TIMELINE'
   | 'RELATIONS'
   | 'GLOSARY'
@@ -42,14 +43,19 @@ export const DOMAIN_DEFINITIONS: Record<DomainName, DomainDefinition> = {
       'id',
       'name',
       'role',
+      'nature',
       'description',
       'archetype',
+      'color',
       'source',
       'tags',
       'feed',
       'contributor',
       'syncStatus',
     ],
+  },
+  PLACES: {
+    headers: ['id', 'name', 'type', 'nature', 'coordinates', 'color', 'description', 'source', 'tags', 'feed', 'contributor', 'syncStatus'],
   },
   TIMELINE: {
     headers: ['id', 'date', 'event', 'description', 'significance', 'syncStatus'],

@@ -16,17 +16,18 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { downloadJpeg } from '../../../shared/utils/image-export';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
-import { DomainSheet, QuoteRow } from '../../catalog-detail/models/domain-sheet.model';
+import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
+import type { QuoteRow } from '../model/domain-quote-row.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 
 @Component({
-  selector: 'app-quote-gallery',
+  selector: 'app-domain-quote',
   standalone: true,
   imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
-  templateUrl: './quote-gallery.component.html',
-  styleUrls: ['./quote-gallery.component.css'],
+  templateUrl: './domain-quote.component.html',
+  styleUrls: ['./domain-quote.component.css'],
 })
-export class QuoteGalleryComponent {
+export class DomainQuoteComponent {
   readonly applicationName = document.title || 'sumaq-yachay';
   readonly baseDomain = window.location.hostname;
   readonly rows = input.required<QuoteRow[]>();

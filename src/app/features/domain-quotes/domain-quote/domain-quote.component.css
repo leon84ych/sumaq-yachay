@@ -185,6 +185,16 @@
   font-weight: 700;
 }
 
+.quote-card-header .status-indicator {
+  margin-left: auto;
+  pointer-events: auto;
+}
+
+.quote-card-header .status-label {
+  top: calc(100% + 0.35rem);
+  bottom: auto;
+}
+
 .card-face-front blockquote {
   margin: auto 0;
   position: relative;

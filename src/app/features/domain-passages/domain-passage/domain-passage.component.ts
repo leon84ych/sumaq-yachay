@@ -13,20 +13,21 @@ import { FormsModule } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
-import { DomainSheet, PassagesRow } from '../../catalog-detail/models/domain-sheet.model';
+import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
+import { PassagesRow } from '../model/domain-passage-row.model';
 
 @Component({
-  selector: 'app-passages',
+  selector: 'app-domain-passage',
   standalone: true,
   imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
-  templateUrl: './passage.component.html',
-  styleUrls: ['./passage.component.css'],
+  templateUrl: './domain-passage.component.html',
+  styleUrls: ['./domain-passage.component.css'],
   host: {
     '(document:keydown.escape)': 'closeReader()',
   },
 })
-export class PassageComponent {
+export class DomainPassageComponent {
   readonly rows = input.required<PassagesRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
   readonly bookName = input<string>('');

@@ -85,3 +85,60 @@
 .add-entry-form .form-control:focus {
   outline-color: color-mix(in srgb, var(--border-focus) 24%, transparent);
 }
+
+.status-indicator {
+  position: relative;
+  display: inline-flex;
+  width: 1rem;
+  height: 1.5rem;
+  flex: 0 0 1rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  cursor: help;
+}
+
+.status-indicator::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--warning);
+  content: '';
+}
+
+.status-indicator.synced::before {
+  background: var(--success);
+}
+
+.status-indicator:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.status-label {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: calc(100% + 0.35rem);
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(2px);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.status-indicator:hover .status-label,
+.status-indicator:focus-visible .status-label {
+  opacity: 1;
+  transform: translateY(0);
+}

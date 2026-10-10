@@ -14,6 +14,7 @@ type DomainTableName =
   | 'quotes'
   | 'passages'
   | 'characters'
+  | 'places'
   | 'timeline'
   | 'relations'
   | 'glosary'
@@ -50,6 +51,7 @@ const DOMAIN_TABLES: Record<string, DomainTableName> = {
   QUOTES: 'quotes',
   PASSAGES: 'passages',
   CHARACTER: 'characters',
+  PLACES: 'places',
   TIMELINE: 'timeline',
   RELATIONS: 'relations',
   GLOSARY: 'glosary',
@@ -617,6 +619,8 @@ export class DomainDataService {
       id: 'id',
       name: 'name',
       role: 'role',
+      nature: 'nature',
+      color: 'color',
       term: 'term',
       definition: 'definition',
       partofspeech: 'partOfSpeech',

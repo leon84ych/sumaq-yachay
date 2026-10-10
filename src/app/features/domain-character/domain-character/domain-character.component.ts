@@ -5,13 +5,10 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import {
-  CharacterRole,
-  CharacterRow,
   DomainSheet,
 } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
-
-export type { CharacterRole, CharacterRow } from '../../catalog-detail/models/domain-sheet.model';
+import { CharacterNature, CharacterRole, CharacterRow } from '../model/domain-character-row.model'; 
 
 const CHARACTER_ROLES: CharacterRole[] = [
   'protagonist',
@@ -21,22 +18,21 @@ const CHARACTER_ROLES: CharacterRole[] = [
   'mythical',
 ];
 
-const LEGACY_ROLE_KEYS: Record<string, CharacterRole> = {
-  Protagonista: 'protagonist',
-  Antagonista: 'antagonist',
-  Secundario: 'supporting',
-  Histórico: 'historical',
-  Mítico: 'mythical',
-};
+const CHARACTER_NATURES: CharacterNature[] = [
+  'historical',
+  'fictitious',
+  'inspired',
+];
+
 
 @Component({
-  selector: 'app-character',
+  selector: 'app-domain-character',
   standalone: true,
   imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
-  templateUrl: './character.component.html',
-  styleUrls: ['./character.component.css'],
+  templateUrl: './domain-character.component.html',
+  styleUrls: ['./domain-character.component.css'],
 })
-export class CharacterComponent {
+export class DomainCharacterComponent {
   readonly rows = input.required<CharacterRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
   readonly bookName = input<string>('');
@@ -45,11 +41,14 @@ export class CharacterComponent {
   readonly relationsRequested = output<CharacterRow>();
 
   readonly characterRoles = CHARACTER_ROLES;
+  readonly characterNatures = CHARACTER_NATURES;
   readonly newName = signal<string>('');
   readonly newRole = signal<CharacterRole>('protagonist');
+  readonly newNature = signal<CharacterNature>('historical');
   readonly newDescription = signal<string>('');
   readonly newArchetype = signal<string>('');
   readonly newSource = signal<string>('');
+  readonly newColor = signal<string>('#3b82f6');
   readonly newTags = signal<string>('');
   readonly searchTerm = signal<string>('');
 
@@ -66,9 +65,15 @@ export class CharacterComponent {
     }
 
     return this.rows().filter((row) =>
-      [row.name, row.role, row.description ?? '', row.archetype ?? '', row.tags ?? ''].some(
-        (value) => value.toLocaleLowerCase().includes(query),
-      ),
+      [
+        row.name,
+        row.role,
+        row.nature ?? '',
+        row.color ?? '',
+        row.description ?? '',
+        row.archetype ?? '',
+        row.tags ?? '',
+      ].some((value) => value.toLocaleLowerCase().includes(query)),
     );
   });
 
@@ -82,11 +87,6 @@ export class CharacterComponent {
       .filter(Boolean);
   }
 
-  roleTranslationKey(role: string): string {
-    const roleKey = LEGACY_ROLE_KEYS[role] ?? role;
-    return `DOMAINS.CHARACTERS.ROLE_OPTIONS.${roleKey}`;
-  }
-
   viewRelations(row: CharacterRow): void {
     this.relationsRequested.emit(row);
   }
@@ -94,16 +94,20 @@ export class CharacterComponent {
   resetForm(): void {
     this.newName.set('');
     this.newRole.set('protagonist');
+    this.newNature.set('historical');
     this.newDescription.set('');
     this.newArchetype.set('');
     this.newSource.set('');
     this.newTags.set('');
+    this.newColor.set('#3b82f6');
     this.closeEntry.emit();
   }
 
   async addCharacter(): Promise<void> {
     const name = this.newName().trim();
     const role = this.newRole();
+    const nature = this.newNature();
+    const color = this.newColor();
     const description = this.newDescription().trim();
     const archetype = this.newArchetype().trim();
     const source = this.source();
@@ -117,6 +121,8 @@ export class CharacterComponent {
       id: `character_${Date.now()}`,
       name,
       role,
+      nature,
+      color,
       ...(description ? { description } : {}),
       ...(archetype ? { archetype } : {}),
       ...(source ? { source } : {}),

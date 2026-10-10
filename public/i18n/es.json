@@ -29,7 +29,17 @@
       "APPEARANCE": "Apariencia",
       "THEME_LABEL": "Tema",
       "TEXT_SIZE_LABEL": "Tamaño de Texto",
-      "LANGUAGE_LABEL": "Idioma"
+      "LANGUAGE_LABEL": "Idioma",
+      "LANGUAGE_SELECTOR": "Selector de idioma",
+      "LOCAL_DATA_TITLE": "Datos locales",
+      "LOCAL_DATA_DESCRIPTION": "Borra todos los datos guardados en este navegador. No modifica los datos del servidor.",
+      "CLEAR_LOCAL_DATA": "Borrar todos los datos locales",
+      "CLEAR_CONFIRMATION": "Esto borrará permanentemente todas las tablas de la base de datos local de este navegador. No afecta al servidor. ¿Continuar?",
+      "CLEAR_CANCEL": "Cancelar",
+      "CLEAR_CONFIRM_BUTTON": "Borrar todo",
+      "CLEARING": "Borrando...",
+      "CLEAR_SUCCESS": "Base de datos local borrada. Recarga la página antes de sincronizar con el servidor.",
+      "CLEAR_ERROR": "No se pudo borrar la base de datos local. Inténtalo de nuevo."
     },
     "THEME": {
       "LIGHT": "Claro",
@@ -160,7 +170,8 @@
       "GLOSARY": "Glosario",
       "QUESTIONS": "Preguntas",
       "PASSAGES": "Pasajes",
-      "CHARACTER": "Personajes"
+      "CHARACTER": "Personajes",
+      "PLACES": "Lugares"
     },
     "CONCEPTS": {
       "NEW_ENTRY_TITLE": "Agregar Nuevo Concepto",
@@ -285,6 +296,8 @@
       "NEW_ENTRY_TITLE": "Agregar Personaje",
       "NAME": "Nombre del Personaje",
       "ROLE": "Rol / Papel",
+      "NATURE": "Naturaleza del Personaje",
+      "COLOR": "Color del Personaje",
       "DESCRIPTION": "Descripción / Perfil",
       "ARCHETYPE": "Arquetipo",
       "SOURCE": "Fuente / Origen",
@@ -299,6 +312,39 @@
         "supporting": "Personaje secundario",
         "historical": "Personaje histórico",
         "mythical": "Personaje mítico"
+      },
+      "NATURE_OPTIONS": {
+        "historical": "Histórico",
+        "fictitious": "Ficticio",
+        "inspired": "Inspirado"
+      }
+    },
+    "PLACES": {
+      "NEW_ENTRY": "Nuevo Lugar",
+      "NEW_ENTRY_TITLE": "Agregar Lugar",
+      "NAME": "Nombre del Lugar",
+      "NAME_PLACEHOLDER": "ej. Macondo",
+      "TYPE": "Tipo de Lugar",
+      "NATURE": "Naturaleza del Lugar",
+      "COORDINATES": "Coordenadas",
+      "COLOR": "Color en el Mapa",
+      "DESCRIPTION": "Descripción",
+      "SOURCE": "Fuente / Origen",
+      "TAGS": "Etiquetas (#hashtags)",
+      "CHARACTERS_LEFT": "{{count}} caracteres restantes",
+      "SEARCH": "Buscar lugares...",
+      "NO_MATCHES": "Ningún lugar coincide con la búsqueda.",
+      "TYPE_OPTIONS": {
+        "CITY": "Ciudad",
+        "COUNTRY": "País",
+        "BUILDING": "Edificio",
+        "REGION": "Región",
+        "INSTITUTION": "Institución"
+      },
+      "NATURE_OPTIONS": {
+        "REAL": "Real",
+        "FICTIONAL": "Ficticio",
+        "INSPIRED": "Inspirado"
       }
     }
   },

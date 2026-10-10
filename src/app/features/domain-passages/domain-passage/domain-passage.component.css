@@ -334,7 +334,7 @@ figcaption {
   border-radius: var(--radius-sm);
   padding: 0.5rem 0.75rem;
   background: transparent;
-  color: var(--text);
+  color: var(--reader-text, var(--text));
   font: inherit;
   cursor: pointer;
 }

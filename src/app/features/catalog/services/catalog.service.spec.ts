@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
-import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
-import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { of } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config.service';
@@ -15,11 +14,7 @@ describe('CatalogService', () => {
   let idToken: ReturnType<typeof signal<string | null>>;
   let catalogsToArray: ReturnType<typeof vi.fn>;
   let bulkPutSpy: ReturnType<typeof vi.fn>;
-  let clearSpy: ReturnType<typeof vi.fn>;
-
-  beforeAll(() => {
-    TestBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
-  });
+  let clearAllTablesSpy: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     TestBed.resetTestingModule();
@@ -27,7 +22,7 @@ describe('CatalogService', () => {
     idToken = signal<string | null>(null);
     catalogsToArray = vi.fn().mockResolvedValue([]);
     bulkPutSpy = vi.fn().mockResolvedValue(undefined);
-    clearSpy = vi.fn().mockResolvedValue(undefined);
+    clearAllTablesSpy = vi.fn().mockResolvedValue(undefined);
     getCatalogSpy = vi.fn().mockReturnValue(
       of({
         status: 'error',
@@ -41,24 +36,14 @@ describe('CatalogService', () => {
         {
           provide: AppDbService,
           useValue: {
+            clearAllTables: clearAllTablesSpy,
             db: {
               catalogs: {
                 toArray: catalogsToArray,
-                clear: clearSpy,
                 bulkPut: bulkPutSpy,
                 put: vi.fn().mockResolvedValue(undefined),
                 delete: vi.fn().mockResolvedValue(undefined),
               },
-              domainSheets: { clear: clearSpy },
-              indexTopics: { clear: clearSpy },
-              concepts: { clear: clearSpy },
-              quotes: { clear: clearSpy },
-              passages: { clear: clearSpy },
-              timeline: { clear: clearSpy },
-              relations: { clear: clearSpy },
-              glosary: { clear: clearSpy },
-              questions: { clear: clearSpy },
-              transaction: vi.fn().mockImplementation(async (_mode: string, _store: unknown, fn: () => Promise<void>) => fn()),
             },
           },
         },
@@ -99,7 +84,7 @@ describe('CatalogService', () => {
 
     await service.syncFromRemote();
 
-    expect(clearSpy).toHaveBeenCalledTimes(10);
+    expect(clearAllTablesSpy).toHaveBeenCalledOnce();
     expect(service.items()).toEqual([]);
     expect(service.errorMessage()).toBeNull();
   });

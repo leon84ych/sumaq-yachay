@@ -130,24 +130,7 @@ export class CatalogService {
       const response = await firstValueFrom(this.apiService.getCatalog());
       if (response && response.status === 'success' && Array.isArray(response.data)) {
         if (response.data.length === 0) {
-          const tables = [
-            this.dbService.db.catalogs,
-            this.dbService.db.domainSheets,
-            this.dbService.db.indexTopics,
-            this.dbService.db.concepts,
-            this.dbService.db.quotes,
-            this.dbService.db.passages,
-            this.dbService.db.timeline,
-            this.dbService.db.relations,
-            this.dbService.db.glosary,
-            this.dbService.db.questions,
-          ];
-
-          await this.dbService.db.transaction('rw', tables, async () => {
-            for (const table of tables) {
-              await table.clear();
-            }
-          });
+          await this.dbService.clearAllTables();
 
           this.items.set([]);
           this.lastSyncedAt.set(new Date().toLocaleTimeString());

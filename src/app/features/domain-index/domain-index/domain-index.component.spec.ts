@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { normalizeIndexRows } from './index-view-row';
+import { normalizeIndexRows } from '../model/index-view-row';
 
 describe('normalizeIndexRows', () => {
   it('normalizes every INDEX field to a string', () => {

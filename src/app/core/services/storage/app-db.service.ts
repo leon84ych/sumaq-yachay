@@ -88,6 +88,25 @@ export interface Character {
   syncStatus: 'pending' | 'synced' | 'error';
 }
 
+export interface Place {
+  id: string;
+  row: number;
+  book?: string;
+  author?: string;
+  tag: string;
+  name: string;
+  type: 'city' | 'country' | 'building' | 'region' | 'institution';
+  nature: 'real' | 'fictional' | 'inspired';
+  coordinates?: string;
+  color: string;
+  description?: string;
+  source?: string;
+  tags?: string;
+  feed: number;
+  contributor: string;
+  syncStatus: 'pending' | 'synced' | 'error';
+}
+
 export interface TimelineEntry {
   id: string;
   row: number;
@@ -154,6 +173,7 @@ export class AppDatabase extends Dexie {
   quotes!: Table<Quote, string>;
   passages!: Table<Passage, string>;
   characters!: Table<Character, string>;
+  places!: Table<Place, string>;
   timeline!: Table<TimelineEntry, string>;
   relations!: Table<Relation, string>;
   glosary!: Table<GlossaryEntry, string>;
@@ -171,6 +191,7 @@ export class AppDatabase extends Dexie {
       quotes: 'id, [row+tag], row, tag, book, author',
       passages: 'id, [row+tag], row, tag, book, author',
       characters: 'id, [row+tag], row, tag, book, author',
+      places: 'id, [row+tag], row, tag, book, author',
       timeline: 'id, [row+tag], row, tag, book, author',
       relations: 'id, [row+tag], row, tag, book, author',
       glosary: 'id, [row+tag], row, tag, book, author',
@@ -184,4 +205,13 @@ export class AppDatabase extends Dexie {
 })
 export class AppDbService {
   readonly db = new AppDatabase();
+
+  async clearAllTables(): Promise<void> {
+    const tables = this.db.tables;
+    await this.db.transaction('rw', tables, async () => {
+      for (const table of tables) {
+        await table.clear();
+      }
+    });
+  }
 }

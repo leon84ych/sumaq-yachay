@@ -1,3 +1,5 @@
+import { DomainSheetRow } from "../../catalog-detail/models/domain-sheet.model";
+
 export interface IndexViewRow extends Record<string, unknown> {
   id: string;
   chapter: string;
@@ -20,4 +22,12 @@ export function normalizeIndexRows(rows: readonly Record<string, unknown>[]): In
       syncStatus: row['syncStatus'] === 'synced' ? 'synced' : 'pending',
     };
   });
+}
+
+
+export interface IndexRow extends DomainSheetRow {
+  chapter: string;
+  theme: string;
+  subtheme: string;
+  tag: string;
 }

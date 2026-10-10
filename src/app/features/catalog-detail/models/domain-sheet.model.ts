@@ -30,7 +30,6 @@ export interface PaginatedDomainRowsResponse {
   rows: Record<string, unknown>[];
 }
 
-// --- Known per-sheet row shapes (Phase D: Definitions & Quotes) ---
 
 export interface DomainSheetRow extends Record<string, unknown> {
   id: string; // Row ID within the sheet
@@ -40,42 +39,5 @@ export interface DomainSheetRow extends Record<string, unknown> {
   syncStatus: 'synced' | 'pending' | 'error';
 }
 
-export interface ConceptRow extends DomainSheetRow {
-  term: string;
-  definition: string;
-  category?: string;
-  source?: string;
-}
 
-export interface QuoteRow extends DomainSheetRow {
-  quote: string;
-  analysis?: string;
-  book: string;
-  author: string;
-  page?: string;
-}
 
-export interface PassagesRow extends DomainSheetRow {
-  title: string;
-  passageText: string;
-  book: string;
-  author: string;
-  page?: string;
-}
-
-export type CharacterRole = 'protagonist' | 'antagonist' | 'supporting' | 'historical' | 'mythical';
-
-export interface CharacterRow extends DomainSheetRow {
-  name: string;
-  role: CharacterRole;
-  description?: string;
-  archetype?: string;
-  source?: string;
-}
-
-export interface IndexRow extends DomainSheetRow {
-  chapter: string;
-  theme: string;
-  subtheme: string;
-  tag: string;
-}

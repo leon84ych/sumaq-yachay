@@ -4,27 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
-import { DomainSheet, DomainSheetRow } from '../../catalog-detail/models/domain-sheet.model';
+import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 
-export type PartOfSpeech =
-  | 'Sustantivo'
-  | 'Adjetivo'
-  | 'Verbo'
-  | 'Adverbio'
-  | 'Locución'
-  | 'Otro';
-
-export interface GlossaryRow extends DomainSheetRow {
-  term: string;
-  definition: string;
-  partOfSpeech?: PartOfSpeech;
-  etymology?: string;
-  synonyms?: string;
-  contextSentence?: string;
-  source?: string;
-  page?: string;
-}
+import type { GlossaryRow, PartOfSpeech } from '../model/domain-glosary-row.model';
 
 const PARTS_OF_SPEECH: PartOfSpeech[] = [
   'Sustantivo',
@@ -36,13 +19,13 @@ const PARTS_OF_SPEECH: PartOfSpeech[] = [
 ];
 
 @Component({
-  selector: 'app-glossary',
+  selector: 'app-domain-glossary',
   standalone: true,
   imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
-  templateUrl: './glossary.component.html',
-  styleUrls: ['./glossary.component.css'],
+  templateUrl: './domain-glossary.component.html',
+  styleUrls: ['./domain-glossary.component.css'],
 })
-export class GlossaryComponent {
+export class DomainGlossaryComponent {
   readonly rows = input.required<GlossaryRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
   readonly bookName = input<string>('');

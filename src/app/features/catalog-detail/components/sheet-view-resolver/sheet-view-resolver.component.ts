@@ -1,28 +1,30 @@
 import { Component, computed, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ConceptsComponent } from '../../../domain-concepts/domain-concept/concept.component';
-import { QuoteGalleryComponent } from '../../../domain-quotes/domain-quote/quote-gallery.component';
-import { PassageComponent } from '../../../domain-passages/domain-passage/passage.component';
-import { CharacterComponent } from '../../../domain-character/domain-character/character.component';
+import { DomainConceptsComponent } from '../../../domain-concepts/domain-concept/domain-concept/domain-concept.component';
+import { DomainQuoteComponent } from '../../../domain-quotes/domain-quote/domain-quote.component';
+import { DomainPassageComponent } from '../../../domain-passages/domain-passage/domain-passage.component';
+import { DomainCharacterComponent } from '../../../domain-character/domain-character/domain-character.component';
 import {
-  GlossaryComponent,
-  GlossaryRow,
-} from '../../../domain-glosary/domain-glosary/glossary.component';
+  DomainGlossaryComponent,
+} from '../../../domain-glosary/domain-glosary/domain-glossary.component';
 import {
-  CharacterRow,
-  ConceptRow,
   DomainSheet,
-  PassagesRow,
-  QuoteRow,
 } from '../../models/domain-sheet.model';
+import { CharacterRow } from '../../../domain-character/model/domain-character-row.model';
 import { TranslocoPipe } from '@jsverse/transloco';
 import {
-  IndexViewComponent,
+  DomainIndexComponent,
   IndexViewRow,
-} from '../../../domain-index/domain-index/index-view.component';
+} from '../../../domain-index/domain-index/domain-index.component';
 import { DomainDataService } from '../../services/domain-data.service';
 import { QuestionsComponent } from '../../../domain-questions/domain-questions/question.component';
-import { QuestionRow } from '../../../domain-questions/domain-questions/question.model';
+import { QuestionRow } from '../../../domain-questions/model/domain-question-row.model';
+import { PlaceRow } from '../../../domain-places/model/domain-place-row.model';
+import { DomainPlacesComponent } from '../../../domain-places/domain-places/domain-places.component';
+import { ConceptRow } from '../../../domain-concepts/model/domain-concept-row.model';
+import { QuoteRow } from '../../../domain-quotes/model/domain-quote-row.model';
+import { GlossaryRow } from '../../../domain-glosary/model/domain-glosary-row.model';
+import { PassagesRow } from '../../../domain-passages/model/domain-passage-row.model';
 
 @Component({
   selector: 'app-sheet-view-resolver',
@@ -30,12 +32,13 @@ import { QuestionRow } from '../../../domain-questions/domain-questions/question
   imports: [
     CommonModule,
     TranslocoPipe,
-    IndexViewComponent,
-    ConceptsComponent,
-    QuoteGalleryComponent,
-    PassageComponent,
-    CharacterComponent,
-    GlossaryComponent,
+    DomainIndexComponent,
+    DomainConceptsComponent,
+    DomainQuoteComponent,
+    DomainPassageComponent,
+    DomainCharacterComponent,
+    DomainPlacesComponent,
+    DomainGlossaryComponent,
     QuestionsComponent,
   ],
   templateUrl: './sheet-view-resolver.component.html',
@@ -62,4 +65,5 @@ export class SheetViewResolverComponent {
   readonly glossaryRows = computed(() => (this.sheet()?.rows ?? []) as unknown as GlossaryRow[]);
   readonly indexRows = computed(() => (this.sheet()?.rows ?? []) as unknown as IndexViewRow[]);
   readonly questionRows = computed(() => (this.sheet()?.rows ?? []) as unknown as QuestionRow[]);
+  readonly placeRows = computed(() => (this.sheet()?.rows ?? []) as unknown as PlaceRow[]);
 }

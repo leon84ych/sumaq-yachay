@@ -1,0 +1,143 @@
+<div class="places-view">
+    @if (isAddingEntry()) {
+    <div class="add-entry-form">
+        <h3>{{ 'DOMAINS.PLACES.NEW_ENTRY_TITLE' | transloco }}</h3>
+
+        <div class="form-group">
+            <label for="place-name">{{ 'DOMAINS.PLACES.NAME' | transloco }} *</label>
+            <input id="place-name"
+            type="text"
+            [ngModel]="newName()"
+            (ngModelChange)="newName.set($event)"
+            [placeholder]="'DOMAINS.PLACES.NAME_PLACEHOLDER' | transloco"
+            maxlength="100"
+            required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="place-type">{{ 'DOMAINS.PLACES.TYPE' | transloco }} *</label>
+            <select id="place-type" [ngModel]="newType()" (ngModelChange)="newType.set($event)">
+                <option value="city">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.CITY' | transloco }}</option>
+                <option value="country">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.COUNTRY' | transloco }}</option>
+                <option value="building">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.BUILDING' | transloco }}</option>
+                <option value="region">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.REGION' | transloco }}</option>
+                <option value="institution">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.INSTITUTION' | transloco }}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="place-nature">{{ 'DOMAINS.PLACES.NATURE' | transloco }} *</label>
+            <select id="place-nature" [ngModel]="newNature()" (ngModelChange)="newNature.set($event)">
+                <option value="real">{{ 'DOMAINS.PLACES.NATURE_OPTIONS.REAL' | transloco }}</option>
+                <option value="fictional">{{ 'DOMAINS.PLACES.NATURE_OPTIONS.FICTIONAL' | transloco }}</option>
+                <option value="inspired">{{ 'DOMAINS.PLACES.NATURE_OPTIONS.INSPIRED' | transloco }}</option>
+            </select>
+        </div>
+
+        <!-- Dentro de places.component.html -->
+        <div class="form-group">
+            <label for="place-coordinates">{{ 'DOMAINS.PLACES.COORDINATES' | transloco }}</label>
+            <input id="place-coordinates" type="text" [ngModel]="newCoordinates()"
+                (ngModelChange)="newCoordinates.set($event)" placeholder="Ej. 4.6097, -74.0817" maxlength="100" />
+
+            <!-- Mostrar el mapa interactivo solo si la naturaleza es 'real' -->
+            @if (newNature() === 'real') {
+            <app-map-picker [initialCoords]="[4.6097, -74.0817]" (coordinatesChange)="newCoordinates.set($event)" />
+            }
+        </div>
+
+        <!-- Selector de color nativo para mapas y líneas de tiempo -->
+        <div class="form-group color-picker-group">
+            <label for="place-color">{{ 'DOMAINS.PLACES.COLOR' | transloco }} *</label>
+            <input id="place-color" type="color" [ngModel]="newColor()" (ngModelChange)="newColor.set($event)" />
+        </div>
+
+        <div class="form-group">
+            <label for="place-description">{{ 'DOMAINS.PLACES.DESCRIPTION' | transloco }}</label>
+            <textarea id="place-description" [ngModel]="newDescription()" (ngModelChange)="newDescription.set($event)"
+                maxlength="400"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="place-source">{{ 'DOMAINS.PLACES.SOURCE' | transloco }}</label>
+            <input id="place-source" type="text" [ngModel]="newSource()" (ngModelChange)="newSource.set($event)"
+                maxlength="100" />
+        </div>
+
+        <div class="form-group">
+            <label for="places-tags">{{ 'DOMAINS.PLACES.TAGS' | transloco }}</label>
+            <app-tag-picker [ariaLabel]="'DOMAINS.PLACES.TAGS' | transloco" inputId="places-tags"
+                [bookRow]="currentSheet().row" [value]="newTags()" (valueChange)="newTags.set($event)" />
+        </div>
+
+        <div class="form-actions">
+            <button type="button" class="btn-submit" (click)="addEntry()">
+                {{ 'COMMON.SAVE' | transloco }}
+            </button>
+            <button type="button" class="btn-cancel" (click)="resetForm()">
+                {{ 'COMMON.CANCEL' | transloco }}
+            </button>
+        </div>
+    </div>
+    }
+
+    @if (rows().length === 0) {
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+    } @else {
+    <div class="places-toolbar">
+        <label class="domain-search">
+            <span class="visually-hidden">{{ 'DOMAINS.PLACES.SEARCH' | transloco }}</span>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="8.75" cy="8.75" r="5.75" />
+                <path d="m13 13 4 4" />
+            </svg>
+            <input type="search" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)"
+                [placeholder]="'DOMAINS.PLACES.SEARCH' | transloco" />
+        </label>
+    </div>
+
+    @if (filteredRows().length === 0) {
+    <p class="empty-state">{{ 'DOMAINS.PLACES.NO_MATCHES' | transloco }}</p>
+    } @else {
+    <div class="places-grid">
+        @for (row of filteredRows(); track row.id) {
+        <article class="place-card" [style.border-left-color]="row.color || 'var(--primary)'">
+            <header class="place-header">
+                <h4>{{ row.name }}</h4>
+                <span class="status-indicator" [class.synced]="row.syncStatus === 'synced'"
+                    [attr.aria-label]="'COMMON.STATUS.' + row.syncStatus | transloco"
+                    [attr.title]="'COMMON.STATUS.' + row.syncStatus | transloco" role="img" tabindex="0">
+                    <span class="status-label">{{ 'COMMON.STATUS.' + row.syncStatus | transloco }}</span>
+                </span>
+            </header>
+
+            <div class="place-meta">
+                <span class="badge">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.' + row.type.toUpperCase() | transloco }}</span>
+                <span class="badge">{{ 'DOMAINS.PLACES.NATURE_OPTIONS.' + row.nature.toUpperCase() | transloco }}</span>
+                @if (row.coordinates) {
+                <span class="coords">📍 {{ row.coordinates }}</span>
+                }
+            </div>
+
+            @if (row.description) {
+            <p class="place-desc">{{ row.description }}</p>
+            }
+
+            @if (row.source) {
+            <small class="place-source">📚 {{ row.source }}</small>
+            }
+
+            @if (row.tags) {
+            <div class="tags-container">
+                @for (tag of splitTags(row.tags); track tag) {
+                <span class="concept-tag">#{{ tag }}</span>
+                }
+            </div>
+            }
+        </article>
+        }
+    </div>
+    }
+    }
+</div>

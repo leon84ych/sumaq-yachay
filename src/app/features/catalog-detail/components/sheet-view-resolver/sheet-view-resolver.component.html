@@ -1,6 +1,6 @@
 @switch (viewKind()) {
   @case ('INDEX') {
-    <app-index-view
+    <app-domain-index
       [currentSheet]="currentSheet()"
       [rows]="indexRows()"
       [isAddingEntry]="isAddingEntry()"
@@ -8,7 +8,7 @@
     />
   }
   @case ('CONCEPTS') {
-    <app-concepts
+    <app-domain-concept
       [rows]="conceptRows()"
       [currentSheet]="currentSheet()"
       [bookName]="bookName()"
@@ -17,7 +17,7 @@
     />
   }
   @case ('QUOTES') {
-    <app-quote-gallery
+    <app-domain-quote
       [rows]="quoteRows()"
       [currentSheet]="currentSheet()"
       [bookName]="bookName()"
@@ -27,7 +27,7 @@
     />
   }
   @case ('PASSAGES') {
-    <app-passages
+    <app-domain-passage
       [rows]="passageRows()"
       [currentSheet]="currentSheet()"
       [bookName]="bookName()"
@@ -37,7 +37,7 @@
     />
   }
   @case ('CHARACTER') {
-    <app-character
+    <app-domain-character
       [rows]="characterRows()"
       [currentSheet]="currentSheet()"
       [bookName]="bookName()"
@@ -45,8 +45,17 @@
       (closeEntry)="closeEntry.emit()"
     />
   }
+  @case ('PLACES') {
+    <app-places
+      [rows]="placeRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
   @case ('GLOSARY') {
-    <app-glossary
+    <app-domain-glossary
       [rows]="glossaryRows()"
       [currentSheet]="currentSheet()"
       [bookName]="bookName()"
