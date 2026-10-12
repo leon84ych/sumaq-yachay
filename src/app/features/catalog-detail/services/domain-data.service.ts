@@ -7,6 +7,16 @@ import { DomainSheet } from '../models/domain-sheet.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { GlobalLoadingService } from '../../../core/services/global-loading.service';
 import { ConfigService } from '../../../core/services/config.service';
+import { DomainCharacterService } from '../../domain-character/services/domain-character.service';
+import { DomainConceptsService } from '../../domain-concepts/services/domain-concepts.service';
+import { DomainQuotesService } from '../../domain-quotes/services/domain-quotes.service';
+import { DomainPassagesService } from '../../domain-passages/services/domain-passages.service';
+import { DomainPlacesService } from '../../domain-places/services/domain-places.service';
+import { DomainGlosaryService } from '../../domain-glosary/services/domain-glosary.service';
+import { DomainQuestionsService } from '../../domain-questions/services/domain-questions.service';
+import { DomainIndexComponent } from '../../domain-index/domain-index/domain-index.component';
+import { DomainFeatureHandler } from '../../../shared/interfaces/domain-feature-handler.service';
+import { DomainIndexService } from '../../domain-index/services/domain-index.service';
 
 type DomainTableName =
   | 'indexTopics'
@@ -73,6 +83,30 @@ export class DomainDataService {
   private authService = inject(GoogleAuthService);
   private globalLoadingService = inject(GlobalLoadingService);
   private configService = inject(ConfigService);
+
+
+  //Each domain services 
+  private readonly characterService = inject(DomainCharacterService);
+  private readonly conceptsService = inject(DomainConceptsService);
+  private readonly glosaryService = inject(DomainGlosaryService);
+  private readonly indexService = inject(DomainIndexService);
+  private readonly passagesService = inject(DomainPassagesService);
+  private readonly placesService = inject(DomainPlacesService);
+  private readonly questionsService = inject(DomainQuestionsService);
+  private readonly quotesService = inject(DomainQuotesService);
+
+
+ private readonly featureHandlers: DomainFeatureHandler<any>[] = [
+    this.characterService,
+    this.conceptsService,
+    this.glosaryService,
+    this.indexService,
+    this.passagesService,
+    this.placesService,
+    this.questionsService,
+    this.quotesService
+  ];
+
 
   readonly sheets = signal<DomainSheet[]>([]);
   readonly isLoading = signal<boolean>(false);
@@ -250,7 +284,10 @@ export class DomainDataService {
         await this.refreshFromRemote(row);
       } else {
         this.isLoading.set(false);
-        void this.refreshFromRemote(row, true);
+        // Disparar en segundo plano de forma segura sin bloquear la UI
+        void this.refreshFromRemote(row, true).catch(err =>
+          console.error('[Local-First] Error en sincronización de fondo:', err)
+        );
       }
     } catch (err: unknown) {
       this.errorMessage.set(err instanceof Error ? err.message : 'Unknown local load error.');
@@ -498,22 +535,21 @@ export class DomainDataService {
     }
   }
 
-  private async loadFromLocal(row: number): Promise<DomainSheet[]> {
-    const localSheets: DomainSheet[] = [];
 
-    for (const [name, tableName] of Object.entries(DOMAIN_TABLES)) {
-      const rows = await this.domainTable(tableName).where('row').equals(row).toArray();
-      if (rows.length > 0) {
-        localSheets.push({
-          row,
-          id: name.toLowerCase(),
-          name,
-          index: localSheets.length,
-          rows: rows.map(({ row: _catalogRow, ...record }) => record),
-        });
+
+   private async loadFromLocal(row: number): Promise<DomainSheet[]> {
+    const localSheets: DomainSheet[] = [];
+    for (const handler of this.featureHandlers) {
+      try {
+        const sheet = await handler.loadLocalSheet(row);
+        if (sheet !== null) {
+          sheet.index = localSheets.length;
+          localSheets.push(sheet);
+        }
+      } catch (error) {
+        console.error(`[Local-First] Error cargando datos locales para el dominio: ${handler.name}`, error);
       }
     }
-
     return sortByIndex(localSheets);
   }
 

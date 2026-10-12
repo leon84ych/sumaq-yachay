@@ -8,7 +8,7 @@ import {
   DomainSheet,
 } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
-import { CharacterNature, CharacterRole, CharacterRow } from '../model/domain-character-row.model'; 
+import { CharacterNature, CharacterRole, CharacterRow } from '../models/domain-character-row.model'; 
 
 const CHARACTER_ROLES: CharacterRole[] = [
   'protagonist',

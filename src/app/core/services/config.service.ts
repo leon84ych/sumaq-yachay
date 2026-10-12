@@ -3,6 +3,8 @@ import { Injectable, signal } from '@angular/core';
 const WEB_APP_URL_KEY = 'sumaq_yachay_web_app_url';
 const GAS_TIMEOUT_KEY = 'sumaq_yachay_gas_timeout_ms';
 const LOCAL_FIRST_KEY = 'sumaq_yachay_local_first_enabled';
+const DEFAULT_WEB_APP_URL =
+  'https://script.google.com/macros/s/AKfycbyQ541zFbZU4FEbXJM0ppG1cVdX35DGFToUzRBwH_m9OoDASUaHoZgN5KTECqZ7C_zjpg/exec';
 
 export const GAS_TIMEOUT_OPTIONS = [30000, 60000, 180000, 360000] as const;
 
@@ -57,9 +59,9 @@ export class ConfigService {
 
   private loadStoredUrl(): string {
     try {
-      return localStorage.getItem(WEB_APP_URL_KEY) || '';
+      return localStorage.getItem(WEB_APP_URL_KEY) || DEFAULT_WEB_APP_URL;
     } catch {
-      return '';
+      return DEFAULT_WEB_APP_URL;
     }
   }
 

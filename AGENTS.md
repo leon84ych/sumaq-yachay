@@ -50,8 +50,8 @@ src/app/
 
 ## Environment Configuration
 
-- Edit `src/environments/environment.ts` to set `appsScriptUrl` for Google Apps Script backend
-- Two environments: `production` (false/dev, true/prod) and `development`
+- The Google Apps Script URL defaults to `DEFAULT_WEB_APP_URL` in `src/app/core/services/config.service.ts`; a URL saved from the settings panel (localStorage) takes priority
+- There is no `src/environments/` folder
 
 ## Prettier
 

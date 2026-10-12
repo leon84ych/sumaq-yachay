@@ -10,7 +10,7 @@ import {
 import {
   DomainSheet,
 } from '../../models/domain-sheet.model';
-import { CharacterRow } from '../../../domain-character/model/domain-character-row.model';
+import { CharacterRow } from '../../../domain-character/models/domain-character-row.model';
 import { TranslocoPipe } from '@jsverse/transloco';
 import {
   DomainIndexComponent,
