@@ -50,7 +50,7 @@
       </div>
 
       <div class="form-actions">
-        <button type="button" class="btn-submit" (click)="addIndexEntry()">
+        <button type="button" class="btn-submit" [disabled]="isFormInvalid()" (click)="addIndexEntry()">
           {{ 'COMMON.SAVE' | transloco }}
         </button>
         <button type="button" class="btn-cancel" (click)="resetForm()">

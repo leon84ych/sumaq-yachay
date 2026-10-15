@@ -89,9 +89,19 @@
           [value]="newTags()"
           (valueChange)="newTags.set($event)"
         />
+        @if (invalidTagsDetected().length > 0) {
+          <div class="tag-validation-error">
+            <p>
+              {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }} <strong>{{ 'DOMAINS.DOMAINS.INDEX' | transloco }}</strong>{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
+              <span class="tag-validation-error__badge" *ngFor="let unlisted of invalidTagsDetected()">
+                {{ unlisted }}
+              </span>
+            </p>
+          </div>
+        }
       </div>
       <div class="form-actions">
-        <button type="button" class="btn-submit" (click)="addPassage()">
+        <button type="button" class="btn-submit" [disabled]="isFormInvalid()" (click)="addPassage()">
           {{ 'COMMON.SAVE' | transloco }}
         </button>
         <button type="button" class="btn-cancel" (click)="resetForm()">

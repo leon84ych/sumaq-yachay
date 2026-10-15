@@ -39,6 +39,15 @@ export class DomainIndexComponent {
   private readonly domainDataService = inject(DomainDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
 
+  /**
+   * 1. MASTER DOMAIN VALIDATION CAP
+   * Evaluates core model prerequisites. Since INDEX creates definitions,
+   * it is never marked invalid based on Taxonomy constraints.
+   */
+  readonly isFormInvalid = computed<boolean>(() => {
+    return !this.newChapter().trim() || !this.newTheme().trim() || !this.newTag().trim();
+  });
+
   readonly hierarchy = computed<IndexHierarchyGroup[]>(() => {
     const sortedRows = normalizeIndexRows(this.rows()).sort(
       (left, right) =>
@@ -84,17 +93,17 @@ export class DomainIndexComponent {
   }
 
   async addIndexEntry(): Promise<void> {
+    if (this.isFormInvalid()) {
+      return;
+    }
+
     const chapter = this.newChapter().trim();
     const theme = this.newTheme().trim();
     const subtheme = this.newSubtheme().trim();
     const tag = this.newTag().trim();
 
-    if (!chapter || !theme || !tag) {
-      return;
-    }
-
     const newRow: IndexViewRow = {
-      id: `idx_`,
+      id: `idx_${Date.now()}`, // Added timestamp generator for unique IDs
       chapter,
       theme,
       subtheme,

@@ -6,6 +6,7 @@ import { GlobalErrorService } from '../../../core/services/global-error.service'
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
+import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 
 import type { GlossaryRow, PartOfSpeech } from '../model/domain-glosary-row.model';
 
@@ -50,6 +51,34 @@ export class DomainGlossaryComponent {
     () => this.definitionMaxLength - this.newDefinition().length,
   );
 
+  private domainDataService = inject(DomainDataService);
+  private globalErrorService = inject(GlobalErrorService);
+  private readonly taxonomyService = inject(TaxonomyService);
+
+  /**
+   * 1. REAL-TIME SIGNAL VALIDATION GUARD
+   * Evaluates if any user-typed tags are missing from the master INDEX sheet whitelist matrix.
+   */
+  readonly invalidTagsDetected = computed<string[]>(() => {
+    const activeTokens = this.splitTags(this.newTags());
+    const forbidden: string[] = [];
+
+    for (const token of activeTokens) {
+      if (!this.taxonomyService.isTagAllowed(token)) {
+        forbidden.push(token);
+      }
+    }
+    return forbidden;
+  });
+
+  /**
+   * 2. FORM INHERENT VALIDATION CAP
+   * Evaluates if core model prerequisites or tag system integrity rules are violated.
+   */
+  readonly isFormInvalid = computed<boolean>(() => {
+    return !this.newTerm().trim() || !this.newDefinition().trim() || this.invalidTagsDetected().length > 0;
+  });
+
   readonly filteredRows = computed(() => {
     const query = this.searchTerm().trim().toLocaleLowerCase();
     if (!query) return this.rows();
@@ -68,9 +97,6 @@ export class DomainGlossaryComponent {
       ].some((val) => String(val ?? '').toLocaleLowerCase().includes(query)),
     );
   });
-
-  private domainDataService = inject(DomainDataService);
-  private globalErrorService = inject(GlobalErrorService);
 
   splitTags(tags: string): string[] {
     return tags
@@ -93,6 +119,11 @@ export class DomainGlossaryComponent {
   }
 
   async addEntry(): Promise<void> {
+    if (this.isFormInvalid()) {
+      this.globalErrorService.show('Cannot add entry: Please remove unauthorized tags.');
+      return;
+    }
+
     const term = this.newTerm().trim();
     const definition = this.newDefinition().trim();
     const partOfSpeech = this.newPartOfSpeech() || undefined;
@@ -102,10 +133,6 @@ export class DomainGlossaryComponent {
     const source = this.source();
     const page = this.newPage().trim();
     const tags = this.splitTags(this.newTags()).join(' ');
-
-    if (!term || !definition) {
-      return;
-    }
 
     const newRow: GlossaryRow = {
       id: `glossary_${Date.now()}`,

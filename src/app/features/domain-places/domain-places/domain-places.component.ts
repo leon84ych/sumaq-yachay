@@ -8,6 +8,7 @@ import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { MapPickerComponent } from '../../../core/components/map-picker/map-picker.component';
 import { PlaceRow } from '../model/domain-place-row.model';
+import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 
 @Component({
     selector: 'app-places',
@@ -26,14 +27,42 @@ export class DomainPlacesComponent {
     readonly searchTerm = signal<string>('');
     readonly newTags = signal<string>('');
 
-    // Signals individuales para los campos del dominio PLACES
+    // Individual domain signals for the PLACES feature
     readonly newName = signal<string>('');
     readonly newType = signal<'city' | 'country' | 'building' | 'region' | 'institution'>('city');
     readonly newNature = signal<'real' | 'fictional' | 'inspired'>('real');
     readonly newCoordinates = signal<string>('');
-    readonly newColor = signal<string>('#3b82f6'); // Selector de color por defecto
+    readonly newColor = signal<string>('#3b82f6'); // Default color picker fallback
     readonly newDescription = signal<string>('');
     readonly newSource = signal<string>('');
+
+    private domainDataService = inject(DomainDataService);
+    private globalErrorService = inject(GlobalErrorService);
+    private readonly taxonomyService = inject(TaxonomyService);
+
+    /**
+     * 1. REAL-TIME SIGNAL VALIDATION GUARD
+     * Parses newTags() mutations and isolates tokens missing from the master INDEX whitelist matrix.
+     */
+    readonly invalidTagsDetected = computed<string[]>(() => {
+        const activeTokens = this.splitTags(this.newTags());
+        const forbidden: string[] = [];
+
+        for (const token of activeTokens) {
+            if (!this.taxonomyService.isTagAllowed(token)) {
+                forbidden.push(token);
+            }
+        }
+        return forbidden;
+    });
+
+    /**
+     * 2. EXPLICIT FORM INHERENT VALIDATION CAP
+     * Evaluates if base domain payload criteria or strict global tag constraints are breached.
+     */
+    readonly isFormInvalid = computed<boolean>(() => {
+        return !this.newName().trim() || this.invalidTagsDetected().length > 0;
+    });
 
     readonly filteredRows = computed(() => {
         const query = this.searchTerm().trim().toLocaleLowerCase();
@@ -46,9 +75,6 @@ export class DomainPlacesComponent {
         );
     });
 
-    private domainDataService = inject(DomainDataService);
-    private globalErrorService = inject(GlobalErrorService);
-
     splitTags(tags: string): string[] {
         return tags
             .split(/[\s,;]+/)
@@ -57,6 +83,11 @@ export class DomainPlacesComponent {
     }
 
     async addEntry(): Promise<void> {
+        if (this.isFormInvalid()) {
+            this.globalErrorService.show('Cannot add entry: Please remove unauthorized tags.');
+            return;
+        }
+
         const name = this.newName().trim();
         const type = this.newType();
         const nature = this.newNature();
@@ -65,10 +96,6 @@ export class DomainPlacesComponent {
         const description = this.newDescription().trim();
         const source = this.newSource().trim();
         const tags = this.splitTags(this.newTags()).join(' ');
-
-        if (!name) {
-            return;
-        }
 
         const newRow: PlaceRow = {
             id: `places_${Date.now()}`,

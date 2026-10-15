@@ -1,11 +1,18 @@
-import { inject } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { AppDbService, Character } from "../../../core/services/storage/app-db.service";
 import { DomainSheet } from "../../catalog-detail/models/domain-sheet.model";
 import { DomainFeatureHandler } from "../../../shared/interfaces/domain-feature-handler.service";
+import { TaxonomyService } from "../../../core/services/taxonomy/taxonomy.service";
 
+@Injectable({
+  providedIn: 'root',
+})
 export class DomainCharacterService implements DomainFeatureHandler<Character> {
 
     private readonly dbService = inject(AppDbService);
+
+    private readonly taxonomyService = inject(TaxonomyService);
+
     readonly name = 'CHARACTER';
 
     async loadLocalSheet(row: number): Promise<DomainSheet | null> {
@@ -29,9 +36,9 @@ export class DomainCharacterService implements DomainFeatureHandler<Character> {
         };
     }
 
-    /**
-       * Because of the generic signature, TypeScript now knows that syncedRows contains Character fields!
-       */
+        /**
+     * Because of the generic signature, TypeScript now knows that syncedRows contains Character fields!
+     */
     async syncRemoteRows(row: number, syncedRows: (Character & Record<string, unknown>)[]): Promise<void> {
         const table = this.dbService.db.characters;
 
@@ -39,16 +46,33 @@ export class DomainCharacterService implements DomainFeatureHandler<Character> {
             await table.where('row').equals(row).delete();
 
             // Explicit type assignment to Character[] satisfies the generic constraint completely
-            const persistedRows: Character[] = syncedRows.map((sourceRow, index) => ({
-                ...sourceRow,
-                id: String(sourceRow['id'] ?? `characters_${row}_${index}`),
-                row,
-                tag: String(sourceRow['tag'] ?? sourceRow['tags'] ?? `characters_${index}`),
-                syncStatus: 'synced' as const,
-            }));
+            const persistedRows: Character[] = syncedRows.map((sourceRow, index) => {
+                // 1. Extract the raw incoming tags handling key variance safely
+                const rawTagsString = String(sourceRow['tag'] ?? sourceRow['tags'] ?? '');
+                const parsedTags = rawTagsString.split(/[\s,;]+/).filter(Boolean);
+
+                // 2. Validate and filter tags using the live INDEX domain whitelist via the service helper
+                const authorizedTags = this.validateAndSanitizeTags(parsedTags);
+                const sanitizedTagsString = authorizedTags.join(' ');
+
+                return {
+                    ...sourceRow,
+                    id: String(sourceRow['id'] ?? `characters_${row}_${index}`),
+                    row,
+                    // 3. Assign sanitized tag strings directly into the entity mapping pipeline
+                    tag: sanitizedTagsString,
+                    tags: sanitizedTagsString,
+                    syncStatus: 'synced' as const,
+                };
+            });
 
             await table.bulkPut(persistedRows);
         });
+    }
+
+
+    validateAndSanitizeTags(incomingTags: string[]): string[] {
+        return this.taxonomyService.filterAllowedTags(incomingTags);
     }
 
 }

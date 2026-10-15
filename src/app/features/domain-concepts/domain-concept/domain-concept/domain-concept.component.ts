@@ -8,6 +8,7 @@ import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../../shared/tag-picker.component';
 import { ConceptQuizGeneratorComponent } from '../../concept-quiz/concept-quiz.component';
 import { ConceptRow } from '../../model/domain-concept-row.model';
+import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 
 const NODE_CATEGORIES = [
   'theory-model',
@@ -52,6 +53,35 @@ export class DomainConceptsComponent {
   readonly definitionCharactersRemaining = computed(
     () => this.definitionMaxLength - this.newDefinition().length,
   );
+
+  private domainDataService = inject(DomainDataService);
+  private globalErrorService = inject(GlobalErrorService);
+  private readonly taxonomyService = inject(TaxonomyService);
+
+  /**
+   * 1. REAL-TIME SIGNAL VALIDATION GUARD
+   * Evaluates if any user-typed tags are missing from the master INDEX sheet whitelist matrix.
+   */
+  readonly invalidTagsDetected = computed<string[]>(() => {
+    const activeTokens = this.splitTags(this.newTags());
+    const forbidden: string[] = [];
+
+    for (const token of activeTokens) {
+      if (!this.taxonomyService.isTagAllowed(token)) {
+        forbidden.push(token);
+      }
+    }
+    return forbidden;
+  });
+
+  /**
+   * 2. FORM INHERENT VALIDATION CAP
+   * Evaluates if core model prerequisites or tag system integrity rules are violated.
+   */
+  readonly isFormInvalid = computed<boolean>(() => {
+    return !this.newTerm().trim() || !this.newDefinition().trim() || this.invalidTagsDetected().length > 0;
+  });
+
   readonly filteredRows = computed(() => {
     const query = this.searchTerm().trim().toLocaleLowerCase();
     if (!query) {
@@ -64,9 +94,6 @@ export class DomainConceptsComponent {
       ),
     );
   });
-
-  private domainDataService = inject(DomainDataService);
-  private globalErrorService = inject(GlobalErrorService);
 
   splitTags(tags: string): string[] {
     return tags
@@ -94,16 +121,17 @@ export class DomainConceptsComponent {
   }
 
   async addConcept(): Promise<void> {
+    if (this.isFormInvalid()) {
+      this.globalErrorService.show('Cannot add entry: Please remove unauthorized tags.');
+      return;
+    }
+
     const term = this.newTerm().trim();
     const definition = this.newDefinition().trim();
     const selectedCategory = this.newCategory();
     const category = selectedCategory === 'other' ? this.customCategory().trim() : selectedCategory;
     const source = this.source();
     const tags = this.splitTags(this.newTags()).join(' ');
-
-    if (!term || !definition) {
-      return;
-    }
 
     const newRow: ConceptRow = {
       id: `concept_${Date.now()}`,

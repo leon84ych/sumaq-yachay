@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
-import {
-  DomainSheet,
-} from '../../catalog-detail/models/domain-sheet.model';
+import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { CharacterNature, CharacterRole, CharacterRow } from '../models/domain-character-row.model'; 
+import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 
 const CHARACTER_ROLES: CharacterRole[] = [
   'protagonist',
@@ -23,7 +22,6 @@ const CHARACTER_NATURES: CharacterNature[] = [
   'fictitious',
   'inspired',
 ];
-
 
 @Component({
   selector: 'app-domain-character',
@@ -58,6 +56,34 @@ export class DomainCharacterComponent {
     () => this.descriptionMaxLength - this.newDescription().length,
   );
 
+  private domainDataService = inject(DomainDataService);
+  private globalErrorService = inject(GlobalErrorService);
+  private readonly taxonomyService = inject(TaxonomyService);
+
+  /**
+   * 1. REAL-TIME SIGNAL VALIDATION GUARD
+   * Monitors newTags() string alterations and builds a list of unlisted system entries.
+   */
+  readonly invalidTagsDetected = computed<string[]>(() => {
+    const activeTokens = this.splitTags(this.newTags());
+    const forbidden: string[] = [];
+
+    for (const token of activeTokens) {
+      if (!this.taxonomyService.isTagAllowed(token)) {
+        forbidden.push(token);
+      }
+    }
+    return forbidden;
+  });
+
+  /**
+   * 2. EXPLICIT FORM INHERENT VALIDATION CAP
+   * Returns true if form states fulfill all system safety checks.
+   */
+  readonly isFormInvalid = computed<boolean>(() => {
+    return !this.newName().trim() || this.invalidTagsDetected().length > 0;
+  });
+
   readonly filteredRows = computed(() => {
     const query = this.searchTerm().trim().toLocaleLowerCase();
     if (!query) {
@@ -76,9 +102,6 @@ export class DomainCharacterComponent {
       ].some((value) => value.toLocaleLowerCase().includes(query)),
     );
   });
-
-  private domainDataService = inject(DomainDataService);
-  private globalErrorService = inject(GlobalErrorService);
 
   splitTags(tags: string): string[] {
     return tags
@@ -104,6 +127,12 @@ export class DomainCharacterComponent {
   }
 
   async addCharacter(): Promise<void> {
+    // Hard-block execution if validation rules are violated
+    if (this.isFormInvalid()) {
+      this.globalErrorService.show('Cannot add entry: Please remove unauthorized tags.');
+      return;
+    }
+
     const name = this.newName().trim();
     const role = this.newRole();
     const nature = this.newNature();
@@ -112,10 +141,6 @@ export class DomainCharacterComponent {
     const archetype = this.newArchetype().trim();
     const source = this.source();
     const tags = this.splitTags(this.newTags()).join(' ');
-
-    if (!name) {
-      return;
-    }
 
     const newRow: CharacterRow = {
       id: `character_${Date.now()}`,

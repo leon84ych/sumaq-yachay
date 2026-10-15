@@ -16,6 +16,7 @@ import { DomainDataService } from '../../catalog-detail/services/domain-data.ser
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { PassagesRow } from '../model/domain-passage-row.model';
+import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 
 @Component({
   selector: 'app-domain-passage',
@@ -53,6 +54,44 @@ export class DomainPassageComponent {
   readonly passageTextCharactersRemaining = computed(
     () => this.passageTextMaxLength - this.newPassageText().length,
   );
+
+  private domainDataService = inject(DomainDataService);
+  private globalErrorService = inject(GlobalErrorService);
+  private readonly document = inject(DOCUMENT);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly taxonomyService = inject(TaxonomyService);
+  private bodyOverflowBeforeReader: string | null = null;
+
+  /**
+   * 1. REAL-TIME SIGNAL VALIDATION GUARD
+   * Monitors newTags() entries and identifies fields missing from the INDEX cache layout.
+   */
+  readonly invalidTagsDetected = computed<string[]>(() => {
+    const activeTokens = this.splitTags(this.newTags());
+    const forbidden: string[] = [];
+
+    for (const token of activeTokens) {
+      if (!this.taxonomyService.isTagAllowed(token)) {
+        forbidden.push(token);
+      }
+    }
+    return forbidden;
+  });
+
+  /**
+   * 2. EXPLICIT FORM VALIDATION CAP
+   * Evaluates if model criteria or tax system parameters are broken.
+   */
+  readonly isFormInvalid = computed<boolean>(() => {
+    return (
+      !this.newTitle().trim() ||
+      !this.newPassageText().trim() ||
+      !this.newBook().trim() ||
+      !this.newAuthor().trim() ||
+      this.invalidTagsDetected().length > 0
+    );
+  });
+
   readonly filteredRows = computed(() => {
     const query = this.searchTerm().trim().toLocaleLowerCase();
     if (!query) {
@@ -65,12 +104,6 @@ export class DomainPassageComponent {
       ),
     );
   });
-
-  private domainDataService = inject(DomainDataService);
-  private globalErrorService = inject(GlobalErrorService);
-  private readonly document = inject(DOCUMENT);
-  private readonly destroyRef = inject(DestroyRef);
-  private bodyOverflowBeforeReader: string | null = null;
 
   constructor() {
     this.destroyRef.onDestroy(() => this.restoreBodyScroll());
@@ -219,16 +252,17 @@ export class DomainPassageComponent {
   }
 
   async addPassage(): Promise<void> {
+    if (this.isFormInvalid()) {
+      this.globalErrorService.show('Cannot add entry: Please remove unauthorized tags.');
+      return;
+    }
+
     const title = this.newTitle().trim();
     const passageText = this.newPassageText().trim();
     const book = this.newBook().trim();
     const author = this.newAuthor().trim();
     const page = this.newPage().trim();
-    const tags = this.newTags().trim();
-
-    if (!title || !passageText || !book || !author) {
-      return;
-    }
+    const tags = this.splitTags(this.newTags()).join(' ');
 
     const newRow: PassagesRow = {
       id: `passage_${Date.now()}`,

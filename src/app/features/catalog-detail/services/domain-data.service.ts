@@ -14,9 +14,9 @@ import { DomainPassagesService } from '../../domain-passages/services/domain-pas
 import { DomainPlacesService } from '../../domain-places/services/domain-places.service';
 import { DomainGlosaryService } from '../../domain-glosary/services/domain-glosary.service';
 import { DomainQuestionsService } from '../../domain-questions/services/domain-questions.service';
-import { DomainIndexComponent } from '../../domain-index/domain-index/domain-index.component';
 import { DomainFeatureHandler } from '../../../shared/interfaces/domain-feature-handler.service';
 import { DomainIndexService } from '../../domain-index/services/domain-index.service';
+import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 
 type DomainTableName =
   | 'indexTopics'
@@ -84,6 +84,9 @@ export class DomainDataService {
   private globalLoadingService = inject(GlobalLoadingService);
   private configService = inject(ConfigService);
 
+  private readonly taxonomyService = inject(TaxonomyService);
+
+
 
   //Each domain services 
   private readonly characterService = inject(DomainCharacterService);
@@ -96,7 +99,7 @@ export class DomainDataService {
   private readonly quotesService = inject(DomainQuotesService);
 
 
- private readonly featureHandlers: DomainFeatureHandler<any>[] = [
+  private readonly featureHandlers: DomainFeatureHandler<any>[] = [
     this.characterService,
     this.conceptsService,
     this.glosaryService,
@@ -379,7 +382,7 @@ export class DomainDataService {
       await this.dbService.db.domainSheets.put({ row, count: this.sheets().length || 1 });
       this.updateLocalSheetRowsState(sheetName, rowsWithPendingStatus);
 
-      void this.syncRemoteUpdate(row, sheetName, tableName, normalizedRows);
+      void this.syncRemoteUpdate(row, sheetName, normalizedRows);
     } catch (err: unknown) {
       const rowsWithErrorStatus = updatedRows.map((record) => ({
         ...record,
@@ -449,87 +452,55 @@ export class DomainDataService {
     );
   }
 
-  private async refreshFromRemote(row: number, background = false): Promise<void> {
-    const idToken = this.authService.idToken();
-    if (!idToken) {
-      this.errorMessage.set('CATALOG.ERRORS.authRequired');
-      console.warn('Sync aborted: User is not authenticated with Google.');
-      return;
-    }
 
-    const operation = background ? null : this.globalLoadingService.begin();
-    if (!background) {
+
+  private async refreshFromRemote(row: number, isBackground = false): Promise<void> {
+    if (!isBackground) {
       this.isLoading.set(true);
     }
+
     try {
       const response = await firstValueFrom(this.apiService.getDomainSheets(row));
-      if (!response || response.status !== 'success') {
-        const message = typeof response?.message === 'string' ? response.message : '';
-        if (
-          response?.status === 'error' &&
-          (message.includes('Invalid or expired Google token') ||
-            message.includes('Missing idToken parameter'))
-        ) {
-          this.authService.logout();
-        }
-        throw new Error(message || 'Malformed domain sheets response.');
+
+      if (!response || !response.data || !Array.isArray(response.data.sheets)) {
+        return;
       }
 
-      const rawSheets = Array.isArray(response.data?.sheets) ? response.data.sheets : [];
-      const cachedSheets = await this.loadFromLocal(row);
-      const normalized: DomainSheet[] = [];
-      for (const sheet of rawSheets) {
-        const name = sheet.name.trim();
-        if (!name || !DOMAIN_TABLES[name.toUpperCase()]) {
-          continue;
-        }
-        const cachedSheet = cachedSheets.find(
-          (candidate) => candidate.name.toUpperCase() === name.toUpperCase(),
-        );
+      // 1. Transform raw elements into fully compliant DomainSheet objects
+      const normalizedSheets: DomainSheet[] = response.data.sheets.map((sheet) => ({
+        ...sheet,
+        row,                         // Inject the parent catalog identifier
+        id: sheet.name.toLowerCase() // Generate the runtime identifier key
+      }));
 
-        normalized.push({
-          row,
-          id: name.toLowerCase(),
-          name,
-          index: sheet.index,
-          rows: sheet.rows.length > 0 ? sheet.rows : (cachedSheet?.rows ?? []),
-        });
+      // 2. Pass the fully compliant array to the sort utility
+      const remoteSheets: DomainSheet[] = sortByIndex(normalizedSheets);
+
+      const currentLocalString = JSON.stringify(this.sheets());
+      const remoteDataString = JSON.stringify(remoteSheets);
+
+      if (currentLocalString === remoteDataString) {
+        return;
       }
-      const bookTags = await this.buildBookTags(row, normalized);
 
-      const tables = [
-        this.dbService.db.domainSheets,
-        this.dbService.db.bookTags,
-        ...DOMAIN_TABLE_NAMES.map((name) => this.domainTable(name)),
-      ];
-      await this.dbService.db.transaction('rw', tables, async (transaction) => {
-        await transaction.table('domainSheets').put({ row, count: normalized.length });
-        await this.replaceBookTagsForCatalog(row, bookTags);
-        for (const sheet of normalized) {
-          if (sheet.rows.length === 0) {
-            continue;
-          }
-
-          const tableName = this.getDomainTableName(sheet.name);
-          const table = transaction.table(tableName) as Table<PersistedDomainRow, string>;
-          await table.where('row').equals(row).delete();
-          const persistedRows = this.preparePersistedRows(tableName, row, sheet.rows);
-          await table.bulkPut(persistedRows);
+      for (const sheet of remoteSheets) {
+        const handler = this.featureHandlers.find((h) => h.name === sheet.name.toUpperCase());
+        if (handler) {
+          await handler.syncRemoteRows(row, sheet.rows);
         }
-      });
-
-      if (this.loadedRow === row) {
-        this.sheets.set(sortByIndex(normalized));
       }
-    } catch (err: unknown) {
-      const errorMsg = err instanceof Error ? err.message : 'Unknown error fetching domain sheets';
-      this.errorMessage.set(errorMsg);
-      console.warn('Domain sheets remote fetch failed; keeping local cache:', errorMsg);
+
+      await this.taxonomyService.refreshGlobalTaxonomy(row);
+
+      this.sheets.set(remoteSheets);
+
+    } catch (error) {
+      console.error('[Local-First] Remote sync parsing failed:', error);
+      if (!isBackground) {
+        this.errorMessage.set(error instanceof Error ? error.message : 'Remote sync failed.');
+      }
     } finally {
-      if (operation) {
-        this.globalLoadingService.end(operation);
-      }
-      if (!background) {
+      if (!isBackground) {
         this.isLoading.set(false);
       }
     }
@@ -537,7 +508,7 @@ export class DomainDataService {
 
 
 
-   private async loadFromLocal(row: number): Promise<DomainSheet[]> {
+  private async loadFromLocal(row: number): Promise<DomainSheet[]> {
     const localSheets: DomainSheet[] = [];
     for (const handler of this.featureHandlers) {
       try {
@@ -556,23 +527,32 @@ export class DomainDataService {
   private async syncRemoteUpdate(
     row: number,
     sheetName: string,
-    tableName: DomainTableName,
     updatedRows: Record<string, unknown>[],
   ): Promise<void> {
     try {
+      // 1. Send mutations to the remote Backend API
       await firstValueFrom(this.apiService.updateRows(row, sheetName, updatedRows));
+
       const syncedRows = updatedRows.map((record) => ({
         ...record,
         syncStatus: 'synced',
       }));
-      const table = this.domainTable(tableName);
-      await this.dbService.db.transaction('rw', table, async () => {
-        await table.where('row').equals(row).delete();
-        await table.bulkPut(this.preparePersistedRows(tableName, row, syncedRows));
-      });
+
+      // 2. Resolve the matching specialized feature service
+      const normalizedName = sheetName.toUpperCase();
+      const handler = this.featureHandlers.find((h) => h.name === normalizedName);
+
+      if (!handler) {
+        throw new Error(`No registered feature handler found for domain: ${sheetName}`);
+      }
+
+      // 3. Delegate Dexie persistence to the feature service
+      await handler.syncRemoteRows(row, syncedRows);
+
+      // 4. CRUCIAL: Keep this to sync RAM state signals for your template UI layers
       this.updateLocalSheetRowsState(sheetName, syncedRows);
     } catch (err: unknown) {
-      console.warn('Background remote update failed; local data remains available:', err);
+      console.warn(`Background remote update failed; local data remains available for ${sheetName}:`, err);
     }
   }
 

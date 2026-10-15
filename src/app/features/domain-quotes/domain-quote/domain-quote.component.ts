@@ -19,6 +19,7 @@ import { DomainDataService } from '../../catalog-detail/services/domain-data.ser
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import type { QuoteRow } from '../model/domain-quote-row.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
+import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 
 @Component({
   selector: 'app-domain-quote',
@@ -49,6 +50,41 @@ export class DomainQuoteComponent {
   readonly flippedQuoteIndexes = signal<ReadonlySet<number>>(new Set());
   readonly quoteMaxLength = 600;
   readonly quoteCharactersRemaining = computed(() => this.quoteMaxLength - this.newQuote().length);
+
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private domainDataService = inject(DomainDataService);
+  private globalErrorService = inject(GlobalErrorService);
+  private readonly taxonomyService = inject(TaxonomyService);
+
+  /**
+   * 1. REAL-TIME SIGNAL VALIDATION GUARD
+   * Monitors changes to newTags() and builds an array of elements missing from the INDEX cache list.
+   */
+  readonly invalidTagsDetected = computed<string[]>(() => {
+    const activeTokens = this.splitTags(this.newTags());
+    const forbidden: string[] = [];
+
+    for (const token of activeTokens) {
+      if (!this.taxonomyService.isTagAllowed(token)) {
+        forbidden.push(token);
+      }
+    }
+    return forbidden;
+  });
+
+  /**
+   * 2. EXPLICIT FORM INHERENT VALIDATION CAP
+   * Returns true if required data fields are blank or if there are any unauthorized system tags.
+   */
+  readonly isFormInvalid = computed<boolean>(() => {
+    return (
+      !this.newQuote().trim() ||
+      !this.newBook().trim() ||
+      !this.newAuthor().trim() ||
+      this.invalidTagsDetected().length > 0
+    );
+  });
+
   readonly filteredRows = computed(() => {
     const query = this.searchTerm().trim().toLocaleLowerCase();
     return this.rows()
@@ -73,10 +109,6 @@ export class DomainQuoteComponent {
 
   @ViewChild('ghostQuoteCard') private ghostQuoteCard?: ElementRef<HTMLElement>;
   @ViewChild('ghostAnalysisCard') private ghostAnalysisCard?: ElementRef<HTMLElement>;
-
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
-  private domainDataService = inject(DomainDataService);
-  private globalErrorService = inject(GlobalErrorService);
 
   constructor() {
     effect(() => {
@@ -166,16 +198,17 @@ export class DomainQuoteComponent {
   }
 
   async addQuote(): Promise<void> {
+    if (this.isFormInvalid()) {
+      this.globalErrorService.show('Cannot add entry: Please remove unauthorized tags.');
+      return;
+    }
+
     const quote = this.newQuote().trim();
     const analysis = this.newAnalysis().trim();
     const book = this.newBook().trim();
     const author = this.newAuthor().trim();
     const page = this.newPage().trim();
-    const tags = this.newTags().trim();
-
-    if (!quote || !book || !author) {
-      return;
-    }
+    const tags = this.splitTags(this.newTags()).join(' ');
 
     const newRow: QuoteRow = {
       id: `quote_${Date.now()}`,

@@ -7,6 +7,8 @@ export interface DomainFeatureHandler<T = unknown> {
 
     loadLocalSheet(row: number): Promise<DomainSheet | null>;
 
+    validateAndSanitizeTags(incomingTags: string[]): string[];
+
     /**
      * Persists incoming remote updates into the local database table.
      * We expect an array of objects that match your entity type T mixed with any dictionary fields.

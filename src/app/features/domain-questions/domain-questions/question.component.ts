@@ -7,6 +7,7 @@ import { DomainDataService } from '../../catalog-detail/services/domain-data.ser
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { QuestionDifficulty, QuestionRow, QuestionType } from '../model/domain-question-row.model';
+import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 
 const QUESTION_TYPES: QuestionType[] = ['flashcard', 'multiple-choice', 'true-false', 'open'];
 const QUESTION_DIFFICULTIES: QuestionDifficulty[] = ['easy', 'medium', 'hard'];
@@ -37,6 +38,40 @@ export class QuestionsComponent {
   readonly newTags = signal('');
   readonly searchTerm = signal('');
   readonly isSaving = signal(false);
+
+  private readonly domainDataService = inject(DomainDataService);
+  private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly taxonomyService = inject(TaxonomyService);
+
+  /**
+   * 1. REAL-TIME SIGNAL VALIDATION GUARD
+   * Evaluates if any user-typed tags are missing from the master INDEX sheet whitelist matrix.
+   */
+  readonly invalidTagsDetected = computed<string[]>(() => {
+    const activeTokens = this.splitTags(this.newTags());
+    const forbidden: string[] = [];
+
+    for (const token of activeTokens) {
+      if (!this.taxonomyService.isTagAllowed(token)) {
+        forbidden.push(token);
+      }
+    }
+    return forbidden;
+  });
+
+  /**
+   * 2. FORM INHERENT VALIDATION CAP
+   * Evaluates if core model prerequisites or tag system integrity rules are violated.
+   */
+  readonly isFormInvalid = computed<boolean>(() => {
+    return (
+      !this.newQuestion().trim() ||
+      !this.newAnswer().trim() ||
+      !this.newSourceDomain().trim() ||
+      this.invalidTagsDetected().length > 0
+    );
+  });
+
   readonly filteredRows = computed(() => {
     const query = this.searchTerm().trim().toLocaleLowerCase();
     if (!query) {
@@ -50,9 +85,6 @@ export class QuestionsComponent {
     );
   });
 
-  private readonly domainDataService = inject(DomainDataService);
-  private readonly globalErrorService = inject(GlobalErrorService);
-
   splitTags(tags: string): string[] {
     return tags
       .split(/[\s,;]+/)
@@ -61,14 +93,16 @@ export class QuestionsComponent {
   }
 
   async addQuestion(): Promise<void> {
-    const question = this.newQuestion().trim();
-    const answer = this.newAnswer().trim();
-    const sourceDomain = this.newSourceDomain().trim();
-    if (!question || !answer || !sourceDomain || this.isSaving()) {
+    if (this.isFormInvalid() || this.isSaving()) {
+      this.globalErrorService.show('Cannot add entry: Please remove unauthorized tags.');
       return;
     }
 
+    const question = this.newQuestion().trim();
+    const answer = this.newAnswer().trim();
+    const sourceDomain = this.newSourceDomain().trim();
     const tags = this.splitTags(this.newTags()).join(' ');
+
     const newRow: QuestionRow = {
       id: `question_${Date.now()}`,
       question,
