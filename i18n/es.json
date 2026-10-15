@@ -151,6 +151,10 @@
     }
   },
   "DOMAINS": {
+    "TAG_VALIDATION": {
+      "REJECTED_PREFIX": "Las siguientes etiquetas se rechazan porque no existen en la hoja maestra",
+      "REJECTED_SUFFIX": ":"
+    },
     "INDEX": {
       "TITLE": "Índice",
       "CHAPTER": "Capitulo",

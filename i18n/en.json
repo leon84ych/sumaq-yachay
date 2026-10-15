@@ -176,6 +176,10 @@
     }
   },
   "DOMAINS": {
+    "TAG_VALIDATION": {
+      "REJECTED_PREFIX": "The following tags are rejected because they do not exist in the master",
+      "REJECTED_SUFFIX": " sheet:"
+    },
     "INDEX": {
       "TITLE": "Index",
       "CHAPTER": "Chapter",
@@ -194,7 +198,7 @@
       "CONCEPTS": "Concepts",
       "GLOSARY": "Glossary",
       "QUESTIONS": "Questions",
-      "PASSAGE": "Passages",
+      "PASSAGES": "Passages",
       "CHARACTER": "Characters",
       "PLACES": "Places"
     },
