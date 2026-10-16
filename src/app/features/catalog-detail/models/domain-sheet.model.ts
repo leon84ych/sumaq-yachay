@@ -8,6 +8,8 @@ export interface DomainSheet {
 
 export interface GetDomainSheetsResponse {
   status: 'success' | 'error';
+  email?: string;
+  role?: string;
   message?: string;
   data: {
     status: 'success' | 'error';
@@ -23,6 +25,7 @@ export interface GetDomainSheetsResponse {
 export interface PaginatedDomainRowsResponse {
   row: number;
   sheetName: string;
+  role?: string;
   page: number;
   pageSize: number;
   totalRows: number;

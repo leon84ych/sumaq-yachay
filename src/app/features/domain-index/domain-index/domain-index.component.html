@@ -1,7 +1,7 @@
 <section class="index-view-container">
-  @if (isAddingEntry()) {
+  @if (isAddingEntry() || editingId() !== null) {
     <div class="add-entry-form">
-      <h3>{{ 'DOMAINS.INDEX.NEW_ENTRY_TITLE' | transloco }}</h3>
+      <h3>{{ (editingId() ? 'COMMON.EDIT' : 'DOMAINS.INDEX.NEW_ENTRY_TITLE') | transloco }}</h3>
 
       <div class="form-group">
         <label for="index-chapter">{{ 'DOMAINS.INDEX.CHAPTER' | transloco }}</label>
@@ -50,9 +50,11 @@
       </div>
 
       <div class="form-actions">
-        <button type="button" class="btn-submit" [disabled]="isFormInvalid()" (click)="addIndexEntry()">
-          {{ 'COMMON.SAVE' | transloco }}
-        </button>
+        @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+          <button type="button" class="btn-submit" [disabled]="isFormInvalid()" (click)="addIndexEntry()">
+            {{ (editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+          </button>
+        }
         <button type="button" class="btn-cancel" (click)="resetForm()">
           {{ 'COMMON.CANCEL' | transloco }}
         </button>
@@ -83,18 +85,46 @@
                         }
                       </div>
                     </div>
-                    <span
-                      class="status-indicator"
-                      [class.synced]="row.syncStatus === 'synced'"
-                      [attr.aria-label]="'COMMON.STATUS.' + row.syncStatus | transloco"
-                      [attr.title]="'COMMON.STATUS.' + row.syncStatus | transloco"
-                      role="img"
-                      tabindex="0"
-                    >
-                      <span class="status-label">{{
-                        'COMMON.STATUS.' + row.syncStatus | transloco
-                      }}</span>
-                    </span>
+                    <div class="domain-card-footer__actions">
+                      <span
+                        class="status-indicator"
+                        [class.synced]="row.syncStatus === 'synced'"
+                        [attr.aria-label]="'COMMON.STATUS.' + row.syncStatus | transloco"
+                        [attr.title]="'COMMON.STATUS.' + row.syncStatus | transloco"
+                        role="img"
+                        tabindex="0"
+                      >
+                        <span class="status-label">{{
+                          'COMMON.STATUS.' + row.syncStatus | transloco
+                        }}</span>
+                      </span>
+                      @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+                      <button
+                        type="button"
+                        class="domain-edit-button"
+                        [attr.aria-label]="'COMMON.EDIT' | transloco"
+                        [title]="'COMMON.EDIT' | transloco"
+                        (click)="editEntry(row)"
+                      >
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                          <path d="m13.5 4.5 2 2M4 16l3.5-.8 8.7-8.7a1.4 1.4 0 0 0-2-2l-8.7 8.7L4 16Z" />
+                        </svg>
+                      </button>
+                      }
+                      @if (permissionService.validatePermission(role(), 'DELETE_ROW')) {
+                      <button
+                        type="button"
+                        class="domain-delete-button"
+                        [attr.aria-label]="'COMMON.DELETE' | transloco"
+                        [title]="'COMMON.DELETE' | transloco"
+                        (click)="deleteEntry(row.id)"
+                      >
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                          <path d="M4 6h12M8 6V4h4v2m-6 0 .7 10h6.6L14 6M8.5 9v4m3-4v4" />
+                        </svg>
+                      </button>
+                      }
+                    </div>
                   </article>
                 }
               </div>

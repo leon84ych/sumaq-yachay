@@ -88,9 +88,11 @@
         <button type="button" class="btn btn-secondary" (click)="close.emit()">
           {{ 'CATALOG.MODAL.CANCEL' | transloco }}
         </button>
-        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-          {{ (editItem() ? 'CATALOG.MODAL.SUBMIT_EDIT' : 'CATALOG.MODAL.SUBMIT_CREATE') | transloco }}
-        </button>
+        @if (permissionService.validatePermission(role(), editItem() ? 'UPDATE_CATALOG_ITEM' : 'CREATE_CATALOG_ITEM')) {
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+            {{ (editItem() ? 'CATALOG.MODAL.SUBMIT_EDIT' : 'CATALOG.MODAL.SUBMIT_CREATE') | transloco }}
+          </button>
+        }
       </div>
     </form>
   </div>

@@ -48,20 +48,26 @@
 
   <!-- Card Footer -->
   <div class="card-footer" (click)="$event.stopPropagation()">
-    <label class="active-toggle" title="Toggle active in Master Index">
-      <input type="checkbox" [checked]="item().active" (change)="toggleActive.emit(item())" />
-      <span class="status-label">{{ (item().active ? 'CATALOG.CARD.ACTIVE' : 'CATALOG.CARD.INACTIVE') | transloco }}</span>
-    </label>
+    @if (permissionService.validatePermission(role(), 'UPDATE_CATALOG_ITEM')) {
+      <label class="active-toggle" title="Toggle active in Master Index">
+        <input type="checkbox" [checked]="item().active" (change)="toggleActive.emit(item())" />
+        <span class="status-label">{{ (item().active ? 'CATALOG.CARD.ACTIVE' : 'CATALOG.CARD.INACTIVE') | transloco }}</span>
+      </label>
+    }
 
     <div class="card-actions">
-      <button type="button" class="btn-action edit" (click)="edit.emit(item())"
-        [title]="'CATALOG.CARD.EDIT' | transloco">
-        {{ 'CATALOG.CARD.EDIT' | transloco }}
-      </button>
-      <button type="button" class="btn-action delete" (click)="delete.emit(item().id)"
-        [title]="'CATALOG.CARD.DELETE' | transloco">
-        {{ 'CATALOG.CARD.DELETE' | transloco }}
-      </button>
+      @if (permissionService.validatePermission(role(), 'UPDATE_CATALOG_ITEM')) {
+        <button type="button" class="btn-action edit" (click)="edit.emit(item())"
+          [title]="'CATALOG.CARD.EDIT' | transloco">
+          {{ 'CATALOG.CARD.EDIT' | transloco }}
+        </button>
+      }
+      @if (permissionService.validatePermission(role(), 'DELETE_CATALOG_ITEM')) {
+        <button type="button" class="btn-action delete" (click)="delete.emit(item().id)"
+          [title]="'CATALOG.CARD.DELETE' | transloco">
+          {{ 'CATALOG.CARD.DELETE' | transloco }}
+        </button>
+      }
     </div>
   </div>
 </div>

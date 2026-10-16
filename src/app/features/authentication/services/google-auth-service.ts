@@ -1,5 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { PermissionService } from '../../../core/services/permission.service';
 
 declare const google: any;
 
@@ -14,6 +15,7 @@ export interface UserProfile {
 })
 export class GoogleAuthService {
   private readonly router = inject(Router);
+  private readonly permissionService = inject(PermissionService);
   private readonly TOKEN_KEY = 'g_id_token';
   private readonly storedToken = this.getStoredToken();
   private googleInitialized = false;
@@ -52,6 +54,7 @@ export class GoogleAuthService {
     localStorage.removeItem(this.TOKEN_KEY);
     this.idToken.set(null);
     this.currentUser.set(null);
+    this.permissionService.setRole('guest');
   }
 
   logout(): void {
@@ -68,6 +71,7 @@ export class GoogleAuthService {
     localStorage.setItem(this.TOKEN_KEY, token);
     this.idToken.set(token);
     this.currentUser.set(user);
+    this.permissionService.setRole('guest');
     this.router.navigateByUrl('/catalog');
   }
 

@@ -11,6 +11,7 @@ import { SheetViewResolverComponent } from '../components/sheet-view-resolver/sh
 import { DomainDataService } from '../services/domain-data.service';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { ALL_AVAILABLE_DOMAINS, getDefaultHeadersForDomain } from '../models/domain-sheet-config';
+import { PermissionService } from '../../../core/services/permission.service';
 
 @Component({
   selector: 'app-catalog-detail',
@@ -30,6 +31,8 @@ export class CatalogDetail {
   readonly catalogService = inject(CatalogService);
   readonly domainDataService = inject(DomainDataService);
   readonly configService = inject(ConfigService);
+  readonly permissionService = inject(PermissionService);
+  readonly role = this.permissionService.role;
   private readonly globalErrorService = inject(GlobalErrorService);
 
   private readonly paramMap = toSignal(this.route.paramMap);

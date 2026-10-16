@@ -3,6 +3,8 @@ import { CatalogItem } from './catalog-item.model';
 export interface GetCatalogResponse {
   status: 'success' | 'error';
   timestamp: string;
+  email?: string;
+  role?: string;
   data: CatalogItem[];
   message?: string;
 }

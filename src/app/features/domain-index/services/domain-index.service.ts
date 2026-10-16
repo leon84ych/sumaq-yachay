@@ -23,7 +23,11 @@ export class DomainIndexService implements DomainFeatureHandler<IndexTopic> {
             return null;
         }
 
-        const cleanRows = records.map(({ row: _catalogRow, ...businessProperties }) => businessProperties);
+        const cleanRows = records.map(({ row: _catalogRow, ...businessProperties }) => {
+            const cleanRow = { ...businessProperties } as IndexTopic & Record<string, unknown>;
+            delete cleanRow['tags'];
+            return cleanRow;
+        });
 
         return {
             row,
@@ -49,9 +53,11 @@ export class DomainIndexService implements DomainFeatureHandler<IndexTopic> {
             const persistedRows: IndexTopic[] = syncedRows.map((sourceRow, index) => {
                 // 1. Accept and pass raw tag definitions down to storage natively
                 const rawTagsString = String(sourceRow['tag'] ?? sourceRow['tags'] ?? `index_${index}`);
+                const indexRow = { ...sourceRow };
+                delete indexRow['tags'];
 
                 return {
-                    ...sourceRow,
+                    ...indexRow,
                     id: String(sourceRow['id'] ?? `index_${row}_${index}`),
                     row,
                     tag: rawTagsString,

@@ -1,44 +1,44 @@
-<div class="detail-page">
-  @if (domainDataService.isLoading()) {
-    <p class="state-message">{{ 'CATALOG_DETAIL.LOADING' | transloco }}</p>
-  } @else if (item(); as entry) {
+<div class="detail-page" [attr.aria-busy]="domainDataService.isLoading()">
+  @if (item(); as entry) {
     <div class="detail-header">
       <app-catalog-overview [item]="entry" />
       <div class="detail-actions">
-        @if (activeSheetName()) {
+        @if (activeSheetName() && permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
           <button type="button" class="btn-primary" (click)="toggleAddingEntry()">
             + {{ 'DOMAINS.INDEX.ADD_ENTRY' | transloco }}
           </button>
         }
-        @if (isAddingDomain()) {
-          <div class="detail-domain-selector">
-            <select
-              #domainSelect
-              class="domain-select"
-              [disabled]="isCreatingDomain()"
-              (change)="onDomainSelected(domainSelect.value)"
-            >
-              <option value="" disabled selected>
-                {{ 'CATALOG_DETAIL.SELECT_DOMAIN' | transloco }}
-              </option>
-              @for (domain of availableDomains(); track domain) {
-                <option [value]="domain">{{ 'DOMAINS.DOMAINS.' + domain | transloco }}</option>
-              }
-            </select>
-            <button
-              type="button"
-              class="cancel-btn"
-              [disabled]="isCreatingDomain()"
-              [attr.aria-label]="'COMMON.CANCEL' | transloco"
-              (click)="isAddingDomain.set(false)"
-            >
-              ×
+        @if (permissionService.validatePermission(role(), 'CREATE_SHEET')) {
+          @if (isAddingDomain()) {
+            <div class="detail-domain-selector">
+              <select
+                #domainSelect
+                class="domain-select"
+                [disabled]="isCreatingDomain()"
+                (change)="onDomainSelected(domainSelect.value)"
+              >
+                <option value="" disabled selected>
+                  {{ 'CATALOG_DETAIL.SELECT_DOMAIN' | transloco }}
+                </option>
+                @for (domain of availableDomains(); track domain) {
+                  <option [value]="domain">{{ 'DOMAINS.DOMAINS.' + domain | transloco }}</option>
+                }
+              </select>
+              <button
+                type="button"
+                class="cancel-btn"
+                [disabled]="isCreatingDomain()"
+                [attr.aria-label]="'COMMON.CANCEL' | transloco"
+                (click)="isAddingDomain.set(false)"
+              >
+                ×
+              </button>
+            </div>
+          } @else {
+            <button type="button" class="btn-primary" (click)="isAddingDomain.set(true)">
+              + {{ 'CATALOG_DETAIL.DOMAIN' | transloco }}
             </button>
-          </div>
-        } @else {
-          <button type="button" class="btn-primary" (click)="isAddingDomain.set(true)">
-            + {{ 'CATALOG_DETAIL.DOMAIN' | transloco }}
-          </button>
+          }
         }
       </div>
     </div>
@@ -54,6 +54,10 @@
       [isAddingEntry]="isAddingEntry()"
       (closeEntry)="isAddingEntry.set(false)"
     />
+  } @else if (domainDataService.isLoading()) {
+    <p class="state-message" role="status" aria-live="polite">
+      {{ 'CATALOG_DETAIL.LOADING' | transloco }}
+    </p>
   } @else {
     <div class="not-found">
       <h2>{{ 'CATALOG_DETAIL.NOT_FOUND.TITLE' | transloco }}</h2>

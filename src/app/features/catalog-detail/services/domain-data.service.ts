@@ -329,6 +329,9 @@ export class DomainDataService {
   async updateDomainSheetRows(
     sheetName: string,
     updatedRows: Record<string, unknown>[],
+    awaitRemoteSync = false,
+    editedRowId?: string,
+    createdRowId?: string,
   ): Promise<void> {
     if (!this.loadedRow) {
       throw new Error('No active catalog row selected.');
@@ -340,49 +343,77 @@ export class DomainDataService {
     this.errorMessage.set(null);
 
     try {
-      const tableName = this.getDomainTableName(sheetName);
-      const existingRows = this.sheets().find((sheet) => sheet.name === sheetName)?.rows ?? [];
-      const newRowStart = Math.min(existingRows.length, updatedRows.length);
-      const newRows = updatedRows.slice(newRowStart);
       const catalogItem = (await this.dbService.db.catalogs.toArray()).find(
         (item) => item.row === row,
       );
-      const normalizedNewRows = newRows.map((record) =>
-        this.normalizeRecordTags(record, sheetName),
-      );
-
-      for (const record of normalizedNewRows) {
-        const tags = this.extractAndNormalizeTags(
-          [record['tags'], record['tag']]
-            .filter((value): value is string => typeof value === 'string')
-            .join(' '),
-        );
-        await this.upsertBookTags(tags, {
-          row,
-          book: this.optionalString(record['book']) ?? catalogItem?.name,
-          author: this.optionalString(record['author']) ?? catalogItem?.author,
-          subject: catalogItem?.subject,
-          topic: catalogItem?.topic,
-          domain: sheetName,
-        });
+      if (!catalogItem) {
+        throw new Error('The active catalog item could not be found.');
       }
 
-      const normalizedRows = [...updatedRows.slice(0, newRowStart), ...normalizedNewRows];
+      const tableName = this.getDomainTableName(sheetName);
+      const normalizedRows = updatedRows.map((record) =>
+        this.normalizeRecordTags(record, sheetName),
+      );
+      const editedRow = editedRowId
+        ? normalizedRows.find((record) => String(record['id']) === editedRowId)
+        : undefined;
+      const createdRow = createdRowId
+        ? normalizedRows.find((record) => String(record['id']) === createdRowId)
+        : undefined;
+      if (editedRowId && !editedRow) {
+        throw new Error('The domain row being edited is no longer available.');
+      }
+      if (createdRowId && !createdRow) {
+        throw new Error('The domain row being created could not be found.');
+      }
+      if (editedRowId && createdRowId) {
+        throw new Error('An update request cannot edit and create a row at the same time.');
+      }
+      const remoteRows = editedRow ? [editedRow] : createdRow ? [createdRow] : normalizedRows;
       const rowsWithPendingStatus = normalizedRows.map((record) => ({
         ...record,
         syncStatus: 'pending',
       }));
       const persistedRows = this.preparePersistedRows(tableName, row, rowsWithPendingStatus);
       const table = this.domainTable(tableName);
+      const nextSheets = this.sheets().map((sheet) =>
+        sheet.name === sheetName ? { ...sheet, rows: rowsWithPendingStatus } : sheet,
+      );
+      const bookTags = await this.buildBookTags(row, nextSheets);
 
-      await this.dbService.db.transaction('rw', table, async () => {
+      await this.dbService.db.transaction(
+        'rw',
+        [table, this.dbService.db.bookTags],
+        async () => {
         await table.where('row').equals(row).delete();
         await table.bulkPut(persistedRows);
-      });
+          await this.replaceBookTagsForCatalog(row, bookTags);
+        },
+      );
       await this.dbService.db.domainSheets.put({ row, count: this.sheets().length || 1 });
       this.updateLocalSheetRowsState(sheetName, rowsWithPendingStatus);
 
-      void this.syncRemoteUpdate(row, sheetName, normalizedRows);
+      if (awaitRemoteSync) {
+        await this.syncRemoteUpdate(
+          row,
+          sheetName,
+          remoteRows,
+          catalogItem.id,
+          true,
+          normalizedRows,
+          createdRowId,
+        );
+      } else {
+        void this.syncRemoteUpdate(
+          row,
+          sheetName,
+          remoteRows,
+          catalogItem.id,
+          false,
+          normalizedRows,
+          createdRowId,
+        );
+      }
     } catch (err: unknown) {
       const rowsWithErrorStatus = updatedRows.map((record) => ({
         ...record,
@@ -409,6 +440,107 @@ export class DomainDataService {
     }
   }
 
+  async deleteDomainRow(sheetName: string, id: string): Promise<void> {
+    const row = this.loadedRow;
+    if (row === null) {
+      throw new Error('No active catalog row selected.');
+    }
+
+    const normalizedSheetName = sheetName.toUpperCase();
+    const currentSheets = this.sheets();
+    const targetSheet = currentSheets.find(
+      (sheet) => sheet.name.toUpperCase() === normalizedSheetName,
+    );
+    const deletedRow = targetSheet?.rows.find((record) => String(record['id']) === id);
+    if (!targetSheet || !deletedRow) {
+      return;
+    }
+
+    const catalogItem = (await this.dbService.db.catalogs.toArray()).find(
+      (item) => item.row === row,
+    );
+    if (!catalogItem) {
+      throw new Error('The active catalog item could not be found.');
+    }
+
+    const tableName = this.getDomainTableName(sheetName);
+    const table = this.domainTable(tableName);
+    const deletedIndex = targetSheet.rows.indexOf(deletedRow);
+    const nextSheets = currentSheets.map((sheet) =>
+      sheet.name.toUpperCase() === normalizedSheetName
+        ? { ...sheet, rows: sheet.rows.filter((record) => String(record['id']) !== id) }
+        : sheet,
+    );
+    const nextBookTags = await this.buildBookTags(row, nextSheets);
+    const persistedDeletedRow = this.preparePersistedRows(tableName, row, [deletedRow])[0];
+    let localDeleteCommitted = false;
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+
+    try {
+      await this.dbService.db.transaction('rw', [table, this.dbService.db.bookTags], async () => {
+        await table.where('row').equals(row).filter((record) => String(record['id']) === id).delete();
+        await this.replaceBookTagsForCatalog(row, nextBookTags);
+      });
+      localDeleteCommitted = true;
+      if (this.loadedRow === row) {
+        this.sheets.set(nextSheets);
+      }
+
+      if (normalizedSheetName === 'INDEX') {
+        await this.taxonomyService.refreshGlobalTaxonomy(row);
+      }
+      await firstValueFrom(this.apiService.deleteRow(row, sheetName, id, catalogItem.id));
+    } catch (error) {
+      if (localDeleteCommitted) {
+        try {
+          const rollbackSheets = this.sheets().map((sheet) => {
+            if (
+              this.loadedRow !== row ||
+              sheet.name.toUpperCase() !== normalizedSheetName ||
+              sheet.rows.some((record) => String(record['id']) === id)
+            ) {
+              return sheet;
+            }
+
+            const rows = [...sheet.rows];
+            rows.splice(Math.min(deletedIndex, rows.length), 0, deletedRow);
+            return { ...sheet, rows };
+          });
+          const rollbackBookTags = await this.buildBookTags(
+            row,
+            this.loadedRow === row ? rollbackSheets : currentSheets,
+          );
+
+          await this.dbService.db.transaction('rw', [table, this.dbService.db.bookTags], async () => {
+            await table.put(persistedDeletedRow);
+            await this.replaceBookTagsForCatalog(row, rollbackBookTags);
+          });
+          if (this.loadedRow === row) {
+            this.sheets.set(rollbackSheets);
+          }
+          if (normalizedSheetName === 'INDEX') {
+            await this.taxonomyService.refreshGlobalTaxonomy(row);
+          }
+        } catch (rollbackError) {
+          console.error('Failed to roll back optimistic domain row deletion:', rollbackError);
+          this.errorMessage.set(
+            'The delete request failed and the local row could not be restored. Reload the catalog to reconcile the data.',
+          );
+          throw rollbackError;
+        }
+      }
+
+      const errorMessage =
+        error instanceof Error ? error.message : 'Failed to delete domain sheet row.';
+      this.errorMessage.set(errorMessage);
+      throw error;
+    } finally {
+      this.globalLoadingService.end(operation);
+      this.isLoading.set(false);
+    }
+  }
+
   async getLocalDomainSheetRows(sheetName: string): Promise<Record<string, unknown>[]> {
     if (this.loadedRow === null) {
       return [];
@@ -424,11 +556,23 @@ export class DomainDataService {
     record: Record<string, unknown>,
     sheetName: string,
   ): Record<string, unknown> {
+    const normalizedRecord = { ...record };
+    if (sheetName.toUpperCase() === 'INDEX') {
+      const rawIndexTag =
+        typeof record['tag'] === 'string'
+          ? record['tag']
+          : typeof record['tags'] === 'string'
+            ? record['tags']
+            : '';
+      normalizedRecord['tag'] = this.extractAndNormalizeTags(rawIndexTag).join(' ');
+      delete normalizedRecord['tags'];
+      return normalizedRecord;
+    }
+
     const rawTags = [record['tags'], record['tag']]
       .filter((value): value is string => typeof value === 'string')
       .join(' ');
     const normalizedTags = this.extractAndNormalizeTags(rawTags).join(' ');
-    const normalizedRecord = { ...record };
 
     if (Object.hasOwn(record, 'tags') || ['QUOTES', 'PASSAGES'].includes(sheetName.toUpperCase())) {
       normalizedRecord['tags'] = normalizedTags;
@@ -528,12 +672,35 @@ export class DomainDataService {
     row: number,
     sheetName: string,
     updatedRows: Record<string, unknown>[],
+    catalogItemId: string,
+    rethrowErrors = false,
+    localRowsToSync = updatedRows,
+    createdLocalRowId?: string,
   ): Promise<void> {
     try {
       // 1. Send mutations to the remote Backend API
-      await firstValueFrom(this.apiService.updateRows(row, sheetName, updatedRows));
+      const response = await firstValueFrom(
+        this.apiService.updateRows(
+          row,
+          sheetName,
+          updatedRows,
+          catalogItemId,
+          createdLocalRowId !== undefined,
+        ),
+      );
 
-      const syncedRows = updatedRows.map((record) => ({
+      let rowsToSync = localRowsToSync;
+      if (createdLocalRowId !== undefined) {
+        const createdId = (response as { createdRowId?: unknown } | null)?.createdRowId;
+        if (typeof createdId !== 'string' || !createdId) {
+          throw new Error('The backend did not return the ID assigned to the created row.');
+        }
+        rowsToSync = localRowsToSync.map((record) =>
+          String(record['id']) === createdLocalRowId ? { ...record, id: createdId } : record,
+        );
+      }
+
+      const syncedRows = rowsToSync.map((record) => ({
         ...record,
         syncStatus: 'synced',
       }));
@@ -553,6 +720,9 @@ export class DomainDataService {
       this.updateLocalSheetRowsState(sheetName, syncedRows);
     } catch (err: unknown) {
       console.warn(`Background remote update failed; local data remains available for ${sheetName}:`, err);
+      if (rethrowErrors) {
+        throw err;
+      }
     }
   }
 

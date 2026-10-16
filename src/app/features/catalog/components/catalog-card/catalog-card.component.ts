@@ -1,9 +1,10 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { CatalogItem } from '../../models/catalog-item.model';
 import { CatalogSyncBadgeComponent } from '../catalog-sync-badge/catalog-sync-badge.component';
+import { PermissionService } from '../../../../core/services/permission.service';
 
 @Component({
   selector: 'app-catalog-card',
@@ -13,6 +14,8 @@ import { CatalogSyncBadgeComponent } from '../catalog-sync-badge/catalog-sync-ba
   styleUrls: ['./catalog-card.component.css'],  // Fixed property name and converted to array
 })
 export class CatalogCardComponent {
+  readonly permissionService = inject(PermissionService);
+  readonly role = this.permissionService.role;
   readonly item = input.required<CatalogItem>();
   readonly toggleActive = output<CatalogItem>();
   readonly edit = output<CatalogItem>();

@@ -1,13 +1,14 @@
 import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { QuestionDifficulty, QuestionRow, QuestionType } from '../model/domain-question-row.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
+import { PermissionService } from '../../../core/services/permission.service';
 
 const QUESTION_TYPES: QuestionType[] = ['flashcard', 'multiple-choice', 'true-false', 'open'];
 const QUESTION_DIFFICULTIES: QuestionDifficulty[] = ['easy', 'medium', 'hard'];
@@ -38,10 +39,14 @@ export class QuestionsComponent {
   readonly newTags = signal('');
   readonly searchTerm = signal('');
   readonly isSaving = signal(false);
+  readonly editingId = signal<string | null>(null);
 
   private readonly domainDataService = inject(DomainDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly transloco = inject(TranslocoService);
   private readonly taxonomyService = inject(TaxonomyService);
+  readonly permissionService = inject(PermissionService);
+  readonly role = this.permissionService.role;
 
   /**
    * 1. REAL-TIME SIGNAL VALIDATION GUARD
@@ -92,6 +97,31 @@ export class QuestionsComponent {
       .filter(Boolean);
   }
 
+  async deleteEntry(id: string): Promise<void> {
+    if (!window.confirm(this.transloco.translate('COMMON.CONFIRM_DELETE'))) {
+      return;
+    }
+
+    try {
+      await this.domainDataService.deleteDomainRow(this.currentSheet().name, id);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to delete question.';
+      this.globalErrorService.show(message);
+    }
+  }
+
+  editEntry(row: QuestionRow): void {
+    this.editingId.set(row.id);
+    this.newQuestion.set(row.question);
+    this.newAnswer.set(row.answer);
+    this.newType.set(row.type);
+    this.newSourceDomain.set(row.sourceDomain);
+    this.newSourceTerm.set(row.sourceTerm ?? '');
+    this.newPage.set(row.page ?? '');
+    this.newDifficulty.set(row.difficulty ?? '');
+    this.newTags.set(row.tags ?? '');
+  }
+
   async addQuestion(): Promise<void> {
     if (this.isFormInvalid() || this.isSaving()) {
       this.globalErrorService.show('Cannot add entry: Please remove unauthorized tags.');
@@ -102,30 +132,48 @@ export class QuestionsComponent {
     const answer = this.newAnswer().trim();
     const sourceDomain = this.newSourceDomain().trim();
     const tags = this.splitTags(this.newTags()).join(' ');
-
-    const newRow: QuestionRow = {
-      id: `question_${Date.now()}`,
-      question,
-      answer,
-      type: this.newType(),
-      sourceDomain,
-      ...(this.newSourceTerm().trim() ? { sourceTerm: this.newSourceTerm().trim() } : {}),
-      ...(this.newPage().trim() ? { page: this.newPage().trim() } : {}),
-      ...(this.newDifficulty() ? { difficulty: this.newDifficulty() as QuestionDifficulty } : {}),
-      ...(tags ? { tags } : {}),
-      bookRow: this.currentSheet().row,
-      bookName: this.bookName(),
-      feed: 5,
-      contributor: 'currentUser',
-      aiGenerated: false,
-      syncStatus: 'pending',
-    };
+    const editingId = this.editingId();
 
     this.isSaving.set(true);
     try {
       const localRows = await this.domainDataService.getLocalDomainSheetRows('QUESTIONS');
       const existingRows = localRows.length > 0 ? localRows : this.rows();
-      await this.domainDataService.updateDomainSheetRows('QUESTIONS', [...existingRows, newRow]);
+      const originalRow = editingId
+        ? existingRows.find((row) => row['id'] === editingId)
+        : undefined;
+      if (editingId && !originalRow) {
+        throw new Error('The question being edited is no longer available.');
+      }
+
+      const newRow: QuestionRow = {
+        ...(originalRow as QuestionRow | undefined),
+        id: editingId ?? `question_${Date.now()}`,
+        question,
+        answer,
+        type: this.newType(),
+        sourceDomain,
+        sourceTerm: this.newSourceTerm().trim() || undefined,
+        page: this.newPage().trim() || undefined,
+        difficulty: this.newDifficulty() || undefined,
+        tags: tags || undefined,
+        bookRow: this.currentSheet().row,
+        bookName: this.bookName(),
+        feed: (originalRow?.['feed'] as number | undefined) ?? 5,
+        contributor: (originalRow?.['contributor'] as string | undefined) ?? 'currentUser',
+        aiGenerated: (originalRow?.['aiGenerated'] as boolean | undefined) ?? false,
+        syncStatus: 'pending',
+      };
+      const updatedRows = editingId
+        ? existingRows.map((row) => (row['id'] === editingId ? newRow : row))
+        : [...existingRows, newRow];
+
+      await this.domainDataService.updateDomainSheetRows(
+        'QUESTIONS',
+        updatedRows,
+        true,
+        editingId ?? undefined,
+        editingId ? undefined : newRow.id,
+      );
       this.resetForm();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to add question.';
@@ -136,6 +184,7 @@ export class QuestionsComponent {
   }
 
   resetForm(): void {
+    this.editingId.set(null);
     this.newQuestion.set('');
     this.newAnswer.set('');
     this.newType.set('open');

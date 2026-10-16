@@ -39,4 +39,13 @@ describe('normalizeIndexRows', () => {
       '#theme-c; #theme-d',
     ]);
   });
+
+  it('normalizes INDEX rows to the singular tag field only', () => {
+    const [row] = normalizeIndexRows([
+      { id: 'idx_1', chapter: '1', theme: 'A', tag: '#single', tags: '#duplicate' },
+    ]);
+
+    expect(row.tag).toBe('#single');
+    expect(row).not.toHaveProperty('tags');
+  });
 });

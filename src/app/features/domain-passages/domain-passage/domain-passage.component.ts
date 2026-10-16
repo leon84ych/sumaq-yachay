@@ -10,13 +10,14 @@ import {
 } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { PassagesRow } from '../model/domain-passage-row.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
+import { PermissionService } from '../../../core/services/permission.service';
 
 @Component({
   selector: 'app-domain-passage',
@@ -50,6 +51,7 @@ export class DomainPassageComponent {
   readonly newAuthor = signal<string>('');
   readonly newPage = signal<string>('');
   readonly newTags = signal<string>('');
+  readonly editingId = signal<string | null>(null);
   readonly passageTextMaxLength = 2000;
   readonly passageTextCharactersRemaining = computed(
     () => this.passageTextMaxLength - this.newPassageText().length,
@@ -57,9 +59,12 @@ export class DomainPassageComponent {
 
   private domainDataService = inject(DomainDataService);
   private globalErrorService = inject(GlobalErrorService);
+  private readonly transloco = inject(TranslocoService);
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
   private readonly taxonomyService = inject(TaxonomyService);
+  readonly permissionService = inject(PermissionService);
+  readonly role = this.permissionService.role;
   private bodyOverflowBeforeReader: string | null = null;
 
   /**
@@ -235,7 +240,31 @@ export class DomainPassageComponent {
     this.bodyOverflowBeforeReader = null;
   }
 
+  async deleteEntry(id: string): Promise<void> {
+    if (!window.confirm(this.transloco.translate('COMMON.CONFIRM_DELETE'))) {
+      return;
+    }
+
+    try {
+      await this.domainDataService.deleteDomainRow(this.currentSheet().name, id);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to delete passage.';
+      this.globalErrorService.show(message);
+    }
+  }
+
+  editEntry(row: PassagesRow): void {
+    this.editingId.set(row.id);
+    this.newTitle.set(row.title);
+    this.newPassageText.set(row.passageText);
+    this.newBook.set(row.book);
+    this.newAuthor.set(row.author);
+    this.newPage.set(row.page ?? '');
+    this.newTags.set(row.tags ?? '');
+  }
+
   resetForm(): void {
+    this.editingId.set(null);
     this.newTitle.set('');
     this.newPassageText.set('');
     this.newBook.set('');
@@ -263,25 +292,44 @@ export class DomainPassageComponent {
     const author = this.newAuthor().trim();
     const page = this.newPage().trim();
     const tags = this.splitTags(this.newTags()).join(' ');
-
-    const newRow: PassagesRow = {
-      id: `passage_${Date.now()}`,
-      title,
-      passageText,
-      book,
-      author,
-      ...(page ? { page } : {}),
-      ...(tags ? { tags } : {}),
-      feed: 5,
-      contributor: 'currentUser',
-      syncStatus: 'pending',
-    };
+    const editingId = this.editingId();
 
     try {
-      await this.domainDataService.updateDomainSheetRows(this.currentSheet().name, [
-        ...this.rows(),
-        newRow,
-      ]);
+      const localRows = editingId
+        ? ((await this.domainDataService.getLocalDomainSheetRows(this.currentSheet().name)) as PassagesRow[])
+        : this.rows();
+      const existingRows = localRows.length > 0 ? localRows : this.rows();
+      const originalRow = editingId
+        ? existingRows.find((row) => row.id === editingId)
+        : undefined;
+      if (editingId && !originalRow) {
+        throw new Error('The passage being edited is no longer available.');
+      }
+
+      const newRow: PassagesRow = {
+        ...(originalRow ?? {}),
+        id: editingId ?? `passage_${Date.now()}`,
+        title,
+        passageText,
+        book,
+        author,
+        page: page || undefined,
+        tags: tags || undefined,
+        feed: originalRow?.feed ?? 5,
+        contributor: originalRow?.contributor ?? 'currentUser',
+        syncStatus: 'pending',
+      };
+      const updatedRows = editingId
+        ? existingRows.map((row) => (row.id === editingId ? newRow : row))
+        : [...existingRows, newRow];
+
+      await this.domainDataService.updateDomainSheetRows(
+        this.currentSheet().name,
+        updatedRows,
+        true,
+        editingId ?? undefined,
+        editingId ? undefined : newRow.id,
+      );
       this.resetForm();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to add passage.';

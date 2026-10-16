@@ -24,17 +24,19 @@
         </button>
 
         <!-- Register New Source Button (HTTP POST) -->
-        <button
-          type="button"
-          class="btn btn-primary"
-          (click)="openCreateModal()"
-          [title]="'CATALOG.HEADER.REGISTER_SOURCE' | transloco"
-        >
-          <svg class="icon" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-          </svg>
-          <span>{{ 'CATALOG.HEADER.REGISTER_SOURCE' | transloco }}</span>
-        </button>
+        @if (permissionService.validatePermission(role(), 'CREATE_CATALOG_ITEM')) {
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="openCreateModal()"
+            [title]="'CATALOG.HEADER.REGISTER_SOURCE' | transloco"
+          >
+            <svg class="icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+            </svg>
+            <span>{{ 'CATALOG.HEADER.REGISTER_SOURCE' | transloco }}</span>
+          </button>
+        }
       </div>
     </div>
   </header>
@@ -88,9 +90,11 @@
         <div class="empty-icon">📚</div>
         <h3>{{ 'CATALOG.EMPTY.TITLE' | transloco }}</h3>
         <p>{{ 'CATALOG.EMPTY.DESC' | transloco }}</p>
-        <button type="button" class="btn btn-primary mt-2" (click)="openCreateModal()">
-          {{ 'CATALOG.EMPTY.ACTION' | transloco }}
-        </button>
+        @if (permissionService.validatePermission(role(), 'CREATE_CATALOG_ITEM')) {
+          <button type="button" class="btn btn-primary mt-2" (click)="openCreateModal()">
+            {{ 'CATALOG.EMPTY.ACTION' | transloco }}
+          </button>
+        }
       </div>
     }
   </main>

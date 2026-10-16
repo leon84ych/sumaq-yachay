@@ -9,6 +9,7 @@ import {
 } from '../models/catalog-api.model';
 
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
+import { PermissionService } from '../../../core/services/permission.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,7 @@ export class CatalogApiService {
   private config = inject(ConfigService);
   private authService = inject(GoogleAuthService);
   private transloco = inject(TranslocoService);
+  private permissionService = inject(PermissionService);
 
   /**
    * GET: Retrieves catalog rows matching the modular architecture pattern
@@ -86,7 +88,12 @@ export class CatalogApiService {
         });
     });
 
-    return from(fetchPromise).pipe(map((data) => data as GetCatalogResponse));
+    return from(fetchPromise).pipe(
+      map((data) => {
+        this.permissionService.setRole(data.role);
+        return data as GetCatalogResponse;
+      }),
+    );
   }
 
   saveCatalogItem(payload: CatalogPostPayload): Observable<any> {
@@ -129,6 +136,7 @@ export class CatalogApiService {
         return response.json(); // Read and parse the actual JSON payload
       })
       .then((data) => {
+        this.permissionService.setRole(data?.role);
         resolve(data); // Returns { status: 'success', message: '...', data: { ... } }
       })
       .catch((err) => {

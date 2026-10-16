@@ -1,7 +1,7 @@
 <div class="quote-gallery-view">
-  @if (isAddingEntry()) {
+  @if (isAddingEntry() || editingId() !== null) {
     <div class="add-entry-form">
-      <h3>{{ 'DOMAINS.QUOTE.NEW_ENTRY_TITLE' | transloco }}</h3>
+      <h3>{{ (editingId() ? 'COMMON.EDIT' : 'DOMAINS.QUOTE.NEW_ENTRY_TITLE') | transloco }}</h3>
       <div class="form-group">
         <label for="quote-text">{{ 'DOMAINS.QUOTE.QUOTE' | transloco }}</label>
         <textarea
@@ -75,9 +75,11 @@
         }
       </div>
       <div class="form-actions">
-        <button type="button" class="btn-submit" [disabled]="isFormInvalid()" (click)="addQuote()">
-          {{ 'COMMON.SAVE' | transloco }}
-        </button>
+        @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+          <button type="button" class="btn-submit" [disabled]="isFormInvalid()" (click)="addQuote()">
+            {{ (editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+          </button>
+        }
         <button type="button" class="btn-cancel" (click)="resetForm()">
           {{ 'COMMON.CANCEL' | transloco }}
         </button>
@@ -110,33 +112,6 @@
           @let quoteIndex = quoteItem.index;
           <article class="quote-card-visible-wrapper" [class.is-flipped]="isFlipped(quoteIndex)">
             <div class="quote-card-header">
-              @if (isFlipped(quoteIndex)) {
-                <button
-                  type="button"
-                  class="download-image-btn"
-                  [disabled]="isExporting()"
-                  [attr.aria-label]="'DOMAINS.QUOTE.DOWNLOAD_ANALYSIS_IMAGE' | transloco"
-                  [title]="'DOMAINS.QUOTE.DOWNLOAD_ANALYSIS_IMAGE' | transloco"
-                  (click)="downloadImage($event, row, 'analysis')"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
-                  </svg>
-                </button>
-              } @else {
-                <button
-                  type="button"
-                  class="download-image-btn"
-                  [disabled]="isExporting()"
-                  [attr.aria-label]="'DOMAINS.QUOTE.DOWNLOAD_QUOTE_IMAGE' | transloco"
-                  [title]="'DOMAINS.QUOTE.DOWNLOAD_QUOTE_IMAGE' | transloco"
-                  (click)="downloadImage($event, row, 'quote')"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
-                  </svg>
-                </button>
-              }
               <span class="quote-card-eyebrow">
                 {{ 'NAV.BRAND_NAME' | transloco }} ·
                 @if (isFlipped(quoteIndex)) {
@@ -208,6 +183,65 @@
                 </div>
               }
             </div>
+            <footer class="domain-card-footer quote-card-footer">
+              <div class="domain-card-footer__management">
+                @if (permissionService.validatePermission(role(), 'DELETE_ROW')) {
+                <button
+                  type="button"
+                  class="domain-delete-button"
+                  [attr.aria-label]="'COMMON.DELETE' | transloco"
+                  [title]="'COMMON.DELETE' | transloco"
+                  (click)="deleteEntry(row.id)"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M4 6h12M8 6V4h4v2m-6 0 .7 10h6.6L14 6M8.5 9v4m3-4v4" />
+                  </svg>
+                </button>
+                }
+                @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+                <button
+                  type="button"
+                  class="domain-edit-button"
+                  [attr.aria-label]="'COMMON.EDIT' | transloco"
+                  [title]="'COMMON.EDIT' | transloco"
+                  (click)="editEntry(row)"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="m13.5 4.5 2 2M4 16l3.5-.8 8.7-8.7a1.4 1.4 0 0 0-2-2l-8.7 8.7L4 16Z" />
+                  </svg>
+                </button>
+                }
+              </div>
+              <div class="domain-card-footer__actions">
+                @if (isFlipped(quoteIndex)) {
+                  <button
+                    type="button"
+                    class="download-image-btn"
+                    [disabled]="isExporting()"
+                    [attr.aria-label]="'DOMAINS.QUOTE.DOWNLOAD_ANALYSIS_IMAGE' | transloco"
+                    [title]="'DOMAINS.QUOTE.DOWNLOAD_ANALYSIS_IMAGE' | transloco"
+                    (click)="downloadImage($event, row, 'analysis')"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
+                    </svg>
+                  </button>
+                } @else {
+                  <button
+                    type="button"
+                    class="download-image-btn"
+                    [disabled]="isExporting()"
+                    [attr.aria-label]="'DOMAINS.QUOTE.DOWNLOAD_QUOTE_IMAGE' | transloco"
+                    [title]="'DOMAINS.QUOTE.DOWNLOAD_QUOTE_IMAGE' | transloco"
+                    (click)="downloadImage($event, row, 'quote')"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
+                    </svg>
+                  </button>
+                }
+              </div>
+            </footer>
           </article>
         }
       </div>

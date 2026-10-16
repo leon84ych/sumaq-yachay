@@ -97,14 +97,6 @@
   padding: 0.15rem 0.55rem;
 }
 
-.character-card-footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: auto;
-  border-top: 1px solid var(--border);
-  padding-top: 0.65rem;
-}
-
 .character-relations-button {
   display: inline-flex;
   min-height: 2.25rem;

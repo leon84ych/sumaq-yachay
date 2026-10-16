@@ -4,6 +4,7 @@ import { BrowserAiService } from '../../../../core/services/ia/BrowserIA.service
 import { GlobalErrorService } from '../../../../core/services/global-error.service';
 import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
 import { QuestionRow, QuestionType } from '../../model/domain-question-row.model';
+import { PermissionService } from '../../../../core/services/permission.service';
 
 const QUESTION_TYPES: QuestionType[] = ['flashcard', 'multiple-choice', 'true-false', 'open'];
 
@@ -33,6 +34,8 @@ export class QuestionGeneratorComponent {
   private readonly transloco = inject(TranslocoService);
   private readonly domainDataService = inject(DomainDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
+  readonly permissionService = inject(PermissionService);
+  readonly role = this.permissionService.role;
 
   toggleOpen(): void {
     this.isOpen.update((open) => !open);
@@ -90,7 +93,7 @@ export class QuestionGeneratorComponent {
       await this.domainDataService.updateDomainSheetRows('QUESTIONS', [
         ...existingRows,
         newQuestion,
-      ]);
+      ], true, undefined, newQuestion.id);
       this.isOpen.set(false);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to generate question.';

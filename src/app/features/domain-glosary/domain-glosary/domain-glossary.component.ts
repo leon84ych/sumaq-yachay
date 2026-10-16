@@ -1,12 +1,13 @@
 import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
+import { PermissionService } from '../../../core/services/permission.service';
 
 import type { GlossaryRow, PartOfSpeech } from '../model/domain-glosary-row.model';
 
@@ -44,6 +45,7 @@ export class DomainGlossaryComponent {
   readonly newPage = signal<string>('');
   readonly newTags = signal<string>('');
   readonly searchTerm = signal<string>('');
+  readonly editingId = signal<string | null>(null);
 
   readonly source = computed(() => this.newSource().trim() || this.bookName().trim());
   readonly definitionMaxLength = 400;
@@ -53,7 +55,10 @@ export class DomainGlossaryComponent {
 
   private domainDataService = inject(DomainDataService);
   private globalErrorService = inject(GlobalErrorService);
+  private readonly transloco = inject(TranslocoService);
   private readonly taxonomyService = inject(TaxonomyService);
+  readonly permissionService = inject(PermissionService);
+  readonly role = this.permissionService.role;
 
   /**
    * 1. REAL-TIME SIGNAL VALIDATION GUARD
@@ -105,7 +110,34 @@ export class DomainGlossaryComponent {
       .filter(Boolean);
   }
 
+  async deleteEntry(id: string): Promise<void> {
+    if (!window.confirm(this.transloco.translate('COMMON.CONFIRM_DELETE'))) {
+      return;
+    }
+
+    try {
+      await this.domainDataService.deleteDomainRow(this.currentSheet().name, id);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to delete glossary entry.';
+      this.globalErrorService.show(message);
+    }
+  }
+
+  editEntry(row: GlossaryRow): void {
+    this.editingId.set(row.id);
+    this.newTerm.set(row.term);
+    this.newDefinition.set(row.definition);
+    this.newPartOfSpeech.set(row.partOfSpeech ?? '');
+    this.newEtymology.set(row.etymology ?? '');
+    this.newSynonyms.set(row.synonyms ?? '');
+    this.newContextSentence.set(row.contextSentence ?? '');
+    this.newSource.set(row.source ?? '');
+    this.newPage.set(row.page ?? '');
+    this.newTags.set(row.tags ?? '');
+  }
+
   resetForm(): void {
+    this.editingId.set(null);
     this.newTerm.set('');
     this.newDefinition.set('');
     this.newPartOfSpeech.set('');
@@ -133,28 +165,47 @@ export class DomainGlossaryComponent {
     const source = this.source();
     const page = this.newPage().trim();
     const tags = this.splitTags(this.newTags()).join(' ');
-
-    const newRow: GlossaryRow = {
-      id: `glossary_${Date.now()}`,
-      term,
-      definition,
-      ...(partOfSpeech ? { partOfSpeech } : {}),
-      ...(etymology ? { etymology } : {}),
-      ...(synonyms ? { synonyms } : {}),
-      ...(contextSentence ? { contextSentence } : {}),
-      ...(source ? { source } : {}),
-      ...(page ? { page } : {}),
-      ...(tags ? { tags } : {}),
-      feed: 5,
-      contributor: 'currentUser',
-      syncStatus: 'pending',
-    };
+    const editingId = this.editingId();
 
     try {
-      await this.domainDataService.updateDomainSheetRows(this.currentSheet().name, [
-        ...this.rows(),
-        newRow,
-      ]);
+      const localRows = editingId
+        ? ((await this.domainDataService.getLocalDomainSheetRows(this.currentSheet().name)) as GlossaryRow[])
+        : this.rows();
+      const existingRows = localRows.length > 0 ? localRows : this.rows();
+      const originalRow = editingId
+        ? existingRows.find((row) => row.id === editingId)
+        : undefined;
+      if (editingId && !originalRow) {
+        throw new Error('The glossary entry being edited is no longer available.');
+      }
+
+      const newRow: GlossaryRow = {
+        ...(originalRow ?? {}),
+        id: editingId ?? `glossary_${Date.now()}`,
+        term,
+        definition,
+        partOfSpeech,
+        etymology: etymology || undefined,
+        synonyms: synonyms || undefined,
+        contextSentence: contextSentence || undefined,
+        source: source || undefined,
+        page: page || undefined,
+        tags: tags || undefined,
+        feed: originalRow?.feed ?? 5,
+        contributor: originalRow?.contributor ?? 'currentUser',
+        syncStatus: 'pending',
+      };
+      const updatedRows = editingId
+        ? existingRows.map((row) => (row.id === editingId ? newRow : row))
+        : [...existingRows, newRow];
+
+      await this.domainDataService.updateDomainSheetRows(
+        this.currentSheet().name,
+        updatedRows,
+        true,
+        editingId ?? undefined,
+        editingId ? undefined : newRow.id,
+      );
       this.resetForm();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to add glossary entry.';

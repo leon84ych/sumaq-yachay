@@ -48,10 +48,10 @@ Tu único objetivo es recibir la especificación en JSON de un dominio académic
      ```
 
 3. **Estrategia "Zero-Latency" & Persistence Lifecycle:**
-   - **Paso 0 (Generación del ID):** Asignar el `id` de la nueva fila en el cliente, ANTES de cualquier persistencia, con el formato `` `[domain]_${Date.now()}` `` (`[domain]` en minúsculas y singular, ej. `glossary_1760000000000`). El `id` debe ser único dentro de la hoja, no se recalcula ni se modifica en reintentos o al sincronizar (es la clave de la fila en IndexedDB y al fusionar con el servidor), y NO se pide en el formulario. No uses `crypto.randomUUID()` ni contadores.
-   - **Paso 1 (Tags local):** Al guardar una nueva entrada, extraer y normalizar los hashtags (`#tag`) del string de tags y llamar a `TagService.upsertBookTags(...)` ANTES de enviar la petición remota.
-   - **Paso 2 (Guardado optimista local):** Guardar o actualizar la entrada en la base de datos IndexedDB local (`AppDatabase`) asignando `syncStatus: 'pending'`.
-   - **Paso 3 (Sincronización asíncrona):** Disparar en segundo plano la llamada al backend (Google Apps Script). Al confirmarse con éxito, actualizar el registro local a `syncStatus: 'synced'`.
+  - **Paso 0 (ID local):** Asignar un `id` temporal local antes de guardar, con formato `` `[domain]_${Date.now()}` ``. No incluyas ese ID temporal de fila en la petición de creación: GAS asigna el ID canónico y lo devuelve; reconcilia ese ID en IndexedDB y en el estado local. En ediciones, conserva y envía el ID de fila existente. Nunca pidas el ID en el formulario.
+  - **Paso 1 (Tags locales):** Normaliza las etiquetas y reconstruye los `bookTags` agregados de la hoja dentro de la misma transacción Dexie, antes de la petición remota. INDEX almacena solo `tag`; nunca añadas `tags` a los registros INDEX.
+  - **Paso 2 (Guardado local optimista):** Conserva la hoja completa en IndexedDB y en el estado local, marcando las filas locales afectadas como `syncStatus: 'pending'`.
+  - **Paso 3 (Sincronización esperada):** Los formularios generados esperan la respuesta de GAS. Si tiene éxito, reconcilian el ID asignado por el servidor en las creaciones, marcan la hoja local como `synced` y luego limpian el formulario. Si falla, marcan las filas locales como `error`, muestran el error global y conservan los valores del formulario.
 
 4. **Integración Angular & Control Flow Moderno:**
    - Componentes Standalone con `imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent]`.
@@ -96,6 +96,22 @@ Tu único objetivo es recibir la especificación en JSON de un dominio académic
    - Los estilos de `.status-indicator` y `.status-label` ya son globales (`src/app/shared/styles/domain-entry-form.css`): NO los copies en el CSS del componente; solo ajusta posición si el header lo requiere.
    - No uses el color del indicador para otros fines: cualquier color propio del dominio (p. ej. `color` de un personaje) debe mostrarse con otro recurso visual, como una barra inferior del header, para no confundirlo con el estado de sincronización.
 
+4. **Validación de Taxonomía INDEX (obligatoria para dominios con etiquetas):**
+  - Inyecta `TaxonomyService` desde `../../../core/services/taxonomy/taxonomy.service` en el componente.
+  - Calcula `invalidTagsDetected` a partir de `splitTags(newTags())`, conservando cada token para el que `taxonomyService.isTagAllowed(token)` devuelva `false`. Debe ser reactiva mientras el usuario edita las etiquetas.
+  - Incluye `invalidTagsDetected().length > 0` en `isFormInvalid()` junto con los campos requeridos. Vincula el botón de guardado con `[disabled]="isFormInvalid()"`; si también hay un guard de guardado en curso, combínalos: `[disabled]="isFormInvalid() || isSaving()"`. Aplica la misma validación en el método de guardado.
+  - Inmediatamente debajo de `<app-tag-picker>`, muestra un aviso con `@if` y una lista de tokens rechazados con `@for`. Usa las claves Transloco `DOMAINS.TAG_VALIDATION.REJECTED_PREFIX` y `DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX` alrededor del nombre literal `INDEX` en negrita. No hardcodees la frase ni incluyas HTML en los valores de traducción.
+  - Define `.tag-validation-error` y `.tag-validation-error__badge` en la hoja compartida `src/app/shared/styles/domain-entry-form.css`, usando `var(--error)` y `var(--error-light)`. No uses estilos en línea, colores fijos, utilidades de color Bootstrap ni copias en el CSS del dominio. El aviso debe ser legible en temas claro y oscuro.
+  - Añade `DOMAINS.TAG_VALIDATION.REJECTED_PREFIX` y `DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX` a `public/i18n/en.json` y `public/i18n/es.json`.
+  - **INDEX es la fuente de verdad de la taxonomía:** no valides sus definiciones contra la lista blanca ni muestres el aviso de etiquetas rechazadas en INDEX. Al completar su transacción y escritura masiva en la base de datos, llama `await taxonomyService.refreshGlobalTaxonomy(row)`.
+
+5. **Acciones por rol y footer de tarjetas:**
+  - Inyecta el `PermissionService` compartido en los componentes con acciones de escritura y expón `readonly permissionService` y `readonly role = this.permissionService.role` a la plantilla. El rol viene de las respuestas del backend y empieza como `guest`; nunca lo infieras del email ni del token del cliente.
+  - Usa `@if (permissionService.validatePermission(role(), 'OPERACION'))` alrededor de cada acción. Usa `UPDATE_SHEET_ROWS` para guardar/editar filas de dominio, `DELETE_ROW` para borrarlas, `CREATE_SHEET` para crear pestañas, `CREATE_CATALOG_ITEM` para crear elementos del catálogo, `UPDATE_CATALOG_ITEM` para editarlos/cambiar su estado y `DELETE_CATALOG_ITEM` para borrarlos. Mantén visibles las acciones de lectura según sus operaciones GET.
+  - El mapa compartido permite las lecturas (`GET_CATALOG`, `GET_SHEETS_NAMES`, `GET_PAGINATED_ROWS`, `GET_CATALOG_HEALTH`) a `guest`, `user` y `admin`; las escrituras son solo para `admin`. Los roles u operaciones desconocidos se deniegan por defecto. Los guards de interfaz no sustituyen la autorización del backend.
+  - En las tarjetas de todos los dominios excepto INDEX, usa el footer global `domain-card-footer`. A la izquierda coloca `domain-card-footer__management` con este orden: borrar, editar. A la derecha coloca las acciones existentes en `domain-card-footer__actions`. Los botones usan los estilos globales `.domain-edit-button` y `.domain-delete-button`, con `aria-label` y `title` Transloco. No muevas las demás acciones al grupo de gestión.
+  - INDEX conserva su disposición compacta por fila, pero editar y borrar también requieren guards RBAC. No añadas `tags` a los registros INDEX: solo existe el campo singular `tag`. Respeta el orden recibido de las filas de la hoja; no ordenes alfabéticamente la jerarquía.
+
 ---
 
 ### 📥 3. ESTRUCTURA DEL INPUT (ESPECIFICACIÓN JSON)
@@ -127,6 +143,8 @@ import { GlobalErrorService } from '../../../core/services/global-error.service'
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
+import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
+import { PermissionService } from '../../../core/services/permission.service';
 import { [InterfaceName]Row } from '../model/domain-[xxx]-row.model';
 
 @Component({
@@ -143,8 +161,19 @@ readonly bookName = input<string>('');
 readonly isAddingEntry = input<boolean>(false);
 readonly closeEntry = output<void>();
 
+readonly editingId = signal<string | null>(null);
+readonly permissionService = inject(PermissionService);
+readonly role = this.permissionService.role;
+private readonly taxonomyService = inject(TaxonomyService);
 readonly searchTerm = signal<string>('');
 readonly newTags = signal<string>('');
+readonly invalidTagsDetected = computed<string[]>(() =>
+  this.splitTags(this.newTags()).filter((tag) => !this.taxonomyService.isTagAllowed(tag)),
+);
+readonly isFormInvalid = computed<boolean>(() => {
+  const hasMissingRequiredFields = !this.newTerm().trim(); // Incluir todos los campos requeridos del JSON.
+  return hasMissingRequiredFields || this.invalidTagsDetected().length > 0;
+});
 
 // Signals individuales para cada campo definido en el JSON
 // ...
@@ -172,13 +201,21 @@ return tags
 }
 
 async addEntry(): Promise<void> {
-// 0. Generar el id: `[domain]_${Date.now()}` (se asigna una sola vez al crear la fila)
+if (this.isFormInvalid()) return;
+
+// 0. Asignar un ID local temporal; GAS lo sustituye al crear y se conserva al editar.
 // 1. Extraer y procesar tags desde newTags()
 // 2. Persistir en Dexie IndexedDB local mediante domainDataService
 // 3. Manejo de errores con globalErrorService
 }
 
+editEntry(row: [InterfaceName]Row): void {
+  this.editingId.set(row.id);
+  // Cargar cada campo del registro en su signal correspondiente.
+}
+
 resetForm(): void {
+this.editingId.set(null);
 this.newTags.set('');
 this.closeEntry.emit();
 }
@@ -187,9 +224,9 @@ this.closeEntry.emit();
 #### Archivo B: `domain-[xxx].component.html`
 
 <div class="[xxx]-view">
-  @if (isAddingEntry()) {
+  @if (isAddingEntry() || editingId() !== null) {
     <div class="add-entry-form">
-      <h3>{{ 'DOMAINS.[DOMAIN].NEW_ENTRY_TITLE' | transloco }}</h3>
+      <h3>{{ (editingId() ? 'COMMON.EDIT' : 'DOMAINS.[DOMAIN].NEW_ENTRY_TITLE') | transloco }}</h3>
 
       <!-- Renderizado reactivo de inputs/selects/textareas de acuerdo al JSON -->
 
@@ -202,12 +239,25 @@ this.closeEntry.emit();
           [value]="newTags()"
           (valueChange)="newTags.set($event)"
         />
+        @if (invalidTagsDetected().length > 0) {
+          <div class="tag-validation-error">
+            <p>
+              {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
+              <strong>INDEX</strong>{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
+              @for (unlisted of invalidTagsDetected(); track $index) {
+                <span class="tag-validation-error__badge">{{ unlisted }}</span>
+              }
+            </p>
+          </div>
+        }
       </div>
 
       <div class="form-actions">
-        <button type="button" class="btn-submit" (click)="addEntry()">
-          {{ 'COMMON.SAVE' | transloco }}
-        </button>
+        @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+          <button type="button" class="btn-submit" [disabled]="isFormInvalid()" (click)="addEntry()">
+            {{ (editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+          </button>
+        }
         <button type="button" class="btn-cancel" (click)="resetForm()">
           {{ 'COMMON.CANCEL' | transloco }}
         </button>
@@ -242,6 +292,31 @@ type="search"
         @for (row of filteredRows(); track row.id) {
           <article class="[domain]-card">
             <!-- Mapeo de valores de la tarjeta y chips de hashtags con splitTags(row.tags) -->
+
+            <!-- Excepto INDEX: gestión a la izquierda; acciones propias a la derecha. -->
+            <footer class="domain-card-footer">
+              <div class="domain-card-footer__management">
+                @if (permissionService.validatePermission(role(), 'DELETE_ROW')) {
+                  <button type="button" class="domain-delete-button"
+                    [attr.aria-label]="'COMMON.DELETE' | transloco"
+                    [title]="'COMMON.DELETE' | transloco"
+                    (click)="deleteEntry(row.id)">
+                    <!-- Icono de papelera compartido -->
+                  </button>
+                }
+                @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+                  <button type="button" class="domain-edit-button"
+                    [attr.aria-label]="'COMMON.EDIT' | transloco"
+                    [title]="'COMMON.EDIT' | transloco"
+                    (click)="editEntry(row)">
+                    <!-- Icono de lápiz compartido -->
+                  </button>
+                }
+              </div>
+              <div class="domain-card-footer__actions">
+                <!-- Las acciones propias del dominio van alineadas a la derecha. -->
+              </div>
+            </footer>
 
             <!-- Indicador de sincronización: va en el header de la tarjeta, alineado a la derecha -->
             <span
@@ -316,6 +391,13 @@ El modelo se genera en `src/app/features/domain-[xxx]/model/domain-[xxx]-row.mod
 - `catalog-detail/components/sheet-view-resolver/`: añadir el `@case ('[DOMAIN]')` en el HTML con `<app-domain-[xxx]>` (inputs `rows`, `currentSheet`, `bookName`, `isAddingEntry`, evento `closeEntry`), el `computed` de filas tipadas (tipadas con `[InterfaceName]Row` importado desde `features/domain-[xxx]/model/`) y el import del componente desde `features/domain-[xxx]/domain-[xxx]/`.
 - `public/i18n/en.json` y `es.json`: claves `DOMAINS.[DOMAIN].*` (`NEW_ENTRY_TITLE`, etiquetas de cada campo, `TAGS`, `SEARCH`, `NO_MATCHES`, `CHARACTERS_LEFT` y `*_OPTIONS` para cada `select`).
 
+#### 5.5 Aislamiento de taxonomía y pruebas del servicio de dominio
+
+- Al crear o actualizar un servicio de dominio que use Angular `inject()`, importa `Injectable` y coloca `@Injectable({ providedIn: 'root' })` directamente encima de la clase.
+- Para dominios distintos de INDEX, sanea los campos `tag`/`tags` de las filas entrantes en `syncRemoteRows`: separa por espacios en blanco, comas o punto y coma; pasa los tokens por `TaxonomyService.filterAllowedTags(...)`; y persiste únicamente las etiquetas permitidas, unidas por espacios. Mantén un helper como `validateAndSanitizeTags` como único punto de delegación.
+- INDEX es la excepción porque define la lista maestra. Persiste sus definiciones de etiquetas sin filtrar, completa la transacción y `bulkPut`, y después espera `TaxonomyService.refreshGlobalTaxonomy(row)`; nunca filtres INDEX contra sí mismo.
+- Añade un spec correspondiente en `services/` del dominio. Usa `TestBed` y `jasmine.createSpyObj` para `TaxonomyService`, proporcionado con `{ provide: TaxonomyService, useValue: mockTaxonomyService }`. Para los helpers de otros dominios, comprueba que los tokens lleguen a `filterAllowedTags`, que se devuelva la lista permitida y que se excluyan las etiquetas no autorizadas. Para INDEX, verifica que la actualización de taxonomía reciba la fila solo después del delete y bulk put; no pruebes filtrado de etiquetas.
+
 ---
 
 ### 🌐 6. INSERCIÓN DE DATOS EN EL SERVIDOR Y MANEJO DE ERRORES
@@ -332,12 +414,12 @@ La fila que se envía se construye SIEMPRE en este orden, dentro de `addEntry()`
    - Campo con valor por defecto del libro (`source`, `book`, `author`): usar el `computed` del componente (`const source = this.source();`, que cae en `bookName()`), nunca el signal crudo.
 2. **Validación de requeridos** inmediatamente después de los `const`, con retorno silencioso: `if (!term || !definition) { return; }`.
 3. **`const newRow: [InterfaceName]Row`** con esta forma exacta:
-   - `id` primero (`` `[domain]_${Date.now()}` ``, ver Paso 0).
+  - `id` primero. Usa `editingId()` al editar; al crear, usa un ID local temporal (ver Paso 0), que se omite de la petición.
    - Campos requeridos con propiedad abreviada (`term`, `definition`).
    - Campos opcionales con propagación condicional: `...(etymology ? { etymology } : {})`, de modo que un valor vacío NO se envía (la propiedad se omite en lugar de enviar `''` o `undefined`).
    - Cierre fijo: `feed: 5, contributor: 'currentUser', syncStatus: 'pending'`.
    - No incluir `row`, `book` ni `author` salvo que el JSON los defina como campos.
-4. **Petición**: `await this.domainDataService.updateDomainSheetRows(this.currentSheet().name, [...this.rows(), newRow]);` (ver 6.1).
+4. **Petición**: Construye la lista local completa y llama `updateDomainSheetRows(sheetName, allLocalRows, true, editingId ?? undefined, editingId ? undefined : newRow.id)` (ver 6.1). El servicio persiste la lista local completa, pero solo envía la fila modificada a GAS.
 
 Ejemplo de referencia (glosario):
 
@@ -349,13 +431,21 @@ async addEntry(): Promise<void> {
   const etymology = this.newEtymology().trim();
   const source = this.source();
   const tags = this.splitTags(this.newTags()).join(' ');
+  const editingId = this.editingId();
 
   if (!term || !definition) {
     return;
   }
 
+  const originalRow = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
+  if (editingId && !originalRow) {
+    this.globalErrorService.show('El término que editas ya no está disponible.');
+    return;
+  }
+
   const newRow: GlossaryRow = {
-    id: `glossary_${Date.now()}`,
+    ...(originalRow ?? {}),
+    id: editingId ?? `glossary_${Date.now()}`,
     term,
     definition,
     ...(partOfSpeech ? { partOfSpeech } : {}),
@@ -367,11 +457,18 @@ async addEntry(): Promise<void> {
     syncStatus: 'pending',
   };
 
+  const allLocalRows = editingId
+    ? this.rows().map((row) => (row.id === editingId ? newRow : row))
+    : [...this.rows(), newRow];
+
   try {
-    await this.domainDataService.updateDomainSheetRows(this.currentSheet().name, [
-      ...this.rows(),
-      newRow,
-    ]);
+    await this.domainDataService.updateDomainSheetRows(
+      this.currentSheet().name,
+      allLocalRows,
+      true,
+      editingId ?? undefined,
+      editingId ? undefined : newRow.id,
+    );
     this.resetForm();
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to add glossary entry.';
@@ -382,32 +479,26 @@ async addEntry(): Promise<void> {
 
 #### 6.1 Flujo de inserción (el componente NO llama al API ni a Dexie directamente)
 
-1. `addEntry()` valida los campos requeridos, construye el nuevo `row` (con `id`, `feed: 5`, `contributor: 'currentUser'`, `syncStatus: 'pending'`) y delega TODO en el servicio:
-   ```ts
-   await this.domainDataService.updateDomainSheetRows(this.currentSheet().name, [
-     ...this.rows(),
-     newRow,
-   ]);
-   ```
-   Siempre se envía la lista COMPLETA (filas existentes + la nueva), nunca solo la nueva.
-2. `DomainDataService.updateDomainSheetRows` ejecuta, en orden: (a) normaliza tags y hace `upsertBookTags`; (b) fuerza `syncStatus: 'pending'` y guarda en Dexie en una transacción `rw`; (c) actualiza el estado en memoria; (d) dispara en segundo plano `void syncRemoteUpdate(...)` sin bloquear la UI.
-3. `syncRemoteUpdate` llama a `DomainDataApiService.updateRows(row, sheetName, rows)`: `fetch` POST a la URL del Web App de Google Apps Script con `Content-Type: text/plain;charset=utf-8` (evita el preflight CORS; NO añadir otros headers) y cuerpo JSON `{ action: 'UPDATE_SHEET_ROWS', row, sheetName, rows, idToken }`. Requiere la URL configurada y el `idToken` de Google.
-4. Si la respuesta es correcta, el servicio marca todas las filas como `syncStatus: 'synced'` en Dexie y en el estado, por lo que el indicador de sincronización pasa a verde. Una respuesta HTTP no OK o `data.status === 'error'` se trata como fallo remoto.
+1. Construye `allLocalRows`: al editar, reemplaza solo la fila que coincide con `editingId`; al crear, agrega la nueva fila local. Esta lista completa es únicamente para Dexie y el estado local.
+2. Llama `updateDomainSheetRows(sheetName, allLocalRows, true, editedId, createdLocalId)`. El servicio persiste la hoja local completa y reconstruye sus etiquetas agregadas, pero la petición remota contiene solo el registro modificado.
+3. Al editar, envía `rows: [editedRow]` con su ID existente. Al crear, envía `rows: [newRowWithoutId]`: omite el ID local temporal del objeto. Conserva el `CatalogItem.id` padre en el `id` de nivel superior. La petición usa `action: 'UPDATE_SHEET_ROWS'`, `row`, `sheetName`, `rows`, `idToken` y `Content-Type: text/plain;charset=utf-8`.
+4. GAS asigna el ID canónico al crear y lo devuelve (por ejemplo, en `data.id`). Reconcilia ese ID con el temporal local antes de marcar la hoja completa como sincronizada. Si GAS no devuelve el ID, trata la creación como fallida.
+5. Espera la respuesta remota antes de limpiar el formulario. Una respuesta HTTP no OK, malformada o con `data.status !== 'success'` debe propagarse al componente como error.
 
 #### 6.2 Manejo de errores
 
 | Fallo | Comportamiento del servicio | Comportamiento del componente |
 | --- | --- | --- |
 | Local (Dexie, hoja no soportada, sin catálogo activo) | Marca las filas como `error`, fija `errorMessage` y RELANZA el error | Captura con `try/catch`, llama `globalErrorService.show(message)` y NO llama `resetForm()` (conserva lo escrito) |
-| Remoto (red, sin URL, sin token, `status: 'error'`) | NO lanza: `console.warn`; las filas quedan en `pending` y los datos locales siguen disponibles | Nada que hacer: no mostrar error bloqueante ni revertir; el indicador ámbar refleja el estado |
+| Remoto (red, sin URL, sin token, respuesta no exitosa) | Marca las filas locales como `error`, fija `errorMessage` y relanza el error en los formularios que esperan GAS | Muestra el error global y conserva los valores; solo limpia el formulario tras el éxito |
 
 Reglas para el componente generado:
 
 - `try/catch` alrededor del `await` con `const message = error instanceof Error ? error.message : 'Failed to add [domain] entry.'; this.globalErrorService.show(message);`.
-- `resetForm()` solo tras el guardado local exitoso (dentro del `try`).
-- Validación previa con retorno silencioso (`if (!field) { return; }`) y sin `alert()`.
+- `resetForm()` solo después de que la operación remota esperada tenga éxito (dentro del `try`).
+- Validación previa con `if (this.isFormInvalid()) { return; }` y sin `alert()`. `isFormInvalid()` debe incluir todos los campos requeridos y las etiquetas inválidas.
 - No crear spinners ni estados de carga propios: el servicio ya usa `GlobalLoadingService`.
-- No reintentar ni relanzar manualmente: una fila `pending` se vuelve a enviar con el siguiente guardado, porque siempre se envía la lista completa.
+- No reintentar manualmente. Conserva la hoja completa local, pero envía a GAS solo la fila creada o editada. Si falla la petición, no limpies el formulario.
 
 ---
 

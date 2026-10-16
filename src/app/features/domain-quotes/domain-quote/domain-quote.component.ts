@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { downloadJpeg } from '../../../shared/utils/image-export';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
@@ -20,6 +20,7 @@ import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import type { QuoteRow } from '../model/domain-quote-row.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
+import { PermissionService } from '../../../core/services/permission.service';
 
 @Component({
   selector: 'app-domain-quote',
@@ -48,13 +49,17 @@ export class DomainQuoteComponent {
   readonly isExporting = signal(false);
   readonly searchTerm = signal('');
   readonly flippedQuoteIndexes = signal<ReadonlySet<number>>(new Set());
+  readonly editingId = signal<string | null>(null);
   readonly quoteMaxLength = 600;
   readonly quoteCharactersRemaining = computed(() => this.quoteMaxLength - this.newQuote().length);
 
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private domainDataService = inject(DomainDataService);
   private globalErrorService = inject(GlobalErrorService);
+  private readonly transloco = inject(TranslocoService);
   private readonly taxonomyService = inject(TaxonomyService);
+  readonly permissionService = inject(PermissionService);
+  readonly role = this.permissionService.role;
 
   /**
    * 1. REAL-TIME SIGNAL VALIDATION GUARD
@@ -124,7 +129,31 @@ export class DomainQuoteComponent {
     });
   }
 
+  async deleteEntry(id: string): Promise<void> {
+    if (!window.confirm(this.transloco.translate('COMMON.CONFIRM_DELETE'))) {
+      return;
+    }
+
+    try {
+      await this.domainDataService.deleteDomainRow(this.currentSheet().name, id);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to delete quote.';
+      this.globalErrorService.show(message);
+    }
+  }
+
+  editEntry(row: QuoteRow): void {
+    this.editingId.set(row.id);
+    this.newQuote.set(row.quote);
+    this.newAnalysis.set(row.analysis ?? '');
+    this.newBook.set(row.book);
+    this.newAuthor.set(row.author);
+    this.newPage.set(row.page ?? '');
+    this.newTags.set(row.tags ?? '');
+  }
+
   resetForm(): void {
+    this.editingId.set(null);
     this.newQuote.set('');
     this.newAnalysis.set('');
     this.newBook.set('');
@@ -209,25 +238,44 @@ export class DomainQuoteComponent {
     const author = this.newAuthor().trim();
     const page = this.newPage().trim();
     const tags = this.splitTags(this.newTags()).join(' ');
-
-    const newRow: QuoteRow = {
-      id: `quote_${Date.now()}`,
-      quote,
-      ...(analysis ? { analysis } : {}),
-      book,
-      author,
-      ...(page ? { page } : {}),
-      ...(tags ? { tags } : {}),
-      feed: 5,
-      contributor: 'currentUser',
-      syncStatus: 'pending',
-    };
+    const editingId = this.editingId();
 
     try {
-      await this.domainDataService.updateDomainSheetRows(this.currentSheet().name, [
-        ...this.rows(),
-        newRow,
-      ]);
+      const localRows = editingId
+        ? ((await this.domainDataService.getLocalDomainSheetRows(this.currentSheet().name)) as QuoteRow[])
+        : this.rows();
+      const existingRows = localRows.length > 0 ? localRows : this.rows();
+      const originalRow = editingId
+        ? existingRows.find((row) => row.id === editingId)
+        : undefined;
+      if (editingId && !originalRow) {
+        throw new Error('The quote being edited is no longer available.');
+      }
+
+      const newRow: QuoteRow = {
+        ...(originalRow ?? {}),
+        id: editingId ?? `quote_${Date.now()}`,
+        quote,
+        analysis: analysis || undefined,
+        book,
+        author,
+        page: page || undefined,
+        tags: tags || undefined,
+        feed: originalRow?.feed ?? 5,
+        contributor: originalRow?.contributor ?? 'currentUser',
+        syncStatus: 'pending',
+      };
+      const updatedRows = editingId
+        ? existingRows.map((row) => (row.id === editingId ? newRow : row))
+        : [...existingRows, newRow];
+
+      await this.domainDataService.updateDomainSheetRows(
+        this.currentSheet().name,
+        updatedRows,
+        true,
+        editingId ?? undefined,
+        editingId ? undefined : newRow.id,
+      );
       this.resetForm();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to add quote.';

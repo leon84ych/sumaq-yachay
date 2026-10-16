@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { IndexViewRow, normalizeIndexRows } from '../model/index-view-row';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
+import { PermissionService } from '../../../core/services/permission.service';
 
 export type { IndexViewRow } from '../model/index-view-row';
 
@@ -35,9 +36,13 @@ export class DomainIndexComponent {
   readonly newTheme = signal<string>('');
   readonly newSubtheme = signal<string>('');
   readonly newTag = signal<string>('');
+  readonly editingId = signal<string | null>(null);
 
   private readonly domainDataService = inject(DomainDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
+  readonly permissionService = inject(PermissionService);
+  readonly role = this.permissionService.role;
+  private readonly transloco = inject(TranslocoService);
 
   /**
    * 1. MASTER DOMAIN VALIDATION CAP
@@ -49,16 +54,11 @@ export class DomainIndexComponent {
   });
 
   readonly hierarchy = computed<IndexHierarchyGroup[]>(() => {
-    const sortedRows = normalizeIndexRows(this.rows()).sort(
-      (left, right) =>
-        left.chapter.localeCompare(right.chapter) ||
-        left.theme.localeCompare(right.theme) ||
-        left.subtheme.localeCompare(right.subtheme),
-    );
+    const orderedRows = normalizeIndexRows(this.rows());
 
     const groups = new Map<string, IndexHierarchyGroup>();
 
-    for (const row of sortedRows) {
+    for (const row of orderedRows) {
       let chapterGroup = groups.get(row.chapter);
       if (!chapterGroup) {
         chapterGroup = { chapter: row.chapter, themes: [] };
@@ -84,7 +84,29 @@ export class DomainIndexComponent {
       .filter(Boolean);
   }
 
+  async deleteEntry(id: string): Promise<void> {
+    if (!window.confirm(this.transloco.translate('COMMON.CONFIRM_DELETE'))) {
+      return;
+    }
+
+    try {
+      await this.domainDataService.deleteDomainRow(this.currentSheet().name, id);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to delete index entry.';
+      this.globalErrorService.show(message);
+    }
+  }
+
+  editEntry(row: IndexViewRow): void {
+    this.editingId.set(row.id);
+    this.newChapter.set(row.chapter);
+    this.newTheme.set(row.theme);
+    this.newSubtheme.set(row.subtheme);
+    this.newTag.set(row.tag);
+  }
+
   resetForm(): void {
+    this.editingId.set(null);
     this.newChapter.set('');
     this.newTheme.set('');
     this.newSubtheme.set('');
@@ -101,21 +123,40 @@ export class DomainIndexComponent {
     const theme = this.newTheme().trim();
     const subtheme = this.newSubtheme().trim();
     const tag = this.newTag().trim();
-
-    const newRow: IndexViewRow = {
-      id: `idx_${Date.now()}`, // Added timestamp generator for unique IDs
-      chapter,
-      theme,
-      subtheme,
-      tag,
-      syncStatus: 'pending',
-    };
+    const editingId = this.editingId();
 
     try {
-      await this.domainDataService.updateDomainSheetRows(this.currentSheet().name, [
-        ...this.rows(),
-        newRow,
-      ]);
+      const localRows = editingId
+        ? ((await this.domainDataService.getLocalDomainSheetRows(this.currentSheet().name)) as IndexViewRow[])
+        : this.rows();
+      const existingRows = localRows.length > 0 ? localRows : this.rows();
+      const originalRow = editingId
+        ? existingRows.find((row) => row.id === editingId)
+        : undefined;
+      if (editingId && !originalRow) {
+        throw new Error('The INDEX entry being edited is no longer available.');
+      }
+
+      const newRow: IndexViewRow = {
+        ...(originalRow ?? {}),
+        id: editingId ?? `idx_${Date.now()}`,
+        chapter,
+        theme,
+        subtheme,
+        tag,
+        syncStatus: 'pending',
+      };
+      const updatedRows = editingId
+        ? existingRows.map((row) => (row.id === editingId ? newRow : row))
+        : [...existingRows, newRow];
+
+      await this.domainDataService.updateDomainSheetRows(
+        this.currentSheet().name,
+        updatedRows,
+        true,
+        editingId ?? undefined,
+        editingId ? undefined : newRow.id,
+      );
       this.resetForm();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to add index entry.';

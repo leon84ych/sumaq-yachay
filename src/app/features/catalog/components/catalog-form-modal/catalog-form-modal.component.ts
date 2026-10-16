@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { CatalogItem } from '../../models/catalog-item.model';
+import { PermissionService } from '../../../../core/services/permission.service';
 
 @Component({
   selector: 'app-catalog-form-modal',
@@ -13,6 +14,8 @@ import { CatalogItem } from '../../models/catalog-item.model';
 })
 export class CatalogFormModalComponent {
   private fb = inject(FormBuilder);
+  readonly permissionService = inject(PermissionService);
+  readonly role = this.permissionService.role;
 
   readonly editItem = input<CatalogItem | null>(null);
 
