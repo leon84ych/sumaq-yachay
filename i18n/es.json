@@ -144,9 +144,11 @@
       "WEB_APP_URL_NOT_CONFIGURED": "No está configurada la URL de la aplicación web de Google Apps Script.",
       "AUTHENTICATION_REQUIRED_CREATE": "Se requiere autenticación para crear una hoja.",
       "AUTHENTICATION_REQUIRED_UPDATE": "Se requiere autenticación para actualizar las filas de la hoja.",
+      "AUTHENTICATION_REQUIRED_DELETE": "Se requiere autenticación para eliminar una fila del dominio.",
       "AUTHENTICATION_REQUIRED_READ": "Se requiere autenticación para cargar las filas del dominio.",
       "HTTP_REQUEST_FAILED": "La petición HTTP falló con estado {{status}}.",
       "UPDATE_ROWS_FAILED": "No se pudieron actualizar las filas de la hoja de dominio.",
+      "DELETE_ROW_FAILED": "No se pudo eliminar la fila de la hoja de dominio.",
       "GET_SHEETS_FAILED": "No se pudieron obtener las hojas de dominio."
     }
   },
@@ -358,6 +360,8 @@
     "BACK": "Volver",
     "CLOSE": "Cerrar",
     "DELETE": "Eliminar",
+    "CONFIRM_DELETE": "¿Seguro que deseas eliminar esta entrada? Esta acción no se puede deshacer.",
+    "UPDATE": "Actualizar",
     "EDIT": "Editar",
     "VIEW": "Ver",
     "NO_ENTRIES": "No se encontraron entradas.",
