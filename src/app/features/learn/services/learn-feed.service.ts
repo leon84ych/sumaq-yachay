@@ -36,7 +36,6 @@ export class LearnFeedService {
     const [catalogItems, domainRows] = await Promise.all([
       this.appDbService.db.catalogs.toArray(),
       Promise.all([
-        this.appDbService.db.indexTopics.toArray().then((rows) => ['INDEX', rows] as const),
         this.appDbService.db.concepts.toArray().then((rows) => ['CONCEPTS', rows] as const),
         this.appDbService.db.quotes.toArray().then((rows) => ['QUOTES', rows] as const),
         this.appDbService.db.passages.toArray().then((rows) => ['PASSAGES', rows] as const),
@@ -91,11 +90,6 @@ export class LearnFeedService {
     let note = '';
 
     switch (domain) {
-      case 'INDEX':
-        title = getText('theme') || getText('chapter');
-        body = getText('subtheme');
-        note = getText('chapter');
-        break;
       case 'CONCEPTS':
         title = getText('term');
         body = getText('definition');
