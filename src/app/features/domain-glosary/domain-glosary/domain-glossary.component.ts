@@ -8,6 +8,7 @@ import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { GlossaryEntryCardComponent } from '../components/glossary-entry-card/glossary-entry-card.component';
 
 import type { GlossaryRow, PartOfSpeech } from '../model/domain-glosary-row.model';
 
@@ -23,7 +24,13 @@ const PARTS_OF_SPEECH: PartOfSpeech[] = [
 @Component({
   selector: 'app-domain-glossary',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslocoPipe,
+    TagPickerComponent,
+    GlossaryEntryCardComponent,
+  ],
   templateUrl: './domain-glossary.component.html',
   styleUrls: ['./domain-glossary.component.css'],
 })

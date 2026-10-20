@@ -17,6 +17,7 @@ import { DomainQuestionsService } from '../../domain-questions/services/domain-q
 import { DomainFeatureHandler } from '../../../shared/interfaces/domain-feature-handler.service';
 import { DomainIndexService } from '../../domain-index/services/domain-index.service';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
+import { PermissionService } from '../../../core/services/permission.service';
 
 type DomainTableName =
   | 'indexTopics'
@@ -70,8 +71,22 @@ const DOMAIN_TABLES: Record<string, DomainTableName> = {
 
 const DOMAIN_TABLE_NAMES = Object.values(DOMAIN_TABLES) as DomainTableName[];
 
-function sortByIndex(sheets: DomainSheet[]): DomainSheet[] {
-  return [...sheets].sort((a, b) => a.index - b.index);
+export function sortByIndex(sheets: DomainSheet[]): DomainSheet[] {
+  const hasPopulatedIndex = sheets.some(
+    (sheet) => sheet.name.toUpperCase() === 'INDEX' && sheet.rows.length > 0,
+  );
+
+  return [...sheets].sort((a, b) => {
+    if (hasPopulatedIndex) {
+      const aIsPopulatedIndex = a.name.toUpperCase() === 'INDEX' && a.rows.length > 0;
+      const bIsPopulatedIndex = b.name.toUpperCase() === 'INDEX' && b.rows.length > 0;
+      if (aIsPopulatedIndex !== bIsPopulatedIndex) {
+        return aIsPopulatedIndex ? -1 : 1;
+      }
+    }
+
+    return a.index - b.index;
+  });
 }
 
 @Injectable({
@@ -83,6 +98,7 @@ export class DomainDataService {
   private authService = inject(GoogleAuthService);
   private globalLoadingService = inject(GlobalLoadingService);
   private configService = inject(ConfigService);
+  private permissionService = inject(PermissionService);
 
   private readonly taxonomyService = inject(TaxonomyService);
 
@@ -168,11 +184,18 @@ export class DomainDataService {
   }
 
   canLoadMore(sheetName: string): boolean {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      return false;
+    }
     const state = this.pagination()[this.paginationKey(sheetName)];
     return !state || state.totalPages === null || state.page < state.totalPages;
   }
 
   async loadNextPage(sheetName: string): Promise<void> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      return;
+    }
+
     const row = this.loadedRow;
     const sheet = this.sheets().find((candidate) => candidate.name === sheetName);
     if (row === null || !sheet || !this.canLoadMore(sheetName)) {
@@ -224,12 +247,13 @@ export class DomainDataService {
           ? { ...currentSheet, rows: this.mergeRows(currentSheet.rows, pageRows) }
           : currentSheet,
       );
-      const bookTags = await this.buildBookTags(row, nextSheets);
+      const orderedSheets = sortByIndex(nextSheets);
+      const bookTags = await this.buildBookTags(row, orderedSheets);
       await this.dbService.db.transaction('rw', [table, this.dbService.db.bookTags], async () => {
         await table.bulkPut(persistedRows);
         await this.replaceBookTagsForCatalog(row, bookTags);
       });
-      this.sheets.set(nextSheets);
+      this.sheets.set(orderedSheets);
       this.pagination.update((current) => ({
         ...current,
         [key]: {
@@ -269,7 +293,13 @@ export class DomainDataService {
         this.sheets.set(localSheets);
       }
 
-      if (!this.configService.isLocalFirstEnabled()) {
+      if (this.configService.isLocalSampleDataEnabled()) {
+        this.permissionService.setRole('admin');
+        this.isLoading.set(false);
+        return;
+      }
+
+      if (!this.configService.isLocalSampleDataEnabled()) {
         if (this.authService.idToken()) {
           await this.refreshFromRemote(row);
         } else {
@@ -304,6 +334,25 @@ export class DomainDataService {
     }
 
     const row = this.loadedRow;
+    if (this.configService.isLocalSampleDataEnabled()) {
+      const name = sheetName.trim();
+      const storedSheets = await this.dbService.db.domainSheets.get(row);
+      const customSheets = storedSheets?.customSheets ?? [];
+      if (!name || DOMAIN_TABLES[name.toUpperCase()] || customSheets.some((sheet) => sheet.name === name)) {
+        throw new Error(`A local sheet named "${name}" cannot be created.`);
+      }
+
+      const index = this.sheets().length;
+      const sheet = { row, id: name.toLowerCase(), name, index, rows: [] };
+      await this.dbService.db.domainSheets.put({
+        row,
+        count: index + 1,
+        customSheets: [...customSheets, { name, index, headers: [...headers], rows: [] }],
+      });
+      this.sheets.update((current) => [...current, sheet]);
+      return;
+    }
+
     const operation = this.globalLoadingService.begin();
     this.isLoading.set(true);
     this.errorMessage.set(null);
@@ -350,7 +399,6 @@ export class DomainDataService {
         throw new Error('The active catalog item could not be found.');
       }
 
-      const tableName = this.getDomainTableName(sheetName);
       const normalizedRows = updatedRows.map((record) =>
         this.normalizeRecordTags(record, sheetName),
       );
@@ -370,10 +418,27 @@ export class DomainDataService {
         throw new Error('An update request cannot edit and create a row at the same time.');
       }
       const remoteRows = editedRow ? [editedRow] : createdRow ? [createdRow] : normalizedRows;
+      const localSampleDataEnabled = this.configService.isLocalSampleDataEnabled();
       const rowsWithPendingStatus = normalizedRows.map((record) => ({
         ...record,
-        syncStatus: 'pending',
+        syncStatus: localSampleDataEnabled ? 'synced' : 'pending',
       }));
+
+      if (localSampleDataEnabled && !DOMAIN_TABLES[sheetName.toUpperCase()]) {
+        const storedSheets = await this.dbService.db.domainSheets.get(row);
+        const customSheets = (storedSheets?.customSheets ?? []).map((sheet) =>
+          sheet.name === sheetName ? { ...sheet, rows: rowsWithPendingStatus } : sheet,
+        );
+        await this.dbService.db.domainSheets.put({
+          row,
+          count: storedSheets?.count ?? this.sheets().length,
+          customSheets,
+        });
+        this.updateLocalSheetRowsState(sheetName, rowsWithPendingStatus);
+        return;
+      }
+
+      const tableName = this.getDomainTableName(sheetName);
       const persistedRows = this.preparePersistedRows(tableName, row, rowsWithPendingStatus);
       const table = this.domainTable(tableName);
       const nextSheets = this.sheets().map((sheet) =>
@@ -392,6 +457,10 @@ export class DomainDataService {
       );
       await this.dbService.db.domainSheets.put({ row, count: this.sheets().length || 1 });
       this.updateLocalSheetRowsState(sheetName, rowsWithPendingStatus);
+
+      if (localSampleDataEnabled) {
+        return;
+      }
 
       if (awaitRemoteSync) {
         await this.syncRemoteUpdate(
@@ -463,6 +532,28 @@ export class DomainDataService {
       throw new Error('The active catalog item could not be found.');
     }
 
+    if (this.configService.isLocalSampleDataEnabled() && !DOMAIN_TABLES[normalizedSheetName]) {
+      const storedSheets = await this.dbService.db.domainSheets.get(row);
+      const customSheets = (storedSheets?.customSheets ?? []).map((sheet) =>
+        sheet.name.toUpperCase() === normalizedSheetName
+          ? { ...sheet, rows: sheet.rows.filter((record) => String(record['id']) !== id) }
+          : sheet,
+      );
+      await this.dbService.db.domainSheets.put({
+        row,
+        count: storedSheets?.count ?? this.sheets().length,
+        customSheets,
+      });
+      this.sheets.set(
+        currentSheets.map((sheet) =>
+          sheet.name.toUpperCase() === normalizedSheetName
+            ? { ...sheet, rows: sheet.rows.filter((record) => String(record['id']) !== id) }
+            : sheet,
+        ),
+      );
+      return;
+    }
+
     const tableName = this.getDomainTableName(sheetName);
     const table = this.domainTable(tableName);
     const deletedIndex = targetSheet.rows.indexOf(deletedRow);
@@ -490,7 +581,9 @@ export class DomainDataService {
       if (normalizedSheetName === 'INDEX') {
         await this.taxonomyService.refreshGlobalTaxonomy(row);
       }
-      await firstValueFrom(this.apiService.deleteRow(row, sheetName, id, catalogItem.id));
+      if (!this.configService.isLocalSampleDataEnabled()) {
+        await firstValueFrom(this.apiService.deleteRow(row, sheetName, id, catalogItem.id));
+      }
     } catch (error) {
       if (localDeleteCommitted) {
         try {
@@ -599,6 +692,10 @@ export class DomainDataService {
 
 
   private async refreshFromRemote(row: number, isBackground = false): Promise<void> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      return;
+    }
+
     if (!isBackground) {
       this.isLoading.set(true);
     }
@@ -665,6 +762,33 @@ export class DomainDataService {
         console.error(`[Local-First] Error cargando datos locales para el dominio: ${handler.name}`, error);
       }
     }
+
+    for (const name of ['TIMELINE', 'RELATIONS'] as const) {
+      const tableName = DOMAIN_TABLES[name];
+      const table = this.dbService.db.table(tableName) as Table<PersistedDomainRow, string>;
+      const records = await table.where('row').equals(row).toArray();
+      if (records.length > 0) {
+        localSheets.push({
+          row,
+          id: name.toLowerCase(),
+          name,
+          index: localSheets.length,
+          rows: records.map(({ row: _row, ...record }) => record),
+        });
+      }
+    }
+
+    const storedSheets = await this.dbService.db.domainSheets.get(row);
+    for (const customSheet of storedSheets?.customSheets ?? []) {
+      localSheets.push({
+        row,
+        id: customSheet.name.toLowerCase(),
+        name: customSheet.name,
+        index: customSheet.index,
+        rows: customSheet.rows,
+      });
+    }
+
     return sortByIndex(localSheets);
   }
 
@@ -677,6 +801,10 @@ export class DomainDataService {
     localRowsToSync = updatedRows,
     createdLocalRowId?: string,
   ): Promise<void> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      return;
+    }
+
     try {
       // 1. Send mutations to the remote Backend API
       const response = await firstValueFrom(

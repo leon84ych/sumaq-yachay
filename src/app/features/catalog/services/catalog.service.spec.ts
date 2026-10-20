@@ -15,6 +15,8 @@ describe('CatalogService', () => {
   let catalogsToArray: ReturnType<typeof vi.fn>;
   let bulkPutSpy: ReturnType<typeof vi.fn>;
   let clearAllTablesSpy: ReturnType<typeof vi.fn>;
+  let saveCatalogItemSpy: ReturnType<typeof vi.fn>;
+  let seedLocalSampleDataSpy: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     TestBed.resetTestingModule();
@@ -23,6 +25,8 @@ describe('CatalogService', () => {
     catalogsToArray = vi.fn().mockResolvedValue([]);
     bulkPutSpy = vi.fn().mockResolvedValue(undefined);
     clearAllTablesSpy = vi.fn().mockResolvedValue(undefined);
+    saveCatalogItemSpy = vi.fn();
+    seedLocalSampleDataSpy = vi.fn().mockResolvedValue(undefined);
     getCatalogSpy = vi.fn().mockReturnValue(
       of({
         status: 'error',
@@ -37,6 +41,7 @@ describe('CatalogService', () => {
           provide: AppDbService,
           useValue: {
             clearAllTables: clearAllTablesSpy,
+            seedLocalSampleData: seedLocalSampleDataSpy,
             db: {
               catalogs: {
                 toArray: catalogsToArray,
@@ -49,7 +54,7 @@ describe('CatalogService', () => {
         },
         {
           provide: CatalogApiService,
-          useValue: { getCatalog: getCatalogSpy },
+          useValue: { getCatalog: getCatalogSpy, saveCatalogItem: saveCatalogItemSpy },
         },
         {
           provide: GoogleAuthService,
@@ -125,5 +130,41 @@ describe('CatalogService', () => {
     await Promise.resolve();
 
     expect(getCatalogSpy).toHaveBeenCalled();
+  });
+
+  it('loads local sample data and skips catalog requests when enabled', async () => {
+    const configService = TestBed.inject(ConfigService);
+    configService.setLocalSampleDataEnabled(true);
+    idToken.set('valid-token');
+    const service = TestBed.inject(CatalogService);
+    TestBed.flushEffects();
+
+    await vi.waitFor(() => expect(seedLocalSampleDataSpy).toHaveBeenCalledOnce());
+    await service.syncFromRemote();
+
+    expect(service['permissionService'].role()).toBe('admin');
+    expect(getCatalogSpy).not.toHaveBeenCalled();
+  });
+
+  it('persists catalog changes without POSTing in LocalSampleData mode', async () => {
+    TestBed.inject(ConfigService).setLocalSampleDataEnabled(true);
+    const service = TestBed.inject(CatalogService);
+
+    await service.saveItem(
+      {
+        id: 'local-catalog-entry',
+        subject: 'Knowledge',
+        topic: 'Local',
+        name: 'Local entry',
+        author: 'Local user',
+        active: true,
+        count: 0,
+        row: 0,
+      },
+      false,
+    );
+
+    expect(saveCatalogItemSpy).not.toHaveBeenCalled();
+    expect(service.items()[0]).toMatchObject({ row: 1, syncStatus: 'synced' });
   });
 });

@@ -21,11 +21,18 @@ import type { QuoteRow } from '../model/domain-quote-row.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { QuoteEntryCardComponent } from '../components/quote-entry-card/quote-entry-card.component';
 
 @Component({
   selector: 'app-domain-quote',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslocoPipe,
+    TagPickerComponent,
+    QuoteEntryCardComponent,
+  ],
   templateUrl: './domain-quote.component.html',
   styleUrls: ['./domain-quote.component.css'],
 })
@@ -48,7 +55,6 @@ export class DomainQuoteComponent {
   readonly exportRow = signal<QuoteRow | null>(null);
   readonly isExporting = signal(false);
   readonly searchTerm = signal('');
-  readonly flippedQuoteIndexes = signal<ReadonlySet<number>>(new Set());
   readonly editingId = signal<string | null>(null);
   readonly quoteMaxLength = 600;
   readonly quoteCharactersRemaining = computed(() => this.quoteMaxLength - this.newQuote().length);
@@ -92,17 +98,15 @@ export class DomainQuoteComponent {
 
   readonly filteredRows = computed(() => {
     const query = this.searchTerm().trim().toLocaleLowerCase();
-    return this.rows()
-      .map((row, index) => ({ row, index }))
-      .filter(
-        ({ row }) =>
-          !query ||
-          [row.quote, row.analysis, row.author, row.book, row.page, row.tags].some((value) =>
-            String(value ?? '')
-              .toLocaleLowerCase()
-              .includes(query),
-          ),
-      );
+    return this.rows().filter(
+      (row) =>
+        !query ||
+        [row.quote, row.analysis, row.author, row.book, row.page, row.tags].some((value) =>
+          String(value ?? '')
+            .toLocaleLowerCase()
+            .includes(query),
+        ),
+    );
   });
 
   splitTags(tags: string): string[] {
@@ -161,33 +165,6 @@ export class DomainQuoteComponent {
     this.newPage.set('');
     this.newTags.set('');
     this.closeEntry.emit();
-  }
-
-  isFlipped(index: number): boolean {
-    return this.flippedQuoteIndexes().has(index);
-  }
-
-  toggleCard(row: QuoteRow, index: number): void {
-    if (!row.analysis) {
-      return;
-    }
-
-    this.flippedQuoteIndexes.update((flippedIndexes) => {
-      const nextFlippedIndexes = new Set(flippedIndexes);
-      if (nextFlippedIndexes.has(index)) {
-        nextFlippedIndexes.delete(index);
-      } else {
-        nextFlippedIndexes.add(index);
-      }
-      return nextFlippedIndexes;
-    });
-  }
-
-  onCardKeydown(event: KeyboardEvent, row: QuoteRow, index: number): void {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      this.toggleCard(row, index);
-    }
   }
 
   async downloadImage(event: MouseEvent, row: QuoteRow, side: 'quote' | 'analysis'): Promise<void> {

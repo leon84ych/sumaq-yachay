@@ -6,7 +6,8 @@ import { GlobalErrorService } from '../../../core/services/global-error.service'
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
-import { CharacterNature, CharacterRole, CharacterRow } from '../models/domain-character-row.model'; 
+import { CharacterNature, CharacterRole, CharacterRow } from '../models/domain-character-row.model';
+import { CharacterEntryCardComponent } from '../components/character-entry-card/character-entry-card.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
 
@@ -18,16 +19,18 @@ const CHARACTER_ROLES: CharacterRole[] = [
   'mythical',
 ];
 
-const CHARACTER_NATURES: CharacterNature[] = [
-  'historical',
-  'fictitious',
-  'inspired',
-];
+const CHARACTER_NATURES: CharacterNature[] = ['historical', 'fictitious', 'inspired'];
 
 @Component({
   selector: 'app-domain-character',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslocoPipe,
+    TagPickerComponent,
+    CharacterEntryCardComponent,
+  ],
   templateUrl: './domain-character.component.html',
   styleUrls: ['./domain-character.component.css'],
 })
@@ -176,12 +179,12 @@ export class DomainCharacterComponent {
 
     try {
       const localRows = editingId
-        ? ((await this.domainDataService.getLocalDomainSheetRows(this.currentSheet().name)) as CharacterRow[])
+        ? ((await this.domainDataService.getLocalDomainSheetRows(
+            this.currentSheet().name,
+          )) as CharacterRow[])
         : this.rows();
       const existingRows = localRows.length > 0 ? localRows : this.rows();
-      const originalRow = editingId
-        ? existingRows.find((row) => row.id === editingId)
-        : undefined;
+      const originalRow = editingId ? existingRows.find((row) => row.id === editingId) : undefined;
       if (editingId && !originalRow) {
         throw new Error('The character being edited is no longer available.');
       }

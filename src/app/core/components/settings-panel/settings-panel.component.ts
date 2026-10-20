@@ -7,6 +7,7 @@ import {
     GasTimeoutMs,
 } from '../../services/config.service';
 import { AppDbService } from '../../services/storage/app-db.service';
+import { PermissionService } from '../../services/permission.service';
 
 const THEME_KEY = 'sumaq_yachay_theme';
 const FONT_SCALE_KEY = 'sumaq_yachay_font_scale';
@@ -25,6 +26,7 @@ export class SettingsPanelComponent {
     readonly translocoService = inject(TranslocoService);
     private readonly configService = inject(ConfigService);
     private readonly appDbService = inject(AppDbService);
+    private readonly permissionService = inject(PermissionService);
 
     readonly showSettings = signal(false);
     readonly apiUrlInput = signal(this.configService.getWebAppUrl());
@@ -32,7 +34,7 @@ export class SettingsPanelComponent {
         this.configService.getGasTimeoutMs() as GasTimeoutMs,
     );
     readonly gasTimeoutOptions = GAS_TIMEOUT_OPTIONS;
-    readonly localFirstEnabled = this.configService.localFirstEnabled;
+    readonly localSampleDataEnabled = this.configService.localSampleDataEnabled;
     readonly isClearing = signal(false);
     readonly clearStatus = signal<string | null>(null);
 
@@ -67,8 +69,18 @@ export class SettingsPanelComponent {
         this.showSettings.set(false);
     }
 
-    setLocalFirstEnabled(enabled: boolean): void {
-        this.configService.setLocalFirstEnabled(enabled);
+    setLocalSampleDataEnabled(enabled: boolean): void {
+        if (enabled) {
+            const warning = this.translocoService.translate(
+                'NAV.SETTINGS.LOCAL_SAMPLE_DATA_CONFIRMATION',
+            );
+            if (!window.confirm(warning)) {
+                return;
+            }
+        }
+
+        this.configService.setLocalSampleDataEnabled(enabled);
+        this.permissionService.setRole(enabled ? 'admin' : 'guest');
     }
 
     setTheme(theme: Theme): void {

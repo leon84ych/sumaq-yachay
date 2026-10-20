@@ -1,0 +1,91 @@
+<app-domain-entry-card
+  domain="CONCEPTS"
+  [bookName]="bookName()"
+  [bookAuthor]="bookAuthor()"
+  [title]="row().term"
+  [showContext]="showContext()"
+  [status]="row().syncStatus"
+>
+  <div domain-card-badges class="concept-entry-card__badges">
+    @if (row().category) {
+      <span class="concept-entry-card__category">
+        @if (isNodeCategory(row().category)) {
+          {{ 'DOMAINS.CONCEPTS.CATEGORY_OPTIONS.' + row().category | transloco }}
+        } @else {
+          {{ row().category }}
+        }
+      </span>
+    }
+  </div>
+
+  <div class="concept-entry-card__details">
+    <p class="concept-entry-card__definition">{{ row().definition }}</p>
+    @if (row().source) {
+      <p class="concept-entry-card__source">
+        <strong>{{ 'DOMAINS.CONCEPTS.SOURCE' | transloco }}</strong>
+        {{ row().source }}
+      </p>
+    }
+    @if (row().tags) {
+      <div class="concept-entry-card__tags" [attr.aria-label]="'DOMAINS.CONCEPTS.TAGS' | transloco">
+        @for (tag of splitTags(row().tags); track $index) {
+          <span>{{ tag }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  @if (showActions()) {
+    <footer class="domain-card-footer concept-entry-card__footer">
+      <div class="domain-card-footer__management">
+        @if (permissions.validatePermission(role(), 'DELETE_ROW')) {
+          <button
+            type="button"
+            class="domain-delete-button"
+            [attr.aria-label]="'COMMON.DELETE' | transloco"
+            [title]="'COMMON.DELETE' | transloco"
+            (click)="deleteRequested.emit(row().id)"
+          >
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M4 6h12M8 6V4h4v2m-6 0 .7 10h6.6L14 6M8.5 9v4m3-4v4" />
+            </svg>
+          </button>
+        }
+        @if (permissions.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+          <button
+            type="button"
+            class="domain-edit-button"
+            [attr.aria-label]="'COMMON.EDIT' | transloco"
+            [title]="'COMMON.EDIT' | transloco"
+            (click)="editRequested.emit(row())"
+          >
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="m13.5 4.5 2 2M4 16l3.5-.8 8.7-8.7a1.4 1.4 0 0 0-2-2l-8.7 8.7L4 16Z" />
+            </svg>
+          </button>
+        }
+      </div>
+      <div class="domain-card-footer__actions">
+        <app-concept-quiz-generator
+          [concept]="row()"
+          [sourceDomain]="sourceDomain()"
+          [bookRow]="bookRow()"
+          [bookName]="bookName()"
+        />
+        <button
+          type="button"
+          class="concept-entry-card__relations"
+          (click)="relationsRequested.emit(row())"
+        >
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <circle cx="5" cy="10" r="2" />
+            <circle cx="15" cy="5" r="2" />
+            <circle cx="15" cy="15" r="2" />
+            <path d="m7 9 6-3M7 11l6 3" />
+          </svg>
+          {{ 'DOMAINS.CONCEPTS.VIEW_RELATIONS' | transloco }}
+        </button>
+      </div>
+    </footer>
+  }
+</app-domain-entry-card>

@@ -7,6 +7,7 @@ import { CatalogItem } from '../models/catalog-item.model';
 import { CatalogPostPayload } from '../models/catalog-api.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { GlobalLoadingService } from '../../../core/services/global-loading.service';
+import { PermissionService } from '../../../core/services/permission.service';
 import { mapCatalogItemToRowValues } from './catalog-row-values';
 
 @Injectable({
@@ -18,6 +19,7 @@ export class CatalogService {
   private authService = inject(GoogleAuthService);
   private configService = inject(ConfigService);
   private globalLoadingService = inject(GlobalLoadingService);
+  private permissionService = inject(PermissionService);
 
   // State Signals
   readonly items = signal<CatalogItem[]>([]);
@@ -74,18 +76,44 @@ export class CatalogService {
   });
 
   constructor() {
-    this.init();
-
     effect(() => {
+      const localSampleDataEnabled = this.configService.localSampleDataEnabled();
+      if (localSampleDataEnabled) {
+        this.permissionService.setRole('admin');
+        void this.loadLocalSampleData();
+        return;
+      }
+
       const token = this.authService.idToken();
       if (!token) return;
 
       void this.syncFromRemote();
     });
+
+    if (!this.configService.isLocalSampleDataEnabled()) {
+      void this.init();
+    }
   }
 
   async init(): Promise<void> {
-    await this.loadFromLocal();
+    if (this.configService.isLocalSampleDataEnabled()) {
+      await this.loadLocalSampleData();
+    } else {
+      await this.loadFromLocal();
+    }
+  }
+
+  private async loadLocalSampleData(): Promise<void> {
+    this.isLoading.set(true);
+    try {
+      await this.dbService.seedLocalSampleData();
+      await this.loadFromLocal();
+    } catch (err) {
+      this.errorMessage.set('CATALOG.ERRORS.syncFailed');
+      console.error('Failed to load LocalSampleData:', err);
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 
   /**
@@ -116,6 +144,10 @@ export class CatalogService {
    * HTTP GET: Syncs the catalog from Google Apps Script Web App
    */
   async syncFromRemote(): Promise<void> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      return;
+    }
+
     if (!this.authService.idToken()) {
       this.errorMessage.set('CATALOG.ERRORS.authRequired');
       console.warn('Sync aborted: User is not authenticated with Google.');
@@ -177,11 +209,16 @@ export class CatalogService {
     isEdit: boolean,
     originalId?: string // Pass original ID to handle primary key renames during edits
   ): Promise<void> {
+    const localSampleDataEnabled = this.configService.isLocalSampleDataEnabled();
+    const localRow = localSampleDataEnabled && !itemInput.row
+      ? Math.max(0, ...this.items().map((existing) => existing.row)) + 1
+      : itemInput.row;
     const now = new Date().toISOString();
     const item: CatalogItem = {
       ...itemInput,
+      row: localRow,
       updatedAt: now,
-      syncStatus: 'pending',
+      syncStatus: localSampleDataEnabled ? 'synced' : 'pending',
     };
 
     // Handle key mutation in IndexedDB if the ID changed during an edit
@@ -195,6 +232,11 @@ export class CatalogService {
     // 1. Optimistic local update
     await this.dbService.db.catalogs.put(item);
     this.updateLocalItemInState(item);
+
+    if (localSampleDataEnabled) {
+      this.globalLoadingService.end(operation);
+      return;
+    }
 
     // 2. Prepare POST payload for Apps Script
     const payload: CatalogPostPayload = {

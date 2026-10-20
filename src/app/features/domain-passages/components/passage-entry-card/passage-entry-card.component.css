@@ -1,0 +1,114 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.passage-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.85rem;
+  border: 1px solid var(--quote-card-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  background: var(--quote-card-surface);
+  color: var(--quote-card-text);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.passage-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-lg);
+}
+
+.passage-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.passage-card h4 {
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1.35;
+}
+
+.reading-time {
+  flex: 0 0 auto;
+  border: 1px solid var(--quote-tag-border);
+  border-radius: var(--radius-full);
+  padding: 0.2rem 0.6rem;
+  background: var(--quote-tag-surface);
+  color: var(--quote-tag-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.passage-preview {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text-secondary, var(--text-muted));
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.passage-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.6rem;
+  color: var(--text-secondary, var(--text-muted));
+  font-size: 0.8rem;
+}
+
+.passage-meta strong {
+  color: var(--text);
+}
+
+.passage-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.passage-tag {
+  max-width: 100%;
+  border: 1px solid var(--quote-tag-border);
+  border-radius: var(--radius-full);
+  padding: 0.15rem 0.55rem;
+  background: var(--quote-tag-surface);
+  color: var(--quote-tag-text);
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}
+
+.read-passage-button {
+  align-self: center;
+  margin-top: 0;
+  border: 0;
+  padding: 0.25rem 0;
+  background: transparent;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.read-passage-button:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .passage-card {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,137 @@
+<article class="quote-card-visible-wrapper" [class.is-flipped]="isFlipped()">
+  <div class="quote-card-header">
+    <span class="quote-card-eyebrow">
+      {{ 'NAV.BRAND_NAME' | transloco }} ·
+      @if (isFlipped()) {
+        {{ 'DOMAINS.QUOTE.REFLECTION' | transloco }}
+      } @else {
+        {{ 'DOMAINS.QUOTE.QUOTE' | transloco }}
+      }
+    </span>
+    <span
+      class="status-indicator"
+      [class.synced]="row().syncStatus === 'synced'"
+      [attr.aria-label]="'COMMON.STATUS.' + row().syncStatus | transloco"
+      [attr.title]="'COMMON.STATUS.' + row().syncStatus | transloco"
+      role="img"
+      tabindex="0"
+    >
+      <span class="status-label">{{ 'COMMON.STATUS.' + row().syncStatus | transloco }}</span>
+    </span>
+  </div>
+
+  <div
+    class="quote-card-inner"
+    [class.is-flipped]="isFlipped()"
+    [class.is-flippable]="!!row().analysis"
+    [attr.role]="row().analysis ? 'button' : null"
+    [attr.tabindex]="row().analysis ? 0 : null"
+    [attr.aria-pressed]="row().analysis ? isFlipped() : null"
+    [attr.aria-label]="
+      isFlipped() ? ('COMMON.SHOW_QUOTE' | transloco) : ('COMMON.REVEAL_ANALYSIS' | transloco)
+    "
+    (click)="toggleCard()"
+    (keydown)="onCardKeydown($event)"
+  >
+    <div class="card-face-front">
+      <span class="quote-watermark" aria-hidden="true">“</span>
+      <blockquote>&ldquo;{{ row().quote }}&rdquo;</blockquote>
+      <figcaption class="quote-meta">
+        <strong>{{ contextualBookAuthor() }}</strong>
+        @if (row().page) {
+          <span class="quote-page"
+            >· {{ 'DOMAINS.QUOTE.PAGE_SHORT' | transloco }} {{ row().page }}</span
+          >
+        }
+        <em class="quote-book">{{ contextualBookName() }}</em>
+      </figcaption>
+      @if (row().tags) {
+        <div class="quote-tags" [attr.aria-label]="'DOMAINS.QUOTE.TAGS' | transloco">
+          @for (tag of splitTags(row().tags); track $index) {
+            <span class="quote-tag-chip">{{ tag }}</span>
+          }
+        </div>
+      }
+      @if (row().analysis) {
+        <span class="flip-hint">{{ 'COMMON.REVEAL_ANALYSIS' | transloco }}</span>
+      }
+    </div>
+    @if (row().analysis) {
+      <div class="card-face-back">
+        <span class="quote-watermark" aria-hidden="true">“</span>
+        <p class="analysis">{{ row().analysis }}</p>
+        <footer class="flip-card-footer">
+          <strong>{{ contextualBookAuthor() }}</strong>
+          <span>{{ contextualBookName() }}</span>
+          <span class="flip-hint">{{ 'COMMON.SHOW_QUOTE' | transloco }}</span>
+        </footer>
+      </div>
+    }
+  </div>
+
+  @if (showActions() || showImageExport()) {
+    <footer class="domain-card-footer quote-card-footer">
+      @if (showActions()) {
+        <div class="domain-card-footer__management">
+          @if (permissions.validatePermission(role(), 'DELETE_ROW')) {
+            <button
+              type="button"
+              class="domain-delete-button"
+              [attr.aria-label]="'COMMON.DELETE' | transloco"
+              [title]="'COMMON.DELETE' | transloco"
+              (click)="deleteRequested.emit(row().id)"
+            >
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M4 6h12M8 6V4h4v2m-6 0 .7 10h6.6L14 6M8.5 9v4m3-4v4" />
+              </svg>
+            </button>
+          }
+          @if (permissions.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+            <button
+              type="button"
+              class="domain-edit-button"
+              [attr.aria-label]="'COMMON.EDIT' | transloco"
+              [title]="'COMMON.EDIT' | transloco"
+              (click)="editRequested.emit(row())"
+            >
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="m13.5 4.5 2 2M4 16l3.5-.8 8.7-8.7a1.4 1.4 0 0 0-2-2l-8.7 8.7L4 16Z" />
+              </svg>
+            </button>
+          }
+        </div>
+      }
+      @if (showImageExport()) {
+        <div class="domain-card-footer__actions">
+          @if (isFlipped()) {
+            <button
+              type="button"
+              class="download-image-btn"
+              [disabled]="isExporting()"
+              [attr.aria-label]="'DOMAINS.QUOTE.DOWNLOAD_ANALYSIS_IMAGE' | transloco"
+              [title]="'DOMAINS.QUOTE.DOWNLOAD_ANALYSIS_IMAGE' | transloco"
+              (click)="requestImageExport($event, 'analysis')"
+            >
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
+              </svg>
+            </button>
+          } @else {
+            <button
+              type="button"
+              class="download-image-btn"
+              [disabled]="isExporting()"
+              [attr.aria-label]="'DOMAINS.QUOTE.DOWNLOAD_QUOTE_IMAGE' | transloco"
+              [title]="'DOMAINS.QUOTE.DOWNLOAD_QUOTE_IMAGE' | transloco"
+              (click)="requestImageExport($event, 'quote')"
+            >
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
+              </svg>
+            </button>
+          }
+        </div>
+      }
+    </footer>
+  }
+</article>

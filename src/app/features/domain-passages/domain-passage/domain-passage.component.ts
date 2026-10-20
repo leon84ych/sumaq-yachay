@@ -1,14 +1,13 @@
 import {
   Component,
   computed,
-  DestroyRef,
   effect,
   inject,
   input,
   output,
   signal,
 } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
@@ -18,16 +17,22 @@ import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { PassagesRow } from '../model/domain-passage-row.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { PassageEntryCardComponent } from '../components/passage-entry-card/passage-entry-card.component';
+import { PassageReaderComponent } from '../components/passage-reader/passage-reader.component';
 
 @Component({
   selector: 'app-domain-passage',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslocoPipe,
+    TagPickerComponent,
+    PassageEntryCardComponent,
+    PassageReaderComponent,
+  ],
   templateUrl: './domain-passage.component.html',
   styleUrls: ['./domain-passage.component.css'],
-  host: {
-    '(document:keydown.escape)': 'closeReader()',
-  },
 })
 export class DomainPassageComponent {
   readonly rows = input.required<PassagesRow[]>();
@@ -38,12 +43,6 @@ export class DomainPassageComponent {
   readonly closeEntry = output<void>();
   readonly selectedPassage = signal<PassagesRow | null>(null);
   readonly searchTerm = signal('');
-  readonly readingProgress = signal(0);
-  readonly readerFontSize = signal(1.125);
-  readonly readerFontFamily = signal<'serif' | 'sans'>('serif');
-  readonly readerJustified = signal(false);
-  readonly readerTheme = signal<'light' | 'dark'>('light');
-  readonly copyStatus = signal<'idle' | 'copied' | 'error'>('idle');
 
   readonly newTitle = signal<string>('');
   readonly newPassageText = signal<string>('');
@@ -60,12 +59,9 @@ export class DomainPassageComponent {
   private domainDataService = inject(DomainDataService);
   private globalErrorService = inject(GlobalErrorService);
   private readonly transloco = inject(TranslocoService);
-  private readonly document = inject(DOCUMENT);
-  private readonly destroyRef = inject(DestroyRef);
   private readonly taxonomyService = inject(TaxonomyService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
-  private bodyOverflowBeforeReader: string | null = null;
 
   /**
    * 1. REAL-TIME SIGNAL VALIDATION GUARD
@@ -111,8 +107,6 @@ export class DomainPassageComponent {
   });
 
   constructor() {
-    this.destroyRef.onDestroy(() => this.restoreBodyScroll());
-
     effect(() => {
       if (this.bookName()) {
         this.newBook.set(this.bookName());
@@ -123,11 +117,6 @@ export class DomainPassageComponent {
     });
   }
 
-  estimateReadingMinutes(text: string): number {
-    const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
-    return Math.max(1, Math.ceil(wordCount / 200));
-  }
-
   splitTags(tags: string): string[] {
     return tags
       .split(/[\s,;]+/)
@@ -136,108 +125,11 @@ export class DomainPassageComponent {
   }
 
   openReader(row: PassagesRow): void {
-    if (this.selectedPassage()) {
-      this.closeReader();
-    }
-
-    const body = this.document.body;
-    this.readerTheme.set(
-      this.document.documentElement.dataset['theme'] === 'dark' ? 'dark' : 'light',
-    );
-    if (body) {
-      this.bodyOverflowBeforeReader = body.style.overflow;
-      body.style.overflow = 'hidden';
-    }
-
-    this.readingProgress.set(0);
     this.selectedPassage.set(row);
   }
 
-  adjustReaderFontSize(delta: number): void {
-    this.readerFontSize.update((size) => Math.min(2, Math.max(1, size + delta)));
-  }
-
-  readerFontSizePercent(): number {
-    return Math.round(this.readerFontSize() * 100);
-  }
-
-  setReaderFontFamily(event: Event): void {
-    this.readerFontFamily.set(
-      (event.target as HTMLSelectElement).value === 'sans' ? 'sans' : 'serif',
-    );
-  }
-
-  toggleReaderJustification(): void {
-    this.readerJustified.update((justified) => !justified);
-  }
-
-  toggleReaderTheme(): void {
-    this.readerTheme.update((theme) => (theme === 'dark' ? 'light' : 'dark'));
-  }
-
-  async copyPassageText(): Promise<void> {
-    const text = this.selectedPassage()?.passageText;
-    if (!text) {
-      return;
-    }
-
-    try {
-      const clipboard = this.document.defaultView?.navigator.clipboard;
-      if (clipboard?.writeText) {
-        await clipboard.writeText(text);
-      } else if (!this.copyTextFallback(text)) {
-        throw new Error('Clipboard access is unavailable.');
-      }
-      this.copyStatus.set('copied');
-    } catch {
-      this.copyStatus.set('error');
-    }
-  }
-
-  private copyTextFallback(text: string): boolean {
-    const body = this.document.body;
-    if (!body) {
-      return false;
-    }
-
-    const textarea = this.document.createElement('textarea');
-    textarea.value = text;
-    textarea.setAttribute('readonly', '');
-    textarea.style.position = 'fixed';
-    textarea.style.opacity = '0';
-    body.appendChild(textarea);
-    textarea.select();
-    const copied = this.document.execCommand('copy');
-    textarea.remove();
-    return copied;
-  }
-
   closeReader(): void {
-    if (!this.selectedPassage()) {
-      return;
-    }
-
     this.selectedPassage.set(null);
-    this.readingProgress.set(0);
-    this.restoreBodyScroll();
-  }
-
-  updateReadingProgress(event: Event): void {
-    const container = event.target as HTMLElement;
-    const scrollableDistance = container.scrollHeight - container.clientHeight;
-    const progress = scrollableDistance > 0 ? (container.scrollTop / scrollableDistance) * 100 : 0;
-    this.readingProgress.set(Math.min(100, Math.max(0, progress)));
-  }
-
-  private restoreBodyScroll(): void {
-    if (this.bodyOverflowBeforeReader === null) {
-      return;
-    }
-
-    if (this.document.body) {
-      this.document.body.style.overflow = this.bodyOverflowBeforeReader;
-    }
-    this.bodyOverflowBeforeReader = null;
   }
 
   async deleteEntry(id: string): Promise<void> {

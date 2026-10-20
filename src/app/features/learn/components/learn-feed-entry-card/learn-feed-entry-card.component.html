@@ -1,0 +1,25 @@
+<app-domain-entry-card
+  [domain]="entry().domain"
+  [bookName]="entry().bookName"
+  [bookAuthor]="entry().bookAuthor"
+  [title]="entry().title"
+  [note]="entry().note || ''"
+  [accentColor]="entry().accentColor || null"
+>
+  @if (entry().body) {
+    <p
+      class="learn-body"
+      [class.learn-quotation]="entry().domain === 'QUOTES' || entry().domain === 'PASSAGES'"
+      [style.border-left-color]="entry().accentColor || 'var(--primary)'"
+    >
+      {{ entry().body }}
+    </p>
+  }
+  @if (entry().tags.length > 0) {
+    <ul class="learn-tags" aria-label="Tags">
+      @for (tag of entry().tags; track tag) {
+        <li>{{ tag }}</li>
+      }
+    </ul>
+  }
+</app-domain-entry-card>

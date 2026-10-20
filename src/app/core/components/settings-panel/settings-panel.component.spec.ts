@@ -5,6 +5,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideTransloco } from '@jsverse/transloco';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppDbService } from '../../services/storage/app-db.service';
+import { ConfigService } from '../../services/config.service';
+import { PermissionService } from '../../services/permission.service';
 import { TranslocoHttpLoader } from '../../i18n/transloco-loader';
 import { SettingsPanelComponent } from './settings-panel.component';
 
@@ -59,5 +61,26 @@ describe('SettingsPanelComponent', () => {
 
     panel.setLanguage('en');
     expect(panel.getActiveLang()).toBe('en');
+  });
+
+  it('requires confirmation before enabling LocalSampleData', () => {
+    const confirmSpy = vi.spyOn(window, 'confirm').mockClear().mockReturnValue(false);
+    const fixture = TestBed.createComponent(SettingsPanelComponent);
+
+    fixture.componentInstance.setLocalSampleDataEnabled(true);
+
+    expect(confirmSpy).toHaveBeenCalledOnce();
+    expect(TestBed.inject(ConfigService).isLocalSampleDataEnabled()).toBe(false);
+    expect(TestBed.inject(PermissionService).role()).toBe('guest');
+  });
+
+  it('enables LocalSampleData as an admin after confirmation', () => {
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    const fixture = TestBed.createComponent(SettingsPanelComponent);
+
+    fixture.componentInstance.setLocalSampleDataEnabled(true);
+
+    expect(TestBed.inject(ConfigService).isLocalSampleDataEnabled()).toBe(true);
+    expect(TestBed.inject(PermissionService).role()).toBe('admin');
   });
 });

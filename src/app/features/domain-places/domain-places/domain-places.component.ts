@@ -10,11 +10,19 @@ import { MapPickerComponent } from '../../../core/components/map-picker/map-pick
 import { PlaceRow } from '../model/domain-place-row.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { PlaceEntryCardComponent } from '../components/place-entry-card/place-entry-card.component';
 
 @Component({
     selector: 'app-places',
     standalone: true,
-    imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent, MapPickerComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslocoPipe,
+        TagPickerComponent,
+        MapPickerComponent,
+        PlaceEntryCardComponent,
+    ],
     templateUrl: './domain-places.component.html',
     styleUrls: ['./domain-places.component.css'],
 })

@@ -7,7 +7,7 @@ import { GlobalLoadingService } from '../../../core/services/global-loading.serv
 import { ConfigService } from '../../../core/services/config.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { DomainDataApiService } from './domain-data-api.service';
-import { DomainDataService } from './domain-data.service';
+import { DomainDataService, sortByIndex } from './domain-data.service';
 import { DomainCharacterService } from '../../domain-character/services/domain-character.service';
 import { DomainConceptsService } from '../../domain-concepts/services/domain-concepts.service';
 import { DomainQuotesService } from '../../domain-quotes/services/domain-quotes.service';
@@ -24,6 +24,7 @@ describe('DomainDataService.deleteDomainRow', () => {
   let globalLoadingService: GlobalLoadingService;
   let persistedRows: Record<string, unknown>[];
   let persistedBookTags: Record<string, unknown>[];
+  let localSampleDataEnabled: boolean;
 
   beforeEach(() => {
     persistedRows = [
@@ -31,6 +32,7 @@ describe('DomainDataService.deleteDomainRow', () => {
       { id: 'concept-2', row: 4, tag: '#second', tags: '#second', syncStatus: 'synced' },
     ];
     persistedBookTags = [];
+    localSampleDataEnabled = false;
     deleteRowSpy = vi.fn();
     updateRowsSpy = vi.fn();
     globalLoadingService = new GlobalLoadingService();
@@ -97,7 +99,10 @@ describe('DomainDataService.deleteDomainRow', () => {
         },
         { provide: GoogleAuthService, useValue: {} },
         { provide: GlobalLoadingService, useValue: globalLoadingService },
-        { provide: ConfigService, useValue: {} },
+        {
+          provide: ConfigService,
+          useValue: { isLocalSampleDataEnabled: () => localSampleDataEnabled },
+        },
         { provide: TaxonomyService, useValue: { refreshGlobalTaxonomy: vi.fn() } },
         { provide: DomainCharacterService, useValue: {} },
         {
@@ -244,5 +249,53 @@ describe('DomainDataService.deleteDomainRow', () => {
 
     expect(normalized['tag']).toBe('#single');
     expect(normalized).not.toHaveProperty('tags');
+  });
+
+  it('keeps domain edits local in LocalSampleData mode', async () => {
+    localSampleDataEnabled = true;
+    const editedRow = {
+      id: 'concept-1',
+      term: 'Locally edited concept',
+      tag: '#first',
+      tags: '#first',
+    };
+
+    await service.updateDomainSheetRows(
+      'CONCEPTS',
+      [editedRow, { id: 'concept-2', tag: '#second', tags: '#second', syncStatus: 'synced' }],
+    );
+
+    expect(updateRowsSpy).not.toHaveBeenCalled();
+    expect(persistedRows[0]).toMatchObject({ term: 'Locally edited concept', syncStatus: 'synced' });
+  });
+
+  it('deletes domain rows locally without calling the API in LocalSampleData mode', async () => {
+    localSampleDataEnabled = true;
+
+    await service.deleteDomainRow('CONCEPTS', 'concept-1');
+
+    expect(deleteRowSpy).not.toHaveBeenCalled();
+    expect(service.sheets()[0].rows.map((record) => record['id'])).toEqual(['concept-2']);
+  });
+});
+
+describe('sortByIndex', () => {
+  it('places populated INDEX sheets first while preserving other sheet order', () => {
+    const sorted = sortByIndex([
+      { row: 1, id: 'concepts', name: 'CONCEPTS', index: 0, rows: [{ id: 'concept-1' }] },
+      { row: 1, id: 'index', name: 'INDEX', index: 4, rows: [{ id: 'index-1' }] },
+      { row: 1, id: 'quotes', name: 'QUOTES', index: 2, rows: [{ id: 'quote-1' }] },
+    ]);
+
+    expect(sorted.map((sheet) => sheet.name)).toEqual(['INDEX', 'CONCEPTS', 'QUOTES']);
+  });
+
+  it('does not promote an empty INDEX sheet ahead of populated domains', () => {
+    const sorted = sortByIndex([
+      { row: 1, id: 'concepts', name: 'CONCEPTS', index: 0, rows: [{ id: 'concept-1' }] },
+      { row: 1, id: 'index', name: 'INDEX', index: 4, rows: [] },
+    ]);
+
+    expect(sorted.map((sheet) => sheet.name)).toEqual(['CONCEPTS', 'INDEX']);
   });
 });

@@ -1,0 +1,41 @@
+<article class="domain-entry-card" [style.borderTopColor]="accentColor() || 'var(--accent)'">
+  @if (showContext()) {
+    <div class="domain-entry-card__context">
+      <span class="domain-entry-card__domain">
+        {{ 'DOMAINS.DOMAINS.' + domain() | transloco }}
+      </span>
+      <span class="domain-entry-card__book">
+        {{ bookName() }}
+        @if (bookAuthor()) {
+          <span> · {{ bookAuthor() }}</span>
+        }
+      </span>
+    </div>
+  }
+
+  <header class="domain-entry-card__heading">
+    <h2>{{ title() }}</h2>
+    <div class="domain-entry-card__badges">
+      <ng-content select="[domain-card-badges]" />
+      @if (status()) {
+        <span
+          class="domain-entry-card__status"
+          [class.is-synced]="status() === 'synced'"
+          role="img"
+          [attr.aria-label]="'COMMON.STATUS.' + status() | transloco"
+          [attr.title]="'COMMON.STATUS.' + status() | transloco"
+        >
+          {{ 'COMMON.STATUS.' + status() | transloco }}
+        </span>
+      }
+    </div>
+  </header>
+
+  @if (note()) {
+    <p class="domain-entry-card__note">{{ note() }}</p>
+  }
+
+  <div class="domain-entry-card__content">
+    <ng-content />
+  </div>
+</article>

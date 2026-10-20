@@ -58,17 +58,17 @@
 
         <div class="local-first-row">
           <div>
-            <span class="appearance-label">{{ 'NAV.SETTINGS.LOCAL_FIRST_LABEL' | transloco }}</span>
-            <p class="sample-hint">{{ 'NAV.SETTINGS.LOCAL_FIRST_DESCRIPTION' | transloco }}</p>
+            <span class="appearance-label">{{ 'NAV.SETTINGS.LOCAL_SAMPLE_DATA_LABEL' | transloco }}</span>
+            <p class="sample-hint">{{ 'NAV.SETTINGS.LOCAL_SAMPLE_DATA_DESCRIPTION' | transloco }}</p>
           </div>
           <button
             type="button"
-            class="local-first-switch"
-            [class.active]="localFirstEnabled()"
+            class="local-sample-data-switch"
+            [class.active]="localSampleDataEnabled()"
             role="switch"
-            [attr.aria-label]="'NAV.SETTINGS.LOCAL_FIRST_LABEL' | transloco"
-            [attr.aria-checked]="localFirstEnabled()"
-            (click)="setLocalFirstEnabled(!localFirstEnabled())"
+            [attr.aria-label]="'NAV.SETTINGS.LOCAL_SAMPLE_DATA_LABEL' | transloco"
+            [attr.aria-checked]="localSampleDataEnabled()"
+            (click)="setLocalSampleDataEnabled(!localSampleDataEnabled())"
           >
             <span></span>
           </button>

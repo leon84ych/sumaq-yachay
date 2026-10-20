@@ -44,6 +44,10 @@ export class DomainDataApiService {
    * HTTP GET: Fetches every Domain Data Sheet tab (name + rows) for one Catalog row.
    */
   getDomainSheets(row: number): Observable<GetDomainSheetsResponse> {
+    if (this.config.isLocalSampleDataEnabled()) {
+      return throwError(() => new Error('Remote requests are disabled in LocalSampleData mode.'));
+    }
+
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
       return throwError(
@@ -83,6 +87,10 @@ export class DomainDataApiService {
     page: number,
     pageSize: number,
   ): Observable<PaginatedDomainRowsResponse> {
+    if (this.config.isLocalSampleDataEnabled()) {
+      return throwError(() => new Error('Remote requests are disabled in LocalSampleData mode.'));
+    }
+
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
       return throwError(
@@ -162,6 +170,10 @@ export class DomainDataApiService {
    * HTTP POST: Creates a new user-defined domain sheet with custom headers.
    */
   createSheet(row: number, sheetName: string, headers: string[]): Observable<any> {
+    if (this.config.isLocalSampleDataEnabled()) {
+      return throwError(() => new Error('Remote requests are disabled in LocalSampleData mode.'));
+    }
+
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
       return throwError(
@@ -221,6 +233,10 @@ export class DomainDataApiService {
     catalogItemId: string,
     createRowWithoutId = false,
   ): Observable<any> {
+    if (this.config.isLocalSampleDataEnabled()) {
+      return throwError(() => new Error('Remote requests are disabled in LocalSampleData mode.'));
+    }
+
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
       return throwError(
@@ -302,6 +318,10 @@ export class DomainDataApiService {
     id: string,
     catalogItemId: string,
   ): Observable<unknown> {
+    if (this.config.isLocalSampleDataEnabled()) {
+      return throwError(() => new Error('Remote requests are disabled in LocalSampleData mode.'));
+    }
+
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
       return throwError(

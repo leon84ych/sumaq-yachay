@@ -3,19 +3,19 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ConfigService } from './config.service';
 
-describe('ConfigService local-first mode', () => {
+describe('ConfigService LocalSampleData mode', () => {
   beforeEach(() => {
     localStorage.clear();
   });
 
-  it('enables local-first mode by default and persists explicit changes', () => {
+  it('disables LocalSampleData by default and persists explicit changes', () => {
     const service = new ConfigService();
 
-    expect(service.isLocalFirstEnabled()).toBe(true);
+    expect(service.isLocalSampleDataEnabled()).toBe(false);
 
-    service.setLocalFirstEnabled(false);
+    service.setLocalSampleDataEnabled(true);
 
-    expect(service.isLocalFirstEnabled()).toBe(false);
-    expect(localStorage.getItem('sumaq_yachay_local_first_enabled')).toBe('false');
+    expect(service.isLocalSampleDataEnabled()).toBe(true);
+    expect(localStorage.getItem('sumaq_yachay_local_sample_data_enabled')).toBe('true');
   });
 });

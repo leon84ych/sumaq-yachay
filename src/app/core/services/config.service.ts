@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 
 const WEB_APP_URL_KEY = 'sumaq_yachay_web_app_url';
 const GAS_TIMEOUT_KEY = 'sumaq_yachay_gas_timeout_ms';
-const LOCAL_FIRST_KEY = 'sumaq_yachay_local_first_enabled';
+const LOCAL_SAMPLE_DATA_KEY = 'sumaq_yachay_local_sample_data_enabled';
 const DEFAULT_WEB_APP_URL =
   'https://script.google.com/macros/s/AKfycbyQ541zFbZU4FEbXJM0ppG1cVdX35DGFToUzRBwH_m9OoDASUaHoZgN5KTECqZ7C_zjpg/exec';
 
@@ -16,11 +16,11 @@ export type GasTimeoutMs = (typeof GAS_TIMEOUT_OPTIONS)[number];
 export class ConfigService {
   private urlSignal = signal<string>(this.loadStoredUrl());
   private timeoutSignal = signal<GasTimeoutMs>(this.loadStoredGasTimeout());
-  private localFirstSignal = signal<boolean>(this.loadStoredLocalFirstEnabled());
+  private localSampleDataSignal = signal<boolean>(this.loadStoredLocalSampleDataEnabled());
 
   readonly webAppUrl = this.urlSignal.asReadonly();
   readonly gasRequestTimeoutMs = this.timeoutSignal.asReadonly();
-  readonly localFirstEnabled = this.localFirstSignal.asReadonly();
+  readonly localSampleDataEnabled = this.localSampleDataSignal.asReadonly();
 
   getWebAppUrl(): string {
     return this.urlSignal();
@@ -48,13 +48,13 @@ export class ConfigService {
     localStorage.setItem(GAS_TIMEOUT_KEY, String(safeTimeout));
   }
 
-  isLocalFirstEnabled(): boolean {
-    return this.localFirstSignal();
+  isLocalSampleDataEnabled(): boolean {
+    return this.localSampleDataSignal();
   }
 
-  setLocalFirstEnabled(enabled: boolean): void {
-    this.localFirstSignal.set(enabled);
-    localStorage.setItem(LOCAL_FIRST_KEY, String(enabled));
+  setLocalSampleDataEnabled(enabled: boolean): void {
+    this.localSampleDataSignal.set(enabled);
+    localStorage.setItem(LOCAL_SAMPLE_DATA_KEY, String(enabled));
   }
 
   private loadStoredUrl(): string {
@@ -77,11 +77,11 @@ export class ConfigService {
     return 60000;
   }
 
-  private loadStoredLocalFirstEnabled(): boolean {
+  private loadStoredLocalSampleDataEnabled(): boolean {
     try {
-      return localStorage.getItem(LOCAL_FIRST_KEY) !== 'false';
+      return localStorage.getItem(LOCAL_SAMPLE_DATA_KEY) === 'true';
     } catch {
-      return true;
+      return false;
     }
   }
 }

@@ -8,6 +8,7 @@ import { DomainDataService } from '../../catalog-detail/services/domain-data.ser
 import { IndexViewRow, normalizeIndexRows } from '../model/index-view-row';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { PermissionService } from '../../../core/services/permission.service';
+import { IndexEntryCardComponent } from '../components/index-entry-card/index-entry-card.component';
 
 export type { IndexViewRow } from '../model/index-view-row';
 
@@ -22,7 +23,13 @@ interface IndexHierarchyGroup {
 @Component({
   selector: 'app-domain-index',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslocoPipe,
+    TagPickerComponent,
+    IndexEntryCardComponent,
+  ],
   templateUrl: './domain-index.component.html',
   styleUrls: ['./domain-index.component.css'],
 })
@@ -76,13 +83,6 @@ export class DomainIndexComponent {
 
     return [...groups.values()];
   });
-
-  splitTags(value: string): string[] {
-    return value
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
-  }
 
   async deleteEntry(id: string): Promise<void> {
     if (!window.confirm(this.transloco.translate('COMMON.CONFIRM_DELETE'))) {

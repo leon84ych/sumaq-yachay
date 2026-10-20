@@ -11,10 +11,12 @@ describe('DomainDataApiService.deleteRow', () => {
   let fetchSpy: ReturnType<typeof vi.fn>;
   let getWebAppUrl: ReturnType<typeof vi.fn>;
   let idToken: ReturnType<typeof vi.fn>;
+  let localSampleDataEnabled: boolean;
 
   beforeEach(() => {
     getWebAppUrl = vi.fn(() => 'https://example.com/gas');
     idToken = vi.fn(() => 'auth-token');
+    localSampleDataEnabled = false;
     fetchSpy = vi.fn().mockResolvedValue({
       ok: true,
       json: vi.fn().mockResolvedValue({ status: 'success' }),
@@ -24,7 +26,10 @@ describe('DomainDataApiService.deleteRow', () => {
     TestBed.configureTestingModule({
       providers: [
         DomainDataApiService,
-        { provide: ConfigService, useValue: { getWebAppUrl } },
+        {
+          provide: ConfigService,
+          useValue: { getWebAppUrl, isLocalSampleDataEnabled: () => localSampleDataEnabled },
+        },
         { provide: GoogleAuthService, useValue: { idToken } },
         { provide: TranslocoService, useValue: { translate: (key: string) => key } },
       ],
@@ -143,5 +148,15 @@ describe('DomainDataApiService.deleteRow', () => {
     await firstValueFrom(service.getDomainSheets(3));
 
     expect(permissions.role()).toBe('admin');
+  });
+
+  it('blocks domain HTTP requests in LocalSampleData mode', async () => {
+    localSampleDataEnabled = true;
+    const service = TestBed.inject(DomainDataApiService);
+
+    await expect(
+      firstValueFrom(service.getDomainSheets(3)),
+    ).rejects.toThrow('Remote requests are disabled in LocalSampleData mode.');
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 });

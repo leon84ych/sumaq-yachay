@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomainConceptsComponent } from '../../../domain-concepts/domain-concept/domain-concept/domain-concept.component';
+import { DomainConceptsComponent } from '../../../domain-concepts/domain-concept/domain-concept.component';
 import { DomainQuoteComponent } from '../../../domain-quotes/domain-quote/domain-quote.component';
 import { DomainPassageComponent } from '../../../domain-passages/domain-passage/domain-passage.component';
 import { DomainCharacterComponent } from '../../../domain-character/domain-character/domain-character.component';

@@ -26,6 +26,10 @@ export class CatalogApiService {
    * @param target Defaults to 'CATALOG'. Can pass 'INVENTORY', etc.
    */
   getCatalog(target: string = 'CATALOG'): Observable<GetCatalogResponse> {
+    if (this.config.isLocalSampleDataEnabled()) {
+      return throwError(() => new Error('Remote requests are disabled in LocalSampleData mode.'));
+    }
+
     const webAppUrl = this.config.getWebAppUrl();
     if (!webAppUrl) {
       return throwError(() => new Error('Google Apps Script Web App URL is not configured.'));
@@ -97,6 +101,10 @@ export class CatalogApiService {
   }
 
   saveCatalogItem(payload: CatalogPostPayload): Observable<any> {
+  if (this.config.isLocalSampleDataEnabled()) {
+    return throwError(() => new Error('Remote requests are disabled in LocalSampleData mode.'));
+  }
+
   const webAppUrl = this.config.getWebAppUrl();
   const timeoutMs = this.config.getGasTimeoutMs();
 

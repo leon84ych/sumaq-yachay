@@ -156,97 +156,12 @@
     } @else {
       <div class="glossary-grid">
         @for (row of filteredRows(); track row.id) {
-          <article class="glossary-card">
-            <header class="glossary-card-header">
-              <h4 class="term">{{ row.term }}</h4>
-              @if (row.partOfSpeech) {
-                <span class="pos-badge">
-                  {{ 'DOMAINS.GLOSSARY.POS_OPTIONS.' + row.partOfSpeech | transloco }}
-                </span>
-              }
-              <span
-                class="status-indicator"
-                [class.synced]="row.syncStatus === 'synced'"
-                [attr.aria-label]="'COMMON.STATUS.' + row.syncStatus | transloco"
-                [attr.title]="'COMMON.STATUS.' + row.syncStatus | transloco"
-                role="img"
-                tabindex="0"
-              >
-                <span class="status-label">{{
-                  'COMMON.STATUS.' + row.syncStatus | transloco
-                }}</span>
-              </span>
-            </header>
-
-            <p class="definition">{{ row.definition }}</p>
-
-            @if (row.etymology) {
-              <p class="etymology">
-                <strong>{{ 'DOMAINS.GLOSSARY.ETYMOLOGY' | transloco }}:</strong> {{ row.etymology }}
-              </p>
-            }
-
-            @if (row.synonyms) {
-              <p class="synonyms">
-                <strong>{{ 'DOMAINS.GLOSSARY.SYNONYMS' | transloco }}:</strong> {{ row.synonyms }}
-              </p>
-            }
-
-            @if (row.contextSentence) {
-              <blockquote class="context-sentence">
-                "{{ row.contextSentence }}"
-              </blockquote>
-            }
-
-            @if (row.source || row.page) {
-              <p class="source-info">
-                @if (row.source) {
-                  <span><strong>{{ 'DOMAINS.GLOSSARY.SOURCE' | transloco }}:</strong> {{ row.source }}</span>
-                }
-                @if (row.page) {
-                  <span class="page-badge">pág. {{ row.page }}</span>
-                }
-              </p>
-            }
-
-            @if (row.tags) {
-              <div class="glossary-tags" [attr.aria-label]="'DOMAINS.GLOSSARY.TAGS' | transloco">
-                @for (tag of splitTags(row.tags); track $index) {
-                  <span class="concept-tag">{{ tag }}</span>
-                }
-              </div>
-            }
-            <footer class="domain-card-footer glossary-card-footer">
-              <div class="domain-card-footer__management">
-                @if (permissionService.validatePermission(role(), 'DELETE_ROW')) {
-                <button
-                  type="button"
-                  class="domain-delete-button"
-                  [attr.aria-label]="'COMMON.DELETE' | transloco"
-                  [title]="'COMMON.DELETE' | transloco"
-                  (click)="deleteEntry(row.id)"
-                >
-                  <svg viewBox="0 0 20 20" aria-hidden="true">
-                    <path d="M4 6h12M8 6V4h4v2m-6 0 .7 10h6.6L14 6M8.5 9v4m3-4v4" />
-                  </svg>
-                </button>
-                }
-                @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
-                <button
-                  type="button"
-                  class="domain-edit-button"
-                  [attr.aria-label]="'COMMON.EDIT' | transloco"
-                  [title]="'COMMON.EDIT' | transloco"
-                  (click)="editEntry(row)"
-                >
-                  <svg viewBox="0 0 20 20" aria-hidden="true">
-                    <path d="m13.5 4.5 2 2M4 16l3.5-.8 8.7-8.7a1.4 1.4 0 0 0-2-2l-8.7 8.7L4 16Z" />
-                  </svg>
-                </button>
-                }
-              </div>
-            </footer>
-          </article>
+          <app-glossary-entry-card
+            [row]="row"
+            [bookName]="bookName()"
+            (deleteRequested)="deleteEntry($event)"
+            (editRequested)="editEntry($event)"
+          />
         }
       </div>
     }

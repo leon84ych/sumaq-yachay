@@ -32,6 +32,16 @@
       "error": "Error"
     }
   },
+  "LEARN": {
+    "TITLE": "Learn",
+    "DESCRIPTION": "A randomized reading stream from your local book collection.",
+    "EMPTY_TITLE": "No learning entries found",
+    "EMPTY_DESCRIPTION": "There are no local domain entries to show yet.",
+    "LOAD_MORE": "Load 20 more",
+    "LOADING_MORE": "Loading entries...",
+    "END_OF_FEED": "You have reached the end of this feed.",
+    "ERROR": "Could not load learning entries. Try again."
+  },
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
     "BRAND_TAGLINE": "Beautiful Knowledge",
@@ -51,8 +61,9 @@
       "TIMEOUT_3M": "3 minutes",
       "TIMEOUT_6M": "6 minutes",
       "SAVE": "Save Changes",
-      "LOCAL_FIRST_LABEL": "Local First",
-      "LOCAL_FIRST_DESCRIPTION": "Load IndexedDB data first and refresh GET/POST requests in the background.",
+      "LOCAL_SAMPLE_DATA_LABEL": "Local Sample Data",
+      "LOCAL_SAMPLE_DATA_DESCRIPTION": "Use editable sample data stored only on this device. No requests are sent to the app server.",
+      "LOCAL_SAMPLE_DATA_CONFIRMATION": "Enable Local Sample Data? Sample data and any changes will be stored only on this device. No requests will be sent to the server.",
       "APPEARANCE": "Appearance",
       "THEME_LABEL": "Theme",
       "TEXT_SIZE_LABEL": "Text Size",
