@@ -5,6 +5,16 @@
     "SIGN_IN": "Entrar",
     "SIGN_OUT": "Salir"
   },
+  "LEARN": {
+    "TITLE": "Aprender",
+    "DESCRIPTION": "Un recorrido aleatorio por los libros guardados en este dispositivo.",
+    "EMPTY_TITLE": "No se encontraron entradas para aprender",
+    "EMPTY_DESCRIPTION": "Todavía no hay entradas locales de los dominios disponibles.",
+    "LOAD_MORE": "Cargar 20 más",
+    "LOADING_MORE": "Cargando entradas...",
+    "END_OF_FEED": "Has llegado al final de este recorrido.",
+    "ERROR": "No se pudieron cargar las entradas. Inténtalo de nuevo."
+  },
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
     "BRAND_TAGLINE": "Conocimiento Hermoso",
@@ -24,8 +34,9 @@
       "TIMEOUT_3M": "3 minutos",
       "TIMEOUT_6M": "6 minutos",
       "SAVE": "Guardar Cambios",
-      "LOCAL_FIRST_LABEL": "Local Primero",
-      "LOCAL_FIRST_DESCRIPTION": "Carga primero los datos de IndexedDB y actualiza GET/POST en segundo plano.",
+      "LOCAL_SAMPLE_DATA_LABEL": "Datos de muestra locales",
+      "LOCAL_SAMPLE_DATA_DESCRIPTION": "Usa datos de muestra editables que se guardan solo en este dispositivo. No se envían solicitudes al servidor de la aplicación.",
+      "LOCAL_SAMPLE_DATA_CONFIRMATION": "¿Activar los datos de muestra locales? Los datos de muestra y todos los cambios se guardarán solo en este dispositivo. No se enviarán solicitudes al servidor.",
       "APPEARANCE": "Apariencia",
       "THEME_LABEL": "Tema",
       "TEXT_SIZE_LABEL": "Tamaño de Texto",
