@@ -20,12 +20,6 @@
 
   <div class="concept-entry-card__details">
     <p class="concept-entry-card__definition">{{ row().definition }}</p>
-    @if (row().source) {
-      <p class="concept-entry-card__source">
-        <strong>{{ 'DOMAINS.CONCEPTS.SOURCE' | transloco }}</strong>
-        {{ row().source }}
-      </p>
-    }
     @if (row().tags) {
       <div class="concept-entry-card__tags" [attr.aria-label]="'DOMAINS.CONCEPTS.TAGS' | transloco">
         @for (tag of splitTags(row().tags); track $index) {
@@ -72,19 +66,6 @@
           [bookRow]="bookRow()"
           [bookName]="bookName()"
         />
-        <button
-          type="button"
-          class="concept-entry-card__relations"
-          (click)="relationsRequested.emit(row())"
-        >
-          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <circle cx="5" cy="10" r="2" />
-            <circle cx="15" cy="5" r="2" />
-            <circle cx="15" cy="15" r="2" />
-            <path d="m7 9 6-3M7 11l6 3" />
-          </svg>
-          {{ 'DOMAINS.CONCEPTS.VIEW_RELATIONS' | transloco }}
-        </button>
       </div>
     </footer>
   }

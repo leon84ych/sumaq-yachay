@@ -4,12 +4,8 @@ import { DomainConceptsComponent } from '../../../domain-concepts/domain-concept
 import { DomainQuoteComponent } from '../../../domain-quotes/domain-quote/domain-quote.component';
 import { DomainPassageComponent } from '../../../domain-passages/domain-passage/domain-passage.component';
 import { DomainCharacterComponent } from '../../../domain-character/domain-character/domain-character.component';
-import {
-  DomainGlossaryComponent,
-} from '../../../domain-glosary/domain-glosary/domain-glossary.component';
-import {
-  DomainSheet,
-} from '../../models/domain-sheet.model';
+import { DomainGlossaryComponent } from '../../../domain-glosary/domain-glosary/domain-glossary.component';
+import { DomainSheet } from '../../models/domain-sheet.model';
 import { CharacterRow } from '../../../domain-character/models/domain-character-row.model';
 import { TranslocoPipe } from '@jsverse/transloco';
 import {
@@ -25,6 +21,12 @@ import { ConceptRow } from '../../../domain-concepts/model/domain-concept-row.mo
 import { QuoteRow } from '../../../domain-quotes/model/domain-quote-row.model';
 import { GlossaryRow } from '../../../domain-glosary/model/domain-glosary-row.model';
 import { PassagesRow } from '../../../domain-passages/model/domain-passage-row.model';
+import { BookEvent } from '../../../domain-book-events/model/book-event-row.model';
+import { DomainBookEventsComponent } from '../../../domain-book-events/domain-book-events/domain-book-events.component';
+import { BookRelationCharacter } from '../../../domain-relations-characters/model/book-relation-character.model';
+import { DomainRelationsCharactersComponent } from '../../../domain-relations-characters/domain-relations-characters/domain-relations-characters.component';
+import { BookRelationConcept } from '../../../domain-relations-concepts/model/book-relation-concept.model';
+import { DomainRelationsConceptsComponent } from '../../../domain-relations-concepts/domain-relations-concepts/domain-relations-concepts.component';
 
 @Component({
   selector: 'app-sheet-view-resolver',
@@ -38,6 +40,9 @@ import { PassagesRow } from '../../../domain-passages/model/domain-passage-row.m
     DomainPassageComponent,
     DomainCharacterComponent,
     DomainPlacesComponent,
+    DomainBookEventsComponent,
+    DomainRelationsCharactersComponent,
+    DomainRelationsConceptsComponent,
     DomainGlossaryComponent,
     QuestionsComponent,
   ],
@@ -66,4 +71,11 @@ export class SheetViewResolverComponent {
   readonly indexRows = computed(() => (this.sheet()?.rows ?? []) as unknown as IndexViewRow[]);
   readonly questionRows = computed(() => (this.sheet()?.rows ?? []) as unknown as QuestionRow[]);
   readonly placeRows = computed(() => (this.sheet()?.rows ?? []) as unknown as PlaceRow[]);
+  readonly bookEventRows = computed(() => (this.sheet()?.rows ?? []) as unknown as BookEvent[]);
+  readonly relationRows = computed(
+    () => (this.sheet()?.rows ?? []) as unknown as BookRelationCharacter[],
+  );
+  readonly conceptRelationRows = computed(
+    () => (this.sheet()?.rows ?? []) as unknown as BookRelationConcept[],
+  );
 }

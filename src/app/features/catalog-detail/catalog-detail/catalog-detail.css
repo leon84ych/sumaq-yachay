@@ -25,6 +25,21 @@
   gap: 0.5rem;
 }
 
+.mobile-sheet-selector {
+  display: none;
+}
+
+.mobile-sheet-selector select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.65rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
 .detail-actions .btn-primary {
   white-space: nowrap;
 }
@@ -70,5 +85,11 @@
   .detail-actions {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .mobile-sheet-selector {
+    display: block;
+    flex: 1 1 9rem;
+    min-width: 8rem;
   }
 }

@@ -5,80 +5,80 @@
       "chapter": "Benjy",
       "theme": "Time",
       "subtheme": "Fragmented memory and nonlinear perception",
-      "tag": "#time",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#time"]
     },
     {
       "id": "sample-index-02",
       "chapter": "Benjy",
       "theme": "Memory",
       "subtheme": "Sensory triggers and involuntary recollection",
-      "tag": "#memory",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#memory"]
     },
     {
       "id": "sample-index-03",
       "chapter": "Quentin",
       "theme": "Family",
       "subtheme": "Identity and inherited expectations",
-      "tag": "#family",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#family"]
     },
     {
       "id": "sample-index-04",
       "chapter": "Quentin",
       "theme": "Time",
       "subtheme": "Obsession with time and the past",
-      "tag": "#time",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#time"]
     },
     {
       "id": "sample-index-05",
       "chapter": "Jason",
       "theme": "Resentment",
       "subtheme": "Anger, control, and frustration",
-      "tag": "#resentment",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#resentment"]
     },
     {
       "id": "sample-index-06",
       "chapter": "Jason",
       "theme": "Decline",
       "subtheme": "Family deterioration and personal bitterness",
-      "tag": "#decline",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#decline"]
     },
     {
       "id": "sample-index-07",
       "chapter": "Dilsey",
       "theme": "Endurance",
       "subtheme": "Continuity amid family instability",
-      "tag": "#endurance",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#endurance"]
     },
     {
       "id": "sample-index-08",
       "chapter": "Dilsey",
       "theme": "Community",
       "subtheme": "Family life viewed through social relationships",
-      "tag": "#community",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#community"]
     },
     {
       "id": "sample-index-09",
       "chapter": "Analytical Overview",
       "theme": "Perspective",
       "subtheme": "Multiple narrators and subjective experience",
-      "tag": "#perspective",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#perspective"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Analytical Overview",
       "theme": "Modernism",
       "subtheme": "Fragmentation and experimental narrative form",
-      "tag": "#modernism",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#modernism"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "A narrative structure in which events are presented outside straightforward chronological order.",
       "category": "Narrative technique",
       "source": "Study context for The Sound and the Fury",
-      "tag": "#nonlinear-chronology",
-      "tags": ["#time", "#structure"],
+      "tags": ["#time", "#structure", "#nonlinear-chronology"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "A narrative technique that attempts to represent the shifting movement of thoughts, memories, sensations, and associations.",
       "category": "Narrative technique",
       "source": "Study context for The Sound and the Fury",
-      "tag": "#stream-of-consciousness",
-      "tags": ["#modernism", "#consciousness"],
+      "tags": ["#modernism", "#consciousness", "#stream-of-consciousness"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "The experience of time as shaped by memory, perception, emotion, and individual consciousness rather than chronology alone.",
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
-      "tag": "#subjective-time",
-      "tags": ["#time", "#memory"],
+      "tags": ["#time", "#memory", "#subjective-time"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "The presentation of narrative information through discontinuous memories, perspectives, scenes, or shifts in time.",
       "category": "Narrative structure",
       "source": "Study context for The Sound and the Fury",
-      "tag": "#fragmentation",
-      "tags": ["#modernism", "#structure"],
+      "tags": ["#modernism", "#structure", "#fragmentation"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "The deterioration of a family's cohesion, status, relationships, and shared sense of identity.",
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
-      "tag": "#family-decline",
-      "tags": ["#family", "#decline"],
+      "tags": ["#family", "#decline", "#family-decline"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "The persistence of earlier experiences within present consciousness, often disrupting chronological narration.",
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
-      "tag": "#memory",
-      "tags": ["#past", "#consciousness"],
+      "tags": ["#past", "#consciousness", "#memory"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "A narrative approach in which different viewpoints reshape the reader's understanding of characters and events.",
       "category": "Narrative technique",
       "source": "Study context for The Sound and the Fury",
-      "tag": "#multiple-perspective",
-      "tags": ["#narrator", "#interpretation"],
+      "tags": ["#narrator", "#interpretation", "#multiple-perspective"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "A broad artistic movement associated with experimentation in form, perspective, chronology, and representation of consciousness.",
       "category": "Literary movement",
       "source": "Study context for The Sound and the Fury",
-      "tag": "#modernism",
-      "tags": ["#literature", "#experimentation"],
+      "tags": ["#literature", "#experimentation", "#modernism"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "The understanding of self as shaped by memory, family relationships, personal values, and social circumstances.",
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
-      "tag": "#identity",
-      "tags": ["#self", "#family"],
+      "tags": ["#self", "#family", "#identity"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "The capacity to continue through instability, loss, conflict, and changing circumstances.",
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
-      "tag": "#endurance",
-      "tags": ["#dilsey", "#family"],
+      "tags": ["#dilsey", "#family", "#endurance"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "chronology",
       "definition": "The arrangement of events according to their order in time.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek roots associated with time and study.",
       "synonyms": ["sequence", "timeline"],
       "contextSentence": "Reconstructing the chronology can help clarify a deliberately fragmented narrative.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "fragmentation",
       "definition": "The division of narrative experience into discontinuous pieces or perspectives.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin fragmentum, meaning a broken piece.",
       "synonyms": ["discontinuity", "division"],
       "contextSentence": "Fragmentation requires the reader to connect memories and events across shifts in perspective.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "perspective",
       "definition": "The position or viewpoint through which events and experiences are perceived.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin perspicere, meaning to look through or inspect.",
       "synonyms": ["viewpoint", "point of view"],
       "contextSentence": "A change in perspective can transform the meaning of an event already encountered.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "recollection",
       "definition": "The act of remembering a past experience or event.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin recollectus, associated with gathering again.",
       "synonyms": ["memory", "remembrance"],
       "contextSentence": "A sensory impression may suddenly trigger a recollection from years earlier.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "interiority",
       "definition": "The internal world of thought, perception, memory, and emotion.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin interior, meaning inner.",
       "synonyms": ["inner life", "subjectivity"],
       "contextSentence": "The narrative emphasizes interiority rather than relying only on external description.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "subjectivity",
       "definition": "The quality of experience as shaped by an individual's perceptions, emotions, and judgments.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from subject and ultimately from Latin subjectus.",
       "synonyms": ["individual perspective", "personal viewpoint"],
       "contextSentence": "Subjectivity makes each account incomplete but valuable to the larger narrative.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "decadence",
       "definition": "A process or condition of deterioration from an earlier state.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From French decadence and Latin roots associated with falling down.",
       "synonyms": ["decline", "deterioration"],
       "contextSentence": "The family's difficulties can be studied through the broader theme of decline.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "motif",
       "definition": "A recurring image, idea, object, or pattern that contributes to a literary work's themes.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From French motif, associated with a recurring idea or design.",
       "synonyms": ["pattern", "recurring element"],
       "contextSentence": "Tracking a motif across narrators may reveal connections that chronology obscures.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "disorientation",
       "definition": "A state of uncertainty about position, sequence, meaning, or context.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Formed from the prefix dis- and orientation.",
       "synonyms": ["confusion", "uncertainty"],
       "contextSentence": "Initial disorientation can become an intentional part of reading a fragmented narrative.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "endurance",
       "definition": "The ability to persist through hardship, instability, or prolonged difficulty.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Old French endurer, meaning to withstand.",
       "synonyms": ["persistence", "resilience"],
       "contextSentence": "Endurance provides a useful contrast to the deterioration surrounding the family.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-002-sample-character-01",
+      "secondaryCharacterIds": ["book-002-sample-character-02", "book-002-sample-character-03"],
+      "placeId": "book-002-sample-place-01",
+      "dateLabel": "Benjy",
+      "eventOrder": 1,
+      "event": "Study event 1: Benjy / Time",
+      "description": "Study synthesis for “Benjy”: the index highlights Time (Fragmented memory and nonlinear perception). The description of Benjy Compson (“A member of the Compson family whose fragmented perceptions and memories form the novel's opening narrative perspective.”) is considered here alongside Nonlinear chronology (“A narrative structure in which events are presented outside straightforward chronological order.”). Jefferson and the passage “Memory Without Warning” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#D17B49",
+      "book": "The Sound and the Fury",
+      "author": "William Faulkner",
+      "page": "",
+      "tags": ["#time", "#benjy", "#memory", "#perception", "#nonlinear-chronology", "#structure", "#jefferson", "#mississippi", "#setting"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-002-sample-character-03",
+      "secondaryCharacterIds": ["book-002-sample-character-04", "book-002-sample-character-05"],
+      "placeId": "book-002-sample-place-02",
+      "dateLabel": "Benjy",
+      "eventOrder": 2,
+      "event": "Study event 2: Benjy / Memory",
+      "description": "Study synthesis for “Benjy”: the index highlights Memory (Sensory triggers and involuntary recollection). The description of Jason Compson IV (“A Compson sibling whose narrative perspective is characterized by resentment, self-interest, anger, and a desire for control.”) is considered here alongside Subjective time (“The experience of time as shaped by memory, perception, emotion, and individual consciousness rather than chronology alone.”). Yoknapatawpha County and the passage “Broken Clock” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#C49A3A",
+      "book": "The Sound and the Fury",
+      "author": "William Faulkner",
+      "page": "",
+      "tags": ["#memory", "#jason", "#resentment", "#control", "#subjective-time", "#time", "#yoknapatawpha", "#region", "#faulkner"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-002-sample-character-05",
+      "secondaryCharacterIds": ["book-002-sample-character-06", "book-002-sample-character-07"],
+      "placeId": "book-002-sample-place-03",
+      "dateLabel": "Quentin",
+      "eventOrder": 3,
+      "event": "Study event 3: Quentin / Family",
+      "description": "Study synthesis for “Quentin”: the index highlights Family (Identity and inherited expectations). The description of Dilsey Gibson (“A member of the Gibson family whose presence provides an important perspective on endurance, responsibility, and the Compson household.”) is considered here alongside Family decline (“The deterioration of a family's cohesion, status, relationships, and shared sense of identity.”). Compson Property and the passage “Family Rooms” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#A44A3F",
+      "book": "The Sound and the Fury",
+      "author": "William Faulkner",
+      "page": "",
+      "tags": ["#family", "#dilsey", "#endurance", "#family-decline", "#decline", "#compson", "#home"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-002-sample-character-07",
+      "secondaryCharacterIds": ["book-002-sample-character-08", "book-002-sample-character-09"],
+      "placeId": "book-002-sample-place-04",
+      "dateLabel": "Quentin",
+      "eventOrder": 4,
+      "event": "Study event 4: Quentin / Time",
+      "description": "Study synthesis for “Quentin”: the index highlights Time (Obsession with time and the past). The description of Jason Compson III (“The father of Benjy, Quentin, Caddy, and Jason, whose ideas and presence contribute to the family's intellectual and emotional environment.”) is considered here alongside Multiple perspective (“A narrative approach in which different viewpoints reshape the reader's understanding of characters and events.”). Harvard University and the passage “Different Truths” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#5C4D7D",
+      "book": "The Sound and the Fury",
+      "author": "William Faulkner",
+      "page": "",
+      "tags": ["#time", "#father", "#compson", "#family", "#multiple-perspective", "#narrator", "#interpretation", "#harvard", "#quentin", "#university"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-002-sample-character-01",
+      "targetCharacterId": "book-002-sample-character-02",
+      "relationType": "thematic comparison",
+      "directed": false,
+      "description": "This reading association links Benjy Compson (A member of the Compson family whose fragmented perceptions and memories form the novel's opening narrative perspective.) with Quentin Compson (A Compson sibling whose perspective is deeply concerned with family, memory, morality, identity, and time.). The theme “Time” and subtheme “Fragmented memory and nonlinear perception” guide the comparison; the passage “Memory Without Warning” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#D17B49",
+      "book": "The Sound and the Fury",
+      "author": "William Faulkner",
+      "page": "",
+      "tags": ["#benjy", "#memory", "#perception", "#quentin", "#time", "#family"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-002-sample-character-03",
+      "targetCharacterId": "book-002-sample-character-04",
+      "relationType": "contrasting perspective",
+      "directed": false,
+      "description": "This reading association links Jason Compson IV (A Compson sibling whose narrative perspective is characterized by resentment, self-interest, anger, and a desire for control.) with Candace Compson (Known as Caddy, she is a central member of the Compson family whose relationships strongly influence the memories and concerns of her brothers.). The theme “Memory” and subtheme “Sensory triggers and involuntary recollection” guide the comparison; the passage “Broken Clock” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#C49A3A",
+      "book": "The Sound and the Fury",
+      "author": "William Faulkner",
+      "page": "",
+      "tags": ["#jason", "#resentment", "#control", "#caddy", "#family", "#memory"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-002-sample-character-05",
+      "targetCharacterId": "book-002-sample-character-06",
+      "relationType": "shared narrative context",
+      "directed": false,
+      "description": "This reading association links Dilsey Gibson (A member of the Gibson family whose presence provides an important perspective on endurance, responsibility, and the Compson household.) with Caroline Compson (The mother of the Compson children and an important presence within the troubled family structure.). The theme “Family” and subtheme “Identity and inherited expectations” guide the comparison; the passage “Family Rooms” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#A44A3F",
+      "book": "The Sound and the Fury",
+      "author": "William Faulkner",
+      "page": "",
+      "tags": ["#dilsey", "#endurance", "#family", "#caroline", "#compson"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-002-sample-character-07",
+      "targetCharacterId": "book-002-sample-character-08",
+      "relationType": "interpretive pairing",
+      "directed": false,
+      "description": "This reading association links Jason Compson III (The father of Benjy, Quentin, Caddy, and Jason, whose ideas and presence contribute to the family's intellectual and emotional environment.) with Miss Quentin (Caddy's daughter, whose conflicts with Jason become part of the later Compson family story.). The theme “Time” and subtheme “Obsession with time and the past” guide the comparison; the passage “Different Truths” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#5C4D7D",
+      "book": "The Sound and the Fury",
+      "author": "William Faulkner",
+      "page": "",
+      "tags": ["#father", "#compson", "#family", "#miss-quentin", "#conflict", "#time"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-002-sample-concept-01",
+      "targetConceptId": "book-002-sample-concept-02",
+      "relationType": "provides context for",
+      "directed": true,
+      "description": "The definition of “Nonlinear chronology” (“A narrative structure in which events are presented outside straightforward chronological order.”) can be read in relation to “Stream of consciousness” (“A narrative technique that attempts to represent the shifting movement of thoughts, memories, sensations, and associations.”). The theme Time and subtheme Fragmented memory and nonlinear perception, together with the passage “Memory Without Warning”, place this conceptual connection in the book’s reading context.",
+      "color": "#735D78",
+      "book": "The Sound and the Fury",
+      "author": "William Faulkner",
+      "page": "",
+      "tags": ["#nonlinear-chronology", "#time", "#structure", "#stream-of-consciousness", "#modernism", "#consciousness"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-002-sample-concept-03",
+      "targetConceptId": "book-002-sample-concept-04",
+      "relationType": "offers a lens on",
+      "directed": false,
+      "description": "The definition of “Subjective time” (“The experience of time as shaped by memory, perception, emotion, and individual consciousness rather than chronology alone.”) can be read in relation to “Fragmentation” (“The presentation of narrative information through discontinuous memories, perspectives, scenes, or shifts in time.”). The theme Memory and subtheme Sensory triggers and involuntary recollection, together with the passage “Broken Clock”, place this conceptual connection in the book’s reading context.",
+      "color": "#2F6690",
+      "book": "The Sound and the Fury",
+      "author": "William Faulkner",
+      "page": "",
+      "tags": ["#subjective-time", "#time", "#memory", "#fragmentation", "#modernism", "#structure"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-002-sample-concept-05",
+      "targetConceptId": "book-002-sample-concept-06",
+      "relationType": "contrasts with",
+      "directed": false,
+      "description": "The definition of “Family decline” (“The deterioration of a family's cohesion, status, relationships, and shared sense of identity.”) can be read in relation to “Memory” (“The persistence of earlier experiences within present consciousness, often disrupting chronological narration.”). The theme Family and subtheme Identity and inherited expectations, together with the passage “Family Rooms”, place this conceptual connection in the book’s reading context.",
+      "color": "#A44A3F",
+      "book": "The Sound and the Fury",
+      "author": "William Faulkner",
+      "page": "",
+      "tags": ["#family-decline", "#family", "#decline", "#memory", "#past", "#consciousness"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-002-sample-concept-07",
+      "targetConceptId": "book-002-sample-concept-08",
+      "relationType": "complements",
+      "directed": true,
+      "description": "The definition of “Multiple perspective” (“A narrative approach in which different viewpoints reshape the reader's understanding of characters and events.”) can be read in relation to “Modernism” (“A broad artistic movement associated with experimentation in form, perspective, chronology, and representation of consciousness.”). The theme Time and subtheme Obsession with time and the past, together with the passage “Different Truths”, place this conceptual connection in the book’s reading context.",
+      "color": "#5C4D7D",
+      "book": "The Sound and the Fury",
+      "author": "William Faulkner",
+      "page": "",
+      "tags": ["#multiple-perspective", "#narrator", "#interpretation", "#modernism", "#literature", "#experimentation", "#time"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

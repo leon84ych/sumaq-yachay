@@ -1,0 +1,50 @@
+@if (showContext() || status()) {
+  <header
+    class="domain-entry-header"
+    [class.domain-entry-header--compact]="compact()"
+    [class.domain-entry-header--status-only]="!showContext()"
+  >
+    @if (showContext()) {
+      <span class="domain-entry-header__domain">
+        @if (useProjectedLabel()) {
+          <ng-content select="[domain-entry-header-label]" />
+        } @else {
+          {{ 'DOMAINS.DOMAINS.' + domain() | transloco }}
+        }
+      </span>
+      <div class="domain-entry-header__source">
+        <span class="domain-entry-header__book">
+          {{ bookName() }}
+          @if (bookAuthor()) {
+            <span> · {{ bookAuthor() }}</span>
+          }
+        </span>
+        @if (status()) {
+          <span
+            class="status-indicator"
+            [class.synced]="status() === 'synced'"
+            [class.error]="status() === 'error'"
+            role="img"
+            tabindex="0"
+            [attr.aria-label]="'COMMON.STATUS.' + status() | transloco"
+            [attr.title]="'COMMON.STATUS.' + status() | transloco"
+          >
+            <span class="status-label">{{ 'COMMON.STATUS.' + status() | transloco }}</span>
+          </span>
+        }
+      </div>
+    } @else if (status()) {
+      <span
+        class="status-indicator"
+        [class.synced]="status() === 'synced'"
+        [class.error]="status() === 'error'"
+        role="img"
+        tabindex="0"
+        [attr.aria-label]="'COMMON.STATUS.' + status() | transloco"
+        [attr.title]="'COMMON.STATUS.' + status() | transloco"
+      >
+        <span class="status-label">{{ 'COMMON.STATUS.' + status() | transloco }}</span>
+      </span>
+    }
+  </header>
+}

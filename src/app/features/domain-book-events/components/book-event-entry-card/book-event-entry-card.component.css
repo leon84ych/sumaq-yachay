@@ -1,0 +1,51 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.book-event-entry-card__meta,
+.book-event-entry-card__participants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.book-event-entry-card__participants {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.book-event-entry-card__participants p,
+.book-event-entry-card__description {
+  margin: 0;
+}
+
+.book-event-entry-card__participants strong {
+  color: var(--text);
+}
+
+.book-event-entry-card__description {
+  color: var(--text);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.book-event-entry-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.book-event-entry-card__tags span {
+  max-width: 100%;
+  border: 1px solid var(--quote-tag-border);
+  border-radius: var(--radius-full);
+  padding: 0.15rem 0.55rem;
+  background: var(--quote-tag-surface);
+  color: var(--quote-tag-text);
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}

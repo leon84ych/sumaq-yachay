@@ -36,7 +36,7 @@ export interface PaginatedDomainRowsResponse {
 
 export interface DomainSheetRow extends Record<string, unknown> {
   id: string; // Row ID within the sheet
-  tags?: string; // Comma-separated list of tags associated with the row
+  tags?: string[]; // Canonical hashtags, e.g. ['#tag1', '#tag2']
   feed: number; // Feed priority 0 none, 1 low, 2 medium, 3 high, 4 very high, 5 highest associated with the row
   contributor: string; // User who contributed the row
   syncStatus: 'synced' | 'pending' | 'error';

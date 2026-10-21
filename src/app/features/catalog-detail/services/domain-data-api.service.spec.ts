@@ -89,7 +89,7 @@ describe('DomainDataApiService.deleteRow', () => {
       }),
     } as unknown as Response);
     const service = TestBed.inject(DomainDataApiService);
-    const newRow = { id: 'temporary-local-id', term: 'New term', tag: '#valid' };
+    const newRow = { id: 'temporary-local-id', term: 'New term', tags: ['#valid'] };
 
     const response = await firstValueFrom(
       service.updateRows(3, 'CONCEPTS', [newRow], 'catalog-item-3', true),
@@ -103,7 +103,7 @@ describe('DomainDataApiService.deleteRow', () => {
         row: 3,
         id: 'catalog-item-3',
         sheetName: 'CONCEPTS',
-        rows: [{ term: 'New term', tag: '#valid' }],
+        rows: [{ term: 'New term', tags: ['#valid'] }],
         idToken: 'auth-token',
       }),
     });

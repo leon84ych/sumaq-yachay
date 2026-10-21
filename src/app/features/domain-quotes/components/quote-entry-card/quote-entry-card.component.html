@@ -1,6 +1,15 @@
 <article class="quote-card-visible-wrapper" [class.is-flipped]="isFlipped()">
-  <div class="quote-card-header">
-    <span class="quote-card-eyebrow">
+  <app-domain-entry-header
+    class="quote-card-header"
+    domain="QUOTES"
+    [bookName]="contextualBookName()"
+    [bookAuthor]="contextualBookAuthor()"
+    [status]="row().syncStatus"
+    [showContext]="true"
+    [compact]="true"
+    [useProjectedLabel]="true"
+  >
+    <span domain-entry-header-label class="quote-card-eyebrow">
       {{ 'NAV.BRAND_NAME' | transloco }} ·
       @if (isFlipped()) {
         {{ 'DOMAINS.QUOTE.REFLECTION' | transloco }}
@@ -8,17 +17,7 @@
         {{ 'DOMAINS.QUOTE.QUOTE' | transloco }}
       }
     </span>
-    <span
-      class="status-indicator"
-      [class.synced]="row().syncStatus === 'synced'"
-      [attr.aria-label]="'COMMON.STATUS.' + row().syncStatus | transloco"
-      [attr.title]="'COMMON.STATUS.' + row().syncStatus | transloco"
-      role="img"
-      tabindex="0"
-    >
-      <span class="status-label">{{ 'COMMON.STATUS.' + row().syncStatus | transloco }}</span>
-    </span>
-  </div>
+  </app-domain-entry-header>
 
   <div
     class="quote-card-inner"
@@ -36,15 +35,13 @@
     <div class="card-face-front">
       <span class="quote-watermark" aria-hidden="true">“</span>
       <blockquote>&ldquo;{{ row().quote }}&rdquo;</blockquote>
-      <figcaption class="quote-meta">
-        <strong>{{ contextualBookAuthor() }}</strong>
-        @if (row().page) {
+      @if (row().page) {
+        <figcaption class="quote-meta">
           <span class="quote-page"
             >· {{ 'DOMAINS.QUOTE.PAGE_SHORT' | transloco }} {{ row().page }}</span
           >
-        }
-        <em class="quote-book">{{ contextualBookName() }}</em>
-      </figcaption>
+        </figcaption>
+      }
       @if (row().tags) {
         <div class="quote-tags" [attr.aria-label]="'DOMAINS.QUOTE.TAGS' | transloco">
           @for (tag of splitTags(row().tags); track $index) {
@@ -61,8 +58,6 @@
         <span class="quote-watermark" aria-hidden="true">“</span>
         <p class="analysis">{{ row().analysis }}</p>
         <footer class="flip-card-footer">
-          <strong>{{ contextualBookAuthor() }}</strong>
-          <span>{{ contextualBookName() }}</span>
           <span class="flip-hint">{{ 'COMMON.SHOW_QUOTE' | transloco }}</span>
         </footer>
       </div>

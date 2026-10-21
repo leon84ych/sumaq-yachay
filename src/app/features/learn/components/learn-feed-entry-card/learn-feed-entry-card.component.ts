@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { DomainEntryCardComponent } from '../../../../shared/domain-entry-card/domain-entry-card.component';
 import { LearnFeedEntry } from '../../services/learn-feed.service';
 
@@ -10,4 +10,8 @@ import { LearnFeedEntry } from '../../services/learn-feed.service';
 })
 export class LearnFeedEntryCardComponent {
   readonly entry = input.required<LearnFeedEntry>();
+  readonly syncStatus = computed(() => {
+    const status = this.entry().sourceRow['syncStatus'];
+    return typeof status === 'string' ? status : null;
+  });
 }

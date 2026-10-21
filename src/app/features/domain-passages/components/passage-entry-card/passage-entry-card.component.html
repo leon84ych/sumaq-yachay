@@ -1,4 +1,12 @@
 <article class="passage-card">
+  <app-domain-entry-header
+    domain="PASSAGES"
+    [bookName]="contextualBookName()"
+    [bookAuthor]="contextualBookAuthor()"
+    [status]="row().syncStatus"
+    [showContext]="showContext()"
+  />
+
   <header class="passage-card-header">
     <h4>{{ row().title }}</h4>
     <span class="reading-time">
@@ -7,28 +15,12 @@
           | transloco: { minutes: estimateReadingMinutes(row().passageText) }
       }}
     </span>
-    <span
-      class="status-indicator"
-      [class.synced]="row().syncStatus === 'synced'"
-      [attr.aria-label]="'COMMON.STATUS.' + row().syncStatus | transloco"
-      [attr.title]="'COMMON.STATUS.' + row().syncStatus | transloco"
-      role="img"
-      tabindex="0"
-    >
-      <span class="status-label">{{ 'COMMON.STATUS.' + row().syncStatus | transloco }}</span>
-    </span>
   </header>
 
   <p class="passage-preview">{{ row().passageText }}</p>
 
-  @if (showContext()) {
-    <div class="passage-meta">
-      <strong>{{ contextualBookAuthor() }}</strong>
-      <span>{{ contextualBookName() }}</span>
-      @if (row().page) {
-        <span>p. {{ row().page }}</span>
-      }
-    </div>
+  @if (showContext() && row().page) {
+    <p class="passage-meta">p. {{ row().page }}</p>
   }
 
   @if (row().tags) {

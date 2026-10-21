@@ -1,28 +1,14 @@
 <article class="place-card" [style.border-left-color]="row().color || 'var(--primary)'">
-  @if (showContext() && (bookName() || bookAuthor())) {
-    <div class="place-context">
-      <span>{{ 'DOMAINS.DOMAINS.PLACES' | transloco }}</span>
-      <span>
-        {{ bookName() }}
-        @if (bookAuthor()) {
-          <span> · {{ bookAuthor() }}</span>
-        }
-      </span>
-    </div>
-  }
+  <app-domain-entry-header
+    domain="PLACES"
+    [bookName]="bookName()"
+    [bookAuthor]="bookAuthor()"
+    [status]="row().syncStatus"
+    [showContext]="showContext()"
+  />
 
   <header class="place-header">
     <h4>{{ row().name }}</h4>
-    <span
-      class="status-indicator"
-      [class.synced]="row().syncStatus === 'synced'"
-      [attr.aria-label]="'COMMON.STATUS.' + row().syncStatus | transloco"
-      [attr.title]="'COMMON.STATUS.' + row().syncStatus | transloco"
-      role="img"
-      tabindex="0"
-    >
-      <span class="status-label">{{ 'COMMON.STATUS.' + row().syncStatus | transloco }}</span>
-    </span>
   </header>
 
   <div class="place-meta">
@@ -37,14 +23,10 @@
     <p class="place-desc">{{ row().description }}</p>
   }
 
-  @if (row().source) {
-    <small class="place-source">📚 {{ row().source }}</small>
-  }
-
   @if (row().tags) {
     <div class="tags-container" [attr.aria-label]="'DOMAINS.PLACES.TAGS' | transloco">
       @for (tag of splitTags(row().tags); track tag) {
-        <span class="concept-tag">#{{ tag }}</span>
+        <span class="concept-tag">{{ tag }}</span>
       }
     </div>
   }

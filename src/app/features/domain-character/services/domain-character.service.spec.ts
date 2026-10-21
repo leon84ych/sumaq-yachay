@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
 import jasmineCore from 'jasmine-core';
-import { AppDbService, Character } from '../../../core/services/storage/app-db.service';
+import { AppDbService } from '../../../core/services/storage/app-db.service';
+import { CharacterRecord } from '../models/domain-character-row.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { DomainCharacterService } from './domain-character.service';
 
@@ -9,7 +10,7 @@ const jasmine = jasmineCore.jasmine;
 
 describe('DomainCharacterService', () => {
   let mockTaxonomyService: jasmine.SpyObj<TaxonomyService>;
-  let persistedCharacters: Character[];
+  let persistedCharacters: CharacterRecord[];
 
   beforeEach(() => {
     persistedCharacters = [];
@@ -60,7 +61,7 @@ describe('DomainCharacterService', () => {
     const character: Character & Record<string, unknown> = {
       id: 'character-1',
       row: 2,
-      tag: '#identity',
+      tags: ['#identity'],
       name: 'Sample character',
       role: 'protagonist',
       color: '#77C0AD',

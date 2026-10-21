@@ -10,6 +10,7 @@ import { ConceptEntryCardComponent } from '../components/concept-entry-card/conc
 import { ConceptRow } from '../model/domain-concept-row.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 
 const NODE_CATEGORIES = [
   'theory-model',
@@ -37,9 +38,9 @@ export class DomainConceptsComponent {
   readonly rows = input.required<ConceptRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
   readonly bookName = input<string>('');
+  readonly bookAuthor = input<string>('');
   readonly isAddingEntry = input<boolean>(false);
   readonly closeEntry = output<void>();
-  readonly relationsRequested = output<ConceptRow>();
 
   readonly nodeCategories = NODE_CATEGORIES;
   readonly newTerm = signal<string>('');
@@ -47,7 +48,7 @@ export class DomainConceptsComponent {
   readonly newCategory = signal<string>('');
   readonly customCategory = signal<string>('');
   readonly newSource = signal<string>('');
-  readonly newTags = signal<string>('');
+  readonly newTags = signal<string[]>([]);
   readonly searchTerm = signal<string>('');
   readonly editingId = signal<string | null>(null);
   readonly source = computed(() => this.newSource().trim() || this.bookName().trim());
@@ -94,21 +95,14 @@ export class DomainConceptsComponent {
     }
 
     return this.rows().filter((row) =>
-      [row.term, row.category ?? '', row.tags ?? ''].some((value) =>
+      [row.term, row.category ?? '', ...(row.tags ?? [])].some((value) =>
         value.toLocaleLowerCase().includes(query),
       ),
     );
   });
 
-  splitTags(tags: string): string[] {
-    return tags
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
-  }
-
-  viewRelations(row: ConceptRow): void {
-    this.relationsRequested.emit(row);
+  splitTags(tags: string[]): string[] {
+    return parseTags(tags);
   }
 
   async deleteEntry(id: string): Promise<void> {
@@ -135,7 +129,7 @@ export class DomainConceptsComponent {
     this.newCategory.set(isBuiltInCategory ? category : category ? 'other' : '');
     this.customCategory.set(isBuiltInCategory ? '' : category);
     this.newSource.set(row.source ?? '');
-    this.newTags.set(row.tags ?? '');
+    this.newTags.set(row.tags ?? []);
   }
 
   resetForm(): void {
@@ -145,7 +139,7 @@ export class DomainConceptsComponent {
     this.newCategory.set('');
     this.customCategory.set('');
     this.newSource.set('');
-    this.newTags.set('');
+    this.newTags.set([]);
     this.closeEntry.emit();
   }
 
@@ -160,7 +154,7 @@ export class DomainConceptsComponent {
     const selectedCategory = this.newCategory();
     const category = selectedCategory === 'other' ? this.customCategory().trim() : selectedCategory;
     const source = this.source();
-    const tags = this.splitTags(this.newTags()).join(' ');
+    const tags = serializeTags(this.newTags());
     const editingId = this.editingId();
 
     try {

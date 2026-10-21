@@ -2,6 +2,7 @@ import { Component, inject, input, output } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { DomainEntryCardComponent } from '../../../../shared/domain-entry-card/domain-entry-card.component';
+import { parseTags } from '../../../../shared/utils/tag-utils';
 import { ConceptQuizGeneratorComponent } from '../../concept-quiz/concept-quiz.component';
 import { ConceptRow } from '../../model/domain-concept-row.model';
 
@@ -32,7 +33,6 @@ export class ConceptEntryCardComponent {
   readonly showContext = input(false);
   readonly deleteRequested = output<string>();
   readonly editRequested = output<ConceptRow>();
-  readonly relationsRequested = output<ConceptRow>();
   readonly role = this.permissionService.role;
   readonly permissions = this.permissionService;
 
@@ -40,10 +40,7 @@ export class ConceptEntryCardComponent {
     return NODE_CATEGORIES.includes(category as (typeof NODE_CATEGORIES)[number]);
   }
 
-  splitTags(tags: string | undefined): string[] {
-    return (tags ?? '')
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(tags: string[] | undefined): string[] {
+    return parseTags(tags);
   }
 }

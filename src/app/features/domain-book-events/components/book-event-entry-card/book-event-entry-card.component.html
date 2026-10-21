@@ -1,0 +1,87 @@
+<app-domain-entry-card
+  domain="BOOK_EVENTS"
+  [title]="row().event"
+  [bookName]="bookName() || row().book"
+  [bookAuthor]="bookAuthor() || row().author"
+  [status]="row().syncStatus"
+  [accentColor]="row().color"
+  [showContext]="showContext()"
+>
+  <div class="book-event-entry-card__meta">
+    @if (row().dateLabel) {
+      <span>{{ row().dateLabel }}</span>
+    } @else if (row().dateTimeStart) {
+      <span>{{ row().dateTimeStart | date: 'medium' }}</span>
+    } @else {
+      <span>{{ 'DOMAINS.BOOK_EVENTS.EVENT_ORDER' | transloco }} {{ row().eventOrder }}</span>
+    }
+    @if (row().dateTimeEnd) {
+      <span>– {{ row().dateTimeEnd | date: 'medium' }}</span>
+    }
+    @if (row().page) {
+      <span>{{ 'DOMAINS.BOOK_EVENTS.PAGE' | transloco }} {{ row().page }}</span>
+    }
+  </div>
+
+  <div class="book-event-entry-card__participants">
+    <p>
+      <strong>{{ 'DOMAINS.BOOK_EVENTS.MAIN_CHARACTER' | transloco }}:</strong>
+      {{ mainCharacterName() || row().mainCharacterId }}
+    </p>
+    @if (secondaryCharacterNames().length > 0) {
+      <p>
+        <strong>{{ 'DOMAINS.BOOK_EVENTS.SECONDARY_CHARACTERS' | transloco }}:</strong>
+        {{ secondaryCharacterNames().join(', ') }}
+      </p>
+    }
+    @if (placeName()) {
+      <p>
+        <strong>{{ 'DOMAINS.BOOK_EVENTS.PLACE' | transloco }}:</strong>
+        {{ placeName() }}
+      </p>
+    }
+  </div>
+
+  <p class="book-event-entry-card__description">{{ row().description }}</p>
+
+  @if (splitTags(row().tags).length > 0) {
+    <div class="book-event-entry-card__tags" [attr.aria-label]="'DOMAINS.BOOK_EVENTS.TAGS' | transloco">
+      @for (tag of splitTags(row().tags); track $index) {
+        <span>{{ tag }}</span>
+      }
+    </div>
+  }
+
+  @if (showActions()) {
+    <footer class="domain-card-footer">
+      <div class="domain-card-footer__management">
+        @if (permissions.validatePermission(role(), 'DELETE_ROW')) {
+          <button
+            type="button"
+            class="domain-delete-button"
+            [attr.aria-label]="'COMMON.DELETE' | transloco"
+            [title]="'COMMON.DELETE' | transloco"
+            (click)="deleteRequested.emit(row().id)"
+          >
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M4 6h12M8 6V4h4v2m-6 0 .7 10h6.6L14 6M8.5 9v4m3-4v4" />
+            </svg>
+          </button>
+        }
+        @if (permissions.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+          <button
+            type="button"
+            class="domain-edit-button"
+            [attr.aria-label]="'COMMON.EDIT' | transloco"
+            [title]="'COMMON.EDIT' | transloco"
+            (click)="editRequested.emit(row())"
+          >
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="m13.5 4.5 2 2M4 16l3.5-.8 8.7-8.7a1.4 1.4 0 0 0-2-2l-8.7 8.7L4 16Z" />
+            </svg>
+          </button>
+        }
+      </div>
+    </footer>
+  }
+</app-domain-entry-card>

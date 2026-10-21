@@ -72,3 +72,9 @@
 .cancel-btn:hover {
   color: #ef4444;
 }
+
+@media (max-width: 640px) {
+  .sheet-tabs-container {
+    display: none;
+  }
+}

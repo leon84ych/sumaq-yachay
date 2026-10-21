@@ -1,11 +1,13 @@
 import { Component, inject, input, output } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../core/services/permission.service';
+import { DomainEntryHeaderComponent } from '../../../../shared/domain-entry-header/domain-entry-header.component';
+import { parseTags } from '../../../../shared/utils/tag-utils';
 import { IndexViewRow } from '../../model/index-view-row';
 
 @Component({
   selector: 'app-index-entry-card',
-  imports: [TranslocoPipe],
+  imports: [TranslocoPipe, DomainEntryHeaderComponent],
   templateUrl: './index-entry-card.component.html',
   styleUrl: './index-entry-card.component.css',
 })
@@ -23,10 +25,7 @@ export class IndexEntryCardComponent {
   readonly role = this.permissionService.role;
   readonly permissions = this.permissionService;
 
-  splitTags(value: string): string[] {
-    return value
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(value: string[]): string[] {
+    return parseTags(value);
   }
 }

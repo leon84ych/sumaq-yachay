@@ -8,17 +8,18 @@ import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 import { GlossaryEntryCardComponent } from '../components/glossary-entry-card/glossary-entry-card.component';
 
 import type { GlossaryRow, PartOfSpeech } from '../model/domain-glosary-row.model';
 
 const PARTS_OF_SPEECH: PartOfSpeech[] = [
-  'Sustantivo',
-  'Adjetivo',
-  'Verbo',
-  'Adverbio',
-  'Locución',
-  'Otro',
+  'Noun',
+  'Adjective',
+  'Verb',
+  'Adverb',
+  'Phrase',
+  'Other',
 ];
 
 @Component({
@@ -38,6 +39,7 @@ export class DomainGlossaryComponent {
   readonly rows = input.required<GlossaryRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
   readonly bookName = input<string>('');
+  readonly bookAuthor = input<string>('');
   readonly isAddingEntry = input<boolean>(false);
   readonly closeEntry = output<void>();
 
@@ -50,7 +52,7 @@ export class DomainGlossaryComponent {
   readonly newContextSentence = signal<string>('');
   readonly newSource = signal<string>('');
   readonly newPage = signal<string>('');
-  readonly newTags = signal<string>('');
+  readonly newTags = signal<string[]>([]);
   readonly searchTerm = signal<string>('');
   readonly editingId = signal<string | null>(null);
 
@@ -105,16 +107,13 @@ export class DomainGlossaryComponent {
         row.contextSentence ?? '',
         row.source ?? '',
         row.page ?? '',
-        row.tags ?? '',
+        ...(row.tags ?? []),
       ].some((val) => String(val ?? '').toLocaleLowerCase().includes(query)),
     );
   });
 
-  splitTags(tags: string): string[] {
-    return tags
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(tags: string[]): string[] {
+    return parseTags(tags);
   }
 
   async deleteEntry(id: string): Promise<void> {
@@ -140,7 +139,7 @@ export class DomainGlossaryComponent {
     this.newContextSentence.set(row.contextSentence ?? '');
     this.newSource.set(row.source ?? '');
     this.newPage.set(row.page ?? '');
-    this.newTags.set(row.tags ?? '');
+    this.newTags.set(row.tags ?? []);
   }
 
   resetForm(): void {
@@ -153,7 +152,7 @@ export class DomainGlossaryComponent {
     this.newContextSentence.set('');
     this.newSource.set('');
     this.newPage.set('');
-    this.newTags.set('');
+    this.newTags.set([]);
     this.closeEntry.emit();
   }
 
@@ -171,7 +170,7 @@ export class DomainGlossaryComponent {
     const contextSentence = this.newContextSentence().trim();
     const source = this.source();
     const page = this.newPage().trim();
-    const tags = this.splitTags(this.newTags()).join(' ');
+    const tags = serializeTags(this.newTags());
     const editingId = this.editingId();
 
     try {

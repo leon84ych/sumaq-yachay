@@ -15,7 +15,7 @@ import { ConceptRow } from '../model/domain-concept-row.model';
       [sourceRowId]="concept().id"
       [bookRow]="bookRow()"
       [bookName]="bookName()"
-      [tags]="concept().tags ?? ''"
+      [tags]="concept().tags ?? []"
     />
   `,
 })

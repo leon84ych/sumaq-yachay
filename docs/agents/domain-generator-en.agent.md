@@ -1,14 +1,17 @@
 ```text
-# 🤖 Agent Spec: Domain View Generator (domain-generator.agent.md)
+# 🤖 Agent Spec: Domain View Generator (domain-generator-en.agent.md)
 
 Act as an expert Frontend Developer Agent specializing in Angular (Signals, Standalone Components, Reactive Forms/UI), Dexie.js (IndexedDB), Transloco (i18n), and CSS Design Systems.
 
-Your sole objective is to receive a JSON specification of an academic/literary domain and generate the 4 domain files (3 component files and 1 model file) for the SumaqYachay application:
+Your sole objective is to receive a JSON specification of an academic/literary domain and generate seven domain files: the domain view, a reusable entry card, and the domain row model.
 
-1. src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.ts
-2. src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.html
-3. src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.css (Minimal, delegating shared layout/structure to global CSS classes)
-4. src/app/features/domain-[xxx]/model/domain-[xxx]-row.model.ts (the domain's own model)
+1. `src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.ts`
+2. `src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.html`
+3. `src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.css` (minimal; delegate shared layout to existing global styles)
+4. `src/app/features/domain-[xxx]/model/domain-[xxx]-row.model.ts`
+5. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.ts`
+6. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.html`
+7. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.css`
 
 ---
 
@@ -19,7 +22,7 @@ Your sole objective is to receive a JSON specification of an academic/literary d
 
    export interface DomainSheetRow extends Record<string, unknown> {
      id: string;
-     tags?: string;
+    tags?: string[];
      feed: number; // Priority (0: None, 1: Low, 2: Medium, 3: High, 4: Very High, 5: Maximum)
      contributor: string;
      syncStatus: 'synced' | 'pending' | 'error';
@@ -48,23 +51,29 @@ Your sole objective is to receive a JSON specification of an academic/literary d
 
 3. **"Zero-Latency" Strategy & Persistence Lifecycle:**
   - **Step 0 (Local ID):** Assign a temporary local `id` before saving, using `` `[domain]_${Date.now()}` ``. Do not include this temporary row ID in a create request: GAS assigns the canonical row ID and returns it; reconcile the returned ID into IndexedDB and the local signal state. On edits, preserve and send the existing row ID. Never request an ID in the form.
-  - **Step 1 (Local Tags):** Normalize tags and rebuild the sheet's aggregate `bookTags` in the same local transaction before the remote request. INDEX rows contain `tag` only; never write `tags` on INDEX.
+  - **Step 1 (Local Tags):** Keep tags as a canonical `string[]` of hashtags throughout forms, rows, IndexedDB, and remote payloads. Rebuild the sheet's aggregate `bookTags` in the same local transaction before the remote request. Every domain, including INDEX, uses only the plural `tags` property; never emit a singular `tag` row property.
   - **Step 2 (Optimistic Local Save):** Save the complete sheet in IndexedDB and local state, marking local rows `syncStatus: 'pending'`.
   - **Step 3 (Awaited Synchronization):** Generated form submits await GAS. On success, reconcile a server-assigned ID for creates and mark the local full sheet `synced`. On failure, keep the form open, show the global error, and leave local rows marked `error`.
 
 4. **Angular Integration & Modern Control Flow:**
-   - Standalone Components with imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent].
+  - The domain view and entry card are standalone components. The view imports its form dependencies and entry-card component; the card imports the shared card/header components it uses.
    - Reactivity management with Signals: input.required(), signal(), computed(), output().
    - Modern template control flow: @if, @else, @for (item of filteredRows(); track item.id).
+  - For translated `select` options, store the stable translation key as the option value and render its localized label with Transloco. Do not store the translated display label (for example, store `Noun`, display `DOMAINS.GLOSSARY.POS_OPTIONS.Noun`).
 
 5. **Folder structure, naming and models (mandatory):**
-   - `[xxx]` is the lowercase domain name (e.g. `places`). Every domain lives in its own `domain-[xxx]` folder with TWO subfolders:
+  - `[xxx]` is the lowercase domain name (e.g. `places`). Every domain lives in its own `domain-[xxx]` folder with a main view, a `components/` folder for its entry card, and a `model/` folder:
 
          src/app/features/domain-[xxx]/
          ├── domain-[xxx]/                      # main component
          │   ├── domain-[xxx].component.ts
          │   ├── domain-[xxx].component.html
          │   └── domain-[xxx].component.css
+         ├── components/
+         │   └── domain-[xxx]-entry-card/
+         │       ├── domain-[xxx]-entry-card.component.ts
+         │       ├── domain-[xxx]-entry-card.component.html
+         │       └── domain-[xxx]-entry-card.component.css
          └── model/
              └── domain-[xxx]-row.model.ts      # domain model
 
@@ -87,27 +96,33 @@ Your sole objective is to receive a JSON specification of an academic/literary d
    - Cards and grids may have domain-specific styles, but must rely on global variables and avoid duplicating shared components. Use .empty-state for empty states and existing chip patterns (.concept-tag, .quote-tag-chip, etc.) for tags.
 
 3. **Synchronization Indicator (Mandatory):**
-   - Each card/entry MUST display the row.syncStatus state using the .status-indicator pattern from index-view.component and character.component: a 6px dot, amber (var(--warning)) if unsynced, and green (var(--success)) if syncStatus === 'synced'.
-   - Location: top right end of the card header (or row if no header exists).
-   - Accessibility: role="img", tabindex="0", aria-label, and title with 'COMMON.STATUS.' + row.syncStatus | transloco, along with a visible .status-label on hover/focus.
-   - Styles for .status-indicator and .status-label are already global (src/app/shared/styles/domain-entry-form.css): DO NOT copy them into the component's CSS; only adjust positioning if required by the header.
+  - Every domain entry card MUST render sync state through `<app-domain-entry-header>` or `<app-domain-entry-card>` with its `status` input. Never duplicate status markup or status styles in a domain template.
+  - `DomainEntryHeaderComponent` owns the domain label, book name, author, and sync indicator. The global `.status-indicator` and `.status-label` styles in `src/app/shared/styles/domain-entry-form.css` provide the accessible tooltip and 6px dot: synced is green (`var(--success)`), pending is amber (`var(--warning)`), and error is red (`var(--error)`). Do not redefine these styles locally.
    - Do not use the status indicator color for other purposes: any domain-specific color (e.g., a character's color) must be rendered using a different visual feature, such as a bottom border on the header, to avoid confusion with sync status.
 
-4. **INDEX Taxonomy Validation (Mandatory for tag-using domains):**
+4. **Shared Domain Entry Header and Reusable Card (Mandatory):**
+  - Separate the domain view (form, filtering, persistence) from per-row presentation. The view loops over filtered rows and renders `<app-domain-[xxx]-entry-card>` with `row`, `bookName`, `bookAuthor`, and `showContext="true"`; it handles edit/delete outputs and keeps persistence in the view.
+  - The entry-card component is the only place for that domain's row presentation. It MUST use `<app-domain-entry-header>` directly or wrap its content in `<app-domain-entry-card>`; both consume the shared `DomainEntryHeaderComponent`. Do not rebuild the domain/book/author/status row in domain-local markup.
+  - The shared header renders the translated domain label at left and book plus author with the sync dot at right, including responsive wrapping and accessible status text. Keep domain-specific title, body, badges, and tags in the entry card.
+  - Entry-card inputs should include required `row`, optional `bookName` and `bookAuthor`, `showContext` (default false for reuse), and `showActions` (default true). Emit `editRequested` with the row and `deleteRequested` with its ID; add outputs only for existing domain actions.
+  - Add `bookAuthor` as an input to each domain view and pass both book metadata values from the sheet resolver through the view to every card. Catalog cards must enable `showContext`; do not suppress the shared header while viewing a book.
+  - A card with a dynamic eyebrow (such as a quote/reflection flip card) may project its label into the shared header, but book/author and status still belong in that header.
+
+5. **INDEX Taxonomy Validation (Mandatory for tag-using domains):**
   - Inject `TaxonomyService` from `../../../core/services/taxonomy/taxonomy.service` into the component.
-  - Compute `invalidTagsDetected` from `splitTags(newTags())`, retaining each token for which `taxonomyService.isTagAllowed(token)` is false. This must remain reactive as the user edits tags.
+  - Compute `invalidTagsDetected` from the `string[]` in `newTags()`, retaining each token for which `taxonomyService.isTagAllowed(token)` is false. This must remain reactive as the user edits tags.
   - Include `invalidTagsDetected().length > 0` in `isFormInvalid()` alongside required-field checks. Bind the save button to `[disabled]="isFormInvalid()"`; combine with a saving guard when present: `[disabled]="isFormInvalid() || isSaving()"`. Enforce the same validation in the save method.
   - Immediately below `<app-tag-picker>`, render an `@if` alert and an `@for` list of rejected tokens. Use `DOMAINS.TAG_VALIDATION.REJECTED_PREFIX` and `DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX` Transloco keys around the bold literal `INDEX` sheet name. Do not hardcode the sentence or put HTML in translation values.
   - Define `.tag-validation-error` and `.tag-validation-error__badge` in the shared `src/app/shared/styles/domain-entry-form.css`, using `var(--error)` and `var(--error-light)`. Do not use inline styles, fixed colors, Bootstrap color utilities, or domain-local copies. Keep the alert readable in light and dark themes.
   - Add both `DOMAINS.TAG_VALIDATION.REJECTED_PREFIX` and `DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX` to `public/i18n/en.json` and `public/i18n/es.json`.
   - **INDEX is the taxonomy source of truth:** do not validate INDEX definitions against the whitelist or show the rejected-tag alert in INDEX. After its database transaction and bulk write complete, call `await taxonomyService.refreshGlobalTaxonomy(row)`.
 
-5. **Role-Based Actions and Card Footers:**
+6. **Role-Based Actions and Card Footers:**
   - Inject the shared `PermissionService` into components whose templates contain write actions, and expose `readonly permissionService` plus `readonly role = this.permissionService.role` to the template. The role comes from backend API responses; it defaults to `guest`. Never infer it from the email or client token.
   - Use `@if (permissionService.validatePermission(role(), 'OPERATION'))` around each action. Use `UPDATE_SHEET_ROWS` for domain create/edit submits and edit icons, `DELETE_ROW` for domain delete icons, `CREATE_SHEET` for adding a domain sheet, `CREATE_CATALOG_ITEM` for catalog creation, `UPDATE_CATALOG_ITEM` for catalog edits/toggles, and `DELETE_CATALOG_ITEM` for catalog deletion. Keep read/view controls available according to their GET operation permissions.
   - The shared operation map grants reads (`GET_CATALOG`, `GET_SHEETS_NAMES`, `GET_PAGINATED_ROWS`, `GET_CATALOG_HEALTH`) to `guest`, `user`, and `admin`; write operations are admin-only. Unknown roles/operations must be denied by default. UI guards supplement, but never replace, backend authorization.
   - For every domain card except INDEX, use the globally styled `domain-card-footer`. Place a `domain-card-footer__management` group on the left in this order: delete, edit. Place existing card actions in `domain-card-footer__actions` on the right. The edit/delete buttons use the shared `.domain-edit-button` and `.domain-delete-button` icon styles and transloco `aria-label`/`title` values. Do not move other actions into the management group.
-  - INDEX keeps its compact row layout, but edit/delete still use the same role guards. Do not add duplicate `tags` to INDEX records: INDEX stores and renders only the singular `tag` field. Preserve the incoming sheet row order; do not alphabetically reorder its hierarchy.
+  - INDEX keeps its compact row layout, but edit/delete still use the same role guards. INDEX stores and renders the same `tags: string[]` property as every other domain. Preserve the incoming sheet row order; do not alphabetically reorder its hierarchy.
 
 ---
 
@@ -128,7 +143,7 @@ The user will provide a JSON definition of the domain to build. It supports the 
 
 ### 💻 4. OUTPUT CODE TEMPLATE AND STRUCTURE
 
-Based on the provided JSON definition, the Agent must strictly respond with the following 4 completed files:
+Based on the provided JSON definition, the Agent must strictly respond with the following 7 completed files:
 
 #### File A: domain-[xxx].component.ts
 
@@ -142,12 +157,13 @@ import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { Domain[xxx]EntryCardComponent } from '../components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component';
 import { [InterfaceName]Row } from '../model/domain-[xxx]-row.model';
 
 @Component({
   selector: 'app-domain-[xxx]',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
+  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent, Domain[xxx]EntryCardComponent],
   templateUrl: './domain-[xxx].component.html',
   styleUrls: ['./domain-[xxx].component.css'],
 })
@@ -155,6 +171,7 @@ export class [DomainName]Component {
   readonly rows = input.required<[InterfaceName]Row[]>();
   readonly currentSheet = input.required<DomainSheet>();
   readonly bookName = input<string>('');
+  readonly bookAuthor = input<string>('');
   readonly isAddingEntry = input<boolean>(false);
   readonly closeEntry = output<void>();
 
@@ -163,9 +180,9 @@ export class [DomainName]Component {
   readonly role = this.permissionService.role;
   private readonly taxonomyService = inject(TaxonomyService);
   readonly searchTerm = signal<string>('');
-  readonly newTags = signal<string>('');
+  readonly newTags = signal<string[]>([]);
   readonly invalidTagsDetected = computed<string[]>(() =>
-    this.splitTags(this.newTags()).filter((tag) => !this.taxonomyService.isTagAllowed(tag)),
+    this.newTags().filter((tag) => !this.taxonomyService.isTagAllowed(tag)),
   );
   readonly isFormInvalid = computed<boolean>(() => {
     const hasMissingRequiredFields = !this.newTerm().trim(); // Include every required JSON field.
@@ -189,11 +206,8 @@ export class [DomainName]Component {
   private domainDataService = inject(DomainDataService);
   private globalErrorService = inject(GlobalErrorService);
 
-  splitTags(tags: string): string[] {
-    return tags
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(tags: string[]): string[] {
+    return tags;
   }
 
   async addEntry(): Promise<void> {
@@ -212,7 +226,7 @@ export class [DomainName]Component {
 
   resetForm(): void {
     this.editingId.set(null);
-    this.newTags.set('');
+    this.newTags.set([]);
     this.closeEntry.emit();
   }
 }
@@ -285,46 +299,15 @@ export class [DomainName]Component {
     } @else {
       <div class="[domain]-grid">
         @for (row of filteredRows(); track row.id) {
-          <article class="[domain]-card">
-            <!-- Mapping card values and hashtag chips using splitTags(row.tags) -->
-
-            <!-- Except for INDEX, place management on the footer's left and other actions on its right. -->
-            <footer class="domain-card-footer">
-              <div class="domain-card-footer__management">
-                @if (permissionService.validatePermission(role(), 'DELETE_ROW')) {
-                  <button type="button" class="domain-delete-button"
-                    [attr.aria-label]="'COMMON.DELETE' | transloco"
-                    [title]="'COMMON.DELETE' | transloco"
-                    (click)="deleteEntry(row.id)">
-                    <!-- shared trash icon -->
-                  </button>
-                }
-                @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
-                  <button type="button" class="domain-edit-button"
-                    [attr.aria-label]="'COMMON.EDIT' | transloco"
-                    [title]="'COMMON.EDIT' | transloco"
-                    (click)="editEntry(row)">
-                    <!-- shared pencil icon -->
-                  </button>
-                }
-              </div>
-              <div class="domain-card-footer__actions">
-                <!-- Existing domain-specific actions go here, right-aligned. -->
-              </div>
-            </footer>
-
-            <!-- Sync indicator: placed in the card header, right-aligned -->
-            <span
-              class="status-indicator"
-              [class.synced]="row.syncStatus === 'synced'"
-              [attr.aria-label]="'COMMON.STATUS.' + row.syncStatus | transloco"
-              [attr.title]="'COMMON.STATUS.' + row.syncStatus | transloco"
-              role="img"
-              tabindex="0"
-            >
-              <span class="status-label">{{ 'COMMON.STATUS.' + row.syncStatus | transloco }}</span>
-            </span>
-          </article>
+          <app-domain-[xxx]-entry-card
+            [row]="row"
+            [bookName]="bookName()"
+            [bookAuthor]="bookAuthor()"
+            [showContext]="true"
+            [showActions]="true"
+            (editRequested)="editEntry($event)"
+            (deleteRequested)="deleteEntry($event)"
+          />
         }
       </div>
     }
@@ -349,11 +332,48 @@ export class [DomainName]Component {
       // one property per JSON field (optional if required is false)
     }
 
+#### File E: domain-[xxx]-entry-card.component.ts
+
+Create a standalone row-view component under `components/domain-[xxx]-entry-card/`. It accepts a required typed `row`, optional `bookName`/`bookAuthor`, `showContext` (default `false`), and `showActions` (default `true`). It emits `editRequested` with the row and `deleteRequested` with the row ID. Add outputs only for existing domain-specific actions. Keep reads/presentation here; keep persistence in the parent domain view.
+
+Use `DomainEntryCardComponent` from `src/app/shared/domain-entry-card/` for the standard card shell and `DomainEntryHeaderComponent` indirectly through it. Do not reimplement domain/book/author/status markup. If the domain requires a custom card shell, import and use `DomainEntryHeaderComponent` directly.
+
+#### File F: domain-[xxx]-entry-card.component.html
+
+Render the row fields, chips, and domain-specific actions. Pass the domain literal, row-derived title/status, book metadata, and context flag into the shared card:
+
+```html
+<app-domain-entry-card
+  [domain]="'[DOMAIN]'"
+  [title]="row().[titleField]"
+  [bookName]="bookName()"
+  [bookAuthor]="bookAuthor()"
+  [status]="row().syncStatus"
+  [showContext]="showContext()"
+>
+  <!-- Domain badges and row-specific content -->
+  @if (showActions()) {
+    <footer class="domain-card-footer">
+      <div class="domain-card-footer__management">
+        <!-- Permission-guarded delete then edit buttons -->
+      </div>
+      <div class="domain-card-footer__actions">
+        <!-- Existing domain-specific actions -->
+      </div>
+    </footer>
+  }
+</app-domain-entry-card>
+```
+
+#### File G: domain-[xxx]-entry-card.component.css
+
+Keep only unique entry-card presentation rules. Reuse global design tokens and shared footer styles; never define `.status-indicator`, `.status-label`, or shared header styles here.
+
 ---
 
 ### 🗂️ 5. MANDATORY CHANGES IN EXISTING FILES (NEW DOMAIN)
 
-In addition to the 4 domain files, the Agent MUST provide the following code updates to register the domain. Use uppercase [DOMAIN] (e.g., TIMELINE), lowercase [table] (e.g., timeline), and [InterfaceName]Row for the row model.
+In addition to the 7 generated domain files, the Agent MUST provide the following code updates to register the domain. Use uppercase [DOMAIN] (e.g., TIMELINE), lowercase [table] (e.g., timeline), and [InterfaceName]Row for the row model.
 
 #### 5.1 src/app/features/catalog-detail/models/domain-sheet-config.ts
 
@@ -371,23 +391,23 @@ The model is generated in `src/app/features/domain-[xxx]/model/domain-[xxx]-row.
 
 #### 5.3 src/app/core/services/storage/app-db.service.ts
 
-1. Declare the local table type REUSING the domain model (no duplicated fields): `export type [InterfaceName]Record = [InterfaceName]Row & { row: number; tag: string; book?: string; author?: string };`, importing `[InterfaceName]Row` from `../../../features/domain-[xxx]/model/domain-[xxx]-row.model`.
+1. Declare the local table type REUSING the domain model (no duplicated fields): `export type [InterfaceName]Record = [InterfaceName]Row & { row: number; book?: string; author?: string };`, importing `[InterfaceName]Row` from `../../../features/domain-[xxx]/model/domain-[xxx]-row.model`.
 2. Declare the property on AppDatabase: `[table]!: Table<[InterfaceName]Record, string>;`.
-3. Register the store with the same index schema as the rest: 'id, [row+tag], row, tag, book, author'.
+3. Register the store with the shared array-tag schema: `'id, row, book, author, *tags'`.
 4. If the database already exists in users' browsers, DO NOT modify version(1): create this.version(N+1).stores({ [table]: '...' }) with the new store (without repeating existing ones).
 5. clearAllTables() uses db.tables, so it inherently includes the new table without modifications.
 
 #### 5.4 Related files that must also be updated
 
 - catalog-detail/services/domain-data.service.ts: Add the table name to DomainTableName, the key [DOMAIN]: '[table]' in DOMAIN_TABLES, and new columns (lowercase, no symbols → canonical name) in headerNames inside normalizePaginatedRow.
-- catalog-detail/components/sheet-view-resolver/: Add @case ('[DOMAIN]') in the HTML with <app-domain-[xxx]> (inputs: rows, currentSheet, bookName, isAddingEntry; output: closeEntry), the typed rows computed (typed with `[InterfaceName]Row` imported from `features/domain-[xxx]/model/`), and the component import from `features/domain-[xxx]/domain-[xxx]/`.
+- catalog-detail/components/sheet-view-resolver/: Add @case ('[DOMAIN]') in the HTML with <app-domain-[xxx]> (inputs: rows, currentSheet, bookName, bookAuthor, isAddingEntry; output: closeEntry), the typed rows computed (typed with `[InterfaceName]Row` imported from `features/domain-[xxx]/model/`), and the component import from `features/domain-[xxx]/domain-[xxx]/`. The domain view imports and renders its entry-card component.
 - public/i18n/en.json and es.json: Add keys under DOMAINS.[DOMAIN].* (NEW_ENTRY_TITLE, field labels, TAGS, SEARCH, NO_MATCHES, CHARACTERS_LEFT, and *_OPTIONS for each select).
 
 #### 5.5 Domain feature service taxonomy isolation and tests
 
 - When creating or updating a domain feature service that uses Angular `inject()`, import `Injectable` and place `@Injectable({ providedIn: 'root' })` directly above the class.
-- For non-INDEX domains, sanitize incoming `tag`/`tags` in `syncRemoteRows`: split on whitespace, commas, or semicolons; pass the tokens through `TaxonomyService.filterAllowedTags(...)`; and persist only the allowed tags, joined by spaces. Keep a helper such as `validateAndSanitizeTags` as the single delegation point.
-- INDEX is the exception because it defines the master whitelist. Persist its raw tag definitions, finish the database transaction and `bulkPut`, then await `TaxonomyService.refreshGlobalTaxonomy(row)`; never filter INDEX tags against themselves.
+- For every domain, sanitize the incoming `tags: string[]` in `syncRemoteRows` with `TaxonomyService.filterAllowedTags(...)` and persist the allowed values as an array. Keep a helper such as `validateAndSanitizeTags` as the single delegation point.
+- INDEX is the taxonomy source: persist its raw `tags` array without filtering it against itself, finish the database transaction and `bulkPut`, then await `TaxonomyService.refreshGlobalTaxonomy(row)`.
 - Add a matching spec in the domain's `services/` directory. Use `TestBed` and `jasmine.createSpyObj` for `TaxonomyService`, provided with `{ provide: TaxonomyService, useValue: mockTaxonomyService }`. For non-INDEX helpers, test that the input reaches `filterAllowedTags`, the returned whitelist is passed through, and unauthorized tags are excluded. For INDEX, verify taxonomy refresh runs for the row only after delete and bulk put; do not test tag filtration.
 
 ---
@@ -402,7 +422,7 @@ The row that is sent is ALWAYS built in this order, inside `addEntry()`, before 
    - `text` / `textarea`: `const term = this.newTerm().trim();`
    - optional `select`: `const partOfSpeech = this.newPartOfSpeech() || undefined;` (the empty option `''` becomes `undefined`).
    - `number`: `const weight = this.newWeight();` (signal already typed as a number; if optional, `?? undefined`).
-   - `tags`: `const tags = this.splitTags(this.newTags()).join(' ');` (space-separated hashtags).
+  - `tags`: `const tags = this.newTags();` (a canonical hashtag array).
    - Field with a book-based default (`source`, `book`, `author`): use the component's `computed` (`const source = this.source();`, which falls back to `bookName()`), never the raw signal.
 2. **Required-field validation** right after the `const` declarations, with a silent return: `if (!term || !definition) { return; }`.
 3. **`const newRow: [InterfaceName]Row`** with this exact shape:
@@ -421,7 +441,7 @@ Reference example (glossary):
       const partOfSpeech = this.newPartOfSpeech() || undefined;
       const etymology = this.newEtymology().trim();
       const source = this.source();
-      const tags = this.splitTags(this.newTags()).join(' ');
+      const tags = this.newTags();
       const editingId = this.editingId();
 
       if (!term || !definition) {
@@ -442,7 +462,7 @@ Reference example (glossary):
         ...(partOfSpeech ? { partOfSpeech } : {}),
         ...(etymology ? { etymology } : {}),
         ...(source ? { source } : {}),
-        ...(tags ? { tags } : {}),
+        ...(tags.length > 0 ? { tags } : {}),
         feed: 5,
         contributor: 'currentUser',
         syncStatus: 'pending',
@@ -505,7 +525,7 @@ Apply it when the user asks to "improve/align component X using Y as a reference
    - one `const` per field, read ONCE from its signal (with `trim()` where applicable) and reused in the row (do not call `this.newX()` again inside the object);
    - required-field validation with a silent return right after the `const` declarations;
    - `const newRow: [InterfaceName]Row` (full type, NOT `Partial<...>`), so the compiler enforces required fields;
-   - optional fields with conditional spread; tags normalized with `splitTags(...).join(' ')`;
+  - optional fields with conditional spread; tags remain a `string[]` and are never joined into a string;
    - fixed closing `feed: 5`, `contributor: 'currentUser'`, `syncStatus: 'pending'`.
 5. **Remove fields the model does not define** (e.g. `row`, `book`, `author` if they are not in the interface); the service already knows the catalog row.
 6. **Keep unchanged** the `try/catch` block, the error message and `resetForm()`, unless they differ from the section 6.2 pattern.

@@ -2,12 +2,19 @@ import { Component, AfterViewInit, OnDestroy, input, output, effect, ElementRef,
 import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
 
+export interface MapMarker {
+  lat: number;
+  lng: number;
+  title: string;
+  color?: string;
+}
+
 @Component({
   selector: 'app-map-picker',
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="map-container-wrapper">
+    <div class="map-container-wrapper" [style.height]="height()">
       <div #mapContainer class="leaflet-map"></div>
     </div>
   `,
@@ -31,12 +38,13 @@ export class MapPickerComponent implements AfterViewInit, OnDestroy {
   // Coordenadas iniciales [lat, lng] (por defecto centro genérico o de la obra)
   readonly initialCoords = input<[number, number]>([0, 0]);
   readonly zoom = input<number>(6);
+  readonly height = input<string>('300px');
   
   // Si es true, permite hacer clic para mover un pin y emitir coordenadas
   readonly interactive = input<boolean>(true);
   
   // Lista opcional de marcadores múltiples para visualización global
-  readonly markers = input<{ lat: number; lng: number; title: string; color?: string }[]>();
+  readonly markers = input<MapMarker[]>([]);
 
   // Evento que emite las coordenadas seleccionadas al hacer clic
   readonly coordinatesChange = output<string>();
@@ -50,12 +58,12 @@ export class MapPickerComponent implements AfterViewInit, OnDestroy {
     // Reacciona si cambian las coordenadas iniciales externamente
     effect(() => {
       const coords = this.initialCoords();
-      if (this.map && coords) {
+      if (this.map && this.interactive() && coords) {
         this.updateMainMarker(coords[0], coords[1]);
       }
     });
 
-    // Reacciona si se pasan múltiples marcadores (modo visualización global)
+    // Re-render markers when the display-mode input changes.
     effect(() => {
       const allMarkers = this.markers();
       if (this.map && allMarkers) {
@@ -79,12 +87,15 @@ export class MapPickerComponent implements AfterViewInit, OnDestroy {
 
     // Si es interactivo, permitir clic para seleccionar ubicación
     if (this.interactive()) {
+      this.updateMainMarker(lat, lng);
       this.map.on('click', (e: L.LeafletMouseEvent) => {
         const { lat, lng } = e.latlng;
         this.updateMainMarker(lat, lng);
         // Emitir en formato plano "lat, lng" compatible con el campo coordinates de Places
         this.coordinatesChange.emit(`${lat.toFixed(4)}, ${lng.toFixed(4)}`);
       });
+    } else {
+      this.renderAllMarkers(this.markers());
     }
 
     // Solución al problema común de renderizado gris en contenedores ocultos/modales
@@ -112,33 +123,45 @@ export class MapPickerComponent implements AfterViewInit, OnDestroy {
     this.map.setView([lat, lng], this.map.getZoom());
   }
 
-  private renderAllMarkers(items: { lat: number; lng: number; title: string; color?: string }[]): void {
+  private renderAllMarkers(items: MapMarker[]): void {
     this.groupMarkers.clearLayers();
-    
-    items.forEach(item => {
-      // Crear un marcador personalizado utilizando el color del dominio si existe
-      const markerHtml = `
-        <div style="
-          background-color: ${item.color || '#3b82f6'};
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          border: 2px solid white;
-          box-shadow: 0 0 4px rgba(0,0,0,0.4);
-        "></div>
-      `;
-      
-      const customIcon = L.divIcon({
-        className: 'custom-map-pin',
-        html: markerHtml,
-        iconSize: [16, 16],
-        iconAnchor: [8, 8]
-      });
 
-      const marker = L.marker([item.lat, item.lng], { icon: customIcon });
-      marker.bindPopup(`<b>${item.title}</b>`);
+    const validItems = items.filter(
+      (item) =>
+        Number.isFinite(item.lat) &&
+        Number.isFinite(item.lng) &&
+        item.lat >= -90 &&
+        item.lat <= 90 &&
+        item.lng >= -180 &&
+        item.lng <= 180,
+    );
+    if (validItems.length === 0) {
+      return;
+    }
+
+    for (const item of validItems) {
+      const marker = L.circleMarker([item.lat, item.lng], {
+        radius: 9,
+        color: 'var(--surface)',
+        weight: 2,
+        fillColor: item.color || 'var(--primary)',
+        fillOpacity: 1,
+      });
+      const label = document.createElement('span');
+      label.textContent = item.title;
+      marker.bindTooltip(label, { permanent: true, direction: 'top', offset: [0, -8] });
       this.groupMarkers.addLayer(marker);
-    });
+    }
+
+    if (validItems.length === 1) {
+      this.map?.setView([validItems[0].lat, validItems[0].lng], 12);
+      return;
+    }
+
+    this.map?.fitBounds(
+      L.latLngBounds(validItems.map(({ lat, lng }) => [lat, lng] as L.LatLngTuple)).pad(0.12),
+      { maxZoom: 12 },
+    );
   }
 
   ngOnDestroy(): void {

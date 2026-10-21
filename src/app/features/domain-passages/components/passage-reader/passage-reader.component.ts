@@ -2,6 +2,7 @@ import { Component, DestroyRef, inject, input, output, signal } from '@angular/c
 import { DOCUMENT } from '@angular/common';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PassagesRow } from '../../model/domain-passage-row.model';
+import { parseTags } from '../../../../shared/utils/tag-utils';
 
 @Component({
   selector: 'app-passage-reader',
@@ -44,11 +45,8 @@ export class PassageReaderComponent {
     return Math.max(1, Math.ceil(wordCount / 200));
   }
 
-  splitTags(tags: string | undefined): string[] {
-    return (tags ?? '')
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(tags: string[] | undefined): string[] {
+    return parseTags(tags);
   }
 
   adjustReaderFontSize(delta: number): void {

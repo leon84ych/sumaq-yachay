@@ -5,6 +5,7 @@
   [title]="entry().title"
   [note]="entry().note || ''"
   [accentColor]="entry().accentColor || null"
+  [status]="syncStatus()"
 >
   @if (entry().body) {
     <p

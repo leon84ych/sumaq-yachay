@@ -16,8 +16,13 @@ import { DomainGlosaryService } from '../../domain-glosary/services/domain-glosa
 import { DomainQuestionsService } from '../../domain-questions/services/domain-questions.service';
 import { DomainFeatureHandler } from '../../../shared/interfaces/domain-feature-handler.service';
 import { DomainIndexService } from '../../domain-index/services/domain-index.service';
+import { DomainBookEventsService } from '../../domain-book-events/services/domain-book-events.service';
+import { DomainRelationsCharactersService } from '../../domain-relations-characters/services/domain-relations-characters.service';
+import { DomainRelationsConceptsService } from '../../domain-relations-concepts/services/domain-relations-concepts.service';
+import { sortDomainTabs } from '../models/domain-sheet-config';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { normalizeTags, parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 
 type DomainTableName =
   | 'indexTopics'
@@ -26,8 +31,9 @@ type DomainTableName =
   | 'passages'
   | 'characters'
   | 'places'
-  | 'timeline'
-  | 'relations'
+  | 'bookEvents'
+  | 'relationsCharacters'
+  | 'relationsConcepts'
   | 'glosary'
   | 'questions';
 
@@ -52,7 +58,7 @@ const DOMAIN_PAGE_SIZE = 50;
 interface PersistedDomainRow extends Record<string, unknown> {
   id: string;
   row: number;
-  tag: string;
+  tags: string[];
   syncStatus: 'pending' | 'synced' | 'error';
 }
 
@@ -63,31 +69,14 @@ const DOMAIN_TABLES: Record<string, DomainTableName> = {
   PASSAGES: 'passages',
   CHARACTER: 'characters',
   PLACES: 'places',
-  TIMELINE: 'timeline',
-  RELATIONS: 'relations',
+  BOOK_EVENTS: 'bookEvents',
+  RELATIONS_CHARACTERS: 'relationsCharacters',
+  RELATIONS_CONCEPTS: 'relationsConcepts',
   GLOSARY: 'glosary',
   QUESTIONS: 'questions',
 };
 
 const DOMAIN_TABLE_NAMES = Object.values(DOMAIN_TABLES) as DomainTableName[];
-
-export function sortByIndex(sheets: DomainSheet[]): DomainSheet[] {
-  const hasPopulatedIndex = sheets.some(
-    (sheet) => sheet.name.toUpperCase() === 'INDEX' && sheet.rows.length > 0,
-  );
-
-  return [...sheets].sort((a, b) => {
-    if (hasPopulatedIndex) {
-      const aIsPopulatedIndex = a.name.toUpperCase() === 'INDEX' && a.rows.length > 0;
-      const bIsPopulatedIndex = b.name.toUpperCase() === 'INDEX' && b.rows.length > 0;
-      if (aIsPopulatedIndex !== bIsPopulatedIndex) {
-        return aIsPopulatedIndex ? -1 : 1;
-      }
-    }
-
-    return a.index - b.index;
-  });
-}
 
 @Injectable({
   providedIn: 'root',
@@ -102,18 +91,18 @@ export class DomainDataService {
 
   private readonly taxonomyService = inject(TaxonomyService);
 
-
-
-  //Each domain services 
+  //Each domain services
   private readonly characterService = inject(DomainCharacterService);
   private readonly conceptsService = inject(DomainConceptsService);
   private readonly glosaryService = inject(DomainGlosaryService);
   private readonly indexService = inject(DomainIndexService);
   private readonly passagesService = inject(DomainPassagesService);
   private readonly placesService = inject(DomainPlacesService);
+  private readonly bookEventsService = inject(DomainBookEventsService);
+  private readonly relationsCharactersService = inject(DomainRelationsCharactersService);
+  private readonly relationsConceptsService = inject(DomainRelationsConceptsService);
   private readonly questionsService = inject(DomainQuestionsService);
   private readonly quotesService = inject(DomainQuotesService);
-
 
   private readonly featureHandlers: DomainFeatureHandler<any>[] = [
     this.characterService,
@@ -122,10 +111,12 @@ export class DomainDataService {
     this.indexService,
     this.passagesService,
     this.placesService,
+    this.bookEventsService,
+    this.relationsCharactersService,
+    this.relationsConceptsService,
     this.questionsService,
-    this.quotesService
+    this.quotesService,
   ];
-
 
   readonly sheets = signal<DomainSheet[]>([]);
   readonly isLoading = signal<boolean>(false);
@@ -136,19 +127,12 @@ export class DomainDataService {
 
   readonly sheetNames = computed(() => this.sheets().map((sheet) => sheet.name));
 
-  extractAndNormalizeTags(rawTags: string): string[] {
-    const uniqueTags = new Set<string>();
-    for (const value of rawTags.split(/[\s,;]+/)) {
-      const tag = value.trim().replace(/^#+/, '').toLocaleLowerCase();
-      if (tag) {
-        uniqueTags.add(`#${tag}`);
-      }
-    }
-    return [...uniqueTags];
+  extractAndNormalizeTags(tags: string[]): string[] {
+    return normalizeTags(tags);
   }
 
   async upsertBookTags(tags: string[], bookContext: BookTagContext): Promise<void> {
-    const normalizedTags = this.extractAndNormalizeTags(tags.join(' '));
+    const normalizedTags = this.extractAndNormalizeTags(tags);
     if (normalizedTags.length === 0) {
       return;
     }
@@ -176,7 +160,7 @@ export class DomainDataService {
           ...((bookContext.domain ?? existing?.domain)
             ? { domain: bookContext.domain ?? existing?.domain }
             : {}),
-          tag,
+          name: tag,
           usageCount: (existing?.usageCount ?? 0) + 1,
         });
       }
@@ -232,11 +216,20 @@ export class DomainDataService {
 
       const tableName = this.getDomainTableName(sheetName);
       const pageRows = response.rows.map((sourceRow, index) => {
-        const normalizedRow = this.normalizePaginatedRow(sourceRow);
+        const normalizedRow = this.normalizeRecordTags(
+          this.normalizePaginatedRow(sourceRow),
+          sheetName,
+        );
+        const displayRow = (nextPage - 1) * DOMAIN_PAGE_SIZE + index + 1;
         return {
           ...normalizedRow,
           id: String(normalizedRow['id'] ?? `${tableName}_${row}_${nextPage}_${index}`),
-          row,
+          row: ['RELATIONS_CHARACTERS', 'RELATIONS_CONCEPTS'].includes(sheetName.toUpperCase())
+            ? displayRow
+            : row,
+          ...(['RELATIONS_CHARACTERS', 'RELATIONS_CONCEPTS'].includes(sheetName.toUpperCase())
+            ? { displayRow }
+            : {}),
           syncStatus: 'synced',
         };
       });
@@ -247,7 +240,7 @@ export class DomainDataService {
           ? { ...currentSheet, rows: this.mergeRows(currentSheet.rows, pageRows) }
           : currentSheet,
       );
-      const orderedSheets = sortByIndex(nextSheets);
+      const orderedSheets = sortDomainTabs(nextSheets);
       const bookTags = await this.buildBookTags(row, orderedSheets);
       await this.dbService.db.transaction('rw', [table, this.dbService.db.bookTags], async () => {
         await table.bulkPut(persistedRows);
@@ -318,8 +311,8 @@ export class DomainDataService {
       } else {
         this.isLoading.set(false);
         // Disparar en segundo plano de forma segura sin bloquear la UI
-        void this.refreshFromRemote(row, true).catch(err =>
-          console.error('[Local-First] Error en sincronización de fondo:', err)
+        void this.refreshFromRemote(row, true).catch((err) =>
+          console.error('[Local-First] Error en sincronización de fondo:', err),
         );
       }
     } catch (err: unknown) {
@@ -338,7 +331,11 @@ export class DomainDataService {
       const name = sheetName.trim();
       const storedSheets = await this.dbService.db.domainSheets.get(row);
       const customSheets = storedSheets?.customSheets ?? [];
-      if (!name || DOMAIN_TABLES[name.toUpperCase()] || customSheets.some((sheet) => sheet.name === name)) {
+      if (
+        !name ||
+        DOMAIN_TABLES[name.toUpperCase()] ||
+        customSheets.some((sheet) => sheet.name === name)
+      ) {
         throw new Error(`A local sheet named "${name}" cannot be created.`);
       }
 
@@ -399,9 +396,15 @@ export class DomainDataService {
         throw new Error('The active catalog item could not be found.');
       }
 
-      const normalizedRows = updatedRows.map((record) =>
-        this.normalizeRecordTags(record, sheetName),
-      );
+      const normalizedRows = updatedRows.map((record, index) => {
+        const normalized = this.normalizeRecordTags(record, sheetName);
+        return ['RELATIONS_CHARACTERS', 'RELATIONS_CONCEPTS'].includes(sheetName.toUpperCase())
+          ? {
+              ...normalized,
+              displayRow: Number(normalized['displayRow'] ?? normalized['row'] ?? index + 1),
+            }
+          : normalized;
+      });
       const editedRow = editedRowId
         ? normalizedRows.find((record) => String(record['id']) === editedRowId)
         : undefined;
@@ -417,7 +420,18 @@ export class DomainDataService {
       if (editedRowId && createdRowId) {
         throw new Error('An update request cannot edit and create a row at the same time.');
       }
-      const remoteRows = editedRow ? [editedRow] : createdRow ? [createdRow] : normalizedRows;
+      const selectedRemoteRows = editedRow
+        ? [editedRow]
+        : createdRow
+          ? [createdRow]
+          : normalizedRows;
+      const remoteRows = ['BOOK_EVENTS', 'RELATIONS_CHARACTERS', 'RELATIONS_CONCEPTS'].includes(
+        sheetName.toUpperCase(),
+      )
+        ? selectedRemoteRows.map(
+            ({ row: _displayRow, displayRow: _localDisplayRow, ...record }) => record,
+          )
+        : selectedRemoteRows;
       const localSampleDataEnabled = this.configService.isLocalSampleDataEnabled();
       const rowsWithPendingStatus = normalizedRows.map((record) => ({
         ...record,
@@ -446,15 +460,11 @@ export class DomainDataService {
       );
       const bookTags = await this.buildBookTags(row, nextSheets);
 
-      await this.dbService.db.transaction(
-        'rw',
-        [table, this.dbService.db.bookTags],
-        async () => {
+      await this.dbService.db.transaction('rw', [table, this.dbService.db.bookTags], async () => {
         await table.where('row').equals(row).delete();
         await table.bulkPut(persistedRows);
-          await this.replaceBookTagsForCatalog(row, bookTags);
-        },
-      );
+        await this.replaceBookTagsForCatalog(row, bookTags);
+      });
       await this.dbService.db.domainSheets.put({ row, count: this.sheets().length || 1 });
       this.updateLocalSheetRowsState(sheetName, rowsWithPendingStatus);
 
@@ -570,7 +580,11 @@ export class DomainDataService {
 
     try {
       await this.dbService.db.transaction('rw', [table, this.dbService.db.bookTags], async () => {
-        await table.where('row').equals(row).filter((record) => String(record['id']) === id).delete();
+        await table
+          .where('row')
+          .equals(row)
+          .filter((record) => String(record['id']) === id)
+          .delete();
         await this.replaceBookTagsForCatalog(row, nextBookTags);
       });
       localDeleteCommitted = true;
@@ -605,10 +619,14 @@ export class DomainDataService {
             this.loadedRow === row ? rollbackSheets : currentSheets,
           );
 
-          await this.dbService.db.transaction('rw', [table, this.dbService.db.bookTags], async () => {
-            await table.put(persistedDeletedRow);
-            await this.replaceBookTagsForCatalog(row, rollbackBookTags);
-          });
+          await this.dbService.db.transaction(
+            'rw',
+            [table, this.dbService.db.bookTags],
+            async () => {
+              await table.put(persistedDeletedRow);
+              await this.replaceBookTagsForCatalog(row, rollbackBookTags);
+            },
+          );
           if (this.loadedRow === row) {
             this.sheets.set(rollbackSheets);
           }
@@ -649,31 +667,23 @@ export class DomainDataService {
     record: Record<string, unknown>,
     sheetName: string,
   ): Record<string, unknown> {
-    const normalizedRecord = { ...record };
-    if (sheetName.toUpperCase() === 'INDEX') {
-      const rawIndexTag =
-        typeof record['tag'] === 'string'
-          ? record['tag']
-          : typeof record['tags'] === 'string'
-            ? record['tags']
-            : '';
-      normalizedRecord['tag'] = this.extractAndNormalizeTags(rawIndexTag).join(' ');
-      delete normalizedRecord['tags'];
-      return normalizedRecord;
+    const normalizedRecord: Record<string, unknown> = {
+      ...record,
+      tags: serializeTags(record['tags']),
+    };
+    delete normalizedRecord['tag'];
+    if (
+      ['BOOK_EVENTS', 'RELATIONS_CHARACTERS', 'RELATIONS_CONCEPTS'].includes(
+        sheetName.toUpperCase(),
+      )
+    ) {
+      normalizedRecord['displayRow'] =
+        typeof record['displayRow'] === 'number'
+          ? record['displayRow']
+          : typeof record['row'] === 'number'
+            ? record['row']
+            : 1;
     }
-
-    const rawTags = [record['tags'], record['tag']]
-      .filter((value): value is string => typeof value === 'string')
-      .join(' ');
-    const normalizedTags = this.extractAndNormalizeTags(rawTags).join(' ');
-
-    if (Object.hasOwn(record, 'tags') || ['QUOTES', 'PASSAGES'].includes(sheetName.toUpperCase())) {
-      normalizedRecord['tags'] = normalizedTags;
-    }
-    if (Object.hasOwn(record, 'tag')) {
-      normalizedRecord['tag'] = normalizedTags;
-    }
-
     return normalizedRecord;
   }
 
@@ -688,8 +698,6 @@ export class DomainDataService {
       ),
     );
   }
-
-
 
   private async refreshFromRemote(row: number, isBackground = false): Promise<void> {
     if (this.configService.isLocalSampleDataEnabled()) {
@@ -710,12 +718,13 @@ export class DomainDataService {
       // 1. Transform raw elements into fully compliant DomainSheet objects
       const normalizedSheets: DomainSheet[] = response.data.sheets.map((sheet) => ({
         ...sheet,
-        row,                         // Inject the parent catalog identifier
-        id: sheet.name.toLowerCase() // Generate the runtime identifier key
+        rows: sheet.rows.map((sourceRow) => this.normalizeRecordTags(sourceRow, sheet.name)),
+        row, // Inject the parent catalog identifier
+        id: sheet.name.toLowerCase(), // Generate the runtime identifier key
       }));
 
       // 2. Pass the fully compliant array to the sort utility
-      const remoteSheets: DomainSheet[] = sortByIndex(normalizedSheets);
+      const remoteSheets: DomainSheet[] = sortDomainTabs(normalizedSheets);
 
       const currentLocalString = JSON.stringify(this.sheets());
       const remoteDataString = JSON.stringify(remoteSheets);
@@ -733,8 +742,26 @@ export class DomainDataService {
 
       await this.taxonomyService.refreshGlobalTaxonomy(row);
 
-      this.sheets.set(remoteSheets);
+      const normalizedRemoteSheets = await Promise.all(
+        remoteSheets.map(async (sheet) => {
+          if (
+            !['BOOK_EVENTS', 'RELATIONS_CHARACTERS', 'RELATIONS_CONCEPTS'].includes(
+              sheet.name.toUpperCase(),
+            )
+          ) {
+            return sheet;
+          }
 
+          const localSheet =
+            sheet.name.toUpperCase() === 'BOOK_EVENTS'
+              ? await this.bookEventsService.loadLocalSheet(row)
+              : sheet.name.toUpperCase() === 'RELATIONS_CHARACTERS'
+                ? await this.relationsCharactersService.loadLocalSheet(row)
+                : await this.relationsConceptsService.loadLocalSheet(row);
+          return { ...localSheet, index: sheet.index };
+        }),
+      );
+      this.sheets.set(normalizedRemoteSheets);
     } catch (error) {
       console.error('[Local-First] Remote sync parsing failed:', error);
       if (!isBackground) {
@@ -747,8 +774,6 @@ export class DomainDataService {
     }
   }
 
-
-
   private async loadFromLocal(row: number): Promise<DomainSheet[]> {
     const localSheets: DomainSheet[] = [];
     for (const handler of this.featureHandlers) {
@@ -759,22 +784,10 @@ export class DomainDataService {
           localSheets.push(sheet);
         }
       } catch (error) {
-        console.error(`[Local-First] Error cargando datos locales para el dominio: ${handler.name}`, error);
-      }
-    }
-
-    for (const name of ['TIMELINE', 'RELATIONS'] as const) {
-      const tableName = DOMAIN_TABLES[name];
-      const table = this.dbService.db.table(tableName) as Table<PersistedDomainRow, string>;
-      const records = await table.where('row').equals(row).toArray();
-      if (records.length > 0) {
-        localSheets.push({
-          row,
-          id: name.toLowerCase(),
-          name,
-          index: localSheets.length,
-          rows: records.map(({ row: _row, ...record }) => record),
-        });
+        console.error(
+          `[Local-First] Error cargando datos locales para el dominio: ${handler.name}`,
+          error,
+        );
       }
     }
 
@@ -789,7 +802,7 @@ export class DomainDataService {
       });
     }
 
-    return sortByIndex(localSheets);
+    return sortDomainTabs(localSheets);
   }
 
   private async syncRemoteUpdate(
@@ -847,7 +860,10 @@ export class DomainDataService {
       // 4. CRUCIAL: Keep this to sync RAM state signals for your template UI layers
       this.updateLocalSheetRowsState(sheetName, syncedRows);
     } catch (err: unknown) {
-      console.warn(`Background remote update failed; local data remains available for ${sheetName}:`, err);
+      console.warn(
+        `Background remote update failed; local data remains available for ${sheetName}:`,
+        err,
+      );
       if (rethrowErrors) {
         throw err;
       }
@@ -871,23 +887,14 @@ export class DomainDataService {
     const author = catalogItem?.author.trim() || undefined;
     const counts = new Map<string, BookTag>();
 
-    for (const sheet of sortByIndex(sheets)) {
+    for (const sheet of sortDomainTabs(sheets)) {
       const tableName = DOMAIN_TABLES[sheet.name.toUpperCase()];
       if (!tableName) {
         continue;
       }
 
       for (const sourceRow of sheet.rows) {
-        const rawTags =
-          sourceRow['tags'] ?? sourceRow['Tags'] ?? sourceRow['tag'] ?? sourceRow['Tag'];
-        if (typeof rawTags !== 'string') {
-          continue;
-        }
-
-        for (const tag of rawTags
-          .split(/[\s,;]+/)
-          .map((value) => value.trim())
-          .filter(Boolean)) {
+        for (const tag of parseTags(sourceRow['tags'])) {
           if (new RegExp(`^${tableName}_\\d+$`).test(tag)) {
             continue;
           }
@@ -905,7 +912,7 @@ export class DomainDataService {
               ...(author ? { author } : {}),
               ...(catalogItem?.subject ? { subject: catalogItem.subject } : {}),
               ...(catalogItem?.topic ? { topic: catalogItem.topic } : {}),
-              tag,
+              name: tag,
               domain: sheet.name,
               usageCount: 1,
             });
@@ -947,7 +954,6 @@ export class DomainDataService {
       author: 'author',
       page: 'page',
       tags: 'tags',
-      tag: 'tag',
       feed: 'feed',
       contributor: 'contributor',
       chapter: 'chapter',
@@ -959,6 +965,18 @@ export class DomainDataService {
       archetype: 'archetype',
       source: 'source',
       syncstatus: 'syncStatus',
+      sourcecharacterid: 'sourceCharacterId',
+      targetcharacterid: 'targetCharacterId',
+      sourceconceptid: 'sourceConceptId',
+      targetconceptid: 'targetConceptId',
+      relationtype: 'relationType',
+      maincharacterid: 'mainCharacterId',
+      secondarycharacterids: 'secondaryCharacterIds',
+      placeid: 'placeId',
+      datetimestart: 'dateTimeStart',
+      datetimeend: 'dateTimeEnd',
+      datelabel: 'dateLabel',
+      eventorder: 'eventOrder',
     };
 
     return Object.fromEntries(
@@ -994,12 +1012,17 @@ export class DomainDataService {
     row: number,
     sourceRows: Record<string, unknown>[],
   ): PersistedDomainRow[] {
-    return sourceRows.map((sourceRow, index) => ({
-      ...sourceRow,
-      id: String(sourceRow['id'] ?? `${tableName}_${row}_${index}`),
-      row,
-      tag: String(sourceRow['tag'] ?? sourceRow['tags'] ?? `${tableName}_${index}`),
-      syncStatus: (sourceRow['syncStatus'] as PersistedDomainRow['syncStatus']) ?? 'pending',
-    }));
+    return sourceRows.map((sourceRow, index) => {
+      return {
+        ...sourceRow,
+        id: String(sourceRow['id'] ?? `${tableName}_${row}_${index}`),
+        row,
+        ...(tableName === 'relationsCharacters' || tableName === 'relationsConcepts'
+          ? { displayRow: Number(sourceRow['displayRow'] ?? index + 1) }
+          : {}),
+        tags: serializeTags(sourceRow['tags']),
+        syncStatus: (sourceRow['syncStatus'] as PersistedDomainRow['syncStatus']) ?? 'pending',
+      };
+    });
   }
 }

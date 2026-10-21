@@ -210,6 +210,27 @@
   background: var(--success);
 }
 
+.status-indicator.error::before {
+  background: var(--error);
+}
+
+.sync-status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: var(--warning);
+}
+
+.sync-status-dot.is-synced {
+  background: var(--success);
+}
+
+.sync-status-dot.is-error {
+  background: var(--error);
+}
+
 .status-indicator:focus-visible {
   outline: 2px solid var(--border-focus);
   outline-offset: 2px;
@@ -242,3 +263,4 @@
   opacity: 1;
   transform: translateY(0);
 }
+

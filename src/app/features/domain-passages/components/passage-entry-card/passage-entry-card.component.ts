@@ -1,12 +1,14 @@
 import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../core/services/permission.service';
+import { DomainEntryHeaderComponent } from '../../../../shared/domain-entry-header/domain-entry-header.component';
+import { parseTags } from '../../../../shared/utils/tag-utils';
 import { PassageReaderComponent } from '../passage-reader/passage-reader.component';
 import { PassagesRow } from '../../model/domain-passage-row.model';
 
 @Component({
   selector: 'app-passage-entry-card',
-  imports: [TranslocoPipe, PassageReaderComponent],
+  imports: [TranslocoPipe, DomainEntryHeaderComponent, PassageReaderComponent],
   templateUrl: './passage-entry-card.component.html',
   styleUrl: './passage-entry-card.component.css',
 })
@@ -43,10 +45,7 @@ export class PassageEntryCardComponent {
     return Math.max(1, Math.ceil(wordCount / 200));
   }
 
-  splitTags(tags: string | undefined): string[] {
-    return (tags ?? '')
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(tags: string[] | undefined): string[] {
+    return parseTags(tags);
   }
 }

@@ -31,11 +31,12 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .passage-card h4 {
   color: var(--text);
-  font-size: 1.1rem;
+  font-size: var(--learn-content-font-size, 1.1rem);
   line-height: 1.35;
 }
 
@@ -46,7 +47,7 @@
   padding: 0.2rem 0.6rem;
   background: var(--quote-tag-surface);
   color: var(--quote-tag-text);
-  font-size: 0.75rem;
+  font-size: var(--learn-content-font-size, 0.75rem);
   font-weight: 600;
 }
 
@@ -56,6 +57,7 @@
   overflow: hidden;
   color: var(--text-secondary, var(--text-muted));
   font-family: Georgia, 'Times New Roman', serif;
+  font-size: var(--learn-content-font-size, 1rem);
   line-height: 1.55;
   white-space: pre-wrap;
   -webkit-box-orient: vertical;
@@ -66,12 +68,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.3rem 0.6rem;
+  margin: 0;
   color: var(--text-secondary, var(--text-muted));
-  font-size: 0.8rem;
-}
-
-.passage-meta strong {
-  color: var(--text);
+  font-size: var(--learn-content-font-size, 0.8rem);
 }
 
 .passage-tags {
@@ -87,7 +86,7 @@
   padding: 0.15rem 0.55rem;
   background: var(--quote-tag-surface);
   color: var(--quote-tag-text);
-  font-size: 0.75rem;
+  font-size: var(--learn-content-font-size, 0.75rem);
   overflow-wrap: anywhere;
 }
 
@@ -98,6 +97,7 @@
   padding: 0.25rem 0;
   background: transparent;
   color: var(--primary);
+  font-size: var(--learn-content-font-size, 1rem);
   font-weight: 600;
   cursor: pointer;
 }
@@ -111,4 +111,5 @@
   .passage-card {
     padding: 1rem;
   }
+
 }

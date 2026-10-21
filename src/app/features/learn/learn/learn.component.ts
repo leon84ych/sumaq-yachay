@@ -1,6 +1,17 @@
-import { NgComponentOutlet } from '@angular/common';
-import { Component, inject, signal, Type } from '@angular/core';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { DOCUMENT, NgComponentOutlet } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  signal,
+  Type,
+  ViewChild,
+} from '@angular/core';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { GlobalErrorService } from '../../../core/services/global-error.service';
+import { downloadJpeg } from '../../../shared/utils/image-export';
 import { PlaceEntryCardComponent } from '../../domain-places/components/place-entry-card/place-entry-card.component';
 import { GlossaryEntryCardComponent } from '../../domain-glosary/components/glossary-entry-card/glossary-entry-card.component';
 import { IndexEntryCardComponent } from '../../domain-index/components/index-entry-card/index-entry-card.component';
@@ -27,13 +38,26 @@ const BATCH_SIZE = 20;
   styleUrls: ['./learn.component.css'],
 })
 export class Learn {
+  private readonly document = inject(DOCUMENT);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly learnFeedService = inject(LearnFeedService);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly transloco = inject(TranslocoService);
   private readonly seenEntryIds = new Set<string>();
 
   readonly entries = signal<LearnFeedEntry[]>([]);
+  readonly searchQuery = signal('');
+  readonly entryBeingExported = signal<LearnFeedEntry | null>(null);
+  readonly exportTheme = signal<'dark' | 'light'>('dark');
+  readonly exportUrl = signal('');
+  readonly isExporting = signal(false);
   readonly isLoading = signal(false);
   readonly hasMore = signal(true);
   readonly errorMessage = signal<string | null>(null);
+  @ViewChild('ghostExportCard') private ghostExportCard?: ElementRef<HTMLElement>;
+  private searchDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+  private requestVersion = 0;
 
   bookRow(entry: LearnFeedEntry): number {
     const row = entry.sourceRow['row'];
@@ -126,8 +150,64 @@ export class Learn {
     }
   }
 
+  async exportEntryImage(entry: LearnFeedEntry): Promise<void> {
+    if (this.isExporting()) {
+      return;
+    }
+
+    this.isExporting.set(true);
+    this.entryBeingExported.set(entry);
+    this.exportTheme.set(
+      this.document.documentElement.dataset['theme'] === 'light' ? 'light' : 'dark',
+    );
+    this.exportUrl.set(this.document.defaultView?.location.href ?? '');
+    this.changeDetectorRef.detectChanges();
+
+    try {
+      const exportCard = this.ghostExportCard?.nativeElement;
+      if (!exportCard) {
+        throw new Error('Learn image template is unavailable.');
+      }
+
+      const safeId = entry.id.replace(/[^a-z0-9_-]+/gi, '-');
+      await downloadJpeg(exportCard, `learn-${entry.domain.toLowerCase()}-${safeId}.jpg`, {
+        backgroundColor: this.exportTheme() === 'light' ? '#ffffff' : '#1a1a1a',
+      });
+    } catch {
+      this.globalErrorService.show(this.transloco.translate('LEARN.EXPORT_ERROR'));
+    } finally {
+      this.entryBeingExported.set(null);
+      this.isExporting.set(false);
+      this.changeDetectorRef.detectChanges();
+    }
+  }
+
   constructor() {
+    this.destroyRef.onDestroy(() => {
+      if (this.searchDebounceTimer) {
+        clearTimeout(this.searchDebounceTimer);
+      }
+    });
     void this.loadMore();
+  }
+
+  onSearchInput(query: string): void {
+    this.searchQuery.set(query);
+    if (this.searchDebounceTimer) {
+      clearTimeout(this.searchDebounceTimer);
+    }
+
+    const requestVersion = ++this.requestVersion;
+    this.seenEntryIds.clear();
+    this.entries.set([]);
+    this.hasMore.set(true);
+    this.errorMessage.set(null);
+    this.isLoading.set(true);
+
+    this.searchDebounceTimer = setTimeout(() => {
+      this.searchDebounceTimer = null;
+      void this.loadBatch(requestVersion, query.trim());
+    }, 250);
   }
 
   async loadMore(): Promise<void> {
@@ -137,18 +217,32 @@ export class Learn {
 
     this.isLoading.set(true);
     this.errorMessage.set(null);
+    await this.loadBatch(this.requestVersion, this.searchQuery().trim());
+  }
 
+  private async loadBatch(requestVersion: number, query: string): Promise<void> {
     try {
-      const batch = await this.learnFeedService.loadRandomBatch(this.seenEntryIds, BATCH_SIZE);
+      const batch = await this.learnFeedService.loadRandomBatch(
+        this.seenEntryIds,
+        BATCH_SIZE,
+        query,
+      );
+      if (requestVersion !== this.requestVersion) {
+        return;
+      }
       for (const entry of batch) {
         this.seenEntryIds.add(entry.id);
       }
       this.entries.update((current) => [...current, ...batch]);
       this.hasMore.set(batch.length === BATCH_SIZE);
     } catch {
-      this.errorMessage.set('LEARN.ERROR');
+      if (requestVersion === this.requestVersion) {
+        this.errorMessage.set('LEARN.ERROR');
+      }
     } finally {
-      this.isLoading.set(false);
+      if (requestVersion === this.requestVersion) {
+        this.isLoading.set(false);
+      }
     }
   }
 }

@@ -17,6 +17,7 @@ import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { PassagesRow } from '../model/domain-passage-row.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 import { PassageEntryCardComponent } from '../components/passage-entry-card/passage-entry-card.component';
 import { PassageReaderComponent } from '../components/passage-reader/passage-reader.component';
 
@@ -49,7 +50,7 @@ export class DomainPassageComponent {
   readonly newBook = signal<string>('');
   readonly newAuthor = signal<string>('');
   readonly newPage = signal<string>('');
-  readonly newTags = signal<string>('');
+  readonly newTags = signal<string[]>([]);
   readonly editingId = signal<string | null>(null);
   readonly passageTextMaxLength = 2000;
   readonly passageTextCharactersRemaining = computed(
@@ -100,7 +101,7 @@ export class DomainPassageComponent {
     }
 
     return this.rows().filter((row) =>
-      [row.title, row.passageText, row.book, row.author, row.page ?? '', row.tags ?? ''].some(
+      [row.title, row.passageText, row.book, row.author, row.page ?? '', ...(row.tags ?? [])].some(
         (value) => value.toLocaleLowerCase().includes(query),
       ),
     );
@@ -117,11 +118,8 @@ export class DomainPassageComponent {
     });
   }
 
-  splitTags(tags: string): string[] {
-    return tags
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(tags: string[]): string[] {
+    return parseTags(tags);
   }
 
   openReader(row: PassagesRow): void {
@@ -152,7 +150,7 @@ export class DomainPassageComponent {
     this.newBook.set(row.book);
     this.newAuthor.set(row.author);
     this.newPage.set(row.page ?? '');
-    this.newTags.set(row.tags ?? '');
+    this.newTags.set(row.tags ?? []);
   }
 
   resetForm(): void {
@@ -162,7 +160,7 @@ export class DomainPassageComponent {
     this.newBook.set('');
     this.newAuthor.set('');
     this.newPage.set('');
-    this.newTags.set('');
+    this.newTags.set([]);
     this.closeEntry.emit();
   }
 
@@ -183,7 +181,7 @@ export class DomainPassageComponent {
     const book = this.newBook().trim();
     const author = this.newAuthor().trim();
     const page = this.newPage().trim();
-    const tags = this.splitTags(this.newTags()).join(' ');
+    const tags = serializeTags(this.newTags());
     const editingId = this.editingId();
 
     try {

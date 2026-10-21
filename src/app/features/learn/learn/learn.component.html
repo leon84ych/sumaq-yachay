@@ -1,9 +1,17 @@
 <main class="learn-page">
-  <header class="learn-header">
-    <p class="learn-eyebrow">{{ 'NAV.BRAND_NAME' | transloco }}</p>
-    <h1>{{ 'LEARN.TITLE' | transloco }}</h1>
-    <p class="learn-description">{{ 'LEARN.DESCRIPTION' | transloco }}</p>
-  </header>
+  <label class="domain-search learn-search">
+    <span class="visually-hidden">{{ 'LEARN.SEARCH' | transloco }}</span>
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="8.75" cy="8.75" r="5.75" />
+      <path d="m13 13 4 4" />
+    </svg>
+    <input
+      type="search"
+      [value]="searchQuery()"
+      [placeholder]="'LEARN.SEARCH' | transloco"
+      (input)="onSearchInput($any($event.target).value)"
+    />
+  </label>
 
   @if (errorMessage(); as error) {
     <div class="learn-error" role="alert">
@@ -20,18 +28,38 @@
     </p>
   } @else if (entries().length === 0 && !errorMessage()) {
     <section class="learn-empty" aria-live="polite">
-      <h2>{{ 'LEARN.EMPTY_TITLE' | transloco }}</h2>
-      <p>{{ 'LEARN.EMPTY_DESCRIPTION' | transloco }}</p>
+      <h2>
+        {{ (searchQuery().trim() ? 'LEARN.NO_SEARCH_RESULTS_TITLE' : 'LEARN.EMPTY_TITLE') | transloco }}
+      </h2>
+      <p>
+        {{ (searchQuery().trim() ? 'LEARN.NO_SEARCH_RESULTS' : 'LEARN.EMPTY_DESCRIPTION') | transloco }}
+      </p>
     </section>
   }
 
   @if (entries().length > 0) {
     <section class="learn-feed" [attr.aria-label]="'LEARN.TITLE' | transloco">
       @for (entry of entries(); track entry.id) {
-        <ng-container
-          [ngComponentOutlet]="componentFor(entry)"
-          [ngComponentOutletInputs]="componentInputs(entry)"
-        />
+        <div class="learn-entry">
+          <ng-container
+            [ngComponentOutlet]="componentFor(entry)"
+            [ngComponentOutletInputs]="componentInputs(entry)"
+          />
+          <footer class="learn-entry__footer">
+            <button
+              type="button"
+              class="learn-entry__export"
+              [disabled]="isExporting()"
+              [attr.aria-label]="'LEARN.EXPORT_IMAGE' | transloco"
+              [title]="'LEARN.EXPORT_IMAGE' | transloco"
+              (click)="exportEntryImage(entry)"
+            >
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
+              </svg>
+            </button>
+          </footer>
+        </div>
       }
     </section>
 
@@ -46,3 +74,50 @@
     </div>
   }
 </main>
+
+@if (entryBeingExported(); as entry) {
+  <article
+    #ghostExportCard
+    class="learn-ghost-export"
+    [class.learn-ghost-export--light]="exportTheme() === 'light'"
+    [style.border-top-color]="entry.accentColor || 'var(--accent)'"
+    aria-hidden="true"
+    inert
+  >
+    <span class="learn-ghost-export__eyebrow">
+      {{ 'NAV.BRAND_NAME' | transloco }} · {{ 'DOMAINS.DOMAINS.' + entry.domain | transloco }}
+    </span>
+
+    @if (entry.domain === 'QUOTES') {
+      <blockquote class="learn-ghost-export__quote">&ldquo;{{ entry.title }}&rdquo;</blockquote>
+    } @else {
+      <h1>{{ entry.title }}</h1>
+    }
+
+    @if (entry.body) {
+      <p class="learn-ghost-export__body">{{ entry.body }}</p>
+    }
+
+    @if (entry.note) {
+      <p class="learn-ghost-export__note">{{ entry.note }}</p>
+    }
+
+    @if (entry.tags.length > 0) {
+      <div class="learn-ghost-export__tags">
+        @for (tag of entry.tags; track tag) {
+          <span>{{ tag }}</span>
+        }
+      </div>
+    }
+
+    <footer class="learn-ghost-export__footer">
+      <div class="learn-ghost-export__source">
+        <strong>{{ entry.bookName }}</strong>
+        @if (entry.bookAuthor) {
+          <span>{{ entry.bookAuthor }}</span>
+        }
+      </div>
+      <small class="learn-ghost-export__url">{{ exportUrl() }}</small>
+    </footer>
+  </article>
+}

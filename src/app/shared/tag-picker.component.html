@@ -36,9 +36,9 @@
           <button
             type="button"
             (mousedown)="$event.preventDefault()"
-            (click)="addTag(suggestion.tag)"
+            (click)="addTag(suggestion.name)"
           >
-            <span>{{ suggestion.tag }}</span>
+            <span>{{ suggestion.name }}</span>
             @if (suggestion.usageCount) {
               <small>{{ suggestion.usageCount }}</small>
             }

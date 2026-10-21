@@ -1,0 +1,11 @@
+@if (markers().length > 0) {
+  <app-map-picker
+    [initialCoords]="initialCoords()"
+    [zoom]="5"
+    [interactive]="false"
+    [markers]="markers()"
+    height="min(65vh, 680px)"
+  />
+} @else {
+  <p class="empty-state">{{ 'DOMAINS.PLACES.NO_MAPPED_LOCATIONS' | transloco }}</p>
+}

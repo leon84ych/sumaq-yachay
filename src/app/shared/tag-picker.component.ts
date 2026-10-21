@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, input, model, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { AppDbService, BookTag } from '../core/services/storage/app-db.service';
+import { normalizeTags } from './utils/tag-utils';
 
 @Component({
   selector: 'app-tag-picker',
@@ -11,7 +12,7 @@ import { AppDbService, BookTag } from '../core/services/storage/app-db.service';
   styleUrl: './tag-picker.component.css',
 })
 export class TagPickerComponent {
-  readonly value = model('');
+  readonly value = model<string[]>([]);
   readonly bookRow = input<number | null>(null);
   readonly ariaLabel = input.required<string>();
   readonly inputId = input('');
@@ -19,14 +20,14 @@ export class TagPickerComponent {
   readonly inputValue = signal('');
   readonly isFocused = signal(false);
   readonly suggestions = signal<BookTag[]>([]);
-  readonly selectedTags = computed(() => this.splitTags(this.value()));
+  readonly selectedTags = computed(() => normalizeTags(this.value()));
   readonly matchingSuggestions = computed(() => {
     const query = this.inputValue().trim().toLocaleLowerCase();
     const selected = new Set(this.selectedTags().map((tag) => tag.toLocaleLowerCase()));
 
     return this.suggestions()
       .filter((suggestion) => {
-        const tag = suggestion.tag.toLocaleLowerCase();
+        const tag = suggestion.name.toLocaleLowerCase();
         return !selected.has(tag) && (!query || tag.includes(query));
       })
       .slice(0, 8);
@@ -89,37 +90,22 @@ export class TagPickerComponent {
   }
 
   addTag(tag: string): void {
-    const normalizedTag = tag.replace(/[,;\s]+$/, '').trim();
-    if (!normalizedTag) {
+    const incomingTags = normalizeTags(tag.split(/[\s,;]+/));
+    if (incomingTags.length === 0) {
       this.inputValue.set('');
       return;
     }
 
-    const tags = this.selectedTags();
-    if (
-      !tags.some((existing) => existing.toLocaleLowerCase() === normalizedTag.toLocaleLowerCase())
-    ) {
-      this.value.set([...tags, normalizedTag].join(' '));
-    }
+    this.value.set(normalizeTags([...this.selectedTags(), ...incomingTags]));
     this.inputValue.set('');
   }
 
   removeTag(tagToRemove: string): void {
-    this.value.set(
-      this.selectedTags()
-        .filter((tag) => tag !== tagToRemove)
-        .join(' '),
-    );
+    this.value.set(normalizeTags(this.selectedTags().filter((tag) => tag !== tagToRemove)));
   }
 
   setFocused(focused: boolean): void {
     this.isFocused.set(focused);
   }
 
-  private splitTags(value: string): string[] {
-    return value
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
-  }
 }

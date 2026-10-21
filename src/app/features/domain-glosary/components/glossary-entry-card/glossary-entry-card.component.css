@@ -16,7 +16,7 @@
   border-radius: var(--radius-full);
   background: var(--surface-subtle);
   color: var(--text-secondary);
-  font-size: 0.75rem;
+  font-size: var(--learn-content-font-size, 0.75rem);
   font-style: italic;
   font-weight: 600;
   overflow-wrap: anywhere;
@@ -26,7 +26,7 @@
   display: grid;
   gap: 0.5rem;
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: var(--learn-content-font-size, 0.85rem);
 }
 
 .glossary-entry-card__details p {
@@ -80,7 +80,7 @@
   padding: 0.15rem 0.55rem;
   background: var(--quote-tag-surface);
   color: var(--quote-tag-text);
-  font-size: 0.75rem;
+  font-size: var(--learn-content-font-size, 0.75rem);
   overflow-wrap: anywhere;
 }
 

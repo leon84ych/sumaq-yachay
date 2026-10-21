@@ -1,10 +1,10 @@
 import { Component, input } from '@angular/core';
-import { TranslocoPipe } from '@jsverse/transloco';
 import { DomainName } from '../../features/catalog-detail/models/domain-sheet-config';
+import { DomainEntryHeaderComponent } from '../domain-entry-header/domain-entry-header.component';
 
 @Component({
   selector: 'app-domain-entry-card',
-  imports: [TranslocoPipe],
+  imports: [DomainEntryHeaderComponent],
   templateUrl: './domain-entry-card.component.html',
   styleUrl: './domain-entry-card.component.css',
 })

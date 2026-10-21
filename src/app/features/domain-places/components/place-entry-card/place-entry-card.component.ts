@@ -1,11 +1,13 @@
 import { Component, inject, input, output } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../core/services/permission.service';
+import { DomainEntryHeaderComponent } from '../../../../shared/domain-entry-header/domain-entry-header.component';
+import { parseTags } from '../../../../shared/utils/tag-utils';
 import { PlaceRow } from '../../model/domain-place-row.model';
 
 @Component({
   selector: 'app-place-entry-card',
-  imports: [TranslocoPipe],
+  imports: [TranslocoPipe, DomainEntryHeaderComponent],
   templateUrl: './place-entry-card.component.html',
   styleUrl: './place-entry-card.component.css',
 })
@@ -20,10 +22,7 @@ export class PlaceEntryCardComponent {
   readonly permissions = inject(PermissionService);
   readonly role = this.permissions.role;
 
-  splitTags(tags: string | undefined): string[] {
-    return (tags ?? '')
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(tags: string[] | undefined): string[] {
+    return parseTags(tags);
   }
 }

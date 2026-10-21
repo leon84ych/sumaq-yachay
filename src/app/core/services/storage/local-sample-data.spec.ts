@@ -49,14 +49,54 @@ describe('LocalSampleData fixtures', () => {
         [...ALL_AVAILABLE_DOMAINS].sort(),
       );
 
+      for (const [domain, rows] of Object.entries(domainData)) {
+        for (const row of rows) {
+          expect(Array.isArray(row['tags']), `${catalogItem.id} ${domain} tags`).toBe(true);
+          expect(row, `${catalogItem.id} ${domain}`).not.toHaveProperty('tag');
+        }
+      }
+
       for (const domain of populatedDomains) {
         const rows = domainData[domain];
         expect(rows, `${catalogItem.id} ${domain}`).toHaveLength(10);
         expect(rows.every((row) => typeof row['id'] === 'string')).toBe(true);
       }
 
-      expect(domainData['TIMELINE'], catalogItem.id).toEqual([]);
-      expect(domainData['RELATIONS'], catalogItem.id).toEqual([]);
+      const characterIds = new Set(
+        domainData['CHARACTER'].map((character) => `${catalogItem.id}-${String(character['id'])}`),
+      );
+      const conceptIds = new Set(
+        domainData['CONCEPTS'].map((concept) => `${catalogItem.id}-${String(concept['id'])}`),
+      );
+      const bookEvents = domainData['BOOK_EVENTS'];
+      const characterRelations = domainData['RELATIONS_CHARACTERS'];
+      const conceptRelations = domainData['RELATIONS_CONCEPTS'];
+
+      expect(bookEvents, catalogItem.id).toHaveLength(4);
+      expect(characterRelations, catalogItem.id).toHaveLength(4);
+      expect(conceptRelations, catalogItem.id).toHaveLength(4);
+      expect(bookEvents.every((event) => characterIds.has(String(event['mainCharacterId'])))).toBe(
+        true,
+      );
+      expect(
+        characterRelations.every(
+          (relation) =>
+            characterIds.has(String(relation['sourceCharacterId'])) &&
+            characterIds.has(String(relation['targetCharacterId'])),
+        ),
+      ).toBe(true);
+      expect(
+        conceptRelations.every(
+          (relation) =>
+            conceptIds.has(String(relation['sourceConceptId'])) &&
+            conceptIds.has(String(relation['targetConceptId'])),
+        ),
+      ).toBe(true);
+      expect(
+        [...bookEvents, ...characterRelations, ...conceptRelations].every(
+          (entry, indexWithinDomain) => entry['displayRow'] === (indexWithinDomain % 4) + 1,
+        ),
+      ).toBe(true);
       expect(domainData['QUESTIONS'], catalogItem.id).toEqual([]);
     }
   });
@@ -91,16 +131,14 @@ describe('LocalSampleData fixtures', () => {
     database.close();
   });
 
-  it('normalizes array-valued tags and synonyms for the domain components', () => {
+  it('normalizes all tag variants to a single array and normalizes synonyms', () => {
     expect(
       normalizeSampleDomainRow({
-        tag: ['#first', '#second'],
         tags: ['#first', '#second'],
         synonyms: ['first term', 'alternate term'],
       }),
     ).toEqual({
-      tag: '#first #second',
-      tags: '#first #second',
+      tags: ['#first', '#second'],
       synonyms: 'first term, alternate term',
     });
   });

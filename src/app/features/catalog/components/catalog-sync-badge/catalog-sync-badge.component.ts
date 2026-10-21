@@ -11,13 +11,13 @@ import { SyncState } from '../../models/catalog-item.model';
     <span class="sync-badge" [ngClass]="'status-' + (status() || 'synced')">
       @switch (status()) {
         @case ('pending') {
-          <span class="dot pulse"></span> {{ 'CATALOG.SYNC_STATUS.PENDING' | transloco }}
+          <span class="sync-status-dot pulse"></span> {{ 'CATALOG.SYNC_STATUS.PENDING' | transloco }}
         }
         @case ('error') {
-          <span class="dot error"></span> {{ 'CATALOG.SYNC_STATUS.FAILED' | transloco }}
+          <span class="sync-status-dot is-error"></span> {{ 'CATALOG.SYNC_STATUS.FAILED' | transloco }}
         }
         @default {
-          <span class="dot synced"></span> {{ 'CATALOG.SYNC_STATUS.SYNCED' | transloco }}
+          <span class="sync-status-dot is-synced"></span> {{ 'CATALOG.SYNC_STATUS.SYNCED' | transloco }}
         }
       }
     </span>
@@ -35,35 +35,19 @@ import { SyncState } from '../../models/catalog-item.model';
       letter-spacing: 0.04em;
     }
 
-    .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
     .status-synced {
       background-color: var(--success-light);
       color: var(--success);
-    }
-    .status-synced .dot {
-      background-color: var(--success);
     }
 
     .status-pending {
       background-color: var(--warning-light);
       color: #926a11;
     }
-    .status-pending .dot {
-      background-color: var(--warning);
-    }
 
     .status-error {
       background-color: var(--error-light);
       color: var(--error);
-    }
-    .status-error .dot {
-      background-color: var(--error);
     }
 
     @keyframes pulse-anim {

@@ -159,6 +159,8 @@
           <app-glossary-entry-card
             [row]="row"
             [bookName]="bookName()"
+            [bookAuthor]="bookAuthor()"
+            [showContext]="true"
             (deleteRequested)="deleteEntry($event)"
             (editRequested)="editEntry($event)"
           />

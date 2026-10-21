@@ -139,6 +139,8 @@
         @for (row of filteredRows(); track row.id) {
           <app-passage-entry-card
             [row]="row"
+            [bookName]="bookName()"
+            [bookAuthor]="bookAuthor()"
             [showContext]="true"
             (editRequested)="editEntry($event)"
             (deleteRequested)="deleteEntry($event)"

@@ -10,6 +10,7 @@ import { CharacterNature, CharacterRole, CharacterRow } from '../models/domain-c
 import { CharacterEntryCardComponent } from '../components/character-entry-card/character-entry-card.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 
 const CHARACTER_ROLES: CharacterRole[] = [
   'protagonist',
@@ -38,9 +39,9 @@ export class DomainCharacterComponent {
   readonly rows = input.required<CharacterRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
   readonly bookName = input<string>('');
+  readonly bookAuthor = input<string>('');
   readonly isAddingEntry = input<boolean>(false);
   readonly closeEntry = output<void>();
-  readonly relationsRequested = output<CharacterRow>();
 
   readonly characterRoles = CHARACTER_ROLES;
   readonly characterNatures = CHARACTER_NATURES;
@@ -51,7 +52,7 @@ export class DomainCharacterComponent {
   readonly newArchetype = signal<string>('');
   readonly newSource = signal<string>('');
   readonly newColor = signal<string>('#3b82f6');
-  readonly newTags = signal<string>('');
+  readonly newTags = signal<string[]>([]);
   readonly searchTerm = signal<string>('');
   readonly editingId = signal<string | null>(null);
 
@@ -106,20 +107,13 @@ export class DomainCharacterComponent {
         row.color ?? '',
         row.description ?? '',
         row.archetype ?? '',
-        row.tags ?? '',
+        ...(row.tags ?? []),
       ].some((value) => value.toLocaleLowerCase().includes(query)),
     );
   });
 
-  splitTags(tags: string): string[] {
-    return tags
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
-  }
-
-  viewRelations(row: CharacterRow): void {
-    this.relationsRequested.emit(row);
+  splitTags(tags: string[]): string[] {
+    return parseTags(tags);
   }
 
   async deleteEntry(id: string): Promise<void> {
@@ -144,7 +138,7 @@ export class DomainCharacterComponent {
     this.newArchetype.set(row.archetype ?? '');
     this.newSource.set(row.source ?? '');
     this.newColor.set(row.color ?? '#3b82f6');
-    this.newTags.set(row.tags ?? '');
+    this.newTags.set(row.tags ?? []);
   }
 
   resetForm(): void {
@@ -155,7 +149,7 @@ export class DomainCharacterComponent {
     this.newDescription.set('');
     this.newArchetype.set('');
     this.newSource.set('');
-    this.newTags.set('');
+    this.newTags.set([]);
     this.newColor.set('#3b82f6');
     this.closeEntry.emit();
   }
@@ -174,7 +168,7 @@ export class DomainCharacterComponent {
     const description = this.newDescription().trim();
     const archetype = this.newArchetype().trim();
     const source = this.source();
-    const tags = this.splitTags(this.newTags()).join(' ');
+    const tags = serializeTags(this.newTags());
     const editingId = this.editingId();
 
     try {

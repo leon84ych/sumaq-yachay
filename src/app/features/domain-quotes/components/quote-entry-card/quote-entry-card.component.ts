@@ -1,6 +1,8 @@
 import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../core/services/permission.service';
+import { DomainEntryHeaderComponent } from '../../../../shared/domain-entry-header/domain-entry-header.component';
+import { parseTags } from '../../../../shared/utils/tag-utils';
 import { QuoteRow } from '../../model/domain-quote-row.model';
 
 export interface QuoteImageExportRequest {
@@ -11,7 +13,7 @@ export interface QuoteImageExportRequest {
 
 @Component({
   selector: 'app-quote-entry-card',
-  imports: [TranslocoPipe],
+  imports: [TranslocoPipe, DomainEntryHeaderComponent],
   templateUrl: './quote-entry-card.component.html',
   styleUrl: './quote-entry-card.component.css',
 })
@@ -50,10 +52,7 @@ export class QuoteEntryCardComponent {
     this.imageExportRequested.emit({ event, row: this.row(), side });
   }
 
-  splitTags(tags: string | undefined): string[] {
-    return (tags ?? '')
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(tags: string[] | undefined): string[] {
+    return parseTags(tags);
   }
 }

@@ -2,14 +2,14 @@ import { describe, expect, it } from 'vitest';
 import { normalizeIndexRows } from '../model/index-view-row';
 
 describe('normalizeIndexRows', () => {
-  it('normalizes every INDEX field to a string', () => {
+  it('normalizes INDEX fields and tags to canonical values', () => {
     const rows = normalizeIndexRows([
       {
         id: 'idx_1',
         chapter: 1,
         theme: null,
         subtheme: undefined,
-        tag: 42,
+        tags: ['42'],
         syncStatus: 'pending',
       },
     ]);
@@ -20,32 +20,32 @@ describe('normalizeIndexRows', () => {
         chapter: '1',
         theme: '',
         subtheme: '',
-        tag: '42',
+        tags: ['#42'],
         syncStatus: 'pending',
       },
     ]);
   });
 
-  it('reads tags with singular or plural and lowercase or title-case headers', () => {
+  it('returns canonical tag arrays', () => {
     const rows = normalizeIndexRows([
-      { Tag: '#chapter', chapter: '1' },
-      { tags: '#theme-a, #theme-b', chapter: '2' },
-      { Tags: '#theme-c; #theme-d', chapter: '3' },
+      { tags: ['#chapter'], chapter: '1' },
+      { tags: ['#theme-a', '#theme-b'], chapter: '2' },
+      { tags: ['#theme-c', '#theme-d'], chapter: '3' },
     ]);
 
-    expect(rows.map((row) => row.tag)).toEqual([
-      '#chapter',
-      '#theme-a, #theme-b',
-      '#theme-c; #theme-d',
+    expect(rows.map((row) => row.tags)).toEqual([
+      ['#chapter'],
+      ['#theme-a', '#theme-b'],
+      ['#theme-c', '#theme-d'],
     ]);
   });
 
-  it('normalizes INDEX rows to the singular tag field only', () => {
+  it('returns only the plural tags array', () => {
     const [row] = normalizeIndexRows([
-      { id: 'idx_1', chapter: '1', theme: 'A', tag: '#single', tags: '#duplicate' },
+      { id: 'idx_1', chapter: '1', theme: 'A', tags: ['#single', '#duplicate'] },
     ]);
 
-    expect(row.tag).toBe('#single');
-    expect(row).not.toHaveProperty('tags');
+    expect(row.tags).toEqual(['#single', '#duplicate']);
+    expect(row).not.toHaveProperty('tag');
   });
 });

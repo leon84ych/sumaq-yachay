@@ -5,80 +5,80 @@
       "chapter": "From the Other Side",
       "theme": "Search",
       "subtheme": "The pursuit of meaning beyond ordinary reality",
-      "tag": "#search",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#search"]
     },
     {
       "id": "sample-index-02",
       "chapter": "From the Other Side",
       "theme": "Love",
       "subtheme": "Intimacy, distance, and emotional uncertainty",
-      "tag": "#love",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#love"]
     },
     {
       "id": "sample-index-03",
       "chapter": "From the Other Side",
       "theme": "Paris",
       "subtheme": "Urban wandering and intellectual experience",
-      "tag": "#paris",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#paris"]
     },
     {
       "id": "sample-index-04",
       "chapter": "From This Side",
       "theme": "Return",
       "subtheme": "Displacement and readjustment in Buenos Aires",
-      "tag": "#return",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#return"]
     },
     {
       "id": "sample-index-05",
       "chapter": "From This Side",
       "theme": "Identity",
       "subtheme": "Doubling, recognition, and unstable perception",
-      "tag": "#identity",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#identity"]
     },
     {
       "id": "sample-index-06",
       "chapter": "From Diverse Sides",
       "theme": "Experimentation",
       "subtheme": "Alternative reading orders and fragmented structure",
-      "tag": "#experimentation",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#experimentation"]
     },
     {
       "id": "sample-index-07",
       "chapter": "The Serpent Club",
       "theme": "Art",
       "subtheme": "Jazz, literature, philosophy, and conversation",
-      "tag": "#art",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#art"]
     },
     {
       "id": "sample-index-08",
       "chapter": "Horacio Oliveira",
       "theme": "Alienation",
       "subtheme": "Intellectual distance from experience",
-      "tag": "#alienation",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#alienation"]
     },
     {
       "id": "sample-index-09",
       "chapter": "La Maga",
       "theme": "Intuition",
       "subtheme": "Experience contrasted with intellectual abstraction",
-      "tag": "#intuition",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#intuition"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Analytical Overview",
       "theme": "Reading",
       "subtheme": "Reader participation and nonlinear interpretation",
-      "tag": "#reading",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#reading"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "A method of reading in which narrative sections can be approached in an order different from conventional sequential progression.",
       "category": "Narrative technique",
       "source": "Study context for Hopscotch",
-      "tag": "#nonlinear-reading",
-      "tags": ["#structure", "#experimentation"],
+      "tags": ["#structure", "#experimentation", "#nonlinear-reading"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "The idea that the reader actively constructs connections and meanings rather than receiving a completely predetermined narrative sequence.",
       "category": "Literary concept",
       "source": "Study context for Hopscotch",
-      "tag": "#reader-participation",
-      "tags": ["#reading", "#interpretation"],
+      "tags": ["#reading", "#interpretation", "#reader-participation"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "A search for meaning, authenticity, connection, or a reality beyond habitual forms of experience.",
       "category": "Philosophical theme",
       "source": "Study context for Hopscotch",
-      "tag": "#existential-search",
-      "tags": ["#meaning", "#identity"],
+      "tags": ["#meaning", "#identity", "#existential-search"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "A condition of emotional, intellectual, or social distance from other people and ordinary experience.",
       "category": "Theme",
       "source": "Study context for Hopscotch",
-      "tag": "#alienation",
-      "tags": ["#isolation", "#identity"],
+      "tags": ["#isolation", "#identity", "#alienation"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "A recurring tension between immediate experiential understanding and analytical or abstract reasoning.",
       "category": "Philosophical theme",
       "source": "Study context for Hopscotch",
-      "tag": "#intuition-intellect",
-      "tags": ["#intuition", "#reason"],
+      "tags": ["#intuition", "#reason", "#intuition-intellect"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "Fiction that draws attention to literary construction, reading, authorship, or the conventions through which narratives are created.",
       "category": "Narrative technique",
       "source": "Study context for Hopscotch",
-      "tag": "#metafiction",
-      "tags": ["#literature", "#experimentation"],
+      "tags": ["#literature", "#experimentation", "#metafiction"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "The arrangement of narrative through discontinuous episodes, references, voices, and textual materials rather than a single continuous progression.",
       "category": "Narrative structure",
       "source": "Study context for Hopscotch",
-      "tag": "#fragmentation",
-      "tags": ["#structure", "#modern-fiction"],
+      "tags": ["#structure", "#modern-fiction", "#fragmentation"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "The use of experimentation, language, structure, humor, and reader choice to challenge conventional expectations about fiction.",
       "category": "Literary concept",
       "source": "Study context for Hopscotch",
-      "tag": "#play",
-      "tags": ["#language", "#experimentation"],
+      "tags": ["#language", "#experimentation", "#play"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "An analytical model for understanding spontaneous variation, rhythm, dialogue, and structural freedom within artistic experience.",
       "category": "Analytical concept",
       "source": "Study context for Hopscotch",
-      "tag": "#jazz-improvisation",
-      "tags": ["#jazz", "#art"],
+      "tags": ["#jazz", "#art", "#jazz-improvisation"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "An analytical idea representing the desire to reach a mode of understanding beyond ordinary habits, categories, and rational arrangements.",
       "category": "Philosophical concept",
       "source": "Study context for Hopscotch",
-      "tag": "#other-side",
-      "tags": ["#search", "#meaning"],
+      "tags": ["#search", "#meaning", "#other-side"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "nonlinear",
       "definition": "Not organized according to a single continuous or sequential progression.",
-      "partOfSpeech": "adjective",
+      "partOfSpeech": "Adjective",
       "etymology": "Formed from the prefix non- and linear, from Latin linea, meaning line.",
       "synonyms": ["nonsequential", "fragmented"],
       "contextSentence": "A nonlinear reading allows relationships between distant chapters to emerge in unexpected ways.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "metafiction",
       "definition": "Fiction that consciously examines or exposes its own status as an invented literary work.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Formed from meta-, meaning beyond or about itself, and fiction.",
       "synonyms": ["self-reflexive fiction"],
       "contextSentence": "Metafiction invites the reader to consider how a novel is constructed while reading it.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "fragmentation",
       "definition": "The division of a narrative or experience into discontinuous pieces.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin fragmentum, meaning a broken piece.",
       "synonyms": ["discontinuity", "division"],
       "contextSentence": "Fragmentation encourages the reader to construct connections between separated pieces of narrative.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "alienation",
       "definition": "A condition of estrangement from people, society, experience, or one's own sense of self.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin alienare, meaning to estrange or make another's.",
       "synonyms": ["estrangement", "isolation"],
       "contextSentence": "Intellectual analysis can deepen alienation when it prevents direct engagement with experience.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "intuition",
       "definition": "Immediate understanding or perception without deliberate analytical reasoning.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin intueri, meaning to look at or contemplate.",
       "synonyms": ["instinct", "insight"],
       "contextSentence": "Intuition may reach an understanding that elaborate analysis continues trying to formulate.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "improvisation",
       "definition": "The creation or performance of something without fully predetermined form.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin improvisus, meaning unforeseen.",
       "synonyms": ["spontaneity", "extemporization"],
       "contextSentence": "Improvisation provides a useful analogy for a narrative that values variation and unexpected connection.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "bohemian",
       "definition": "Associated with unconventional artistic, intellectual, or social lifestyles.",
-      "partOfSpeech": "adjective",
+      "partOfSpeech": "Adjective",
       "etymology": "Historically derived from Bohemia and later applied to unconventional artistic communities.",
       "synonyms": ["unconventional", "artistic"],
       "contextSentence": "The bohemian environment encourages long conversations about music, literature, philosophy, and experience.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "intertextuality",
       "definition": "The network of relationships and references connecting one text with other texts and cultural works.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Formed from inter-, meaning between, and textuality.",
       "synonyms": ["textual reference", "literary connection"],
       "contextSentence": "Intertextuality asks readers to recognize how references to other works can reshape interpretation.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "absurdity",
       "definition": "The quality of resisting ordinary expectations of logic, coherence, or purpose.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin absurdus, associated with incongruity or irrationality.",
       "synonyms": ["incongruity", "irrationality"],
       "contextSentence": "Absurdity can expose the limitations of habits that are normally treated as rational and necessary.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "experimental",
       "definition": "Characterized by deliberate attempts to develop or test unconventional forms, methods, or structures.",
-      "partOfSpeech": "adjective",
+      "partOfSpeech": "Adjective",
       "etymology": "Derived from Latin experimentum, meaning trial or test.",
       "synonyms": ["innovative", "unconventional"],
       "contextSentence": "An experimental novel may require the reader to reconsider expectations about sequence and narrative authority.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-008-sample-character-01",
+      "secondaryCharacterIds": ["book-008-sample-character-02", "book-008-sample-character-03"],
+      "placeId": "book-008-sample-place-01",
+      "dateLabel": "From the Other Side",
+      "eventOrder": 1,
+      "event": "Study event 1: From the Other Side / Search",
+      "description": "Study synthesis for “From the Other Side”: the index highlights Search (The pursuit of meaning beyond ordinary reality). The description of Horacio Oliveira (“An Argentine intellectual whose experiences in Paris and Buenos Aires center the novel's exploration of alienation, meaning, love, and intellectual uncertainty.”) is considered here alongside Nonlinear reading (“A method of reading in which narrative sections can be approached in an order different from conventional sequential progression.”). Paris and the passage “Crossing Paris” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#5C4D7D",
+      "book": "Hopscotch",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#search", "#oliveira", "#alienation", "#nonlinear-reading", "#structure", "#experimentation", "#paris", "#france"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-008-sample-character-03",
+      "secondaryCharacterIds": ["book-008-sample-character-04", "book-008-sample-character-05"],
+      "placeId": "book-008-sample-place-02",
+      "dateLabel": "From the Other Side",
+      "eventOrder": 2,
+      "event": "Study event 2: From the Other Side / Love",
+      "description": "Study synthesis for “From the Other Side”: the index highlights Love (Intimacy, distance, and emotional uncertainty). The description of Traveler (“Oliveira's friend in Buenos Aires, whose relationship with him becomes increasingly important after Oliveira's return from Paris.”) is considered here alongside Existential search (“A search for meaning, authenticity, connection, or a reality beyond habitual forms of experience.”). Buenos Aires and the passage “The Intellectual” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#B56576",
+      "book": "Hopscotch",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#love", "#traveler", "#friendship", "#identity", "#existential-search", "#meaning", "#buenos-aires", "#argentina", "#return"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-008-sample-character-05",
+      "secondaryCharacterIds": ["book-008-sample-character-06", "book-008-sample-character-07"],
+      "placeId": "book-008-sample-place-03",
+      "dateLabel": "From the Other Side",
+      "eventOrder": 3,
+      "event": "Study event 3: From the Other Side / Paris",
+      "description": "Study synthesis for “From the Other Side”: the index highlights Paris (Urban wandering and intellectual experience). The description of Morelli (“A writer whose ideas about literature and reading illuminate the novel's concern with experimentation and active reader participation.”) is considered here alongside Intuition and intellect (“A recurring tension between immediate experiential understanding and analytical or abstract reasoning.”). France and the passage “Improvisation” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#2F6690",
+      "book": "Hopscotch",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#paris", "#morelli", "#literature", "#experimentation", "#intuition-intellect", "#intuition", "#reason", "#france", "#europe"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-008-sample-character-07",
+      "secondaryCharacterIds": ["book-008-sample-character-08", "book-008-sample-character-09"],
+      "placeId": "book-008-sample-place-04",
+      "dateLabel": "From This Side",
+      "eventOrder": 4,
+      "event": "Study event 4: From This Side / Return",
+      "description": "Study synthesis for “From This Side”: the index highlights Return (Displacement and readjustment in Buenos Aires). The description of Ronald (“A member of the Serpent Club associated with the group's conversations, music, and bohemian social environment.”) is considered here alongside Fragmentation (“The arrangement of narrative through discontinuous episodes, references, voices, and textual materials rather than a single continuous progression.”). Argentina and the passage “Two Ways of Knowing” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#C49A3A",
+      "book": "Hopscotch",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#return", "#ronald", "#serpent-club", "#jazz", "#fragmentation", "#structure", "#modern-fiction", "#argentina", "#buenos-aires"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-008-sample-character-01",
+      "targetCharacterId": "book-008-sample-character-02",
+      "relationType": "thematic comparison",
+      "directed": false,
+      "description": "This reading association links Horacio Oliveira (An Argentine intellectual whose experiences in Paris and Buenos Aires center the novel's exploration of alienation, meaning, love, and intellectual uncertainty.) with La Maga (Oliveira's Uruguayan companion in Paris, often associated with intuition, immediacy, emotional experience, and a way of understanding life that contrasts with his intellectualism.). The theme “Search” and subtheme “The pursuit of meaning beyond ordinary reality” guide the comparison; the passage “Crossing Paris” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#5C4D7D",
+      "book": "Hopscotch",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#oliveira", "#search", "#alienation", "#la-maga", "#intuition", "#love"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-008-sample-character-03",
+      "targetCharacterId": "book-008-sample-character-04",
+      "relationType": "contrasting perspective",
+      "directed": false,
+      "description": "This reading association links Traveler (Oliveira's friend in Buenos Aires, whose relationship with him becomes increasingly important after Oliveira's return from Paris.) with Talita (Traveler's partner, whose presence becomes entangled with Oliveira's memories, perceptions, and emotional associations.). The theme “Love” and subtheme “Intimacy, distance, and emotional uncertainty” guide the comparison; the passage “The Intellectual” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#B56576",
+      "book": "Hopscotch",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#traveler", "#friendship", "#identity", "#talita", "#perception", "#love"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-008-sample-character-05",
+      "targetCharacterId": "book-008-sample-character-06",
+      "relationType": "shared narrative context",
+      "directed": false,
+      "description": "This reading association links Morelli (A writer whose ideas about literature and reading illuminate the novel's concern with experimentation and active reader participation.) with Étienne (A member of the Serpent Club whose conversations contribute to the artistic and intellectual environment of the Paris sections.). The theme “Paris” and subtheme “Urban wandering and intellectual experience” guide the comparison; the passage “Improvisation” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#2F6690",
+      "book": "Hopscotch",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#morelli", "#literature", "#experimentation", "#etienne", "#serpent-club", "#art", "#paris"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-008-sample-character-07",
+      "targetCharacterId": "book-008-sample-character-08",
+      "relationType": "interpretive pairing",
+      "directed": false,
+      "description": "This reading association links Ronald (A member of the Serpent Club associated with the group's conversations, music, and bohemian social environment.) with Babs (A member of the Serpent Club whose presence forms part of the social and intellectual circle surrounding Oliveira and La Maga.). The theme “Return” and subtheme “Displacement and readjustment in Buenos Aires” guide the comparison; the passage “Two Ways of Knowing” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#C49A3A",
+      "book": "Hopscotch",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#ronald", "#serpent-club", "#jazz", "#babs", "#paris", "#return"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-008-sample-concept-01",
+      "targetConceptId": "book-008-sample-concept-02",
+      "relationType": "provides context for",
+      "directed": true,
+      "description": "The definition of “Nonlinear reading” (“A method of reading in which narrative sections can be approached in an order different from conventional sequential progression.”) can be read in relation to “Reader participation” (“The idea that the reader actively constructs connections and meanings rather than receiving a completely predetermined narrative sequence.”). The theme Search and subtheme The pursuit of meaning beyond ordinary reality, together with the passage “Crossing Paris”, place this conceptual connection in the book’s reading context.",
+      "color": "#735D78",
+      "book": "Hopscotch",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#nonlinear-reading", "#structure", "#experimentation", "#reader-participation", "#reading", "#interpretation", "#search"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-008-sample-concept-03",
+      "targetConceptId": "book-008-sample-concept-04",
+      "relationType": "offers a lens on",
+      "directed": false,
+      "description": "The definition of “Existential search” (“A search for meaning, authenticity, connection, or a reality beyond habitual forms of experience.”) can be read in relation to “Alienation” (“A condition of emotional, intellectual, or social distance from other people and ordinary experience.”). The theme Love and subtheme Intimacy, distance, and emotional uncertainty, together with the passage “The Intellectual”, place this conceptual connection in the book’s reading context.",
+      "color": "#2F6690",
+      "book": "Hopscotch",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#existential-search", "#meaning", "#identity", "#alienation", "#isolation", "#love"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-008-sample-concept-05",
+      "targetConceptId": "book-008-sample-concept-06",
+      "relationType": "contrasts with",
+      "directed": false,
+      "description": "The definition of “Intuition and intellect” (“A recurring tension between immediate experiential understanding and analytical or abstract reasoning.”) can be read in relation to “Metafiction” (“Fiction that draws attention to literary construction, reading, authorship, or the conventions through which narratives are created.”). The theme Paris and subtheme Urban wandering and intellectual experience, together with the passage “Improvisation”, place this conceptual connection in the book’s reading context.",
+      "color": "#A44A3F",
+      "book": "Hopscotch",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#intuition-intellect", "#intuition", "#reason", "#metafiction", "#literature", "#experimentation", "#paris"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-008-sample-concept-07",
+      "targetConceptId": "book-008-sample-concept-08",
+      "relationType": "complements",
+      "directed": true,
+      "description": "The definition of “Fragmentation” (“The arrangement of narrative through discontinuous episodes, references, voices, and textual materials rather than a single continuous progression.”) can be read in relation to “Play” (“The use of experimentation, language, structure, humor, and reader choice to challenge conventional expectations about fiction.”). The theme Return and subtheme Displacement and readjustment in Buenos Aires, together with the passage “Two Ways of Knowing”, place this conceptual connection in the book’s reading context.",
+      "color": "#5C4D7D",
+      "book": "Hopscotch",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#fragmentation", "#structure", "#modern-fiction", "#play", "#language", "#experimentation", "#return"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

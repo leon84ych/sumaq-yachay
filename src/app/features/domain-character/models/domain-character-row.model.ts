@@ -13,3 +13,20 @@ export interface CharacterRow extends DomainSheetRow {
   color?: string;
   source?: string;
 }
+
+export interface CharacterRecord {
+  id: string;
+  row: number;
+  book?: string;
+  author?: string;
+  name: string;
+  role: string;
+  color?: string;
+  description?: string;
+  archetype?: string;
+  source?: string;
+  tags: string[];
+  feed: number;
+  contributor: string;
+  syncStatus: 'pending' | 'synced' | 'error';
+}

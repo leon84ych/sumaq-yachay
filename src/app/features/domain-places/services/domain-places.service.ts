@@ -1,12 +1,14 @@
 import { Injectable, inject } from "@angular/core";
-import { AppDbService, Place } from "../../../core/services/storage/app-db.service";
+import { AppDbService } from "../../../core/services/storage/app-db.service";
+import { PlaceRecord } from '../model/domain-place-row.model';
 import { DomainSheet } from "../../catalog-detail/models/domain-sheet.model";
 import { DomainFeatureHandler } from "../../../shared/interfaces/domain-feature-handler.service";
 import { TaxonomyService } from "../../../core/services/taxonomy/taxonomy.service";
+import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 @Injectable({
     providedIn: 'root',
 })
-export class DomainPlacesService implements DomainFeatureHandler<Place> {
+export class DomainPlacesService implements DomainFeatureHandler<PlaceRecord> {
 
     private readonly dbService = inject(AppDbService);
     readonly name = 'PLACES';
@@ -37,29 +39,26 @@ export class DomainPlacesService implements DomainFeatureHandler<Place> {
         /**
      * Because of the generic signature, TypeScript now knows that syncedRows contains Place fields!
      */
-    async syncRemoteRows(row: number, syncedRows: (Place & Record<string, unknown>)[]): Promise<void> {
+    async syncRemoteRows(row: number, syncedRows: (PlaceRecord & Record<string, unknown>)[]): Promise<void> {
         const table = this.dbService.db.places;
 
         await this.dbService.db.transaction('rw', table, async () => {
             await table.where('row').equals(row).delete();
 
             // Explicit type assignment to Place[] satisfies the generic constraint completely
-            const persistedRows: Place[] = syncedRows.map((sourceRow, index) => {
+            const persistedRows: PlaceRecord[] = syncedRows.map((sourceRow, index) => {
                 // 1. Extract the raw incoming tags handling key variance safely
-                const rawTagsString = String(sourceRow['tag'] ?? sourceRow['tags'] ?? '');
-                const parsedTags = rawTagsString.split(/[\s,;]+/).filter(Boolean);
+                const parsedTags = parseTags(sourceRow['tags']);
 
                 // 2. Validate and filter tags using the live INDEX domain whitelist via the service helper
                 const authorizedTags = this.validateAndSanitizeTags(parsedTags);
-                const sanitizedTagsString = authorizedTags.join(' ');
+                const tags = serializeTags(authorizedTags);
 
                 return {
                     ...sourceRow,
                     id: String(sourceRow['id'] ?? `places_${row}_${index}`),
                     row,
-                    // 3. Assign sanitized tag strings directly into the entity mapping pipeline
-                    tag: sanitizedTagsString,
-                    tags: sanitizedTagsString,
+                    tags,
                     syncStatus: 'synced' as const,
                 };
             });

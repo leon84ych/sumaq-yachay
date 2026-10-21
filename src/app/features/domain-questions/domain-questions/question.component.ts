@@ -9,6 +9,7 @@ import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { QuestionDifficulty, QuestionRow, QuestionType } from '../model/domain-question-row.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 
 const QUESTION_TYPES: QuestionType[] = ['flashcard', 'multiple-choice', 'true-false', 'open'];
 const QUESTION_DIFFICULTIES: QuestionDifficulty[] = ['easy', 'medium', 'hard'];
@@ -36,7 +37,7 @@ export class QuestionsComponent {
   readonly newSourceTerm = signal('');
   readonly newPage = signal('');
   readonly newDifficulty = signal<QuestionDifficulty | ''>('');
-  readonly newTags = signal('');
+  readonly newTags = signal<string[]>([]);
   readonly searchTerm = signal('');
   readonly isSaving = signal(false);
   readonly editingId = signal<string | null>(null);
@@ -84,17 +85,14 @@ export class QuestionsComponent {
     }
 
     return this.rows().filter((row) =>
-      [row.question, row.answer, row.sourceDomain, row.sourceTerm ?? '', row.tags ?? ''].some(
+      [row.question, row.answer, row.sourceDomain, row.sourceTerm ?? '', ...(row.tags ?? [])].some(
         (value) => value.toLocaleLowerCase().includes(query),
       ),
     );
   });
 
-  splitTags(tags: string): string[] {
-    return tags
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(tags: string[]): string[] {
+    return parseTags(tags);
   }
 
   async deleteEntry(id: string): Promise<void> {
@@ -119,7 +117,7 @@ export class QuestionsComponent {
     this.newSourceTerm.set(row.sourceTerm ?? '');
     this.newPage.set(row.page ?? '');
     this.newDifficulty.set(row.difficulty ?? '');
-    this.newTags.set(row.tags ?? '');
+    this.newTags.set(row.tags ?? []);
   }
 
   async addQuestion(): Promise<void> {
@@ -131,7 +129,7 @@ export class QuestionsComponent {
     const question = this.newQuestion().trim();
     const answer = this.newAnswer().trim();
     const sourceDomain = this.newSourceDomain().trim();
-    const tags = this.splitTags(this.newTags()).join(' ');
+    const tags = serializeTags(this.newTags());
     const editingId = this.editingId();
 
     this.isSaving.set(true);
@@ -192,7 +190,7 @@ export class QuestionsComponent {
     this.newSourceTerm.set('');
     this.newPage.set('');
     this.newDifficulty.set('');
-    this.newTags.set('');
+    this.newTags.set([]);
     this.closeEntry.emit();
   }
 }

@@ -1,21 +1,17 @@
 <article class="index-entry">
-  @if (showContext() && (bookName() || bookAuthor())) {
-    <div class="index-entry__context">
-      <span>{{ 'DOMAINS.DOMAINS.INDEX' | transloco }}</span>
-      <span>
-        {{ bookName() }}
-        @if (bookAuthor()) {
-          <span> · {{ bookAuthor() }}</span>
-        }
-      </span>
-    </div>
-  }
+  <app-domain-entry-header
+    domain="INDEX"
+    [bookName]="bookName()"
+    [bookAuthor]="bookAuthor()"
+    [status]="row().syncStatus"
+    [showContext]="showContext()"
+  />
 
   <div class="index-entry__body">
     <div class="entry-heading">
       <strong>{{ row().subtheme || row().theme }}</strong>
-      <div class="entry-tags" [attr.aria-label]="'DOMAINS.INDEX.TAG' | transloco">
-        @for (tag of splitTags(row().tag); track $index) {
+      <div class="entry-tags" [attr.aria-label]="'DOMAINS.INDEX.TAGS' | transloco">
+        @for (tag of splitTags(row().tags); track $index) {
           <span class="tag-badge">{{ tag }}</span>
         }
       </div>
@@ -31,16 +27,6 @@
     </div>
 
     <div class="domain-card-footer__actions">
-      <span
-        class="status-indicator"
-        [class.synced]="row().syncStatus === 'synced'"
-        [attr.aria-label]="'COMMON.STATUS.' + row().syncStatus | transloco"
-        [attr.title]="'COMMON.STATUS.' + row().syncStatus | transloco"
-        role="img"
-        tabindex="0"
-      >
-        <span class="status-label">{{ 'COMMON.STATUS.' + row().syncStatus | transloco }}</span>
-      </span>
       @if (showActions()) {
         @if (permissions.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
           <button

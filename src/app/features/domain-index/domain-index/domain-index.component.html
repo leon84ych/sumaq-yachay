@@ -39,13 +39,13 @@
       </div>
 
       <div class="form-group">
-        <label for="index-tag">{{ 'DOMAINS.INDEX.TAG' | transloco }}</label>
+        <label for="index-tags">{{ 'DOMAINS.INDEX.TAGS' | transloco }}</label>
         <app-tag-picker
-          [ariaLabel]="'DOMAINS.INDEX.TAG' | transloco"
-          inputId="index-tag"
+          [ariaLabel]="'DOMAINS.INDEX.TAGS' | transloco"
+          inputId="index-tags"
           [bookRow]="currentSheet().row"
-          [value]="newTag()"
-          (valueChange)="newTag.set($event)"
+          [value]="newTags()"
+          (valueChange)="newTags.set($event)"
         />
       </div>
 
@@ -78,6 +78,9 @@
                 @for (row of themeGroup.rows; track row.id) {
                   <app-index-entry-card
                     [row]="row"
+                    [bookName]="bookName()"
+                    [bookAuthor]="bookAuthor()"
+                    [showContext]="true"
                     [showHierarchy]="false"
                     (editRequested)="editEntry($event)"
                     (deleteRequested)="deleteEntry($event)"

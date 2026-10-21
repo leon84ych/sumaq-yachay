@@ -166,11 +166,11 @@
           <app-character-entry-card
             [row]="row"
             [bookName]="bookName()"
+            [bookAuthor]="bookAuthor()"
             [showActions]="true"
-            [showContext]="false"
+            [showContext]="true"
             (deleteRequested)="deleteEntry($event)"
             (editRequested)="editEntry($event)"
-            (relationsRequested)="viewRelations($event)"
           />
         }
       </div>

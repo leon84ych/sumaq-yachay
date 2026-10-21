@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config.service';
 import { DomainName } from '../../catalog-detail/models/domain-sheet-config';
+import { parseTags } from '../../../shared/utils/tag-utils';
 
 export interface LearnFeedEntry {
   id: string;
@@ -17,6 +18,47 @@ export interface LearnFeedEntry {
 }
 
 const BATCH_SIZE = 20;
+const DOMAIN_SEARCH_TERMS: Record<DomainName, string[]> = {
+  INDEX: ['index', 'índice'],
+  CONCEPTS: ['concepts', 'conceptos'],
+  QUOTES: ['quotes', 'citas'],
+  PASSAGES: ['passages', 'pasajes'],
+  CHARACTER: ['character', 'characters', 'personaje', 'personajes'],
+  PLACES: ['places', 'lugar', 'lugares'],
+  BOOK_EVENTS: ['book events', 'events', 'eventos'],
+  RELATIONS_CHARACTERS: ['relations', 'relationships', 'relaciones'],
+  RELATIONS_CONCEPTS: ['concept relations', 'concept relationships', 'relaciones conceptuales'],
+  GLOSARY: ['glossary', 'glosario'],
+  QUESTIONS: ['questions', 'preguntas'],
+};
+
+export function selectLearnFeedBatch(
+  entries: readonly LearnFeedEntry[],
+  batchSize: number,
+): LearnFeedEntry[] {
+  const firstEntryByDomain = new Map<DomainName, LearnFeedEntry>();
+  const remainingEntries: LearnFeedEntry[] = [];
+  for (const entry of entries) {
+    if (firstEntryByDomain.has(entry.domain)) {
+      remainingEntries.push(entry);
+    } else {
+      firstEntryByDomain.set(entry.domain, entry);
+    }
+  }
+
+  return [...firstEntryByDomain.values(), ...remainingEntries].slice(
+    0,
+    Math.max(0, batchSize),
+  );
+}
+
+function normalizeSearchText(value: string): string {
+  return value
+    .trim()
+    .toLocaleLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
 
 @Injectable({ providedIn: 'root' })
 export class LearnFeedService {
@@ -27,6 +69,7 @@ export class LearnFeedService {
   async loadRandomBatch(
     excludedIds: ReadonlySet<string>,
     batchSize = BATCH_SIZE,
+    query = '',
   ): Promise<LearnFeedEntry[]> {
     if (this.configService.isLocalSampleDataEnabled() && !this.sampleDataSeeded) {
       await this.appDbService.seedLocalSampleData();
@@ -41,15 +84,33 @@ export class LearnFeedService {
         this.appDbService.db.passages.toArray().then((rows) => ['PASSAGES', rows] as const),
         this.appDbService.db.characters.toArray().then((rows) => ['CHARACTER', rows] as const),
         this.appDbService.db.places.toArray().then((rows) => ['PLACES', rows] as const),
-        this.appDbService.db.timeline.toArray().then((rows) => ['TIMELINE', rows] as const),
-        this.appDbService.db.relations.toArray().then((rows) => ['RELATIONS', rows] as const),
+        this.appDbService.db.relationsCharacters
+          .toArray()
+          .then((rows) => ['RELATIONS_CHARACTERS', rows] as const),
+        this.appDbService.db.relationsConcepts
+          .toArray()
+          .then((rows) => ['RELATIONS_CONCEPTS', rows] as const),
         this.appDbService.db.glosary.toArray().then((rows) => ['GLOSARY', rows] as const),
         this.appDbService.db.questions.toArray().then((rows) => ['QUESTIONS', rows] as const),
       ]),
     ]);
 
     const catalogByRow = new Map(catalogItems.map((item) => [item.row, item]));
+    const characterNames = new Map<string, string>();
+    const conceptNames = new Map<string, string>();
+    for (const [domain, rows] of domainRows) {
+      if (domain === 'CHARACTER') {
+        for (const row of rows as unknown as Record<string, unknown>[]) {
+          characterNames.set(String(row['id']), String(row['name'] ?? row['id']));
+        }
+      } else if (domain === 'CONCEPTS') {
+        for (const row of rows as unknown as Record<string, unknown>[]) {
+          conceptNames.set(String(row['id']), String(row['term'] ?? row['id']));
+        }
+      }
+    }
     const candidates: LearnFeedEntry[] = [];
+    const normalizedQuery = normalizeSearchText(query);
 
     for (const [domain, rows] of domainRows) {
       for (const sourceRow of rows as unknown as Record<string, unknown>[]) {
@@ -63,15 +124,32 @@ export class LearnFeedService {
           sourceRow,
           catalogItem.name,
           catalogItem.author,
+          characterNames,
+          conceptNames,
         );
-        if (entry && !excludedIds.has(entry.id)) {
+        const searchFields = entry
+          ? [
+              entry.bookName,
+              entry.bookAuthor,
+              entry.title,
+              entry.body,
+              entry.note ?? '',
+              ...DOMAIN_SEARCH_TERMS[entry.domain],
+              ...entry.tags,
+            ]
+          : [];
+        const matchesQuery =
+          !normalizedQuery ||
+          searchFields.some((field) => normalizeSearchText(field).includes(normalizedQuery));
+
+        if (entry && !excludedIds.has(entry.id) && matchesQuery) {
           candidates.push(entry);
         }
       }
     }
 
     this.shuffle(candidates);
-    return candidates.slice(0, Math.max(0, batchSize));
+    return selectLearnFeedBatch(candidates, batchSize);
   }
 
   private toLearnFeedEntry(
@@ -79,6 +157,8 @@ export class LearnFeedService {
     row: Record<string, unknown>,
     bookName: string,
     bookAuthor: string,
+    characterNames: ReadonlyMap<string, string>,
+    conceptNames: ReadonlyMap<string, string>,
   ): LearnFeedEntry | null {
     const getText = (key: string): string => {
       const value = row[key];
@@ -115,15 +195,24 @@ export class LearnFeedService {
         body = getText('description');
         note = [getText('type'), getText('nature')].filter(Boolean).join(' · ');
         break;
-      case 'TIMELINE':
+      case 'BOOK_EVENTS':
         title = getText('event');
         body = getText('description');
-        note = getText('date');
+        note = getText('dateLabel') || getText('dateTimeStart') || getText('eventOrder');
         break;
-      case 'RELATIONS':
-        title = [getText('sourceNode'), getText('targetNode')].filter(Boolean).join(' → ');
-        body = getText('relationshipType');
-        note = getText('weight');
+      case 'RELATIONS_CHARACTERS':
+        title = [getText('sourceCharacterId'), getText('targetCharacterId')]
+          .map((id) => characterNames.get(id) ?? id)
+          .filter(Boolean)
+          .join(' -> ');
+        body = [getText('relationType'), getText('description')].filter(Boolean).join('\n\n');
+        break;
+      case 'RELATIONS_CONCEPTS':
+        title = [getText('sourceConceptId'), getText('targetConceptId')]
+          .map((id) => conceptNames.get(id) ?? id)
+          .filter(Boolean)
+          .join(' -> ');
+        body = [getText('relationType'), getText('description')].filter(Boolean).join('\n\n');
         break;
       case 'GLOSARY':
         title = getText('term');
@@ -141,14 +230,7 @@ export class LearnFeedService {
       return null;
     }
 
-    const rawTags = [row['tag'], row['tags']].flatMap((value) =>
-      Array.isArray(value)
-        ? value.map(String)
-        : typeof value === 'string'
-          ? value.split(/[\s,;]+/)
-          : [],
-    );
-    const tags = [...new Set(rawTags.map((tag) => tag.trim()).filter(Boolean))];
+    const tags = [...new Set(parseTags(row['tags']))];
     const accentColor = typeof row['color'] === 'string' ? row['color'] : undefined;
 
     return {

@@ -3,6 +3,20 @@
     <div class="detail-header">
       <app-catalog-overview [item]="entry" />
       <div class="detail-actions">
+        @if (domainDataService.sheetNames().length > 0) {
+          <label class="mobile-sheet-selector">
+            <span class="visually-hidden">{{ 'CATALOG_DETAIL.SELECT_VIEW' | transloco }}</span>
+            <select
+              [value]="activeSheetName() ?? ''"
+              [attr.aria-label]="'CATALOG_DETAIL.SELECT_VIEW' | transloco"
+              (change)="selectTab($any($event.target).value)"
+            >
+              @for (name of domainDataService.sheetNames(); track name) {
+                <option [value]="name">{{ 'DOMAINS.DOMAINS.' + name | transloco }}</option>
+              }
+            </select>
+          </label>
+        }
         @if (activeSheetName() && permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
           <button type="button" class="btn-primary" (click)="toggleAddingEntry()">
             + {{ 'DOMAINS.INDEX.ADD_ENTRY' | transloco }}

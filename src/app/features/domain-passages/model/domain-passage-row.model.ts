@@ -7,3 +7,15 @@ export interface PassagesRow extends DomainSheetRow {
   author: string;
   page?: string;
 }
+
+export interface PassageRecord {
+  id: string;
+  row: number;
+  book: string;
+  author: string;
+  title: string;
+  passageText: string;
+  page: string;
+  tags: string[];
+  syncStatus: 'pending' | 'synced' | 'error';
+}

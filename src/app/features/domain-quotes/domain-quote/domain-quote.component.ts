@@ -22,6 +22,7 @@ import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
 import { QuoteEntryCardComponent } from '../components/quote-entry-card/quote-entry-card.component';
+import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 
 @Component({
   selector: 'app-domain-quote',
@@ -51,7 +52,7 @@ export class DomainQuoteComponent {
   readonly newBook = signal<string>('');
   readonly newAuthor = signal<string>('');
   readonly newPage = signal<string>('');
-  readonly newTags = signal<string>('');
+  readonly newTags = signal<string[]>([]);
   readonly exportRow = signal<QuoteRow | null>(null);
   readonly isExporting = signal(false);
   readonly searchTerm = signal('');
@@ -101,7 +102,7 @@ export class DomainQuoteComponent {
     return this.rows().filter(
       (row) =>
         !query ||
-        [row.quote, row.analysis, row.author, row.book, row.page, row.tags].some((value) =>
+        [row.quote, row.analysis, row.author, row.book, row.page, ...(row.tags ?? [])].some((value) =>
           String(value ?? '')
             .toLocaleLowerCase()
             .includes(query),
@@ -109,11 +110,8 @@ export class DomainQuoteComponent {
     );
   });
 
-  splitTags(tags: string): string[] {
-    return tags
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(tags: string[]): string[] {
+    return parseTags(tags);
   }
 
   @ViewChild('ghostQuoteCard') private ghostQuoteCard?: ElementRef<HTMLElement>;
@@ -153,7 +151,7 @@ export class DomainQuoteComponent {
     this.newBook.set(row.book);
     this.newAuthor.set(row.author);
     this.newPage.set(row.page ?? '');
-    this.newTags.set(row.tags ?? '');
+    this.newTags.set(row.tags ?? []);
   }
 
   resetForm(): void {
@@ -163,7 +161,7 @@ export class DomainQuoteComponent {
     this.newBook.set('');
     this.newAuthor.set('');
     this.newPage.set('');
-    this.newTags.set('');
+    this.newTags.set([]);
     this.closeEntry.emit();
   }
 
@@ -214,7 +212,7 @@ export class DomainQuoteComponent {
     const book = this.newBook().trim();
     const author = this.newAuthor().trim();
     const page = this.newPage().trim();
-    const tags = this.splitTags(this.newTags()).join(' ');
+    const tags = serializeTags(this.newTags());
     const editingId = this.editingId();
 
     try {

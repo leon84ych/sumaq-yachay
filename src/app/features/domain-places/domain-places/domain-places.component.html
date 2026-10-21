@@ -107,20 +107,35 @@
             <input type="search" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)"
                 [placeholder]="'DOMAINS.PLACES.SEARCH' | transloco" />
         </label>
+        <button
+            type="button"
+            class="places-map-toggle"
+            [attr.aria-pressed]="showMap()"
+            (click)="showMap.update((visible) => !visible)"
+        >
+            {{ (showMap() ? 'DOMAINS.PLACES.VIEW_LIST' : 'DOMAINS.PLACES.VIEW_MAP') | transloco }}
+        </button>
     </div>
 
     @if (filteredRows().length === 0) {
     <p class="empty-state">{{ 'DOMAINS.PLACES.NO_MATCHES' | transloco }}</p>
     } @else {
+    @if (showMap()) {
+    <app-domain-map [places]="filteredRows()" />
+    } @else {
     <div class="places-grid">
         @for (row of filteredRows(); track row.id) {
         <app-place-entry-card
             [row]="row"
+            [bookName]="bookName()"
+            [bookAuthor]="bookAuthor()"
+            [showContext]="true"
             (deleteRequested)="deleteEntry($event)"
             (editRequested)="editEntry($event)"
         />
         }
     </div>
+    }
     }
     }
 </div>

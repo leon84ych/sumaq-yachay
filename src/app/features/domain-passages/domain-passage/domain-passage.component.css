@@ -62,7 +62,7 @@
 
 .passage-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.25rem;
 }
 
@@ -87,8 +87,3 @@ figcaption {
   padding: 2rem 0;
 }
 
-@media (max-width: 600px) {
-  .passage-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}

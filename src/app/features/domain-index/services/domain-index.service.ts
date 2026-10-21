@@ -1,13 +1,15 @@
 import { Injectable, inject } from "@angular/core";
-import { AppDbService, IndexTopic } from "../../../core/services/storage/app-db.service";
+import { AppDbService } from "../../../core/services/storage/app-db.service";
+import { IndexTopicRecord } from '../model/index-view-row';
 import { DomainSheet } from "../../catalog-detail/models/domain-sheet.model";
 import { DomainFeatureHandler } from "../../../shared/interfaces/domain-feature-handler.service";
 import { TaxonomyService } from "../../../core/services/taxonomy/taxonomy.service";
+import { serializeTags } from '../../../shared/utils/tag-utils';
 
 @Injectable({
     providedIn: 'root',
 })
-export class DomainIndexService implements DomainFeatureHandler<IndexTopic> {
+export class DomainIndexService implements DomainFeatureHandler<IndexTopicRecord> {
 
     private readonly dbService = inject(AppDbService);
     private readonly taxonomyService = inject(TaxonomyService);
@@ -23,11 +25,7 @@ export class DomainIndexService implements DomainFeatureHandler<IndexTopic> {
             return null;
         }
 
-        const cleanRows = records.map(({ row: _catalogRow, ...businessProperties }) => {
-            const cleanRow = { ...businessProperties } as IndexTopic & Record<string, unknown>;
-            delete cleanRow['tags'];
-            return cleanRow;
-        });
+        const cleanRows = records.map(({ row: _catalogRow, ...businessProperties }) => businessProperties);
 
         return {
             row,
@@ -43,25 +41,21 @@ export class DomainIndexService implements DomainFeatureHandler<IndexTopic> {
     /**
      * Because of the generic signature, TypeScript now knows that syncedRows contains IndexTopic fields!
      */
-    async syncRemoteRows(row: number, syncedRows: (IndexTopic & Record<string, unknown>)[]): Promise<void> {
+    async syncRemoteRows(row: number, syncedRows: (IndexTopicRecord & Record<string, unknown>)[]): Promise<void> {
         const table = this.dbService.db.indexTopics;
 
         await this.dbService.db.transaction('rw', table, async () => {
             await table.where('row').equals(row).delete();
 
             // Explicit type assignment to IndexTopic[] satisfies the generic constraint completely
-            const persistedRows: IndexTopic[] = syncedRows.map((sourceRow, index) => {
-                // 1. Accept and pass raw tag definitions down to storage natively
-                const rawTagsString = String(sourceRow['tag'] ?? sourceRow['tags'] ?? `index_${index}`);
-                const indexRow = { ...sourceRow };
-                delete indexRow['tags'];
+            const persistedRows: IndexTopicRecord[] = syncedRows.map((sourceRow, index) => {
+                const tags = serializeTags(sourceRow['tags']);
 
                 return {
-                    ...indexRow,
+                    ...sourceRow,
                     id: String(sourceRow['id'] ?? `index_${row}_${index}`),
                     row,
-                    tag: rawTagsString,
-                    tags: rawTagsString,
+                    tags,
                     syncStatus: 'synced' as const,
                 };
             });

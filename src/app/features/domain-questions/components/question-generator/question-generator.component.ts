@@ -23,7 +23,7 @@ export class QuestionGeneratorComponent {
   readonly bookRow = input.required<number>();
   readonly bookName = input('');
   readonly page = input('');
-  readonly tags = input('');
+  readonly tags = input<string[]>([]);
 
   readonly questionTypes = QUESTION_TYPES;
   readonly isOpen = signal(false);
@@ -83,7 +83,7 @@ export class QuestionGeneratorComponent {
         bookRow: this.bookRow(),
         bookName: this.bookName(),
         ...(this.page() ? { page: this.page() } : {}),
-        ...(this.tags() ? { tags: this.tags() } : {}),
+        ...(this.tags().length > 0 ? { tags: this.tags() } : {}),
         feed: 5,
         contributor: 'browser-ai',
         aiGenerated: true,

@@ -1,0 +1,198 @@
+<section class="relations-characters-view">
+  @if (isAddingEntry() || editingId() !== null) {
+    <div class="add-entry-form">
+      <h3>
+        {{
+          (editingId() ? 'COMMON.EDIT' : 'DOMAINS.RELATIONS_CHARACTERS.NEW_ENTRY_TITLE') | transloco
+        }}
+      </h3>
+
+      @if (characters().length === 0) {
+        <p class="empty-state">{{ 'DOMAINS.RELATIONS_CHARACTERS.NO_CHARACTERS' | transloco }}</p>
+      }
+
+      <div class="form-group">
+        <label for="relation-source-character">{{
+          'DOMAINS.RELATIONS_CHARACTERS.SOURCE_CHARACTER' | transloco
+        }}</label>
+        <select
+          id="relation-source-character"
+          [ngModel]="newSourceCharacterId()"
+          (ngModelChange)="newSourceCharacterId.set($event)"
+          required
+        >
+          <option value="">
+            {{ 'DOMAINS.RELATIONS_CHARACTERS.SELECT_CHARACTER' | transloco }}
+          </option>
+          @for (character of characters(); track character.id) {
+            <option [value]="character.id">{{ character.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="relation-target-character">{{
+          'DOMAINS.RELATIONS_CHARACTERS.TARGET_CHARACTER' | transloco
+        }}</label>
+        <select
+          id="relation-target-character"
+          [ngModel]="newTargetCharacterId()"
+          (ngModelChange)="newTargetCharacterId.set($event)"
+          required
+        >
+          <option value="">
+            {{ 'DOMAINS.RELATIONS_CHARACTERS.SELECT_CHARACTER' | transloco }}
+          </option>
+          @for (character of characters(); track character.id) {
+            <option [value]="character.id">{{ character.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="relation-type">{{ 'DOMAINS.RELATIONS_CHARACTERS.TYPE' | transloco }}</label>
+        <input
+          id="relation-type"
+          type="text"
+          list="relation-type-suggestions"
+          [ngModel]="newRelationType()"
+          (ngModelChange)="newRelationType.set($event)"
+          required
+        />
+        <datalist id="relation-type-suggestions">
+          @for (relationType of relationTypeSuggestions(); track relationType) {
+            <option [value]="relationType"></option>
+          }
+        </datalist>
+      </div>
+
+      <label class="relation-directed-control">
+        <input
+          type="checkbox"
+          [ngModel]="newDirected()"
+          (ngModelChange)="newDirected.set($event)"
+        />
+        <span>{{ 'DOMAINS.RELATIONS_CHARACTERS.DIRECTED' | transloco }}</span>
+      </label>
+
+      <div class="form-group">
+        <label for="relation-description">{{
+          'DOMAINS.RELATIONS_CHARACTERS.DESCRIPTION' | transloco
+        }}</label>
+        <textarea
+          id="relation-description"
+          rows="4"
+          maxlength="1000"
+          [ngModel]="newDescription()"
+          (ngModelChange)="newDescription.set($event)"
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="relation-color">{{ 'DOMAINS.RELATIONS_CHARACTERS.COLOR' | transloco }}</label>
+        <input
+          id="relation-color"
+          type="color"
+          [ngModel]="newColor()"
+          (ngModelChange)="newColor.set($event)"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="relation-book">{{ 'DOMAINS.RELATIONS_CHARACTERS.BOOK' | transloco }}</label>
+        <input id="relation-book" type="text" [value]="bookName()" readonly />
+      </div>
+
+      <div class="form-group">
+        <label for="relation-author">{{ 'DOMAINS.RELATIONS_CHARACTERS.AUTHOR' | transloco }}</label>
+        <input id="relation-author" type="text" [value]="bookAuthor()" readonly />
+      </div>
+
+      <div class="form-group">
+        <label for="relation-page">{{ 'DOMAINS.RELATIONS_CHARACTERS.PAGE' | transloco }}</label>
+        <input
+          id="relation-page"
+          type="text"
+          [ngModel]="newPage()"
+          (ngModelChange)="newPage.set($event)"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="relation-tags">{{ 'DOMAINS.RELATIONS_CHARACTERS.TAGS' | transloco }}</label>
+        <app-tag-picker
+          [ariaLabel]="'DOMAINS.RELATIONS_CHARACTERS.TAGS' | transloco"
+          inputId="relation-tags"
+          [bookRow]="currentSheet().row"
+          [value]="newTags()"
+          (valueChange)="newTags.set($event)"
+        />
+        @if (invalidTagsDetected().length > 0) {
+          <div class="tag-validation-error">
+            <p>
+              {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
+              <strong>INDEX</strong>{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
+              @for (tag of invalidTagsDetected(); track $index) {
+                <span class="tag-validation-error__badge">{{ tag }}</span>
+              }
+            </p>
+          </div>
+        }
+      </div>
+
+      <div class="form-actions">
+        @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+          <button
+            type="button"
+            class="btn-submit"
+            [disabled]="isFormInvalid()"
+            (click)="addRelation()"
+          >
+            {{ (editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+          </button>
+        }
+        <button type="button" class="btn-cancel" (click)="resetForm()">
+          {{ 'COMMON.CANCEL' | transloco }}
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (rows().length === 0) {
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+    <label class="domain-search">
+      <span class="visually-hidden">{{ 'DOMAINS.RELATIONS_CHARACTERS.SEARCH' | transloco }}</span>
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="8.75" cy="8.75" r="5.75" />
+        <path d="m13 13 4 4" />
+      </svg>
+      <input
+        type="search"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        [placeholder]="'DOMAINS.RELATIONS_CHARACTERS.SEARCH' | transloco"
+      />
+    </label>
+
+    @if (filteredRows().length === 0) {
+      <p class="empty-state">{{ 'DOMAINS.RELATIONS_CHARACTERS.NO_MATCHES' | transloco }}</p>
+    } @else {
+      <div class="relations-characters-grid">
+        @for (relation of filteredRows(); track relation.id) {
+          <app-relation-entry-card
+            [row]="relation"
+            [sourceCharacterName]="characterName(relation.sourceCharacterId)"
+            [targetCharacterName]="characterName(relation.targetCharacterId)"
+            [bookName]="bookName()"
+            [bookAuthor]="bookAuthor()"
+            [showContext]="true"
+            (editRequested)="editEntry($event)"
+            (deleteRequested)="deleteEntry($event)"
+          />
+        }
+      </div>
+    }
+  }
+</section>

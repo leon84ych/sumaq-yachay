@@ -121,13 +121,13 @@
           <app-concept-entry-card
             [row]="row"
             [bookName]="bookName()"
+            [bookAuthor]="bookAuthor()"
             [bookRow]="currentSheet().row"
             [sourceDomain]="currentSheet().name"
             [showActions]="true"
-            [showContext]="false"
+            [showContext]="true"
             (deleteRequested)="deleteEntry($event)"
             (editRequested)="editEntry($event)"
-            (relationsRequested)="viewRelations($event)"
           />
         }
       </div>

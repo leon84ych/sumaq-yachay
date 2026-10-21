@@ -1,5 +1,6 @@
 import { CatalogItem } from '../../../features/catalog/models/catalog-item.model';
 import catalogItems from '../../../../../public/sample/Catalog.json';
+import { serializeTags } from '../../../shared/utils/tag-utils';
 
 export const LOCAL_SAMPLE_CATALOG: CatalogItem[] = catalogItems.map((item, index) => ({
   ...item,
@@ -14,8 +15,9 @@ export const LOCAL_SAMPLE_DOMAIN_TABLES: Record<string, string> = {
   PASSAGES: 'passages',
   CHARACTER: 'characters',
   PLACES: 'places',
-  TIMELINE: 'timeline',
-  RELATIONS: 'relations',
+  BOOK_EVENTS: 'bookEvents',
+  RELATIONS_CHARACTERS: 'relationsCharacters',
+  RELATIONS_CONCEPTS: 'relationsConcepts',
   GLOSARY: 'glosary',
   QUESTIONS: 'questions',
 };
@@ -59,18 +61,12 @@ export async function getLocalSampleDomainData(bookId: string): Promise<LocalSam
   }
 
   const module = await loadDomainData();
-  return module.default;
+  return { ...EMPTY_LOCAL_SAMPLE_DOMAIN_DATA, ...module.default };
 }
 
 export function normalizeSampleDomainRow(row: Record<string, unknown>): Record<string, unknown> {
   const normalized = { ...row };
-
-  for (const field of ['tag', 'tags']) {
-    const value = normalized[field];
-    if (Array.isArray(value)) {
-      normalized[field] = value.map((tag) => String(tag).trim()).filter(Boolean).join(' ');
-    }
-  }
+  normalized['tags'] = serializeTags(normalized['tags']);
 
   if (Array.isArray(normalized['synonyms'])) {
     normalized['synonyms'] = normalized['synonyms']

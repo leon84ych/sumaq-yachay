@@ -7,7 +7,7 @@ import { GlobalLoadingService } from '../../../core/services/global-loading.serv
 import { ConfigService } from '../../../core/services/config.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { DomainDataApiService } from './domain-data-api.service';
-import { DomainDataService, sortByIndex } from './domain-data.service';
+import { DomainDataService } from './domain-data.service';
 import { DomainCharacterService } from '../../domain-character/services/domain-character.service';
 import { DomainConceptsService } from '../../domain-concepts/services/domain-concepts.service';
 import { DomainQuotesService } from '../../domain-quotes/services/domain-quotes.service';
@@ -28,8 +28,8 @@ describe('DomainDataService.deleteDomainRow', () => {
 
   beforeEach(() => {
     persistedRows = [
-      { id: 'concept-1', row: 4, tag: '#first', tags: '#first', syncStatus: 'synced' },
-      { id: 'concept-2', row: 4, tag: '#second', tags: '#second', syncStatus: 'synced' },
+      { id: 'concept-1', row: 4, tags: ['#first'], syncStatus: 'synced' },
+      { id: 'concept-2', row: 4, tags: ['#second'], syncStatus: 'synced' },
     ];
     persistedBookTags = [];
     localSampleDataEnabled = false;
@@ -132,8 +132,8 @@ describe('DomainDataService.deleteDomainRow', () => {
         name: 'CONCEPTS',
         index: 0,
         rows: [
-          { id: 'concept-1', tag: '#first', tags: '#first', syncStatus: 'synced' },
-          { id: 'concept-2', tag: '#second', tags: '#second', syncStatus: 'synced' },
+          { id: 'concept-1', tags: ['#first'], syncStatus: 'synced' },
+          { id: 'concept-2', tags: ['#second'], syncStatus: 'synced' },
         ],
       },
     ]);
@@ -174,7 +174,7 @@ describe('DomainDataService.deleteDomainRow', () => {
       'concept-2',
     ]);
     expect(persistedRows.map((record) => record['id'])).toEqual(['concept-2', 'concept-1']);
-    expect(persistedBookTags.map((record) => record['tag'])).toEqual(['#first', '#second']);
+    expect(persistedBookTags.map((record) => record['name'])).toEqual(['#first', '#second']);
   });
 
   it('sends only the edited row while preserving the other local rows', async () => {
@@ -182,14 +182,13 @@ describe('DomainDataService.deleteDomainRow', () => {
     const editedRow = {
       id: 'concept-1',
       term: 'Updated term',
-      tag: '#first',
-      tags: '#first',
+      tags: ['#first'],
       syncStatus: 'pending',
     };
 
     await service.updateDomainSheetRows(
       'CONCEPTS',
-      [editedRow, { id: 'concept-2', tag: '#second', tags: '#second', syncStatus: 'synced' }],
+      [editedRow, { id: 'concept-2', tags: ['#second'], syncStatus: 'synced' }],
       true,
       'concept-1',
     );
@@ -209,16 +208,15 @@ describe('DomainDataService.deleteDomainRow', () => {
     const newRow = {
       id: 'temporary-concept-3',
       term: 'New concept',
-      tag: '#new',
-      tags: '#new',
+      tags: ['#new'],
       syncStatus: 'pending',
     };
 
     await service.updateDomainSheetRows(
       'CONCEPTS',
       [
-        { id: 'concept-1', tag: '#first', tags: '#first', syncStatus: 'synced' },
-        { id: 'concept-2', tag: '#second', tags: '#second', syncStatus: 'synced' },
+        { id: 'concept-1', tags: ['#first'], syncStatus: 'synced' },
+        { id: 'concept-2', tags: ['#second'], syncStatus: 'synced' },
         newRow,
       ],
       true,
@@ -241,14 +239,24 @@ describe('DomainDataService.deleteDomainRow', () => {
     ]);
   });
 
-  it('normalizes INDEX rows to tag without the plural tags field', () => {
+  it('normalizes INDEX rows to the canonical tags array', () => {
     const normalized = service['normalizeRecordTags'](
-      { id: 'index-1', tag: '#single', tags: '#duplicate' },
+      { id: 'index-1', tags: ['#single', '#duplicate'] },
       'INDEX',
     );
 
-    expect(normalized['tag']).toBe('#single');
-    expect(normalized).not.toHaveProperty('tags');
+    expect(normalized['tags']).toEqual(['#single', '#duplicate']);
+    expect(normalized).not.toHaveProperty('tag');
+  });
+
+  it('preserves BookEvent tags as the canonical array', () => {
+    const normalized = service['normalizeRecordTags'](
+      { id: 'event-1', tags: ['#war', '#journey'] },
+      'BOOK_EVENTS',
+    );
+
+    expect(normalized['tags']).toEqual(['#war', '#journey']);
+    expect(normalized).not.toHaveProperty('tag');
   });
 
   it('keeps domain edits local in LocalSampleData mode', async () => {
@@ -256,13 +264,12 @@ describe('DomainDataService.deleteDomainRow', () => {
     const editedRow = {
       id: 'concept-1',
       term: 'Locally edited concept',
-      tag: '#first',
-      tags: '#first',
+      tags: ['#first'],
     };
 
     await service.updateDomainSheetRows(
       'CONCEPTS',
-      [editedRow, { id: 'concept-2', tag: '#second', tags: '#second', syncStatus: 'synced' }],
+      [editedRow, { id: 'concept-2', tags: ['#second'], syncStatus: 'synced' }],
     );
 
     expect(updateRowsSpy).not.toHaveBeenCalled();
@@ -279,23 +286,3 @@ describe('DomainDataService.deleteDomainRow', () => {
   });
 });
 
-describe('sortByIndex', () => {
-  it('places populated INDEX sheets first while preserving other sheet order', () => {
-    const sorted = sortByIndex([
-      { row: 1, id: 'concepts', name: 'CONCEPTS', index: 0, rows: [{ id: 'concept-1' }] },
-      { row: 1, id: 'index', name: 'INDEX', index: 4, rows: [{ id: 'index-1' }] },
-      { row: 1, id: 'quotes', name: 'QUOTES', index: 2, rows: [{ id: 'quote-1' }] },
-    ]);
-
-    expect(sorted.map((sheet) => sheet.name)).toEqual(['INDEX', 'CONCEPTS', 'QUOTES']);
-  });
-
-  it('does not promote an empty INDEX sheet ahead of populated domains', () => {
-    const sorted = sortByIndex([
-      { row: 1, id: 'concepts', name: 'CONCEPTS', index: 0, rows: [{ id: 'concept-1' }] },
-      { row: 1, id: 'index', name: 'INDEX', index: 4, rows: [] },
-    ]);
-
-    expect(sorted.map((sheet) => sheet.name)).toEqual(['CONCEPTS', 'INDEX']);
-  });
-});

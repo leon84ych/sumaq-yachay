@@ -5,80 +5,80 @@
       "chapter": "The Arrest",
       "theme": "Authority",
       "subtheme": "Power without explanation",
-      "tag": "#authority",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#authority"]
     },
     {
       "id": "sample-index-02",
       "chapter": "The Arrest",
       "theme": "Guilt",
       "subtheme": "Accusation without a known offense",
-      "tag": "#guilt",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#guilt"]
     },
     {
       "id": "sample-index-03",
       "chapter": "First Interrogation",
       "theme": "Bureaucracy",
       "subtheme": "Procedure and institutional confusion",
-      "tag": "#bureaucracy",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#bureaucracy"]
     },
     {
       "id": "sample-index-04",
       "chapter": "In the Empty Courtroom",
       "theme": "Alienation",
       "subtheme": "Isolation within institutional systems",
-      "tag": "#alienation",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#alienation"]
     },
     {
       "id": "sample-index-05",
       "chapter": "The Lawyer",
       "theme": "Dependence",
       "subtheme": "Reliance on uncertain intermediaries",
-      "tag": "#dependence",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#dependence"]
     },
     {
       "id": "sample-index-06",
       "chapter": "The Manufacturer",
       "theme": "Influence",
       "subtheme": "Informal networks surrounding authority",
-      "tag": "#influence",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#influence"]
     },
     {
       "id": "sample-index-07",
       "chapter": "The Painter",
       "theme": "Justice",
       "subtheme": "Ambiguous possibilities of acquittal",
-      "tag": "#justice",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#justice"]
     },
     {
       "id": "sample-index-08",
       "chapter": "In the Cathedral",
       "theme": "Judgment",
       "subtheme": "Law, interpretation, and inaccessible authority",
-      "tag": "#judgment",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#judgment"]
     },
     {
       "id": "sample-index-09",
       "chapter": "Analytical Overview",
       "theme": "Absurdity",
       "subtheme": "Conflict between reason and incomprehensible systems",
-      "tag": "#absurdity",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#absurdity"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Analytical Overview",
       "theme": "Existential Anxiety",
       "subtheme": "Uncertainty, responsibility, and meaning",
-      "tag": "#existentialism",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#existentialism"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "An administrative system organized through offices, procedures, officials, and institutional rules.",
       "category": "Theme",
       "source": "Study context for The Trial",
-      "tag": "#bureaucracy",
-      "tags": ["#authority", "#institution"],
+      "tags": ["#authority", "#institution", "#bureaucracy"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "A condition of estrangement from other people, institutions, surroundings, or one's own sense of agency.",
       "category": "Theme",
       "source": "Study context for The Trial",
-      "tag": "#alienation",
-      "tags": ["#isolation", "#existentialism"],
+      "tags": ["#isolation", "#existentialism", "#alienation"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "A central problem involving accusation, responsibility, judgment, and uncertainty about wrongdoing.",
       "category": "Theme",
       "source": "Study context for The Trial",
-      "tag": "#guilt",
-      "tags": ["#judgment", "#law"],
+      "tags": ["#judgment", "#law", "#guilt"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "The collision between expectations of rational order and circumstances that resist coherent explanation.",
       "category": "Philosophical theme",
       "source": "Study context for The Trial",
-      "tag": "#absurdity",
-      "tags": ["#reason", "#existentialism"],
+      "tags": ["#reason", "#existentialism", "#absurdity"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "Power exercised through institutions whose rules, sources, and decision-making processes remain difficult to understand.",
       "category": "Political theme",
       "source": "Study context for The Trial",
-      "tag": "#opaque-authority",
-      "tags": ["#power", "#bureaucracy"],
+      "tags": ["#power", "#bureaucracy", "#opaque-authority"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "The inability to determine clearly how a formal process operates or what actions would resolve it.",
       "category": "Institutional theme",
       "source": "Study context for The Trial",
-      "tag": "#procedural-uncertainty",
-      "tags": ["#law", "#bureaucracy"],
+      "tags": ["#law", "#bureaucracy", "#procedural-uncertainty"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "The act of evaluating a person's actions or status according to standards that may themselves remain inaccessible or ambiguous.",
       "category": "Theme",
       "source": "Study context for The Trial",
-      "tag": "#judgment",
-      "tags": ["#guilt", "#justice"],
+      "tags": ["#guilt", "#justice", "#judgment"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "An interpretive model for understanding a system whose pathways multiply without producing clear resolution.",
       "category": "Analytical concept",
       "source": "Study context for The Trial",
-      "tag": "#institutional-labyrinth",
-      "tags": ["#bureaucracy", "#confusion"],
+      "tags": ["#bureaucracy", "#confusion", "#institutional-labyrinth"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "The experience of having limited control over decisions, procedures, or institutions that significantly affect one's life.",
       "category": "Theme",
       "source": "Study context for The Trial",
-      "tag": "#powerlessness",
-      "tags": ["#authority", "#alienation"],
+      "tags": ["#authority", "#alienation", "#powerlessness"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "Uncertainty concerning individual responsibility, meaning, freedom, and one's position within an incomprehensible situation.",
       "category": "Philosophical theme",
       "source": "Study context for The Trial",
-      "tag": "#existential-uncertainty",
-      "tags": ["#existentialism", "#identity"],
+      "tags": ["#existentialism", "#identity", "#existential-uncertainty"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "bureaucracy",
       "definition": "A system of administration involving offices, officials, procedures, and formal organization.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Formed from French bureau, meaning office, and the Greek-derived suffix -cracy, meaning rule or power.",
       "synonyms": ["administration", "officialdom"],
       "contextSentence": "The bureaucracy appears increasingly difficult to understand as each procedure leads toward another official or office.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "alienation",
       "definition": "A sense of separation or estrangement from society, institutions, other people, or oneself.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin alienare, meaning to make another's or estrange.",
       "synonyms": ["estrangement", "isolation"],
       "contextSentence": "His alienation becomes more visible as ordinary social life is increasingly overshadowed by the case.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "tribunal",
       "definition": "A court or body with authority to judge disputes or cases.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin tribunal, referring to a raised platform associated with a magistrate.",
       "synonyms": ["court", "judicial body"],
       "contextSentence": "The tribunal seems powerful even when its boundaries and procedures remain unclear.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "acquittal",
       "definition": "A formal judgment that an accused person is not guilty.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from the verb acquit through Old French forms associated with releasing an obligation.",
       "synonyms": ["exoneration", "clearance"],
       "contextSentence": "The possibility of acquittal becomes complicated when the system itself cannot be clearly understood.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "accusation",
       "definition": "A claim that a person has committed an offense or done something wrong.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin accusatio, meaning a charge or prosecution.",
       "synonyms": ["charge", "allegation"],
       "contextSentence": "An accusation becomes especially destabilizing when its precise basis remains unknown.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "authority",
       "definition": "The recognized or asserted power to command, decide, judge, or enforce rules.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin auctoritas, associated with influence, command, and authorization.",
       "synonyms": ["power", "control"],
       "contextSentence": "Authority grows more intimidating when its source cannot be directly confronted.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "procedure",
       "definition": "An established sequence of actions used to conduct a process.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From French procédure and Latin procedere, meaning to advance or proceed.",
       "synonyms": ["process", "method"],
       "contextSentence": "Every procedure seems to promise order while generating new uncertainty.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "opaque",
       "definition": "Difficult to understand, interpret, or explain clearly.",
-      "partOfSpeech": "adjective",
+      "partOfSpeech": "Adjective",
       "etymology": "From Latin opacus, meaning shaded or darkened.",
       "synonyms": ["obscure", "unclear"],
       "contextSentence": "The institution remains opaque despite repeated attempts to discover how it operates.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "absurd",
       "definition": "Contrary to ordinary expectations of reason, logic, or coherence.",
-      "partOfSpeech": "adjective",
+      "partOfSpeech": "Adjective",
       "etymology": "From Latin absurdus, associated with incongruity or irrationality.",
       "synonyms": ["irrational", "incongruous"],
       "contextSentence": "The situation appears absurd because serious consequences coexist with an absence of understandable explanation.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "judgment",
       "definition": "A decision or evaluation concerning conduct, responsibility, or a legal matter.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived through Old French from Latin roots associated with law and saying or declaring.",
       "synonyms": ["verdict", "decision"],
       "contextSentence": "The fear of judgment persists even when the standards behind that judgment remain inaccessible.",
@@ -597,7 +587,7 @@
       "nature": "fictional",
       "coordinates": "",
       "color": "#827A72",
-      "description": "The residential setting where Josef K. encounters the officials who announce his arrest.",
+      "description": "The residential setting where Josef K. encounters the officials who anNounce his arrest.",
       "source": "The Trial",
       "tags": ["#boarding-house", "#arrest", "#josef-k"],
       "feed": 1,
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-004-sample-character-01",
+      "secondaryCharacterIds": ["book-004-sample-character-02", "book-004-sample-character-03"],
+      "placeId": "book-004-sample-place-01",
+      "dateLabel": "The Arrest",
+      "eventOrder": 1,
+      "event": "Study event 1: The Arrest / Authority",
+      "description": "Study synthesis for “The Arrest”: the index highlights Authority (Power without explanation). The description of Josef K. (“A bank employee who becomes the subject of an opaque legal process and struggles to understand the accusation and the system pursuing him.”) is considered here alongside Bureaucracy (“An administrative system organized through offices, procedures, officials, and institutional rules.”). Josef K.'s Boarding House and the passage “An Unexplained Notice” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#B56576",
+      "book": "The Trial",
+      "author": "Franz Kafka",
+      "page": "",
+      "tags": ["#authority", "#josef-k", "#guilt", "#alienation", "#bureaucracy", "#institution", "#boarding-house", "#arrest"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-004-sample-character-03",
+      "secondaryCharacterIds": ["book-004-sample-character-04", "book-004-sample-character-05"],
+      "placeId": "book-004-sample-place-02",
+      "dateLabel": "The Arrest",
+      "eventOrder": 2,
+      "event": "Study event 2: The Arrest / Guilt",
+      "description": "Study synthesis for “The Arrest”: the index highlights Guilt (Accusation without a known offense). The description of Advocate Huld (“A lawyer consulted in connection with Josef K.'s case, representing one route through the obscure structures surrounding the court.”) is considered here alongside Guilt (“A central problem involving accusation, responsibility, judgment, and uncertainty about wrongdoing.”). The Bank and the passage “Another Office” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#4F6D7A",
+      "book": "The Trial",
+      "author": "Franz Kafka",
+      "page": "",
+      "tags": ["#guilt", "#huld", "#law", "#bureaucracy", "#judgment", "#bank", "#work", "#josef-k"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-004-sample-character-05",
+      "secondaryCharacterIds": ["book-004-sample-character-06", "book-004-sample-character-07"],
+      "placeId": "book-004-sample-place-03",
+      "dateLabel": "First Interrogation",
+      "eventOrder": 3,
+      "event": "Study event 3: First Interrogation / Bureaucracy",
+      "description": "Study synthesis for “First Interrogation”: the index highlights Bureaucracy (Procedure and institutional confusion). The description of Titorelli (“A painter with connections to court officials who explains possible outcomes of the legal process to Josef K.”) is considered here alongside Opaque authority (“Power exercised through institutions whose rules, sources, and decision-making processes remain difficult to understand.”). Court Offices and the passage “The Unknown Charge” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#C49A3A",
+      "book": "The Trial",
+      "author": "Franz Kafka",
+      "page": "",
+      "tags": ["#bureaucracy", "#titorelli", "#court", "#justice", "#opaque-authority", "#power", "#law"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-004-sample-character-07",
+      "secondaryCharacterIds": ["book-004-sample-character-08", "book-004-sample-character-09"],
+      "placeId": "book-004-sample-place-04",
+      "dateLabel": "In the Empty Courtroom",
+      "eventOrder": 4,
+      "event": "Study event 4: In the Empty Courtroom / Alienation",
+      "description": "Study synthesis for “In the Empty Courtroom”: the index highlights Alienation (Isolation within institutional systems). The description of The Priest (“A clergyman encountered by Josef K. in the cathedral who discusses his case and presents a story concerning access to the law.”) is considered here alongside Judgment (“The act of evaluating a person's actions or status according to standards that may themselves remain inaccessible or ambiguous.”). Courtroom and the passage “Ordinary Morning” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#D17B49",
+      "book": "The Trial",
+      "author": "Franz Kafka",
+      "page": "",
+      "tags": ["#alienation", "#priest", "#law", "#interpretation", "#judgment", "#guilt", "#justice", "#courtroom", "#trial", "#authority"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-004-sample-character-01",
+      "targetCharacterId": "book-004-sample-character-02",
+      "relationType": "thematic comparison",
+      "directed": false,
+      "description": "This reading association links Josef K. (A bank employee who becomes the subject of an opaque legal process and struggles to understand the accusation and the system pursuing him.) with Fräulein Bürstner (A fellow lodger in Josef K.'s boarding house who becomes connected with his reflections and behavior following his arrest.). The theme “Authority” and subtheme “Power without explanation” guide the comparison; the passage “An Unexplained Notice” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#B56576",
+      "book": "The Trial",
+      "author": "Franz Kafka",
+      "page": "",
+      "tags": ["#josef-k", "#guilt", "#alienation", "#buerstner", "#boarding-house", "#authority"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-004-sample-character-03",
+      "targetCharacterId": "book-004-sample-character-04",
+      "relationType": "contrasting perspective",
+      "directed": false,
+      "description": "This reading association links Advocate Huld (A lawyer consulted in connection with Josef K.'s case, representing one route through the obscure structures surrounding the court.) with Leni (Huld's nurse and a character connected with Josef K.'s increasing involvement in the social world surrounding the court.). The theme “Guilt” and subtheme “Accusation without a known offense” guide the comparison; the passage “Another Office” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#4F6D7A",
+      "book": "The Trial",
+      "author": "Franz Kafka",
+      "page": "",
+      "tags": ["#huld", "#law", "#bureaucracy", "#leni", "#court", "#guilt"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-004-sample-character-05",
+      "targetCharacterId": "book-004-sample-character-06",
+      "relationType": "shared narrative context",
+      "directed": false,
+      "description": "This reading association links Titorelli (A painter with connections to court officials who explains possible outcomes of the legal process to Josef K.) with Uncle Karl (Josef K.'s uncle, who becomes concerned about the case and helps connect him with legal assistance.). The theme “Bureaucracy” and subtheme “Procedure and institutional confusion” guide the comparison; the passage “The Unknown Charge” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#C49A3A",
+      "book": "The Trial",
+      "author": "Franz Kafka",
+      "page": "",
+      "tags": ["#titorelli", "#court", "#justice", "#uncle-karl", "#family", "#law", "#bureaucracy"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-004-sample-character-07",
+      "targetCharacterId": "book-004-sample-character-08",
+      "relationType": "interpretive pairing",
+      "directed": false,
+      "description": "This reading association links The Priest (A clergyman encountered by Josef K. in the cathedral who discusses his case and presents a story concerning access to the law.) with Block (A businessman involved in a prolonged legal case whose circumstances illustrate dependence upon the court and its intermediaries.). The theme “Alienation” and subtheme “Isolation within institutional systems” guide the comparison; the passage “Ordinary Morning” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#D17B49",
+      "book": "The Trial",
+      "author": "Franz Kafka",
+      "page": "",
+      "tags": ["#priest", "#law", "#interpretation", "#block", "#trial", "#dependence", "#alienation"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-004-sample-concept-01",
+      "targetConceptId": "book-004-sample-concept-02",
+      "relationType": "provides context for",
+      "directed": true,
+      "description": "The definition of “Bureaucracy” (“An administrative system organized through offices, procedures, officials, and institutional rules.”) can be read in relation to “Alienation” (“A condition of estrangement from other people, institutions, surroundings, or one's own sense of agency.”). The theme Authority and subtheme Power without explanation, together with the passage “An Unexplained Notice”, place this conceptual connection in the book’s reading context.",
+      "color": "#735D78",
+      "book": "The Trial",
+      "author": "Franz Kafka",
+      "page": "",
+      "tags": ["#bureaucracy", "#authority", "#institution", "#alienation", "#isolation", "#existentialism"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-004-sample-concept-03",
+      "targetConceptId": "book-004-sample-concept-04",
+      "relationType": "offers a lens on",
+      "directed": false,
+      "description": "The definition of “Guilt” (“A central problem involving accusation, responsibility, judgment, and uncertainty about wrongdoing.”) can be read in relation to “Absurdity” (“The collision between expectations of rational order and circumstances that resist coherent explanation.”). The theme Guilt and subtheme Accusation without a known offense, together with the passage “Another Office”, place this conceptual connection in the book’s reading context.",
+      "color": "#2F6690",
+      "book": "The Trial",
+      "author": "Franz Kafka",
+      "page": "",
+      "tags": ["#guilt", "#judgment", "#law", "#absurdity", "#reason", "#existentialism"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-004-sample-concept-05",
+      "targetConceptId": "book-004-sample-concept-06",
+      "relationType": "contrasts with",
+      "directed": false,
+      "description": "The definition of “Opaque authority” (“Power exercised through institutions whose rules, sources, and decision-making processes remain difficult to understand.”) can be read in relation to “Procedural uncertainty” (“The inability to determine clearly how a formal process operates or what actions would resolve it.”). The theme Bureaucracy and subtheme Procedure and institutional confusion, together with the passage “The Unknown Charge”, place this conceptual connection in the book’s reading context.",
+      "color": "#A44A3F",
+      "book": "The Trial",
+      "author": "Franz Kafka",
+      "page": "",
+      "tags": ["#opaque-authority", "#power", "#bureaucracy", "#procedural-uncertainty", "#law"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-004-sample-concept-07",
+      "targetConceptId": "book-004-sample-concept-08",
+      "relationType": "complements",
+      "directed": true,
+      "description": "The definition of “Judgment” (“The act of evaluating a person's actions or status according to standards that may themselves remain inaccessible or ambiguous.”) can be read in relation to “Institutional labyrinth” (“An interpretive model for understanding a system whose pathways multiply without producing clear resolution.”). The theme Alienation and subtheme Isolation within institutional systems, together with the passage “Ordinary Morning”, place this conceptual connection in the book’s reading context.",
+      "color": "#5C4D7D",
+      "book": "The Trial",
+      "author": "Franz Kafka",
+      "page": "",
+      "tags": ["#judgment", "#guilt", "#justice", "#institutional-labyrinth", "#bureaucracy", "#confusion", "#alienation"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

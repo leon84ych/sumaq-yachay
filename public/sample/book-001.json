@@ -5,80 +5,80 @@
       "chapter": "Telemachus",
       "theme": "Identity",
       "subtheme": "Self-definition and belonging",
-      "tag": "#identity",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#identity"]
     },
     {
       "id": "sample-index-02",
       "chapter": "Nestor",
       "theme": "History",
       "subtheme": "Memory and inherited conflict",
-      "tag": "#history",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#history"]
     },
     {
       "id": "sample-index-03",
       "chapter": "Proteus",
       "theme": "Perception",
       "subtheme": "Consciousness and sensory experience",
-      "tag": "#perception",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#perception"]
     },
     {
       "id": "sample-index-04",
       "chapter": "Calypso",
       "theme": "Everyday Life",
       "subtheme": "Domestic routine and observation",
-      "tag": "#everyday-life",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#everyday-life"]
     },
     {
       "id": "sample-index-05",
       "chapter": "Lotus Eaters",
       "theme": "Escape",
       "subtheme": "Distraction and temporary withdrawal",
-      "tag": "#escape",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#escape"]
     },
     {
       "id": "sample-index-06",
       "chapter": "Hades",
       "theme": "Mortality",
       "subtheme": "Death, grief, and remembrance",
-      "tag": "#mortality",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#mortality"]
     },
     {
       "id": "sample-index-07",
       "chapter": "Aeolus",
       "theme": "Language",
       "subtheme": "Rhetoric and public communication",
-      "tag": "#language",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#language"]
     },
     {
       "id": "sample-index-08",
       "chapter": "Lestrygonians",
       "theme": "Embodiment",
       "subtheme": "Hunger, appetite, and the city",
-      "tag": "#embodiment",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#embodiment"]
     },
     {
       "id": "sample-index-09",
       "chapter": "Scylla and Charybdis",
       "theme": "Interpretation",
       "subtheme": "Literature and intellectual argument",
-      "tag": "#interpretation",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#interpretation"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Penelope",
       "theme": "Consciousness",
       "subtheme": "Memory, intimacy, and interior thought",
-      "tag": "#consciousness",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#consciousness"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "A narrative technique that represents the shifting flow of a character's thoughts, impressions, memories, and perceptions.",
       "category": "Narrative technique",
       "source": "Study context for Ulysses",
-      "tag": "#stream-of-consciousness",
-      "tags": ["#modernism", "#narrative"],
+      "tags": ["#modernism", "#narrative", "#stream-of-consciousness"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "A broad artistic movement associated with formal experimentation and new approaches to representing modern experience.",
       "category": "Literary movement",
       "source": "Study context for Ulysses",
-      "tag": "#modernism",
-      "tags": ["#literature", "#experimentation"],
+      "tags": ["#literature", "#experimentation", "#modernism"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "The representation of private thought, memory, sensation, and emotional experience.",
       "category": "Narrative perspective",
       "source": "Study context for Ulysses",
-      "tag": "#interiority",
-      "tags": ["#consciousness", "#psychology"],
+      "tags": ["#consciousness", "#psychology", "#interiority"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "An indirect reference to another text, historical subject, cultural tradition, or body of ideas.",
       "category": "Literary device",
       "source": "Study context for Ulysses",
-      "tag": "#allusion",
-      "tags": ["#references", "#interpretation"],
+      "tags": ["#references", "#interpretation", "#allusion"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "An interpretive relationship in which an ordinary narrative can be considered alongside patterns or figures from mythology.",
       "category": "Literary structure",
       "source": "Study context for Ulysses",
-      "tag": "#myth",
-      "tags": ["#structure", "#odyssey"],
+      "tags": ["#structure", "#odyssey", "#myth"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "The representation of city life through movement, encounters, observations, institutions, and everyday routines.",
       "category": "Theme",
       "source": "Study context for Ulysses",
-      "tag": "#urban-experience",
-      "tags": ["#dublin", "#city"],
+      "tags": ["#dublin", "#city", "#urban-experience"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "The evolving sense of self shaped by memory, family, culture, relationships, and social belonging.",
       "category": "Theme",
       "source": "Study context for Ulysses",
-      "tag": "#identity",
-      "tags": ["#self", "#belonging"],
+      "tags": ["#self", "#belonging", "#identity"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "The recurrence of past experiences within present consciousness and interpretation.",
       "category": "Theme",
       "source": "Study context for Ulysses",
-      "tag": "#memory",
-      "tags": ["#past", "#consciousness"],
+      "tags": ["#past", "#consciousness", "#memory"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "The treatment of routine actions and commonplace experiences as subjects capable of sustaining serious literary attention.",
       "category": "Theme",
       "source": "Study context for Ulysses",
-      "tag": "#ordinary-life",
-      "tags": ["#daily-life", "#modernism"],
+      "tags": ["#daily-life", "#modernism", "#ordinary-life"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "The deliberate variation of narrative style, structure, voice, and language within a literary work.",
       "category": "Narrative technique",
       "source": "Study context for Ulysses",
-      "tag": "#experimental-form",
-      "tags": ["#style", "#modernism"],
+      "tags": ["#style", "#modernism", "#experimental-form"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "allusion",
       "definition": "An indirect reference to another work, person, event, or cultural tradition.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin alludere, meaning to play with or refer to.",
       "synonyms": ["reference", "hint"],
       "contextSentence": "Recognizing an allusion can open an additional layer of interpretation.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "interiority",
       "definition": "A character's inner mental and emotional experience.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin interior, meaning inner.",
       "synonyms": ["inner life", "subjectivity"],
       "contextSentence": "The reader studies interiority by following changing thoughts and perceptions.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "modernism",
       "definition": "An artistic movement characterized in part by experimentation with established forms and conventions.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from modern, ultimately from Latin modernus.",
       "synonyms": ["modernist movement"],
       "contextSentence": "Modernism encouraged writers to experiment with perspective, structure, and language.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "monologue",
       "definition": "An extended expression of the thoughts or speech of a single speaker.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek roots meaning alone and speech.",
       "synonyms": ["soliloquy", "speech"],
       "contextSentence": "A monologue can bring the reader unusually close to a character's private perspective.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "motif",
       "definition": "A recurring element that contributes to the development of themes within a work.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From French motif, associated with a recurring idea or pattern.",
       "synonyms": ["pattern", "recurring element"],
       "contextSentence": "A repeated image may function as a motif connecting otherwise distant scenes.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "parody",
       "definition": "An imitation of a recognizable style that transforms it for comic, critical, or analytical effect.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek paroidia, referring to a song composed alongside another.",
       "synonyms": ["imitation", "satire"],
       "contextSentence": "A change in style can operate as parody while also testing literary conventions.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "rhetoric",
       "definition": "The art and technique of persuasive or effective expression.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek rhetorike, the art of oratory.",
       "synonyms": ["oratory", "persuasion"],
       "contextSentence": "The reader can examine how rhetoric shapes public arguments and private judgments.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "symbolism",
       "definition": "The use of objects, images, actions, or patterns to suggest meanings beyond their immediate function.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from symbol, ultimately from Greek symbolon.",
       "synonyms": ["figuration", "representation"],
       "contextSentence": "Symbolism can transform an ordinary detail into a focus for interpretation.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "fragmentation",
       "definition": "A structural quality in which narrative experience is presented through discontinuous pieces, shifts, or perspectives.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin fragmentum, meaning a broken piece.",
       "synonyms": ["discontinuity", "division"],
       "contextSentence": "Fragmentation asks the reader to connect impressions that are not arranged as a simple linear account.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "perception",
       "definition": "The process of becoming aware of the world through sensation, thought, and interpretation.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin perceptio, meaning receiving or apprehending.",
       "synonyms": ["awareness", "apprehension"],
       "contextSentence": "The description of a street may change as perception moves between sensation and memory.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-001-sample-character-01",
+      "secondaryCharacterIds": ["book-001-sample-character-02", "book-001-sample-character-03"],
+      "placeId": "book-001-sample-place-01",
+      "dateLabel": "Telemachus",
+      "eventOrder": 1,
+      "event": "Study event 1: Telemachus / Identity",
+      "description": "Study synthesis for “Telemachus”: the index highlights Identity (Self-definition and belonging). The description of Leopold Bloom (“A central figure whose movement through Dublin provides a major perspective on ordinary experience, memory, relationships, and identity.”) is considered here alongside Stream of consciousness (“A narrative technique that represents the shifting flow of a character's thoughts, impressions, memories, and perceptions.”). Dublin and the passage “Morning and Memory” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#3A7D44",
+      "book": "Ulysses",
+      "author": "James Joyce",
+      "page": "",
+      "tags": ["#identity", "#bloom", "#dublin", "#stream-of-consciousness", "#modernism", "#narrative", "#city", "#ireland"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-001-sample-character-03",
+      "secondaryCharacterIds": ["book-001-sample-character-04", "book-001-sample-character-05"],
+      "placeId": "book-001-sample-place-02",
+      "dateLabel": "Nestor",
+      "eventOrder": 2,
+      "event": "Study event 2: Nestor / History",
+      "description": "Study synthesis for “Nestor”: the index highlights History (Memory and inherited conflict). The description of Molly Bloom (“A central character whose interior perspective becomes especially significant in the novel's concluding episode.”) is considered here alongside Interiority (“The representation of private thought, memory, sensation, and emotional experience.”). Ireland and the passage “A City in Motion” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#C49A3A",
+      "book": "Ulysses",
+      "author": "James Joyce",
+      "page": "",
+      "tags": ["#history", "#molly", "#memory", "#consciousness", "#interiority", "#psychology", "#ireland", "#identity"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-001-sample-character-05",
+      "secondaryCharacterIds": ["book-001-sample-character-06", "book-001-sample-character-07"],
+      "placeId": "book-001-sample-place-03",
+      "dateLabel": "Proteus",
+      "eventOrder": 3,
+      "event": "Study event 3: Proteus / Perception",
+      "description": "Study synthesis for “Proteus”: the index highlights Perception (Consciousness and sensory experience). The description of Haines (“An English visitor whose presence contributes to early discussions of culture, identity, and Ireland.”) is considered here alongside Mythic parallel (“An interpretive relationship in which an ordinary narrative can be considered alongside patterns or figures from mythology.”). Martello Tower, Sandycove and the passage “Interior Weather” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#5C4D7D",
+      "book": "Ulysses",
+      "author": "James Joyce",
+      "page": "",
+      "tags": ["#perception", "#haines", "#ireland", "#identity", "#myth", "#structure", "#odyssey", "#sandycove", "#tower", "#stephen"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-001-sample-character-07",
+      "secondaryCharacterIds": ["book-001-sample-character-08", "book-001-sample-character-09"],
+      "placeId": "book-001-sample-place-04",
+      "dateLabel": "Calypso",
+      "eventOrder": 4,
+      "event": "Study event 4: Calypso / Everyday Life",
+      "description": "Study synthesis for “Calypso”: the index highlights Everyday Life (Domestic routine and observation). The description of Blazes Boylan (“A character whose relationship with Molly contributes to Bloom's reflections on marriage and jealousy.”) is considered here alongside Identity (“The evolving sense of self shaped by memory, family, culture, relationships, and social belonging.”). Sandymount and the passage “The Ordinary Epic” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#6A994E",
+      "book": "Ulysses",
+      "author": "James Joyce",
+      "page": "",
+      "tags": ["#everyday-life", "#boylan", "#relationships", "#bloom", "#identity", "#self", "#belonging", "#sandymount", "#dublin", "#coast"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-001-sample-character-01",
+      "targetCharacterId": "book-001-sample-character-02",
+      "relationType": "thematic comparison",
+      "directed": false,
+      "description": "This reading association links Leopold Bloom (A central figure whose movement through Dublin provides a major perspective on ordinary experience, memory, relationships, and identity.) with Stephen Dedalus (A young intellectual preoccupied with art, philosophy, family, history, and his place in the world.). The theme “Identity” and subtheme “Self-definition and belonging” guide the comparison; the passage “Morning and Memory” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#3A7D44",
+      "book": "Ulysses",
+      "author": "James Joyce",
+      "page": "",
+      "tags": ["#bloom", "#identity", "#dublin", "#stephen", "#art"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-001-sample-character-03",
+      "targetCharacterId": "book-001-sample-character-04",
+      "relationType": "contrasting perspective",
+      "directed": false,
+      "description": "This reading association links Molly Bloom (A central character whose interior perspective becomes especially significant in the novel's concluding episode.) with Buck Mulligan (Stephen's energetic and provocative companion at the beginning of the novel.). The theme “History” and subtheme “Memory and inherited conflict” guide the comparison; the passage “A City in Motion” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#C49A3A",
+      "book": "Ulysses",
+      "author": "James Joyce",
+      "page": "",
+      "tags": ["#molly", "#memory", "#consciousness", "#mulligan", "#stephen", "#wit", "#history"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-001-sample-character-05",
+      "targetCharacterId": "book-001-sample-character-06",
+      "relationType": "shared narrative context",
+      "directed": false,
+      "description": "This reading association links Haines (An English visitor whose presence contributes to early discussions of culture, identity, and Ireland.) with Simon Dedalus (Stephen's father and a figure connected with family memory and the pressures of the past.). The theme “Perception” and subtheme “Consciousness and sensory experience” guide the comparison; the passage “Interior Weather” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#5C4D7D",
+      "book": "Ulysses",
+      "author": "James Joyce",
+      "page": "",
+      "tags": ["#haines", "#ireland", "#identity", "#family", "#stephen", "#memory", "#perception"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-001-sample-character-07",
+      "targetCharacterId": "book-001-sample-character-08",
+      "relationType": "interpretive pairing",
+      "directed": false,
+      "description": "This reading association links Blazes Boylan (A character whose relationship with Molly contributes to Bloom's reflections on marriage and jealousy.) with Millicent Bloom (The daughter of Leopold and Molly Bloom, often known as Milly, whose absence still figures in family thoughts and memories.). The theme “Everyday Life” and subtheme “Domestic routine and observation” guide the comparison; the passage “The Ordinary Epic” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#6A994E",
+      "book": "Ulysses",
+      "author": "James Joyce",
+      "page": "",
+      "tags": ["#boylan", "#relationships", "#bloom", "#milly", "#family", "#memory", "#everyday-life"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-001-sample-concept-01",
+      "targetConceptId": "book-001-sample-concept-02",
+      "relationType": "provides context for",
+      "directed": true,
+      "description": "The definition of “Stream of consciousness” (“A narrative technique that represents the shifting flow of a character's thoughts, impressions, memories, and perceptions.”) can be read in relation to “Modernism” (“A broad artistic movement associated with formal experimentation and new approaches to representing modern experience.”). The theme Identity and subtheme Self-definition and belonging, together with the passage “Morning and Memory”, place this conceptual connection in the book’s reading context.",
+      "color": "#735D78",
+      "book": "Ulysses",
+      "author": "James Joyce",
+      "page": "",
+      "tags": ["#stream-of-consciousness", "#modernism", "#narrative", "#literature", "#experimentation", "#identity"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-001-sample-concept-03",
+      "targetConceptId": "book-001-sample-concept-04",
+      "relationType": "offers a lens on",
+      "directed": false,
+      "description": "The definition of “Interiority” (“The representation of private thought, memory, sensation, and emotional experience.”) can be read in relation to “Allusion” (“An indirect reference to another text, historical subject, cultural tradition, or body of ideas.”). The theme History and subtheme Memory and inherited conflict, together with the passage “A City in Motion”, place this conceptual connection in the book’s reading context.",
+      "color": "#2F6690",
+      "book": "Ulysses",
+      "author": "James Joyce",
+      "page": "",
+      "tags": ["#interiority", "#consciousness", "#psychology", "#allusion", "#references", "#interpretation", "#history"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-001-sample-concept-05",
+      "targetConceptId": "book-001-sample-concept-06",
+      "relationType": "contrasts with",
+      "directed": false,
+      "description": "The definition of “Mythic parallel” (“An interpretive relationship in which an ordinary narrative can be considered alongside patterns or figures from mythology.”) can be read in relation to “Urban experience” (“The representation of city life through movement, encounters, observations, institutions, and everyday routines.”). The theme Perception and subtheme Consciousness and sensory experience, together with the passage “Interior Weather”, place this conceptual connection in the book’s reading context.",
+      "color": "#A44A3F",
+      "book": "Ulysses",
+      "author": "James Joyce",
+      "page": "",
+      "tags": ["#myth", "#structure", "#odyssey", "#urban-experience", "#dublin", "#city", "#perception"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-001-sample-concept-07",
+      "targetConceptId": "book-001-sample-concept-08",
+      "relationType": "complements",
+      "directed": true,
+      "description": "The definition of “Identity” (“The evolving sense of self shaped by memory, family, culture, relationships, and social belonging.”) can be read in relation to “Memory” (“The recurrence of past experiences within present consciousness and interpretation.”). The theme Everyday Life and subtheme Domestic routine and observation, together with the passage “The Ordinary Epic”, place this conceptual connection in the book’s reading context.",
+      "color": "#5C4D7D",
+      "book": "Ulysses",
+      "author": "James Joyce",
+      "page": "",
+      "tags": ["#identity", "#self", "#belonging", "#memory", "#past", "#consciousness", "#everyday-life"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

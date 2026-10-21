@@ -5,80 +5,80 @@
       "chapter": "Introduction",
       "theme": "Being",
       "subtheme": "Existence and the structure of reality",
-      "tag": "#being",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#being"]
     },
     {
       "id": "sample-index-02",
       "chapter": "The Problem of Nothingness",
       "theme": "Nothingness",
       "subtheme": "Negation and the activity of consciousness",
-      "tag": "#nothingness",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#nothingness"]
     },
     {
       "id": "sample-index-03",
       "chapter": "Bad Faith",
       "theme": "Self-Deception",
       "subtheme": "Flight from freedom and responsibility",
-      "tag": "#bad-faith",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#bad-faith"]
     },
     {
       "id": "sample-index-04",
       "chapter": "The For-Itself",
       "theme": "Consciousness",
       "subtheme": "Self-awareness and transcendence",
-      "tag": "#consciousness",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#consciousness"]
     },
     {
       "id": "sample-index-05",
       "chapter": "The Body",
       "theme": "Embodiment",
       "subtheme": "Lived experience and bodily existence",
-      "tag": "#embodiment",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#embodiment"]
     },
     {
       "id": "sample-index-06",
       "chapter": "The Look",
       "theme": "Otherness",
       "subtheme": "Being perceived by another consciousness",
-      "tag": "#otherness",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#otherness"]
     },
     {
       "id": "sample-index-07",
       "chapter": "Concrete Relations with Others",
       "theme": "Relationships",
       "subtheme": "Freedom, conflict, recognition, and dependency",
-      "tag": "#relationships",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#relationships"]
     },
     {
       "id": "sample-index-08",
       "chapter": "Freedom",
       "theme": "Freedom",
       "subtheme": "Choice and existential responsibility",
-      "tag": "#freedom",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#freedom"]
     },
     {
       "id": "sample-index-09",
       "chapter": "Action",
       "theme": "Responsibility",
       "subtheme": "Projects, choices, and consequences",
-      "tag": "#responsibility",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#responsibility"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Analytical Overview",
       "theme": "Existentialism",
       "subtheme": "Existence, identity, freedom, and meaning",
-      "tag": "#existentialism",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#existentialism"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "Sartre's philosophical category for being considered independently of the self-transcending structure associated with consciousness.",
       "category": "Ontology",
       "source": "Study context for Being and Nothingness",
-      "tag": "#being-in-itself",
-      "tags": ["#being", "#ontology"],
+      "tags": ["#being", "#ontology", "#being-in-itself"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "Sartre's category associated with consciousness as a form of being that relates to itself and can project possibilities beyond its present state.",
       "category": "Ontology",
       "source": "Study context for Being and Nothingness",
-      "tag": "#being-for-itself",
-      "tags": ["#consciousness", "#ontology"],
+      "tags": ["#consciousness", "#ontology", "#being-for-itself"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "A central ontological concept connected with negation, absence, consciousness, and the possibility of distancing oneself from what simply is.",
       "category": "Ontology",
       "source": "Study context for Being and Nothingness",
-      "tag": "#nothingness",
-      "tags": ["#negation", "#consciousness"],
+      "tags": ["#negation", "#consciousness", "#nothingness"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "A form of self-deception in which a person attempts to evade the tension between freedom and the factual conditions of existence.",
       "category": "Existential concept",
       "source": "Study context for Being and Nothingness",
-      "tag": "#bad-faith",
-      "tags": ["#freedom", "#self-deception"],
+      "tags": ["#freedom", "#self-deception", "#bad-faith"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "The capacity of consciousness to project possibilities and make choices within the circumstances of a concrete situation.",
       "category": "Existential concept",
       "source": "Study context for Being and Nothingness",
-      "tag": "#freedom",
-      "tags": ["#choice", "#responsibility"],
+      "tags": ["#choice", "#responsibility", "#freedom"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "The concrete facts and conditions of one's existence that are encountered as already given.",
       "category": "Existential concept",
       "source": "Study context for Being and Nothingness",
-      "tag": "#facticity",
-      "tags": ["#situation", "#existence"],
+      "tags": ["#situation", "#existence", "#facticity"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "The capacity of consciousness to reach beyond its immediately given condition toward possibilities, projects, and meanings.",
       "category": "Existential concept",
       "source": "Study context for Being and Nothingness",
-      "tag": "#transcendence",
-      "tags": ["#possibility", "#consciousness"],
+      "tags": ["#possibility", "#consciousness", "#transcendence"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "The dimension of existence disclosed through relationships with other consciousnesses and awareness of oneself as perceived by others.",
       "category": "Ontology",
       "source": "Study context for Being and Nothingness",
-      "tag": "#being-for-others",
-      "tags": ["#otherness", "#relationships"],
+      "tags": ["#otherness", "#relationships", "#being-for-others"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "Sartre's analysis of encountering another consciousness through an experience in which one becomes aware of oneself as an object for another.",
       "category": "Phenomenology",
       "source": "Study context for Being and Nothingness",
-      "tag": "#the-look",
-      "tags": ["#otherness", "#self"],
+      "tags": ["#otherness", "#self", "#the-look"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "The existential burden associated with choices and projects undertaken by a free individual within a situation.",
       "category": "Existential concept",
       "source": "Study context for Being and Nothingness",
-      "tag": "#responsibility",
-      "tags": ["#freedom", "#action"],
+      "tags": ["#freedom", "#action", "#responsibility"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "ontology",
       "definition": "The branch of philosophy concerned with being and what it means for something to exist.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek roots relating to being and study.",
       "synonyms": ["study of being", "theory of being"],
       "contextSentence": "Ontology provides the framework for asking what distinguishes consciousness from other forms of being.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "phenomenology",
       "definition": "A philosophical approach concerned with describing structures of experience as they appear to consciousness.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek-derived terms referring to appearance and study.",
       "synonyms": ["study of experience"],
       "contextSentence": "Phenomenology directs attention toward the structures through which experience becomes meaningful.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "facticity",
       "definition": "The given conditions of existence that form part of a person's concrete situation.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from fact and philosophical terminology concerning factual existence.",
       "synonyms": ["givenness", "actual conditions"],
       "contextSentence": "Facticity describes circumstances that must be encountered even when they do not completely determine future choices.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "transcendence",
       "definition": "The movement beyond a present condition toward possibilities, meanings, goals, or projects.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin transcendere, meaning to climb beyond or surpass.",
       "synonyms": ["going beyond", "surpassing"],
       "contextSentence": "Transcendence describes how consciousness reaches toward possibilities beyond its present condition.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "negation",
       "definition": "The act or structure of denying, excluding, or recognizing that something is not the case.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin negatio, meaning denial.",
       "synonyms": ["denial", "rejection"],
       "contextSentence": "Negation becomes philosophically significant when consciousness recognizes an absence rather than merely another object.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "consciousness",
       "definition": "Awareness through which the world, oneself, and possible actions are experienced.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin conscientia, associated with shared or internal knowledge.",
       "synonyms": ["awareness", "subjectivity"],
       "contextSentence": "Consciousness is examined as an active relation to the world rather than a passive container of experiences.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "freedom",
       "definition": "The capacity to choose and project possibilities within a concrete situation.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Old English freodom, associated with the condition of being free.",
       "synonyms": ["liberty", "agency"],
       "contextSentence": "Freedom does not require an absence of circumstances but concerns how possibilities are pursued within them.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "responsibility",
       "definition": "Accountability associated with one's choices, projects, actions, and their consequences.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin respondere, meaning to answer or respond.",
       "synonyms": ["accountability", "answerability"],
       "contextSentence": "Responsibility becomes difficult to escape when refusing to choose is itself embedded in a situation requiring action.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "subjectivity",
       "definition": "Experience from the perspective of a conscious subject.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from subject and ultimately from Latin subjectus.",
       "synonyms": ["inner perspective", "first-person experience"],
       "contextSentence": "Subjectivity cannot be understood only by describing the individual as an external object.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "existentialism",
       "definition": "A philosophical tradition concerned with human existence, freedom, choice, responsibility, meaning, and concrete lived experience.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from existence, ultimately from Latin exsistere, meaning to emerge or come into being.",
       "synonyms": ["existential philosophy"],
       "contextSentence": "Existentialism places questions of freedom and responsibility within the circumstances of lived human existence.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-009-sample-character-01",
+      "secondaryCharacterIds": ["book-009-sample-character-02", "book-009-sample-character-03"],
+      "placeId": "book-009-sample-place-01",
+      "dateLabel": "Introduction",
+      "eventOrder": 1,
+      "event": "Study event 1: Introduction / Being",
+      "description": "Study synthesis for “Introduction”: the index highlights Being (Existence and the structure of reality). The description of The Conscious Subject (“An explicitly analytical sample figure representing the conscious individual examined through Sartre's distinctions between being, nothingness, freedom, and self-awareness.”) is considered here alongside Being-in-itself (“Sartre's philosophical category for being considered independently of the self-transcending structure associated with consciousness.”). Existential Café and the passage “The Empty Chair” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#2F6690",
+      "book": "Being and Nothingness",
+      "author": "Jean-Paul Sartre",
+      "page": "",
+      "tags": ["#being", "#analytical-sample", "#consciousness", "#being-in-itself", "#ontology", "#everyday-life"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-009-sample-character-03",
+      "secondaryCharacterIds": ["book-009-sample-character-04", "book-009-sample-character-05"],
+      "placeId": "book-009-sample-place-02",
+      "dateLabel": "The Problem of Nothingness",
+      "eventOrder": 2,
+      "event": "Study event 2: The Problem of Nothingness / Nothingness",
+      "description": "Study synthesis for “The Problem of Nothingness”: the index highlights Nothingness (Negation and the activity of consciousness). The description of The Bad-Faith Actor (“An explicitly analytical sample figure representing a person who treats a chosen identity or social role as though it completely determines what that person can be.”) is considered here alongside Nothingness (“A central ontological concept connected with negation, absence, consciousness, and the possibility of distancing oneself from what simply is.”). Reflective Room and the passage “A Fixed Identity” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#735D78",
+      "book": "Being and Nothingness",
+      "author": "Jean-Paul Sartre",
+      "page": "",
+      "tags": ["#nothingness", "#analytical-sample", "#bad-faith", "#identity", "#negation", "#consciousness", "#reflection", "#self"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-009-sample-character-05",
+      "secondaryCharacterIds": ["book-009-sample-character-06", "book-009-sample-character-07"],
+      "placeId": "book-009-sample-place-03",
+      "dateLabel": "Bad Faith",
+      "eventOrder": 3,
+      "event": "Study event 3: Bad Faith / Self-Deception",
+      "description": "Study synthesis for “Bad Faith”: the index highlights Self-Deception (Flight from freedom and responsibility). The description of The Observer (“An explicitly analytical sample figure used to examine how another person's attention may alter one's experience of oneself.”) is considered here alongside Freedom (“The capacity of consciousness to project possibilities and make choices within the circumstances of a concrete situation.”). Field of Possibilities and the passage “The Unchosen Situation” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#5C4D7D",
+      "book": "Being and Nothingness",
+      "author": "Jean-Paul Sartre",
+      "page": "",
+      "tags": ["#bad-faith", "#analytical-sample", "#look", "#otherness", "#freedom", "#choice", "#responsibility", "#possibility"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-009-sample-character-07",
+      "secondaryCharacterIds": ["book-009-sample-character-08", "book-009-sample-character-09"],
+      "placeId": "book-009-sample-place-04",
+      "dateLabel": "The For-Itself",
+      "eventOrder": 4,
+      "event": "Study event 4: The For-Itself / Consciousness",
+      "description": "Study synthesis for “The For-Itself”: the index highlights Consciousness (Self-awareness and transcendence). The description of The Choosing Self (“An explicitly analytical sample figure representing identity understood through continuing decisions rather than a completely fixed essence.”) is considered here alongside Transcendence (“The capacity of consciousness to reach beyond its immediately given condition toward possibilities, projects, and meanings.”). World of Facticity and the passage “Being Seen” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#D17B49",
+      "book": "Being and Nothingness",
+      "author": "Jean-Paul Sartre",
+      "page": "",
+      "tags": ["#consciousness", "#analytical-sample", "#choice", "#identity", "#transcendence", "#possibility", "#facticity", "#situation"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-009-sample-character-01",
+      "targetCharacterId": "book-009-sample-character-02",
+      "relationType": "thematic comparison",
+      "directed": false,
+      "description": "This reading association links The Conscious Subject (An explicitly analytical sample figure representing the conscious individual examined through Sartre's distinctions between being, nothingness, freedom, and self-awareness.) with The Other (An explicitly analytical sample figure representing another consciousness whose presence introduces recognition, objectification, conflict, and interpersonal awareness.). The theme “Being” and subtheme “Existence and the structure of reality” guide the comparison; the passage “The Empty Chair” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#2F6690",
+      "book": "Being and Nothingness",
+      "author": "Jean-Paul Sartre",
+      "page": "",
+      "tags": ["#analytical-sample", "#consciousness", "#being", "#other", "#relationships"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-009-sample-character-03",
+      "targetCharacterId": "book-009-sample-character-04",
+      "relationType": "contrasting perspective",
+      "directed": false,
+      "description": "This reading association links The Bad-Faith Actor (An explicitly analytical sample figure representing a person who treats a chosen identity or social role as though it completely determines what that person can be.) with The Free Agent (An explicitly analytical sample figure representing human existence as capable of choosing projects within concrete circumstances.). The theme “Nothingness” and subtheme “Negation and the activity of consciousness” guide the comparison; the passage “A Fixed Identity” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#735D78",
+      "book": "Being and Nothingness",
+      "author": "Jean-Paul Sartre",
+      "page": "",
+      "tags": ["#analytical-sample", "#bad-faith", "#identity", "#freedom", "#choice", "#nothingness"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-009-sample-character-05",
+      "targetCharacterId": "book-009-sample-character-06",
+      "relationType": "shared narrative context",
+      "directed": false,
+      "description": "This reading association links The Observer (An explicitly analytical sample figure used to examine how another person's attention may alter one's experience of oneself.) with The Observed Self (An explicitly analytical sample figure representing the experience of becoming aware of oneself as perceived by another person.). The theme “Self-Deception” and subtheme “Flight from freedom and responsibility” guide the comparison; the passage “The Unchosen Situation” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#5C4D7D",
+      "book": "Being and Nothingness",
+      "author": "Jean-Paul Sartre",
+      "page": "",
+      "tags": ["#analytical-sample", "#look", "#otherness", "#self", "#bad-faith"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-009-sample-character-07",
+      "targetCharacterId": "book-009-sample-character-08",
+      "relationType": "interpretive pairing",
+      "directed": false,
+      "description": "This reading association links The Choosing Self (An explicitly analytical sample figure representing identity understood through continuing decisions rather than a completely fixed essence.) with The Situated Individual (An explicitly analytical sample figure representing freedom exercised within circumstances that the individual did not freely create.). The theme “Consciousness” and subtheme “Self-awareness and transcendence” guide the comparison; the passage “Being Seen” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#D17B49",
+      "book": "Being and Nothingness",
+      "author": "Jean-Paul Sartre",
+      "page": "",
+      "tags": ["#analytical-sample", "#choice", "#identity", "#situation", "#freedom", "#consciousness"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-009-sample-concept-01",
+      "targetConceptId": "book-009-sample-concept-02",
+      "relationType": "provides context for",
+      "directed": true,
+      "description": "The definition of “Being-in-itself” (“Sartre's philosophical category for being considered independently of the self-transcending structure associated with consciousness.”) can be read in relation to “Being-for-itself” (“Sartre's category associated with consciousness as a form of being that relates to itself and can project possibilities beyond its present state.”). The theme Being and subtheme Existence and the structure of reality, together with the passage “The Empty Chair”, place this conceptual connection in the book’s reading context.",
+      "color": "#735D78",
+      "book": "Being and Nothingness",
+      "author": "Jean-Paul Sartre",
+      "page": "",
+      "tags": ["#being-in-itself", "#being", "#ontology", "#being-for-itself", "#consciousness"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-009-sample-concept-03",
+      "targetConceptId": "book-009-sample-concept-04",
+      "relationType": "offers a lens on",
+      "directed": false,
+      "description": "The definition of “Nothingness” (“A central ontological concept connected with negation, absence, consciousness, and the possibility of distancing oneself from what simply is.”) can be read in relation to “Bad faith” (“A form of self-deception in which a person attempts to evade the tension between freedom and the factual conditions of existence.”). The theme Nothingness and subtheme Negation and the activity of consciousness, together with the passage “A Fixed Identity”, place this conceptual connection in the book’s reading context.",
+      "color": "#2F6690",
+      "book": "Being and Nothingness",
+      "author": "Jean-Paul Sartre",
+      "page": "",
+      "tags": ["#nothingness", "#negation", "#consciousness", "#bad-faith", "#freedom", "#self-deception"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-009-sample-concept-05",
+      "targetConceptId": "book-009-sample-concept-06",
+      "relationType": "contrasts with",
+      "directed": false,
+      "description": "The definition of “Freedom” (“The capacity of consciousness to project possibilities and make choices within the circumstances of a concrete situation.”) can be read in relation to “Facticity” (“The concrete facts and conditions of one's existence that are encountered as already given.”). The theme Self-Deception and subtheme Flight from freedom and responsibility, together with the passage “The Unchosen Situation”, place this conceptual connection in the book’s reading context.",
+      "color": "#A44A3F",
+      "book": "Being and Nothingness",
+      "author": "Jean-Paul Sartre",
+      "page": "",
+      "tags": ["#freedom", "#choice", "#responsibility", "#facticity", "#situation", "#existence", "#bad-faith"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-009-sample-concept-07",
+      "targetConceptId": "book-009-sample-concept-08",
+      "relationType": "complements",
+      "directed": true,
+      "description": "The definition of “Transcendence” (“The capacity of consciousness to reach beyond its immediately given condition toward possibilities, projects, and meanings.”) can be read in relation to “Being-for-others” (“The dimension of existence disclosed through relationships with other consciousnesses and awareness of oneself as perceived by others.”). The theme Consciousness and subtheme Self-awareness and transcendence, together with the passage “Being Seen”, place this conceptual connection in the book’s reading context.",
+      "color": "#5C4D7D",
+      "book": "Being and Nothingness",
+      "author": "Jean-Paul Sartre",
+      "page": "",
+      "tags": ["#transcendence", "#possibility", "#consciousness", "#being-for-others", "#otherness", "#relationships"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

@@ -1,6 +1,7 @@
 import { Component, computed, inject, input, output } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../core/services/permission.service';
+import { parseTags } from '../../../../shared/utils/tag-utils';
 import { CharacterRow } from '../../models/domain-character-row.model';
 import { DomainEntryCardComponent } from '../../../../shared/domain-entry-card/domain-entry-card.component';
 
@@ -22,15 +23,11 @@ export class CharacterEntryCardComponent {
   readonly contextualBookAuthor = computed(() => this.bookAuthor() || this.rowText('author'));
   readonly deleteRequested = output<string>();
   readonly editRequested = output<CharacterRow>();
-  readonly relationsRequested = output<CharacterRow>();
   readonly role = this.permissionService.role;
   readonly permissions = this.permissionService;
 
-  splitTags(tags: string | undefined): string[] {
-    return (tags ?? '')
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(tags: string[] | undefined): string[] {
+    return parseTags(tags);
   }
 
   private rowText(field: string): string {

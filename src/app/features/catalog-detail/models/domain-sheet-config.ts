@@ -5,8 +5,9 @@ export type DomainName =
   | 'PASSAGES'
   | 'CHARACTER'
   | 'PLACES'
-  | 'TIMELINE'
-  | 'RELATIONS'
+  | 'BOOK_EVENTS'
+  | 'RELATIONS_CHARACTERS'
+  | 'RELATIONS_CONCEPTS'
   | 'GLOSARY'
   | 'QUESTIONS';
 
@@ -16,10 +17,10 @@ export interface DomainDefinition {
 
 export const DOMAIN_DEFINITIONS: Record<DomainName, DomainDefinition> = {
   INDEX: {
-    headers: ['id', 'chapter', 'theme', 'subtheme', 'tag', 'syncStatus'],
+    headers: ['id', 'chapter', 'theme', 'subtheme', 'tags', 'syncStatus'],
   },
   CONCEPTS: {
-    headers: ['id', 'term', 'definition', 'category', 'source', 'syncStatus'],
+    headers: ['id', 'term', 'definition', 'category', 'source', 'tags', 'syncStatus'],
   },
   QUOTES: {
     headers: ['id', 'quote', 'analysis', 'author', 'page', 'tags', 'syncStatus'],
@@ -55,13 +56,78 @@ export const DOMAIN_DEFINITIONS: Record<DomainName, DomainDefinition> = {
     ],
   },
   PLACES: {
-    headers: ['id', 'name', 'type', 'nature', 'coordinates', 'color', 'description', 'source', 'tags', 'feed', 'contributor', 'syncStatus'],
+    headers: [
+      'id',
+      'name',
+      'type',
+      'nature',
+      'coordinates',
+      'color',
+      'description',
+      'source',
+      'tags',
+      'feed',
+      'contributor',
+      'syncStatus',
+    ],
   },
-  TIMELINE: {
-    headers: ['id', 'date', 'event', 'description', 'significance', 'syncStatus'],
+  BOOK_EVENTS: {
+    headers: [
+      'id',
+      'mainCharacterId',
+      'secondaryCharacterIds',
+      'placeId',
+      'dateTimeStart',
+      'dateTimeEnd',
+      'dateLabel',
+      'eventOrder',
+      'event',
+      'description',
+      'color',
+      'book',
+      'author',
+      'page',
+      'tags',
+      'feed',
+      'contributor',
+      'syncStatus',
+    ],
   },
-  RELATIONS: {
-    headers: ['id', 'sourceNode', 'targetNode', 'relationshipType', 'weight', 'syncStatus'],
+  RELATIONS_CHARACTERS: {
+    headers: [
+      'id',
+      'sourceCharacterId',
+      'targetCharacterId',
+      'relationType',
+      'directed',
+      'description',
+      'color',
+      'book',
+      'author',
+      'page',
+      'tags',
+      'feed',
+      'contributor',
+      'syncStatus',
+    ],
+  },
+  RELATIONS_CONCEPTS: {
+    headers: [
+      'id',
+      'sourceConceptId',
+      'targetConceptId',
+      'relationType',
+      'directed',
+      'description',
+      'color',
+      'book',
+      'author',
+      'page',
+      'tags',
+      'feed',
+      'contributor',
+      'syncStatus',
+    ],
   },
   GLOSARY: {
     headers: [
@@ -102,6 +168,48 @@ export const DOMAIN_DEFINITIONS: Record<DomainName, DomainDefinition> = {
     ],
   },
 };
+
+export const DOMAIN_TAB_ORDER: readonly DomainName[] = [
+  'INDEX',
+  'CHARACTER',
+  'RELATIONS_CHARACTERS',
+  'CONCEPTS',
+  'RELATIONS_CONCEPTS',
+  'PLACES',
+  'BOOK_EVENTS',
+  'QUOTES',
+  'PASSAGES',
+  'GLOSARY',
+  'QUESTIONS',
+];
+
+const DOMAIN_TAB_ORDER_INDEX = new Map<string, number>(
+  DOMAIN_TAB_ORDER.map((domain, index) => [domain, index]),
+);
+
+interface SheetTabOrder {
+  name: string;
+  index: number;
+}
+
+export function sortDomainTabs<T extends SheetTabOrder>(sheets: readonly T[]): T[] {
+  return [...sheets].sort((a, b) => {
+    const aOrder = DOMAIN_TAB_ORDER_INDEX.get(a.name.toUpperCase());
+    const bOrder = DOMAIN_TAB_ORDER_INDEX.get(b.name.toUpperCase());
+
+    if (aOrder !== undefined && bOrder !== undefined) {
+      return aOrder - bOrder || a.index - b.index;
+    }
+    if (aOrder !== undefined) {
+      return -1;
+    }
+    if (bOrder !== undefined) {
+      return 1;
+    }
+
+    return a.index - b.index;
+  });
+}
 
 export const ALL_AVAILABLE_DOMAINS = Object.keys(DOMAIN_DEFINITIONS) as DomainName[];
 

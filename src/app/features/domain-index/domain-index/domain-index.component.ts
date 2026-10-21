@@ -6,6 +6,7 @@ import { GlobalErrorService } from '../../../core/services/global-error.service'
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { IndexViewRow, normalizeIndexRows } from '../model/index-view-row';
+import { serializeTags } from '../../../shared/utils/tag-utils';
 import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { PermissionService } from '../../../core/services/permission.service';
 import { IndexEntryCardComponent } from '../components/index-entry-card/index-entry-card.component';
@@ -36,13 +37,15 @@ interface IndexHierarchyGroup {
 export class DomainIndexComponent {
   readonly rows = input.required<IndexViewRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
+  readonly bookName = input<string>('');
+  readonly bookAuthor = input<string>('');
   readonly isAddingEntry = input<boolean>(false);
   readonly closeEntry = output<void>();
 
   readonly newChapter = signal<string>('');
   readonly newTheme = signal<string>('');
   readonly newSubtheme = signal<string>('');
-  readonly newTag = signal<string>('');
+  readonly newTags = signal<string[]>([]);
   readonly editingId = signal<string | null>(null);
 
   private readonly domainDataService = inject(DomainDataService);
@@ -57,7 +60,7 @@ export class DomainIndexComponent {
    * it is never marked invalid based on Taxonomy constraints.
    */
   readonly isFormInvalid = computed<boolean>(() => {
-    return !this.newChapter().trim() || !this.newTheme().trim() || !this.newTag().trim();
+    return !this.newChapter().trim() || !this.newTheme().trim() || this.newTags().length === 0;
   });
 
   readonly hierarchy = computed<IndexHierarchyGroup[]>(() => {
@@ -102,7 +105,7 @@ export class DomainIndexComponent {
     this.newChapter.set(row.chapter);
     this.newTheme.set(row.theme);
     this.newSubtheme.set(row.subtheme);
-    this.newTag.set(row.tag);
+    this.newTags.set(row.tags);
   }
 
   resetForm(): void {
@@ -110,7 +113,7 @@ export class DomainIndexComponent {
     this.newChapter.set('');
     this.newTheme.set('');
     this.newSubtheme.set('');
-    this.newTag.set('');
+    this.newTags.set([]);
     this.closeEntry.emit();
   }
 
@@ -122,7 +125,7 @@ export class DomainIndexComponent {
     const chapter = this.newChapter().trim();
     const theme = this.newTheme().trim();
     const subtheme = this.newSubtheme().trim();
-    const tag = this.newTag().trim();
+    const tags = serializeTags(this.newTags());
     const editingId = this.editingId();
 
     try {
@@ -143,7 +146,7 @@ export class DomainIndexComponent {
         chapter,
         theme,
         subtheme,
-        tag,
+        tags,
         syncStatus: 'pending',
       };
       const updatedRows = editingId

@@ -11,6 +11,8 @@ import { PlaceRow } from '../model/domain-place-row.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
 import { PlaceEntryCardComponent } from '../components/place-entry-card/place-entry-card.component';
+import { DomainMapComponent } from '../../domain-map/domain-map/domain-map.component';
+import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 
 @Component({
     selector: 'app-places',
@@ -22,6 +24,7 @@ import { PlaceEntryCardComponent } from '../components/place-entry-card/place-en
         TagPickerComponent,
         MapPickerComponent,
         PlaceEntryCardComponent,
+        DomainMapComponent,
     ],
     templateUrl: './domain-places.component.html',
     styleUrls: ['./domain-places.component.css'],
@@ -30,11 +33,13 @@ export class DomainPlacesComponent {
     readonly rows = input.required<PlaceRow[]>();
     readonly currentSheet = input.required<DomainSheet>();
     readonly bookName = input<string>('');
+    readonly bookAuthor = input<string>('');
     readonly isAddingEntry = input<boolean>(false);
     readonly closeEntry = output<void>();
 
     readonly searchTerm = signal<string>('');
-    readonly newTags = signal<string>('');
+    readonly showMap = signal(false);
+    readonly newTags = signal<string[]>([]);
     readonly editingId = signal<string | null>(null);
 
     // Individual domain signals for the PLACES feature
@@ -88,11 +93,8 @@ export class DomainPlacesComponent {
         );
     });
 
-    splitTags(tags: string): string[] {
-        return tags
-            .split(/[\s,;]+/)
-            .map((tag) => tag.trim())
-            .filter(Boolean);
+    splitTags(tags: string[]): string[] {
+        return parseTags(tags);
     }
 
     async deleteEntry(id: string): Promise<void> {
@@ -117,7 +119,7 @@ export class DomainPlacesComponent {
         this.newColor.set(row.color);
         this.newDescription.set(row.description ?? '');
         this.newSource.set(row.source ?? '');
-        this.newTags.set(row.tags ?? '');
+        this.newTags.set(row.tags ?? []);
     }
 
     async addEntry(): Promise<void> {
@@ -133,7 +135,7 @@ export class DomainPlacesComponent {
         const color = this.newColor();
         const description = this.newDescription().trim();
         const source = this.newSource().trim();
-        const tags = this.splitTags(this.newTags()).join(' ');
+        const tags = serializeTags(this.newTags());
         const editingId = this.editingId();
 
         try {
@@ -190,7 +192,7 @@ export class DomainPlacesComponent {
         this.newColor.set('#3b82f6');
         this.newDescription.set('');
         this.newSource.set('');
-        this.newTags.set('');
+        this.newTags.set([]);
         this.closeEntry.emit();
     }
 }

@@ -2,6 +2,7 @@ import { Component, inject, input, output } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { DomainEntryCardComponent } from '../../../../shared/domain-entry-card/domain-entry-card.component';
+import { parseTags } from '../../../../shared/utils/tag-utils';
 import { GlossaryRow } from '../../model/domain-glosary-row.model';
 
 @Component({
@@ -23,10 +24,7 @@ export class GlossaryEntryCardComponent {
   readonly role = this.permissionService.role;
   readonly permissions = this.permissionService;
 
-  splitTags(tags: string | undefined): string[] {
-    return (tags ?? '')
-      .split(/[\s,;]+/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+  splitTags(tags: string[] | undefined): string[] {
+    return parseTags(tags);
   }
 }
