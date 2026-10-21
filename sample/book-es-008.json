@@ -5,80 +5,80 @@
       "chapter": "El dragón y la princesa",
       "theme": "Encuentro",
       "subtheme": "Atracción, incertidumbre y descubrimiento emocional",
-      "tag": "#encuentro",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#encuentro"]
     },
     {
       "id": "sample-index-02",
       "chapter": "Martín",
       "theme": "Identidad",
       "subtheme": "Soledad, inseguridad y búsqueda de sentido",
-      "tag": "#identidad",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#identidad"]
     },
     {
       "id": "sample-index-03",
       "chapter": "Alejandra",
       "theme": "Misterio",
       "subtheme": "Contradicción emocional y dificultad de conocer al otro",
-      "tag": "#misterio",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#misterio"]
     },
     {
       "id": "sample-index-04",
       "chapter": "Los Vidal Olmos",
       "theme": "Familia",
       "subtheme": "Herencia, decadencia y memoria familiar",
-      "tag": "#familia",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#familia"]
     },
     {
       "id": "sample-index-05",
       "chapter": "Buenos Aires",
       "theme": "Alienación",
       "subtheme": "Soledad individual dentro de la ciudad moderna",
-      "tag": "#alienación",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#alienación"]
     },
     {
       "id": "sample-index-06",
       "chapter": "Informe sobre ciegos",
       "theme": "Paranoia",
       "subtheme": "Persecución, obsesión y construcción de una realidad amenazante",
-      "tag": "#paranoia",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#paranoia"]
     },
     {
       "id": "sample-index-07",
       "chapter": "Fernando Vidal Olmos",
       "theme": "Obsesión",
       "subtheme": "Investigación compulsiva y pérdida de límites",
-      "tag": "#obsesión",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#obsesión"]
     },
     {
       "id": "sample-index-08",
       "chapter": "Historia argentina",
       "theme": "Memoria",
       "subtheme": "Pasado nacional, violencia e identidad colectiva",
-      "tag": "#historia",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#historia"]
     },
     {
       "id": "sample-index-09",
       "chapter": "Héroes y tumbas",
       "theme": "Pasado",
       "subtheme": "Heroísmo, muerte y transformación de la memoria",
-      "tag": "#memoria",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#memoria"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Panorama analítico",
       "theme": "Condición humana",
       "subtheme": "Amor, destrucción, soledad y necesidad de sentido",
-      "tag": "#condición-humana",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#condición-humana"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "Experiencia de separación respecto de otras personas, de la sociedad o de una comprensión estable de uno mismo.",
       "category": "Tema existencial",
       "source": "Contexto de estudio para Sobre héroes y tumbas",
-      "tag": "#alienación",
-      "tags": ["#soledad", "#identidad"],
+      "tags": ["#soledad", "#identidad", "#alienación"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "Patrón de pensamiento caracterizado por una desconfianza extrema y por la interpretación amenazante de acontecimientos y relaciones.",
       "category": "Tema psicológico",
       "source": "Contexto de estudio para Sobre héroes y tumbas",
-      "tag": "#paranoia",
-      "tags": ["#psicología", "#percepción"],
+      "tags": ["#psicología", "#percepción", "#paranoia"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "Concentración persistente de la atención sobre una idea, persona o interpretación hasta convertirla en el centro dominante de la experiencia.",
       "category": "Tema psicológico",
       "source": "Contexto de estudio para Sobre héroes y tumbas",
-      "tag": "#obsesión",
-      "tags": ["#mente", "#percepción"],
+      "tags": ["#mente", "#percepción", "#obsesión"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "Relación entre el presente y los acontecimientos del pasado que continúan influyendo sobre la identidad individual y colectiva.",
       "category": "Tema histórico",
       "source": "Contexto de estudio para Sobre héroes y tumbas",
-      "tag": "#memoria-histórica",
-      "tags": ["#argentina", "#historia"],
+      "tags": ["#argentina", "#historia", "#memoria-histórica"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "Deterioro material, emocional o simbólico de una familia anteriormente asociada con una posición determinada dentro de la sociedad.",
       "category": "Tema",
       "source": "Contexto de estudio para Sobre héroes y tumbas",
-      "tag": "#decadencia-familiar",
-      "tags": ["#familia", "#pasado"],
+      "tags": ["#familia", "#pasado", "#decadencia-familiar"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "Problema histórico y cultural relacionado con las múltiples tradiciones, conflictos y memorias que participan en la construcción de una identidad nacional.",
       "category": "Tema histórico",
       "source": "Contexto de estudio para Sobre héroes y tumbas",
-      "tag": "#identidad-argentina",
-      "tags": ["#argentina", "#identidad"],
+      "tags": ["#argentina", "#identidad", "#identidad-argentina"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "Tensión entre la necesidad de conexión afectiva y las fuerzas psicológicas capaces de transformar esa conexión en sufrimiento.",
       "category": "Tema psicológico",
       "source": "Contexto de estudio para Sobre héroes y tumbas",
-      "tag": "#amor-destrucción",
-      "tags": ["#amor", "#conflicto"],
+      "tags": ["#amor", "#conflicto", "#amor-destrucción"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "Experiencia del mundo condicionada por la perspectiva, los recuerdos, las emociones y las interpretaciones particulares de una conciencia.",
       "category": "Concepto filosófico",
       "source": "Contexto de estudio para Sobre héroes y tumbas",
-      "tag": "#subjetividad",
-      "tags": ["#conciencia", "#percepción"],
+      "tags": ["#conciencia", "#percepción", "#subjetividad"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "Movimiento narrativo o psicológico hacia espacios cada vez más oscuros o profundos como forma de exploración de una conciencia perturbada.",
       "category": "Concepto analítico",
       "source": "Contexto de estudio para Sobre héroes y tumbas",
-      "tag": "#descenso-simbólico",
-      "tags": ["#simbolismo", "#psicología"],
+      "tags": ["#simbolismo", "#psicología", "#descenso-simbólico"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "Problema relacionado con la manera en que personas, derrotas y conflictos históricos son transformados posteriormente en símbolos colectivos.",
       "category": "Concepto histórico",
       "source": "Contexto de estudio para Sobre héroes y tumbas",
-      "tag": "#héroe-memoria",
-      "tags": ["#historia", "#memoria"],
+      "tags": ["#historia", "#memoria", "#héroe-memoria"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "paranoia",
       "definition": "Patrón de pensamiento marcado por sospechas intensas y por la interpretación de acontecimientos como amenazas o persecuciones.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego paranoia, relacionado con alteración o desviación del pensamiento.",
       "synonyms": ["suspicacia extrema", "desconfianza"],
       "contextSentence": "La paranoia puede convertir coincidencias independientes en piezas aparentes de una misma conspiración.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "alienación",
       "definition": "Estado de extrañamiento respecto de las demás personas, la sociedad o la propia identidad.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín alienare, relacionado con separar o hacer ajeno.",
       "synonyms": ["extrañamiento", "aislamiento"],
       "contextSentence": "La alienación puede convertir una gran ciudad en un espacio profundamente solitario.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "obsesión",
       "definition": "Idea o preocupación persistente que concentra de manera dominante la atención de una persona.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín obsessio, asociado históricamente con asedio.",
       "synonyms": ["fijación", "preocupación"],
       "contextSentence": "La obsesión transforma una pregunta limitada en un sistema capaz de absorber toda experiencia posterior.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "decadencia",
       "definition": "Proceso de deterioro o pérdida respecto de una condición anterior.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín medieval decadentia, relacionado con caer o declinar.",
       "synonyms": ["declive", "deterioro"],
       "contextSentence": "La decadencia familiar puede manifestarse tanto en pérdidas materiales como en relaciones deterioradas.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "simbolismo",
       "definition": "Uso de objetos, espacios, imágenes o acontecimientos para sugerir significados adicionales a su función inmediata.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Derivado de símbolo, procedente del griego symbolon.",
       "synonyms": ["representación", "figuración"],
       "contextSentence": "El simbolismo permite convertir un espacio físico en una representación de conflictos psicológicos.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "subterráneo",
       "definition": "Que está situado debajo de la superficie de la tierra.",
-      "partOfSpeech": "adjetivo",
+      "partOfSpeech": "Adjective",
       "etymology": "Del latín subterraneus, formado por elementos relacionados con debajo y tierra.",
       "synonyms": ["soterrado", "subsuelo"],
       "contextSentence": "El espacio subterráneo puede adquirir una dimensión simbólica de descenso hacia zonas ocultas de la conciencia.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "linaje",
       "definition": "Sucesión de antepasados y descendientes pertenecientes a una misma familia.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Relacionado con línea y con la idea de descendencia familiar.",
       "synonyms": ["estirpe", "genealogía"],
       "contextSentence": "El linaje conecta conflictos íntimos con una historia familiar anterior a los personajes actuales.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "introspección",
       "definition": "Observación y examen de los propios pensamientos, emociones y procesos mentales.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Formado a partir de elementos latinos relacionados con mirar hacia dentro.",
       "synonyms": ["autoanálisis", "reflexión"],
       "contextSentence": "La introspección puede revelar conflictos interiores sin proporcionar una solución inmediata para ellos.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "fatalidad",
       "definition": "Sensación o condición de que determinados acontecimientos negativos resultan inevitables.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín fatalitas, relacionado con destino.",
       "synonyms": ["destino", "inevitabilidad"],
       "contextSentence": "La fatalidad transforma ciertos acontecimientos en señales de un desenlace que parece imposible evitar.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "heroísmo",
       "definition": "Conducta o representación asociada con valor extraordinario, sacrificio o acciones consideradas dignas de admiración.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Derivado de héroe, procedente del griego heros.",
       "synonyms": ["valor", "grandeza"],
       "contextSentence": "El heroísmo histórico depende también de la forma en que las generaciones posteriores recuerdan derrotas y sacrificios.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-es-008-sample-character-01",
+      "secondaryCharacterIds": ["book-es-008-sample-character-02", "book-es-008-sample-character-03"],
+      "placeId": "book-es-008-sample-place-01",
+      "dateLabel": "El dragón y la princesa",
+      "eventOrder": 1,
+      "event": "Evento de estudio 1: El dragón y la princesa / Encuentro",
+      "description": "Síntesis de estudio para «El dragón y la princesa»: el índice destaca Encuentro (Atracción, incertidumbre y descubrimiento emocional). La descripción de Martín («Joven solitario e inseguro cuya relación con Alejandra constituye uno de los principales ejes emocionales y psicológicos de la novela.») se relaciona aquí con el concepto Alienación («Experiencia de separación respecto de otras personas, de la sociedad o de una comprensión estable de uno mismo.»). Buenos Aires y el pasaje «La ciudad y el muchacho» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#6A994E",
+      "book": "Sobre héroes y tumbas",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#encuentro", "#martín", "#soledad", "#identidad", "#alienación", "#buenos-aires", "#argentina", "#ciudad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-es-008-sample-character-03",
+      "secondaryCharacterIds": ["book-es-008-sample-character-04", "book-es-008-sample-character-05"],
+      "placeId": "book-es-008-sample-place-02",
+      "dateLabel": "Martín",
+      "eventOrder": 2,
+      "event": "Evento de estudio 2: Martín / Identidad",
+      "description": "Síntesis de estudio para «Martín»: el índice destaca Identidad (Soledad, inseguridad y búsqueda de sentido). La descripción de Fernando Vidal Olmos («Padre de Alejandra y figura central del Informe sobre ciegos, dominado por una investigación obsesiva y una visión paranoica de la realidad.») se relaciona aquí con el concepto Obsesión («Concentración persistente de la atención sobre una idea, persona o interpretación hasta convertirla en el centro dominante de la experiencia.»). Argentina y el pasaje «Alejandra» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#D17B49",
+      "book": "Sobre héroes y tumbas",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#identidad", "#fernando", "#obsesión", "#paranoia", "#mente", "#percepción", "#argentina", "#historia"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-es-008-sample-character-05",
+      "secondaryCharacterIds": ["book-es-008-sample-character-06", "book-es-008-sample-character-07"],
+      "placeId": "book-es-008-sample-place-03",
+      "dateLabel": "Alejandra",
+      "eventOrder": 3,
+      "event": "Evento de estudio 3: Alejandra / Misterio",
+      "description": "Síntesis de estudio para «Alejandra»: el índice destaca Misterio (Contradicción emocional y dificultad de conocer al otro). La descripción de Georgina («Figura vinculada con la historia familiar de los Vidal Olmos y con las complejas relaciones que rodean a Fernando y Alejandra.») se relaciona aquí con el concepto Decadencia familiar («Deterioro material, emocional o simbólico de una familia anteriormente asociada con una posición determinada dentro de la sociedad.»). Casa de los Vidal Olmos y el pasaje «La casa familiar» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#3A7D44",
+      "book": "Sobre héroes y tumbas",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#misterio", "#georgina", "#familia", "#pasado", "#decadencia-familiar", "#muestra-analítica", "#vidal-olmos"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-es-008-sample-character-07",
+      "secondaryCharacterIds": ["book-es-008-sample-character-08", "book-es-008-sample-character-09"],
+      "placeId": "book-es-008-sample-place-04",
+      "dateLabel": "Los Vidal Olmos",
+      "eventOrder": 4,
+      "event": "Evento de estudio 4: Los Vidal Olmos / Familia",
+      "description": "Síntesis de estudio para «Los Vidal Olmos»: el índice destaca Familia (Herencia, decadencia y memoria familiar). La descripción de Bucich («Personaje relacionado con el recorrido de Martín y con una dimensión más concreta y cotidiana de la experiencia humana.») se relaciona aquí con el concepto Amor y destrucción («Tensión entre la necesidad de conexión afectiva y las fuerzas psicológicas capaces de transformar esa conexión en sufrimiento.»). Parque Lezama y el pasaje «La investigación» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#735D78",
+      "book": "Sobre héroes y tumbas",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#familia", "#bucich", "#martín", "#viaje", "#amor-destrucción", "#amor", "#conflicto", "#parque-lezama", "#buenos-aires", "#encuentro"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-es-008-sample-character-01",
+      "targetCharacterId": "book-es-008-sample-character-02",
+      "relationType": "comparación temática",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Martín (Joven solitario e inseguro cuya relación con Alejandra constituye uno de los principales ejes emocionales y psicológicos de la novela.) con Alejandra Vidal Olmos (Figura central y compleja cuya historia personal y familiar conecta amor, identidad, destrucción, memoria y decadencia.). El tema «Encuentro» y el subtema «Atracción, incertidumbre y descubrimiento emocional» orientan la comparación; el pasaje «La ciudad y el muchacho» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#6A994E",
+      "book": "Sobre héroes y tumbas",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#martín", "#soledad", "#identidad", "#alejandra", "#familia", "#misterio", "#encuentro"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-es-008-sample-character-03",
+      "targetCharacterId": "book-es-008-sample-character-04",
+      "relationType": "perspectivas en contraste",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Fernando Vidal Olmos (Padre de Alejandra y figura central del Informe sobre ciegos, dominado por una investigación obsesiva y una visión paranoica de la realidad.) con Bruno (Personaje reflexivo que aporta una perspectiva importante sobre Alejandra, su familia y las relaciones entre pasado, experiencia y memoria.). El tema «Identidad» y el subtema «Soledad, inseguridad y búsqueda de sentido» orientan la comparación; el pasaje «Alejandra» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#D17B49",
+      "book": "Sobre héroes y tumbas",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#fernando", "#obsesión", "#paranoia", "#bruno", "#memoria", "#reflexión", "#identidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-es-008-sample-character-05",
+      "targetCharacterId": "book-es-008-sample-character-06",
+      "relationType": "contexto narrativo compartido",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Georgina (Figura vinculada con la historia familiar de los Vidal Olmos y con las complejas relaciones que rodean a Fernando y Alejandra.) con Molinarí (Personaje perteneciente al entorno social y laboral con el que Martín entra en contacto durante su trayectoria.). El tema «Misterio» y el subtema «Contradicción emocional y dificultad de conocer al otro» orientan la comparación; el pasaje «La casa familiar» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#3A7D44",
+      "book": "Sobre héroes y tumbas",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#georgina", "#familia", "#pasado", "#molinarí", "#martín", "#sociedad", "#misterio"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-es-008-sample-character-07",
+      "targetCharacterId": "book-es-008-sample-character-08",
+      "relationType": "asociación interpretativa",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Bucich (Personaje relacionado con el recorrido de Martín y con una dimensión más concreta y cotidiana de la experiencia humana.) con El investigador obsesivo (Figura analítica de muestra que representa una conciencia capaz de transformar coincidencias, temores y observaciones en las piezas de un sistema total de explicación.). El tema «Familia» y el subtema «Herencia, decadencia y memoria familiar» orientan la comparación; el pasaje «La investigación» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#735D78",
+      "book": "Sobre héroes y tumbas",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#bucich", "#martín", "#viaje", "#muestra-analítica", "#obsesión", "#paranoia", "#familia"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-es-008-sample-concept-01",
+      "targetConceptId": "book-es-008-sample-concept-02",
+      "relationType": "da contexto a",
+      "directed": true,
+      "description": "La definición de «Alienación» («Experiencia de separación respecto de otras personas, de la sociedad o de una comprensión estable de uno mismo.») puede leerse en relación con «Paranoia» («Patrón de pensamiento caracterizado por una desconfianza extrema y por la interpretación amenazante de acontecimientos y relaciones.»). El tema Encuentro y el subtema Atracción, incertidumbre y descubrimiento emocional, junto con el pasaje «La ciudad y el muchacho», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#735D78",
+      "book": "Sobre héroes y tumbas",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#alienación", "#soledad", "#identidad", "#paranoia", "#psicología", "#percepción", "#encuentro"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-es-008-sample-concept-03",
+      "targetConceptId": "book-es-008-sample-concept-04",
+      "relationType": "ofrece una perspectiva sobre",
+      "directed": false,
+      "description": "La definición de «Obsesión» («Concentración persistente de la atención sobre una idea, persona o interpretación hasta convertirla en el centro dominante de la experiencia.») puede leerse en relación con «Memoria histórica» («Relación entre el presente y los acontecimientos del pasado que continúan influyendo sobre la identidad individual y colectiva.»). El tema Identidad y el subtema Soledad, inseguridad y búsqueda de sentido, junto con el pasaje «Alejandra», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#2F6690",
+      "book": "Sobre héroes y tumbas",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#obsesión", "#mente", "#percepción", "#memoria-histórica", "#argentina", "#historia", "#identidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-es-008-sample-concept-05",
+      "targetConceptId": "book-es-008-sample-concept-06",
+      "relationType": "contrasta con",
+      "directed": false,
+      "description": "La definición de «Decadencia familiar» («Deterioro material, emocional o simbólico de una familia anteriormente asociada con una posición determinada dentro de la sociedad.») puede leerse en relación con «Identidad argentina» («Problema histórico y cultural relacionado con las múltiples tradiciones, conflictos y memorias que participan en la construcción de una identidad nacional.»). El tema Misterio y el subtema Contradicción emocional y dificultad de conocer al otro, junto con el pasaje «La casa familiar», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#A44A3F",
+      "book": "Sobre héroes y tumbas",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#decadencia-familiar", "#familia", "#pasado", "#identidad-argentina", "#argentina", "#identidad", "#misterio"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-es-008-sample-concept-07",
+      "targetConceptId": "book-es-008-sample-concept-08",
+      "relationType": "complementa",
+      "directed": true,
+      "description": "La definición de «Amor y destrucción» («Tensión entre la necesidad de conexión afectiva y las fuerzas psicológicas capaces de transformar esa conexión en sufrimiento.») puede leerse en relación con «Subjetividad» («Experiencia del mundo condicionada por la perspectiva, los recuerdos, las emociones y las interpretaciones particulares de una conciencia.»). El tema Familia y el subtema Herencia, decadencia y memoria familiar, junto con el pasaje «La investigación», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#5C4D7D",
+      "book": "Sobre héroes y tumbas",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#amor-destrucción", "#amor", "#conflicto", "#subjetividad", "#conciencia", "#percepción", "#familia"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

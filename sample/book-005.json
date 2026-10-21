@@ -5,80 +5,80 @@
       "chapter": "The Karamazov Family",
       "theme": "Family",
       "subtheme": "Conflict, inheritance, and responsibility",
-      "tag": "#family",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#family"]
     },
     {
       "id": "sample-index-02",
       "chapter": "An Inappropriate Gathering",
       "theme": "Faith",
       "subtheme": "Spiritual authority and moral conflict",
-      "tag": "#faith",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#faith"]
     },
     {
       "id": "sample-index-03",
       "chapter": "The Sensualists",
       "theme": "Desire",
       "subtheme": "Passion, rivalry, and destructive impulses",
-      "tag": "#desire",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#desire"]
     },
     {
       "id": "sample-index-04",
       "chapter": "Rebellion",
       "theme": "Suffering",
       "subtheme": "Innocence, justice, and the problem of evil",
-      "tag": "#suffering",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#suffering"]
     },
     {
       "id": "sample-index-05",
       "chapter": "The Grand Inquisitor",
       "theme": "Freedom",
       "subtheme": "Liberty, authority, and human responsibility",
-      "tag": "#freedom",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#freedom"]
     },
     {
       "id": "sample-index-06",
       "chapter": "The Russian Monk",
       "theme": "Responsibility",
       "subtheme": "Compassion, faith, and responsibility for others",
-      "tag": "#responsibility",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#responsibility"]
     },
     {
       "id": "sample-index-07",
       "chapter": "Mitya",
       "theme": "Guilt",
       "subtheme": "Moral guilt and legal accusation",
-      "tag": "#guilt",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#guilt"]
     },
     {
       "id": "sample-index-08",
       "chapter": "Ivan",
       "theme": "Reason",
       "subtheme": "Rational doubt and moral consequence",
-      "tag": "#reason",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#reason"]
     },
     {
       "id": "sample-index-09",
       "chapter": "The Trial",
       "theme": "Justice",
       "subtheme": "Evidence, judgment, and interpretation",
-      "tag": "#justice",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#justice"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Epilogue",
       "theme": "Memory",
       "subtheme": "Community, compassion, and moral continuity",
-      "tag": "#memory",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#memory"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "The philosophical problem of whether individuals possess meaningful freedom to choose their actions and accept responsibility for them.",
       "category": "Philosophical theme",
       "source": "Study context for The Brothers Karamazov",
-      "tag": "#free-will",
-      "tags": ["#freedom", "#responsibility"],
+      "tags": ["#freedom", "#responsibility", "#free-will"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "The idea that individuals may bear responsibility not only for actions but also for choices, influence, and their relationships with others.",
       "category": "Moral philosophy",
       "source": "Study context for The Brothers Karamazov",
-      "tag": "#moral-responsibility",
-      "tags": ["#ethics", "#guilt"],
+      "tags": ["#ethics", "#guilt", "#moral-responsibility"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "Religious and spiritual trust explored alongside doubt, suffering, reason, and moral action.",
       "category": "Philosophical theme",
       "source": "Study context for The Brothers Karamazov",
-      "tag": "#faith",
-      "tags": ["#religion", "#doubt"],
+      "tags": ["#religion", "#doubt", "#faith"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "The philosophical challenge of reconciling suffering and injustice with belief in a good and powerful God.",
       "category": "Philosophical problem",
       "source": "Study context for The Brothers Karamazov",
-      "tag": "#problem-of-evil",
-      "tags": ["#suffering", "#faith"],
+      "tags": ["#suffering", "#faith", "#problem-of-evil"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "A condition involving legal accusation, personal conscience, indirect responsibility, and moral self-judgment.",
       "category": "Theme",
       "source": "Study context for The Brothers Karamazov",
-      "tag": "#guilt",
-      "tags": ["#responsibility", "#justice"],
+      "tags": ["#responsibility", "#justice", "#guilt"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "The possibility of moral transformation through recognition, compassion, suffering, responsibility, or renewed commitment to others.",
       "category": "Theme",
       "source": "Study context for The Brothers Karamazov",
-      "tag": "#redemption",
-      "tags": ["#transformation", "#morality"],
+      "tags": ["#transformation", "#morality", "#redemption"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "The tension between individual liberty and the desire for institutions or leaders to provide certainty, order, and security.",
       "category": "Political philosophy",
       "source": "Study context for The Brothers Karamazov",
-      "tag": "#freedom-authority",
-      "tags": ["#freedom", "#authority"],
+      "tags": ["#freedom", "#authority", "#freedom-authority"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "Physical and emotional pain examined as a challenge to moral reasoning, religious faith, and relationships between people.",
       "category": "Philosophical theme",
       "source": "Study context for The Brothers Karamazov",
-      "tag": "#suffering",
-      "tags": ["#faith", "#morality"],
+      "tags": ["#faith", "#morality", "#suffering"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "The use of rational inquiry to challenge religious, moral, and metaphysical assumptions while confronting the consequences of uncertainty.",
       "category": "Philosophical theme",
       "source": "Study context for The Brothers Karamazov",
-      "tag": "#reason-doubt",
-      "tags": ["#reason", "#faith"],
+      "tags": ["#reason", "#faith", "#reason-doubt"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "An ethical ideal centered on concrete compassion and responsibility toward other people rather than abstract moral sentiment alone.",
       "category": "Ethical concept",
       "source": "Study context for The Brothers Karamazov",
-      "tag": "#active-love",
-      "tags": ["#compassion", "#responsibility"],
+      "tags": ["#compassion", "#responsibility", "#active-love"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "theodicy",
       "definition": "An attempt to address the apparent conflict between the existence of suffering or evil and belief in divine goodness.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek roots meaning God and justice.",
       "synonyms": ["problem of evil", "religious justification"],
       "contextSentence": "The problem of theodicy becomes especially difficult when philosophical reasoning confronts innocent suffering.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "patricide",
       "definition": "The killing of one's father.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin pater, meaning father, and a root associated with killing.",
       "synonyms": ["killing of a father"],
       "contextSentence": "Patricide functions as both a criminal question and a catalyst for examining moral responsibility.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "redemption",
       "definition": "Moral or spiritual transformation associated with release from wrongdoing, guilt, or destructive behavior.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin redemptio, associated with buying back or recovering.",
       "synonyms": ["salvation", "restoration"],
       "contextSentence": "The possibility of redemption depends on whether a person can confront responsibility and change.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "conscience",
       "definition": "An inner awareness through which a person evaluates the moral quality of actions and intentions.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin conscientia, referring to knowledge within oneself.",
       "synonyms": ["moral sense", "scruple"],
       "contextSentence": "Conscience may impose a judgment even before any formal court reaches a verdict.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "skepticism",
       "definition": "An attitude of questioning whether particular claims, beliefs, or forms of knowledge are justified.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek skeptikos, associated with inquiry and examination.",
       "synonyms": ["doubt", "questioning"],
       "contextSentence": "Skepticism can challenge inherited belief without automatically resolving the ethical questions that remain.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "responsibility",
       "definition": "The condition of being accountable for actions, choices, obligations, or their consequences.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin respondere, meaning to answer or respond.",
       "synonyms": ["accountability", "duty"],
       "contextSentence": "Responsibility becomes difficult to measure when intention, influence, and action point in different directions.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "free will",
       "definition": "The capacity to choose among possible actions independently enough to bear meaningful responsibility for the choice.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "A philosophical expression combining freedom with the faculty of willing or choosing.",
       "synonyms": ["volition", "freedom of choice"],
       "contextSentence": "The question of free will becomes inseparable from discussions of guilt and moral responsibility.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "compassion",
       "definition": "Concern for another person's suffering accompanied by a desire to respond with care.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin roots meaning to suffer with.",
       "synonyms": ["sympathy", "mercy"],
       "contextSentence": "Compassion turns an abstract moral principle into attention toward another person's suffering.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "judgment",
       "definition": "An evaluation or decision concerning conduct, responsibility, guilt, or justice.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived through Old French from Latin roots associated with law and declaration.",
       "synonyms": ["verdict", "evaluation"],
       "contextSentence": "Legal judgment and moral judgment do not necessarily answer the same questions.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "repentance",
       "definition": "Recognition of wrongdoing accompanied by sincere regret and a movement toward change.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Associated through Latin and Old French roots with regret and reconsideration.",
       "synonyms": ["remorse", "contrition"],
       "contextSentence": "Repentance matters morally when recognition of wrongdoing produces a genuine change in conduct.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-005-sample-character-01",
+      "secondaryCharacterIds": ["book-005-sample-character-02", "book-005-sample-character-03"],
+      "placeId": "book-005-sample-place-01",
+      "dateLabel": "The Karamazov Family",
+      "eventOrder": 1,
+      "event": "Study event 1: The Karamazov Family / Family",
+      "description": "Study synthesis for “The Karamazov Family”: the index highlights Family (Conflict, inheritance, and responsibility). The description of Dmitri Karamazov (“The eldest Karamazov brother, passionate and impulsive, whose conflicts over money, desire, and his father become central to the novel.”) is considered here alongside Free will (“The philosophical problem of whether individuals possess meaningful freedom to choose their actions and accept responsibility for them.”). Skotoprigonyevsk and the passage “Three Brothers” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#D17B49",
+      "book": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "page": "",
+      "tags": ["#family", "#dmitri", "#passion", "#guilt", "#free-will", "#freedom", "#responsibility", "#skotoprigonyevsk", "#town", "#setting"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-005-sample-character-03",
+      "secondaryCharacterIds": ["book-005-sample-character-04", "book-005-sample-character-05"],
+      "placeId": "book-005-sample-place-02",
+      "dateLabel": "An Inappropriate Gathering",
+      "eventOrder": 2,
+      "event": "Study event 2: An Inappropriate Gathering / Faith",
+      "description": "Study synthesis for “An Inappropriate Gathering”: the index highlights Faith (Spiritual authority and moral conflict). The description of Alexei Karamazov (“Known as Alyosha, the youngest Karamazov brother is associated with compassion, spiritual searching, and engagement with the suffering of others.”) is considered here alongside Faith (“Religious and spiritual trust explored alongside doubt, suffering, reason, and moral action.”). Russia and the passage “Reason and Suffering” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#2F6690",
+      "book": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "page": "",
+      "tags": ["#faith", "#alyosha", "#compassion", "#religion", "#doubt", "#russia", "#society", "#culture"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-005-sample-character-05",
+      "secondaryCharacterIds": ["book-005-sample-character-06", "book-005-sample-character-07"],
+      "placeId": "book-005-sample-place-03",
+      "dateLabel": "The Sensualists",
+      "eventOrder": 3,
+      "event": "Study event 3: The Sensualists / Desire",
+      "description": "Study synthesis for “The Sensualists”: the index highlights Desire (Passion, rivalry, and destructive impulses). The description of Smerdyakov (“A servant in Fyodor Pavlovich's household whose actions and conversations become deeply connected with questions of responsibility and moral consequence.”) is considered here alongside Guilt (“A condition involving legal accusation, personal conscience, indirect responsibility, and moral self-judgment.”). Karamazov House and the passage “The Weight of Freedom” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#B56576",
+      "book": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "page": "",
+      "tags": ["#desire", "#smerdyakov", "#responsibility", "#guilt", "#justice", "#karamazov", "#family", "#home"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-005-sample-character-07",
+      "secondaryCharacterIds": ["book-005-sample-character-08", "book-005-sample-character-09"],
+      "placeId": "book-005-sample-place-04",
+      "dateLabel": "Rebellion",
+      "eventOrder": 4,
+      "event": "Study event 4: Rebellion / Suffering",
+      "description": "Study synthesis for “Rebellion”: the index highlights Suffering (Innocence, justice, and the problem of evil). The description of Katerina Ivanovna (“A woman closely connected with Dmitri and Ivan whose relationships with them involve pride, sacrifice, obligation, and emotional conflict.”) is considered here alongside Freedom and authority (“The tension between individual liberty and the desire for institutions or leaders to provide certainty, order, and security.”). The Monastery and the passage “Private Judgment” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#735D78",
+      "book": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "page": "",
+      "tags": ["#suffering", "#katerina", "#pride", "#relationships", "#freedom-authority", "#freedom", "#authority", "#monastery", "#faith", "#zosima"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-005-sample-character-01",
+      "targetCharacterId": "book-005-sample-character-02",
+      "relationType": "thematic comparison",
+      "directed": false,
+      "description": "This reading association links Dmitri Karamazov (The eldest Karamazov brother, passionate and impulsive, whose conflicts over money, desire, and his father become central to the novel.) with Ivan Karamazov (The intellectual Karamazov brother whose ideas and doubts frame major philosophical questions about suffering, morality, freedom, and faith.). The theme “Family” and subtheme “Conflict, inheritance, and responsibility” guide the comparison; the passage “Three Brothers” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#D17B49",
+      "book": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "page": "",
+      "tags": ["#dmitri", "#passion", "#guilt", "#ivan", "#reason", "#faith", "#family"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-005-sample-character-03",
+      "targetCharacterId": "book-005-sample-character-04",
+      "relationType": "contrasting perspective",
+      "directed": false,
+      "description": "This reading association links Alexei Karamazov (Known as Alyosha, the youngest Karamazov brother is associated with compassion, spiritual searching, and engagement with the suffering of others.) with Fyodor Pavlovich Karamazov (The father of the Karamazov brothers, whose selfish behavior and conflicts with his sons drive much of the family's turmoil.). The theme “Faith” and subtheme “Spiritual authority and moral conflict” guide the comparison; the passage “Reason and Suffering” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#2F6690",
+      "book": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "page": "",
+      "tags": ["#alyosha", "#faith", "#compassion", "#fyodor", "#family", "#conflict"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-005-sample-character-05",
+      "targetCharacterId": "book-005-sample-character-06",
+      "relationType": "shared narrative context",
+      "directed": false,
+      "description": "This reading association links Smerdyakov (A servant in Fyodor Pavlovich's household whose actions and conversations become deeply connected with questions of responsibility and moral consequence.) with Agrafena Alexandrovna Svetlova (Known as Grushenka, she is central to the emotional rivalry involving Dmitri and Fyodor Pavlovich and develops beyond the expectations others place upon her.). The theme “Desire” and subtheme “Passion, rivalry, and destructive impulses” guide the comparison; the passage “The Weight of Freedom” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#B56576",
+      "book": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "page": "",
+      "tags": ["#smerdyakov", "#responsibility", "#guilt", "#grushenka", "#dmitri", "#desire"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-005-sample-character-07",
+      "targetCharacterId": "book-005-sample-character-08",
+      "relationType": "interpretive pairing",
+      "directed": false,
+      "description": "This reading association links Katerina Ivanovna (A woman closely connected with Dmitri and Ivan whose relationships with them involve pride, sacrifice, obligation, and emotional conflict.) with Elder Zosima (A spiritual elder and influential mentor to Alyosha whose teachings emphasize love, humility, responsibility, and active compassion.). The theme “Suffering” and subtheme “Innocence, justice, and the problem of evil” guide the comparison; the passage “Private Judgment” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#735D78",
+      "book": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "page": "",
+      "tags": ["#katerina", "#pride", "#relationships", "#zosima", "#faith", "#responsibility", "#suffering"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-005-sample-concept-01",
+      "targetConceptId": "book-005-sample-concept-02",
+      "relationType": "provides context for",
+      "directed": true,
+      "description": "The definition of “Free will” (“The philosophical problem of whether individuals possess meaningful freedom to choose their actions and accept responsibility for them.”) can be read in relation to “Moral responsibility” (“The idea that individuals may bear responsibility not only for actions but also for choices, influence, and their relationships with others.”). The theme Family and subtheme Conflict, inheritance, and responsibility, together with the passage “Three Brothers”, place this conceptual connection in the book’s reading context.",
+      "color": "#735D78",
+      "book": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "page": "",
+      "tags": ["#free-will", "#freedom", "#responsibility", "#moral-responsibility", "#ethics", "#guilt", "#family"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-005-sample-concept-03",
+      "targetConceptId": "book-005-sample-concept-04",
+      "relationType": "offers a lens on",
+      "directed": false,
+      "description": "The definition of “Faith” (“Religious and spiritual trust explored alongside doubt, suffering, reason, and moral action.”) can be read in relation to “Problem of evil” (“The philosophical challenge of reconciling suffering and injustice with belief in a good and powerful God.”). The theme Faith and subtheme Spiritual authority and moral conflict, together with the passage “Reason and Suffering”, place this conceptual connection in the book’s reading context.",
+      "color": "#2F6690",
+      "book": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "page": "",
+      "tags": ["#faith", "#religion", "#doubt", "#problem-of-evil", "#suffering"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-005-sample-concept-05",
+      "targetConceptId": "book-005-sample-concept-06",
+      "relationType": "contrasts with",
+      "directed": false,
+      "description": "The definition of “Guilt” (“A condition involving legal accusation, personal conscience, indirect responsibility, and moral self-judgment.”) can be read in relation to “Redemption” (“The possibility of moral transformation through recognition, compassion, suffering, responsibility, or renewed commitment to others.”). The theme Desire and subtheme Passion, rivalry, and destructive impulses, together with the passage “The Weight of Freedom”, place this conceptual connection in the book’s reading context.",
+      "color": "#A44A3F",
+      "book": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "page": "",
+      "tags": ["#guilt", "#responsibility", "#justice", "#redemption", "#transformation", "#morality", "#desire"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-005-sample-concept-07",
+      "targetConceptId": "book-005-sample-concept-08",
+      "relationType": "complements",
+      "directed": true,
+      "description": "The definition of “Freedom and authority” (“The tension between individual liberty and the desire for institutions or leaders to provide certainty, order, and security.”) can be read in relation to “Suffering” (“Physical and emotional pain examined as a challenge to moral reasoning, religious faith, and relationships between people.”). The theme Suffering and subtheme Innocence, justice, and the problem of evil, together with the passage “Private Judgment”, place this conceptual connection in the book’s reading context.",
+      "color": "#5C4D7D",
+      "book": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky",
+      "page": "",
+      "tags": ["#freedom-authority", "#freedom", "#authority", "#suffering", "#faith", "#morality"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

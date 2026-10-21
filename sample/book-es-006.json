@@ -5,80 +5,80 @@
       "chapter": "Presente",
       "theme": "Mortalidad",
       "subtheme": "Conciencia del cuerpo y proximidad de la muerte",
-      "tag": "#mortalidad",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#mortalidad"]
     },
     {
       "id": "sample-index-02",
       "chapter": "Memoria",
       "theme": "Pasado",
       "subtheme": "Reconstrucción fragmentaria de una vida",
-      "tag": "#memoria",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#memoria"]
     },
     {
       "id": "sample-index-03",
       "chapter": "Revolución",
       "theme": "Transformación",
       "subtheme": "Idealismo, violencia y cambio político",
-      "tag": "#revolución",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#revolución"]
     },
     {
       "id": "sample-index-04",
       "chapter": "Poder",
       "theme": "Ambición",
       "subtheme": "Acumulación de influencia económica y política",
-      "tag": "#poder",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#poder"]
     },
     {
       "id": "sample-index-05",
       "chapter": "Artemio Cruz",
       "theme": "Identidad",
       "subtheme": "Contradicciones entre pasado, presente y conciencia",
-      "tag": "#identidad",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#identidad"]
     },
     {
       "id": "sample-index-06",
       "chapter": "Familia",
       "theme": "Distancia",
       "subtheme": "Afecto, resentimiento e intereses familiares",
-      "tag": "#familia",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#familia"]
     },
     {
       "id": "sample-index-07",
       "chapter": "Perspectivas",
       "theme": "Conciencia",
       "subtheme": "Alternancia de personas narrativas y percepción del yo",
-      "tag": "#conciencia",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#conciencia"]
     },
     {
       "id": "sample-index-08",
       "chapter": "Historia",
       "theme": "México",
       "subtheme": "Historia individual e historia nacional",
-      "tag": "#méxico",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#méxico"]
     },
     {
       "id": "sample-index-09",
       "chapter": "Decisiones",
       "theme": "Responsabilidad",
       "subtheme": "Elecciones, consecuencias y justificación retrospectiva",
-      "tag": "#responsabilidad",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#responsabilidad"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Panorama analítico",
       "theme": "Tiempo",
       "subtheme": "Fragmentación temporal y reconstrucción de la existencia",
-      "tag": "#tiempo",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#tiempo"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "Reconstrucción del pasado mediante recuerdos discontinuos que no siguen necesariamente un orden cronológico.",
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para La muerte de Artemio Cruz",
-      "tag": "#memoria-fragmentaria",
-      "tags": ["#memoria", "#tiempo"],
+      "tags": ["#memoria", "#tiempo", "#memoria-fragmentaria"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "Uso de diferentes personas y posiciones narrativas para representar distintas dimensiones de una misma conciencia y existencia.",
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para La muerte de Artemio Cruz",
-      "tag": "#perspectiva-múltiple",
-      "tags": ["#voz", "#conciencia"],
+      "tags": ["#voz", "#conciencia", "#perspectiva-múltiple"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "Conciencia de la muerte y de los límites físicos de la existencia humana.",
       "category": "Tema filosófico",
       "source": "Contexto de estudio para La muerte de Artemio Cruz",
-      "tag": "#mortalidad",
-      "tags": ["#muerte", "#existencia"],
+      "tags": ["#muerte", "#existencia", "#mortalidad"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "Capacidad de influir sobre personas, instituciones, recursos y decisiones mediante posición económica, política o social.",
       "category": "Tema político",
       "source": "Contexto de estudio para La muerte de Artemio Cruz",
-      "tag": "#poder",
-      "tags": ["#política", "#influencia"],
+      "tags": ["#política", "#influencia", "#poder"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "Transformación política y social que funciona además como contexto para examinar ideales, violencia, oportunidades y cambios de poder.",
       "category": "Tema histórico",
       "source": "Contexto de estudio para La muerte de Artemio Cruz",
-      "tag": "#revolución",
-      "tags": ["#historia", "#méxico"],
+      "tags": ["#historia", "#méxico", "#revolución"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "Proceso mediante el cual ideales iniciales pueden ser desplazados por ambición, conveniencia, riqueza o búsqueda de influencia.",
       "category": "Tema ético",
       "source": "Contexto de estudio para La muerte de Artemio Cruz",
-      "tag": "#corrupción-del-ideal",
-      "tags": ["#poder", "#responsabilidad"],
+      "tags": ["#poder", "#responsabilidad", "#corrupción-del-ideal"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "Comprensión del propio yo mediante la reinterpretación de decisiones, pérdidas y experiencias anteriores desde el presente.",
       "category": "Tema filosófico",
       "source": "Contexto de estudio para La muerte de Artemio Cruz",
-      "tag": "#identidad-retrospectiva",
-      "tags": ["#identidad", "#memoria"],
+      "tags": ["#identidad", "#memoria", "#identidad-retrospectiva"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "Problema ético relacionado con las decisiones personales y las consecuencias que producen sobre otras personas.",
       "category": "Tema ético",
       "source": "Contexto de estudio para La muerte de Artemio Cruz",
-      "tag": "#responsabilidad",
-      "tags": ["#ética", "#decisiones"],
+      "tags": ["#ética", "#decisiones", "#responsabilidad"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "Relación entre la trayectoria de un individuo y las transformaciones políticas, sociales y económicas de su país.",
       "category": "Concepto histórico",
       "source": "Contexto de estudio para La muerte de Artemio Cruz",
-      "tag": "#historia-personal",
-      "tags": ["#méxico", "#historia"],
+      "tags": ["#méxico", "#historia", "#historia-personal"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "Organización narrativa en la que diferentes momentos de una vida aparecen según asociaciones, recuerdos y perspectivas en lugar de una secuencia cronológica continua.",
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para La muerte de Artemio Cruz",
-      "tag": "#tiempo-no-lineal",
-      "tags": ["#tiempo", "#estructura"],
+      "tags": ["#tiempo", "#estructura", "#tiempo-no-lineal"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "agonía",
       "definition": "Estado que precede a la muerte, especialmente cuando existe un deterioro intenso de las funciones vitales.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín agonia y del griego agonia, relacionado originalmente con lucha o combate.",
       "synonyms": ["trance final", "declive"],
       "contextSentence": "La agonía convierte el cuerpo y la memoria en centros simultáneos de la experiencia.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "revolución",
       "definition": "Cambio profundo en la organización política, social o económica de una sociedad.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín revolutio, relacionado con giro o vuelta.",
       "synonyms": ["transformación", "insurrección"],
       "contextSentence": "Una revolución puede modificar instituciones sin garantizar que todos sus ideales sobrevivan a la lucha por el poder.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "caciquismo",
       "definition": "Sistema de influencia política o social basado en el poder de figuras locales o redes personales.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Derivado de cacique, término de origen taíno incorporado al español.",
       "synonyms": ["clientelismo", "dominio local"],
       "contextSentence": "El caciquismo permite que una red personal de influencias condicione decisiones aparentemente institucionales.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "latifundio",
       "definition": "Propiedad rural de gran extensión concentrada en manos de un propietario o una entidad.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín latifundium, formado por elementos relacionados con amplio y propiedad rural.",
       "synonyms": ["gran propiedad", "hacienda extensa"],
       "contextSentence": "El latifundio puede convertirse en una fuente de poder económico y social dentro de una región.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "fragmentación",
       "definition": "Organización de una narración mediante partes discontinuas, cambios de perspectiva o desplazamientos temporales.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Derivado del latín fragmentum, relacionado con una parte separada.",
       "synonyms": ["discontinuidad", "segmentación"],
       "contextSentence": "La fragmentación obliga al lector a reconstruir la trayectoria del protagonista a partir de momentos separados.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "conciencia",
       "definition": "Capacidad de percibir la propia existencia, pensamientos, sensaciones y relación con el mundo.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín conscientia, relacionado con conocimiento compartido o interior.",
       "synonyms": ["percepción", "autoconciencia"],
       "contextSentence": "La conciencia mezcla sensaciones presentes con recuerdos que alteran continuamente la percepción del pasado.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "oligarquía",
       "definition": "Concentración del poder político, económico o social en un grupo reducido.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego oligarkhia, formado por términos relacionados con pocos y gobierno.",
       "synonyms": ["élite", "minoría dominante"],
       "contextSentence": "La oligarquía puede conservar influencia mediante la propiedad, las relaciones y el acceso privilegiado a las decisiones.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "memoria",
       "definition": "Facultad mediante la cual se conservan y recuperan experiencias, hechos e impresiones del pasado.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín memoria.",
       "synonyms": ["recuerdo", "remembranza"],
       "contextSentence": "La memoria no devuelve necesariamente una vida en orden, sino mediante escenas cargadas de significado presente.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "mortalidad",
       "definition": "Condición de todo ser vivo sujeto a la muerte.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín mortalitas, relacionado con la condición de ser mortal.",
       "synonyms": ["finitud", "condición mortal"],
       "contextSentence": "La mortalidad obliga a reconsiderar decisiones que anteriormente parecían justificarse solamente por el éxito.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "legado",
       "definition": "Conjunto de bienes, consecuencias, ideas o influencias que una persona deja después de su vida.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín legatum, relacionado originalmente con una disposición testamentaria.",
       "synonyms": ["herencia", "patrimonio"],
       "contextSentence": "El legado de una persona incluye también consecuencias que no pueden medirse únicamente en propiedades.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-es-006-sample-character-01",
+      "secondaryCharacterIds": ["book-es-006-sample-character-02", "book-es-006-sample-character-03"],
+      "placeId": "book-es-006-sample-place-01",
+      "dateLabel": "Presente",
+      "eventOrder": 1,
+      "event": "Evento de estudio 1: Presente / Mortalidad",
+      "description": "Síntesis de estudio para «Presente»: el índice destaca Mortalidad (Conciencia del cuerpo y proximidad de la muerte). La descripción de Artemio Cruz («Figura central cuya agonía activa una reconstrucción fragmentaria de su vida, sus relaciones, sus decisiones y su ascenso al poder.») se relaciona aquí con el concepto Memoria fragmentaria («Reconstrucción del pasado mediante recuerdos discontinuos que no siguen necesariamente un orden cronológico.»). México y el pasaje «El cuerpo» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#5C4D7D",
+      "book": "La muerte de Artemio Cruz",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#mortalidad", "#artemio-cruz", "#poder", "#memoria", "#memoria-fragmentaria", "#tiempo", "#méxico", "#historia", "#revolución"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-es-006-sample-character-03",
+      "secondaryCharacterIds": ["book-es-006-sample-character-04", "book-es-006-sample-character-05"],
+      "placeId": "book-es-006-sample-place-02",
+      "dateLabel": "Memoria",
+      "eventOrder": 2,
+      "event": "Evento de estudio 2: Memoria / Pasado",
+      "description": "Síntesis de estudio para «Memoria»: el índice destaca Pasado (Reconstrucción fragmentaria de una vida). La descripción de Teresa («Hija de Artemio y Catalina, integrada en el entorno familiar que rodea los últimos momentos del protagonista.») se relaciona aquí con el concepto Mortalidad («Conciencia de la muerte y de los límites físicos de la existencia humana.»). Ciudad de México y el pasaje «La memoria» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#D17B49",
+      "book": "La muerte de Artemio Cruz",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#memoria", "#teresa", "#familia", "#herencia", "#mortalidad", "#muerte", "#existencia", "#ciudad-de-méxico", "#poder", "#sociedad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-es-006-sample-character-05",
+      "secondaryCharacterIds": ["book-es-006-sample-character-06", "book-es-006-sample-character-07"],
+      "placeId": "book-es-006-sample-place-03",
+      "dateLabel": "Revolución",
+      "eventOrder": 3,
+      "event": "Evento de estudio 3: Revolución / Transformación",
+      "description": "Síntesis de estudio para «Revolución»: el índice destaca Transformación (Idealismo, violencia y cambio político). La descripción de Gonzalo Bernal («Hermano de Catalina cuya relación con Artemio se vincula con acontecimientos de la Revolución y con tensiones posteriores dentro de la familia Bernal.») se relaciona aquí con el concepto Revolución («Transformación política y social que funciona además como contexto para examinar ideales, violencia, oportunidades y cambios de poder.»). Puebla y el pasaje «El joven revolucionario» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#735D78",
+      "book": "La muerte de Artemio Cruz",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#revolución", "#gonzalo-bernal", "#familia", "#historia", "#méxico", "#puebla"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-es-006-sample-character-07",
+      "secondaryCharacterIds": ["book-es-006-sample-character-08", "book-es-006-sample-character-09"],
+      "placeId": "book-es-006-sample-place-04",
+      "dateLabel": "Poder",
+      "eventOrder": 4,
+      "event": "Evento de estudio 4: Poder / Ambición",
+      "description": "Síntesis de estudio para «Poder»: el índice destaca Ambición (Acumulación de influencia económica y política). La descripción de Padilla («Colaborador de Artemio relacionado con sus actividades profesionales y con el entorno de influencia construido alrededor del protagonista.») se relaciona aquí con el concepto Identidad retrospectiva («Comprensión del propio yo mediante la reinterpretación de decisiones, pérdidas y experiencias anteriores desde el presente.»). Casa de Artemio Cruz y el pasaje «El precio del poder» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#C49A3A",
+      "book": "La muerte de Artemio Cruz",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#poder", "#padilla", "#negocios", "#identidad-retrospectiva", "#identidad", "#memoria", "#muestra-analítica", "#artemio-cruz", "#familia"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-es-006-sample-character-01",
+      "targetCharacterId": "book-es-006-sample-character-02",
+      "relationType": "comparación temática",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Artemio Cruz (Figura central cuya agonía activa una reconstrucción fragmentaria de su vida, sus relaciones, sus decisiones y su ascenso al poder.) con Catalina Bernal (Esposa de Artemio, vinculada con la historia familiar, los conflictos emocionales y las consecuencias de las decisiones del protagonista.). El tema «Mortalidad» y el subtema «Conciencia del cuerpo y proximidad de la muerte» orientan la comparación; el pasaje «El cuerpo» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#5C4D7D",
+      "book": "La muerte de Artemio Cruz",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#artemio-cruz", "#poder", "#memoria", "#catalina", "#familia", "#mortalidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-es-006-sample-character-03",
+      "targetCharacterId": "book-es-006-sample-character-04",
+      "relationType": "perspectivas en contraste",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Teresa (Hija de Artemio y Catalina, integrada en el entorno familiar que rodea los últimos momentos del protagonista.) con Regina (Figura importante en los recuerdos afectivos y revolucionarios de Artemio, asociada con una etapa decisiva de su juventud.). El tema «Pasado» y el subtema «Reconstrucción fragmentaria de una vida» orientan la comparación; el pasaje «La memoria» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#D17B49",
+      "book": "La muerte de Artemio Cruz",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#teresa", "#familia", "#herencia", "#regina", "#amor", "#revolución", "#memoria"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-es-006-sample-character-05",
+      "targetCharacterId": "book-es-006-sample-character-06",
+      "relationType": "contexto narrativo compartido",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Gonzalo Bernal (Hermano de Catalina cuya relación con Artemio se vincula con acontecimientos de la Revolución y con tensiones posteriores dentro de la familia Bernal.) con Don Gamaliel Bernal (Miembro de la familia Bernal asociado con un orden social y económico que atraviesa importantes transformaciones históricas.). El tema «Transformación» y el subtema «Idealismo, violencia y cambio político» orientan la comparación; el pasaje «El joven revolucionario» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#735D78",
+      "book": "La muerte de Artemio Cruz",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#gonzalo-bernal", "#revolución", "#familia", "#gamaliel-bernal", "#poder"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-es-006-sample-character-07",
+      "targetCharacterId": "book-es-006-sample-character-08",
+      "relationType": "asociación interpretativa",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Padilla (Colaborador de Artemio relacionado con sus actividades profesionales y con el entorno de influencia construido alrededor del protagonista.) con Lilia (Personaje asociado con una etapa de la vida personal de Artemio y con su posición de riqueza y privilegio.). El tema «Ambición» y el subtema «Acumulación de influencia económica y política» orientan la comparación; el pasaje «El precio del poder» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#C49A3A",
+      "book": "La muerte de Artemio Cruz",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#padilla", "#poder", "#negocios", "#lilia", "#riqueza", "#artemio-cruz"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-es-006-sample-concept-01",
+      "targetConceptId": "book-es-006-sample-concept-02",
+      "relationType": "da contexto a",
+      "directed": true,
+      "description": "La definición de «Memoria fragmentaria» («Reconstrucción del pasado mediante recuerdos discontinuos que no siguen necesariamente un orden cronológico.») puede leerse en relación con «Perspectiva múltiple» («Uso de diferentes personas y posiciones narrativas para representar distintas dimensiones de una misma conciencia y existencia.»). El tema Mortalidad y el subtema Conciencia del cuerpo y proximidad de la muerte, junto con el pasaje «El cuerpo», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#735D78",
+      "book": "La muerte de Artemio Cruz",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#memoria-fragmentaria", "#memoria", "#tiempo", "#perspectiva-múltiple", "#voz", "#conciencia", "#mortalidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-es-006-sample-concept-03",
+      "targetConceptId": "book-es-006-sample-concept-04",
+      "relationType": "ofrece una perspectiva sobre",
+      "directed": false,
+      "description": "La definición de «Mortalidad» («Conciencia de la muerte y de los límites físicos de la existencia humana.») puede leerse en relación con «Poder» («Capacidad de influir sobre personas, instituciones, recursos y decisiones mediante posición económica, política o social.»). El tema Pasado y el subtema Reconstrucción fragmentaria de una vida, junto con el pasaje «La memoria», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#2F6690",
+      "book": "La muerte de Artemio Cruz",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#mortalidad", "#muerte", "#existencia", "#poder", "#política", "#influencia", "#memoria"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-es-006-sample-concept-05",
+      "targetConceptId": "book-es-006-sample-concept-06",
+      "relationType": "contrasta con",
+      "directed": false,
+      "description": "La definición de «Revolución» («Transformación política y social que funciona además como contexto para examinar ideales, violencia, oportunidades y cambios de poder.») puede leerse en relación con «Corrupción del ideal» («Proceso mediante el cual ideales iniciales pueden ser desplazados por ambición, conveniencia, riqueza o búsqueda de influencia.»). El tema Transformación y el subtema Idealismo, violencia y cambio político, junto con el pasaje «El joven revolucionario», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#A44A3F",
+      "book": "La muerte de Artemio Cruz",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#revolución", "#historia", "#méxico", "#corrupción-del-ideal", "#poder", "#responsabilidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-es-006-sample-concept-07",
+      "targetConceptId": "book-es-006-sample-concept-08",
+      "relationType": "complementa",
+      "directed": true,
+      "description": "La definición de «Identidad retrospectiva» («Comprensión del propio yo mediante la reinterpretación de decisiones, pérdidas y experiencias anteriores desde el presente.») puede leerse en relación con «Responsabilidad» («Problema ético relacionado con las decisiones personales y las consecuencias que producen sobre otras personas.»). El tema Ambición y el subtema Acumulación de influencia económica y política, junto con el pasaje «El precio del poder», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#5C4D7D",
+      "book": "La muerte de Artemio Cruz",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#identidad-retrospectiva", "#identidad", "#memoria", "#responsabilidad", "#ética", "#decisiones", "#poder"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

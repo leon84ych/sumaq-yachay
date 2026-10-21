@@ -5,80 +5,80 @@
       "chapter": "Tlön, Uqbar, Orbis Tertius",
       "theme": "Realidad",
       "subtheme": "Construcción intelectual de mundos y transformación de lo real",
-      "tag": "#realidad",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#realidad"]
     },
     {
       "id": "sample-index-02",
       "chapter": "Pierre Menard, autor del Quijote",
       "theme": "Autoría",
       "subtheme": "Contexto, interpretación y relación entre autor y texto",
-      "tag": "#autoría",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#autoría"]
     },
     {
       "id": "sample-index-03",
       "chapter": "La biblioteca de Babel",
       "theme": "Infinito",
       "subtheme": "Conocimiento, lenguaje y totalidad",
-      "tag": "#infinito",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#infinito"]
     },
     {
       "id": "sample-index-04",
       "chapter": "El jardín de senderos que se bifurcan",
       "theme": "Tiempo",
       "subtheme": "Posibilidades simultáneas y caminos divergentes",
-      "tag": "#tiempo",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#tiempo"]
     },
     {
       "id": "sample-index-05",
       "chapter": "Las ruinas circulares",
       "theme": "Identidad",
       "subtheme": "Creación, sueño y existencia",
-      "tag": "#identidad",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#identidad"]
     },
     {
       "id": "sample-index-06",
       "chapter": "Funes el memorioso",
       "theme": "Memoria",
       "subtheme": "Recuerdo absoluto, percepción y abstracción",
-      "tag": "#memoria",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#memoria"]
     },
     {
       "id": "sample-index-07",
       "chapter": "La lotería en Babilonia",
       "theme": "Azar",
       "subtheme": "Destino, orden y sistemas de incertidumbre",
-      "tag": "#azar",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#azar"]
     },
     {
       "id": "sample-index-08",
       "chapter": "La muerte y la brújula",
       "theme": "Interpretación",
       "subtheme": "Patrones, razonamiento y exceso de significado",
-      "tag": "#interpretación",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#interpretación"]
     },
     {
       "id": "sample-index-09",
       "chapter": "Tema del traidor y del héroe",
       "theme": "Historia",
       "subtheme": "Repetición, representación y construcción del pasado",
-      "tag": "#historia",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#historia"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Panorama analítico",
       "theme": "Laberinto",
       "subtheme": "Conocimiento, elecciones y estructuras potencialmente infinitas",
-      "tag": "#laberinto",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#laberinto"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "Idea recurrente utilizada para explorar estructuras sin término aparente, posibilidades ilimitadas y los límites de la comprensión humana.",
       "category": "Concepto filosófico",
       "source": "Contexto de estudio para Ficciones",
-      "tag": "#infinito",
-      "tags": ["#conocimiento", "#laberinto"],
+      "tags": ["#conocimiento", "#laberinto", "#infinito"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "Estructura física o conceptual que multiplica caminos, interpretaciones y posibilidades de orientación.",
       "category": "Símbolo literario",
       "source": "Contexto de estudio para Ficciones",
-      "tag": "#laberinto",
-      "tags": ["#infinito", "#interpretación"],
+      "tags": ["#infinito", "#interpretación", "#laberinto"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "Modelo narrativo en el que diferentes posibilidades pueden concebirse como caminos temporales que se separan y multiplican.",
       "category": "Concepto filosófico",
       "source": "Contexto de estudio para Ficciones",
-      "tag": "#tiempo-divergente",
-      "tags": ["#tiempo", "#posibilidad"],
+      "tags": ["#tiempo", "#posibilidad", "#tiempo-divergente"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "Problema filosófico y narrativo relacionado con la continuidad del yo, la duplicación, la creación y la incertidumbre sobre la propia existencia.",
       "category": "Tema",
       "source": "Contexto de estudio para Ficciones",
-      "tag": "#identidad",
-      "tags": ["#yo", "#realidad"],
+      "tags": ["#yo", "#realidad", "#identidad"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "Idea límite que permite examinar la relación entre recordar cada detalle, abstraer conceptos y pensar mediante generalizaciones.",
       "category": "Concepto filosófico",
       "source": "Contexto de estudio para Ficciones",
-      "tag": "#memoria-absoluta",
-      "tags": ["#memoria", "#conocimiento"],
+      "tags": ["#memoria", "#conocimiento", "#memoria-absoluta"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "Relación entre quien escribe, el contexto histórico de producción y los significados atribuidos a un texto.",
       "category": "Concepto literario",
       "source": "Contexto de estudio para Ficciones",
-      "tag": "#autoría",
-      "tags": ["#literatura", "#interpretación"],
+      "tags": ["#literatura", "#interpretación", "#autoría"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "Idea según la cual sistemas de lenguaje, conocimiento y representación pueden modificar la manera en que una realidad es comprendida.",
       "category": "Concepto filosófico",
       "source": "Contexto de estudio para Ficciones",
-      "tag": "#realidad-construida",
-      "tags": ["#realidad", "#lenguaje"],
+      "tags": ["#realidad", "#lenguaje", "#realidad-construida"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "Tensión entre acontecimientos aparentemente fortuitos y sistemas que intentan incorporarlos dentro de una estructura significativa.",
       "category": "Tema",
       "source": "Contexto de estudio para Ficciones",
-      "tag": "#azar-y-orden",
-      "tags": ["#azar", "#destino"],
+      "tags": ["#azar", "#destino", "#azar-y-orden"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "Relación entre textos reales o ficticios que produce nuevos niveles de interpretación y cuestiona las fronteras entre comentario, erudición y ficción.",
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para Ficciones",
-      "tag": "#intertextualidad",
-      "tags": ["#textos", "#literatura"],
+      "tags": ["#textos", "#literatura", "#intertextualidad"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "Ideal problemático de reunir o acceder a toda la información posible, utilizado para examinar los límites de comprensión del individuo.",
       "category": "Concepto epistemológico",
       "source": "Contexto de estudio para Ficciones",
-      "tag": "#conocimiento-total",
-      "tags": ["#conocimiento", "#infinito"],
+      "tags": ["#conocimiento", "#infinito", "#conocimiento-total"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "laberinto",
       "definition": "Construcción o estructura compleja compuesta por caminos que dificultan encontrar una salida o recorrido definitivo.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín labyrinthus, procedente del griego labyrinthos.",
       "synonyms": ["dédalo", "entramado"],
       "contextSentence": "El laberinto puede representar tanto un espacio físico como una estructura de pensamiento.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "infinito",
       "definition": "Aquello que no tiene o no parece tener límite o término.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín infinitus, formado a partir de una negación y finitus, limitado.",
       "synonyms": ["ilimitado", "interminable"],
       "contextSentence": "Pensar una biblioteca infinita obliga a reconsiderar qué significaría encontrar un libro determinado.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "paradoja",
       "definition": "Proposición o situación que produce una contradicción aparente o desafía las expectativas habituales.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego paradoxos, relacionado con aquello contrario a la opinión común.",
       "synonyms": ["contradicción", "incongruencia"],
       "contextSentence": "Una paradoja puede convertir una idea aparentemente sencilla en un problema filosófico.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "erudición",
       "definition": "Conocimiento amplio y profundo adquirido mediante el estudio, especialmente de textos y tradiciones culturales.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín eruditio, relacionado con instrucción o conocimiento.",
       "synonyms": ["sabiduría", "conocimiento"],
       "contextSentence": "La erudición puede convertirse en parte del juego narrativo cuando se mezclan referencias auténticas y construcciones ficticias.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "bifurcación",
       "definition": "División de un camino, proceso o estructura en dos o más direcciones.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Derivado del latín bifurcus, relacionado con una división en dos ramas.",
       "synonyms": ["división", "ramificación"],
       "contextSentence": "Cada bifurcación puede representar una decisión y, al mismo tiempo, una posibilidad no realizada.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "metaficción",
       "definition": "Ficción que llama la atención sobre su propio carácter de texto construido.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Formado por meta-, elemento asociado con reflexión sobre sí mismo, y ficción.",
       "synonyms": ["ficción autorreflexiva"],
       "contextSentence": "La metaficción permite que un relato funcione simultáneamente como historia y reflexión sobre la literatura.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "simetría",
       "definition": "Correspondencia equilibrada entre partes, formas, acontecimientos o estructuras.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego symmetria, relacionado con proporción y medida común.",
       "synonyms": ["correspondencia", "equilibrio"],
       "contextSentence": "La búsqueda de simetría puede revelar un patrón auténtico o hacer que el observador imagine uno inexistente.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "conjetura",
       "definition": "Juicio o interpretación formulado a partir de indicios sin disponer de certeza completa.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín coniectura, relacionado con inferencia o interpretación.",
       "synonyms": ["hipótesis", "suposición"],
       "contextSentence": "Una conjetura elegante puede resultar más seductora que una explicación sencilla.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "identidad",
       "definition": "Condición mediante la cual una persona o cosa es considerada la misma a través de cambios, contextos o representaciones.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín identitas, relacionado con la cualidad de ser lo mismo.",
       "synonyms": ["individualidad", "mismidad"],
       "contextSentence": "La identidad se vuelve problemática cuando una creación descubre que su propio origen puede repetirse.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "interpretación",
       "definition": "Proceso de atribuir significado a un texto, acontecimiento, símbolo o conjunto de indicios.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín interpretatio, relacionado con explicación o comprensión.",
       "synonyms": ["lectura", "explicación"],
       "contextSentence": "Una interpretación puede transformar detalles dispersos en un sistema coherente, aunque esa coherencia también debe ser cuestionada.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-es-005-sample-character-01",
+      "secondaryCharacterIds": ["book-es-005-sample-character-02", "book-es-005-sample-character-03"],
+      "placeId": "book-es-005-sample-place-01",
+      "dateLabel": "Tlön, Uqbar, Orbis Tertius",
+      "eventOrder": 1,
+      "event": "Evento de estudio 1: Tlön, Uqbar, Orbis Tertius / Realidad",
+      "description": "Síntesis de estudio para «Tlön, Uqbar, Orbis Tertius»: el índice destaca Realidad (Construcción intelectual de mundos y transformación de lo real). La descripción de Ireneo Funes («Personaje central de Funes el memorioso, asociado con una capacidad extraordinaria de percepción y memoria y con las dificultades de abstraer y generalizar.») se relaciona aquí con el concepto Infinito («Idea recurrente utilizada para explorar estructuras sin término aparente, posibilidades ilimitadas y los límites de la comprensión humana.»). Biblioteca de Babel y el pasaje «La biblioteca imposible» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#6A994E",
+      "book": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "page": "",
+      "tags": ["#realidad", "#funes", "#memoria", "#percepción", "#infinito", "#conocimiento", "#laberinto", "#biblioteca-de-babel"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-es-005-sample-character-03",
+      "secondaryCharacterIds": ["book-es-005-sample-character-04", "book-es-005-sample-character-05"],
+      "placeId": "book-es-005-sample-place-02",
+      "dateLabel": "Pierre Menard, autor del Quijote",
+      "eventOrder": 2,
+      "event": "Evento de estudio 2: Pierre Menard, autor del Quijote / Autoría",
+      "description": "Síntesis de estudio para «Pierre Menard, autor del Quijote»: el índice destaca Autoría (Contexto, interpretación y relación entre autor y texto). La descripción de Yu Tsun («Personaje central de El jardín de senderos que se bifurcan cuya historia conecta espionaje, decisiones, tiempo y múltiples posibilidades.») se relaciona aquí con el concepto Tiempo divergente («Modelo narrativo en el que diferentes posibilidades pueden concebirse como caminos temporales que se separan y multiplican.»). Tlön y el pasaje «El mismo texto» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#D17B49",
+      "book": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "page": "",
+      "tags": ["#autoría", "#yu-tsun", "#tiempo", "#decisión", "#tiempo-divergente", "#posibilidad", "#tlön", "#realidad", "#filosofía"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-es-005-sample-character-05",
+      "secondaryCharacterIds": ["book-es-005-sample-character-06", "book-es-005-sample-character-07"],
+      "placeId": "book-es-005-sample-place-03",
+      "dateLabel": "La biblioteca de Babel",
+      "eventOrder": 3,
+      "event": "Evento de estudio 3: La biblioteca de Babel / Infinito",
+      "description": "Síntesis de estudio para «La biblioteca de Babel»: el índice destaca Infinito (Conocimiento, lenguaje y totalidad). La descripción de Ts'ui Pên («Antepasado ficticio de Yu Tsun cuyo proyecto literario y laberíntico ocupa un lugar central en El jardín de senderos que se bifurcan.») se relaciona aquí con el concepto Memoria absoluta («Idea límite que permite examinar la relación entre recordar cada detalle, abstraer conceptos y pensar mediante generalizaciones.»). Uqbar y el pasaje «Senderos» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#B56576",
+      "book": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "page": "",
+      "tags": ["#infinito", "#tsui-pen", "#laberinto", "#literatura", "#memoria-absoluta", "#memoria", "#conocimiento", "#uqbar", "#enciclopedia", "#realidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-es-005-sample-character-07",
+      "secondaryCharacterIds": ["book-es-005-sample-character-08", "book-es-005-sample-character-09"],
+      "placeId": "book-es-005-sample-place-04",
+      "dateLabel": "El jardín de senderos que se bifurcan",
+      "eventOrder": 4,
+      "event": "Evento de estudio 4: El jardín de senderos que se bifurcan / Tiempo",
+      "description": "Síntesis de estudio para «El jardín de senderos que se bifurcan»: el índice destaca Tiempo (Posibilidades simultáneas y caminos divergentes). La descripción de Red Scharlach («Adversario de Lönnrot en La muerte y la brújula, relacionado con el uso estratégico de patrones y expectativas.») se relaciona aquí con el concepto Realidad construida («Idea según la cual sistemas de lenguaje, conocimiento y representación pueden modificar la manera en que una realidad es comprendida.»). Buenos Aires y el pasaje «Memoria total» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#A44A3F",
+      "book": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "page": "",
+      "tags": ["#tiempo", "#scharlach", "#lönnrot", "#laberinto", "#realidad-construida", "#realidad", "#lenguaje", "#buenos-aires", "#argentina", "#borges"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-es-005-sample-character-01",
+      "targetCharacterId": "book-es-005-sample-character-02",
+      "relationType": "comparación temática",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Ireneo Funes (Personaje central de Funes el memorioso, asociado con una capacidad extraordinaria de percepción y memoria y con las dificultades de abstraer y generalizar.) con Pierre Menard (Escritor ficticio cuya empresa literaria permite explorar la autoría, el contexto histórico y la transformación del significado de un texto.). El tema «Realidad» y el subtema «Construcción intelectual de mundos y transformación de lo real» orientan la comparación; el pasaje «La biblioteca imposible» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#6A994E",
+      "book": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "page": "",
+      "tags": ["#funes", "#memoria", "#percepción", "#menard", "#autoría", "#literatura", "#realidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-es-005-sample-character-03",
+      "targetCharacterId": "book-es-005-sample-character-04",
+      "relationType": "perspectivas en contraste",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Yu Tsun (Personaje central de El jardín de senderos que se bifurcan cuya historia conecta espionaje, decisiones, tiempo y múltiples posibilidades.) con Stephen Albert (Personaje vinculado con la interpretación del proyecto de Ts'ui Pên y con la concepción de un tiempo compuesto por posibilidades divergentes.). El tema «Autoría» y el subtema «Contexto, interpretación y relación entre autor y texto» orientan la comparación; el pasaje «El mismo texto» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#D17B49",
+      "book": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "page": "",
+      "tags": ["#yu-tsun", "#tiempo", "#decisión", "#stephen-albert", "#laberinto", "#autoría"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-es-005-sample-character-05",
+      "targetCharacterId": "book-es-005-sample-character-06",
+      "relationType": "contexto narrativo compartido",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Ts'ui Pên (Antepasado ficticio de Yu Tsun cuyo proyecto literario y laberíntico ocupa un lugar central en El jardín de senderos que se bifurcan.) con Erik Lönnrot (Investigador de La muerte y la brújula cuya confianza en patrones intelectuales orienta su interpretación de una serie de acontecimientos.). El tema «Infinito» y el subtema «Conocimiento, lenguaje y totalidad» orientan la comparación; el pasaje «Senderos» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#B56576",
+      "book": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "page": "",
+      "tags": ["#tsui-pen", "#laberinto", "#literatura", "#lönnrot", "#interpretación", "#patrones", "#infinito"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-es-005-sample-character-07",
+      "targetCharacterId": "book-es-005-sample-character-08",
+      "relationType": "asociación interpretativa",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Red Scharlach (Adversario de Lönnrot en La muerte y la brújula, relacionado con el uso estratégico de patrones y expectativas.) con El soñador de las ruinas (Figura central de Las ruinas circulares cuya empresa explora la creación, el sueño y la incertidumbre sobre la propia realidad.). El tema «Tiempo» y el subtema «Posibilidades simultáneas y caminos divergentes» orientan la comparación; el pasaje «Memoria total» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#A44A3F",
+      "book": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "page": "",
+      "tags": ["#scharlach", "#lönnrot", "#laberinto", "#ruinas-circulares", "#sueño", "#identidad", "#tiempo"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-es-005-sample-concept-01",
+      "targetConceptId": "book-es-005-sample-concept-02",
+      "relationType": "da contexto a",
+      "directed": true,
+      "description": "La definición de «Infinito» («Idea recurrente utilizada para explorar estructuras sin término aparente, posibilidades ilimitadas y los límites de la comprensión humana.») puede leerse en relación con «Laberinto» («Estructura física o conceptual que multiplica caminos, interpretaciones y posibilidades de orientación.»). El tema Realidad y el subtema Construcción intelectual de mundos y transformación de lo real, junto con el pasaje «La biblioteca imposible», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#735D78",
+      "book": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "page": "",
+      "tags": ["#infinito", "#conocimiento", "#laberinto", "#interpretación", "#realidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-es-005-sample-concept-03",
+      "targetConceptId": "book-es-005-sample-concept-04",
+      "relationType": "ofrece una perspectiva sobre",
+      "directed": false,
+      "description": "La definición de «Tiempo divergente» («Modelo narrativo en el que diferentes posibilidades pueden concebirse como caminos temporales que se separan y multiplican.») puede leerse en relación con «Identidad» («Problema filosófico y narrativo relacionado con la continuidad del yo, la duplicación, la creación y la incertidumbre sobre la propia existencia.»). El tema Autoría y el subtema Contexto, interpretación y relación entre autor y texto, junto con el pasaje «El mismo texto», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#2F6690",
+      "book": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "page": "",
+      "tags": ["#tiempo-divergente", "#tiempo", "#posibilidad", "#identidad", "#yo", "#realidad", "#autoría"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-es-005-sample-concept-05",
+      "targetConceptId": "book-es-005-sample-concept-06",
+      "relationType": "contrasta con",
+      "directed": false,
+      "description": "La definición de «Memoria absoluta» («Idea límite que permite examinar la relación entre recordar cada detalle, abstraer conceptos y pensar mediante generalizaciones.») puede leerse en relación con «Autoría» («Relación entre quien escribe, el contexto histórico de producción y los significados atribuidos a un texto.»). El tema Infinito y el subtema Conocimiento, lenguaje y totalidad, junto con el pasaje «Senderos», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#A44A3F",
+      "book": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "page": "",
+      "tags": ["#memoria-absoluta", "#memoria", "#conocimiento", "#autoría", "#literatura", "#interpretación", "#infinito"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-es-005-sample-concept-07",
+      "targetConceptId": "book-es-005-sample-concept-08",
+      "relationType": "complementa",
+      "directed": true,
+      "description": "La definición de «Realidad construida» («Idea según la cual sistemas de lenguaje, conocimiento y representación pueden modificar la manera en que una realidad es comprendida.») puede leerse en relación con «Azar y orden» («Tensión entre acontecimientos aparentemente fortuitos y sistemas que intentan incorporarlos dentro de una estructura significativa.»). El tema Tiempo y el subtema Posibilidades simultáneas y caminos divergentes, junto con el pasaje «Memoria total», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#5C4D7D",
+      "book": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "page": "",
+      "tags": ["#realidad-construida", "#realidad", "#lenguaje", "#azar-y-orden", "#azar", "#destino", "#tiempo"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

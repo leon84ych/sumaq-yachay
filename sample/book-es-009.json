@@ -5,80 +5,80 @@
       "chapter": "Formación",
       "theme": "Infancia",
       "subtheme": "Familia, sensibilidad y construcción de la conciencia",
-      "tag": "#infancia",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#infancia"]
     },
     {
       "id": "sample-index-02",
       "chapter": "José Cemí",
       "theme": "Identidad",
       "subtheme": "Formación intelectual, afectiva y poética",
-      "tag": "#identidad",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#identidad"]
     },
     {
       "id": "sample-index-03",
       "chapter": "La familia",
       "theme": "Memoria",
       "subtheme": "Herencia familiar y reconstrucción del pasado",
-      "tag": "#memoria",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#memoria"]
     },
     {
       "id": "sample-index-04",
       "chapter": "La enfermedad",
       "theme": "Cuerpo",
       "subtheme": "Fragilidad física y experiencia interior",
-      "tag": "#cuerpo",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#cuerpo"]
     },
     {
       "id": "sample-index-05",
       "chapter": "La amistad",
       "theme": "Conocimiento",
       "subtheme": "Conversación, aprendizaje y descubrimiento intelectual",
-      "tag": "#conocimiento",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#conocimiento"]
     },
     {
       "id": "sample-index-06",
       "chapter": "Universidad",
       "theme": "Formación",
       "subtheme": "Ideas, literatura y desarrollo intelectual",
-      "tag": "#formación",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#formación"]
     },
     {
       "id": "sample-index-07",
       "chapter": "Lenguaje",
       "theme": "Poesía",
       "subtheme": "Metáfora, imagen y conocimiento poético",
-      "tag": "#poesía",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#poesía"]
     },
     {
       "id": "sample-index-08",
       "chapter": "La Habana",
       "theme": "Ciudad",
       "subtheme": "Experiencia urbana, cultura y memoria",
-      "tag": "#la-habana",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#la-habana"]
     },
     {
       "id": "sample-index-09",
       "chapter": "Imaginación",
       "theme": "Imagen",
       "subtheme": "Relaciones inesperadas entre objetos, ideas y tradiciones",
-      "tag": "#imagen",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#imagen"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Panorama analítico",
       "theme": "Barroco",
       "subtheme": "Densidad verbal, referencias culturales y expansión metafórica",
-      "tag": "#barroco",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#barroco"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "Estética caracterizada por la elaboración formal, la abundancia de imágenes, la complejidad expresiva y la proliferación de relaciones culturales.",
       "category": "Estética",
       "source": "Contexto de estudio para Paradiso",
-      "tag": "#barroco",
-      "tags": ["#lenguaje", "#estilo"],
+      "tags": ["#lenguaje", "#estilo", "#barroco"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "Construcción verbal capaz de establecer relaciones imaginativas entre elementos y producir nuevas posibilidades de sentido.",
       "category": "Poética",
       "source": "Contexto de estudio para Paradiso",
-      "tag": "#imagen-poética",
-      "tags": ["#poesía", "#metáfora"],
+      "tags": ["#poesía", "#metáfora", "#imagen-poética"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "Procedimiento mediante el cual un elemento es comprendido o expresado a través de una relación imaginativa con otro.",
       "category": "Recurso literario",
       "source": "Contexto de estudio para Paradiso",
-      "tag": "#metáfora",
-      "tags": ["#lenguaje", "#imagen"],
+      "tags": ["#lenguaje", "#imagen", "#metáfora"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "Proceso mediante el cual una persona desarrolla sensibilidad, pensamiento, identidad y comprensión a través de experiencias y relaciones.",
       "category": "Tema",
       "source": "Contexto de estudio para Paradiso",
-      "tag": "#formación",
-      "tags": ["#identidad", "#conocimiento"],
+      "tags": ["#identidad", "#conocimiento", "#formación"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "Conjunto de recuerdos, relatos y experiencias mediante los cuales una familia transmite y reconstruye su pasado.",
       "category": "Tema",
       "source": "Contexto de estudio para Paradiso",
-      "tag": "#memoria-familiar",
-      "tags": ["#familia", "#pasado"],
+      "tags": ["#familia", "#pasado", "#memoria-familiar"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "Red de relaciones entre una obra y otros textos, autores, mitologías, filosofías y tradiciones culturales.",
       "category": "Técnica literaria",
       "source": "Contexto de estudio para Paradiso",
-      "tag": "#intertextualidad",
-      "tags": ["#referencias", "#literatura"],
+      "tags": ["#referencias", "#literatura", "#intertextualidad"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "Forma de comprensión que utiliza imágenes, asociaciones, intuiciones y relaciones simbólicas además del razonamiento discursivo.",
       "category": "Concepto filosófico",
       "source": "Contexto de estudio para Paradiso",
-      "tag": "#conocimiento-poético",
-      "tags": ["#poesía", "#conocimiento"],
+      "tags": ["#poesía", "#conocimiento", "#conocimiento-poético"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "Relación entre experiencia corporal, vulnerabilidad, percepción y formación de la conciencia individual.",
       "category": "Tema",
       "source": "Contexto de estudio para Paradiso",
-      "tag": "#cuerpo-enfermedad",
-      "tags": ["#cuerpo", "#experiencia"],
+      "tags": ["#cuerpo", "#experiencia", "#cuerpo-enfermedad"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "Relación entre generaciones mediante la cual experiencias familiares anteriores participan en la formación del presente.",
       "category": "Tema",
       "source": "Contexto de estudio para Paradiso",
-      "tag": "#genealogía",
-      "tags": ["#familia", "#memoria"],
+      "tags": ["#familia", "#memoria", "#genealogía"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "Escritura que modifica expectativas convencionales mediante sintaxis compleja, asociaciones inesperadas y una alta densidad de referencias.",
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para Paradiso",
-      "tag": "#prosa-experimental",
-      "tags": ["#experimentación", "#lenguaje"],
+      "tags": ["#experimentación", "#lenguaje", "#prosa-experimental"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "barroco",
       "definition": "Estilo caracterizado por abundancia, complejidad formal, ornamentación y densidad expresiva.",
-      "partOfSpeech": "adjetivo",
+      "partOfSpeech": "Adjective",
       "etymology": "Término de historia compleja, asociado en lenguas europeas con formas irregulares y posteriormente con un estilo artístico y cultural.",
       "synonyms": ["ornamentado", "elaborado"],
       "contextSentence": "El lenguaje barroco multiplica asociaciones y obliga al lector a detenerse en la construcción de cada imagen.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "metáfora",
       "definition": "Figura que establece una relación de semejanza o asociación entre realidades distintas.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego metaphora, relacionado con trasladar o transferir.",
       "synonyms": ["imagen", "comparación implícita"],
       "contextSentence": "Una metáfora puede conectar una experiencia corporal con una imagen histórica o mitológica.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "erudición",
       "definition": "Conocimiento amplio y profundo adquirido mediante estudio y familiaridad con múltiples tradiciones.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín eruditio, relacionado con instrucción y aprendizaje.",
       "synonyms": ["sabiduría", "conocimiento"],
       "contextSentence": "La erudición amplía el campo de asociaciones disponibles para una escritura cargada de referencias.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "intertextualidad",
       "definition": "Relación mediante la cual un texto dialoga con otros textos, autores o tradiciones culturales.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Formado por inter-, que indica relación entre elementos, y textualidad.",
       "synonyms": ["relación textual", "referencia literaria"],
       "contextSentence": "La intertextualidad permite que una escena cotidiana dialogue con siglos de literatura y pensamiento.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "genealogía",
       "definition": "Estudio o representación de las relaciones de ascendencia y descendencia dentro de una familia.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego genea, generación, y logos, estudio.",
       "synonyms": ["linaje", "ascendencia"],
       "contextSentence": "La genealogía convierte la memoria individual en parte de una historia familiar más extensa.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "cosmogonía",
       "definition": "Relato o sistema de ideas acerca del origen y organización del universo.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego kosmos, mundo, y goneia, generación u origen.",
       "synonyms": ["relato de origen", "visión del cosmos"],
       "contextSentence": "Una imagen poética puede adquirir una dimensión cosmogónica cuando intenta relacionar una experiencia particular con un orden universal.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "analogía",
       "definition": "Relación de semejanza establecida entre elementos diferentes.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego analogia, relacionado con proporción o correspondencia.",
       "synonyms": ["semejanza", "correspondencia"],
       "contextSentence": "La analogía permite unir objetos distantes dentro de una misma estructura imaginativa.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "hermetismo",
       "definition": "Cualidad de un discurso difícil de interpretar debido a su densidad, complejidad o carácter reservado.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Relacionado históricamente con Hermes Trismegisto y con tradiciones consideradas secretas o esotéricas.",
       "synonyms": ["oscuridad", "dificultad interpretativa"],
       "contextSentence": "El hermetismo puede exigir múltiples lecturas antes de que una red de imágenes comience a adquirir sentido.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "poética",
       "definition": "Conjunto de principios, ideas o procedimientos relacionados con la creación y comprensión de la literatura.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego poietike, relacionado con creación o producción.",
       "synonyms": ["teoría poética", "estética literaria"],
       "contextSentence": "Una poética puede entender la imagen no solo como ornamentación sino como instrumento de conocimiento.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "imagen",
       "definition": "Representación verbal o mental capaz de relacionar sensaciones, objetos, recuerdos e ideas.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín imago, relacionado con representación o figura.",
       "synonyms": ["representación", "figura"],
       "contextSentence": "La imagen puede establecer una relación inesperada entre memoria familiar, mito y experiencia presente.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-es-009-sample-character-01",
+      "secondaryCharacterIds": ["book-es-009-sample-character-02", "book-es-009-sample-character-03"],
+      "placeId": "book-es-009-sample-place-01",
+      "dateLabel": "Formación",
+      "eventOrder": 1,
+      "event": "Evento de estudio 1: Formación / Infancia",
+      "description": "Síntesis de estudio para «Formación»: el índice destaca Infancia (Familia, sensibilidad y construcción de la conciencia). La descripción de José Cemí («Figura central cuya infancia, familia, formación intelectual y descubrimiento de la poesía articulan buena parte de la novela.») se relaciona aquí con el concepto Barroco («Estética caracterizada por la elaboración formal, la abundancia de imágenes, la complejidad expresiva y la proliferación de relaciones culturales.»). La Habana y el pasaje «La respiración» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#5C4D7D",
+      "book": "Paradiso",
+      "author": "José Lezama Lima",
+      "page": "",
+      "tags": ["#infancia", "#josé-cemí", "#poesía", "#formación", "#barroco", "#lenguaje", "#estilo", "#la-habana", "#cuba", "#ciudad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-es-009-sample-character-03",
+      "secondaryCharacterIds": ["book-es-009-sample-character-04", "book-es-009-sample-character-05"],
+      "placeId": "book-es-009-sample-place-02",
+      "dateLabel": "José Cemí",
+      "eventOrder": 2,
+      "event": "Evento de estudio 2: José Cemí / Identidad",
+      "description": "Síntesis de estudio para «José Cemí»: el índice destaca Identidad (Formación intelectual, afectiva y poética). La descripción de Ricardo Fronesis («Amigo de Cemí asociado con su formación universitaria, sus conversaciones intelectuales y el desarrollo de nuevas perspectivas sobre la experiencia.») se relaciona aquí con el concepto Metáfora («Procedimiento mediante el cual un elemento es comprendido o expresado a través de una relación imaginativa con otro.»). Cuba y el pasaje «La mesa familiar» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#D17B49",
+      "book": "Paradiso",
+      "author": "José Lezama Lima",
+      "page": "",
+      "tags": ["#identidad", "#fronesis", "#amistad", "#universidad", "#metáfora", "#lenguaje", "#imagen", "#cuba", "#cultura"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-es-009-sample-character-05",
+      "secondaryCharacterIds": ["book-es-009-sample-character-06", "book-es-009-sample-character-07"],
+      "placeId": "book-es-009-sample-place-03",
+      "dateLabel": "La familia",
+      "eventOrder": 3,
+      "event": "Evento de estudio 3: La familia / Memoria",
+      "description": "Síntesis de estudio para «La familia»: el índice destaca Memoria (Herencia familiar y reconstrucción del pasado). La descripción de José Eugenio Cemí («Padre de José Cemí y figura importante dentro de su memoria familiar y de su proceso de formación.») se relaciona aquí con el concepto Memoria familiar («Conjunto de recuerdos, relatos y experiencias mediante los cuales una familia transmite y reconstruye su pasado.»). Casa de la familia Cemí y el pasaje «Una imagen» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#C49A3A",
+      "book": "Paradiso",
+      "author": "José Lezama Lima",
+      "page": "",
+      "tags": ["#memoria", "#familia-cemí", "#padre", "#memoria-familiar", "#familia", "#pasado", "#muestra-analítica"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-es-009-sample-character-07",
+      "secondaryCharacterIds": ["book-es-009-sample-character-08", "book-es-009-sample-character-09"],
+      "placeId": "book-es-009-sample-place-04",
+      "dateLabel": "La enfermedad",
+      "eventOrder": 4,
+      "event": "Evento de estudio 4: La enfermedad / Cuerpo",
+      "description": "Síntesis de estudio para «La enfermedad»: el índice destaca Cuerpo (Fragilidad física y experiencia interior). La descripción de Baldovina («Personaje relacionado con el entorno doméstico de la infancia de Cemí y con los cuidados que rodean sus primeras experiencias.») se relaciona aquí con el concepto Conocimiento poético («Forma de comprensión que utiliza imágenes, asociaciones, intuiciones y relaciones simbólicas además del razonamiento discursivo.»). Universidad de La Habana y el pasaje «La conversación» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#6A994E",
+      "book": "Paradiso",
+      "author": "José Lezama Lima",
+      "page": "",
+      "tags": ["#cuerpo", "#baldovina", "#infancia", "#casa", "#conocimiento-poético", "#poesía", "#conocimiento", "#universidad", "#la-habana", "#formación"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-es-009-sample-character-01",
+      "targetCharacterId": "book-es-009-sample-character-02",
+      "relationType": "comparación temática",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula José Cemí (Figura central cuya infancia, familia, formación intelectual y descubrimiento de la poesía articulan buena parte de la novela.) con Oppiano Licario (Figura vinculada con el horizonte intelectual y poético de Cemí y con una concepción del conocimiento basada en la imagen y la creación.). El tema «Infancia» y el subtema «Familia, sensibilidad y construcción de la conciencia» orientan la comparación; el pasaje «La respiración» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#5C4D7D",
+      "book": "Paradiso",
+      "author": "José Lezama Lima",
+      "page": "",
+      "tags": ["#josé-cemí", "#poesía", "#formación", "#oppiano-licario", "#conocimiento", "#infancia"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-es-009-sample-character-03",
+      "targetCharacterId": "book-es-009-sample-character-04",
+      "relationType": "perspectivas en contraste",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Ricardo Fronesis (Amigo de Cemí asociado con su formación universitaria, sus conversaciones intelectuales y el desarrollo de nuevas perspectivas sobre la experiencia.) con Eugenio Foción (Personaje relacionado con Cemí y Fronesis dentro del complejo entramado de amistad, deseo, pensamiento y formación intelectual.). El tema «Identidad» y el subtema «Formación intelectual, afectiva y poética» orientan la comparación; el pasaje «La mesa familiar» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#D17B49",
+      "book": "Paradiso",
+      "author": "José Lezama Lima",
+      "page": "",
+      "tags": ["#fronesis", "#amistad", "#universidad", "#foción", "#ideas", "#identidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-es-009-sample-character-05",
+      "targetCharacterId": "book-es-009-sample-character-06",
+      "relationType": "contexto narrativo compartido",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula José Eugenio Cemí (Padre de José Cemí y figura importante dentro de su memoria familiar y de su proceso de formación.) con Rialta (Madre de José Cemí y figura decisiva en el espacio familiar, afectivo y formativo del protagonista.). El tema «Memoria» y el subtema «Herencia familiar y reconstrucción del pasado» orientan la comparación; el pasaje «Una imagen» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#C49A3A",
+      "book": "Paradiso",
+      "author": "José Lezama Lima",
+      "page": "",
+      "tags": ["#familia-cemí", "#padre", "#memoria", "#rialta", "#familia"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-es-009-sample-character-07",
+      "targetCharacterId": "book-es-009-sample-character-08",
+      "relationType": "asociación interpretativa",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Baldovina (Personaje relacionado con el entorno doméstico de la infancia de Cemí y con los cuidados que rodean sus primeras experiencias.) con Alberto Olaya (Figura vinculada con la familia y con acontecimientos que amplían la dimensión genealógica y memorial de la novela.). El tema «Cuerpo» y el subtema «Fragilidad física y experiencia interior» orientan la comparación; el pasaje «La conversación» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#6A994E",
+      "book": "Paradiso",
+      "author": "José Lezama Lima",
+      "page": "",
+      "tags": ["#baldovina", "#infancia", "#casa", "#alberto-olaya", "#familia", "#pasado", "#cuerpo"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-es-009-sample-concept-01",
+      "targetConceptId": "book-es-009-sample-concept-02",
+      "relationType": "da contexto a",
+      "directed": true,
+      "description": "La definición de «Barroco» («Estética caracterizada por la elaboración formal, la abundancia de imágenes, la complejidad expresiva y la proliferación de relaciones culturales.») puede leerse en relación con «Imagen poética» («Construcción verbal capaz de establecer relaciones imaginativas entre elementos y producir nuevas posibilidades de sentido.»). El tema Infancia y el subtema Familia, sensibilidad y construcción de la conciencia, junto con el pasaje «La respiración», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#735D78",
+      "book": "Paradiso",
+      "author": "José Lezama Lima",
+      "page": "",
+      "tags": ["#barroco", "#lenguaje", "#estilo", "#imagen-poética", "#poesía", "#metáfora", "#infancia"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-es-009-sample-concept-03",
+      "targetConceptId": "book-es-009-sample-concept-04",
+      "relationType": "ofrece una perspectiva sobre",
+      "directed": false,
+      "description": "La definición de «Metáfora» («Procedimiento mediante el cual un elemento es comprendido o expresado a través de una relación imaginativa con otro.») puede leerse en relación con «Formación» («Proceso mediante el cual una persona desarrolla sensibilidad, pensamiento, identidad y comprensión a través de experiencias y relaciones.»). El tema Identidad y el subtema Formación intelectual, afectiva y poética, junto con el pasaje «La mesa familiar», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#2F6690",
+      "book": "Paradiso",
+      "author": "José Lezama Lima",
+      "page": "",
+      "tags": ["#metáfora", "#lenguaje", "#imagen", "#formación", "#identidad", "#conocimiento"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-es-009-sample-concept-05",
+      "targetConceptId": "book-es-009-sample-concept-06",
+      "relationType": "contrasta con",
+      "directed": false,
+      "description": "La definición de «Memoria familiar» («Conjunto de recuerdos, relatos y experiencias mediante los cuales una familia transmite y reconstruye su pasado.») puede leerse en relación con «Intertextualidad» («Red de relaciones entre una obra y otros textos, autores, mitologías, filosofías y tradiciones culturales.»). El tema Memoria y el subtema Herencia familiar y reconstrucción del pasado, junto con el pasaje «Una imagen», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#A44A3F",
+      "book": "Paradiso",
+      "author": "José Lezama Lima",
+      "page": "",
+      "tags": ["#memoria-familiar", "#familia", "#pasado", "#intertextualidad", "#referencias", "#literatura", "#memoria"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-es-009-sample-concept-07",
+      "targetConceptId": "book-es-009-sample-concept-08",
+      "relationType": "complementa",
+      "directed": true,
+      "description": "La definición de «Conocimiento poético» («Forma de comprensión que utiliza imágenes, asociaciones, intuiciones y relaciones simbólicas además del razonamiento discursivo.») puede leerse en relación con «Cuerpo y enfermedad» («Relación entre experiencia corporal, vulnerabilidad, percepción y formación de la conciencia individual.»). El tema Cuerpo y el subtema Fragilidad física y experiencia interior, junto con el pasaje «La conversación», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#5C4D7D",
+      "book": "Paradiso",
+      "author": "José Lezama Lima",
+      "page": "",
+      "tags": ["#conocimiento-poético", "#poesía", "#conocimiento", "#cuerpo-enfermedad", "#cuerpo", "#experiencia"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

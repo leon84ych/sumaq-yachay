@@ -5,80 +5,80 @@
       "chapter": "Arrival",
       "theme": "Time",
       "subtheme": "Separation from ordinary temporal rhythms",
-      "tag": "#time",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#time"]
     },
     {
       "id": "sample-index-02",
       "chapter": "The Berghof",
       "theme": "Illness",
       "subtheme": "Disease as physical and cultural condition",
-      "tag": "#illness",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#illness"]
     },
     {
       "id": "sample-index-03",
       "chapter": "Hans Castorp",
       "theme": "Transformation",
       "subtheme": "Education through experience and intellectual encounter",
-      "tag": "#transformation",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#transformation"]
     },
     {
       "id": "sample-index-04",
       "chapter": "Settembrini",
       "theme": "Humanism",
       "subtheme": "Reason, progress, liberty, and education",
-      "tag": "#humanism",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#humanism"]
     },
     {
       "id": "sample-index-05",
       "chapter": "Naphta",
       "theme": "Ideology",
       "subtheme": "Authority, revolution, faith, and intellectual extremity",
-      "tag": "#ideology",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#ideology"]
     },
     {
       "id": "sample-index-06",
       "chapter": "Clavdia Chauchat",
       "theme": "Desire",
       "subtheme": "Attraction, fascination, and transience",
-      "tag": "#desire",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#desire"]
     },
     {
       "id": "sample-index-07",
       "chapter": "Snow",
       "theme": "Mortality",
       "subtheme": "Human vulnerability and reflection on life",
-      "tag": "#mortality",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#mortality"]
     },
     {
       "id": "sample-index-08",
       "chapter": "The Sanatorium",
       "theme": "Isolation",
       "subtheme": "A suspended community separated from ordinary society",
-      "tag": "#isolation",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#isolation"]
     },
     {
       "id": "sample-index-09",
       "chapter": "Intellectual Debates",
       "theme": "Politics",
       "subtheme": "Competing visions of European civilization",
-      "tag": "#politics",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#politics"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Departure",
       "theme": "History",
       "subtheme": "Individual experience confronted by European catastrophe",
-      "tag": "#history",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#history"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "The experience of time as altered by routine, memory, expectation, repetition, and consciousness.",
       "category": "Philosophical theme",
       "source": "Study context for The Magic Mountain",
-      "tag": "#subjective-time",
-      "tags": ["#time", "#consciousness"],
+      "tags": ["#time", "#consciousness", "#subjective-time"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "A physical condition that also functions as a framework for examining identity, society, culture, and mortality.",
       "category": "Theme",
       "source": "Study context for The Magic Mountain",
-      "tag": "#illness",
-      "tags": ["#body", "#mortality"],
+      "tags": ["#body", "#mortality", "#illness"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "A narrative pattern centered on the intellectual, psychological, ethical, or social development of a protagonist.",
       "category": "Literary form",
       "source": "Study context for The Magic Mountain",
-      "tag": "#bildungsroman",
-      "tags": ["#education", "#development"],
+      "tags": ["#education", "#development", "#bildungsroman"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "An intellectual tradition emphasizing human dignity, reason, education, culture, and human capacities.",
       "category": "Philosophical concept",
       "source": "Study context for The Magic Mountain",
-      "tag": "#humanism",
-      "tags": ["#reason", "#settembrini"],
+      "tags": ["#reason", "#settembrini", "#humanism"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "The confrontation between competing philosophical, political, religious, and cultural systems of thought.",
       "category": "Political concept",
       "source": "Study context for The Magic Mountain",
-      "tag": "#ideological-conflict",
-      "tags": ["#politics", "#ideas"],
+      "tags": ["#politics", "#ideas", "#ideological-conflict"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "Awareness of human vulnerability, illness, death, and the limits imposed upon individual existence.",
       "category": "Philosophical theme",
       "source": "Study context for The Magic Mountain",
-      "tag": "#mortality",
-      "tags": ["#death", "#illness"],
+      "tags": ["#death", "#illness", "#mortality"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "Separation from ordinary social rhythms that creates a distinct environment with its own routines and values.",
       "category": "Theme",
       "source": "Study context for The Magic Mountain",
-      "tag": "#isolation",
-      "tags": ["#sanatorium", "#society"],
+      "tags": ["#sanatorium", "#society", "#isolation"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "The cultural and political condition formed by competing ideas concerning progress, authority, science, religion, nationalism, and civilization.",
       "category": "Historical concept",
       "source": "Study context for The Magic Mountain",
-      "tag": "#european-modernity",
-      "tags": ["#europe", "#politics"],
+      "tags": ["#europe", "#politics", "#european-modernity"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "Development through sustained exposure to competing ideas rather than acceptance of a single philosophical position.",
       "category": "Theme",
       "source": "Study context for The Magic Mountain",
-      "tag": "#intellectual-education",
-      "tags": ["#education", "#philosophy"],
+      "tags": ["#education", "#philosophy", "#intellectual-education"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "An analytical concept describing existence removed from conventional schedules, responsibilities, and expectations.",
       "category": "Analytical concept",
       "source": "Study context for The Magic Mountain",
-      "tag": "#suspended-life",
-      "tags": ["#time", "#isolation"],
+      "tags": ["#time", "#isolation", "#suspended-life"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "sanatorium",
       "definition": "A medical institution historically associated with extended treatment and recuperation, particularly for chronic illnesses.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From modern Latin sanatorium, associated with healing.",
       "synonyms": ["health institution", "treatment center"],
       "contextSentence": "The sanatorium develops its own rhythms, customs, and expectations apart from ordinary society.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "tuberculosis",
       "definition": "An infectious disease caused by bacteria that most commonly affects the lungs.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin tuberculum, meaning a small swelling.",
       "synonyms": ["TB"],
       "contextSentence": "Tuberculosis provides an important medical context for the sanatorium environment.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "humanism",
       "definition": "A tradition of thought emphasizing human potential, education, reason, dignity, and cultural achievement.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin humanus, meaning human.",
       "synonyms": ["human-centered thought"],
       "contextSentence": "Humanism becomes one of the intellectual positions competing for the protagonist's attention.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "mortality",
       "definition": "The condition of being subject to death.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin mortalitas, associated with being mortal.",
       "synonyms": ["finitude", "impermanence"],
       "contextSentence": "Daily proximity to illness makes mortality difficult for the residents to treat as an abstract idea.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "temporality",
       "definition": "The condition or experience of existing within time.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin temporalis, meaning related to time.",
       "synonyms": ["time experience", "temporal condition"],
       "contextSentence": "Repetition changes the characters' experience of temporality as days become increasingly difficult to distinguish.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "ideology",
       "definition": "A system of ideas and values through which political or social reality is interpreted.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From French idéologie, formed from Greek-derived elements relating to ideas and study.",
       "synonyms": ["worldview", "doctrine"],
       "contextSentence": "Ideology turns conversation into a contest over competing visions of society and human nature.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "dialectic",
       "definition": "A method or process of examining ideas through tension, contradiction, and opposing arguments.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek dialektike, associated with discussion and argument.",
       "synonyms": ["debate", "reasoned opposition"],
       "contextSentence": "The intellectual dialectic becomes part of the protagonist's education rather than offering an immediate final answer.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "finitude",
       "definition": "The state of having limits, especially the limits associated with human life and mortality.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin finitus, meaning limited or bounded.",
       "synonyms": ["limitation", "mortality"],
       "contextSentence": "Illness makes human finitude part of everyday observation rather than distant speculation.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "convalescence",
       "definition": "The gradual process of recovering health after illness.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin convalescere, meaning to grow strong.",
       "synonyms": ["recovery", "recuperation"],
       "contextSentence": "Convalescence can blur into a permanent way of life when recovery has no clearly defined endpoint.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "Bildungsroman",
       "definition": "A novel centered on the development or education of its principal character.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From German Bildung, meaning education or formation, and Roman, meaning novel.",
       "synonyms": ["novel of formation", "coming-of-age novel"],
       "contextSentence": "The mountain can be interpreted as an unusual educational environment within a philosophical Bildungsroman.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-007-sample-character-01",
+      "secondaryCharacterIds": ["book-007-sample-character-02", "book-007-sample-character-03"],
+      "placeId": "book-007-sample-place-01",
+      "dateLabel": "Arrival",
+      "eventOrder": 1,
+      "event": "Study event 1: Arrival / Time",
+      "description": "Study synthesis for “Arrival”: the index highlights Time (Separation from ordinary temporal rhythms). The description of Hans Castorp (“A young German engineer whose visit to a Swiss sanatorium develops into an extended intellectual and personal education.”) is considered here alongside Subjective time (“The experience of time as altered by routine, memory, expectation, repetition, and consciousness.”). Davos and the passage “Arrival Above” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#C49A3A",
+      "book": "The Magic Mountain",
+      "author": "Thomas Mann",
+      "page": "",
+      "tags": ["#time", "#hans-castorp", "#education", "#subjective-time", "#consciousness", "#davos", "#switzerland", "#mountains"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-007-sample-character-03",
+      "secondaryCharacterIds": ["book-007-sample-character-04", "book-007-sample-character-05"],
+      "placeId": "book-007-sample-place-02",
+      "dateLabel": "The Berghof",
+      "eventOrder": 2,
+      "event": "Study event 2: The Berghof / Illness",
+      "description": "Study synthesis for “The Berghof”: the index highlights Illness (Disease as physical and cultural condition). The description of Lodovico Settembrini (“An Italian humanist and intellectual who advocates reason, education, liberty, and progress while attempting to influence Hans.”) is considered here alongside Bildungsroman (“A narrative pattern centered on the intellectual, psychological, ethical, or social development of a protagonist.”). Switzerland and the passage “Measured Days” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#B56576",
+      "book": "The Magic Mountain",
+      "author": "Thomas Mann",
+      "page": "",
+      "tags": ["#illness", "#settembrini", "#humanism", "#reason", "#bildungsroman", "#education", "#development", "#switzerland", "#alps", "#setting"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-007-sample-character-05",
+      "secondaryCharacterIds": ["book-007-sample-character-06", "book-007-sample-character-07"],
+      "placeId": "book-007-sample-place-03",
+      "dateLabel": "Hans Castorp",
+      "eventOrder": 3,
+      "event": "Study event 3: Hans Castorp / Transformation",
+      "description": "Study synthesis for “Hans Castorp”: the index highlights Transformation (Education through experience and intellectual encounter). The description of Clavdia Chauchat (“A patient at the sanatorium who becomes the focus of Hans Castorp's fascination and romantic desire.”) is considered here alongside Ideological conflict (“The confrontation between competing philosophical, political, religious, and cultural systems of thought.”). Berghof Sanatorium and the passage “The Patient” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#6A994E",
+      "book": "The Magic Mountain",
+      "author": "Thomas Mann",
+      "page": "",
+      "tags": ["#transformation", "#clavdia", "#desire", "#hans-castorp", "#ideological-conflict", "#politics", "#ideas", "#berghof", "#sanatorium", "#illness"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-007-sample-character-07",
+      "secondaryCharacterIds": ["book-007-sample-character-08", "book-007-sample-character-09"],
+      "placeId": "book-007-sample-place-04",
+      "dateLabel": "Settembrini",
+      "eventOrder": 4,
+      "event": "Study event 4: Settembrini / Humanism",
+      "description": "Study synthesis for “Settembrini”: the index highlights Humanism (Reason, progress, liberty, and education). The description of Dr. Krokowski (“A physician at the sanatorium associated with psychological interpretations of illness and desire.”) is considered here alongside Isolation (“Separation from ordinary social rhythms that creates a distinct environment with its own routines and values.”). Hamburg and the passage “Two Teachers” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#4F6D7A",
+      "book": "The Magic Mountain",
+      "author": "Thomas Mann",
+      "page": "",
+      "tags": ["#humanism", "#krokowski", "#psychology", "#illness", "#isolation", "#sanatorium", "#society", "#hamburg", "#hans-castorp", "#ordinary-life"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-007-sample-character-01",
+      "targetCharacterId": "book-007-sample-character-02",
+      "relationType": "thematic comparison",
+      "directed": false,
+      "description": "This reading association links Hans Castorp (A young German engineer whose visit to a Swiss sanatorium develops into an extended intellectual and personal education.) with Joachim Ziemssen (Hans Castorp's cousin, a sanatorium patient whose disciplined character and military aspirations contrast with Hans's increasing absorption in life on the mountain.). The theme “Time” and subtheme “Separation from ordinary temporal rhythms” guide the comparison; the passage “Arrival Above” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#C49A3A",
+      "book": "The Magic Mountain",
+      "author": "Thomas Mann",
+      "page": "",
+      "tags": ["#hans-castorp", "#education", "#time", "#joachim", "#discipline", "#illness"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-007-sample-character-03",
+      "targetCharacterId": "book-007-sample-character-04",
+      "relationType": "contrasting perspective",
+      "directed": false,
+      "description": "This reading association links Lodovico Settembrini (An Italian humanist and intellectual who advocates reason, education, liberty, and progress while attempting to influence Hans.) with Leo Naphta (An intellectual opponent of Settembrini whose arguments challenge liberal humanism through radical positions involving authority, religion, and revolution.). The theme “Illness” and subtheme “Disease as physical and cultural condition” guide the comparison; the passage “Measured Days” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#B56576",
+      "book": "The Magic Mountain",
+      "author": "Thomas Mann",
+      "page": "",
+      "tags": ["#settembrini", "#humanism", "#reason", "#naphta", "#ideology", "#authority", "#illness"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-007-sample-character-05",
+      "targetCharacterId": "book-007-sample-character-06",
+      "relationType": "shared narrative context",
+      "directed": false,
+      "description": "This reading association links Clavdia Chauchat (A patient at the sanatorium who becomes the focus of Hans Castorp's fascination and romantic desire.) with Dr. Behrens (The physician directing the sanatorium whose medical authority helps structure daily life among the patients.). The theme “Transformation” and subtheme “Education through experience and intellectual encounter” guide the comparison; the passage “The Patient” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#6A994E",
+      "book": "The Magic Mountain",
+      "author": "Thomas Mann",
+      "page": "",
+      "tags": ["#clavdia", "#desire", "#hans-castorp", "#behrens", "#medicine", "#authority", "#transformation"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-007-sample-character-07",
+      "targetCharacterId": "book-007-sample-character-08",
+      "relationType": "interpretive pairing",
+      "directed": false,
+      "description": "This reading association links Dr. Krokowski (A physician at the sanatorium associated with psychological interpretations of illness and desire.) with Mynheer Peeperkorn (A charismatic personality whose presence contrasts intellectual argument with personal force and emotional vitality.). The theme “Humanism” and subtheme “Reason, progress, liberty, and education” guide the comparison; the passage “Two Teachers” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#4F6D7A",
+      "book": "The Magic Mountain",
+      "author": "Thomas Mann",
+      "page": "",
+      "tags": ["#krokowski", "#psychology", "#illness", "#peeperkorn", "#charisma", "#vitality", "#humanism"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-007-sample-concept-01",
+      "targetConceptId": "book-007-sample-concept-02",
+      "relationType": "provides context for",
+      "directed": true,
+      "description": "The definition of “Subjective time” (“The experience of time as altered by routine, memory, expectation, repetition, and consciousness.”) can be read in relation to “Illness” (“A physical condition that also functions as a framework for examining identity, society, culture, and mortality.”). The theme Time and subtheme Separation from ordinary temporal rhythms, together with the passage “Arrival Above”, place this conceptual connection in the book’s reading context.",
+      "color": "#735D78",
+      "book": "The Magic Mountain",
+      "author": "Thomas Mann",
+      "page": "",
+      "tags": ["#subjective-time", "#time", "#consciousness", "#illness", "#body", "#mortality"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-007-sample-concept-03",
+      "targetConceptId": "book-007-sample-concept-04",
+      "relationType": "offers a lens on",
+      "directed": false,
+      "description": "The definition of “Bildungsroman” (“A narrative pattern centered on the intellectual, psychological, ethical, or social development of a protagonist.”) can be read in relation to “Humanism” (“An intellectual tradition emphasizing human dignity, reason, education, culture, and human capacities.”). The theme Illness and subtheme Disease as physical and cultural condition, together with the passage “Measured Days”, place this conceptual connection in the book’s reading context.",
+      "color": "#2F6690",
+      "book": "The Magic Mountain",
+      "author": "Thomas Mann",
+      "page": "",
+      "tags": ["#bildungsroman", "#education", "#development", "#humanism", "#reason", "#settembrini", "#illness"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-007-sample-concept-05",
+      "targetConceptId": "book-007-sample-concept-06",
+      "relationType": "contrasts with",
+      "directed": false,
+      "description": "The definition of “Ideological conflict” (“The confrontation between competing philosophical, political, religious, and cultural systems of thought.”) can be read in relation to “Mortality” (“Awareness of human vulnerability, illness, death, and the limits imposed upon individual existence.”). The theme Transformation and subtheme Education through experience and intellectual encounter, together with the passage “The Patient”, place this conceptual connection in the book’s reading context.",
+      "color": "#A44A3F",
+      "book": "The Magic Mountain",
+      "author": "Thomas Mann",
+      "page": "",
+      "tags": ["#ideological-conflict", "#politics", "#ideas", "#mortality", "#death", "#illness", "#transformation"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-007-sample-concept-07",
+      "targetConceptId": "book-007-sample-concept-08",
+      "relationType": "complements",
+      "directed": true,
+      "description": "The definition of “Isolation” (“Separation from ordinary social rhythms that creates a distinct environment with its own routines and values.”) can be read in relation to “European modernity” (“The cultural and political condition formed by competing ideas concerning progress, authority, science, religion, nationalism, and civilization.”). The theme Humanism and subtheme Reason, progress, liberty, and education, together with the passage “Two Teachers”, place this conceptual connection in the book’s reading context.",
+      "color": "#5C4D7D",
+      "book": "The Magic Mountain",
+      "author": "Thomas Mann",
+      "page": "",
+      "tags": ["#isolation", "#sanatorium", "#society", "#european-modernity", "#europe", "#politics", "#humanism"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

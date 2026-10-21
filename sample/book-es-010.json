@@ -5,80 +5,80 @@
       "chapter": "El viejo",
       "theme": "Identidad",
       "subtheme": "Origen, pertenencia y memoria cultural",
-      "tag": "#identidad",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#identidad"]
     },
     {
       "id": "sample-index-02",
       "chapter": "Los viajes",
       "theme": "Formación",
       "subtheme": "Paisaje andino, aprendizaje y desplazamiento",
-      "tag": "#formación",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#formación"]
     },
     {
       "id": "sample-index-03",
       "chapter": "El internado",
       "theme": "Aislamiento",
       "subtheme": "Disciplina, jerarquía y experiencia adolescente",
-      "tag": "#internado",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#internado"]
     },
     {
       "id": "sample-index-04",
       "chapter": "Ernesto",
       "theme": "Identidad cultural",
       "subtheme": "Convivencia de distintas tradiciones culturales y lingüísticas",
-      "tag": "#identidad-cultural",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#identidad-cultural"]
     },
     {
       "id": "sample-index-05",
       "chapter": "El zumbayllu",
       "theme": "Comunicación",
       "subtheme": "Sonido, memoria y conexión afectiva",
-      "tag": "#zumbayllu",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#zumbayllu"]
     },
     {
       "id": "sample-index-06",
       "chapter": "Abancay",
       "theme": "Sociedad",
       "subtheme": "Desigualdad, conflicto y relaciones de poder",
-      "tag": "#sociedad",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#sociedad"]
     },
     {
       "id": "sample-index-07",
       "chapter": "Las chicheras",
       "theme": "Resistencia",
       "subtheme": "Acción colectiva frente a la desigualdad",
-      "tag": "#resistencia",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#resistencia"]
     },
     {
       "id": "sample-index-08",
       "chapter": "Los ríos",
       "theme": "Naturaleza",
       "subtheme": "Paisaje, movimiento y experiencia espiritual",
-      "tag": "#naturaleza",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#naturaleza"]
     },
     {
       "id": "sample-index-09",
       "chapter": "Lengua y cultura",
       "theme": "Quechua",
       "subtheme": "Lenguaje, sensibilidad y formas de comprender el mundo",
-      "tag": "#quechua",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#quechua"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Panorama analítico",
       "theme": "Mundo andino",
       "subtheme": "Identidad, memoria, conflicto cultural y comunidad",
-      "tag": "#mundo-andino",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#mundo-andino"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "Proceso de transformación cultural producido mediante el contacto y la interacción entre tradiciones diferentes.",
       "category": "Concepto cultural",
       "source": "Contexto de estudio para Los ríos profundos",
-      "tag": "#transculturación",
-      "tags": ["#cultura", "#identidad"],
+      "tags": ["#cultura", "#identidad", "#transculturación"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "Comprensión de la propia pertenencia construida mediante lengua, memoria, comunidad, experiencias y tradiciones culturales.",
       "category": "Tema",
       "source": "Contexto de estudio para Los ríos profundos",
-      "tag": "#identidad-cultural",
-      "tags": ["#identidad", "#cultura"],
+      "tags": ["#identidad", "#cultura", "#identidad-cultural"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "Experiencia de habitar y comprender el mundo mediante más de una lengua y los marcos culturales relacionados con ellas.",
       "category": "Concepto lingüístico",
       "source": "Contexto de estudio para Los ríos profundos",
-      "tag": "#bilingüismo-cultural",
-      "tags": ["#quechua", "#español"],
+      "tags": ["#quechua", "#español", "#bilingüismo-cultural"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "Conjunto de formas culturales de comprender las relaciones entre comunidad, naturaleza, territorio, memoria y experiencia.",
       "category": "Concepto cultural",
       "source": "Contexto de estudio para Los ríos profundos",
-      "tag": "#cosmovisión-andina",
-      "tags": ["#andes", "#naturaleza"],
+      "tags": ["#andes", "#naturaleza", "#cosmovisión-andina"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "Distribución desigual de poder, recursos, reconocimiento y oportunidades entre diferentes grupos de una sociedad.",
       "category": "Tema social",
       "source": "Contexto de estudio para Los ríos profundos",
-      "tag": "#desigualdad-social",
-      "tags": ["#sociedad", "#poder"],
+      "tags": ["#sociedad", "#poder", "#desigualdad-social"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "Objeto de juego que adquiere una fuerte dimensión simbólica relacionada con sonido, comunicación, memoria y vínculos afectivos.",
       "category": "Símbolo",
       "source": "Contexto de estudio para Los ríos profundos",
-      "tag": "#zumbayllu",
-      "tags": ["#comunicación", "#memoria"],
+      "tags": ["#comunicación", "#memoria", "#zumbayllu"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "Forma literaria de representar ríos, montañas, sonidos y paisajes como presencias estrechamente relacionadas con la experiencia humana.",
       "category": "Concepto literario",
       "source": "Contexto de estudio para Los ríos profundos",
-      "tag": "#naturaleza-animada",
-      "tags": ["#naturaleza", "#paisaje"],
+      "tags": ["#naturaleza", "#paisaje", "#naturaleza-animada"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "Conjunto de relatos, sonidos, prácticas y conocimientos mediante los cuales una comunidad mantiene relaciones con su pasado.",
       "category": "Tema",
       "source": "Contexto de estudio para Los ríos profundos",
-      "tag": "#memoria-comunitaria",
-      "tags": ["#memoria", "#comunidad"],
+      "tags": ["#memoria", "#comunidad", "#memoria-comunitaria"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "Organización desigual de personas y grupos según posiciones de autoridad, riqueza, prestigio o reconocimiento.",
       "category": "Tema social",
       "source": "Contexto de estudio para Los ríos profundos",
-      "tag": "#jerarquía-social",
-      "tags": ["#poder", "#desigualdad"],
+      "tags": ["#poder", "#desigualdad", "#jerarquía-social"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "Acción comunitaria mediante la cual un grupo responde a condiciones percibidas como injustas o abusivas.",
       "category": "Tema social",
       "source": "Contexto de estudio para Los ríos profundos",
-      "tag": "#resistencia-colectiva",
-      "tags": ["#comunidad", "#resistencia"],
+      "tags": ["#comunidad", "#resistencia", "#resistencia-colectiva"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "zumbayllu",
       "definition": "Trompo asociado en la novela con sonido, juego, comunicación y memoria.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Término de raíz quechua utilizado por Arguedas dentro de un contexto cultural y lingüístico andino.",
       "synonyms": ["trompo"],
       "contextSentence": "El zumbayllu convierte el sonido de un juguete en una experiencia cargada de memoria y comunicación.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "quechua",
       "definition": "Nombre aplicado a una familia de lenguas indígenas andinas y a contextos culturales relacionados con sus comunidades hablantes.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Término de origen indígena andino incorporado al español.",
       "synonyms": ["lengua quechua"],
       "contextSentence": "El quechua participa en la manera en que el protagonista recuerda, siente y comprende el mundo andino.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "chichera",
       "definition": "Mujer vinculada con la preparación o venta de chicha.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Derivado de chicha, término americano incorporado tempranamente al español.",
       "synonyms": ["vendedora de chicha"],
       "contextSentence": "Las chicheras aparecen asociadas con formas de organización y acción colectiva.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "ayllu",
       "definition": "Forma tradicional andina de organización comunitaria basada en vínculos sociales, familiares y territoriales.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del quechua ayllu.",
       "synonyms": ["comunidad", "grupo de parentesco"],
       "contextSentence": "La idea de ayllu ayuda a comprender formas comunitarias de pertenencia distintas del individualismo urbano.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "huayno",
       "definition": "Género musical y dancístico tradicional ampliamente asociado con los Andes.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Término de origen quechua incorporado al español andino.",
       "synonyms": ["wayno"],
       "contextSentence": "Un huayno puede conservar recuerdos y emociones mediante palabras, melodía y experiencia compartida.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "hacienda",
       "definition": "Propiedad rural de extensión variable organizada alrededor de actividades productivas y relaciones sociales específicas.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Derivado del latín facienda, relacionado con aquello que debe hacerse.",
       "synonyms": ["finca", "propiedad rural"],
       "contextSentence": "La hacienda puede funcionar como espacio económico y también como estructura de jerarquía social.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "misti",
       "definition": "Término andino utilizado en determinados contextos para referirse a personas vinculadas con sectores cultural o socialmente identificados con el mundo hispanohablante dominante.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Término de uso andino incorporado al español regional.",
       "synonyms": ["señor", "persona urbana"],
       "contextSentence": "La categoría de misti puede adquirir significados sociales diferentes según la comunidad y la relación de poder en cuestión.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "internado",
       "definition": "Institución educativa en la que los estudiantes residen durante períodos de formación.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Derivado de internar, relacionado con permanecer dentro de una institución.",
       "synonyms": ["colegio residencial", "residencia escolar"],
       "contextSentence": "El internado reúne estudiantes de distintas procedencias dentro de una estructura común de autoridad y disciplina.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "cosmovisión",
       "definition": "Conjunto de ideas y valores mediante los cuales una comunidad interpreta el mundo y su lugar dentro de él.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Compuesto a partir de cosmos y visión.",
       "synonyms": ["visión del mundo", "concepción del mundo"],
       "contextSentence": "Una cosmovisión influye en la manera de comprender la relación entre naturaleza, comunidad y experiencia.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "transculturación",
       "definition": "Proceso mediante el cual el contacto entre culturas produce transformaciones, pérdidas, incorporaciones y nuevas formas culturales.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Formado por trans-, cultura y el sufijo -ción.",
       "synonyms": ["transformación cultural", "intercambio cultural"],
       "contextSentence": "La transculturación permite analizar identidades formadas mediante la relación entre mundos culturales diferentes.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-es-010-sample-character-01",
+      "secondaryCharacterIds": ["book-es-010-sample-character-02", "book-es-010-sample-character-03"],
+      "placeId": "book-es-010-sample-place-01",
+      "dateLabel": "El viejo",
+      "eventOrder": 1,
+      "event": "Evento de estudio 1: El viejo / Identidad",
+      "description": "Síntesis de estudio para «El viejo»: el índice destaca Identidad (Origen, pertenencia y memoria cultural). La descripción de Ernesto («Joven protagonista cuya experiencia entre distintos espacios sociales y culturales constituye el centro de la exploración de identidad, memoria y pertenencia.») se relaciona aquí con el concepto Transculturación («Proceso de transformación cultural producido mediante el contacto y la interacción entre tradiciones diferentes.»). Abancay y el pasaje «El río» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#A44A3F",
+      "book": "Los ríos profundos",
+      "author": "José María Arguedas",
+      "page": "",
+      "tags": ["#identidad", "#ernesto", "#mundo-andino", "#transculturación", "#cultura", "#abancay", "#perú", "#andes"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-es-010-sample-character-03",
+      "secondaryCharacterIds": ["book-es-010-sample-character-04", "book-es-010-sample-character-05"],
+      "placeId": "book-es-010-sample-place-02",
+      "dateLabel": "Los viajes",
+      "eventOrder": 2,
+      "event": "Evento de estudio 2: Los viajes / Formación",
+      "description": "Síntesis de estudio para «Los viajes»: el índice destaca Formación (Paisaje andino, aprendizaje y desplazamiento). La descripción de El Viejo («Pariente vinculado con las primeras experiencias narradas y con relaciones de poder, propiedad y jerarquía social.») se relaciona aquí con el concepto Bilingüismo cultural («Experiencia de habitar y comprender el mundo mediante más de una lengua y los marcos culturales relacionados con ellas.»). Cusco y el pasaje «Dos lenguas» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#5C4D7D",
+      "book": "Los ríos profundos",
+      "author": "José María Arguedas",
+      "page": "",
+      "tags": ["#formación", "#el-viejo", "#poder", "#familia", "#bilingüismo-cultural", "#quechua", "#español", "#cusco", "#andes", "#historia"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-es-010-sample-character-05",
+      "secondaryCharacterIds": ["book-es-010-sample-character-06", "book-es-010-sample-character-07"],
+      "placeId": "book-es-010-sample-place-03",
+      "dateLabel": "El internado",
+      "eventOrder": 3,
+      "event": "Evento de estudio 3: El internado / Aislamiento",
+      "description": "Síntesis de estudio para «El internado»: el índice destaca Aislamiento (Disciplina, jerarquía y experiencia adolescente). La descripción de Ántero («Entrada analítica alternativa asociada con las relaciones juveniles del internado y con los conflictos de amistad, aprendizaje y pertenencia.») se relaciona aquí con el concepto Desigualdad social («Distribución desigual de poder, recursos, reconocimiento y oportunidades entre diferentes grupos de una sociedad.»). Perú y el pasaje «El internado» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#C49A3A",
+      "book": "Los ríos profundos",
+      "author": "José María Arguedas",
+      "page": "",
+      "tags": ["#internado", "#muestra-analítica", "#juventud", "#amistad", "#desigualdad-social", "#sociedad", "#poder", "#perú", "#identidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-es-010-sample-character-07",
+      "secondaryCharacterIds": ["book-es-010-sample-character-08", "book-es-010-sample-character-09"],
+      "placeId": "book-es-010-sample-place-04",
+      "dateLabel": "Ernesto",
+      "eventOrder": 4,
+      "event": "Evento de estudio 4: Ernesto / Identidad cultural",
+      "description": "Síntesis de estudio para «Ernesto»: el índice destaca Identidad cultural (Convivencia de distintas tradiciones culturales y lingüísticas). La descripción de Doña Felipa («Figura vinculada con las chicheras y con una importante expresión de acción colectiva y resistencia social.») se relaciona aquí con el concepto Naturaleza animada («Forma literaria de representar ríos, montañas, sonidos y paisajes como presencias estrechamente relacionadas con la experiencia humana.»). Internado de Abancay y el pasaje «El zumbayllu» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#735D78",
+      "book": "Los ríos profundos",
+      "author": "José María Arguedas",
+      "page": "",
+      "tags": ["#identidad-cultural", "#doña-felipa", "#resistencia", "#chicheras", "#naturaleza-animada", "#naturaleza", "#paisaje", "#internado", "#abancay", "#ernesto"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-es-010-sample-character-01",
+      "targetCharacterId": "book-es-010-sample-character-02",
+      "relationType": "comparación temática",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Ernesto (Joven protagonista cuya experiencia entre distintos espacios sociales y culturales constituye el centro de la exploración de identidad, memoria y pertenencia.) con El padre de Ernesto (Abogado itinerante y padre del protagonista, cuyos desplazamientos contribuyen a la formación y experiencia geográfica de Ernesto.). El tema «Identidad» y el subtema «Origen, pertenencia y memoria cultural» orientan la comparación; el pasaje «El río» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#A44A3F",
+      "book": "Los ríos profundos",
+      "author": "José María Arguedas",
+      "page": "",
+      "tags": ["#ernesto", "#identidad", "#mundo-andino", "#padre", "#viaje"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-es-010-sample-character-03",
+      "targetCharacterId": "book-es-010-sample-character-04",
+      "relationType": "perspectivas en contraste",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula El Viejo (Pariente vinculado con las primeras experiencias narradas y con relaciones de poder, propiedad y jerarquía social.) con Antero (Estudiante del internado relacionado con Ernesto y con el zumbayllu, objeto de gran importancia simbólica dentro de la novela.). El tema «Formación» y el subtema «Paisaje andino, aprendizaje y desplazamiento» orientan la comparación; el pasaje «Dos lenguas» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#5C4D7D",
+      "book": "Los ríos profundos",
+      "author": "José María Arguedas",
+      "page": "",
+      "tags": ["#el-viejo", "#poder", "#familia", "#antero", "#zumbayllu", "#internado", "#formación"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-es-010-sample-character-05",
+      "targetCharacterId": "book-es-010-sample-character-06",
+      "relationType": "contexto narrativo compartido",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Ántero (Entrada analítica alternativa asociada con las relaciones juveniles del internado y con los conflictos de amistad, aprendizaje y pertenencia.) con Padre Linares (Figura religiosa y de autoridad dentro del entorno educativo del internado.). El tema «Aislamiento» y el subtema «Disciplina, jerarquía y experiencia adolescente» orientan la comparación; el pasaje «El internado» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#C49A3A",
+      "book": "Los ríos profundos",
+      "author": "José María Arguedas",
+      "page": "",
+      "tags": ["#muestra-analítica", "#juventud", "#amistad", "#padre-linares", "#religión", "#autoridad", "#internado"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-es-010-sample-character-07",
+      "targetCharacterId": "book-es-010-sample-character-08",
+      "relationType": "asociación interpretativa",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Doña Felipa (Figura vinculada con las chicheras y con una importante expresión de acción colectiva y resistencia social.) con Palacitos (Estudiante vinculado con el mundo del internado y con las diferencias sociales y culturales existentes entre los alumnos.). El tema «Identidad cultural» y el subtema «Convivencia de distintas tradiciones culturales y lingüísticas» orientan la comparación; el pasaje «El zumbayllu» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#735D78",
+      "book": "Los ríos profundos",
+      "author": "José María Arguedas",
+      "page": "",
+      "tags": ["#doña-felipa", "#resistencia", "#chicheras", "#palacitos", "#internado", "#identidad", "#identidad-cultural"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-es-010-sample-concept-01",
+      "targetConceptId": "book-es-010-sample-concept-02",
+      "relationType": "da contexto a",
+      "directed": true,
+      "description": "La definición de «Transculturación» («Proceso de transformación cultural producido mediante el contacto y la interacción entre tradiciones diferentes.») puede leerse en relación con «Identidad cultural» («Comprensión de la propia pertenencia construida mediante lengua, memoria, comunidad, experiencias y tradiciones culturales.»). El tema Identidad y el subtema Origen, pertenencia y memoria cultural, junto con el pasaje «El río», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#735D78",
+      "book": "Los ríos profundos",
+      "author": "José María Arguedas",
+      "page": "",
+      "tags": ["#transculturación", "#cultura", "#identidad", "#identidad-cultural"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-es-010-sample-concept-03",
+      "targetConceptId": "book-es-010-sample-concept-04",
+      "relationType": "ofrece una perspectiva sobre",
+      "directed": false,
+      "description": "La definición de «Bilingüismo cultural» («Experiencia de habitar y comprender el mundo mediante más de una lengua y los marcos culturales relacionados con ellas.») puede leerse en relación con «Cosmovisión andina» («Conjunto de formas culturales de comprender las relaciones entre comunidad, naturaleza, territorio, memoria y experiencia.»). El tema Formación y el subtema Paisaje andino, aprendizaje y desplazamiento, junto con el pasaje «Dos lenguas», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#2F6690",
+      "book": "Los ríos profundos",
+      "author": "José María Arguedas",
+      "page": "",
+      "tags": ["#bilingüismo-cultural", "#quechua", "#español", "#cosmovisión-andina", "#andes", "#naturaleza", "#formación"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-es-010-sample-concept-05",
+      "targetConceptId": "book-es-010-sample-concept-06",
+      "relationType": "contrasta con",
+      "directed": false,
+      "description": "La definición de «Desigualdad social» («Distribución desigual de poder, recursos, reconocimiento y oportunidades entre diferentes grupos de una sociedad.») puede leerse en relación con «Zumbayllu» («Objeto de juego que adquiere una fuerte dimensión simbólica relacionada con sonido, comunicación, memoria y vínculos afectivos.»). El tema Aislamiento y el subtema Disciplina, jerarquía y experiencia adolescente, junto con el pasaje «El internado», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#A44A3F",
+      "book": "Los ríos profundos",
+      "author": "José María Arguedas",
+      "page": "",
+      "tags": ["#desigualdad-social", "#sociedad", "#poder", "#zumbayllu", "#comunicación", "#memoria", "#internado"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-es-010-sample-concept-07",
+      "targetConceptId": "book-es-010-sample-concept-08",
+      "relationType": "complementa",
+      "directed": true,
+      "description": "La definición de «Naturaleza animada» («Forma literaria de representar ríos, montañas, sonidos y paisajes como presencias estrechamente relacionadas con la experiencia humana.») puede leerse en relación con «Memoria comunitaria» («Conjunto de relatos, sonidos, prácticas y conocimientos mediante los cuales una comunidad mantiene relaciones con su pasado.»). El tema Identidad cultural y el subtema Convivencia de distintas tradiciones culturales y lingüísticas, junto con el pasaje «El zumbayllu», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#5C4D7D",
+      "book": "Los ríos profundos",
+      "author": "José María Arguedas",
+      "page": "",
+      "tags": ["#naturaleza-animada", "#naturaleza", "#paisaje", "#memoria-comunitaria", "#memoria", "#comunidad", "#identidad-cultural"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

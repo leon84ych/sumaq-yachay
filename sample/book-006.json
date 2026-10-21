@@ -5,80 +5,80 @@
       "chapter": "Introduction",
       "theme": "Identity",
       "subtheme": "Possibility and the absence of fixed qualities",
-      "tag": "#identity",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#identity"]
     },
     {
       "id": "sample-index-02",
       "chapter": "The Parallel Campaign",
       "theme": "Politics",
       "subtheme": "Symbolic action and political idealism",
-      "tag": "#politics",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#politics"]
     },
     {
       "id": "sample-index-03",
       "chapter": "The Parallel Campaign",
       "theme": "Society",
       "subtheme": "Institutions, prestige, and social performance",
-      "tag": "#society",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#society"]
     },
     {
       "id": "sample-index-04",
       "chapter": "Ulrich",
       "theme": "Possibility",
       "subtheme": "Alternative ways of understanding reality",
-      "tag": "#possibility",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#possibility"]
     },
     {
       "id": "sample-index-05",
       "chapter": "Diotima",
       "theme": "Idealism",
       "subtheme": "Intellectual ambition and social contradiction",
-      "tag": "#idealism",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#idealism"]
     },
     {
       "id": "sample-index-06",
       "chapter": "Moosbrugger",
       "theme": "Reason",
       "subtheme": "Psychology, judgment, and social interpretation",
-      "tag": "#reason",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#reason"]
     },
     {
       "id": "sample-index-07",
       "chapter": "Walter and Clarisse",
       "theme": "Art",
       "subtheme": "Creativity, ambition, and instability",
-      "tag": "#art",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#art"]
     },
     {
       "id": "sample-index-08",
       "chapter": "Agathe",
       "theme": "Relationship",
       "subtheme": "Intimacy and alternative forms of existence",
-      "tag": "#relationship",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#relationship"]
     },
     {
       "id": "sample-index-09",
       "chapter": "Analytical Overview",
       "theme": "Modernity",
       "subtheme": "Rationalization, specialization, and uncertainty",
-      "tag": "#modernity",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#modernity"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Analytical Overview",
       "theme": "Philosophy",
       "subtheme": "The tension between reality and possibility",
-      "tag": "#philosophy",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#philosophy"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "A mode of thinking that considers what could exist alongside or instead of what currently exists.",
       "category": "Philosophical concept",
       "source": "Study context for The Man Without Qualities",
-      "tag": "#possibility",
-      "tags": ["#philosophy", "#ulrich"],
+      "tags": ["#philosophy", "#ulrich", "#possibility"],
       "syncStatus": "synced"
     },
     {
@@ -240,7 +239,6 @@
       "definition": "An orientation toward existing conditions, practical facts, and established arrangements.",
       "category": "Philosophical concept",
       "source": "Study context for The Man Without Qualities",
-      "tag": "#reality",
       "tags": ["#reality", "#possibility"],
       "syncStatus": "synced"
     },
@@ -250,8 +248,7 @@
       "definition": "A conception of identity shaped by competing roles, disciplines, institutions, ideas, and social expectations rather than a single stable essence.",
       "category": "Theme",
       "source": "Study context for The Man Without Qualities",
-      "tag": "#modern-identity",
-      "tags": ["#identity", "#modernity"],
+      "tags": ["#identity", "#modernity", "#modern-identity"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "The increasing organization of life according to calculation, systematic reasoning, administration, and specialized knowledge.",
       "category": "Social concept",
       "source": "Study context for The Man Without Qualities",
-      "tag": "#rationalization",
-      "tags": ["#reason", "#modernity"],
+      "tags": ["#reason", "#modernity", "#rationalization"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "The use of public initiatives, ceremonies, institutions, or ideas to express political meaning beyond immediate practical outcomes.",
       "category": "Political concept",
       "source": "Study context for The Man Without Qualities",
-      "tag": "#political-symbolism",
-      "tags": ["#politics", "#society"],
+      "tags": ["#politics", "#society", "#political-symbolism"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "The presentation of identity and status through conversation, manners, intellectual positions, reputation, and institutional roles.",
       "category": "Social theme",
       "source": "Study context for The Man Without Qualities",
-      "tag": "#social-performance",
-      "tags": ["#society", "#identity"],
+      "tags": ["#society", "#identity", "#social-performance"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "The coexistence of multiple frameworks, disciplines, ideologies, and interpretations without an obvious principle that conclusively unifies them.",
       "category": "Philosophical concept",
       "source": "Study context for The Man Without Qualities",
-      "tag": "#intellectual-pluralism",
-      "tags": ["#ideas", "#philosophy"],
+      "tags": ["#ideas", "#philosophy", "#intellectual-pluralism"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "A condition in which ethical judgments resist simple classification because motives, circumstances, and consequences point in competing directions.",
       "category": "Ethical concept",
       "source": "Study context for The Man Without Qualities",
-      "tag": "#moral-ambiguity",
-      "tags": ["#ethics", "#judgment"],
+      "tags": ["#ethics", "#judgment", "#moral-ambiguity"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "The analytical examination of institutions, conventions, hierarchies, and assumptions operating within society.",
       "category": "Literary concept",
       "source": "Study context for The Man Without Qualities",
-      "tag": "#social-critique",
-      "tags": ["#society", "#politics"],
+      "tags": ["#society", "#politics", "#social-critique"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "A narrative mode in which storytelling repeatedly opens into extended reflection, analysis, speculation, and intellectual argument.",
       "category": "Narrative technique",
       "source": "Study context for The Man Without Qualities",
-      "tag": "#essayistic-fiction",
-      "tags": ["#modernism", "#philosophy"],
+      "tags": ["#modernism", "#philosophy", "#essayistic-fiction"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "possibility",
       "definition": "A condition, event, or form of existence that could occur or be imagined even if it is not presently actual.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin possibilitas, associated with what can be done or exist.",
       "synonyms": ["potential", "alternative"],
       "contextSentence": "The sense of possibility asks whether reality could be arranged differently from the way it currently appears.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "rationalism",
       "definition": "An approach that gives a central role to reason in acquiring knowledge or organizing thought.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin ratio, meaning reason or calculation.",
       "synonyms": ["reason-based thought", "intellectualism"],
       "contextSentence": "Rationalism can provide structure while still leaving questions of value unresolved.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "idealism",
       "definition": "The pursuit or prioritization of ideals, sometimes without sufficient attention to practical limitations.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from ideal, ultimately connected with Greek idea.",
       "synonyms": ["aspiration", "visionary thinking"],
       "contextSentence": "Political idealism becomes complicated when participants cannot agree on which ideal deserves priority.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "ambivalence",
       "definition": "The simultaneous presence of conflicting attitudes or feelings toward the same subject.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Formed from Latin-derived elements suggesting strength in two directions.",
       "synonyms": ["uncertainty", "mixed feelings"],
       "contextSentence": "Ambivalence allows the observer to criticize an institution while remaining fascinated by it.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "modernity",
       "definition": "The social and cultural condition associated with modern institutions, rapid change, specialization, and new forms of knowledge.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from modern, ultimately from Latin modernus.",
       "synonyms": ["modern condition", "modern age"],
       "contextSentence": "Modernity produces both new possibilities and new forms of uncertainty.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "bureaucracy",
       "definition": "A system of administration organized through officials, offices, procedures, and institutional roles.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Formed from French bureau, meaning office, and the Greek-derived suffix -cracy.",
       "synonyms": ["administration", "officialdom"],
       "contextSentence": "Bureaucracy can transform ambitious political ideals into meetings, documents, classifications, and procedures.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "irony",
       "definition": "A mode of expression or representation in which apparent meaning and underlying significance differ.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek eironeia, associated with dissimulation or understated speech.",
       "synonyms": ["incongruity", "satirical contrast"],
       "contextSentence": "Irony exposes the distance between elevated public ideals and ordinary human motives.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "identity",
       "definition": "A person's evolving understanding of self in relation to characteristics, roles, relationships, and possibilities.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin identitas, associated with sameness.",
       "synonyms": ["selfhood", "sense of self"],
       "contextSentence": "Identity becomes less stable when no single profession, belief, or social role seems sufficient to define a person.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "utopia",
       "definition": "An imagined ideal society or condition, often used to examine the possibilities and limitations of existing arrangements.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek-derived elements meaning no place, popularized as the title of Thomas More's work.",
       "synonyms": ["ideal society", "ideal order"],
       "contextSentence": "The search for a unifying social ideal can drift toward utopia when practical contradictions are ignored.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "introspection",
       "definition": "The examination of one's own thoughts, motivations, feelings, and mental processes.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin roots meaning to look within.",
       "synonyms": ["self-examination", "reflection"],
       "contextSentence": "Introspection can turn an ordinary decision into a philosophical question about character and possibility.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-006-sample-character-01",
+      "secondaryCharacterIds": ["book-006-sample-character-02", "book-006-sample-character-03"],
+      "placeId": "book-006-sample-place-01",
+      "dateLabel": "Introduction",
+      "eventOrder": 1,
+      "event": "Study event 1: Introduction / Identity",
+      "description": "Study synthesis for “Introduction”: the index highlights Identity (Possibility and the absence of fixed qualities). The description of Ulrich (“The central character, an intellectually restless man who approaches society and identity through skepticism, analysis, and a strong sense of unrealized possibility.”) is considered here alongside Sense of possibility (“A mode of thinking that considers what could exist alongside or instead of what currently exists.”). Vienna and the passage “Possible Lives” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#735D78",
+      "book": "The Man Without Qualities",
+      "author": "Robert Musil",
+      "page": "",
+      "tags": ["#identity", "#ulrich", "#possibility", "#philosophy", "#vienna", "#city", "#modernity"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-006-sample-character-03",
+      "secondaryCharacterIds": ["book-006-sample-character-04", "book-006-sample-character-05"],
+      "placeId": "book-006-sample-place-02",
+      "dateLabel": "The Parallel Campaign",
+      "eventOrder": 2,
+      "event": "Study event 2: The Parallel Campaign / Politics",
+      "description": "Study synthesis for “The Parallel Campaign”: the index highlights Politics (Symbolic action and political idealism). The description of Diotima (“A prominent hostess associated with the Parallel Campaign whose intellectual aspirations interact with ambition, idealism, and social prestige.”) is considered here alongside Modern identity (“A conception of identity shaped by competing roles, disciplines, institutions, ideas, and social expectations rather than a single stable essence.”). Austria-Hungary and the passage “The Important Committee” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#C49A3A",
+      "book": "The Man Without Qualities",
+      "author": "Robert Musil",
+      "page": "",
+      "tags": ["#politics", "#diotima", "#idealism", "#society", "#modern-identity", "#identity", "#modernity", "#austria-hungary", "#empire"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-006-sample-character-05",
+      "secondaryCharacterIds": ["book-006-sample-character-06", "book-006-sample-character-07"],
+      "placeId": "book-006-sample-place-03",
+      "dateLabel": "The Parallel Campaign",
+      "eventOrder": 3,
+      "event": "Study event 3: The Parallel Campaign / Society",
+      "description": "Study synthesis for “The Parallel Campaign”: the index highlights Society (Institutions, prestige, and social performance). The description of Walter (“Ulrich's friend, associated with artistic aspiration and anxiety about modern intellectual and cultural life.”) is considered here alongside Political symbolism (“The use of public initiatives, ceremonies, institutions, or ideas to express political meaning beyond immediate practical outcomes.”). Kakania and the passage “A Measured World” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#D17B49",
+      "book": "The Man Without Qualities",
+      "author": "Robert Musil",
+      "page": "",
+      "tags": ["#society", "#walter", "#art", "#modernity", "#political-symbolism", "#politics", "#kakania", "#empire", "#satire"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-006-sample-character-07",
+      "secondaryCharacterIds": ["book-006-sample-character-08", "book-006-sample-character-09"],
+      "placeId": "book-006-sample-place-04",
+      "dateLabel": "Ulrich",
+      "eventOrder": 4,
+      "event": "Study event 4: Ulrich / Possibility",
+      "description": "Study synthesis for “Ulrich”: the index highlights Possibility (Alternative ways of understanding reality). The description of Moosbrugger (“A convicted murderer whose case becomes an object of fascination and debate about criminal responsibility, psychology, and social judgment.”) is considered here alongside Intellectual pluralism (“The coexistence of multiple frameworks, disciplines, ideologies, and interpretations without an obvious principle that conclusively unifies them.”). Diotima's Salon and the passage “Social Intelligence” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#B56576",
+      "book": "The Man Without Qualities",
+      "author": "Robert Musil",
+      "page": "",
+      "tags": ["#possibility", "#moosbrugger", "#justice", "#psychology", "#intellectual-pluralism", "#ideas", "#philosophy", "#analytical-sample", "#diotima", "#society"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-006-sample-character-01",
+      "targetCharacterId": "book-006-sample-character-02",
+      "relationType": "thematic comparison",
+      "directed": false,
+      "description": "This reading association links Ulrich (The central character, an intellectually restless man who approaches society and identity through skepticism, analysis, and a strong sense of unrealized possibility.) with Agathe (Ulrich's sister, whose renewed relationship with him becomes important to the novel's later exploration of intimacy, morality, and alternative ways of living.). The theme “Identity” and subtheme “Possibility and the absence of fixed qualities” guide the comparison; the passage “Possible Lives” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#735D78",
+      "book": "The Man Without Qualities",
+      "author": "Robert Musil",
+      "page": "",
+      "tags": ["#ulrich", "#identity", "#possibility", "#agathe", "#relationship"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-006-sample-character-03",
+      "targetCharacterId": "book-006-sample-character-04",
+      "relationType": "contrasting perspective",
+      "directed": false,
+      "description": "This reading association links Diotima (A prominent hostess associated with the Parallel Campaign whose intellectual aspirations interact with ambition, idealism, and social prestige.) with Arnheim (A wealthy and intellectually ambitious businessman whose presence links economic power, culture, politics, and philosophical conversation.). The theme “Politics” and subtheme “Symbolic action and political idealism” guide the comparison; the passage “The Important Committee” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#C49A3A",
+      "book": "The Man Without Qualities",
+      "author": "Robert Musil",
+      "page": "",
+      "tags": ["#diotima", "#idealism", "#society", "#arnheim", "#power", "#politics"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-006-sample-character-05",
+      "targetCharacterId": "book-006-sample-character-06",
+      "relationType": "shared narrative context",
+      "directed": false,
+      "description": "This reading association links Walter (Ulrich's friend, associated with artistic aspiration and anxiety about modern intellectual and cultural life.) with Clarisse (Walter's wife, an intense and intellectually provocative figure involved in the novel's explorations of art, psychology, and instability.). The theme “Society” and subtheme “Institutions, prestige, and social performance” guide the comparison; the passage “A Measured World” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#D17B49",
+      "book": "The Man Without Qualities",
+      "author": "Robert Musil",
+      "page": "",
+      "tags": ["#walter", "#art", "#modernity", "#clarisse", "#psychology", "#society"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-006-sample-character-07",
+      "targetCharacterId": "book-006-sample-character-08",
+      "relationType": "interpretive pairing",
+      "directed": false,
+      "description": "This reading association links Moosbrugger (A convicted murderer whose case becomes an object of fascination and debate about criminal responsibility, psychology, and social judgment.) with General Stumm von Bordwehr (A military officer whose engagement with intellectual society creates contrasts between institutional organization and the complexity of ideas.). The theme “Possibility” and subtheme “Alternative ways of understanding reality” guide the comparison; the passage “Social Intelligence” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#B56576",
+      "book": "The Man Without Qualities",
+      "author": "Robert Musil",
+      "page": "",
+      "tags": ["#moosbrugger", "#justice", "#psychology", "#stumm", "#military", "#ideas", "#possibility"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-006-sample-concept-01",
+      "targetConceptId": "book-006-sample-concept-02",
+      "relationType": "provides context for",
+      "directed": true,
+      "description": "The definition of “Sense of possibility” (“A mode of thinking that considers what could exist alongside or instead of what currently exists.”) can be read in relation to “Sense of reality” (“An orientation toward existing conditions, practical facts, and established arrangements.”). The theme Identity and subtheme Possibility and the absence of fixed qualities, together with the passage “Possible Lives”, place this conceptual connection in the book’s reading context.",
+      "color": "#735D78",
+      "book": "The Man Without Qualities",
+      "author": "Robert Musil",
+      "page": "",
+      "tags": ["#possibility", "#philosophy", "#ulrich", "#reality", "#identity"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-006-sample-concept-03",
+      "targetConceptId": "book-006-sample-concept-04",
+      "relationType": "offers a lens on",
+      "directed": false,
+      "description": "The definition of “Modern identity” (“A conception of identity shaped by competing roles, disciplines, institutions, ideas, and social expectations rather than a single stable essence.”) can be read in relation to “Rationalization” (“The increasing organization of life according to calculation, systematic reasoning, administration, and specialized knowledge.”). The theme Politics and subtheme Symbolic action and political idealism, together with the passage “The Important Committee”, place this conceptual connection in the book’s reading context.",
+      "color": "#2F6690",
+      "book": "The Man Without Qualities",
+      "author": "Robert Musil",
+      "page": "",
+      "tags": ["#modern-identity", "#identity", "#modernity", "#rationalization", "#reason", "#politics"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-006-sample-concept-05",
+      "targetConceptId": "book-006-sample-concept-06",
+      "relationType": "contrasts with",
+      "directed": false,
+      "description": "The definition of “Political symbolism” (“The use of public initiatives, ceremonies, institutions, or ideas to express political meaning beyond immediate practical outcomes.”) can be read in relation to “Social performance” (“The presentation of identity and status through conversation, manners, intellectual positions, reputation, and institutional roles.”). The theme Society and subtheme Institutions, prestige, and social performance, together with the passage “A Measured World”, place this conceptual connection in the book’s reading context.",
+      "color": "#A44A3F",
+      "book": "The Man Without Qualities",
+      "author": "Robert Musil",
+      "page": "",
+      "tags": ["#political-symbolism", "#politics", "#society", "#social-performance", "#identity"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-006-sample-concept-07",
+      "targetConceptId": "book-006-sample-concept-08",
+      "relationType": "complements",
+      "directed": true,
+      "description": "The definition of “Intellectual pluralism” (“The coexistence of multiple frameworks, disciplines, ideologies, and interpretations without an obvious principle that conclusively unifies them.”) can be read in relation to “Moral ambiguity” (“A condition in which ethical judgments resist simple classification because motives, circumstances, and consequences point in competing directions.”). The theme Possibility and subtheme Alternative ways of understanding reality, together with the passage “Social Intelligence”, place this conceptual connection in the book’s reading context.",
+      "color": "#5C4D7D",
+      "book": "The Man Without Qualities",
+      "author": "Robert Musil",
+      "page": "",
+      "tags": ["#intellectual-pluralism", "#ideas", "#philosophy", "#moral-ambiguity", "#ethics", "#judgment", "#possibility"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

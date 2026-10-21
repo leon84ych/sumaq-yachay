@@ -5,80 +5,80 @@
       "chapter": "Confesión inicial",
       "theme": "Aislamiento",
       "subtheme": "Separación emocional y dificultad para conectar con los demás",
-      "tag": "#aislamiento",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#aislamiento"]
     },
     {
       "id": "sample-index-02",
       "chapter": "La pintura",
       "theme": "Arte",
       "subtheme": "Expresión personal y deseo de ser comprendido",
-      "tag": "#arte",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#arte"]
     },
     {
       "id": "sample-index-03",
       "chapter": "El encuentro",
       "theme": "Reconocimiento",
       "subtheme": "La esperanza de encontrar una comprensión excepcional",
-      "tag": "#reconocimiento",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#reconocimiento"]
     },
     {
       "id": "sample-index-04",
       "chapter": "Juan Pablo Castel",
       "theme": "Obsesión",
       "subtheme": "Interpretación compulsiva de gestos y acontecimientos",
-      "tag": "#obsesión",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#obsesión"]
     },
     {
       "id": "sample-index-05",
       "chapter": "María Iribarne",
       "theme": "Comunicación",
       "subtheme": "Ambigüedad, silencio e imposibilidad de alcanzar certeza",
-      "tag": "#comunicación",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#comunicación"]
     },
     {
       "id": "sample-index-06",
       "chapter": "Los celos",
       "theme": "Desconfianza",
       "subtheme": "Sospecha, interpretación y necesidad de controlar",
-      "tag": "#celos",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#celos"]
     },
     {
       "id": "sample-index-07",
       "chapter": "La estancia",
       "theme": "Percepción",
       "subtheme": "Conflicto entre observación, imaginación y realidad",
-      "tag": "#percepción",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#percepción"]
     },
     {
       "id": "sample-index-08",
       "chapter": "El túnel",
       "theme": "Existencia",
       "subtheme": "La conciencia individual como espacio de aislamiento",
-      "tag": "#existencia",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#existencia"]
     },
     {
       "id": "sample-index-09",
       "chapter": "La crisis",
       "theme": "Incertidumbre",
       "subtheme": "Fracaso de la razón para eliminar la ambigüedad emocional",
-      "tag": "#incertidumbre",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#incertidumbre"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Panorama analítico",
       "theme": "Subjetividad",
       "subtheme": "Realidad filtrada por una conciencia obsesiva",
-      "tag": "#subjetividad",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#subjetividad"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "Experiencia de separación profunda entre la conciencia individual y la posibilidad de ser plenamente comprendido por otros.",
       "category": "Tema filosófico",
       "source": "Contexto de estudio para El túnel",
-      "tag": "#aislamiento-existencial",
-      "tags": ["#soledad", "#existencia"],
+      "tags": ["#soledad", "#existencia", "#aislamiento-existencial"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "Concentración persistente y dominante de la atención sobre una persona, idea, problema o interpretación.",
       "category": "Tema psicológico",
       "source": "Contexto de estudio para El túnel",
-      "tag": "#obsesión",
-      "tags": ["#psicología", "#castel"],
+      "tags": ["#psicología", "#castel", "#obsesión"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "Experiencia de la realidad condicionada por percepciones, emociones, recuerdos, expectativas e interpretaciones individuales.",
       "category": "Concepto filosófico",
       "source": "Contexto de estudio para El túnel",
-      "tag": "#subjetividad",
-      "tags": ["#percepción", "#conciencia"],
+      "tags": ["#percepción", "#conciencia", "#subjetividad"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "Narrador cuya interpretación de acontecimientos debe ser evaluada críticamente porque está condicionada por perspectivas o limitaciones personales.",
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para El túnel",
-      "tag": "#narrador-no-fiable",
-      "tags": ["#narración", "#perspectiva"],
+      "tags": ["#narración", "#perspectiva", "#narrador-no-fiable"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "Dificultad para transmitir experiencias, pensamientos o emociones de manera que otra persona pueda comprenderlos plenamente.",
       "category": "Tema existencial",
       "source": "Contexto de estudio para El túnel",
-      "tag": "#incomunicación",
-      "tags": ["#comunicación", "#aislamiento"],
+      "tags": ["#comunicación", "#aislamiento", "#incomunicación"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "Estado emocional vinculado con inseguridad, sospecha y temor frente a los vínculos afectivos de otra persona.",
       "category": "Tema psicológico",
       "source": "Contexto de estudio para El túnel",
-      "tag": "#celos",
-      "tags": ["#desconfianza", "#obsesión"],
+      "tags": ["#desconfianza", "#obsesión", "#celos"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "Tendencia a favorecer interpretaciones que parecen apoyar una creencia previa y a restar importancia a posibles explicaciones alternativas.",
       "category": "Concepto analítico",
       "source": "Contexto de estudio para El túnel",
-      "tag": "#sesgo-de-confirmación",
-      "tags": ["#percepción", "#interpretación"],
+      "tags": ["#percepción", "#interpretación", "#sesgo-de-confirmación"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "Impulso por eliminar la ambigüedad mediante explicaciones definitivas acerca de otras personas o de una situación.",
       "category": "Tema psicológico",
       "source": "Contexto de estudio para El túnel",
-      "tag": "#certeza",
-      "tags": ["#incertidumbre", "#control"],
+      "tags": ["#incertidumbre", "#control", "#certeza"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "Idea de la obra artística como posible medio para expresar una experiencia interior difícil de comunicar directamente.",
       "category": "Tema estético",
       "source": "Contexto de estudio para El túnel",
-      "tag": "#arte-comunicación",
-      "tags": ["#arte", "#comprensión"],
+      "tags": ["#arte", "#comprensión", "#arte-comunicación"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "Metáfora analítica del aislamiento de una conciencia que avanza dentro de su propia perspectiva buscando un punto de contacto con otra persona.",
       "category": "Símbolo",
       "source": "Contexto de estudio para El túnel",
-      "tag": "#túnel",
-      "tags": ["#aislamiento", "#existencia"],
+      "tags": ["#aislamiento", "#existencia", "#túnel"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "obsesión",
       "definition": "Idea, sentimiento o preocupación persistente que ocupa de manera dominante la atención.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín obsessio, relacionado históricamente con asedio.",
       "synonyms": ["fijación", "preocupación"],
       "contextSentence": "La obsesión puede convertir cualquier detalle ambiguo en material para nuevas interpretaciones.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "alienación",
       "definition": "Sensación o condición de extrañamiento respecto de otras personas, la sociedad o uno mismo.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín alienare, relacionado con volver ajeno o separar.",
       "synonyms": ["extrañamiento", "aislamiento"],
       "contextSentence": "La alienación aumenta cuando la persona siente que nadie puede comprender completamente su experiencia.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "introspección",
       "definition": "Observación y examen de los propios pensamientos, sentimientos y procesos mentales.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Formado a partir de elementos latinos relacionados con mirar hacia dentro.",
       "synonyms": ["autoanálisis", "reflexión"],
       "contextSentence": "La introspección puede revelar contradicciones sin garantizar que la persona las interprete correctamente.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "subjetividad",
       "definition": "Carácter de una experiencia condicionada por la perspectiva particular de quien la vive.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Derivado de sujeto, procedente del latín subjectus.",
       "synonyms": ["perspectiva personal", "experiencia individual"],
       "contextSentence": "La subjetividad obliga al lector a distinguir entre lo ocurrido y la interpretación ofrecida por el narrador.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "ambigüedad",
       "definition": "Cualidad de aquello que admite más de una interpretación o cuyo significado no resulta completamente claro.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín ambiguitas, relacionado con incertidumbre o doble sentido.",
       "synonyms": ["indeterminación", "equívoco"],
       "contextSentence": "La ambigüedad resulta intolerable para quien necesita convertir cada gesto en una explicación definitiva.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "celos",
       "definition": "Respuesta emocional asociada con inseguridad o temor ante la posibilidad de perder una relación o afecto.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Relacionado etimológicamente con celo, procedente del latín zelus y del griego zelos.",
       "synonyms": ["suspicacia", "recelo"],
       "contextSentence": "Los celos pueden convertir la falta de información en una fuente continua de sospechas.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "incomunicación",
       "definition": "Falta o dificultad profunda de comunicación y comprensión entre personas.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Formado por el prefijo in- y comunicación, derivado del latín communicare.",
       "synonyms": ["aislamiento", "desconexión"],
       "contextSentence": "La incomunicación persiste cuando cada explicación genera nuevas dudas en lugar de acercar a las personas.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "percepción",
       "definition": "Proceso mediante el cual una persona recibe e interpreta información procedente de su experiencia.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín perceptio, relacionado con captar o recibir.",
       "synonyms": ["apreciación", "interpretación"],
       "contextSentence": "La percepción de una situación puede modificarse profundamente cuando ya existe una sospecha previa.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "existencial",
       "definition": "Relacionado con la existencia humana y con cuestiones como libertad, soledad, sentido, identidad y responsabilidad.",
-      "partOfSpeech": "adjetivo",
+      "partOfSpeech": "Adjective",
       "etymology": "Derivado de existencia, procedente del latín exsistere.",
       "synonyms": ["relativo a la existencia"],
       "contextSentence": "El conflicto existencial aparece cuando la necesidad de conexión se enfrenta a la imposibilidad de conocer plenamente a otra persona.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "túnel",
       "definition": "Paso subterráneo o cerrado que, en una lectura simbólica, puede representar aislamiento y una trayectoria limitada por una perspectiva particular.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Llegó al español a través del inglés tunnel, con antecedentes en formas del francés.",
       "synonyms": ["pasadizo", "conducto"],
       "contextSentence": "El túnel funciona como metáfora de una conciencia que busca comunicarse desde su propio aislamiento.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-es-007-sample-character-01",
+      "secondaryCharacterIds": ["book-es-007-sample-character-02", "book-es-007-sample-character-03"],
+      "placeId": "book-es-007-sample-place-01",
+      "dateLabel": "Confesión inicial",
+      "eventOrder": 1,
+      "event": "Evento de estudio 1: Confesión inicial / Aislamiento",
+      "description": "Síntesis de estudio para «Confesión inicial»: el índice destaca Aislamiento (Separación emocional y dificultad para conectar con los demás). La descripción de Juan Pablo Castel («Pintor y narrador cuya búsqueda de comprensión y certeza se transforma progresivamente en aislamiento, sospecha y obsesión.») se relaciona aquí con el concepto Aislamiento existencial («Experiencia de separación profunda entre la conciencia individual y la posibilidad de ser plenamente comprendido por otros.»). Buenos Aires y el pasaje «La ventana del cuadro» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#5C4D7D",
+      "book": "El túnel",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#aislamiento", "#juan-pablo-castel", "#obsesión", "#aislamiento-existencial", "#soledad", "#existencia", "#buenos-aires", "#argentina", "#castel"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-es-007-sample-character-03",
+      "secondaryCharacterIds": ["book-es-007-sample-character-04", "book-es-007-sample-character-05"],
+      "placeId": "book-es-007-sample-place-02",
+      "dateLabel": "La pintura",
+      "eventOrder": 2,
+      "event": "Evento de estudio 2: La pintura / Arte",
+      "description": "Síntesis de estudio para «La pintura»: el índice destaca Arte (Expresión personal y deseo de ser comprendido). La descripción de Allende («Esposo de María y personaje cuya existencia incrementa las dudas, interpretaciones y conflictos de Castel.») se relaciona aquí con el concepto Subjetividad («Experiencia de la realidad condicionada por percepciones, emociones, recuerdos, expectativas e interpretaciones individuales.»). Argentina y el pasaje «La búsqueda» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#A44A3F",
+      "book": "El túnel",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#arte", "#allende", "#maría-iribarne", "#celos", "#subjetividad", "#percepción", "#conciencia", "#argentina", "#contexto", "#literatura"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-es-007-sample-character-05",
+      "secondaryCharacterIds": ["book-es-007-sample-character-06", "book-es-007-sample-character-07"],
+      "placeId": "book-es-007-sample-place-03",
+      "dateLabel": "El encuentro",
+      "eventOrder": 3,
+      "event": "Evento de estudio 3: El encuentro / Reconocimiento",
+      "description": "Síntesis de estudio para «El encuentro»: el índice destaca Reconocimiento (La esperanza de encontrar una comprensión excepcional). La descripción de Mimí Allende («Personaje del círculo social relacionado con María y con la estancia, observado desde la perspectiva crítica de Castel.») se relaciona aquí con el concepto Incomunicación («Dificultad para transmitir experiencias, pensamientos o emociones de manera que otra persona pueda comprenderlos plenamente.»). Galería de arte y el pasaje «La explicación» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#C49A3A",
+      "book": "El túnel",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#reconocimiento", "#mimí", "#sociedad", "#castel", "#incomunicación", "#comunicación", "#aislamiento", "#muestra-analítica", "#arte", "#pintura"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-es-007-sample-character-07",
+      "secondaryCharacterIds": ["book-es-007-sample-character-08", "book-es-007-sample-character-09"],
+      "placeId": "book-es-007-sample-place-04",
+      "dateLabel": "Juan Pablo Castel",
+      "eventOrder": 4,
+      "event": "Evento de estudio 4: Juan Pablo Castel / Obsesión",
+      "description": "Síntesis de estudio para «Juan Pablo Castel»: el índice destaca Obsesión (Interpretación compulsiva de gestos y acontecimientos). La descripción de El espectador de arte («Figura analítica de muestra que representa al público ante la obra de Castel y su dificultad para encontrar en otros la comprensión que desea.») se relaciona aquí con el concepto Sesgo de confirmación («Tendencia a favorecer interpretaciones que parecen apoyar una creencia previa y a restar importancia a posibles explicaciones alternativas.»). Taller de Castel y el pasaje «La hipótesis» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#735D78",
+      "book": "El túnel",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#obsesión", "#muestra-analítica", "#arte", "#comunicación", "#sesgo-de-confirmación", "#percepción", "#interpretación", "#castel"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-es-007-sample-character-01",
+      "targetCharacterId": "book-es-007-sample-character-02",
+      "relationType": "comparación temática",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Juan Pablo Castel (Pintor y narrador cuya búsqueda de comprensión y certeza se transforma progresivamente en aislamiento, sospecha y obsesión.) con María Iribarne (Mujer que atrae profundamente a Castel después de que él interpreta su reacción ante un detalle de una de sus pinturas como señal de una comprensión excepcional.). El tema «Aislamiento» y el subtema «Separación emocional y dificultad para conectar con los demás» orientan la comparación; el pasaje «La ventana del cuadro» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#5C4D7D",
+      "book": "El túnel",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#juan-pablo-castel", "#obsesión", "#aislamiento", "#maría-iribarne", "#comunicación", "#percepción"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-es-007-sample-character-03",
+      "targetCharacterId": "book-es-007-sample-character-04",
+      "relationType": "perspectivas en contraste",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Allende (Esposo de María y personaje cuya existencia incrementa las dudas, interpretaciones y conflictos de Castel.) con Hunter (Personaje relacionado con la estancia y con las sospechas que Castel desarrolla acerca de María y sus relaciones.). El tema «Arte» y el subtema «Expresión personal y deseo de ser comprendido» orientan la comparación; el pasaje «La búsqueda» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#A44A3F",
+      "book": "El túnel",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#allende", "#maría-iribarne", "#celos", "#hunter", "#sospecha", "#arte"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-es-007-sample-character-05",
+      "targetCharacterId": "book-es-007-sample-character-06",
+      "relationType": "contexto narrativo compartido",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Mimí Allende (Personaje del círculo social relacionado con María y con la estancia, observado desde la perspectiva crítica de Castel.) con Mapelli (Personaje secundario relacionado con los movimientos y averiguaciones de Castel dentro de su creciente obsesión.). El tema «Reconocimiento» y el subtema «La esperanza de encontrar una comprensión excepcional» orientan la comparación; el pasaje «La explicación» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#C49A3A",
+      "book": "El túnel",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#mimí", "#sociedad", "#castel", "#mapelli", "#búsqueda", "#reconocimiento"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-es-007-sample-character-07",
+      "targetCharacterId": "book-es-007-sample-character-08",
+      "relationType": "asociación interpretativa",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula El espectador de arte (Figura analítica de muestra que representa al público ante la obra de Castel y su dificultad para encontrar en otros la comprensión que desea.) con El Castel racional (Figura analítica de muestra que representa el intento de Castel por organizar sus sospechas mediante razonamientos, hipótesis y deducciones.). El tema «Obsesión» y el subtema «Interpretación compulsiva de gestos y acontecimientos» orientan la comparación; el pasaje «La hipótesis» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#735D78",
+      "book": "El túnel",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#muestra-analítica", "#arte", "#comunicación", "#razón", "#obsesión"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-es-007-sample-concept-01",
+      "targetConceptId": "book-es-007-sample-concept-02",
+      "relationType": "da contexto a",
+      "directed": true,
+      "description": "La definición de «Aislamiento existencial» («Experiencia de separación profunda entre la conciencia individual y la posibilidad de ser plenamente comprendido por otros.») puede leerse en relación con «Obsesión» («Concentración persistente y dominante de la atención sobre una persona, idea, problema o interpretación.»). El tema Aislamiento y el subtema Separación emocional y dificultad para conectar con los demás, junto con el pasaje «La ventana del cuadro», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#735D78",
+      "book": "El túnel",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#aislamiento-existencial", "#soledad", "#existencia", "#obsesión", "#psicología", "#castel", "#aislamiento"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-es-007-sample-concept-03",
+      "targetConceptId": "book-es-007-sample-concept-04",
+      "relationType": "ofrece una perspectiva sobre",
+      "directed": false,
+      "description": "La definición de «Subjetividad» («Experiencia de la realidad condicionada por percepciones, emociones, recuerdos, expectativas e interpretaciones individuales.») puede leerse en relación con «Narrador no fiable» («Narrador cuya interpretación de acontecimientos debe ser evaluada críticamente porque está condicionada por perspectivas o limitaciones personales.»). El tema Arte y el subtema Expresión personal y deseo de ser comprendido, junto con el pasaje «La búsqueda», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#2F6690",
+      "book": "El túnel",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#subjetividad", "#percepción", "#conciencia", "#narrador-no-fiable", "#narración", "#perspectiva", "#arte"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-es-007-sample-concept-05",
+      "targetConceptId": "book-es-007-sample-concept-06",
+      "relationType": "contrasta con",
+      "directed": false,
+      "description": "La definición de «Incomunicación» («Dificultad para transmitir experiencias, pensamientos o emociones de manera que otra persona pueda comprenderlos plenamente.») puede leerse en relación con «Celos» («Estado emocional vinculado con inseguridad, sospecha y temor frente a los vínculos afectivos de otra persona.»). El tema Reconocimiento y el subtema La esperanza de encontrar una comprensión excepcional, junto con el pasaje «La explicación», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#A44A3F",
+      "book": "El túnel",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#incomunicación", "#comunicación", "#aislamiento", "#celos", "#desconfianza", "#obsesión", "#reconocimiento"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-es-007-sample-concept-07",
+      "targetConceptId": "book-es-007-sample-concept-08",
+      "relationType": "complementa",
+      "directed": true,
+      "description": "La definición de «Sesgo de confirmación» («Tendencia a favorecer interpretaciones que parecen apoyar una creencia previa y a restar importancia a posibles explicaciones alternativas.») puede leerse en relación con «Necesidad de certeza» («Impulso por eliminar la ambigüedad mediante explicaciones definitivas acerca de otras personas o de una situación.»). El tema Obsesión y el subtema Interpretación compulsiva de gestos y acontecimientos, junto con el pasaje «La hipótesis», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#5C4D7D",
+      "book": "El túnel",
+      "author": "Ernesto Sabato",
+      "page": "",
+      "tags": ["#sesgo-de-confirmación", "#percepción", "#interpretación", "#certeza", "#incertidumbre", "#control", "#obsesión"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

@@ -5,80 +5,80 @@
       "chapter": "Combray",
       "theme": "Memory",
       "subtheme": "Involuntary memory and sensory experience",
-      "tag": "#memory",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#memory"]
     },
     {
       "id": "sample-index-02",
       "chapter": "Combray",
       "theme": "Childhood",
       "subtheme": "Family, longing, and early perception",
-      "tag": "#childhood",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#childhood"]
     },
     {
       "id": "sample-index-03",
       "chapter": "Swann in Love",
       "theme": "Love",
       "subtheme": "Desire, jealousy, and obsession",
-      "tag": "#love",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#love"]
     },
     {
       "id": "sample-index-04",
       "chapter": "Place-Names: The Name",
       "theme": "Imagination",
       "subtheme": "Anticipation and imagined places",
-      "tag": "#imagination",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#imagination"]
     },
     {
       "id": "sample-index-05",
       "chapter": "Within a Budding Grove",
       "theme": "Identity",
       "subtheme": "Youth, attraction, and self-discovery",
-      "tag": "#identity",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#identity"]
     },
     {
       "id": "sample-index-06",
       "chapter": "The Guermantes Way",
       "theme": "Society",
       "subtheme": "Status, prestige, and social observation",
-      "tag": "#society",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#society"]
     },
     {
       "id": "sample-index-07",
       "chapter": "Sodom and Gomorrah",
       "theme": "Perception",
       "subtheme": "Observation, interpretation, and uncertainty",
-      "tag": "#perception",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#perception"]
     },
     {
       "id": "sample-index-08",
       "chapter": "The Prisoner",
       "theme": "Jealousy",
       "subtheme": "Possession, uncertainty, and emotional confinement",
-      "tag": "#jealousy",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#jealousy"]
     },
     {
       "id": "sample-index-09",
       "chapter": "The Fugitive",
       "theme": "Loss",
       "subtheme": "Absence, grief, and transformation of memory",
-      "tag": "#loss",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#loss"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Time Regained",
       "theme": "Art",
       "subtheme": "Memory, time, and artistic creation",
-      "tag": "#art",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#art"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "The unexpected recovery of past experience through a sensory impression rather than deliberate recollection.",
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
-      "tag": "#involuntary-memory",
-      "tags": ["#memory", "#time"],
+      "tags": ["#memory", "#time", "#involuntary-memory"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "The experience of time as shaped by consciousness, memory, anticipation, and emotion rather than chronology alone.",
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
-      "tag": "#subjective-time",
-      "tags": ["#time", "#consciousness"],
+      "tags": ["#time", "#consciousness", "#subjective-time"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "The reconstruction and transformation of past experience within present consciousness.",
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
-      "tag": "#memory",
-      "tags": ["#past", "#identity"],
+      "tags": ["#past", "#identity", "#memory"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "An emotional condition in which uncertainty about another person generates suspicion, interpretation, and attempts at control.",
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
-      "tag": "#jealousy",
-      "tags": ["#love", "#desire"],
+      "tags": ["#love", "#desire", "#jealousy"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "The presentation of identity through manners, conversation, reputation, status, and participation in social groups.",
       "category": "Social theme",
       "source": "Study context for In Search of Lost Time",
-      "tag": "#social-performance",
-      "tags": ["#society", "#identity"],
+      "tags": ["#society", "#identity", "#social-performance"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "The gradual recognition of artistic creation as a means of understanding and transforming lived experience.",
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
-      "tag": "#artistic-vocation",
-      "tags": ["#art", "#literature"],
+      "tags": ["#art", "#literature", "#artistic-vocation"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "The subjective interpretation of people, objects, places, and experiences through changing states of consciousness.",
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
-      "tag": "#perception",
-      "tags": ["#consciousness", "#interpretation"],
+      "tags": ["#consciousness", "#interpretation", "#perception"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "The organization of society through distinctions of status, prestige, family background, wealth, and cultural recognition.",
       "category": "Social theme",
       "source": "Study context for In Search of Lost Time",
-      "tag": "#social-class",
-      "tags": ["#society", "#aristocracy"],
+      "tags": ["#society", "#aristocracy", "#social-class"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "The evolving understanding of self produced through memory, relationships, social experience, and changing perceptions.",
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
-      "tag": "#identity",
-      "tags": ["#self", "#memory"],
+      "tags": ["#self", "#memory", "#identity"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "A narrative emphasis on the complexity of consciousness, perception, memory, and subjective experience.",
       "category": "Narrative technique",
       "source": "Study context for In Search of Lost Time",
-      "tag": "#modernist-introspection",
-      "tags": ["#modernism", "#consciousness"],
+      "tags": ["#modernism", "#consciousness", "#modernist-introspection"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "recollection",
       "definition": "The act of bringing a past experience back into consciousness.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin recollectus, associated with gathering again.",
       "synonyms": ["memory", "remembrance"],
       "contextSentence": "A deliberate recollection may produce a different experience from a memory triggered unexpectedly by sensation.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "introspection",
       "definition": "The examination of one's own thoughts, emotions, and mental processes.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin roots meaning to look within.",
       "synonyms": ["self-examination", "reflection"],
       "contextSentence": "Introspection transforms a seemingly minor experience into an extended investigation of consciousness.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "temporality",
       "definition": "The condition of existing within or experiencing time.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from Latin temporalis, meaning related to time.",
       "synonyms": ["time experience", "temporal condition"],
       "contextSentence": "The narrative explores temporality by allowing past and present experience to overlap.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "evocation",
       "definition": "The act of bringing an image, feeling, memory, or association vividly to mind.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin evocare, meaning to call forth.",
       "synonyms": ["recollection", "summoning"],
       "contextSentence": "A familiar sensation can become an evocation of an experience thought to have disappeared.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "salon",
       "definition": "A social gathering or setting associated with conversation among invited guests.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From French salon, originally referring to a reception room.",
       "synonyms": ["gathering", "reception"],
       "contextSentence": "The salon provides a setting in which status can be created, displayed, questioned, and lost.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "aristocracy",
       "definition": "A social class traditionally associated with hereditary titles, rank, and privilege.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek aristokratia, referring to rule by those considered best.",
       "synonyms": ["nobility", "upper class"],
       "contextSentence": "The narrator's fascination with aristocracy changes as imagined prestige encounters ordinary social reality.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "perception",
       "definition": "The process through which sensory information and experience are interpreted by consciousness.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Latin perceptio, meaning receiving or apprehending.",
       "synonyms": ["awareness", "apprehension"],
       "contextSentence": "Perception changes as expectation gives way to direct experience.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "idealization",
       "definition": "The representation of a person, place, or idea as more perfect or desirable than experience may justify.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "Derived from ideal, ultimately from Greek idea.",
       "synonyms": ["romanticization", "glorification"],
       "contextSentence": "Idealization can make an imagined person more powerful than the person encountered in reality.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "epiphany",
       "definition": "A moment of sudden realization or insight.",
-      "partOfSpeech": "noun",
+      "partOfSpeech": "Noun",
       "etymology": "From Greek epiphaneia, meaning manifestation or appearance.",
       "synonyms": ["realization", "revelation"],
       "contextSentence": "An ordinary sensation may lead unexpectedly toward an epiphany about memory or time.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "aesthetic",
       "definition": "Relating to the perception, appreciation, or philosophy of beauty and art.",
-      "partOfSpeech": "adjective",
+      "partOfSpeech": "Adjective",
       "etymology": "From Greek aisthesis, meaning perception or sensation.",
       "synonyms": ["artistic", "art-related"],
       "contextSentence": "An aesthetic experience can reorganize how ordinary events are remembered and understood.",
@@ -483,7 +473,7 @@
     {
       "id": "sample-passage-02",
       "title": "The Shape of Evening",
-      "passageText": "Evening seemed longer when something was awaited. Minutes that normally disappeared unnoticed acquired weight, and every sound from the corridor appeared to announce a possibility.",
+      "passageText": "Evening seemed longer when something was awaited. Minutes that normally disappeared unnoticed acquired weight, and every sound from the corridor appeared to anNounce a possibility.",
       "book": "In Search of Lost Time",
       "author": "Marcel Proust",
       "page": 0,
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-003-sample-character-01",
+      "secondaryCharacterIds": ["book-003-sample-character-02", "book-003-sample-character-03"],
+      "placeId": "book-003-sample-place-01",
+      "dateLabel": "Combray",
+      "eventOrder": 1,
+      "event": "Study event 1: Combray / Memory",
+      "description": "Study synthesis for “Combray”: the index highlights Memory (Involuntary memory and sensory experience). The description of Marcel (“The narrator and central consciousness whose memories, perceptions, relationships, and artistic development organize much of the work.”) is considered here alongside Involuntary memory (“The unexpected recovery of past experience through a sensory impression rather than deliberate recollection.”). Combray and the passage “A Familiar Taste” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#2F6690",
+      "book": "In Search of Lost Time",
+      "author": "Marcel Proust",
+      "page": "",
+      "tags": ["#memory", "#marcel", "#identity", "#involuntary-memory", "#time", "#combray", "#childhood"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-003-sample-character-03",
+      "secondaryCharacterIds": ["book-003-sample-character-04", "book-003-sample-character-05"],
+      "placeId": "book-003-sample-place-02",
+      "dateLabel": "Combray",
+      "eventOrder": 2,
+      "event": "Study event 2: Combray / Childhood",
+      "description": "Study synthesis for “Combray”: the index highlights Childhood (Family, longing, and early perception). The description of Odette de Crécy (“A central figure in Swann's romantic life whose relationship with him becomes intertwined with desire, uncertainty, and social aspiration.”) is considered here alongside Memory (“The reconstruction and transformation of past experience within present consciousness.”). Paris and the passage “The Shape of Evening” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#C49A3A",
+      "book": "In Search of Lost Time",
+      "author": "Marcel Proust",
+      "page": "",
+      "tags": ["#childhood", "#odette", "#swann", "#society", "#memory", "#past", "#identity", "#paris", "#art"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-003-sample-character-05",
+      "secondaryCharacterIds": ["book-003-sample-character-06", "book-003-sample-character-07"],
+      "placeId": "book-003-sample-place-03",
+      "dateLabel": "Swann in Love",
+      "eventOrder": 3,
+      "event": "Study event 3: Swann in Love / Love",
+      "description": "Study synthesis for “Swann in Love”: the index highlights Love (Desire, jealousy, and obsession). The description of Gilberte Swann (“The daughter of Charles Swann and Odette whose relationship with Marcel is important to his youthful emotional and social development.”) is considered here alongside Social performance (“The presentation of identity through manners, conversation, reputation, status, and participation in social groups.”). Balbec and the passage “Imagined Places” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#B56576",
+      "book": "In Search of Lost Time",
+      "author": "Marcel Proust",
+      "page": "",
+      "tags": ["#love", "#gilberte", "#youth", "#memory", "#social-performance", "#society", "#identity", "#balbec", "#travel"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-003-sample-character-07",
+      "secondaryCharacterIds": ["book-003-sample-character-08", "book-003-sample-character-09"],
+      "placeId": "book-003-sample-place-04",
+      "dateLabel": "Place-Names: The Name",
+      "eventOrder": 4,
+      "event": "Study event 4: Place-Names: The Name / Imagination",
+      "description": "Study synthesis for “Place-Names: The Name”: the index highlights Imagination (Anticipation and imagined places). The description of Robert de Saint-Loup (“Marcel's friend and a member of the Guermantes family who connects personal friendship with the aristocratic social world.”) is considered here alongside Perception (“The subjective interpretation of people, objects, places, and experiences through changing states of consciousness.”). Guermantes and the passage “Social Distance” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "color": "#D17B49",
+      "book": "In Search of Lost Time",
+      "author": "Marcel Proust",
+      "page": "",
+      "tags": ["#imagination", "#saint-loup", "#friendship", "#society", "#perception", "#consciousness", "#interpretation", "#guermantes", "#aristocracy"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-003-sample-character-01",
+      "targetCharacterId": "book-003-sample-character-02",
+      "relationType": "thematic comparison",
+      "directed": false,
+      "description": "This reading association links Marcel (The narrator and central consciousness whose memories, perceptions, relationships, and artistic development organize much of the work.) with Charles Swann (A cultivated family acquaintance whose social life and relationship with Odette provide an important exploration of love and jealousy.). The theme “Memory” and subtheme “Involuntary memory and sensory experience” guide the comparison; the passage “A Familiar Taste” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#2F6690",
+      "book": "In Search of Lost Time",
+      "author": "Marcel Proust",
+      "page": "",
+      "tags": ["#marcel", "#memory", "#identity", "#swann", "#love", "#jealousy"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-003-sample-character-03",
+      "targetCharacterId": "book-003-sample-character-04",
+      "relationType": "contrasting perspective",
+      "directed": false,
+      "description": "This reading association links Odette de Crécy (A central figure in Swann's romantic life whose relationship with him becomes intertwined with desire, uncertainty, and social aspiration.) with Albertine Simonet (A major figure in Marcel's emotional life whose relationship with him develops themes of desire, jealousy, possession, and uncertainty.). The theme “Childhood” and subtheme “Family, longing, and early perception” guide the comparison; the passage “The Shape of Evening” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#C49A3A",
+      "book": "In Search of Lost Time",
+      "author": "Marcel Proust",
+      "page": "",
+      "tags": ["#odette", "#swann", "#society", "#albertine", "#love", "#jealousy", "#childhood"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-003-sample-character-05",
+      "targetCharacterId": "book-003-sample-character-06",
+      "relationType": "shared narrative context",
+      "directed": false,
+      "description": "This reading association links Gilberte Swann (The daughter of Charles Swann and Odette whose relationship with Marcel is important to his youthful emotional and social development.) with Baron de Charlus (A prominent aristocratic character through whom the narrative examines social performance, reputation, desire, and changing status.). The theme “Love” and subtheme “Desire, jealousy, and obsession” guide the comparison; the passage “Imagined Places” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#B56576",
+      "book": "In Search of Lost Time",
+      "author": "Marcel Proust",
+      "page": "",
+      "tags": ["#gilberte", "#youth", "#memory", "#charlus", "#aristocracy", "#society", "#love"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-003-sample-character-07",
+      "targetCharacterId": "book-003-sample-character-08",
+      "relationType": "interpretive pairing",
+      "directed": false,
+      "description": "This reading association links Robert de Saint-Loup (Marcel's friend and a member of the Guermantes family who connects personal friendship with the aristocratic social world.) with Oriane de Guermantes (The Duchess of Guermantes and an important focus of Marcel's fascination with aristocratic society and social prestige.). The theme “Imagination” and subtheme “Anticipation and imagined places” guide the comparison; the passage “Social Distance” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "color": "#D17B49",
+      "book": "In Search of Lost Time",
+      "author": "Marcel Proust",
+      "page": "",
+      "tags": ["#saint-loup", "#friendship", "#society", "#guermantes", "#aristocracy", "#imagination"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-003-sample-concept-01",
+      "targetConceptId": "book-003-sample-concept-02",
+      "relationType": "provides context for",
+      "directed": true,
+      "description": "The definition of “Involuntary memory” (“The unexpected recovery of past experience through a sensory impression rather than deliberate recollection.”) can be read in relation to “Subjective time” (“The experience of time as shaped by consciousness, memory, anticipation, and emotion rather than chronology alone.”). The theme Memory and subtheme Involuntary memory and sensory experience, together with the passage “A Familiar Taste”, place this conceptual connection in the book’s reading context.",
+      "color": "#735D78",
+      "book": "In Search of Lost Time",
+      "author": "Marcel Proust",
+      "page": "",
+      "tags": ["#involuntary-memory", "#memory", "#time", "#subjective-time", "#consciousness"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-003-sample-concept-03",
+      "targetConceptId": "book-003-sample-concept-04",
+      "relationType": "offers a lens on",
+      "directed": false,
+      "description": "The definition of “Memory” (“The reconstruction and transformation of past experience within present consciousness.”) can be read in relation to “Jealousy” (“An emotional condition in which uncertainty about another person generates suspicion, interpretation, and attempts at control.”). The theme Childhood and subtheme Family, longing, and early perception, together with the passage “The Shape of Evening”, place this conceptual connection in the book’s reading context.",
+      "color": "#2F6690",
+      "book": "In Search of Lost Time",
+      "author": "Marcel Proust",
+      "page": "",
+      "tags": ["#memory", "#past", "#identity", "#jealousy", "#love", "#desire", "#childhood"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-003-sample-concept-05",
+      "targetConceptId": "book-003-sample-concept-06",
+      "relationType": "contrasts with",
+      "directed": false,
+      "description": "The definition of “Social performance” (“The presentation of identity through manners, conversation, reputation, status, and participation in social groups.”) can be read in relation to “Artistic vocation” (“The gradual recognition of artistic creation as a means of understanding and transforming lived experience.”). The theme Love and subtheme Desire, jealousy, and obsession, together with the passage “Imagined Places”, place this conceptual connection in the book’s reading context.",
+      "color": "#A44A3F",
+      "book": "In Search of Lost Time",
+      "author": "Marcel Proust",
+      "page": "",
+      "tags": ["#social-performance", "#society", "#identity", "#artistic-vocation", "#art", "#literature", "#love"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-003-sample-concept-07",
+      "targetConceptId": "book-003-sample-concept-08",
+      "relationType": "complements",
+      "directed": true,
+      "description": "The definition of “Perception” (“The subjective interpretation of people, objects, places, and experiences through changing states of consciousness.”) can be read in relation to “Social class” (“The organization of society through distinctions of status, prestige, family background, wealth, and cultural recognition.”). The theme Imagination and subtheme Anticipation and imagined places, together with the passage “Social Distance”, place this conceptual connection in the book’s reading context.",
+      "color": "#5C4D7D",
+      "book": "In Search of Lost Time",
+      "author": "Marcel Proust",
+      "page": "",
+      "tags": ["#perception", "#consciousness", "#interpretation", "#social-class", "#society", "#aristocracy", "#imagination"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

@@ -5,80 +5,80 @@
       "chapter": "Del lado de allá",
       "theme": "Búsqueda",
       "subtheme": "La búsqueda de sentido más allá de la realidad cotidiana",
-      "tag": "#búsqueda",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#búsqueda"]
     },
     {
       "id": "sample-index-02",
       "chapter": "Del lado de allá",
       "theme": "Amor",
       "subtheme": "Intimidad, distancia e incertidumbre emocional",
-      "tag": "#amor",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#amor"]
     },
     {
       "id": "sample-index-03",
       "chapter": "Del lado de allá",
       "theme": "París",
       "subtheme": "Recorrido urbano y experiencia intelectual",
-      "tag": "#parís",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#parís"]
     },
     {
       "id": "sample-index-04",
       "chapter": "Del lado de acá",
       "theme": "Regreso",
       "subtheme": "Desplazamiento y readaptación en Buenos Aires",
-      "tag": "#regreso",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#regreso"]
     },
     {
       "id": "sample-index-05",
       "chapter": "Del lado de acá",
       "theme": "Identidad",
       "subtheme": "Duplicidad, reconocimiento y percepción inestable",
-      "tag": "#identidad",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#identidad"]
     },
     {
       "id": "sample-index-06",
       "chapter": "De otros lados",
       "theme": "Experimentación",
       "subtheme": "Órdenes alternativos de lectura y estructura fragmentaria",
-      "tag": "#experimentación",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#experimentación"]
     },
     {
       "id": "sample-index-07",
       "chapter": "El Club de la Serpiente",
       "theme": "Arte",
       "subtheme": "Jazz, literatura, filosofía y conversación",
-      "tag": "#arte",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#arte"]
     },
     {
       "id": "sample-index-08",
       "chapter": "Horacio Oliveira",
       "theme": "Alienación",
       "subtheme": "Distancia intelectual frente a la experiencia",
-      "tag": "#alienación",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#alienación"]
     },
     {
       "id": "sample-index-09",
       "chapter": "La Maga",
       "theme": "Intuición",
       "subtheme": "La experiencia frente a la abstracción intelectual",
-      "tag": "#intuición",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#intuición"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Panorama analítico",
       "theme": "Lectura",
       "subtheme": "Participación del lector e interpretación no lineal",
-      "tag": "#lectura",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#lectura"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "Forma de lectura en la que las secciones narrativas pueden abordarse siguiendo un orden distinto de la progresión secuencial convencional.",
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para Rayuela",
-      "tag": "#lectura-no-lineal",
-      "tags": ["#estructura", "#experimentación"],
+      "tags": ["#estructura", "#experimentación", "#lectura-no-lineal"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "Idea según la cual el lector construye activamente conexiones y significados en lugar de recibir una secuencia narrativa completamente predeterminada.",
       "category": "Concepto literario",
       "source": "Contexto de estudio para Rayuela",
-      "tag": "#participación-del-lector",
-      "tags": ["#lectura", "#interpretación"],
+      "tags": ["#lectura", "#interpretación", "#participación-del-lector"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "Búsqueda de sentido, autenticidad, conexión o una realidad situada más allá de las formas habituales de experiencia.",
       "category": "Tema filosófico",
       "source": "Contexto de estudio para Rayuela",
-      "tag": "#búsqueda-existencial",
-      "tags": ["#sentido", "#identidad"],
+      "tags": ["#sentido", "#identidad", "#búsqueda-existencial"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "Condición de distancia emocional, intelectual o social respecto de otras personas y de la experiencia cotidiana.",
       "category": "Tema",
       "source": "Contexto de estudio para Rayuela",
-      "tag": "#alienación",
-      "tags": ["#aislamiento", "#identidad"],
+      "tags": ["#aislamiento", "#identidad", "#alienación"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "Tensión entre una comprensión inmediata surgida de la experiencia y una comprensión basada en el análisis y la abstracción.",
       "category": "Tema filosófico",
       "source": "Contexto de estudio para Rayuela",
-      "tag": "#intuición-intelecto",
-      "tags": ["#intuición", "#razón"],
+      "tags": ["#intuición", "#razón", "#intuición-intelecto"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "Ficción que llama la atención sobre su propia construcción, sus convenciones narrativas y la actividad de leer o escribir.",
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para Rayuela",
-      "tag": "#metaficción",
-      "tags": ["#literatura", "#experimentación"],
+      "tags": ["#literatura", "#experimentación", "#metaficción"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "Organización de la narración mediante episodios, referencias, voces y materiales discontinuos en lugar de una progresión única y continua.",
       "category": "Estructura narrativa",
       "source": "Contexto de estudio para Rayuela",
-      "tag": "#fragmentación",
-      "tags": ["#estructura", "#narrativa"],
+      "tags": ["#estructura", "#narrativa", "#fragmentación"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "Uso deliberado de la estructura, el lenguaje, el humor y las posibilidades de elección para cuestionar las convenciones narrativas.",
       "category": "Concepto literario",
       "source": "Contexto de estudio para Rayuela",
-      "tag": "#juego",
-      "tags": ["#lenguaje", "#experimentación"],
+      "tags": ["#lenguaje", "#experimentación", "#juego"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "Modelo analítico para comprender la espontaneidad, la variación, el ritmo y la libertad estructural dentro de la experiencia artística.",
       "category": "Concepto analítico",
       "source": "Contexto de estudio para Rayuela",
-      "tag": "#improvisación-jazzística",
-      "tags": ["#jazz", "#arte"],
+      "tags": ["#jazz", "#arte", "#improvisación-jazzística"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "Idea analítica asociada con el deseo de alcanzar una forma de comprensión más allá de los hábitos, categorías y estructuras racionales ordinarias.",
       "category": "Concepto filosófico",
       "source": "Contexto de estudio para Rayuela",
-      "tag": "#otro-lado",
-      "tags": ["#búsqueda", "#sentido"],
+      "tags": ["#búsqueda", "#sentido", "#otro-lado"],
       "syncStatus": "synced"
     }
   ],
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "metaficción",
       "definition": "Ficción que examina conscientemente su propia condición de construcción literaria.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Formado por meta-, elemento que indica reflexión sobre sí mismo, y ficción.",
       "synonyms": ["ficción autorreflexiva"],
       "contextSentence": "La metaficción invita al lector a pensar en la construcción de la novela mientras participa en su lectura.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "fragmentación",
       "definition": "División de una narración o experiencia en elementos discontinuos.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Derivado del latín fragmentum, relacionado con una pieza separada o rota.",
       "synonyms": ["discontinuidad", "división"],
       "contextSentence": "La fragmentación obliga al lector a establecer conexiones entre distintas partes de la narración.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "alienación",
       "definition": "Estado de extrañamiento respecto de otras personas, de la sociedad, de la experiencia o de uno mismo.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín alienare, relacionado con separar o hacer ajeno.",
       "synonyms": ["extrañamiento", "aislamiento"],
       "contextSentence": "El exceso de análisis puede intensificar la alienación cuando reemplaza el contacto directo con la experiencia.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "intuición",
       "definition": "Comprensión o percepción inmediata sin necesidad de un razonamiento analítico deliberado.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín intueri, relacionado con mirar o contemplar.",
       "synonyms": ["percepción inmediata", "presentimiento"],
       "contextSentence": "La intuición puede alcanzar una comprensión que el pensamiento analítico todavía intenta formular.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "improvisación",
       "definition": "Creación o ejecución realizada sin una forma completamente determinada de antemano.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín improvisus, relacionado con aquello que no ha sido previsto.",
       "synonyms": ["espontaneidad", "creación espontánea"],
       "contextSentence": "La improvisación sirve como analogía para una narración abierta a variaciones y conexiones inesperadas.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "bohemio",
       "definition": "Relacionado con estilos de vida artísticos, intelectuales o sociales alejados de ciertas convenciones establecidas.",
-      "partOfSpeech": "adjetivo",
+      "partOfSpeech": "Adjective",
       "etymology": "Derivado históricamente de Bohemia y posteriormente aplicado a comunidades artísticas de vida no convencional.",
       "synonyms": ["artístico", "no convencional"],
       "contextSentence": "El ambiente bohemio favorece largas conversaciones sobre música, literatura, filosofía y experiencia.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "intertextualidad",
       "definition": "Conjunto de relaciones y referencias que conectan un texto con otros textos y manifestaciones culturales.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Formado por inter-, que indica relación entre elementos, y textualidad.",
       "synonyms": ["relación textual", "referencia literaria"],
       "contextSentence": "La intertextualidad amplía la interpretación al relacionar una obra con otros textos y tradiciones.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "absurdo",
       "definition": "Aquello que se aparta de las expectativas habituales de lógica, coherencia o sentido.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín absurdus, relacionado con lo incongruente o contrario a la razón.",
       "synonyms": ["incongruencia", "irracionalidad"],
       "contextSentence": "El absurdo puede revelar que ciertas costumbres consideradas naturales dependen de convenciones poco examinadas.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "experimental",
       "definition": "Caracterizado por la búsqueda deliberada de formas, métodos o estructuras no convencionales.",
-      "partOfSpeech": "adjetivo",
+      "partOfSpeech": "Adjective",
       "etymology": "Derivado del latín experimentum, relacionado con prueba o ensayo.",
       "synonyms": ["innovador", "no convencional"],
       "contextSentence": "Una novela experimental puede obligar al lector a reconsiderar sus expectativas sobre la secuencia y la autoridad narrativa.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-es-002-sample-character-01",
+      "secondaryCharacterIds": ["book-es-002-sample-character-02", "book-es-002-sample-character-03"],
+      "placeId": "book-es-002-sample-place-01",
+      "dateLabel": "Del lado de allá",
+      "eventOrder": 1,
+      "event": "Evento de estudio 1: Del lado de allá / Búsqueda",
+      "description": "Síntesis de estudio para «Del lado de allá»: el índice destaca Búsqueda (La búsqueda de sentido más allá de la realidad cotidiana). La descripción de Horacio Oliveira («Intelectual argentino cuyas experiencias en París y Buenos Aires articulan la exploración de la alienación, el sentido, el amor y la incertidumbre intelectual.») se relaciona aquí con el concepto Lectura no lineal («Forma de lectura en la que las secciones narrativas pueden abordarse siguiendo un orden distinto de la progresión secuencial convencional.»). París y el pasaje «Cruzar París» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#3A7D44",
+      "book": "Rayuela",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#búsqueda", "#oliveira", "#alienación", "#lectura-no-lineal", "#estructura", "#experimentación", "#parís", "#francia"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-es-002-sample-character-03",
+      "secondaryCharacterIds": ["book-es-002-sample-character-04", "book-es-002-sample-character-05"],
+      "placeId": "book-es-002-sample-place-02",
+      "dateLabel": "Del lado de allá",
+      "eventOrder": 2,
+      "event": "Evento de estudio 2: Del lado de allá / Amor",
+      "description": "Síntesis de estudio para «Del lado de allá»: el índice destaca Amor (Intimidad, distancia e incertidumbre emocional). La descripción de Traveler («Amigo de Oliveira en Buenos Aires cuya relación con él adquiere importancia después del regreso de Oliveira desde París.») se relaciona aquí con el concepto Búsqueda existencial («Búsqueda de sentido, autenticidad, conexión o una realidad situada más allá de las formas habituales de experiencia.»). Buenos Aires y el pasaje «El intelectual» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#6A994E",
+      "book": "Rayuela",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#amor", "#traveler", "#amistad", "#identidad", "#búsqueda-existencial", "#sentido", "#buenos-aires", "#argentina", "#regreso"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-es-002-sample-character-05",
+      "secondaryCharacterIds": ["book-es-002-sample-character-06", "book-es-002-sample-character-07"],
+      "placeId": "book-es-002-sample-place-03",
+      "dateLabel": "Del lado de allá",
+      "eventOrder": 3,
+      "event": "Evento de estudio 3: Del lado de allá / París",
+      "description": "Síntesis de estudio para «Del lado de allá»: el índice destaca París (Recorrido urbano y experiencia intelectual). La descripción de Morelli («Escritor cuyas ideas sobre la literatura y la lectura se relacionan con la experimentación narrativa y la participación activa del lector.») se relaciona aquí con el concepto Intuición e intelecto («Tensión entre una comprensión inmediata surgida de la experiencia y una comprensión basada en el análisis y la abstracción.»). Francia y el pasaje «Improvisación» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#D17B49",
+      "book": "Rayuela",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#parís", "#morelli", "#literatura", "#experimentación", "#intuición-intelecto", "#intuición", "#razón", "#francia", "#europa"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-es-002-sample-character-07",
+      "secondaryCharacterIds": ["book-es-002-sample-character-08", "book-es-002-sample-character-09"],
+      "placeId": "book-es-002-sample-place-04",
+      "dateLabel": "Del lado de acá",
+      "eventOrder": 4,
+      "event": "Evento de estudio 4: Del lado de acá / Regreso",
+      "description": "Síntesis de estudio para «Del lado de acá»: el índice destaca Regreso (Desplazamiento y readaptación en Buenos Aires). La descripción de Ronald («Miembro del Club de la Serpiente asociado con las conversaciones, la música y el ambiente bohemio del grupo.») se relaciona aquí con el concepto Fragmentación («Organización de la narración mediante episodios, referencias, voces y materiales discontinuos en lugar de una progresión única y continua.»). Argentina y el pasaje «Dos maneras de comprender» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#A44A3F",
+      "book": "Rayuela",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#regreso", "#ronald", "#club-de-la-serpiente", "#jazz", "#fragmentación", "#estructura", "#narrativa", "#argentina", "#buenos-aires"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-es-002-sample-character-01",
+      "targetCharacterId": "book-es-002-sample-character-02",
+      "relationType": "comparación temática",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Horacio Oliveira (Intelectual argentino cuyas experiencias en París y Buenos Aires articulan la exploración de la alienación, el sentido, el amor y la incertidumbre intelectual.) con La Maga (Compañera uruguaya de Oliveira en París, asociada con la intuición, la espontaneidad y una manera de experimentar el mundo que contrasta con el intelectualismo de Oliveira.). El tema «Búsqueda» y el subtema «La búsqueda de sentido más allá de la realidad cotidiana» orientan la comparación; el pasaje «Cruzar París» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#3A7D44",
+      "book": "Rayuela",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#oliveira", "#búsqueda", "#alienación", "#la-maga", "#intuición", "#amor"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-es-002-sample-character-03",
+      "targetCharacterId": "book-es-002-sample-character-04",
+      "relationType": "perspectivas en contraste",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Traveler (Amigo de Oliveira en Buenos Aires cuya relación con él adquiere importancia después del regreso de Oliveira desde París.) con Talita (Compañera de Traveler cuya presencia se entrelaza con los recuerdos, percepciones y asociaciones emocionales de Oliveira.). El tema «Amor» y el subtema «Intimidad, distancia e incertidumbre emocional» orientan la comparación; el pasaje «El intelectual» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#6A994E",
+      "book": "Rayuela",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#traveler", "#amistad", "#identidad", "#talita", "#percepción", "#amor"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-es-002-sample-character-05",
+      "targetCharacterId": "book-es-002-sample-character-06",
+      "relationType": "contexto narrativo compartido",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Morelli (Escritor cuyas ideas sobre la literatura y la lectura se relacionan con la experimentación narrativa y la participación activa del lector.) con Étienne (Miembro del Club de la Serpiente cuyas conversaciones contribuyen al ambiente artístico e intelectual de las secciones parisinas.). El tema «París» y el subtema «Recorrido urbano y experiencia intelectual» orientan la comparación; el pasaje «Improvisación» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#D17B49",
+      "book": "Rayuela",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#morelli", "#literatura", "#experimentación", "#étienne", "#club-de-la-serpiente", "#arte", "#parís"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-es-002-sample-character-07",
+      "targetCharacterId": "book-es-002-sample-character-08",
+      "relationType": "asociación interpretativa",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Ronald (Miembro del Club de la Serpiente asociado con las conversaciones, la música y el ambiente bohemio del grupo.) con Babs (Miembro del Club de la Serpiente y parte del círculo social e intelectual que rodea a Oliveira y La Maga.). El tema «Regreso» y el subtema «Desplazamiento y readaptación en Buenos Aires» orientan la comparación; el pasaje «Dos maneras de comprender» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#A44A3F",
+      "book": "Rayuela",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#ronald", "#club-de-la-serpiente", "#jazz", "#babs", "#parís", "#regreso"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-es-002-sample-concept-01",
+      "targetConceptId": "book-es-002-sample-concept-02",
+      "relationType": "da contexto a",
+      "directed": true,
+      "description": "La definición de «Lectura no lineal» («Forma de lectura en la que las secciones narrativas pueden abordarse siguiendo un orden distinto de la progresión secuencial convencional.») puede leerse en relación con «Participación del lector» («Idea según la cual el lector construye activamente conexiones y significados en lugar de recibir una secuencia narrativa completamente predeterminada.»). El tema Búsqueda y el subtema La búsqueda de sentido más allá de la realidad cotidiana, junto con el pasaje «Cruzar París», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#735D78",
+      "book": "Rayuela",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#lectura-no-lineal", "#estructura", "#experimentación", "#participación-del-lector", "#lectura", "#interpretación", "#búsqueda"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-es-002-sample-concept-03",
+      "targetConceptId": "book-es-002-sample-concept-04",
+      "relationType": "ofrece una perspectiva sobre",
+      "directed": false,
+      "description": "La definición de «Búsqueda existencial» («Búsqueda de sentido, autenticidad, conexión o una realidad situada más allá de las formas habituales de experiencia.») puede leerse en relación con «Alienación» («Condición de distancia emocional, intelectual o social respecto de otras personas y de la experiencia cotidiana.»). El tema Amor y el subtema Intimidad, distancia e incertidumbre emocional, junto con el pasaje «El intelectual», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#2F6690",
+      "book": "Rayuela",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#búsqueda-existencial", "#sentido", "#identidad", "#alienación", "#aislamiento", "#amor"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-es-002-sample-concept-05",
+      "targetConceptId": "book-es-002-sample-concept-06",
+      "relationType": "contrasta con",
+      "directed": false,
+      "description": "La definición de «Intuición e intelecto» («Tensión entre una comprensión inmediata surgida de la experiencia y una comprensión basada en el análisis y la abstracción.») puede leerse en relación con «Metaficción» («Ficción que llama la atención sobre su propia construcción, sus convenciones narrativas y la actividad de leer o escribir.»). El tema París y el subtema Recorrido urbano y experiencia intelectual, junto con el pasaje «Improvisación», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#A44A3F",
+      "book": "Rayuela",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#intuición-intelecto", "#intuición", "#razón", "#metaficción", "#literatura", "#experimentación", "#parís"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-es-002-sample-concept-07",
+      "targetConceptId": "book-es-002-sample-concept-08",
+      "relationType": "complementa",
+      "directed": true,
+      "description": "La definición de «Fragmentación» («Organización de la narración mediante episodios, referencias, voces y materiales discontinuos en lugar de una progresión única y continua.») puede leerse en relación con «Juego» («Uso deliberado de la estructura, el lenguaje, el humor y las posibilidades de elección para cuestionar las convenciones narrativas.»). El tema Regreso y el subtema Desplazamiento y readaptación en Buenos Aires, junto con el pasaje «Dos maneras de comprender», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#5C4D7D",
+      "book": "Rayuela",
+      "author": "Julio Cortázar",
+      "page": "",
+      "tags": ["#fragmentación", "#estructura", "#narrativa", "#juego", "#lenguaje", "#experimentación", "#regreso"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

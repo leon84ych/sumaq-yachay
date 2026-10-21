@@ -5,80 +5,80 @@
       "chapter": "El Viejo Mundo",
       "theme": "Historia",
       "subtheme": "Reinterpretación del pasado y construcción de la identidad",
-      "tag": "#historia",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#historia"]
     },
     {
       "id": "sample-index-02",
       "chapter": "El Nuevo Mundo",
       "theme": "Encuentro",
       "subtheme": "Confrontación entre culturas, mitos y visiones del mundo",
-      "tag": "#encuentro",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#encuentro"]
     },
     {
       "id": "sample-index-03",
       "chapter": "El Otro Mundo",
       "theme": "Tiempo",
       "subtheme": "Superposición del pasado, presente y futuro",
-      "tag": "#tiempo",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#tiempo"]
     },
     {
       "id": "sample-index-04",
       "chapter": "La corte",
       "theme": "Poder",
       "subtheme": "Autoridad, religión y orden político",
-      "tag": "#poder",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#poder"]
     },
     {
       "id": "sample-index-05",
       "chapter": "La monarquía",
       "theme": "Imperio",
       "subtheme": "Unidad política, expansión y contradicciones imperiales",
-      "tag": "#imperio",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#imperio"]
     },
     {
       "id": "sample-index-06",
       "chapter": "Memoria hispánica",
       "theme": "Identidad",
       "subtheme": "Herencia cultural y multiplicidad del mundo hispánico",
-      "tag": "#identidad",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#identidad"]
     },
     {
       "id": "sample-index-07",
       "chapter": "Religión y mito",
       "theme": "Fe",
       "subtheme": "Cristianismo, mito y conflicto espiritual",
-      "tag": "#religión",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#religión"]
     },
     {
       "id": "sample-index-08",
       "chapter": "Conquista",
       "theme": "Violencia",
       "subtheme": "Dominación, resistencia y transformación cultural",
-      "tag": "#conquista",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#conquista"]
     },
     {
       "id": "sample-index-09",
       "chapter": "Memoria y repetición",
       "theme": "Destino",
       "subtheme": "Persistencia y transformación de patrones históricos",
-      "tag": "#destino",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#destino"]
     },
     {
       "id": "sample-index-10",
       "chapter": "Panorama analítico",
       "theme": "Literatura",
       "subtheme": "Ficción como relectura de la historia y el mito",
-      "tag": "#literatura",
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "tags": ["#literatura"]
     }
   ],
   "CHARACTER": [
@@ -230,8 +230,7 @@
       "definition": "Reelaboración literaria del pasado que combina acontecimientos históricos con posibilidades imaginarias y reinterpretaciones simbólicas.",
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para Terra Nostra",
-      "tag": "#historia-alternativa",
-      "tags": ["#historia", "#ficción"],
+      "tags": ["#historia", "#ficción", "#historia-alternativa"],
       "syncStatus": "synced"
     },
     {
@@ -240,8 +239,7 @@
       "definition": "Construcción cultural compleja formada por múltiples tradiciones, conflictos, lenguas, religiones y experiencias históricas.",
       "category": "Tema",
       "source": "Contexto de estudio para Terra Nostra",
-      "tag": "#identidad-hispánica",
-      "tags": ["#identidad", "#historia"],
+      "tags": ["#identidad", "#historia", "#identidad-hispánica"],
       "syncStatus": "synced"
     },
     {
@@ -250,8 +248,7 @@
       "definition": "Concepción narrativa en la que acontecimientos, figuras y conflictos pueden repetirse o reaparecer transformados.",
       "category": "Tema",
       "source": "Contexto de estudio para Terra Nostra",
-      "tag": "#tiempo-circular",
-      "tags": ["#tiempo", "#repetición"],
+      "tags": ["#tiempo", "#repetición", "#tiempo-circular"],
       "syncStatus": "synced"
     },
     {
@@ -260,8 +257,7 @@
       "definition": "Estructura política y cultural examinada a través de las relaciones entre autoridad, expansión, religión, violencia e identidad.",
       "category": "Tema histórico",
       "source": "Contexto de estudio para Terra Nostra",
-      "tag": "#imperio",
-      "tags": ["#poder", "#historia"],
+      "tags": ["#poder", "#historia", "#imperio"],
       "syncStatus": "synced"
     },
     {
@@ -270,8 +266,7 @@
       "definition": "Combinación y transformación de tradiciones culturales, religiosas o simbólicas procedentes de diferentes orígenes.",
       "category": "Concepto cultural",
       "source": "Contexto de estudio para Terra Nostra",
-      "tag": "#sincretismo",
-      "tags": ["#cultura", "#religión"],
+      "tags": ["#cultura", "#religión", "#sincretismo"],
       "syncStatus": "synced"
     },
     {
@@ -280,8 +275,7 @@
       "definition": "Relación entre las sociedades y los acontecimientos del pasado mediante relatos, símbolos, interpretaciones y olvidos.",
       "category": "Tema",
       "source": "Contexto de estudio para Terra Nostra",
-      "tag": "#memoria-histórica",
-      "tags": ["#memoria", "#historia"],
+      "tags": ["#memoria", "#historia", "#memoria-histórica"],
       "syncStatus": "synced"
     },
     {
@@ -290,8 +284,7 @@
       "definition": "Presencia y transformación de referencias provenientes de otras obras, tradiciones, mitos y discursos culturales.",
       "category": "Técnica literaria",
       "source": "Contexto de estudio para Terra Nostra",
-      "tag": "#intertextualidad",
-      "tags": ["#literatura", "#referencias"],
+      "tags": ["#literatura", "#referencias", "#intertextualidad"],
       "syncStatus": "synced"
     },
     {
@@ -300,8 +293,7 @@
       "definition": "Estructura narrativa y simbólica mediante la cual una cultura interpreta orígenes, conflictos, figuras y valores fundamentales.",
       "category": "Concepto literario",
       "source": "Contexto de estudio para Terra Nostra",
-      "tag": "#mito",
-      "tags": ["#cultura", "#religión"],
+      "tags": ["#cultura", "#religión", "#mito"],
       "syncStatus": "synced"
     },
     {
@@ -310,8 +302,7 @@
       "definition": "Influencia ejercida por instituciones, creencias y autoridades religiosas dentro de la organización política y cultural.",
       "category": "Tema histórico",
       "source": "Contexto de estudio para Terra Nostra",
-      "tag": "#poder-religioso",
-      "tags": ["#religión", "#autoridad"],
+      "tags": ["#religión", "#autoridad", "#poder-religioso"],
       "syncStatus": "synced"
     },
     {
@@ -320,8 +311,7 @@
       "definition": "Procedimiento literario que revisa acontecimientos y relatos históricos para explorar interpretaciones alternativas del presente y la identidad.",
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para Terra Nostra",
-      "tag": "#reescritura",
-      "tags": ["#historia", "#memoria"],
+      "tags": ["#historia", "#memoria", "#reescritura"],
       "syncStatus": "synced"
     }
   ],
@@ -330,7 +320,7 @@
       "id": "sample-glosary-01",
       "term": "imperio",
       "definition": "Organización política caracterizada por el dominio de una autoridad central sobre territorios y poblaciones diversas.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín imperium, relacionado con mando, autoridad y poder.",
       "synonyms": ["dominio", "potencia imperial"],
       "contextSentence": "El imperio puede buscar unidad política mientras conserva profundas diferencias culturales en su interior.",
@@ -344,7 +334,7 @@
       "id": "sample-glosary-02",
       "term": "dinastía",
       "definition": "Serie de gobernantes pertenecientes a una misma familia o linaje.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego dynasteia, relacionado con poder o dominio.",
       "synonyms": ["linaje", "casa real"],
       "contextSentence": "La continuidad de una dinastía puede convertir los conflictos familiares en asuntos políticos.",
@@ -358,7 +348,7 @@
       "id": "sample-glosary-03",
       "term": "sincretismo",
       "definition": "Proceso mediante el cual elementos de tradiciones diferentes se combinan y adquieren nuevas formas.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego synkretismos, término posteriormente aplicado a la combinación de doctrinas y tradiciones.",
       "synonyms": ["fusión", "combinación cultural"],
       "contextSentence": "El sincretismo transforma las tradiciones al ponerlas en contacto con nuevas creencias y experiencias.",
@@ -372,7 +362,7 @@
       "id": "sample-glosary-04",
       "term": "herejía",
       "definition": "Doctrina o creencia considerada contraria a una enseñanza religiosa establecida como ortodoxa.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín haeresis y del griego hairesis, relacionado con elección o escuela de pensamiento.",
       "synonyms": ["heterodoxia", "disidencia religiosa"],
       "contextSentence": "Una acusación de herejía puede convertir una disputa de ideas en un conflicto de autoridad.",
@@ -386,7 +376,7 @@
       "id": "sample-glosary-05",
       "term": "crónica",
       "definition": "Relato de acontecimientos organizado generalmente según un orden temporal o histórico.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del latín chronica y del griego chronikos, relacionado con el tiempo.",
       "synonyms": ["relato histórico", "narración"],
       "contextSentence": "Una crónica puede registrar acontecimientos y al mismo tiempo reflejar la perspectiva de quien los narra.",
@@ -400,7 +390,7 @@
       "id": "sample-glosary-06",
       "term": "conquista",
       "definition": "Proceso de ocupación, sometimiento o control de un territorio y sus poblaciones.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Derivado del latín conquirere, relacionado con buscar, adquirir o ganar.",
       "synonyms": ["ocupación", "dominación"],
       "contextSentence": "La conquista transforma tanto al territorio sometido como a la sociedad que intenta dominarlo.",
@@ -414,7 +404,7 @@
       "id": "sample-glosary-07",
       "term": "utopía",
       "definition": "Representación imaginaria de una sociedad o condición ideal utilizada frecuentemente para examinar críticamente la realidad existente.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego, a partir de elementos relacionados con no y lugar, difundido por la obra de Tomás Moro.",
       "synonyms": ["sociedad ideal", "ideal"],
       "contextSentence": "Una utopía puede revelar tanto los deseos de una época como las limitaciones de su organización política.",
@@ -428,7 +418,7 @@
       "id": "sample-glosary-08",
       "term": "escatología",
       "definition": "Conjunto de ideas religiosas o filosóficas relacionadas con el destino final de la humanidad o del mundo.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego eskhatos, relacionado con lo último, y logos, relacionado con estudio.",
       "synonyms": ["doctrina de los últimos tiempos"],
       "contextSentence": "La imaginación escatológica interpreta el final de una época como una revelación sobre su sentido.",
@@ -442,7 +432,7 @@
       "id": "sample-glosary-09",
       "term": "genealogía",
       "definition": "Estudio o representación de una sucesión de antepasados, descendientes y relaciones de linaje.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego genea, generación, y logos, estudio.",
       "synonyms": ["linaje", "ascendencia"],
       "contextSentence": "La genealogía puede conectar conflictos políticos con decisiones familiares tomadas generaciones antes.",
@@ -456,7 +446,7 @@
       "id": "sample-glosary-10",
       "term": "anacronismo",
       "definition": "Presencia o ubicación de una persona, idea, objeto o acontecimiento en un período histórico que no le corresponde.",
-      "partOfSpeech": "sustantivo",
+      "partOfSpeech": "Noun",
       "etymology": "Del griego ana, contra o hacia atrás, y chronos, tiempo.",
       "synonyms": ["desfase temporal", "incongruencia histórica"],
       "contextSentence": "El anacronismo deliberado puede utilizarse para establecer relaciones entre épocas alejadas.",
@@ -823,7 +813,223 @@
       "syncStatus": "synced"
     }
   ],
-  "TIMELINE": [],
-  "RELATIONS": [],
-  "QUESTIONS": []
+  "QUESTIONS": [],
+  "BOOK_EVENTS": [
+    {
+      "id": "sample-book-event-01",
+      "displayRow": 1,
+      "mainCharacterId": "book-es-003-sample-character-01",
+      "secondaryCharacterIds": ["book-es-003-sample-character-02", "book-es-003-sample-character-03"],
+      "placeId": "book-es-003-sample-place-01",
+      "dateLabel": "El Viejo Mundo",
+      "eventOrder": 1,
+      "event": "Evento de estudio 1: El Viejo Mundo / Historia",
+      "description": "Síntesis de estudio para «El Viejo Mundo»: el índice destaca Historia (Reinterpretación del pasado y construcción de la identidad). La descripción de Felipe («Figura monárquica central vinculada con el poder, la religión, el imperio y la visión de una España definida por la autoridad y la permanencia.») se relaciona aquí con el concepto Historia alternativa («Reelaboración literaria del pasado que combina acontecimientos históricos con posibilidades imaginarias y reinterpretaciones simbólicas.»). España y el pasaje «El palacio» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#2F6690",
+      "book": "Terra Nostra",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#historia", "#felipe", "#poder", "#imperio", "#historia-alternativa", "#ficción", "#españa"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-02",
+      "displayRow": 2,
+      "mainCharacterId": "book-es-003-sample-character-03",
+      "secondaryCharacterIds": ["book-es-003-sample-character-04", "book-es-003-sample-character-05"],
+      "placeId": "book-es-003-sample-place-02",
+      "dateLabel": "El Nuevo Mundo",
+      "eventOrder": 2,
+      "event": "Evento de estudio 2: El Nuevo Mundo / Encuentro",
+      "description": "Síntesis de estudio para «El Nuevo Mundo»: el índice destaca Encuentro (Confrontación entre culturas, mitos y visiones del mundo). La descripción de Ludovico («Personaje vinculado con las discusiones intelectuales y espirituales que atraviesan la reinterpretación histórica de la novela.») se relaciona aquí con el concepto Tiempo circular («Concepción narrativa en la que acontecimientos, figuras y conflictos pueden repetirse o reaparecer transformados.»). París y el pasaje «El pasado» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#D17B49",
+      "book": "Terra Nostra",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#encuentro", "#ludovico", "#ideas", "#religión", "#tiempo-circular", "#tiempo", "#repetición", "#parís", "#modernidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-03",
+      "displayRow": 3,
+      "mainCharacterId": "book-es-003-sample-character-05",
+      "secondaryCharacterIds": ["book-es-003-sample-character-06", "book-es-003-sample-character-07"],
+      "placeId": "book-es-003-sample-place-03",
+      "dateLabel": "El Otro Mundo",
+      "eventOrder": 3,
+      "event": "Evento de estudio 3: El Otro Mundo / Tiempo",
+      "description": "Síntesis de estudio para «El Otro Mundo»: el índice destaca Tiempo (Superposición del pasado, presente y futuro). La descripción de Polo Febo («Personaje relacionado con el marco moderno de la novela y con la conexión entre diferentes tiempos, espacios y dimensiones de la experiencia histórica.») se relaciona aquí con el concepto Sincretismo («Combinación y transformación de tradiciones culturales, religiosas o simbólicas procedentes de diferentes orígenes.»). México y el pasaje «Dos mundos» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#6A994E",
+      "book": "Terra Nostra",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#tiempo", "#polo-febo", "#historia", "#sincretismo", "#cultura", "#religión", "#méxico", "#américa", "#identidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-book-event-04",
+      "displayRow": 4,
+      "mainCharacterId": "book-es-003-sample-character-07",
+      "secondaryCharacterIds": ["book-es-003-sample-character-08", "book-es-003-sample-character-09"],
+      "placeId": "book-es-003-sample-place-04",
+      "dateLabel": "La corte",
+      "eventOrder": 4,
+      "event": "Evento de estudio 4: La corte / Poder",
+      "description": "Síntesis de estudio para «La corte»: el índice destaca Poder (Autoridad, religión y orden político). La descripción de El Señor («Figura central de autoridad vinculada con la monarquía, el poder político y la construcción simbólica del imperio.») se relaciona aquí con el concepto Intertextualidad («Presencia y transformación de referencias provenientes de otras obras, tradiciones, mitos y discursos culturales.»). El Escorial y el pasaje «La corona» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "color": "#C49A3A",
+      "book": "Terra Nostra",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#poder", "#señor", "#autoridad", "#monarquía", "#intertextualidad", "#literatura", "#referencias", "#escorial", "#españa"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CHARACTERS": [
+    {
+      "id": "sample-character-relation-01",
+      "displayRow": 1,
+      "sourceCharacterId": "book-es-003-sample-character-01",
+      "targetCharacterId": "book-es-003-sample-character-02",
+      "relationType": "comparación temática",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Felipe (Figura monárquica central vinculada con el poder, la religión, el imperio y la visión de una España definida por la autoridad y la permanencia.) con Juana (Figura perteneciente al complejo entramado familiar, político y simbólico mediante el cual la novela revisa la historia y la identidad hispánicas.). El tema «Historia» y el subtema «Reinterpretación del pasado y construcción de la identidad» orientan la comparación; el pasaje «El palacio» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#2F6690",
+      "book": "Terra Nostra",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#felipe", "#poder", "#imperio", "#juana", "#dinastía", "#historia"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-02",
+      "displayRow": 2,
+      "sourceCharacterId": "book-es-003-sample-character-03",
+      "targetCharacterId": "book-es-003-sample-character-04",
+      "relationType": "perspectivas en contraste",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Ludovico (Personaje vinculado con las discusiones intelectuales y espirituales que atraviesan la reinterpretación histórica de la novela.) con Celestina (Figura que participa en la red de referencias literarias, culturales y simbólicas mediante las cuales la novela conecta diferentes épocas.). El tema «Encuentro» y el subtema «Confrontación entre culturas, mitos y visiones del mundo» orientan la comparación; el pasaje «El pasado» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#D17B49",
+      "book": "Terra Nostra",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#ludovico", "#ideas", "#religión", "#celestina", "#literatura", "#memoria", "#encuentro"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-03",
+      "displayRow": 3,
+      "sourceCharacterId": "book-es-003-sample-character-05",
+      "targetCharacterId": "book-es-003-sample-character-06",
+      "relationType": "contexto narrativo compartido",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula Polo Febo (Personaje relacionado con el marco moderno de la novela y con la conexión entre diferentes tiempos, espacios y dimensiones de la experiencia histórica.) con El Peregrino (Figura asociada con el desplazamiento, la búsqueda y el encuentro entre diferentes espacios culturales y simbólicos.). El tema «Tiempo» y el subtema «Superposición del pasado, presente y futuro» orientan la comparación; el pasaje «Dos mundos» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#6A994E",
+      "book": "Terra Nostra",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#polo-febo", "#tiempo", "#historia", "#peregrino", "#viaje", "#búsqueda"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-character-relation-04",
+      "displayRow": 4,
+      "sourceCharacterId": "book-es-003-sample-character-07",
+      "targetCharacterId": "book-es-003-sample-character-08",
+      "relationType": "asociación interpretativa",
+      "directed": false,
+      "description": "Esta asociación de lectura vincula El Señor (Figura central de autoridad vinculada con la monarquía, el poder político y la construcción simbólica del imperio.) con La Señora (Figura de la corte vinculada con las relaciones dinásticas, familiares y políticas que organizan parte del mundo narrativo.). El tema «Poder» y el subtema «Autoridad, religión y orden político» orientan la comparación; el pasaje «La corona» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "color": "#C49A3A",
+      "book": "Terra Nostra",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#señor", "#autoridad", "#monarquía", "#señora", "#corte", "#dinastía", "#poder"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
+  "RELATIONS_CONCEPTS": [
+    {
+      "id": "sample-concept-relation-01",
+      "displayRow": 1,
+      "sourceConceptId": "book-es-003-sample-concept-01",
+      "targetConceptId": "book-es-003-sample-concept-02",
+      "relationType": "da contexto a",
+      "directed": true,
+      "description": "La definición de «Historia alternativa» («Reelaboración literaria del pasado que combina acontecimientos históricos con posibilidades imaginarias y reinterpretaciones simbólicas.») puede leerse en relación con «Identidad hispánica» («Construcción cultural compleja formada por múltiples tradiciones, conflictos, lenguas, religiones y experiencias históricas.»). El tema Historia y el subtema Reinterpretación del pasado y construcción de la identidad, junto con el pasaje «El palacio», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#735D78",
+      "book": "Terra Nostra",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#historia-alternativa", "#historia", "#ficción", "#identidad-hispánica", "#identidad"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-02",
+      "displayRow": 2,
+      "sourceConceptId": "book-es-003-sample-concept-03",
+      "targetConceptId": "book-es-003-sample-concept-04",
+      "relationType": "ofrece una perspectiva sobre",
+      "directed": false,
+      "description": "La definición de «Tiempo circular» («Concepción narrativa en la que acontecimientos, figuras y conflictos pueden repetirse o reaparecer transformados.») puede leerse en relación con «Imperio» («Estructura política y cultural examinada a través de las relaciones entre autoridad, expansión, religión, violencia e identidad.»). El tema Encuentro y el subtema Confrontación entre culturas, mitos y visiones del mundo, junto con el pasaje «El pasado», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#2F6690",
+      "book": "Terra Nostra",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#tiempo-circular", "#tiempo", "#repetición", "#imperio", "#poder", "#historia", "#encuentro"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-03",
+      "displayRow": 3,
+      "sourceConceptId": "book-es-003-sample-concept-05",
+      "targetConceptId": "book-es-003-sample-concept-06",
+      "relationType": "contrasta con",
+      "directed": false,
+      "description": "La definición de «Sincretismo» («Combinación y transformación de tradiciones culturales, religiosas o simbólicas procedentes de diferentes orígenes.») puede leerse en relación con «Memoria histórica» («Relación entre las sociedades y los acontecimientos del pasado mediante relatos, símbolos, interpretaciones y olvidos.»). El tema Tiempo y el subtema Superposición del pasado, presente y futuro, junto con el pasaje «Dos mundos», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#A44A3F",
+      "book": "Terra Nostra",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#sincretismo", "#cultura", "#religión", "#memoria-histórica", "#memoria", "#historia", "#tiempo"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-concept-relation-04",
+      "displayRow": 4,
+      "sourceConceptId": "book-es-003-sample-concept-07",
+      "targetConceptId": "book-es-003-sample-concept-08",
+      "relationType": "complementa",
+      "directed": true,
+      "description": "La definición de «Intertextualidad» («Presencia y transformación de referencias provenientes de otras obras, tradiciones, mitos y discursos culturales.») puede leerse en relación con «Mito» («Estructura narrativa y simbólica mediante la cual una cultura interpreta orígenes, conflictos, figuras y valores fundamentales.»). El tema Poder y el subtema Autoridad, religión y orden político, junto con el pasaje «La corona», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "color": "#5C4D7D",
+      "book": "Terra Nostra",
+      "author": "Carlos Fuentes",
+      "page": "",
+      "tags": ["#intertextualidad", "#literatura", "#referencias", "#mito", "#cultura", "#religión", "#poder"],
+      "feed": 1,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ]
 }

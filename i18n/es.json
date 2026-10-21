@@ -7,13 +7,17 @@
   },
   "LEARN": {
     "TITLE": "Aprender",
-    "DESCRIPTION": "Un recorrido aleatorio por los libros guardados en este dispositivo.",
+    "SEARCH": "Buscar libros, autores, dominios o etiquetas...",
     "EMPTY_TITLE": "No se encontraron entradas para aprender",
     "EMPTY_DESCRIPTION": "Todavía no hay entradas locales de los dominios disponibles.",
+    "NO_SEARCH_RESULTS_TITLE": "No se encontraron entradas coincidentes",
+    "NO_SEARCH_RESULTS": "Prueba con otro libro, dominio o etiqueta.",
     "LOAD_MORE": "Cargar 20 más",
     "LOADING_MORE": "Cargando entradas...",
     "END_OF_FEED": "Has llegado al final de este recorrido.",
-    "ERROR": "No se pudieron cargar las entradas. Inténtalo de nuevo."
+    "ERROR": "No se pudieron cargar las entradas. Inténtalo de nuevo.",
+    "EXPORT_IMAGE": "Descargar imagen de la entrada",
+    "EXPORT_ERROR": "No se pudo exportar esta entrada de aprendizaje."
   },
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
@@ -147,6 +151,7 @@
     "UNSUPPORTED_SHEET": "Este tipo de hoja no está soportado para visualización aún.",
     "DOMAIN": "Dominio",
     "SELECT_DOMAIN": "Seleccionar dominio",
+    "SELECT_VIEW": "Seleccionar vista del catálogo",
     "NOT_FOUND": {
       "TITLE": "Entrada No Encontrada",
       "DESC": "Esta entrada del catálogo no existe localmente. Intenta sincronizar o vuelve al Catálogo."
@@ -173,7 +178,7 @@
       "CHAPTER": "Capitulo",
       "THEME": "Tema",
       "SUBTHEME": "Subtema",
-      "TAG": "Etiqueta",
+      "TAGS": "Etiquetas",
       "STATUS": "Estado",
       "ADD_ENTRY": "Entrada",
       "NEW_ENTRY_TITLE": "Agregar Nueva Entrada"
@@ -181,14 +186,15 @@
     "DOMAINS": {
       "INDEX": "Índice",
       "QUOTES": "Citas",
-      "TIMELINE": "Línea de Tiempo",
-      "RELATIONS": "Relaciones",
       "CONCEPTS": "Conceptos",
       "GLOSARY": "Glosario",
       "QUESTIONS": "Preguntas",
       "PASSAGES": "Pasajes",
       "CHARACTER": "Personajes",
-      "PLACES": "Lugares"
+      "PLACES": "Lugares",
+      "BOOK_EVENTS": "Eventos",
+      "RELATIONS_CHARACTERS": "Relaciones",
+      "RELATIONS_CONCEPTS": "Asociaciones"
     },
     "CONCEPTS": {
       "NEW_ENTRY_TITLE": "Agregar Nuevo Concepto",
@@ -210,8 +216,62 @@
       },
       "SEARCH": "Buscar conceptos por término, categoría o etiquetas...",
       "NO_MATCHES": "Ningún concepto coincide con la búsqueda.",
-      "VIEW_RELATIONS": "Ver conexiones",
       "DOWNLOAD_IMAGES": "Descargar imágenes de la cita"
+    },
+    "BOOK_EVENTS": {
+      "NEW_ENTRY_TITLE": "Agregar evento del libro",
+      "MAIN_CHARACTER": "Personaje principal",
+      "SECONDARY_CHARACTERS": "Otros personajes",
+      "SELECT_CHARACTER": "Selecciona el personaje principal",
+      "PLACE": "Lugar",
+      "NO_PLACE": "Sin un lugar específico",
+      "DATE_TIME_START": "Fecha y hora de inicio",
+      "DATE_TIME_END": "Fecha y hora de finalización",
+      "DATE_LABEL": "Fecha u hora narrativa",
+      "EVENT_ORDER": "Orden del evento",
+      "EVENT": "Evento",
+      "DESCRIPTION": "Descripción",
+      "COLOR": "Color del evento",
+      "BOOK": "Libro",
+      "AUTHOR": "Autor",
+      "PAGE": "Página",
+      "TAGS": "Etiquetas",
+      "SEARCH": "Buscar eventos por título, descripción, personaje, lugar o etiqueta...",
+      "NO_MATCHES": "Ningún evento coincide con la búsqueda."
+    },
+    "RELATIONS_CHARACTERS": {
+      "NEW_ENTRY_TITLE": "Agregar relación entre personajes",
+      "SOURCE_CHARACTER": "Personaje de origen",
+      "TARGET_CHARACTER": "Personaje relacionado",
+      "SELECT_CHARACTER": "Selecciona un personaje",
+      "TYPE": "Tipo de relación",
+      "DIRECTED": "Relación direccional",
+      "DESCRIPTION": "Explicación",
+      "COLOR": "Color de la relación",
+      "BOOK": "Libro",
+      "AUTHOR": "Autor",
+      "PAGE": "Página o capítulo",
+      "TAGS": "Etiquetas",
+      "SEARCH": "Buscar relaciones por nombres, tipo, descripción o etiquetas...",
+      "NO_MATCHES": "Ninguna relación coincide con la búsqueda.",
+      "NO_CHARACTERS": "Agrega personajes al libro antes de crear relaciones."
+    },
+    "RELATIONS_CONCEPTS": {
+      "NEW_ENTRY_TITLE": "Agregar relación entre conceptos",
+      "SOURCE_CONCEPT": "Concepto de origen",
+      "TARGET_CONCEPT": "Concepto relacionado",
+      "SELECT_CONCEPT": "Selecciona un concepto",
+      "TYPE": "Tipo de relación",
+      "DIRECTED": "Relación direccional",
+      "DESCRIPTION": "Explicación",
+      "COLOR": "Color de la relación",
+      "BOOK": "Libro",
+      "AUTHOR": "Autor",
+      "PAGE": "Página o capítulo",
+      "TAGS": "Etiquetas",
+      "SEARCH": "Buscar relaciones por conceptos, tipo, descripción o etiquetas...",
+      "NO_MATCHES": "Ninguna relación entre conceptos coincide con la búsqueda.",
+      "NO_CONCEPTS": "Agrega conceptos al libro antes de crear relaciones."
     },
     "QUESTIONS": {
       "NEW_ENTRY_TITLE": "Agregar pregunta",
@@ -292,12 +352,12 @@
       "PART_OF_SPEECH": "Tipo de palabra",
       "SELECT_PART_OF_SPEECH": "Selecciona el tipo de palabra",
       "POS_OPTIONS": {
-        "Sustantivo": "Sustantivo",
-        "Adjetivo": "Adjetivo",
-        "Verbo": "Verbo",
-        "Adverbio": "Adverbio",
-        "Locución": "Locución",
-        "Otro": "Otro"
+        "Noun": "Sustantivo",
+        "Adjective": "Adjetivo",
+        "Verb": "Verbo",
+        "Adverb": "Adverbio",
+        "Phrase": "Locución",
+        "Other": "Otro"
       },
       "ETYMOLOGY": "Etimología",
       "SYNONYMS": "Sinónimos",
@@ -322,7 +382,6 @@
       "CHARACTERS_LEFT": "{{count}} caracteres restantes",
       "SEARCH": "Buscar personajes...",
       "NO_MATCHES": "Ningún personaje coincide con la búsqueda.",
-      "VIEW_RELATIONS": "Ver relaciones",
       "ROLE_OPTIONS": {
         "protagonist": "Protagonista",
         "antagonist": "Antagonista",
@@ -351,6 +410,9 @@
       "CHARACTERS_LEFT": "{{count}} caracteres restantes",
       "SEARCH": "Buscar lugares...",
       "NO_MATCHES": "Ningún lugar coincide con la búsqueda.",
+      "VIEW_MAP": "Ver mapa",
+      "VIEW_LIST": "Ver lista",
+      "NO_MAPPED_LOCATIONS": "No hay lugares con coordenadas válidas para mostrar.",
       "TYPE_OPTIONS": {
         "CITY": "Ciudad",
         "COUNTRY": "País",

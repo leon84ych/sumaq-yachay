@@ -34,13 +34,17 @@
   },
   "LEARN": {
     "TITLE": "Learn",
-    "DESCRIPTION": "A randomized reading stream from your local book collection.",
+    "SEARCH": "Search books, authors, domains, or tags...",
     "EMPTY_TITLE": "No learning entries found",
     "EMPTY_DESCRIPTION": "There are no local domain entries to show yet.",
+    "NO_SEARCH_RESULTS_TITLE": "No matching entries found",
+    "NO_SEARCH_RESULTS": "Try another book, domain, or tag.",
     "LOAD_MORE": "Load 20 more",
     "LOADING_MORE": "Loading entries...",
     "END_OF_FEED": "You have reached the end of this feed.",
-    "ERROR": "Could not load learning entries. Try again."
+    "ERROR": "Could not load learning entries. Try again.",
+    "EXPORT_IMAGE": "Download entry image",
+    "EXPORT_ERROR": "Could not export this learning entry."
   },
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
@@ -174,6 +178,7 @@
     "UNSUPPORTED_SHEET": "This sheet type isn't supported for viewing yet.",
     "DOMAIN": "Domain",
     "SELECT_DOMAIN": "Select Domain",
+    "SELECT_VIEW": "Select catalog view",
     "NOT_FOUND": {
       "TITLE": "Entry Not Found",
       "DESC": "This catalog entry doesn't exist locally. Try syncing or go back to the Catalog."
@@ -200,7 +205,7 @@
       "CHAPTER": "Chapter",
       "THEME": "Theme",
       "SUBTHEME": "Subtheme",
-      "TAG": "Tag",
+      "TAGS": "Tags",
       "STATUS": "Status",
       "ADD_ENTRY": "Entry",
       "NEW_ENTRY_TITLE": "Add New Entry"
@@ -208,14 +213,15 @@
     "DOMAINS": {
       "INDEX": "Index",
       "QUOTES": "Quotes",
-      "TIMELINE": "Timeline",
-      "RELATIONS": "Relations",
       "CONCEPTS": "Concepts",
       "GLOSARY": "Glossary",
       "QUESTIONS": "Questions",
       "PASSAGES": "Passages",
       "CHARACTER": "Characters",
-      "PLACES": "Places"
+      "PLACES": "Places",
+      "BOOK_EVENTS": "Events",
+      "RELATIONS_CHARACTERS": "Relations",
+      "RELATIONS_CONCEPTS": "Associations"
     },
     "CONCEPTS": {
       "NEW_ENTRY_TITLE": "Add New Concept",
@@ -237,8 +243,62 @@
       },
       "SEARCH": "Search concepts by term, category, or tags...",
       "NO_MATCHES": "No concepts match your search.",
-      "VIEW_RELATIONS": "View connections",
       "DOWNLOAD_IMAGES": "Download quote images"
+    },
+    "BOOK_EVENTS": {
+      "NEW_ENTRY_TITLE": "Add Book Event",
+      "MAIN_CHARACTER": "Main character",
+      "SECONDARY_CHARACTERS": "Other characters",
+      "SELECT_CHARACTER": "Select the main character",
+      "PLACE": "Place",
+      "NO_PLACE": "No specific place",
+      "DATE_TIME_START": "Start date and time",
+      "DATE_TIME_END": "End date and time",
+      "DATE_LABEL": "Narrative date or time",
+      "EVENT_ORDER": "Event order",
+      "EVENT": "Event",
+      "DESCRIPTION": "Description",
+      "COLOR": "Event color",
+      "BOOK": "Book",
+      "AUTHOR": "Author",
+      "PAGE": "Page",
+      "TAGS": "Tags",
+      "SEARCH": "Search events by title, description, character, place, or tag...",
+      "NO_MATCHES": "No events match your search."
+    },
+    "RELATIONS_CHARACTERS": {
+      "NEW_ENTRY_TITLE": "Add Character Relation",
+      "SOURCE_CHARACTER": "Source character",
+      "TARGET_CHARACTER": "Related character",
+      "SELECT_CHARACTER": "Select a character",
+      "TYPE": "Relationship type",
+      "DIRECTED": "Directional relationship",
+      "DESCRIPTION": "Explanation",
+      "COLOR": "Relationship color",
+      "BOOK": "Book",
+      "AUTHOR": "Author",
+      "PAGE": "Page or chapter",
+      "TAGS": "Tags",
+      "SEARCH": "Search character relations by names, type, description, or tags...",
+      "NO_MATCHES": "No character relations match your search.",
+      "NO_CHARACTERS": "Add characters to this book before creating relations."
+    },
+    "RELATIONS_CONCEPTS": {
+      "NEW_ENTRY_TITLE": "Add Concept Relation",
+      "SOURCE_CONCEPT": "Source concept",
+      "TARGET_CONCEPT": "Related concept",
+      "SELECT_CONCEPT": "Select a concept",
+      "TYPE": "Relation type",
+      "DIRECTED": "Directional relationship",
+      "DESCRIPTION": "Explanation",
+      "COLOR": "Relationship color",
+      "BOOK": "Book",
+      "AUTHOR": "Author",
+      "PAGE": "Page or chapter",
+      "TAGS": "Tags",
+      "SEARCH": "Search concept relations by terms, type, description, or tags...",
+      "NO_MATCHES": "No concept relations match your search.",
+      "NO_CONCEPTS": "Add concepts to this book before creating relations."
     },
     "QUESTIONS": {
       "NEW_ENTRY_TITLE": "Add question",
@@ -318,12 +378,12 @@
       "PART_OF_SPEECH": "Part of speech",
       "SELECT_PART_OF_SPEECH": "Select part of speech",
       "POS_OPTIONS": {
-        "Sustantivo": "Noun",
-        "Adjetivo": "Adjective",
-        "Verbo": "Verb",
-        "Adverbio": "Adverb",
-        "Locución": "Phrase",
-        "Otro": "Other"
+        "Noun": "Noun",
+        "Adjective": "Adjective",
+        "Verb": "Verb",
+        "Adverb": "Adverb",
+        "Phrase": "Phrase",
+        "Other": "Other"
       },
       "ETYMOLOGY": "Etymology",
       "SYNONYMS": "Synonyms",
@@ -348,7 +408,6 @@
       "CHARACTERS_LEFT": "{{count}} characters remaining",
       "SEARCH": "Search characters...",
       "NO_MATCHES": "No characters match your search.",
-      "VIEW_RELATIONS": "View relations",
       "ROLE_OPTIONS": {
         "protagonist": "Protagonist",
         "antagonist": "Antagonist",
@@ -377,6 +436,9 @@
       "CHARACTERS_LEFT": "{{count}} characters remaining",
       "SEARCH": "Search places...",
       "NO_MATCHES": "No places match your search.",
+      "VIEW_MAP": "View Map",
+      "VIEW_LIST": "List View",
+      "NO_MAPPED_LOCATIONS": "No places with valid coordinates to display.",
       "TYPE_OPTIONS": {
         "CITY": "City",
         "COUNTRY": "Country",
