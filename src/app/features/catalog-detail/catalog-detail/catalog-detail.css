@@ -92,4 +92,15 @@
     flex: 1 1 9rem;
     min-width: 8rem;
   }
+
+  .mobile-sheet-selector select,
+  .detail-actions .btn-primary {
+    box-sizing: border-box;
+    height: 2rem;
+  }
+
+  .mobile-sheet-selector select {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.85rem;
+  }
 }
