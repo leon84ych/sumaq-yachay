@@ -892,7 +892,7 @@
       "syncStatus": "synced"
     }
   ],
-  "RELATIONS_CHARACTERS": [
+  "RELATIONS": [
     {
       "id": "sample-character-relation-01",
       "displayRow": 1,
@@ -962,7 +962,7 @@
       "syncStatus": "synced"
     }
   ],
-  "RELATIONS_CONCEPTS": [
+  "ASSOCIATIONS": [
     {
       "id": "sample-concept-relation-01",
       "displayRow": 1,
