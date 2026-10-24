@@ -240,6 +240,8 @@
       "NO_MATCHES": "Ningún evento coincide con la búsqueda."
     },
     "RELATIONS": {
+      "LOADING_OPTIONS": "Cargando todos los personajes...",
+      "LOADING_OPTIONS_ERROR": "No se pudieron cargar todos los personajes.",
       "NEW_ENTRY_TITLE": "Agregar relación entre personajes",
       "SOURCE_CHARACTER": "Personaje de origen",
       "TARGET_CHARACTER": "Personaje relacionado",
@@ -257,6 +259,8 @@
       "NO_CHARACTERS": "Agrega personajes al libro antes de crear relaciones."
     },
     "ASSOCIATIONS": {
+      "LOADING_OPTIONS": "Cargando todos los conceptos...",
+      "LOADING_OPTIONS_ERROR": "No se pudieron cargar todos los conceptos.",
       "NEW_ENTRY_TITLE": "Agregar relación entre conceptos",
       "SOURCE_CONCEPT": "Concepto de origen",
       "TARGET_CONCEPT": "Concepto relacionado",
