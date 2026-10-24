@@ -1,6 +1,19 @@
 <section class="relations-concepts-view">
   @if (isAddingEntry() || editingId() !== null) {
-    <app-association-form [form]="this" />
+    @if (optionsLoadState() === 'ready') {
+      <app-association-form [form]="this" />
+    } @else if (optionsLoadState() === 'error') {
+      <p class="empty-state" role="alert">
+        {{ 'DOMAINS.ASSOCIATIONS.LOADING_OPTIONS_ERROR' | transloco }}
+      </p>
+      <button type="button" class="btn-cancel" (click)="resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    } @else {
+      <p class="empty-state" role="status" aria-live="polite">
+        {{ 'DOMAINS.ASSOCIATIONS.LOADING_OPTIONS' | transloco }}
+      </p>
+    }
   }
 
   @if (rows().length === 0) {

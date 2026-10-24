@@ -78,14 +78,10 @@
 }
 
 .tag-picker-suggestions {
-  position: absolute;
-  z-index: 5;
-  top: calc(100% + 0.25rem);
-  right: 0;
-  left: 0;
+  position: static;
   max-height: 14rem;
   overflow-y: auto;
-  margin: 0;
+  margin: 0.25rem 0 0;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   padding: 0.25rem;

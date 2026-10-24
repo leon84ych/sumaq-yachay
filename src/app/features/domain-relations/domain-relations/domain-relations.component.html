@@ -1,6 +1,19 @@
 <section class="relations-characters-view">
   @if (isAddingEntry() || editingId() !== null) {
-    <app-relation-form [form]="this" />
+    @if (optionsLoadState() === 'ready') {
+      <app-relation-form [form]="this" />
+    } @else if (optionsLoadState() === 'error') {
+      <p class="empty-state" role="alert">
+        {{ 'DOMAINS.RELATIONS.LOADING_OPTIONS_ERROR' | transloco }}
+      </p>
+      <button type="button" class="btn-cancel" (click)="resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    } @else {
+      <p class="empty-state" role="status" aria-live="polite">
+        {{ 'DOMAINS.RELATIONS.LOADING_OPTIONS' | transloco }}
+      </p>
+    }
   }
   @if (rows().length === 0) {
     <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>

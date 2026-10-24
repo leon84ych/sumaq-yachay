@@ -175,6 +175,38 @@ export class DomainDataService {
     return !state || state.totalPages === null || state.page < state.totalPages;
   }
 
+  async loadAllRows(sheetName: string): Promise<void> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      return;
+    }
+
+    const sheet = this.sheets().find((candidate) => candidate.name === sheetName);
+    if (!sheet) {
+      throw new Error(`The ${sheetName} sheet is not available.`);
+    }
+
+    const key = this.paginationKey(sheetName);
+    while (this.canLoadMore(sheetName)) {
+      const currentSheet = this.sheets().find((candidate) => candidate.name === sheetName);
+      if (!currentSheet) {
+        throw new Error(`The ${sheetName} sheet is not available.`);
+      }
+
+      const previousState = this.pagination()[key];
+      const previousPage =
+        previousState?.page ?? Math.floor(currentSheet.rows.length / DOMAIN_PAGE_SIZE);
+      await this.loadNextPage(sheetName);
+
+      const nextState = this.pagination()[key];
+      if (nextState?.error) {
+        throw new Error(nextState.error);
+      }
+      if (this.canLoadMore(sheetName) && (nextState?.page ?? previousPage) <= previousPage) {
+        throw new Error(`Could not load all ${sheetName.toLocaleLowerCase()} entries.`);
+      }
+    }
+  }
+
   async loadNextPage(sheetName: string): Promise<void> {
     if (this.configService.isLocalSampleDataEnabled()) {
       return;
@@ -224,9 +256,7 @@ export class DomainDataService {
         return {
           ...normalizedRow,
           id: String(normalizedRow['id'] ?? `${tableName}_${row}_${nextPage}_${index}`),
-          row: ['RELATIONS', 'ASSOCIATIONS'].includes(sheetName.toUpperCase())
-            ? displayRow
-            : row,
+          row: ['RELATIONS', 'ASSOCIATIONS'].includes(sheetName.toUpperCase()) ? displayRow : row,
           ...(['RELATIONS', 'ASSOCIATIONS'].includes(sheetName.toUpperCase())
             ? { displayRow }
             : {}),
@@ -678,11 +708,7 @@ export class DomainDataService {
       tags: serializeTags(record['tags']),
     };
     delete normalizedRecord['tag'];
-    if (
-      ['BOOK_EVENTS', 'RELATIONS', 'ASSOCIATIONS'].includes(
-        sheetName.toUpperCase(),
-      )
-    ) {
+    if (['BOOK_EVENTS', 'RELATIONS', 'ASSOCIATIONS'].includes(sheetName.toUpperCase())) {
       normalizedRecord['displayRow'] =
         typeof record['displayRow'] === 'number'
           ? record['displayRow']
@@ -746,15 +772,16 @@ export class DomainDataService {
         }
       }
 
+      const bookTags = await this.buildBookTags(row, remoteSheets);
+      await this.dbService.db.transaction('rw', [this.dbService.db.bookTags], async () => {
+        await this.replaceBookTagsForCatalog(row, bookTags);
+      });
+
       await this.taxonomyService.refreshGlobalTaxonomy(row);
 
       const normalizedRemoteSheets = await Promise.all(
         remoteSheets.map(async (sheet) => {
-          if (
-            !['BOOK_EVENTS', 'RELATIONS', 'ASSOCIATIONS'].includes(
-              sheet.name.toUpperCase(),
-            )
-          ) {
+          if (!['BOOK_EVENTS', 'RELATIONS', 'ASSOCIATIONS'].includes(sheet.name.toUpperCase())) {
             return sheet;
           }
 

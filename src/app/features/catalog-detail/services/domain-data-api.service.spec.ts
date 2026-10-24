@@ -11,11 +11,13 @@ describe('DomainDataApiService.deleteRow', () => {
   let fetchSpy: ReturnType<typeof vi.fn>;
   let getWebAppUrl: ReturnType<typeof vi.fn>;
   let idToken: ReturnType<typeof vi.fn>;
+  let currentUser: ReturnType<typeof vi.fn>;
   let localSampleDataEnabled: boolean;
 
   beforeEach(() => {
     getWebAppUrl = vi.fn(() => 'https://example.com/gas');
     idToken = vi.fn(() => 'auth-token');
+    currentUser = vi.fn(() => ({ email: 'contributor@example.com' }));
     localSampleDataEnabled = false;
     fetchSpy = vi.fn().mockResolvedValue({
       ok: true,
@@ -30,7 +32,7 @@ describe('DomainDataApiService.deleteRow', () => {
           provide: ConfigService,
           useValue: { getWebAppUrl, isLocalSampleDataEnabled: () => localSampleDataEnabled },
         },
-        { provide: GoogleAuthService, useValue: { idToken } },
+        { provide: GoogleAuthService, useValue: { idToken, currentUser } },
         { provide: TranslocoService, useValue: { translate: (key: string) => key } },
       ],
     });
@@ -60,9 +62,9 @@ describe('DomainDataApiService.deleteRow', () => {
     });
   });
 
-  it('sends the parent CatalogItem.id in the UPDATE_SHEET_ROWS payload', async () => {
+  it('sends the contributor email in the UPDATE_SHEET_ROWS payload', async () => {
     const service = TestBed.inject(DomainDataApiService);
-    const rows = [{ id: 'concept-row-9', term: 'Context' }];
+    const rows = [{ id: 'concept-row-9', term: 'Context', contributor: 'admin' }];
 
     await firstValueFrom(service.updateRows(3, 'CONCEPTS', rows, 'catalog-item-3'));
 
@@ -74,7 +76,7 @@ describe('DomainDataApiService.deleteRow', () => {
         row: 3,
         id: 'catalog-item-3',
         sheetName: 'CONCEPTS',
-        rows,
+        rows: [{ id: 'concept-row-9', term: 'Context', contributor: 'contributor@example.com' }],
         idToken: 'auth-token',
       }),
     });
@@ -89,7 +91,12 @@ describe('DomainDataApiService.deleteRow', () => {
       }),
     } as unknown as Response);
     const service = TestBed.inject(DomainDataApiService);
-    const newRow = { id: 'temporary-local-id', term: 'New term', tags: ['#valid'] };
+    const newRow = {
+      id: 'temporary-local-id',
+      term: 'New term',
+      tags: ['#valid'],
+      contributor: 'currentUser',
+    };
 
     const response = await firstValueFrom(
       service.updateRows(3, 'CONCEPTS', [newRow], 'catalog-item-3', true),
@@ -103,7 +110,7 @@ describe('DomainDataApiService.deleteRow', () => {
         row: 3,
         id: 'catalog-item-3',
         sheetName: 'CONCEPTS',
-        rows: [{ term: 'New term', tags: ['#valid'] }],
+        rows: [{ term: 'New term', tags: ['#valid'], contributor: 'contributor@example.com' }],
         idToken: 'auth-token',
       }),
     });
@@ -154,9 +161,9 @@ describe('DomainDataApiService.deleteRow', () => {
     localSampleDataEnabled = true;
     const service = TestBed.inject(DomainDataApiService);
 
-    await expect(
-      firstValueFrom(service.getDomainSheets(3)),
-    ).rejects.toThrow('Remote requests are disabled in LocalSampleData mode.');
+    await expect(firstValueFrom(service.getDomainSheets(3))).rejects.toThrow(
+      'Remote requests are disabled in LocalSampleData mode.',
+    );
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 });

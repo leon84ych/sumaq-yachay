@@ -143,7 +143,7 @@ export class DomainDataApiService {
             totalRows: this.readNumber(data['totalRows'], data['rows'].length),
             totalPages: this.readNumber(data['totalPages'], page),
             rows: data['rows'].filter(isRecord),
-              role: this.permissionService.role(),
+            role: this.permissionService.role(),
           };
         }
         data = data['data'];
@@ -255,13 +255,18 @@ export class DomainDataApiService {
       );
     }
 
-    const rows = createRowWithoutId
-      ? updatedRows.map((record) => {
-          const rowData = { ...record };
-          delete rowData['id'];
-          return rowData;
-        })
-      : updatedRows;
+    const contributorEmail = this.authService.currentUser()?.email?.trim();
+    const rows = updatedRows.map((record) => {
+      const rowData = { ...record };
+      delete rowData['contributor'];
+      if (contributorEmail) {
+        rowData['contributor'] = contributorEmail;
+      }
+      if (createRowWithoutId) {
+        delete rowData['id'];
+      }
+      return rowData;
+    });
 
     const payload = {
       action: 'UPDATE_SHEET_ROWS',

@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, input, output, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  output,
+  signal,
+  untracked,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
@@ -44,6 +53,7 @@ export class DomainAssociationComponent {
   readonly newColor = signal('#735D78');
   readonly newPage = signal('');
   readonly newTags = signal<string[]>([]);
+  readonly optionsLoadState = signal<'idle' | 'loading' | 'ready' | 'error'>('idle');
 
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
@@ -52,6 +62,28 @@ export class DomainAssociationComponent {
   private readonly globalErrorService = inject(GlobalErrorService);
   private readonly transloco = inject(TranslocoService);
   private readonly taxonomyService = inject(TaxonomyService);
+  private optionsLoadStarted = false;
+
+  constructor() {
+    effect(() => {
+      const formOpen = this.isAddingEntry() || this.editingId() !== null;
+      if (!formOpen) {
+        if (this.optionsLoadState() === 'error') {
+          this.optionsLoadStarted = false;
+          this.optionsLoadState.set('idle');
+        }
+        return;
+      }
+
+      if (this.optionsLoadStarted) {
+        return;
+      }
+
+      this.optionsLoadStarted = true;
+      this.optionsLoadState.set('loading');
+      untracked(() => void this.loadConceptOptions());
+    });
+  }
 
   readonly concepts = computed<ConceptRow[]>(() => {
     const conceptSheet = this.domainDataService
@@ -211,5 +243,14 @@ export class DomainAssociationComponent {
 
   private normalizeSearch(value: string): string {
     return value.trim().toLocaleLowerCase();
+  }
+
+  private async loadConceptOptions(): Promise<void> {
+    try {
+      await this.domainDataService.loadAllRows('CONCEPTS');
+      this.optionsLoadState.set('ready');
+    } catch {
+      this.optionsLoadState.set('error');
+    }
   }
 }

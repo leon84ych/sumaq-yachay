@@ -267,6 +267,8 @@
       "NO_MATCHES": "No events match your search."
     },
     "RELATIONS": {
+      "LOADING_OPTIONS": "Loading all characters...",
+      "LOADING_OPTIONS_ERROR": "Could not load all characters.",
       "NEW_ENTRY_TITLE": "Add Character Relation",
       "SOURCE_CHARACTER": "Source character",
       "TARGET_CHARACTER": "Related character",
@@ -284,6 +286,8 @@
       "NO_CHARACTERS": "Add characters to this book before creating relations."
     },
     "ASSOCIATIONS": {
+      "LOADING_OPTIONS": "Loading all concepts...",
+      "LOADING_OPTIONS_ERROR": "Could not load all concepts.",
       "NEW_ENTRY_TITLE": "Add Concept Relation",
       "SOURCE_CONCEPT": "Source concept",
       "TARGET_CONCEPT": "Related concept",
