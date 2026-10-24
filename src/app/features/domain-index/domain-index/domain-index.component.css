@@ -1,64 +1,9 @@
 .index-view-container {
-  max-width: 800px;
+  max-width: var(--domain-view-width);
   margin: 0 auto;
   padding: 1.5rem 1rem;
   background: var(--background);
   color: var(--text);
-}
-
-.add-entry-form {
-  display: grid;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 6px;
-}
-
-.add-entry-form .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.add-entry-form .form-group input,
-.add-entry-form .form-group textarea {
-  width: 100%;
-  min-height: 2.75rem;
-  padding: 0.5rem;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 4px;
-  font: inherit;
-  line-height: 1.4;
-}
-
-.add-entry-form .form-group textarea {
-  resize: vertical;
-}
-
-.add-entry-form .form-group input:focus,
-.add-entry-form .form-group textarea:focus {
-  outline-width: 2px;
-  outline-style: solid;
-  outline-offset: 1px;
-}
-
-.add-entry-form .form-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.add-entry-form .form-actions .btn-submit,
-.add-entry-form .form-actions .btn-cancel {
-  padding: 0.55rem 0.9rem;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .hierarchy-list {

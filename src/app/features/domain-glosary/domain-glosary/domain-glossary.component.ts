@@ -5,7 +5,6 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
-import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
 import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
@@ -13,23 +12,18 @@ import { GlossaryEntryCardComponent } from '../components/glossary-entry-card/gl
 
 import type { GlossaryRow, PartOfSpeech } from '../model/domain-glosary-row.model';
 
-const PARTS_OF_SPEECH: PartOfSpeech[] = [
-  'Noun',
-  'Adjective',
-  'Verb',
-  'Adverb',
-  'Phrase',
-  'Other',
-];
+const PARTS_OF_SPEECH: PartOfSpeech[] = ['Noun', 'Adjective', 'Verb', 'Adverb', 'Phrase', 'Other'];
+
+import { GlossaryFormComponent } from '../components/glossary-form/glossary-form.component';
 
 @Component({
   selector: 'app-domain-glossary',
   standalone: true,
   imports: [
+    GlossaryFormComponent,
     CommonModule,
     FormsModule,
     TranslocoPipe,
-    TagPickerComponent,
     GlossaryEntryCardComponent,
   ],
   templateUrl: './domain-glossary.component.html',
@@ -90,7 +84,11 @@ export class DomainGlossaryComponent {
    * Evaluates if core model prerequisites or tag system integrity rules are violated.
    */
   readonly isFormInvalid = computed<boolean>(() => {
-    return !this.newTerm().trim() || !this.newDefinition().trim() || this.invalidTagsDetected().length > 0;
+    return (
+      !this.newTerm().trim() ||
+      !this.newDefinition().trim() ||
+      this.invalidTagsDetected().length > 0
+    );
   });
 
   readonly filteredRows = computed(() => {
@@ -108,7 +106,11 @@ export class DomainGlossaryComponent {
         row.source ?? '',
         row.page ?? '',
         ...(row.tags ?? []),
-      ].some((val) => String(val ?? '').toLocaleLowerCase().includes(query)),
+      ].some((val) =>
+        String(val ?? '')
+          .toLocaleLowerCase()
+          .includes(query),
+      ),
     );
   });
 
@@ -175,12 +177,12 @@ export class DomainGlossaryComponent {
 
     try {
       const localRows = editingId
-        ? ((await this.domainDataService.getLocalDomainSheetRows(this.currentSheet().name)) as GlossaryRow[])
+        ? ((await this.domainDataService.getLocalDomainSheetRows(
+            this.currentSheet().name,
+          )) as GlossaryRow[])
         : this.rows();
       const existingRows = localRows.length > 0 ? localRows : this.rows();
-      const originalRow = editingId
-        ? existingRows.find((row) => row.id === editingId)
-        : undefined;
+      const originalRow = editingId ? existingRows.find((row) => row.id === editingId) : undefined;
       if (editingId && !originalRow) {
         throw new Error('The glossary entry being edited is no longer available.');
       }

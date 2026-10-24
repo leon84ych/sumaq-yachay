@@ -6,8 +6,8 @@ export type DomainName =
   | 'CHARACTER'
   | 'PLACES'
   | 'BOOK_EVENTS'
-  | 'RELATIONS_CHARACTERS'
-  | 'RELATIONS_CONCEPTS'
+  | 'RELATIONS'
+  | 'ASSOCIATIONS'
   | 'GLOSARY'
   | 'QUESTIONS';
 
@@ -93,7 +93,7 @@ export const DOMAIN_DEFINITIONS: Record<DomainName, DomainDefinition> = {
       'syncStatus',
     ],
   },
-  RELATIONS_CHARACTERS: {
+  RELATIONS: {
     headers: [
       'id',
       'sourceCharacterId',
@@ -111,7 +111,7 @@ export const DOMAIN_DEFINITIONS: Record<DomainName, DomainDefinition> = {
       'syncStatus',
     ],
   },
-  RELATIONS_CONCEPTS: {
+  ASSOCIATIONS: {
     headers: [
       'id',
       'sourceConceptId',
@@ -172,9 +172,9 @@ export const DOMAIN_DEFINITIONS: Record<DomainName, DomainDefinition> = {
 export const DOMAIN_TAB_ORDER: readonly DomainName[] = [
   'INDEX',
   'CHARACTER',
-  'RELATIONS_CHARACTERS',
+  'RELATIONS',
   'CONCEPTS',
-  'RELATIONS_CONCEPTS',
+  'ASSOCIATIONS',
   'PLACES',
   'BOOK_EVENTS',
   'QUOTES',

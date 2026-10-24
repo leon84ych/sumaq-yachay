@@ -1,67 +1,7 @@
 <section class="index-view-container">
   @if (isAddingEntry() || editingId() !== null) {
-    <div class="add-entry-form">
-      <h3>{{ (editingId() ? 'COMMON.EDIT' : 'DOMAINS.INDEX.NEW_ENTRY_TITLE') | transloco }}</h3>
-
-      <div class="form-group">
-        <label for="index-chapter">{{ 'DOMAINS.INDEX.CHAPTER' | transloco }}</label>
-        <input
-          id="index-chapter"
-          type="text"
-          [ngModel]="newChapter()"
-          (ngModelChange)="newChapter.set($event)"
-          placeholder="e.g. Chapter 1"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="index-theme">{{ 'DOMAINS.INDEX.THEME' | transloco }}</label>
-        <input
-          id="index-theme"
-          type="text"
-          [ngModel]="newTheme()"
-          (ngModelChange)="newTheme.set($event)"
-          placeholder="e.g. Core Concepts"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="index-subtheme">{{ 'DOMAINS.INDEX.SUBTHEME' | transloco }}</label>
-        <input
-          id="index-subtheme"
-          type="text"
-          [ngModel]="newSubtheme()"
-          (ngModelChange)="newSubtheme.set($event)"
-          placeholder="e.g. Definitions"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="index-tags">{{ 'DOMAINS.INDEX.TAGS' | transloco }}</label>
-        <app-tag-picker
-          [ariaLabel]="'DOMAINS.INDEX.TAGS' | transloco"
-          inputId="index-tags"
-          [bookRow]="currentSheet().row"
-          [value]="newTags()"
-          (valueChange)="newTags.set($event)"
-        />
-      </div>
-
-      <div class="form-actions">
-        @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
-          <button type="button" class="btn-submit" [disabled]="isFormInvalid()" (click)="addIndexEntry()">
-            {{ (editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
-          </button>
-        }
-        <button type="button" class="btn-cancel" (click)="resetForm()">
-          {{ 'COMMON.CANCEL' | transloco }}
-        </button>
-      </div>
-    </div>
+    <app-index-entry-form [form]="this" />
   }
-
   @if (rows().length === 0) {
     <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
   } @else {

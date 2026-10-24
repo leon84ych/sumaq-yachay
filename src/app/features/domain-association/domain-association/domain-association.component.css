@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.relations-concepts-grid {
+  display: grid;
+  grid-template-columns: var(--domain-feed-columns);
+  gap: 1rem;
+  margin-top: 1rem;
+}

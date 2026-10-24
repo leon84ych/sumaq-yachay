@@ -1,0 +1,8 @@
+.add-entry-form .form-control[contenteditable='true']:not(.form-control-inline) {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.add-entry-form .form-control-inline {
+  min-height: 2.75rem;
+}

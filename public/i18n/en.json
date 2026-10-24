@@ -220,8 +220,8 @@
       "CHARACTER": "Characters",
       "PLACES": "Places",
       "BOOK_EVENTS": "Events",
-      "RELATIONS_CHARACTERS": "Relations",
-      "RELATIONS_CONCEPTS": "Associations"
+      "RELATIONS": "Relations",
+      "ASSOCIATIONS": "Associations"
     },
     "CONCEPTS": {
       "NEW_ENTRY_TITLE": "Add New Concept",
@@ -266,7 +266,7 @@
       "SEARCH": "Search events by title, description, character, place, or tag...",
       "NO_MATCHES": "No events match your search."
     },
-    "RELATIONS_CHARACTERS": {
+    "RELATIONS": {
       "NEW_ENTRY_TITLE": "Add Character Relation",
       "SOURCE_CHARACTER": "Source character",
       "TARGET_CHARACTER": "Related character",
@@ -283,7 +283,7 @@
       "NO_MATCHES": "No character relations match your search.",
       "NO_CHARACTERS": "Add characters to this book before creating relations."
     },
-    "RELATIONS_CONCEPTS": {
+    "ASSOCIATIONS": {
       "NEW_ENTRY_TITLE": "Add Concept Relation",
       "SOURCE_CONCEPT": "Source concept",
       "TARGET_CONCEPT": "Related concept",

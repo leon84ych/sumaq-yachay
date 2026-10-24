@@ -17,8 +17,8 @@ import { DomainQuestionsService } from '../../domain-questions/services/domain-q
 import { DomainFeatureHandler } from '../../../shared/interfaces/domain-feature-handler.service';
 import { DomainIndexService } from '../../domain-index/services/domain-index.service';
 import { DomainBookEventsService } from '../../domain-book-events/services/domain-book-events.service';
-import { DomainRelationsCharactersService } from '../../domain-relations-characters/services/domain-relations-characters.service';
-import { DomainRelationsConceptsService } from '../../domain-relations-concepts/services/domain-relations-concepts.service';
+import { DomainRelationsService } from '../../domain-relations/services/domain-relations.service';
+import { DomainAssociationService } from '../../domain-association/services/domain-association.service';
 import { sortDomainTabs } from '../models/domain-sheet-config';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
@@ -70,8 +70,8 @@ const DOMAIN_TABLES: Record<string, DomainTableName> = {
   CHARACTER: 'characters',
   PLACES: 'places',
   BOOK_EVENTS: 'bookEvents',
-  RELATIONS_CHARACTERS: 'relationsCharacters',
-  RELATIONS_CONCEPTS: 'relationsConcepts',
+  RELATIONS: 'relationsCharacters',
+  ASSOCIATIONS: 'relationsConcepts',
   GLOSARY: 'glosary',
   QUESTIONS: 'questions',
 };
@@ -99,8 +99,8 @@ export class DomainDataService {
   private readonly passagesService = inject(DomainPassagesService);
   private readonly placesService = inject(DomainPlacesService);
   private readonly bookEventsService = inject(DomainBookEventsService);
-  private readonly relationsCharactersService = inject(DomainRelationsCharactersService);
-  private readonly relationsConceptsService = inject(DomainRelationsConceptsService);
+  private readonly relationsService = inject(DomainRelationsService);
+  private readonly associationService = inject(DomainAssociationService);
   private readonly questionsService = inject(DomainQuestionsService);
   private readonly quotesService = inject(DomainQuotesService);
 
@@ -112,8 +112,8 @@ export class DomainDataService {
     this.passagesService,
     this.placesService,
     this.bookEventsService,
-    this.relationsCharactersService,
-    this.relationsConceptsService,
+    this.relationsService,
+    this.associationService,
     this.questionsService,
     this.quotesService,
   ];
@@ -224,10 +224,10 @@ export class DomainDataService {
         return {
           ...normalizedRow,
           id: String(normalizedRow['id'] ?? `${tableName}_${row}_${nextPage}_${index}`),
-          row: ['RELATIONS_CHARACTERS', 'RELATIONS_CONCEPTS'].includes(sheetName.toUpperCase())
+          row: ['RELATIONS', 'ASSOCIATIONS'].includes(sheetName.toUpperCase())
             ? displayRow
             : row,
-          ...(['RELATIONS_CHARACTERS', 'RELATIONS_CONCEPTS'].includes(sheetName.toUpperCase())
+          ...(['RELATIONS', 'ASSOCIATIONS'].includes(sheetName.toUpperCase())
             ? { displayRow }
             : {}),
           syncStatus: 'synced',
@@ -282,6 +282,12 @@ export class DomainDataService {
 
     try {
       const localSheets = await this.loadFromLocal(row);
+      const bookTags = await this.buildBookTags(row, localSheets);
+      await this.dbService.db.transaction('rw', [this.dbService.db.bookTags], async () => {
+        await this.replaceBookTagsForCatalog(row, bookTags);
+      });
+      await this.taxonomyService.refreshGlobalTaxonomy(row);
+
       if (localSheets.length > 0) {
         this.sheets.set(localSheets);
       }
@@ -398,7 +404,7 @@ export class DomainDataService {
 
       const normalizedRows = updatedRows.map((record, index) => {
         const normalized = this.normalizeRecordTags(record, sheetName);
-        return ['RELATIONS_CHARACTERS', 'RELATIONS_CONCEPTS'].includes(sheetName.toUpperCase())
+        return ['RELATIONS', 'ASSOCIATIONS'].includes(sheetName.toUpperCase())
           ? {
               ...normalized,
               displayRow: Number(normalized['displayRow'] ?? normalized['row'] ?? index + 1),
@@ -425,7 +431,7 @@ export class DomainDataService {
         : createdRow
           ? [createdRow]
           : normalizedRows;
-      const remoteRows = ['BOOK_EVENTS', 'RELATIONS_CHARACTERS', 'RELATIONS_CONCEPTS'].includes(
+      const remoteRows = ['BOOK_EVENTS', 'RELATIONS', 'ASSOCIATIONS'].includes(
         sheetName.toUpperCase(),
       )
         ? selectedRemoteRows.map(
@@ -673,7 +679,7 @@ export class DomainDataService {
     };
     delete normalizedRecord['tag'];
     if (
-      ['BOOK_EVENTS', 'RELATIONS_CHARACTERS', 'RELATIONS_CONCEPTS'].includes(
+      ['BOOK_EVENTS', 'RELATIONS', 'ASSOCIATIONS'].includes(
         sheetName.toUpperCase(),
       )
     ) {
@@ -745,7 +751,7 @@ export class DomainDataService {
       const normalizedRemoteSheets = await Promise.all(
         remoteSheets.map(async (sheet) => {
           if (
-            !['BOOK_EVENTS', 'RELATIONS_CHARACTERS', 'RELATIONS_CONCEPTS'].includes(
+            !['BOOK_EVENTS', 'RELATIONS', 'ASSOCIATIONS'].includes(
               sheet.name.toUpperCase(),
             )
           ) {
@@ -755,9 +761,9 @@ export class DomainDataService {
           const localSheet =
             sheet.name.toUpperCase() === 'BOOK_EVENTS'
               ? await this.bookEventsService.loadLocalSheet(row)
-              : sheet.name.toUpperCase() === 'RELATIONS_CHARACTERS'
-                ? await this.relationsCharactersService.loadLocalSheet(row)
-                : await this.relationsConceptsService.loadLocalSheet(row);
+              : sheet.name.toUpperCase() === 'RELATIONS'
+                ? await this.relationsService.loadLocalSheet(row)
+                : await this.associationService.loadLocalSheet(row);
           return { ...localSheet, index: sheet.index };
         }),
       );

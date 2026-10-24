@@ -5,7 +5,6 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
-import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { ConceptEntryCardComponent } from '../components/concept-entry-card/concept-entry-card.component';
 import { ConceptRow } from '../model/domain-concept-row.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
@@ -21,14 +20,16 @@ const NODE_CATEGORIES = [
   'other',
 ] as const;
 
+import { ConceptFormComponent } from '../components/concept-form/concept-form.component';
+
 @Component({
   selector: 'app-domain-concept',
   standalone: true,
   imports: [
+    ConceptFormComponent,
     CommonModule,
     FormsModule,
     TranslocoPipe,
-    TagPickerComponent,
     ConceptEntryCardComponent,
   ],
   templateUrl: './domain-concept.component.html',
@@ -85,7 +86,11 @@ export class DomainConceptsComponent {
    * Evaluates if core model prerequisites or tag system integrity rules are violated.
    */
   readonly isFormInvalid = computed<boolean>(() => {
-    return !this.newTerm().trim() || !this.newDefinition().trim() || this.invalidTagsDetected().length > 0;
+    return (
+      !this.newTerm().trim() ||
+      !this.newDefinition().trim() ||
+      this.invalidTagsDetected().length > 0
+    );
   });
 
   readonly filteredRows = computed(() => {
@@ -159,12 +164,12 @@ export class DomainConceptsComponent {
 
     try {
       const localRows = editingId
-        ? ((await this.domainDataService.getLocalDomainSheetRows(this.currentSheet().name)) as ConceptRow[])
+        ? ((await this.domainDataService.getLocalDomainSheetRows(
+            this.currentSheet().name,
+          )) as ConceptRow[])
         : this.rows();
       const existingRows = localRows.length > 0 ? localRows : this.rows();
-      const originalRow = editingId
-        ? existingRows.find((row) => row.id === editingId)
-        : undefined;
+      const originalRow = editingId ? existingRows.find((row) => row.id === editingId) : undefined;
       if (editingId && !originalRow) {
         throw new Error('The concept being edited is no longer available.');
       }

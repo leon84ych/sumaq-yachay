@@ -16,7 +16,7 @@
 
 .glossary-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: var(--domain-feed-columns);
   gap: 1rem;
 }
 

@@ -14,4 +14,5 @@ export class CatalogSheetTabsComponent {
   readonly activeSheetName = input<string | null>(null);
 
   readonly selectTab = output<string>();
+
 }

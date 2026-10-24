@@ -21,6 +21,10 @@
   --text-muted: #627684;
   --border: #e1e7e5;
   --border-focus: #1f5563;
+  --content-width: 96%;
+  --content-section-gap: 1.25rem;
+  --domain-view-width: 800px;
+  --domain-feed-columns: minmax(0, 1fr);
 
   --quote-card-surface: #ffffff;
   --quote-card-border: #e2e8f0;
@@ -118,6 +122,12 @@ body {
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
+}
+
+app-sheet-view-resolver {
+  display: block;
+  width: min(100%, var(--domain-view-width));
+  margin-inline: auto;
 }
 
 button,
@@ -247,7 +257,7 @@ a:hover {
   min-height: 2.75rem;
   align-items: center;
   gap: 0.65rem;
-  margin: 0 auto 1.25rem;
+  margin: 0 auto var(--content-section-gap);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 0.55rem 0.75rem;

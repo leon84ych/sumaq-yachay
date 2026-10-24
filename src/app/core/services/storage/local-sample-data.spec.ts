@@ -69,8 +69,8 @@ describe('LocalSampleData fixtures', () => {
         domainData['CONCEPTS'].map((concept) => `${catalogItem.id}-${String(concept['id'])}`),
       );
       const bookEvents = domainData['BOOK_EVENTS'];
-      const characterRelations = domainData['RELATIONS_CHARACTERS'];
-      const conceptRelations = domainData['RELATIONS_CONCEPTS'];
+      const characterRelations = domainData['RELATIONS'];
+      const conceptRelations = domainData['ASSOCIATIONS'];
 
       expect(bookEvents, catalogItem.id).toHaveLength(4);
       expect(characterRelations, catalogItem.id).toHaveLength(4);

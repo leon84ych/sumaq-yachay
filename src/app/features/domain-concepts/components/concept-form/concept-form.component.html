@@ -1,0 +1,112 @@
+<app-domain-entry-form-overlay
+  [ariaLabel]="
+    (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.CONCEPTS.NEW_ENTRY_TITLE') | transloco
+  "
+  (closeRequested)="form().resetForm()"
+>
+  <div class="add-entry-form">
+    <h3 id="domain-entry-form-title">
+      {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.CONCEPTS.NEW_ENTRY_TITLE') | transloco }}
+    </h3>
+    <div class="form-group">
+      <label for="concept-term">{{ 'DOMAINS.CONCEPTS.TERM' | transloco }}</label>
+      <input
+        id="concept-term"
+        type="text"
+        [ngModel]="form().newTerm()"
+        (ngModelChange)="form().newTerm.set($event)"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="concept-definition">{{ 'DOMAINS.CONCEPTS.DEFINITION' | transloco }}</label>
+      <textarea
+        id="concept-definition"
+        rows="4"
+        [attr.maxLength]="form().definitionMaxLength"
+        [ngModel]="form().newDefinition()"
+        (ngModelChange)="form().newDefinition.set($event)"
+        required
+      ></textarea>
+      <small class="character-count">
+        {{
+          'DOMAINS.CONCEPTS.CHARACTERS_LEFT'
+            | transloco: { count: form().definitionCharactersRemaining() }
+        }}
+      </small>
+    </div>
+    <div class="form-group">
+      <label for="concept-category">{{ 'DOMAINS.CONCEPTS.CATEGORY' | transloco }}</label>
+      <select
+        id="concept-category"
+        [ngModel]="form().newCategory()"
+        (ngModelChange)="form().newCategory.set($event)"
+      >
+        <option value="">{{ 'DOMAINS.CONCEPTS.SELECT_CATEGORY' | transloco }}</option>
+        @for (category of form().nodeCategories; track category) {
+          <option [value]="category">
+            {{ 'DOMAINS.CONCEPTS.CATEGORY_OPTIONS.' + category | transloco }}
+          </option>
+        }
+      </select>
+      @if (form().newCategory() === 'other') {
+        <input
+          id="concept-custom-category"
+          type="text"
+          [ngModel]="form().customCategory()"
+          (ngModelChange)="form().customCategory.set($event)"
+          [placeholder]="'DOMAINS.CONCEPTS.CUSTOM_CATEGORY' | transloco"
+        />
+      }
+    </div>
+    <div class="form-group">
+      <label for="concept-source">{{ 'DOMAINS.CONCEPTS.SOURCE' | transloco }}</label>
+      <input
+        id="concept-source"
+        type="text"
+        [ngModel]="form().source()"
+        (ngModelChange)="form().newSource.set($event)"
+      />
+    </div>
+    <div class="form-group">
+      <label for="concept-tags">{{ 'DOMAINS.CONCEPTS.TAGS' | transloco }}</label>
+      <app-tag-picker
+        [ariaLabel]="'DOMAINS.CONCEPTS.TAGS' | transloco"
+        inputId="concept-tags"
+        [bookRow]="form().currentSheet().row"
+        [value]="form().newTags()"
+        (valueChange)="form().newTags.set($event)"
+      />
+      @if (form().invalidTagsDetected().length > 0) {
+        <div class="tag-validation-error">
+          <p>
+            {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
+            <strong>{{ 'DOMAINS.DOMAINS.INDEX' | transloco }}</strong
+            >{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
+            <span
+              class="tag-validation-error__badge"
+              *ngFor="let unlisted of form().invalidTagsDetected()"
+            >
+              {{ unlisted }}
+            </span>
+          </p>
+        </div>
+      }
+    </div>
+    <div class="form-actions">
+      @if (form().permissionService.validatePermission(form().role(), 'UPDATE_SHEET_ROWS')) {
+        <button
+          type="button"
+          class="btn-submit"
+          [disabled]="form().isFormInvalid()"
+          (click)="form().addConcept()"
+        >
+          {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+        </button>
+      }
+      <button type="button" class="btn-cancel" (click)="form().resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    </div>
+  </div>
+</app-domain-entry-form-overlay>

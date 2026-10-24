@@ -1,0 +1,150 @@
+<app-domain-entry-form-overlay
+  [ariaLabel]="(form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.PLACES.NEW_ENTRY_TITLE') | transloco"
+  (closeRequested)="form().resetForm()"
+>
+  <div class="add-entry-form">
+    <h3 id="domain-entry-form-title">
+      {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.PLACES.NEW_ENTRY_TITLE') | transloco }}
+    </h3>
+
+    <div class="form-group">
+      <label for="place-name">{{ 'DOMAINS.PLACES.NAME' | transloco }} *</label>
+      <input
+        id="place-name"
+        type="text"
+        [ngModel]="form().newName()"
+        (ngModelChange)="form().newName.set($event)"
+        [placeholder]="'DOMAINS.PLACES.NAME_PLACEHOLDER' | transloco"
+        maxlength="100"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="place-type">{{ 'DOMAINS.PLACES.TYPE' | transloco }} *</label>
+      <select
+        id="place-type"
+        [ngModel]="form().newType()"
+        (ngModelChange)="form().newType.set($event)"
+      >
+        <option value="city">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.CITY' | transloco }}</option>
+        <option value="country">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.COUNTRY' | transloco }}</option>
+        <option value="building">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.BUILDING' | transloco }}</option>
+        <option value="region">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.REGION' | transloco }}</option>
+        <option value="institution">
+          {{ 'DOMAINS.PLACES.TYPE_OPTIONS.INSTITUTION' | transloco }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="place-nature">{{ 'DOMAINS.PLACES.NATURE' | transloco }} *</label>
+      <select
+        id="place-nature"
+        [ngModel]="form().newNature()"
+        (ngModelChange)="form().newNature.set($event)"
+      >
+        <option value="real">{{ 'DOMAINS.PLACES.NATURE_OPTIONS.REAL' | transloco }}</option>
+        <option value="fictional">
+          {{ 'DOMAINS.PLACES.NATURE_OPTIONS.FICTIONAL' | transloco }}
+        </option>
+        <option value="inspired">{{ 'DOMAINS.PLACES.NATURE_OPTIONS.INSPIRED' | transloco }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="place-coordinates">{{ 'DOMAINS.PLACES.COORDINATES' | transloco }}</label>
+      <input
+        id="place-coordinates"
+        type="text"
+        [ngModel]="form().newCoordinates()"
+        (ngModelChange)="form().newCoordinates.set($event)"
+        placeholder="Ej. 4.6097, -74.0817"
+        maxlength="100"
+      />
+
+      @if (form().newNature() === 'real') {
+        <app-map-picker
+          [initialCoords]="[4.6097, -74.0817]"
+          (coordinatesChange)="form().newCoordinates.set($event)"
+        />
+      }
+    </div>
+
+    <div class="form-group color-picker-group">
+      <label for="place-color">{{ 'DOMAINS.PLACES.COLOR' | transloco }} *</label>
+      <input
+        id="place-color"
+        type="color"
+        [ngModel]="form().newColor()"
+        (ngModelChange)="form().newColor.set($event)"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="place-description">{{ 'DOMAINS.PLACES.DESCRIPTION' | transloco }}</label>
+      <textarea
+        id="place-description"
+        [ngModel]="form().newDescription()"
+        (ngModelChange)="form().newDescription.set($event)"
+        maxlength="400"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="place-source">{{ 'DOMAINS.PLACES.SOURCE' | transloco }}</label>
+      <input
+        id="place-source"
+        type="text"
+        [ngModel]="form().newSource()"
+        (ngModelChange)="form().newSource.set($event)"
+        maxlength="100"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="places-tags">{{ 'DOMAINS.PLACES.TAGS' | transloco }}</label>
+      <app-tag-picker
+        [ariaLabel]="'DOMAINS.PLACES.TAGS' | transloco"
+        inputId="places-tags"
+        [bookRow]="form().currentSheet().row"
+        [value]="form().newTags()"
+        (valueChange)="form().newTags.set($event)"
+      />
+
+      <!-- ≡ƒîƒ VISUAL FEEDBACK GUARD FOR THE SYSTEM TAG INTEGRITY -->
+      @if (form().invalidTagsDetected().length > 0) {
+        <div class="tag-validation-error">
+          <p>
+            {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
+            <strong>{{ 'DOMAINS.DOMAINS.INDEX' | transloco }}</strong
+            >{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
+            <span
+              class="tag-validation-error__badge"
+              *ngFor="let unlisted of form().invalidTagsDetected()"
+            >
+              {{ unlisted }}
+            </span>
+          </p>
+        </div>
+      }
+    </div>
+
+    <div class="form-actions">
+      <!-- ≡ƒîƒ HARD-LOCK DEPLOYED: Save is explicitly blocked if the form state is invalid -->
+      @if (form().permissionService.validatePermission(form().role(), 'UPDATE_SHEET_ROWS')) {
+        <button
+          type="button"
+          class="btn-submit"
+          [disabled]="form().isFormInvalid()"
+          (click)="form().addEntry()"
+        >
+          {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+        </button>
+      }
+      <button type="button" class="btn-cancel" (click)="form().resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    </div>
+  </div>
+</app-domain-entry-form-overlay>

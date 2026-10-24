@@ -1,0 +1,131 @@
+<app-domain-entry-form-overlay
+  [ariaLabel]="(form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.PASSAGE.NEW_ENTRY_TITLE') | transloco"
+  (closeRequested)="form().resetForm()"
+>
+  <div class="add-entry-form">
+    <h3 id="domain-entry-form-title">
+      {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.PASSAGE.NEW_ENTRY_TITLE') | transloco }}
+    </h3>
+    <div class="form-group">
+      <label id="passage-title-label" for="passage-title">{{
+        'DOMAINS.PASSAGE.TITLE' | transloco
+      }}</label>
+      <div
+        id="passage-title"
+        class="form-control form-control-inline"
+        contenteditable="true"
+        [textContent]="form().newTitle()"
+        role="textbox"
+        aria-labelledby="passage-title-label"
+        (input)="form().newTitle.set($any($event.target).textContent?.trim() ?? '')"
+      ></div>
+    </div>
+    <div class="form-group">
+      <label id="passage-text-label" for="passage-text">{{
+        'DOMAINS.PASSAGE.PASSAGE_TEXT' | transloco
+      }}</label>
+      <div
+        id="passage-text"
+        class="form-control"
+        contenteditable="true"
+        [textContent]="form().newPassageText()"
+        role="textbox"
+        aria-labelledby="passage-text-label"
+        aria-describedby="passage-text-count"
+        (input)="form().onPassageTextInput($event)"
+      ></div>
+      <small id="passage-text-count" class="character-count">
+        {{
+          'DOMAINS.PASSAGE.CHARACTERS_LEFT'
+            | transloco: { count: form().passageTextCharactersRemaining() }
+        }}
+      </small>
+    </div>
+    <div class="form-group">
+      <label id="passage-book-label" for="passage-book">{{
+        'DOMAINS.PASSAGE.BOOK' | transloco
+      }}</label>
+      <div
+        id="passage-book"
+        class="form-control form-control-inline"
+        contenteditable="true"
+        role="textbox"
+        aria-labelledby="passage-book-label"
+        (input)="form().newBook.set($any($event.target).textContent?.trim() ?? '')"
+      >
+        {{ form().newBook() }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label id="passage-author-label" for="passage-author">{{
+        'DOMAINS.PASSAGE.AUTHOR' | transloco
+      }}</label>
+      <div
+        id="passage-author"
+        class="form-control form-control-inline"
+        contenteditable="true"
+        role="textbox"
+        aria-labelledby="passage-author-label"
+        (input)="form().newAuthor.set($any($event.target).textContent?.trim() ?? '')"
+      >
+        {{ form().newAuthor() }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label id="passage-page-label" for="passage-page">{{
+        'DOMAINS.PASSAGE.PAGE' | transloco
+      }}</label>
+      <div
+        id="passage-page"
+        class="form-control form-control-inline"
+        contenteditable="true"
+        [textContent]="form().newPage()"
+        role="textbox"
+        aria-labelledby="passage-page-label"
+        (input)="form().newPage.set($any($event.target).textContent?.trim() ?? '')"
+      ></div>
+    </div>
+    <div class="form-group">
+      <label id="passage-tags-label" for="passage-tags">{{
+        'DOMAINS.PASSAGE.TAGS' | transloco
+      }}</label>
+      <app-tag-picker
+        [ariaLabel]="'DOMAINS.PASSAGE.TAGS' | transloco"
+        inputId="passage-tags"
+        [bookRow]="form().currentSheet().row"
+        [value]="form().newTags()"
+        (valueChange)="form().newTags.set($event)"
+      />
+      @if (form().invalidTagsDetected().length > 0) {
+        <div class="tag-validation-error">
+          <p>
+            {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
+            <strong>{{ 'DOMAINS.DOMAINS.INDEX' | transloco }}</strong
+            >{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
+            <span
+              class="tag-validation-error__badge"
+              *ngFor="let unlisted of form().invalidTagsDetected()"
+            >
+              {{ unlisted }}
+            </span>
+          </p>
+        </div>
+      }
+    </div>
+    <div class="form-actions">
+      @if (form().permissionService.validatePermission(form().role(), 'UPDATE_SHEET_ROWS')) {
+        <button
+          type="button"
+          class="btn-submit"
+          [disabled]="form().isFormInvalid()"
+          (click)="form().addPassage()"
+        >
+          {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+        </button>
+      }
+      <button type="button" class="btn-cancel" (click)="form().resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    </div>
+  </div>
+</app-domain-entry-form-overlay>

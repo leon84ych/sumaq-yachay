@@ -1,140 +1,7 @@
 <section class="book-events-view">
   @if (isAddingEntry() || editingId() !== null) {
-    <div class="add-entry-form">
-      <h3>{{ (editingId() ? 'COMMON.EDIT' : 'DOMAINS.BOOK_EVENTS.NEW_ENTRY_TITLE') | transloco }}</h3>
-
-      <div class="form-group">
-        <label for="book-event-main-character">{{ 'DOMAINS.BOOK_EVENTS.MAIN_CHARACTER' | transloco }}</label>
-        <select
-          id="book-event-main-character"
-          [ngModel]="newMainCharacterId()"
-          (ngModelChange)="newMainCharacterId.set($event)"
-          required
-        >
-          <option value="">{{ 'DOMAINS.BOOK_EVENTS.SELECT_CHARACTER' | transloco }}</option>
-          @for (character of characters(); track character.id) {
-            <option [value]="character.id">{{ character.name }}</option>
-          }
-        </select>
-      </div>
-
-      <div class="form-group">
-        <span id="book-event-secondary-characters-label" class="book-event-secondary-character-label">
-          {{ 'DOMAINS.BOOK_EVENTS.SECONDARY_CHARACTERS' | transloco }}
-        </span>
-        <div
-          class="book-event-secondary-character-list"
-          role="group"
-          aria-labelledby="book-event-secondary-characters-label"
-        >
-          @for (character of characters(); track character.id) {
-            <label class="book-event-secondary-character">
-              <input
-                type="checkbox"
-                [checked]="newSecondaryCharacterIds().includes(character.id)"
-                (change)="toggleSecondaryCharacter(character.id, $any($event.target).checked)"
-              />
-              <span>{{ character.name }}</span>
-            </label>
-          }
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="book-event-place">{{ 'DOMAINS.BOOK_EVENTS.PLACE' | transloco }}</label>
-        <select id="book-event-place" [ngModel]="newPlaceId()" (ngModelChange)="newPlaceId.set($event)">
-          <option value="">{{ 'DOMAINS.BOOK_EVENTS.NO_PLACE' | transloco }}</option>
-          @for (place of places(); track place.id) {
-            <option [value]="place.id">{{ place.name }}</option>
-          }
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="book-event-start">{{ 'DOMAINS.BOOK_EVENTS.DATE_TIME_START' | transloco }}</label>
-        <input id="book-event-start" type="datetime-local" [ngModel]="newDateTimeStart()" (ngModelChange)="newDateTimeStart.set($event)" />
-      </div>
-
-      <div class="form-group">
-        <label for="book-event-end">{{ 'DOMAINS.BOOK_EVENTS.DATE_TIME_END' | transloco }}</label>
-        <input id="book-event-end" type="datetime-local" [ngModel]="newDateTimeEnd()" (ngModelChange)="newDateTimeEnd.set($event)" />
-      </div>
-
-      <div class="form-group">
-        <label for="book-event-date-label">{{ 'DOMAINS.BOOK_EVENTS.DATE_LABEL' | transloco }}</label>
-        <input id="book-event-date-label" type="text" maxlength="200" [ngModel]="newDateLabel()" (ngModelChange)="newDateLabel.set($event)" />
-      </div>
-
-      <div class="form-group">
-        <label for="book-event-order">{{ 'DOMAINS.BOOK_EVENTS.EVENT_ORDER' | transloco }}</label>
-        <input id="book-event-order" type="number" min="1" [ngModel]="newEventOrder()" (ngModelChange)="newEventOrder.set(+$event)" required />
-      </div>
-
-      <div class="form-group">
-        <label for="book-event-title">{{ 'DOMAINS.BOOK_EVENTS.EVENT' | transloco }}</label>
-        <input id="book-event-title" type="text" maxlength="200" [ngModel]="newEvent()" (ngModelChange)="newEvent.set($event)" required />
-      </div>
-
-      <div class="form-group">
-        <label for="book-event-description">{{ 'DOMAINS.BOOK_EVENTS.DESCRIPTION' | transloco }}</label>
-        <textarea id="book-event-description" rows="4" maxlength="1000" [ngModel]="newDescription()" (ngModelChange)="newDescription.set($event)" required></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="book-event-color">{{ 'DOMAINS.BOOK_EVENTS.COLOR' | transloco }}</label>
-        <input id="book-event-color" type="color" [ngModel]="newColor()" (ngModelChange)="newColor.set($event)" />
-      </div>
-
-      <div class="form-group">
-        <label for="book-event-book">{{ 'DOMAINS.BOOK_EVENTS.BOOK' | transloco }}</label>
-        <input id="book-event-book" type="text" [value]="bookName()" readonly />
-      </div>
-
-      <div class="form-group">
-        <label for="book-event-author">{{ 'DOMAINS.BOOK_EVENTS.AUTHOR' | transloco }}</label>
-        <input id="book-event-author" type="text" [value]="bookAuthor()" readonly />
-      </div>
-
-      <div class="form-group">
-        <label for="book-event-page">{{ 'DOMAINS.BOOK_EVENTS.PAGE' | transloco }}</label>
-        <input id="book-event-page" type="text" [ngModel]="newPage()" (ngModelChange)="newPage.set($event)" />
-      </div>
-
-      <div class="form-group">
-        <label for="book-event-tags">{{ 'DOMAINS.BOOK_EVENTS.TAGS' | transloco }}</label>
-        <app-tag-picker
-          [ariaLabel]="'DOMAINS.BOOK_EVENTS.TAGS' | transloco"
-          inputId="book-event-tags"
-          [bookRow]="currentSheet().row"
-          [value]="newTags()"
-          (valueChange)="newTags.set($event)"
-        />
-        @if (invalidTagsDetected().length > 0) {
-          <div class="tag-validation-error">
-            <p>
-              {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
-              <strong>INDEX</strong>{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
-              @for (tag of invalidTagsDetected(); track $index) {
-                <span class="tag-validation-error__badge">{{ tag }}</span>
-              }
-            </p>
-          </div>
-        }
-      </div>
-
-      <div class="form-actions">
-        @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
-          <button type="button" class="btn-submit" [disabled]="isFormInvalid()" (click)="addEvent()">
-            {{ (editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
-          </button>
-        }
-        <button type="button" class="btn-cancel" (click)="resetForm()">
-          {{ 'COMMON.CANCEL' | transloco }}
-        </button>
-      </div>
-    </div>
+    <app-book-event-form [form]="this" />
   }
-
   @if (rows().length === 0) {
     <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
   } @else {
@@ -144,7 +11,12 @@
         <circle cx="8.75" cy="8.75" r="5.75" />
         <path d="m13 13 4 4" />
       </svg>
-      <input type="search" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" [placeholder]="'DOMAINS.BOOK_EVENTS.SEARCH' | transloco" />
+      <input
+        type="search"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        [placeholder]="'DOMAINS.BOOK_EVENTS.SEARCH' | transloco"
+      />
     </label>
 
     @if (filteredRows().length === 0) {

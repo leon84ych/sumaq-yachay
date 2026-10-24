@@ -18,22 +18,17 @@ import { downloadJpeg } from '../../../shared/utils/image-export';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import type { QuoteRow } from '../model/domain-quote-row.model';
-import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
 import { QuoteEntryCardComponent } from '../components/quote-entry-card/quote-entry-card.component';
 import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 
+import { QuoteFormComponent } from '../components/quote-form/quote-form.component';
+
 @Component({
   selector: 'app-domain-quote',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    TranslocoPipe,
-    TagPickerComponent,
-    QuoteEntryCardComponent,
-  ],
+  imports: [QuoteFormComponent, CommonModule, FormsModule, TranslocoPipe, QuoteEntryCardComponent],
   templateUrl: './domain-quote.component.html',
   styleUrls: ['./domain-quote.component.css'],
 })
@@ -102,10 +97,11 @@ export class DomainQuoteComponent {
     return this.rows().filter(
       (row) =>
         !query ||
-        [row.quote, row.analysis, row.author, row.book, row.page, ...(row.tags ?? [])].some((value) =>
-          String(value ?? '')
-            .toLocaleLowerCase()
-            .includes(query),
+        [row.quote, row.analysis, row.author, row.book, row.page, ...(row.tags ?? [])].some(
+          (value) =>
+            String(value ?? '')
+              .toLocaleLowerCase()
+              .includes(query),
         ),
     );
   });
@@ -217,12 +213,12 @@ export class DomainQuoteComponent {
 
     try {
       const localRows = editingId
-        ? ((await this.domainDataService.getLocalDomainSheetRows(this.currentSheet().name)) as QuoteRow[])
+        ? ((await this.domainDataService.getLocalDomainSheetRows(
+            this.currentSheet().name,
+          )) as QuoteRow[])
         : this.rows();
       const existingRows = localRows.length > 0 ? localRows : this.rows();
-      const originalRow = editingId
-        ? existingRows.find((row) => row.id === editingId)
-        : undefined;
+      const originalRow = editingId ? existingRows.find((row) => row.id === editingId) : undefined;
       if (editingId && !originalRow) {
         throw new Error('The quote being edited is no longer available.');
       }

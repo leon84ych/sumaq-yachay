@@ -5,7 +5,6 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { PermissionService } from '../../../core/services/permission.service';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
-import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
@@ -14,10 +13,19 @@ import { PlaceRow } from '../../domain-places/model/domain-place-row.model';
 import { BookEventEntryCardComponent } from '../components/book-event-entry-card/book-event-entry-card.component';
 import { BookEvent } from '../model/book-event-row.model';
 
+import { BookEventFormComponent } from '../components/book-event-form/book-event-form.component';
+
 @Component({
   selector: 'app-domain-book-events',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent, BookEventEntryCardComponent],
+  imports: [
+    BookEventFormComponent,
+    BookEventFormComponent,
+    CommonModule,
+    FormsModule,
+    TranslocoPipe,
+    BookEventEntryCardComponent,
+  ],
   templateUrl: './domain-book-events.component.html',
   styleUrl: './domain-book-events.component.css',
 })
@@ -51,13 +59,15 @@ export class DomainBookEventsComponent {
   private readonly transloco = inject(TranslocoService);
   private readonly taxonomyService = inject(TaxonomyService);
 
-  readonly characters = computed<CharacterRow[]>(() =>
-    (this.domainDataService.sheets().find((sheet) => sheet.name.toUpperCase() === 'CHARACTER')
-      ?.rows ?? []) as unknown as CharacterRow[],
+  readonly characters = computed<CharacterRow[]>(
+    () =>
+      (this.domainDataService.sheets().find((sheet) => sheet.name.toUpperCase() === 'CHARACTER')
+        ?.rows ?? []) as unknown as CharacterRow[],
   );
-  readonly places = computed<PlaceRow[]>(() =>
-    (this.domainDataService.sheets().find((sheet) => sheet.name.toUpperCase() === 'PLACES')
-      ?.rows ?? []) as unknown as PlaceRow[],
+  readonly places = computed<PlaceRow[]>(
+    () =>
+      (this.domainDataService.sheets().find((sheet) => sheet.name.toUpperCase() === 'PLACES')
+        ?.rows ?? []) as unknown as PlaceRow[],
   );
   readonly invalidTagsDetected = computed(() =>
     this.splitTags(this.newTags()).filter((tag) => !this.taxonomyService.isTagAllowed(tag)),
@@ -194,12 +204,12 @@ export class DomainBookEventsComponent {
 
     try {
       const localRows = editingId
-        ? ((await this.domainDataService.getLocalDomainSheetRows(this.currentSheet().name)) as BookEvent[])
+        ? ((await this.domainDataService.getLocalDomainSheetRows(
+            this.currentSheet().name,
+          )) as BookEvent[])
         : this.rows();
       const existingRows = localRows.length > 0 ? localRows : this.rows();
-      const originalRow = editingId
-        ? existingRows.find((row) => row.id === editingId)
-        : undefined;
+      const originalRow = editingId ? existingRows.find((row) => row.id === editingId) : undefined;
       if (editingId && !originalRow) {
         throw new Error('The book event being edited is no longer available.');
       }
@@ -261,7 +271,11 @@ export class DomainBookEventsComponent {
   }
 
   private normalizeSearch(value: string): string {
-    return value.trim().toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return value
+      .trim()
+      .toLocaleLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
   }
 
   private parseDate(value: string | undefined): number | null {

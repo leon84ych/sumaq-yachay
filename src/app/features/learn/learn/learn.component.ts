@@ -64,6 +64,7 @@ export class Learn {
     return typeof row === 'number' ? row : 0;
   }
 
+
   componentFor(entry: LearnFeedEntry): Type<unknown> {
     switch (entry.domain) {
       case 'CHARACTER':

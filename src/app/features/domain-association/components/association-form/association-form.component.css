@@ -1,0 +1,13 @@
+.concept-relation-directed-control {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--text);
+}
+
+.concept-relation-directed-control input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--primary);
+}

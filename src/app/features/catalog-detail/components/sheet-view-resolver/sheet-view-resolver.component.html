@@ -69,8 +69,8 @@
       (closeEntry)="closeEntry.emit()"
     />
   }
-  @case ('RELATIONS_CHARACTERS') {
-    <app-domain-relations-characters
+  @case ('RELATIONS') {
+    <app-domain-relations
       [rows]="relationRows()"
       [currentSheet]="currentSheet()"
       [bookName]="bookName()"
@@ -79,9 +79,9 @@
       (closeEntry)="closeEntry.emit()"
     />
   }
-  @case ('RELATIONS_CONCEPTS') {
-    <app-domain-relations-concepts
-      [rows]="conceptRelationRows()"
+  @case ('ASSOCIATIONS') {
+    <app-domain-association
+      [rows]="associationRows()"
       [currentSheet]="currentSheet()"
       [bookName]="bookName()"
       [bookAuthor]="bookAuthor()"

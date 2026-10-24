@@ -1,17 +1,20 @@
-```text
+````text
 # 🤖 Agent Spec: Domain View Generator (domain-generator-en.agent.md)
 
 Act as an expert Frontend Developer Agent specializing in Angular (Signals, Standalone Components, Reactive Forms/UI), Dexie.js (IndexedDB), Transloco (i18n), and CSS Design Systems.
 
-Your sole objective is to receive a JSON specification of an academic/literary domain and generate seven domain files: the domain view, a reusable entry card, and the domain row model.
+Your sole objective is to receive a JSON specification of an academic/literary domain and generate ten domain files: the domain view, an extracted form child, a reusable entry card, and the domain row model.
 
 1. `src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.ts`
 2. `src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.html`
 3. `src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.css` (minimal; delegate shared layout to existing global styles)
-4. `src/app/features/domain-[xxx]/model/domain-[xxx]-row.model.ts`
-5. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.ts`
-6. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.html`
-7. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.css`
+4. `src/app/features/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.ts`
+5. `src/app/features/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.html`
+6. `src/app/features/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.css`
+7. `src/app/features/domain-[xxx]/model/domain-[xxx]-row.model.ts`
+8. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.ts`
+9. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.html`
+10. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.css`
 
 ---
 
@@ -39,7 +42,7 @@ Your sole objective is to receive a JSON specification of an academic/literary d
 
 2. **Integrated Tag Selector Component (`TagPickerComponent`):**
    - All tag inputs MUST use the <app-tag-picker> directive/selector component instead of a native HTML <input>.
-   - Requires importing TagPickerComponent from ../../../shared/tag-picker.component in the component's imports array.
+  - Requires importing `TagPickerComponent` from `../../../shared/tag-picker/tag-picker.component` in the extracted form component's `imports` array.
    - Configuration in the HTML:
      <app-tag-picker
        [ariaLabel]="'DOMAINS.[DOMAIN].TAGS' | transloco"
@@ -56,7 +59,7 @@ Your sole objective is to receive a JSON specification of an academic/literary d
   - **Step 3 (Awaited Synchronization):** Generated form submits await GAS. On success, reconcile a server-assigned ID for creates and mark the local full sheet `synced`. On failure, keep the form open, show the global error, and leave local rows marked `error`.
 
 4. **Angular Integration & Modern Control Flow:**
-  - The domain view and entry card are standalone components. The view imports its form dependencies and entry-card component; the card imports the shared card/header components it uses.
+  - The domain view, extracted form, and entry card are standalone components. The view imports the form and entry-card components; the form imports its field dependencies; the card imports the shared card/header components it uses.
    - Reactivity management with Signals: input.required(), signal(), computed(), output().
    - Modern template control flow: @if, @else, @for (item of filteredRows(); track item.id).
   - For translated `select` options, store the stable translation key as the option value and render its localized label with Transloco. Do not store the translated display label (for example, store `Noun`, display `DOMAINS.GLOSSARY.POS_OPTIONS.Noun`).
@@ -70,6 +73,10 @@ Your sole objective is to receive a JSON specification of an academic/literary d
          │   ├── domain-[xxx].component.html
          │   └── domain-[xxx].component.css
          ├── components/
+         │   ├── domain-[xxx]-form/
+         │   │   ├── domain-[xxx]-form.component.ts
+         │   │   ├── domain-[xxx]-form.component.html
+         │   │   └── domain-[xxx]-form.component.css
          │   └── domain-[xxx]-entry-card/
          │       ├── domain-[xxx]-entry-card.component.ts
          │       ├── domain-[xxx]-entry-card.component.html
@@ -93,7 +100,10 @@ Your sole objective is to receive a JSON specification of an academic/literary d
 2. **CSS Token Minimization:**
    - Do not redefine form layouts or colors in domain-[xxx].component.css. The global stylesheet src/app/shared/styles/domain-entry-form.css already styles .add-entry-form, .form-group, input, textarea, select, .form-control, .form-actions, .btn-submit, and .btn-cancel.
    - For any domain search bar, use the exact semantic component <label class="domain-search"> with its icon and input. The icon is the SVG magnifier (<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"> with <circle cx="8.75" cy="8.75" r="5.75" /> and <path d="m13 13 4 4" />) placed between the <span class="visually-hidden"> and the <input type="search">; it is MANDATORY and must not be omitted or replaced with emojis. Do not use custom classes such as [domain]-search. Its dimensions, light/dark theme colors, focus states, and centered width are globally defined in src/styles.css; do not create narrower domain-specific variants.
-   - Cards and grids may have domain-specific styles, but must rely on global variables and avoid duplicating shared components. Use .empty-state for empty states and existing chip patterns (.concept-tag, .quote-tag-chip, etc.) for tags.
+  - Cards and grids may have domain-specific styles, but must rely on global variables and avoid duplicating shared components. Use .empty-state for empty states and existing chip patterns (.concept-tag, .quote-tag-chip, etc.) for tags.
+  - Catalog detail and Learn share the global `--content-width` token from `src/styles.css`, with matching horizontal insets at desktop and mobile. Do not add page-specific width caps.
+  - All domain content rendered by `app-sheet-view-resolver` and the Learn feed container use the centralized `--domain-view-width: 800px`, matching the existing Index width. Keep Index and every other domain within that shared width; do not add local max-width values.
+  - Every domain entry feed and the Learn feed show at most one item per row. Use the shared `--domain-feed-columns: minmax(0, 1fr)` token for domain and Learn grids; do not use auto-fill/multi-column card grids.
 
 3. **Synchronization Indicator (Mandatory):**
   - Every domain entry card MUST render sync state through `<app-domain-entry-header>` or `<app-domain-entry-card>` with its `status` input. Never duplicate status markup or status styles in a domain template.
@@ -143,7 +153,7 @@ The user will provide a JSON definition of the domain to build. It supports the 
 
 ### 💻 4. OUTPUT CODE TEMPLATE AND STRUCTURE
 
-Based on the provided JSON definition, the Agent must strictly respond with the following 7 completed files:
+Based on the provided JSON definition, the Agent must strictly respond with the following 10 completed files:
 
 #### File A: domain-[xxx].component.ts
 
@@ -154,16 +164,16 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
-import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { Domain[xxx]FormComponent } from '../components/domain-[xxx]-form/domain-[xxx]-form.component';
 import { Domain[xxx]EntryCardComponent } from '../components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component';
 import { [InterfaceName]Row } from '../model/domain-[xxx]-row.model';
 
 @Component({
   selector: 'app-domain-[xxx]',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent, Domain[xxx]EntryCardComponent],
+  imports: [CommonModule, FormsModule, TranslocoPipe, Domain[xxx]FormComponent, Domain[xxx]EntryCardComponent],
   templateUrl: './domain-[xxx].component.html',
   styleUrls: ['./domain-[xxx].component.css'],
 })
@@ -235,44 +245,7 @@ export class [DomainName]Component {
 
 <div class="[xxx]-view">
   @if (isAddingEntry() || editingId() !== null) {
-    <div class="add-entry-form">
-      <h3>{{ (editingId() ? 'COMMON.EDIT' : 'DOMAINS.[DOMAIN].NEW_ENTRY_TITLE') | transloco }}</h3>
-
-      <!-- Reactive rendering of inputs/selects/textareas according to the JSON -->
-
-      <div class="form-group">
-        <label for="[domain]-tags">{{ 'DOMAINS.[DOMAIN].TAGS' | transloco }}</label>
-        <app-tag-picker
-          [ariaLabel]="'DOMAINS.[DOMAIN].TAGS' | transloco"
-          inputId="[domain]-tags"
-          [bookRow]="currentSheet().row"
-          [value]="newTags()"
-          (valueChange)="newTags.set($event)"
-        />
-        @if (invalidTagsDetected().length > 0) {
-          <div class="tag-validation-error">
-            <p>
-              {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
-              <strong>INDEX</strong>{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
-              @for (unlisted of invalidTagsDetected(); track $index) {
-                <span class="tag-validation-error__badge">{{ unlisted }}</span>
-              }
-            </p>
-          </div>
-        }
-      </div>
-
-      <div class="form-actions">
-        @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
-          <button type="button" class="btn-submit" [disabled]="isFormInvalid()" (click)="addEntry()">
-            {{ (editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
-          </button>
-        }
-        <button type="button" class="btn-cancel" (click)="resetForm()">
-          {{ 'COMMON.CANCEL' | transloco }}
-        </button>
-      </div>
-    </div>
+      <app-domain-[xxx]-form [form]="this" />
   }
 
   @if (rows().length === 0) {
@@ -363,17 +336,56 @@ Render the row fields, chips, and domain-specific actions. Pass the domain liter
     </footer>
   }
 </app-domain-entry-card>
-```
+````
 
 #### File G: domain-[xxx]-entry-card.component.css
 
 Keep only unique entry-card presentation rules. Reuse global design tokens and shared footer styles; never define `.status-indicator`, `.status-label`, or shared header styles here.
 
+#### File H: domain-[xxx]-form.component.ts
+
+Create a standalone child form component. Its `form` input is required and typed to the parent domain component. Import `DomainEntryFormOverlayComponent` and only the form dependencies used in the child template (for example `FormsModule`, `TranslocoPipe`, `TagPickerComponent`, or a domain-specific picker). The child is presentational: the parent continues to own signals, validation, edit state, persistence, and save methods.
+
+#### File I: domain-[xxx]-form.component.html
+
+Wrap the existing `.add-entry-form` markup in `<app-domain-entry-form-overlay>`. Bind all values and actions through `form()`, including edit data, validation, permission checks, save, and cancel. Use an accessible modal label that switches between the edit and new-entry translations. Keep the existing field IDs, labels, tag picker, and validation content.
+
+```html
+<app-domain-entry-form-overlay
+  [ariaLabel]="(form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.[DOMAIN].NEW_ENTRY_TITLE') | transloco"
+>
+  <div class="add-entry-form">
+    <!-- Existing domain fields, bound through form() -->
+    <div class="form-actions">
+      @if (form().permissionService.validatePermission(form().role(), 'UPDATE_SHEET_ROWS')) {
+      <button
+        type="button"
+        class="btn-submit"
+        [disabled]="form().isFormInvalid()"
+        (click)="form().addEntry()"
+      >
+        {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+      </button>
+      }
+      <button type="button" class="btn-cancel" (click)="form().resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    </div>
+  </div>
+</app-domain-entry-form-overlay>
+```
+
+#### File J: domain-[xxx]-form.component.css
+
+Include only domain-specific form styles that were previously scoped under the parent component and no longer reach the extracted child because of Angular view encapsulation. Shared form layout stays in `domain-entry-form.css`; use the application's theme variables.
+
+---
+
 ---
 
 ### 🗂️ 5. MANDATORY CHANGES IN EXISTING FILES (NEW DOMAIN)
 
-In addition to the 7 generated domain files, the Agent MUST provide the following code updates to register the domain. Use uppercase [DOMAIN] (e.g., TIMELINE), lowercase [table] (e.g., timeline), and [InterfaceName]Row for the row model.
+In addition to the 10 generated domain files, the Agent MUST provide the following code updates to register the domain. Use uppercase [DOMAIN] (e.g., TIMELINE), lowercase [table] (e.g., timeline), and [InterfaceName]Row for the row model.
 
 #### 5.1 src/app/features/catalog-detail/models/domain-sheet-config.ts
 
@@ -400,7 +412,7 @@ The model is generated in `src/app/features/domain-[xxx]/model/domain-[xxx]-row.
 #### 5.4 Related files that must also be updated
 
 - catalog-detail/services/domain-data.service.ts: Add the table name to DomainTableName, the key [DOMAIN]: '[table]' in DOMAIN_TABLES, and new columns (lowercase, no symbols → canonical name) in headerNames inside normalizePaginatedRow.
-- catalog-detail/components/sheet-view-resolver/: Add @case ('[DOMAIN]') in the HTML with <app-domain-[xxx]> (inputs: rows, currentSheet, bookName, bookAuthor, isAddingEntry; output: closeEntry), the typed rows computed (typed with `[InterfaceName]Row` imported from `features/domain-[xxx]/model/`), and the component import from `features/domain-[xxx]/domain-[xxx]/`. The domain view imports and renders its entry-card component.
+- catalog-detail/components/sheet-view-resolver/: Add @case ('[DOMAIN]') in the HTML with <app-domain-[xxx]> (inputs: rows, currentSheet, bookName, bookAuthor, isAddingEntry; output: closeEntry), the typed rows computed (typed with `[InterfaceName]Row` imported from `features/domain-[xxx]/model/`), and the component import from `features/domain-[xxx]/domain-[xxx]/`. The domain view imports and renders its entry-card and form child components.
 - public/i18n/en.json and es.json: Add keys under DOMAINS.[DOMAIN].* (NEW_ENTRY_TITLE, field labels, TAGS, SEARCH, NO_MATCHES, CHARACTERS_LEFT, and *_OPTIONS for each select).
 
 #### 5.5 Domain feature service taxonomy isolation and tests
@@ -422,15 +434,19 @@ The row that is sent is ALWAYS built in this order, inside `addEntry()`, before 
    - `text` / `textarea`: `const term = this.newTerm().trim();`
    - optional `select`: `const partOfSpeech = this.newPartOfSpeech() || undefined;` (the empty option `''` becomes `undefined`).
    - `number`: `const weight = this.newWeight();` (signal already typed as a number; if optional, `?? undefined`).
-  - `tags`: `const tags = this.newTags();` (a canonical hashtag array).
-   - Field with a book-based default (`source`, `book`, `author`): use the component's `computed` (`const source = this.source();`, which falls back to `bookName()`), never the raw signal.
+
+- `tags`: `const tags = this.newTags();` (a canonical hashtag array).
+- Field with a book-based default (`source`, `book`, `author`): use the component's `computed` (`const source = this.source();`, which falls back to `bookName()`), never the raw signal.
+
 2. **Required-field validation** right after the `const` declarations, with a silent return: `if (!term || !definition) { return; }`.
 3. **`const newRow: [InterfaceName]Row`** with this exact shape:
-  - `id` first. Use `editingId()` for edits; for creates use a temporary local ID (see Step 0), which is omitted from the create request.
-   - Required fields as shorthand properties (`term`, `definition`).
-   - Optional fields with conditional spread: `...(etymology ? { etymology } : {})`, so an empty value is NOT sent (the property is omitted instead of sending `''` or `undefined`).
-   - Fixed closing: `feed: 5, contributor: 'currentUser', syncStatus: 'pending'`.
-   - Do not include `row`, `book` or `author` unless the JSON defines them as fields.
+
+- `id` first. Use `editingId()` for edits; for creates use a temporary local ID (see Step 0), which is omitted from the create request.
+- Required fields as shorthand properties (`term`, `definition`).
+- Optional fields with conditional spread: `...(etymology ? { etymology } : {})`, so an empty value is NOT sent (the property is omitted instead of sending `''` or `undefined`).
+- Fixed closing: `feed: 5, contributor: 'currentUser', syncStatus: 'pending'`.
+- Do not include `row`, `book` or `author` unless the JSON defines them as fields.
+
 4. **Request**: Build the complete local list, then call `updateDomainSheetRows(sheetName, allLocalRows, true, editingId ?? undefined, editingId ? undefined : newRow.id)` (see 6.1). The service persists the full local list but sends only the changed row to GAS.
 
 Reference example (glossary):
@@ -497,10 +513,10 @@ Reference example (glossary):
 
 #### 6.2 Error handling
 
-| Failure | Service behavior | Component behavior |
-| --- | --- | --- |
-| Local (Dexie, unsupported sheet, no active catalog) | Marks rows as `error`, sets `errorMessage` and RETHROWS the error | Catches with `try/catch`, calls `globalErrorService.show(message)` and does NOT call `resetForm()` (keeps what was typed) |
-| Remote (network, no URL, no token, non-success response) | Marks local rows `error`, sets `errorMessage`, and rethrows for awaited form submissions | Shows the global error and keeps the entered values; reset only after success |
+| Failure                                                  | Service behavior                                                                         | Component behavior                                                                                                        |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Local (Dexie, unsupported sheet, no active catalog)      | Marks rows as `error`, sets `errorMessage` and RETHROWS the error                        | Catches with `try/catch`, calls `globalErrorService.show(message)` and does NOT call `resetForm()` (keeps what was typed) |
+| Remote (network, no URL, no token, non-success response) | Marks local rows `error`, sets `errorMessage`, and rethrows for awaited form submissions | Shows the global error and keeps the entered values; reset only after success                                             |
 
 Rules for the generated component:
 
@@ -525,11 +541,51 @@ Apply it when the user asks to "improve/align component X using Y as a reference
    - one `const` per field, read ONCE from its signal (with `trim()` where applicable) and reused in the row (do not call `this.newX()` again inside the object);
    - required-field validation with a silent return right after the `const` declarations;
    - `const newRow: [InterfaceName]Row` (full type, NOT `Partial<...>`), so the compiler enforces required fields;
-  - optional fields with conditional spread; tags remain a `string[]` and are never joined into a string;
-   - fixed closing `feed: 5`, `contributor: 'currentUser'`, `syncStatus: 'pending'`.
+
+- optional fields with conditional spread; tags remain a `string[]` and are never joined into a string;
+- fixed closing `feed: 5`, `contributor: 'currentUser'`, `syncStatus: 'pending'`.
+
 5. **Remove fields the model does not define** (e.g. `row`, `book`, `author` if they are not in the interface); the service already knows the catalog row.
 6. **Keep unchanged** the `try/catch` block, the error message and `resetForm()`, unless they differ from the section 6.2 pattern.
 7. **Verify:** check errors on the edited file (and build if the change affects types or templates).
 8. **Report** briefly what was removed, what was aligned and what changed in behavior (e.g. `feed` from `0` to `5`, `contributor` from `'Current User'` to `'currentUser'`, normalized tags), since this is not a pure refactor but also a value normalization.
+
+---
+
+### 🪟 8. FULLSCREEN DOMAIN FORM FLOW (ALL DOMAINS)
+
+Every create/edit form opens in the shared fullscreen modal. Do not render `.add-entry-form` inline in the scrolling domain list.
+
+1. **Extract the form UI:**
+
+- Create a standalone child form component in `src/app/features/domain-[xxx]/components/[domain]-form/`.
+- Keep domain signals, validation, `editEntry`, save methods, and persistence in the existing parent domain component. The child receives a required, typed parent context input named `form`; bind fields and actions through `form()`.
+- The parent renders the child only while creating or editing:
+
+  ```html
+  @if (isAddingEntry() || editingId() !== null) {
+  <app-domain-[xxx]-form [form]="this" />
+  }
+  ```
+
+2. **Use the common modal shell:**
+
+- Wrap the child’s `.add-entry-form` in `<app-domain-entry-form-overlay>` from `src/app/shared/domain-entry-form-overlay/`.
+- Supply an accessible Transloco label that distinguishes the edit title from the new-entry title.
+- The shared shell uses a native modal dialog, fills the viewport including mobile safe areas, scrolls the form internally, and makes the underlying page inert. Reuse it; do not create per-domain overlays or scroll handlers.
+- The modal can be closed only by successful Save or the form’s Cancel action. Prevent Escape and backdrop clicks from discarding form state.
+
+3. **Preserve the user's place:**
+
+- When the overlay opens, snapshot the page scroll position and the invoking element's focus. For edit, the parent must populate the selected row before the child opens. For `+ Entry`, open with a blank form.
+- On successful Save or Cancel, close the modal, restore the exact saved scroll position, and return focus to the invoking element when it is still connected. This applies to edits and new entries in every domain.
+- Failed validation or save must leave the modal open with entered values intact. Do not restore scroll or reset the form on failure.
+
+4. **Keep existing data behavior:**
+
+- The child only presents the form and calls the typed parent context's existing methods. Do not move Dexie, API, or save/error logic into the child.
+- Preserve all existing permissions, tag validation, loading, and awaited-save behavior. Retain domain-specific styles in the child stylesheet when Angular view encapsulation would otherwise prevent them from applying.
+
+```
 
 ```

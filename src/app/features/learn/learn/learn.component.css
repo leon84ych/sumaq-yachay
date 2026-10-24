@@ -1,7 +1,7 @@
 .learn-page {
-  width: min(100% - 2rem, 760px);
+  width: var(--content-width);
   margin: 0 auto;
-  padding: 2rem 0 4rem;
+  padding: 2rem 1.5rem 4rem;
 }
 
 .learn-search {
@@ -17,7 +17,10 @@
 
 .learn-feed {
   display: grid;
+  grid-template-columns: var(--domain-feed-columns);
+  width: min(100%, var(--domain-view-width));
   gap: 1rem;
+  margin-inline: auto;
 }
 
 .learn-entry {
@@ -261,7 +264,6 @@
 
 @media (max-width: 540px) {
   .learn-page {
-    width: min(100% - 1.25rem, 760px);
-    padding-top: 1.25rem;
+    padding: 1.25rem 1rem 4rem;
   }
 }

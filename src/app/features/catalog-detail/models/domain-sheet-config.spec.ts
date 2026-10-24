@@ -18,8 +18,8 @@ describe('domain sheet configuration', () => {
         'CHARACTER',
         'PLACES',
         'BOOK_EVENTS',
-        'RELATIONS_CHARACTERS',
-        'RELATIONS_CONCEPTS',
+        'RELATIONS',
+        'ASSOCIATIONS',
         'GLOSARY',
         'QUESTIONS',
       ]),
@@ -54,7 +54,7 @@ describe('domain sheet configuration', () => {
       'contributor',
       'syncStatus',
     ]);
-    expect(DOMAIN_DEFINITIONS.RELATIONS_CHARACTERS.headers).toEqual([
+    expect(DOMAIN_DEFINITIONS.RELATIONS.headers).toEqual([
       'id',
       'sourceCharacterId',
       'targetCharacterId',
@@ -70,7 +70,7 @@ describe('domain sheet configuration', () => {
       'contributor',
       'syncStatus',
     ]);
-    expect(DOMAIN_DEFINITIONS.RELATIONS_CONCEPTS.headers).toEqual([
+    expect(DOMAIN_DEFINITIONS.ASSOCIATIONS.headers).toEqual([
       'id',
       'sourceConceptId',
       'targetConceptId',
@@ -159,9 +159,9 @@ describe('domain sheet configuration', () => {
     expect(DOMAIN_TAB_ORDER).toEqual([
       'INDEX',
       'CHARACTER',
-      'RELATIONS_CHARACTERS',
+      'RELATIONS',
       'CONCEPTS',
-      'RELATIONS_CONCEPTS',
+      'ASSOCIATIONS',
       'PLACES',
       'BOOK_EVENTS',
       'QUOTES',
@@ -174,7 +174,7 @@ describe('domain sheet configuration', () => {
   it('orders configured tabs before custom tabs without dropping empty sheets', () => {
     const sorted = sortDomainTabs([
       { name: 'QUOTES', index: 0, rows: [{ id: 'quote-1' }] },
-      { name: 'RELATIONS_CONCEPTS', index: 1, rows: [] },
+      { name: 'ASSOCIATIONS', index: 1, rows: [] },
       { name: 'CHARACTER', index: 2, rows: [{ id: 'character-1' }] },
       { name: 'Custom Notes', index: 3, rows: [] },
       { name: 'INDEX', index: 4, rows: [] },
@@ -183,7 +183,7 @@ describe('domain sheet configuration', () => {
     expect(sorted.map((sheet) => sheet.name)).toEqual([
       'INDEX',
       'CHARACTER',
-      'RELATIONS_CONCEPTS',
+      'ASSOCIATIONS',
       'QUOTES',
       'Custom Notes',
     ]);

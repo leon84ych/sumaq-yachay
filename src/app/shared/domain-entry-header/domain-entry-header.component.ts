@@ -16,4 +16,5 @@ export class DomainEntryHeaderComponent {
   readonly showContext = input(true);
   readonly compact = input(false);
   readonly useProjectedLabel = input(false);
+
 }

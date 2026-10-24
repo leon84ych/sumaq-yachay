@@ -1,0 +1,72 @@
+<app-domain-entry-form-overlay
+  [ariaLabel]="(form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.INDEX.NEW_ENTRY_TITLE') | transloco"
+  (closeRequested)="form().resetForm()"
+>
+  <div class="add-entry-form">
+    <h3 id="domain-entry-form-title">
+      {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.INDEX.NEW_ENTRY_TITLE') | transloco }}
+    </h3>
+
+    <div class="form-group">
+      <label for="index-chapter">{{ 'DOMAINS.INDEX.CHAPTER' | transloco }}</label>
+      <input
+        id="index-chapter"
+        type="text"
+        [ngModel]="form().newChapter()"
+        (ngModelChange)="form().newChapter.set($event)"
+        placeholder="e.g. Chapter 1"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="index-theme">{{ 'DOMAINS.INDEX.THEME' | transloco }}</label>
+      <input
+        id="index-theme"
+        type="text"
+        [ngModel]="form().newTheme()"
+        (ngModelChange)="form().newTheme.set($event)"
+        placeholder="e.g. Core Concepts"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="index-subtheme">{{ 'DOMAINS.INDEX.SUBTHEME' | transloco }}</label>
+      <input
+        id="index-subtheme"
+        type="text"
+        [ngModel]="form().newSubtheme()"
+        (ngModelChange)="form().newSubtheme.set($event)"
+        placeholder="e.g. Definitions"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="index-tags">{{ 'DOMAINS.INDEX.TAGS' | transloco }}</label>
+      <app-tag-picker
+        [ariaLabel]="'DOMAINS.INDEX.TAGS' | transloco"
+        inputId="index-tags"
+        [bookRow]="form().currentSheet().row"
+        [value]="form().newTags()"
+        (valueChange)="form().newTags.set($event)"
+      />
+    </div>
+
+    <div class="form-actions">
+      @if (form().permissionService.validatePermission(form().role(), 'UPDATE_SHEET_ROWS')) {
+        <button
+          type="button"
+          class="btn-submit"
+          [disabled]="form().isFormInvalid()"
+          (click)="form().addIndexEntry()"
+        >
+          {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+        </button>
+      }
+      <button type="button" class="btn-cancel" (click)="form().resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    </div>
+  </div>
+</app-domain-entry-form-overlay>

@@ -131,8 +131,8 @@ describe('LearnFeedService', () => {
     const service = TestBed.inject(LearnFeedService);
 
     const batch = await service.loadRandomBatch(new Set(), 20);
-    const conceptRelation = batch.find((entry) => entry.domain === 'RELATIONS_CONCEPTS');
-    const characterRelation = batch.find((entry) => entry.domain === 'RELATIONS_CHARACTERS');
+    const conceptRelation = batch.find((entry) => entry.domain === 'ASSOCIATIONS');
+    const characterRelation = batch.find((entry) => entry.domain === 'RELATIONS');
     const byRelationType = await service.loadRandomBatch(new Set(), 50, 'memory shapes identity');
 
     expect(conceptRelation).toMatchObject({
@@ -143,7 +143,7 @@ describe('LearnFeedService', () => {
       title: 'Mara -> Ilan',
       body: 'childhood friends\n\nTheir shared history shapes the story.',
     });
-    expect(byRelationType.map((entry) => entry.domain)).toContain('RELATIONS_CONCEPTS');
+    expect(byRelationType.map((entry) => entry.domain)).toContain('ASSOCIATIONS');
   });
 
   it('seeds local sample fixtures before reading when LocalSampleData is enabled', async () => {

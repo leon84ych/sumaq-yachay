@@ -1,0 +1,42 @@
+<section class="relations-concepts-view">
+  @if (isAddingEntry() || editingId() !== null) {
+    <app-association-form [form]="this" />
+  }
+
+  @if (rows().length === 0) {
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+    <label class="domain-search">
+      <span class="visually-hidden">{{ 'DOMAINS.ASSOCIATIONS.SEARCH' | transloco }}</span>
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="8.75" cy="8.75" r="5.75" />
+        <path d="m13 13 4 4" />
+      </svg>
+      <input
+        type="search"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        [placeholder]="'DOMAINS.ASSOCIATIONS.SEARCH' | transloco"
+      />
+    </label>
+
+    @if (filteredRows().length === 0) {
+      <p class="empty-state">{{ 'DOMAINS.ASSOCIATIONS.NO_MATCHES' | transloco }}</p>
+    } @else {
+      <div class="relations-concepts-grid">
+        @for (relation of filteredRows(); track relation.id) {
+          <app-association-entry-card
+            [row]="relation"
+            [sourceConceptName]="conceptName(relation.sourceConceptId)"
+            [targetConceptName]="conceptName(relation.targetConceptId)"
+            [bookName]="bookName()"
+            [bookAuthor]="bookAuthor()"
+            [showContext]="true"
+            (editRequested)="editEntry($event)"
+            (deleteRequested)="deleteEntry($event)"
+          />
+        }
+      </div>
+    }
+  }
+</section>

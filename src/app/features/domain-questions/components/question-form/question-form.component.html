@@ -1,0 +1,142 @@
+<app-domain-entry-form-overlay
+  [ariaLabel]="
+    (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.QUESTIONS.NEW_ENTRY_TITLE') | transloco
+  "
+  (closeRequested)="form().resetForm()"
+>
+  <form class="add-entry-form" (submit)="$event.preventDefault(); form().addQuestion()">
+    <h3 id="domain-entry-form-title">
+      {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.QUESTIONS.NEW_ENTRY_TITLE') | transloco }}
+    </h3>
+    <div class="form-group">
+      <label for="question-text">{{ 'DOMAINS.QUESTIONS.QUESTION' | transloco }}</label>
+      <textarea
+        id="question-text"
+        rows="3"
+        maxlength="500"
+        [ngModel]="form().newQuestion()"
+        (ngModelChange)="form().newQuestion.set($event)"
+        name="question"
+        required
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="question-answer">{{ 'DOMAINS.QUESTIONS.ANSWER' | transloco }}</label>
+      <textarea
+        id="question-answer"
+        rows="3"
+        maxlength="500"
+        [ngModel]="form().newAnswer()"
+        (ngModelChange)="form().newAnswer.set($event)"
+        name="answer"
+        required
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="question-type">{{ 'DOMAINS.QUESTIONS.TYPE' | transloco }}</label>
+      <select
+        id="question-type"
+        [ngModel]="form().newType()"
+        (ngModelChange)="form().newType.set($event)"
+        name="type"
+        required
+      >
+        @for (type of form().questionTypes; track type) {
+          <option [value]="type">
+            {{ 'DOMAINS.QUESTIONS.TYPE_OPTIONS.' + type | transloco }}
+          </option>
+        }
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="question-source-domain">{{
+        'DOMAINS.QUESTIONS.SOURCE_DOMAIN' | transloco
+      }}</label>
+      <input
+        id="question-source-domain"
+        type="text"
+        [ngModel]="form().newSourceDomain()"
+        (ngModelChange)="form().newSourceDomain.set($event)"
+        name="sourceDomain"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="question-source-term">{{ 'DOMAINS.QUESTIONS.SOURCE_TERM' | transloco }}</label>
+      <input
+        id="question-source-term"
+        type="text"
+        [ngModel]="form().newSourceTerm()"
+        (ngModelChange)="form().newSourceTerm.set($event)"
+        name="sourceTerm"
+      />
+    </div>
+    <div class="question-form-row">
+      <div class="form-group">
+        <label for="question-page">{{ 'DOMAINS.QUESTIONS.PAGE' | transloco }}</label>
+        <input
+          id="question-page"
+          type="text"
+          [ngModel]="form().newPage()"
+          (ngModelChange)="form().newPage.set($event)"
+          name="page"
+        />
+      </div>
+      <div class="form-group">
+        <label for="question-difficulty">{{ 'DOMAINS.QUESTIONS.DIFFICULTY' | transloco }}</label>
+        <select
+          id="question-difficulty"
+          [ngModel]="form().newDifficulty()"
+          (ngModelChange)="form().newDifficulty.set($event)"
+          name="difficulty"
+        >
+          <option value=""></option>
+          @for (difficulty of form().difficulties; track difficulty) {
+            <option [value]="difficulty">
+              {{ 'DOMAINS.QUESTIONS.DIFFICULTY_OPTIONS.' + difficulty | transloco }}
+            </option>
+          }
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="question-tags">{{ 'DOMAINS.QUESTIONS.TAGS' | transloco }}</label>
+      <app-tag-picker
+        [ariaLabel]="'DOMAINS.QUESTIONS.TAGS' | transloco"
+        inputId="question-tags"
+        [bookRow]="form().currentSheet().row"
+        [value]="form().newTags()"
+        (valueChange)="form().newTags.set($event)"
+      />
+      @if (form().invalidTagsDetected().length > 0) {
+        <div class="tag-validation-error">
+          <p>
+            {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
+            <strong>{{ 'DOMAINS.DOMAINS.INDEX' | transloco }}</strong
+            >{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
+            <span
+              class="tag-validation-error__badge"
+              *ngFor="let unlisted of form().invalidTagsDetected()"
+            >
+              {{ unlisted }}
+            </span>
+          </p>
+        </div>
+      }
+    </div>
+    <div class="form-actions">
+      @if (form().permissionService.validatePermission(form().role(), 'UPDATE_SHEET_ROWS')) {
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="form().isFormInvalid() || form().isSaving()"
+        >
+          {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+        </button>
+      }
+      <button type="button" class="btn-cancel" (click)="form().resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    </div>
+  </form>
+</app-domain-entry-form-overlay>

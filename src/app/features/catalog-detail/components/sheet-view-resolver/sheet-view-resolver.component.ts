@@ -23,10 +23,10 @@ import { GlossaryRow } from '../../../domain-glosary/model/domain-glosary-row.mo
 import { PassagesRow } from '../../../domain-passages/model/domain-passage-row.model';
 import { BookEvent } from '../../../domain-book-events/model/book-event-row.model';
 import { DomainBookEventsComponent } from '../../../domain-book-events/domain-book-events/domain-book-events.component';
-import { BookRelationCharacter } from '../../../domain-relations-characters/model/book-relation-character.model';
-import { DomainRelationsCharactersComponent } from '../../../domain-relations-characters/domain-relations-characters/domain-relations-characters.component';
-import { BookRelationConcept } from '../../../domain-relations-concepts/model/book-relation-concept.model';
-import { DomainRelationsConceptsComponent } from '../../../domain-relations-concepts/domain-relations-concepts/domain-relations-concepts.component';
+import { BookRelation } from '../../../domain-relations/model/book-relation.model';
+import { DomainRelationsComponent } from '../../../domain-relations/domain-relations/domain-relations.component';
+import { BookAssociation } from '../../../domain-association/model/book-association.model';
+import { DomainAssociationComponent } from '../../../domain-association/domain-association/domain-association.component';
 
 @Component({
   selector: 'app-sheet-view-resolver',
@@ -41,8 +41,8 @@ import { DomainRelationsConceptsComponent } from '../../../domain-relations-conc
     DomainCharacterComponent,
     DomainPlacesComponent,
     DomainBookEventsComponent,
-    DomainRelationsCharactersComponent,
-    DomainRelationsConceptsComponent,
+    DomainRelationsComponent,
+    DomainAssociationComponent,
     DomainGlossaryComponent,
     QuestionsComponent,
   ],
@@ -73,9 +73,9 @@ export class SheetViewResolverComponent {
   readonly placeRows = computed(() => (this.sheet()?.rows ?? []) as unknown as PlaceRow[]);
   readonly bookEventRows = computed(() => (this.sheet()?.rows ?? []) as unknown as BookEvent[]);
   readonly relationRows = computed(
-    () => (this.sheet()?.rows ?? []) as unknown as BookRelationCharacter[],
+    () => (this.sheet()?.rows ?? []) as unknown as BookRelation[],
   );
-  readonly conceptRelationRows = computed(
-    () => (this.sheet()?.rows ?? []) as unknown as BookRelationConcept[],
+  readonly associationRows = computed(
+    () => (this.sheet()?.rows ?? []) as unknown as BookAssociation[],
   );
 }

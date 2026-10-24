@@ -1,5 +1,5 @@
 .detail-page {
-  max-width: 900px;
+  width: var(--content-width);
   margin: 0 auto;
   padding: 1.5rem;
 }
@@ -9,6 +9,11 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.25rem;
+}
+
+app-sheet-view-resolver {
+  width: min(100%, var(--domain-view-width));
+  margin-inline: auto;
 }
 
 .detail-header app-catalog-overview {
@@ -85,6 +90,7 @@
   .detail-actions {
     width: 100%;
     justify-content: flex-start;
+    margin: 0 auto var(--content-section-gap);
   }
 
   .mobile-sheet-selector {

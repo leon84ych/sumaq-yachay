@@ -7,7 +7,6 @@ import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { IndexViewRow, normalizeIndexRows } from '../model/index-view-row';
 import { serializeTags } from '../../../shared/utils/tag-utils';
-import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { PermissionService } from '../../../core/services/permission.service';
 import { IndexEntryCardComponent } from '../components/index-entry-card/index-entry-card.component';
 
@@ -21,14 +20,16 @@ interface IndexHierarchyGroup {
   }>;
 }
 
+import { IndexEntryFormComponent } from '../components/index-entry-form/index-entry-form.component';
+
 @Component({
   selector: 'app-domain-index',
   standalone: true,
   imports: [
+    IndexEntryFormComponent,
     CommonModule,
     FormsModule,
     TranslocoPipe,
-    TagPickerComponent,
     IndexEntryCardComponent,
   ],
   templateUrl: './domain-index.component.html',
@@ -130,12 +131,12 @@ export class DomainIndexComponent {
 
     try {
       const localRows = editingId
-        ? ((await this.domainDataService.getLocalDomainSheetRows(this.currentSheet().name)) as IndexViewRow[])
+        ? ((await this.domainDataService.getLocalDomainSheetRows(
+            this.currentSheet().name,
+          )) as IndexViewRow[])
         : this.rows();
       const existingRows = localRows.length > 0 ? localRows : this.rows();
-      const originalRow = editingId
-        ? existingRows.find((row) => row.id === editingId)
-        : undefined;
+      const originalRow = editingId ? existingRows.find((row) => row.id === editingId) : undefined;
       if (editingId && !originalRow) {
         throw new Error('The INDEX entry being edited is no longer available.');
       }

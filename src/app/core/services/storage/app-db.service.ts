@@ -10,8 +10,8 @@ import { PassageRecord } from '../../../features/domain-passages/model/domain-pa
 import { PlaceRecord } from '../../../features/domain-places/model/domain-place-row.model';
 import { QuestionRecord } from '../../../features/domain-questions/model/domain-question-row.model';
 import { QuoteRecord } from '../../../features/domain-quotes/model/domain-quote-row.model';
-import { BookRelationCharacterRecord } from '../../../features/domain-relations-characters/model/book-relation-character.model';
-import { BookRelationConceptRecord } from '../../../features/domain-relations-concepts/model/book-relation-concept.model';
+import { BookRelationRecord } from '../../../features/domain-relations/model/book-relation.model';
+import { BookAssociationRecord } from '../../../features/domain-association/model/book-association.model';
 import {
   LOCAL_SAMPLE_CATALOG,
   LOCAL_SAMPLE_DOMAIN_TABLES,
@@ -54,8 +54,8 @@ export class AppDatabase extends Dexie {
   characters!: Table<CharacterRecord, string>;
   places!: Table<PlaceRecord, string>;
   bookEvents!: Table<BookEventRecord, string>;
-  relationsCharacters!: Table<BookRelationCharacterRecord, string>;
-  relationsConcepts!: Table<BookRelationConceptRecord, string>;
+  relationsCharacters!: Table<BookRelationRecord, string>;
+  relationsConcepts!: Table<BookAssociationRecord, string>;
   glosary!: Table<GlossaryEntryRecord, string>;
   questions!: Table<QuestionRecord, string>;
 

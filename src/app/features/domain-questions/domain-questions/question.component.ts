@@ -5,7 +5,6 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
-import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { QuestionDifficulty, QuestionRow, QuestionType } from '../model/domain-question-row.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
@@ -14,10 +13,12 @@ import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 const QUESTION_TYPES: QuestionType[] = ['flashcard', 'multiple-choice', 'true-false', 'open'];
 const QUESTION_DIFFICULTIES: QuestionDifficulty[] = ['easy', 'medium', 'hard'];
 
+import { QuestionFormComponent } from '../components/question-form/question-form.component';
+
 @Component({
   selector: 'app-questions',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoPipe, TagPickerComponent],
+  imports: [QuestionFormComponent, QuestionFormComponent, CommonModule, FormsModule, TranslocoPipe],
   templateUrl: './question.component.html',
   styleUrl: './question.component.css',
 })

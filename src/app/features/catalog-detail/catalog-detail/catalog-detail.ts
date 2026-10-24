@@ -82,6 +82,7 @@ export class CatalogDetail {
     this.activeSheetName.set(name);
   }
 
+
   toggleAddingEntry(): void {
     this.isAddingEntry.update((isAddingEntry) => !isAddingEntry);
   }

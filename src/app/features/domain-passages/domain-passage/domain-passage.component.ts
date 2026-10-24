@@ -1,19 +1,10 @@
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  input,
-  output,
-  signal,
-} from '@angular/core';
+import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
-import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { PassagesRow } from '../model/domain-passage-row.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
@@ -21,14 +12,16 @@ import { parseTags, serializeTags } from '../../../shared/utils/tag-utils';
 import { PassageEntryCardComponent } from '../components/passage-entry-card/passage-entry-card.component';
 import { PassageReaderComponent } from '../components/passage-reader/passage-reader.component';
 
+import { PassageFormComponent } from '../components/passage-form/passage-form.component';
+
 @Component({
   selector: 'app-domain-passage',
   standalone: true,
   imports: [
+    PassageFormComponent,
     CommonModule,
     FormsModule,
     TranslocoPipe,
-    TagPickerComponent,
     PassageEntryCardComponent,
     PassageReaderComponent,
   ],
@@ -186,12 +179,12 @@ export class DomainPassageComponent {
 
     try {
       const localRows = editingId
-        ? ((await this.domainDataService.getLocalDomainSheetRows(this.currentSheet().name)) as PassagesRow[])
+        ? ((await this.domainDataService.getLocalDomainSheetRows(
+            this.currentSheet().name,
+          )) as PassagesRow[])
         : this.rows();
       const existingRows = localRows.length > 0 ? localRows : this.rows();
-      const originalRow = editingId
-        ? existingRows.find((row) => row.id === editingId)
-        : undefined;
+      const originalRow = editingId ? existingRows.find((row) => row.id === editingId) : undefined;
       if (editingId && !originalRow) {
         throw new Error('The passage being edited is no longer available.');
       }

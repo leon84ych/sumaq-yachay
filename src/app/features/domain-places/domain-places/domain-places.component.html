@@ -1,141 +1,53 @@
 <div class="places-view">
-    @if (isAddingEntry() || editingId() !== null) {
-    <div class="add-entry-form">
-        <h3>{{ (editingId() ? 'COMMON.EDIT' : 'DOMAINS.PLACES.NEW_ENTRY_TITLE') | transloco }}</h3>
-
-        <div class="form-group">
-            <label for="place-name">{{ 'DOMAINS.PLACES.NAME' | transloco }} *</label>
-            <input id="place-name"
-            type="text"
-            [ngModel]="newName()"
-            (ngModelChange)="newName.set($event)"
-            [placeholder]="'DOMAINS.PLACES.NAME_PLACEHOLDER' | transloco"
-            maxlength="100"
-            required
-            />
-        </div>
-
-        <div class="form-group">
-            <label for="place-type">{{ 'DOMAINS.PLACES.TYPE' | transloco }} *</label>
-            <select id="place-type" [ngModel]="newType()" (ngModelChange)="newType.set($event)">
-                <option value="city">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.CITY' | transloco }}</option>
-                <option value="country">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.COUNTRY' | transloco }}</option>
-                <option value="building">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.BUILDING' | transloco }}</option>
-                <option value="region">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.REGION' | transloco }}</option>
-                <option value="institution">{{ 'DOMAINS.PLACES.TYPE_OPTIONS.INSTITUTION' | transloco }}</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="place-nature">{{ 'DOMAINS.PLACES.NATURE' | transloco }} *</label>
-            <select id="place-nature" [ngModel]="newNature()" (ngModelChange)="newNature.set($event)">
-                <option value="real">{{ 'DOMAINS.PLACES.NATURE_OPTIONS.REAL' | transloco }}</option>
-                <option value="fictional">{{ 'DOMAINS.PLACES.NATURE_OPTIONS.FICTIONAL' | transloco }}</option>
-                <option value="inspired">{{ 'DOMAINS.PLACES.NATURE_OPTIONS.INSPIRED' | transloco }}</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="place-coordinates">{{ 'DOMAINS.PLACES.COORDINATES' | transloco }}</label>
-            <input id="place-coordinates" type="text" [ngModel]="newCoordinates()"
-                (ngModelChange)="newCoordinates.set($event)" placeholder="Ej. 4.6097, -74.0817" maxlength="100" />
-
-            @if (newNature() === 'real') {
-            <app-map-picker [initialCoords]="[4.6097, -74.0817]" (coordinatesChange)="newCoordinates.set($event)" />
-            }
-        </div>
-
-        <div class="form-group color-picker-group">
-            <label for="place-color">{{ 'DOMAINS.PLACES.COLOR' | transloco }} *</label>
-            <input id="place-color" type="color" [ngModel]="newColor()" (ngModelChange)="newColor.set($event)" />
-        </div>
-
-        <div class="form-group">
-            <label for="place-description">{{ 'DOMAINS.PLACES.DESCRIPTION' | transloco }}</label>
-            <textarea id="place-description" [ngModel]="newDescription()" (ngModelChange)="newDescription.set($event)"
-                maxlength="400"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="place-source">{{ 'DOMAINS.PLACES.SOURCE' | transloco }}</label>
-            <input id="place-source" type="text" [ngModel]="newSource()" (ngModelChange)="newSource.set($event)"
-                maxlength="100" />
-        </div>
-
-        <div class="form-group">
-            <label for="places-tags">{{ 'DOMAINS.PLACES.TAGS' | transloco }}</label>
-            <app-tag-picker [ariaLabel]="'DOMAINS.PLACES.TAGS' | transloco" inputId="places-tags"
-                [bookRow]="currentSheet().row" [value]="newTags()" (valueChange)="newTags.set($event)" />
-            
-            <!-- 🌟 VISUAL FEEDBACK GUARD FOR THE SYSTEM TAG INTEGRITY -->
-            @if (invalidTagsDetected().length > 0) {
-            <div class="tag-validation-error">
-                <p>
-                    {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }} <strong>{{ 'DOMAINS.DOMAINS.INDEX' | transloco }}</strong>{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
-                    <span class="tag-validation-error__badge" *ngFor="let unlisted of invalidTagsDetected()">
-                        {{ unlisted }}
-                    </span>
-                </p>
-            </div>
-            }
-        </div>
-
-        <div class="form-actions">
-            <!-- 🌟 HARD-LOCK DEPLOYED: Save is explicitly blocked if the form state is invalid -->
-                        @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
-                            <button type="button" class="btn-submit" [disabled]="isFormInvalid()" (click)="addEntry()">
-                {{ (editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
-                            </button>
-                        }
-            <button type="button" class="btn-cancel" (click)="resetForm()">
-                {{ 'COMMON.CANCEL' | transloco }}
-            </button>
-        </div>
-    </div>
-    }
-
-    @if (rows().length === 0) {
+  @if (isAddingEntry() || editingId() !== null) {
+    <app-place-form [form]="this" />
+  }
+  @if (rows().length === 0) {
     <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
-    } @else {
+  } @else {
     <div class="places-toolbar">
-        <label class="domain-search">
-            <span class="visually-hidden">{{ 'DOMAINS.PLACES.SEARCH' | transloco }}</span>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <circle cx="8.75" cy="8.75" r="5.75" />
-                <path d="m13 13 4 4" />
-            </svg>
-            <input type="search" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)"
-                [placeholder]="'DOMAINS.PLACES.SEARCH' | transloco" />
-        </label>
-        <button
-            type="button"
-            class="places-map-toggle"
-            [attr.aria-pressed]="showMap()"
-            (click)="showMap.update((visible) => !visible)"
-        >
-            {{ (showMap() ? 'DOMAINS.PLACES.VIEW_LIST' : 'DOMAINS.PLACES.VIEW_MAP') | transloco }}
-        </button>
+      <label class="domain-search">
+        <span class="visually-hidden">{{ 'DOMAINS.PLACES.SEARCH' | transloco }}</span>
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="8.75" cy="8.75" r="5.75" />
+          <path d="m13 13 4 4" />
+        </svg>
+        <input
+          type="search"
+          [ngModel]="searchTerm()"
+          (ngModelChange)="searchTerm.set($event)"
+          [placeholder]="'DOMAINS.PLACES.SEARCH' | transloco"
+        />
+      </label>
+      <button
+        type="button"
+        class="places-map-toggle"
+        [attr.aria-pressed]="showMap()"
+        (click)="showMap.update((visible) => !visible)"
+      >
+        {{ (showMap() ? 'DOMAINS.PLACES.VIEW_LIST' : 'DOMAINS.PLACES.VIEW_MAP') | transloco }}
+      </button>
     </div>
 
     @if (filteredRows().length === 0) {
-    <p class="empty-state">{{ 'DOMAINS.PLACES.NO_MATCHES' | transloco }}</p>
+      <p class="empty-state">{{ 'DOMAINS.PLACES.NO_MATCHES' | transloco }}</p>
     } @else {
-    @if (showMap()) {
-    <app-domain-map [places]="filteredRows()" />
-    } @else {
-    <div class="places-grid">
-        @for (row of filteredRows(); track row.id) {
-        <app-place-entry-card
-            [row]="row"
-            [bookName]="bookName()"
-            [bookAuthor]="bookAuthor()"
-            [showContext]="true"
-            (deleteRequested)="deleteEntry($event)"
-            (editRequested)="editEntry($event)"
-        />
-        }
-    </div>
+      @if (showMap()) {
+        <app-domain-map [places]="filteredRows()" />
+      } @else {
+        <div class="places-grid">
+          @for (row of filteredRows(); track row.id) {
+            <app-place-entry-card
+              [row]="row"
+              [bookName]="bookName()"
+              [bookAuthor]="bookAuthor()"
+              [showContext]="true"
+              (deleteRequested)="deleteEntry($event)"
+              (editRequested)="editEntry($event)"
+            />
+          }
+        </div>
+      }
     }
-    }
-    }
+  }
 </div>

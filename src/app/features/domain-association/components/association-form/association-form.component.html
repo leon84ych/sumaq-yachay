@@ -1,0 +1,160 @@
+<app-domain-entry-form-overlay
+  [ariaLabel]="
+    (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.ASSOCIATIONS.NEW_ENTRY_TITLE') | transloco
+  "
+  (closeRequested)="form().resetForm()"
+>
+  <div class="add-entry-form">
+    <h3>
+      {{
+        (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.ASSOCIATIONS.NEW_ENTRY_TITLE') | transloco
+      }}
+    </h3>
+
+    @if (form().concepts().length === 0) {
+      <p class="empty-state">{{ 'DOMAINS.ASSOCIATIONS.NO_CONCEPTS' | transloco }}</p>
+    }
+
+    <div class="form-group">
+      <label for="concept-relation-source">{{
+        'DOMAINS.ASSOCIATIONS.SOURCE_CONCEPT' | transloco
+      }}</label>
+      <select
+        id="concept-relation-source"
+        [ngModel]="form().newSourceConceptId()"
+        (ngModelChange)="form().newSourceConceptId.set($event)"
+        required
+      >
+        <option value="">{{ 'DOMAINS.ASSOCIATIONS.SELECT_CONCEPT' | transloco }}</option>
+        @for (concept of form().concepts(); track concept.id) {
+          <option [value]="concept.id">{{ concept.term }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="concept-relation-target">{{
+        'DOMAINS.ASSOCIATIONS.TARGET_CONCEPT' | transloco
+      }}</label>
+      <select
+        id="concept-relation-target"
+        [ngModel]="form().newTargetConceptId()"
+        (ngModelChange)="form().newTargetConceptId.set($event)"
+        required
+      >
+        <option value="">{{ 'DOMAINS.ASSOCIATIONS.SELECT_CONCEPT' | transloco }}</option>
+        @for (concept of form().concepts(); track concept.id) {
+          <option [value]="concept.id">{{ concept.term }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="concept-relation-type">{{ 'DOMAINS.ASSOCIATIONS.TYPE' | transloco }}</label>
+      <input
+        id="concept-relation-type"
+        type="text"
+        list="concept-relation-type-suggestions"
+        [ngModel]="form().newRelationType()"
+        (ngModelChange)="form().newRelationType.set($event)"
+        required
+      />
+      <datalist id="concept-relation-type-suggestions">
+        @for (relationType of form().relationTypeSuggestions(); track relationType) {
+          <option [value]="relationType"></option>
+        }
+      </datalist>
+    </div>
+
+    <label class="concept-relation-directed-control">
+      <input
+        type="checkbox"
+        [ngModel]="form().newDirected()"
+        (ngModelChange)="form().newDirected.set($event)"
+      />
+      <span>{{ 'DOMAINS.ASSOCIATIONS.DIRECTED' | transloco }}</span>
+    </label>
+
+    <div class="form-group">
+      <label for="concept-relation-description">{{
+        'DOMAINS.ASSOCIATIONS.DESCRIPTION' | transloco
+      }}</label>
+      <textarea
+        id="concept-relation-description"
+        rows="4"
+        maxlength="1000"
+        [ngModel]="form().newDescription()"
+        (ngModelChange)="form().newDescription.set($event)"
+        required
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="concept-relation-color">{{ 'DOMAINS.ASSOCIATIONS.COLOR' | transloco }}</label>
+      <input
+        id="concept-relation-color"
+        type="color"
+        [ngModel]="form().newColor()"
+        (ngModelChange)="form().newColor.set($event)"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="concept-relation-book">{{ 'DOMAINS.ASSOCIATIONS.BOOK' | transloco }}</label>
+      <input id="concept-relation-book" type="text" [value]="form().bookName()" readonly />
+    </div>
+
+    <div class="form-group">
+      <label for="concept-relation-author">{{ 'DOMAINS.ASSOCIATIONS.AUTHOR' | transloco }}</label>
+      <input id="concept-relation-author" type="text" [value]="form().bookAuthor()" readonly />
+    </div>
+
+    <div class="form-group">
+      <label for="concept-relation-page">{{ 'DOMAINS.ASSOCIATIONS.PAGE' | transloco }}</label>
+      <input
+        id="concept-relation-page"
+        type="text"
+        [ngModel]="form().newPage()"
+        (ngModelChange)="form().newPage.set($event)"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="concept-relation-tags">{{ 'DOMAINS.ASSOCIATIONS.TAGS' | transloco }}</label>
+      <app-tag-picker
+        [ariaLabel]="'DOMAINS.ASSOCIATIONS.TAGS' | transloco"
+        inputId="concept-relation-tags"
+        [bookRow]="form().currentSheet().row"
+        [value]="form().newTags()"
+        (valueChange)="form().newTags.set($event)"
+      />
+      @if (form().invalidTagsDetected().length > 0) {
+        <div class="tag-validation-error">
+          <p>
+            {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
+            <strong>INDEX</strong>{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
+            @for (tag of form().invalidTagsDetected(); track $index) {
+              <span class="tag-validation-error__badge">{{ tag }}</span>
+            }
+          </p>
+        </div>
+      }
+    </div>
+
+    <div class="form-actions">
+      @if (form().permissionService.validatePermission(form().role(), 'UPDATE_SHEET_ROWS')) {
+        <button
+          type="button"
+          class="btn-submit"
+          [disabled]="form().isFormInvalid()"
+          (click)="form().addRelation()"
+        >
+          {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+        </button>
+      }
+      <button type="button" class="btn-cancel" (click)="form().resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    </div>
+  </div>
+</app-domain-entry-form-overlay>

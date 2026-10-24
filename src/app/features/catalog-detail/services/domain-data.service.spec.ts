@@ -16,6 +16,7 @@ import { DomainPlacesService } from '../../domain-places/services/domain-places.
 import { DomainGlosaryService } from '../../domain-glosary/services/domain-glosary.service';
 import { DomainQuestionsService } from '../../domain-questions/services/domain-questions.service';
 import { DomainIndexService } from '../../domain-index/services/domain-index.service';
+import { DomainSheet } from '../models/domain-sheet.model';
 
 describe('DomainDataService.deleteDomainRow', () => {
   let service: DomainDataService;
@@ -25,6 +26,7 @@ describe('DomainDataService.deleteDomainRow', () => {
   let persistedRows: Record<string, unknown>[];
   let persistedBookTags: Record<string, unknown>[];
   let localSampleDataEnabled: boolean;
+  let refreshTaxonomySpy: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     persistedRows = [
@@ -33,6 +35,7 @@ describe('DomainDataService.deleteDomainRow', () => {
     ];
     persistedBookTags = [];
     localSampleDataEnabled = false;
+    refreshTaxonomySpy = vi.fn(async () => undefined);
     deleteRowSpy = vi.fn();
     updateRowsSpy = vi.fn();
     globalLoadingService = new GlobalLoadingService();
@@ -83,7 +86,10 @@ describe('DomainDataService.deleteDomainRow', () => {
           { row: 4, id: 'catalog-item-4', name: 'Book 4', author: 'Author 4' },
         ]),
       },
-      domainSheets: { put: vi.fn(async () => undefined) },
+      domainSheets: {
+        get: vi.fn(async () => undefined),
+        put: vi.fn(async () => undefined),
+      },
       transaction: vi.fn(
         async (_mode: unknown, _tables: unknown, operation: () => Promise<void>) => operation(),
       ),
@@ -103,7 +109,7 @@ describe('DomainDataService.deleteDomainRow', () => {
           provide: ConfigService,
           useValue: { isLocalSampleDataEnabled: () => localSampleDataEnabled },
         },
-        { provide: TaxonomyService, useValue: { refreshGlobalTaxonomy: vi.fn() } },
+        { provide: TaxonomyService, useValue: { refreshGlobalTaxonomy: refreshTaxonomySpy } },
         { provide: DomainCharacterService, useValue: {} },
         {
           provide: DomainConceptsService,
@@ -247,6 +253,32 @@ describe('DomainDataService.deleteDomainRow', () => {
 
     expect(normalized['tags']).toEqual(['#single', '#duplicate']);
     expect(normalized).not.toHaveProperty('tag');
+  });
+
+  it('rebuilds tag suggestions and taxonomy when loading local sheets', async () => {
+    localSampleDataEnabled = true;
+    const localSheets: DomainSheet[] = [
+      {
+        row: 4,
+        id: 'index',
+        name: 'INDEX',
+        index: 0,
+        rows: [{ id: 'index-1', tags: ['#Identity'] }],
+      },
+    ];
+    service['featureHandlers'].splice(0, service['featureHandlers'].length, {
+        name: 'INDEX',
+        loadLocalSheet: async () => localSheets[0],
+        validateAndSanitizeTags: (tags: string[]) => tags,
+        syncRemoteRows: async () => undefined,
+      });
+
+    await service.loadForCatalog(4);
+
+    expect(persistedBookTags).toContainEqual(
+      expect.objectContaining({ row: 4, name: '#identity' }),
+    );
+    expect(refreshTaxonomySpy).toHaveBeenCalledWith(4);
   });
 
   it('preserves BookEvent tags as the canonical array', () => {

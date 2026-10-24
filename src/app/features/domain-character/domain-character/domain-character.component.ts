@@ -5,7 +5,6 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
-import { TagPickerComponent } from '../../../shared/tag-picker.component';
 import { CharacterNature, CharacterRole, CharacterRow } from '../models/domain-character-row.model';
 import { CharacterEntryCardComponent } from '../components/character-entry-card/character-entry-card.component';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
@@ -22,14 +21,16 @@ const CHARACTER_ROLES: CharacterRole[] = [
 
 const CHARACTER_NATURES: CharacterNature[] = ['historical', 'fictitious', 'inspired'];
 
+import { CharacterFormComponent } from '../components/character-form/character-form.component';
+
 @Component({
   selector: 'app-domain-character',
   standalone: true,
   imports: [
+    CharacterFormComponent,
     CommonModule,
     FormsModule,
     TranslocoPipe,
-    TagPickerComponent,
     CharacterEntryCardComponent,
   ],
   templateUrl: './domain-character.component.html',

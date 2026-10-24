@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.relations-characters-grid {
+  display: grid;
+  grid-template-columns: var(--domain-feed-columns);
+  gap: 1rem;
+  margin-top: 1rem;
+}

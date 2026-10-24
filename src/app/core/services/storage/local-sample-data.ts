@@ -16,8 +16,8 @@ export const LOCAL_SAMPLE_DOMAIN_TABLES: Record<string, string> = {
   CHARACTER: 'characters',
   PLACES: 'places',
   BOOK_EVENTS: 'bookEvents',
-  RELATIONS_CHARACTERS: 'relationsCharacters',
-  RELATIONS_CONCEPTS: 'relationsConcepts',
+  RELATIONS: 'relationsCharacters',
+  ASSOCIATIONS: 'relationsConcepts',
   GLOSARY: 'glosary',
   QUESTIONS: 'questions',
 };

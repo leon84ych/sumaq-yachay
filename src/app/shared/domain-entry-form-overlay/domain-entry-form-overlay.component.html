@@ -1,0 +1,20 @@
+<dialog
+  #dialog
+  class="domain-entry-form-overlay"
+  [attr.aria-label]="ariaLabel()"
+  tabindex="-1"
+  (cancel)="requestClose($event)"
+  (click)="closeOnBackdrop($event)"
+>
+  <button
+    type="button"
+    class="overlay-close"
+    [attr.aria-label]="'COMMON.CLOSE' | transloco"
+    (click)="requestClose()"
+  >
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="m6 6 12 12M18 6 6 18" />
+    </svg>
+  </button>
+  <ng-content />
+</dialog>

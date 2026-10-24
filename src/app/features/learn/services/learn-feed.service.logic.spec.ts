@@ -19,16 +19,16 @@ describe('selectLearnFeedBatch', () => {
   it('includes one available entry per domain before filling the rest', () => {
     const entries = [
       ...Array.from({ length: 30 }, (_, index) => createEntry(`quote-${index}`, 'QUOTES')),
-      createEntry('character-relation', 'RELATIONS_CHARACTERS'),
-      createEntry('concept-relation', 'RELATIONS_CONCEPTS'),
+      createEntry('character-relation', 'RELATIONS'),
+      createEntry('concept-relation', 'ASSOCIATIONS'),
     ];
 
     const batch = selectLearnFeedBatch(entries, 20);
 
     expect(batch.slice(0, 3).map((entry) => entry.domain)).toEqual([
       'QUOTES',
-      'RELATIONS_CHARACTERS',
-      'RELATIONS_CONCEPTS',
+      'RELATIONS',
+      'ASSOCIATIONS',
     ]);
     expect(batch).toHaveLength(20);
   });

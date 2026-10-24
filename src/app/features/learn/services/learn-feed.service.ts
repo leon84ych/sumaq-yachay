@@ -26,8 +26,8 @@ const DOMAIN_SEARCH_TERMS: Record<DomainName, string[]> = {
   CHARACTER: ['character', 'characters', 'personaje', 'personajes'],
   PLACES: ['places', 'lugar', 'lugares'],
   BOOK_EVENTS: ['book events', 'events', 'eventos'],
-  RELATIONS_CHARACTERS: ['relations', 'relationships', 'relaciones'],
-  RELATIONS_CONCEPTS: ['concept relations', 'concept relationships', 'relaciones conceptuales'],
+  RELATIONS: ['relations', 'relationships', 'relaciones'],
+  ASSOCIATIONS: ['associations', 'concept relationships', 'asociaciones'],
   GLOSARY: ['glossary', 'glosario'],
   QUESTIONS: ['questions', 'preguntas'],
 };
@@ -86,10 +86,10 @@ export class LearnFeedService {
         this.appDbService.db.places.toArray().then((rows) => ['PLACES', rows] as const),
         this.appDbService.db.relationsCharacters
           .toArray()
-          .then((rows) => ['RELATIONS_CHARACTERS', rows] as const),
+          .then((rows) => ['RELATIONS', rows] as const),
         this.appDbService.db.relationsConcepts
           .toArray()
-          .then((rows) => ['RELATIONS_CONCEPTS', rows] as const),
+          .then((rows) => ['ASSOCIATIONS', rows] as const),
         this.appDbService.db.glosary.toArray().then((rows) => ['GLOSARY', rows] as const),
         this.appDbService.db.questions.toArray().then((rows) => ['QUESTIONS', rows] as const),
       ]),
@@ -200,14 +200,14 @@ export class LearnFeedService {
         body = getText('description');
         note = getText('dateLabel') || getText('dateTimeStart') || getText('eventOrder');
         break;
-      case 'RELATIONS_CHARACTERS':
+      case 'RELATIONS':
         title = [getText('sourceCharacterId'), getText('targetCharacterId')]
           .map((id) => characterNames.get(id) ?? id)
           .filter(Boolean)
           .join(' -> ');
         body = [getText('relationType'), getText('description')].filter(Boolean).join('\n\n');
         break;
-      case 'RELATIONS_CONCEPTS':
+      case 'ASSOCIATIONS':
         title = [getText('sourceConceptId'), getText('targetConceptId')]
           .map((id) => conceptNames.get(id) ?? id)
           .filter(Boolean)

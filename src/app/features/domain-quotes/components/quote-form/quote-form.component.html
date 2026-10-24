@@ -1,0 +1,104 @@
+<app-domain-entry-form-overlay
+  [ariaLabel]="(form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.QUOTE.NEW_ENTRY_TITLE') | transloco"
+  (closeRequested)="form().resetForm()"
+>
+  <div class="add-entry-form">
+    <h3 id="domain-entry-form-title">
+      {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.QUOTE.NEW_ENTRY_TITLE') | transloco }}
+    </h3>
+    <div class="form-group">
+      <label for="quote-text">{{ 'DOMAINS.QUOTE.QUOTE' | transloco }}</label>
+      <textarea
+        id="quote-text"
+        rows="4"
+        [attr.maxLength]="form().quoteMaxLength"
+        [ngModel]="form().newQuote()"
+        (ngModelChange)="form().newQuote.set($event)"
+        required
+      ></textarea>
+      <small class="character-count">
+        {{
+          'DOMAINS.QUOTE.CHARACTERS_LEFT' | transloco: { count: form().quoteCharactersRemaining() }
+        }}
+      </small>
+    </div>
+    <div class="form-group">
+      <label for="quote-analysis">{{ 'DOMAINS.QUOTE.ANALYSIS' | transloco }}</label>
+      <textarea
+        id="quote-analysis"
+        rows="3"
+        [ngModel]="form().newAnalysis()"
+        (ngModelChange)="form().newAnalysis.set($event)"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="quote-book">{{ 'DOMAINS.QUOTE.BOOK' | transloco }}</label>
+      <input
+        id="quote-book"
+        type="text"
+        [ngModel]="form().newBook()"
+        (ngModelChange)="form().newBook.set($event)"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="quote-author">{{ 'DOMAINS.QUOTE.AUTHOR' | transloco }}</label>
+      <input
+        id="quote-author"
+        type="text"
+        [ngModel]="form().newAuthor()"
+        (ngModelChange)="form().newAuthor.set($event)"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="quote-page">{{ 'DOMAINS.QUOTE.PAGE' | transloco }}</label>
+      <input
+        id="quote-page"
+        type="text"
+        [ngModel]="form().newPage()"
+        (ngModelChange)="form().newPage.set($event)"
+      />
+    </div>
+    <div class="form-group">
+      <label for="quote-tags">{{ 'DOMAINS.QUOTE.TAGS' | transloco }}</label>
+      <app-tag-picker
+        [ariaLabel]="'DOMAINS.QUOTE.TAGS' | transloco"
+        inputId="quote-tags"
+        [bookRow]="form().currentSheet().row"
+        [value]="form().newTags()"
+        (valueChange)="form().newTags.set($event)"
+      />
+      @if (form().invalidTagsDetected().length > 0) {
+        <div class="tag-validation-error">
+          <p>
+            {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
+            <strong>{{ 'DOMAINS.DOMAINS.INDEX' | transloco }}</strong
+            >{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
+            <span
+              class="tag-validation-error__badge"
+              *ngFor="let unlisted of form().invalidTagsDetected()"
+            >
+              {{ unlisted }}
+            </span>
+          </p>
+        </div>
+      }
+    </div>
+    <div class="form-actions">
+      @if (form().permissionService.validatePermission(form().role(), 'UPDATE_SHEET_ROWS')) {
+        <button
+          type="button"
+          class="btn-submit"
+          [disabled]="form().isFormInvalid()"
+          (click)="form().addQuote()"
+        >
+          {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+        </button>
+      }
+      <button type="button" class="btn-cancel" (click)="form().resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    </div>
+  </div>
+</app-domain-entry-form-overlay>
