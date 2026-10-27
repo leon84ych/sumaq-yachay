@@ -59,11 +59,6 @@
       "DESCRIPTION": "Configure the Google Apps Script Web App URL and adjust appearance.",
       "SOURCE_URL": "Google Apps Script Web App URL",
       "URL_PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
-      "TIMEOUT_LABEL": "Google Apps Script Timeout",
-      "TIMEOUT_30S": "30 seconds",
-      "TIMEOUT_1M": "1 minute",
-      "TIMEOUT_3M": "3 minutes",
-      "TIMEOUT_6M": "6 minutes",
       "SAVE": "Save Changes",
       "LOCAL_SAMPLE_DATA_LABEL": "Local Sample Data",
       "LOCAL_SAMPLE_DATA_DESCRIPTION": "Use editable sample data stored only on this device. No requests are sent to the app server.",
@@ -96,7 +91,8 @@
       "SYNC_REMOTE": "Sync Remote (GET)",
       "SYNC_LOCAL": "Sync Local",
       "SYNCING": "Syncing...",
-      "REGISTER_SOURCE": "Register Source"
+      "REGISTER_SOURCE": "Register Source",
+      "ADD_CATALOG": "Add Catalog"
     },
     "METRICS": {
       "TOTAL": "Total Registered",
@@ -138,10 +134,6 @@
       "NAME_LABEL": "Catalog Name",
       "NAME_PLACEHOLDER": "e.g., Distributed Systems & Kafka",
       "NAME_ERROR": "Name is required (max 100 characters).",
-      "SHEET_LABEL": "Google Sheet ID or URL",
-      "SHEET_PLACEHOLDER": "Google Sheet ID or URL",
-      "SHEET_HINT": "Paste full spreadsheet URL or the unique Sheet ID.",
-      "SHEET_ERROR": "A valid Google Sheet ID or URL is required.",
       "SUBJECT_LABEL": "Subject",
       "SUBJECT_PLACEHOLDER": "Enter entry subject...",
       "SUBJECT_ERROR": "Subject is required.",
@@ -161,6 +153,21 @@
       "SUBMIT_CREATE": "Register Source",
       "SUBMIT_EDIT": "Save Changes"
     },
+    "ADD_CATALOG": {
+      "TITLE": "Add a Public Master Catalog",
+      "URL_LABEL": "Public Google Sheet URL",
+      "URL_PLACEHOLDER": "Paste the full Google Sheets URL",
+      "URL_ERROR": "Enter a valid Google Sheets URL.",
+      "OPTION_LABEL": "How would you like to use this catalog?",
+      "CLONE": "Clone to my Drive",
+      "CLONE_DESCRIPTION": "This will populate your catalog from a public shared catalog. If successful, you will get a clone in your own Drive. The original is only used as the source.",
+      "SHARED": "Use the shared catalog",
+      "SHARED_DESCRIPTION": "You can read and edit the public catalog while its owner grants you Editor access.",
+      "SHARED_PERMISSION_NOTE": "The owner must add the Google account that deployed this Apps Script Web App.",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Add Catalog",
+      "SUBMITTING": "Adding Catalog..."
+    },
     "EMPTY": {
       "TITLE": "No Catalog Sources Found",
       "DESC": "No data sources match the selected category or search filters.",
@@ -168,6 +175,8 @@
     },
     "ERRORS": {
       "malformedCatalog": "Malformed catalog response received.",
+      "copyCatalogFailed": "The catalog could not be added. Check the URL and try again.",
+      "copyCatalogUnavailable": "A catalog can only be added when the remote catalog is empty.",
       "syncFailed": "Failed to reach the Web App endpoint. Verify the URL ends with /exec, the deployment is redeployed with 'Anyone' access, you're online, and no VPN/proxy is blocking script.google.com."
     }
   },

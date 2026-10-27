@@ -5,9 +5,9 @@ This document describes the reusable DOM-to-image flow used by quote cards and t
 ## Current Implementation
 
 - Shared export engine: `src/app/shared/utils/image-export.ts`
-- Quote component state and sequencing: `src/app/features/domain-quotes/domain-quote/quote-gallery.component.ts`
-- Quote and analysis Ghost markup: `src/app/features/domain-quotes/domain-quote/quote-gallery.component.html`
-- Ghost and gallery styles: `src/app/features/domain-quotes/domain-quote/quote-gallery.component.css`
+- Quote component state and sequencing: `src/app/features/domain/domain-quotes/domain-quote/quote-gallery.component.ts`
+- Quote and analysis Ghost markup: `src/app/features/domain/domain-quotes/domain-quote/quote-gallery.component.html`
+- Ghost and gallery styles: `src/app/features/domain/domain-quotes/domain-quote/quote-gallery.component.css`
 - Dependency: `html-to-image` in `package.json`
 
 The shared `downloadJpeg(element, filename, options)` helper owns rasterization and browser download. Domain components own their Ghost markup and state, then call the helper for each image.

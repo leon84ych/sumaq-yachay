@@ -104,6 +104,15 @@
   color: #ffffff;
 }
 
+.btn-add-catalog {
+  background-color: #9a4f0e;
+  color: #ffffff;
+}
+
+.btn-add-catalog:hover:not(:disabled) {
+  background-color: #773c0b;
+}
+
 .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;

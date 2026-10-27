@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { DomainEntryCardComponent } from '../../../../shared/domain-entry-card/domain-entry-card.component';
+import { DomainEntryCardComponent } from '../../../domain/shared/domain-entry-card/domain-entry-card.component';
 import { LearnFeedEntry } from '../../services/learn-feed.service';
 
 @Component({

@@ -29,7 +29,6 @@ export class CatalogFormModalComponent {
   form = this.fb.group({
     id: ['', [Validators.required, Validators.maxLength(100)]],
     name: ['', [Validators.required, Validators.maxLength(100)]],
-    sheetId: [''],
     subject: ['', Validators.required],
     topic: ['', Validators.required],
     author: ['', Validators.required],
@@ -60,7 +59,6 @@ export class CatalogFormModalComponent {
         this.form.reset({
           id: '',
           name: '',
-          sheetId: '',
           subject: '',
           topic: '',
           author: '',
@@ -72,18 +70,8 @@ export class CatalogFormModalComponent {
     });
   }
 
-  sanitizeSheetId(): void {
-    const raw = this.form.get('sheetId')?.value || '';
-    const match = raw.match(/\/d\/([a-zA-Z0-9-_]+)/);
-    if (match && match[1]) {
-      this.form.patchValue({ sheetId: match[1] });
-    }
-  }
-
   onSubmit(): void {
     if (this.form.invalid) return;
-
-    this.sanitizeSheetId();
 
     const formValue = this.form.getRawValue();
     const existing = this.editItem();

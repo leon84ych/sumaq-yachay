@@ -5,6 +5,7 @@ import { ConfigService } from '../../../core/services/config.service';
 import { map } from 'rxjs/operators';
 import {
   CatalogPostPayload,
+  CopyCatalogPayload,
   GetCatalogResponse,
 } from '../models/catalog-api.model';
 
@@ -101,6 +102,14 @@ export class CatalogApiService {
   }
 
   saveCatalogItem(payload: CatalogPostPayload): Observable<any> {
+    return this.postCatalogPayload(payload);
+  }
+
+  copyCatalog(payload: CopyCatalogPayload): Observable<any> {
+    return this.postCatalogPayload(payload);
+  }
+
+  private postCatalogPayload(payload: CatalogPostPayload | CopyCatalogPayload): Observable<any> {
   if (this.config.isLocalSampleDataEnabled()) {
     return throwError(() => new Error('Remote requests are disabled in LocalSampleData mode.'));
   }

@@ -4,16 +4,16 @@ Actúa como un Agente Desarrollador Frontend experto en Angular (Signals, Standa
 
 Tu único objetivo es recibir la especificación JSON de un dominio académico/literario y generar diez archivos: la vista del dominio, un formulario hijo extraído, una tarjeta de entrada reutilizable y el modelo de fila.
 
-1. `src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.ts`
-2. `src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.html`
-3. `src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.css` (mínimo; delega el layout compartido a estilos globales)
-4. `src/app/features/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.ts`
-5. `src/app/features/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.html`
-6. `src/app/features/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.css`
-7. `src/app/features/domain-[xxx]/model/domain-[xxx]-row.model.ts`
-8. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.ts`
-9. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.html`
-10. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.css`
+1. `src/app/features/domain/domain-[xxx]/domain-[xxx]/domain-[xxx].component.ts`
+2. `src/app/features/domain/domain-[xxx]/domain-[xxx]/domain-[xxx].component.html`
+3. `src/app/features/domain/domain-[xxx]/domain-[xxx]/domain-[xxx].component.css` (mínimo; delega el layout compartido a estilos globales)
+4. `src/app/features/domain/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.ts`
+5. `src/app/features/domain/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.html`
+6. `src/app/features/domain/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.css`
+7. `src/app/features/domain/domain-[xxx]/model/domain-[xxx]-row.model.ts`
+8. `src/app/features/domain/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.ts`
+9. `src/app/features/domain/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.html`
+10. `src/app/features/domain/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.css`
 
 ---
 
@@ -73,7 +73,7 @@ Tu único objetivo es recibir la especificación JSON de un dominio académico/l
 - `[xxx]` es el nombre del dominio en minúsculas (ej. `places`). Cada dominio vive en su carpeta `domain-[xxx]`, con la vista principal, una carpeta `components/` para su tarjeta de entrada y `model/`:
 
   ```
-  src/app/features/domain-[xxx]/
+  src/app/features/domain/domain-[xxx]/
   ├── domain-[xxx]/                      # componente principal
   │   ├── domain-[xxx].component.ts
   │   ├── domain-[xxx].component.html
@@ -414,11 +414,11 @@ Además de los 10 archivos generados del dominio, el Agente DEBE entregar los si
 
 #### 5.2 Modelo del dominio (NO se toca `domain-sheet.model.ts`)
 
-El modelo se genera en `src/app/features/domain-[xxx]/model/domain-[xxx]-row.model.ts` (Archivo D) y extiende `DomainSheetRow` importado de `catalog-detail/models/domain-sheet.model.ts`. NO añadir `[InterfaceName]Row` ni tipos del dominio a `domain-sheet.model.ts`: no se permiten modelos centralizados.
+El modelo se genera en `src/app/features/domain/domain-[xxx]/model/domain-[xxx]-row.model.ts` (Archivo D) y extiende `DomainSheetRow` importado de `catalog-detail/models/domain-sheet.model.ts`. NO añadir `[InterfaceName]Row` ni tipos del dominio a `domain-sheet.model.ts`: no se permiten modelos centralizados.
 
 #### 5.3 `src/app/core/services/storage/app-db.service.ts`
 
-1. Declarar el tipo de la tabla local REUTILIZANDO el modelo del dominio (sin duplicar campos): `export type [InterfaceName]Record = [InterfaceName]Row & { row: number; book?: string; author?: string };`, importando `[InterfaceName]Row` desde `../../../features/domain-[xxx]/model/domain-[xxx]-row.model`.
+1. Declarar el tipo de la tabla local REUTILIZANDO el modelo del dominio (sin duplicar campos): `export type [InterfaceName]Record = [InterfaceName]Row & { row: number; book?: string; author?: string };`, importando `[InterfaceName]Row` desde `../../../features/domain/domain-[xxx]/model/domain-[xxx]-row.model`.
 2. Declarar la propiedad en `AppDatabase`: `[table]!: Table<[InterfaceName]Record, string>;`.
 3. Registrar el store con el esquema compartido para arrays: `'id, row, book, author, *tags'`.
 4. Si la base de datos ya existe en los navegadores de los usuarios, NO modificar `version(1)`: crear `this.version(N+1).stores({ [table]: '...' })` con el nuevo store (y no repetir los demás).
@@ -427,7 +427,7 @@ El modelo se genera en `src/app/features/domain-[xxx]/model/domain-[xxx]-row.mod
 #### 5.4 Archivos relacionados que también deben actualizarse
 
 - `catalog-detail/services/domain-data.service.ts`: añadir el nombre de tabla a `DomainTableName`, la clave `[DOMAIN]: '[table]'` en `DOMAIN_TABLES` y las columnas nuevas (en minúsculas, sin símbolos → nombre canónico) en `headerNames` de `normalizePaginatedRow`.
-- `catalog-detail/components/sheet-view-resolver/`: añadir el `@case ('[DOMAIN]')` en el HTML con `<app-domain-[xxx]>` (inputs `rows`, `currentSheet`, `bookName`, `bookAuthor`, `isAddingEntry`, evento `closeEntry`), el `computed` de filas tipadas (tipadas con `[InterfaceName]Row` importado desde `features/domain-[xxx]/model/`) y el import del componente desde `features/domain-[xxx]/domain-[xxx]/`. La vista del dominio importa y renderiza su tarjeta de entrada y su formulario hijo.
+- `catalog-detail/components/sheet-view-resolver/`: añadir el `@case ('[DOMAIN]')` en el HTML con `<app-domain-[xxx]>` (inputs `rows`, `currentSheet`, `bookName`, `bookAuthor`, `isAddingEntry`, evento `closeEntry`), el `computed` de filas tipadas (tipadas con `[InterfaceName]Row` importado desde `features/domain/domain-[xxx]/model/`) y el import del componente desde `features/domain/domain-[xxx]/domain-[xxx]/`. La vista del dominio importa y renderiza su tarjeta de entrada y su formulario hijo.
 - `public/i18n/en.json` y `es.json`: claves `DOMAINS.[DOMAIN].*` (`NEW_ENTRY_TITLE`, etiquetas de cada campo, `TAGS`, `SEARCH`, `NO_MATCHES`, `CHARACTERS_LEFT` y `*_OPTIONS` para cada `select`).
 
 #### 5.5 Aislamiento de taxonomía y pruebas del servicio de dominio
@@ -575,7 +575,7 @@ Todos los formularios de creación/edición se abren en el modal compartido a pa
 
 1. **Extraer la interfaz del formulario:**
 
-- Crea un componente hijo standalone en `src/app/features/domain-[xxx]/components/[domain]-form/`.
+- Crea un componente hijo standalone en `src/app/features/domain/domain-[xxx]/components/[domain]-form/`.
 - Mantén las señales del dominio, la validación, `editEntry`, los métodos de guardado y la persistencia en el componente padre existente. El hijo recibe un input obligatorio y tipado del contexto padre llamado `form`; enlaza campos y acciones mediante `form()`.
 - El padre muestra el hijo solo durante creación o edición:
 

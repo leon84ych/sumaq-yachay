@@ -32,11 +32,6 @@
       "DESCRIPTION": "Configura la URL de la aplicación web de Google Apps Script y ajusta la apariencia.",
       "SOURCE_URL": "URL de Google Apps Script Web App",
       "URL_PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
-      "TIMEOUT_LABEL": "Tiempo de espera de Apps Script",
-      "TIMEOUT_30S": "30 segundos",
-      "TIMEOUT_1M": "1 minuto",
-      "TIMEOUT_3M": "3 minutos",
-      "TIMEOUT_6M": "6 minutos",
       "SAVE": "Guardar Cambios",
       "LOCAL_SAMPLE_DATA_LABEL": "Datos de muestra locales",
       "LOCAL_SAMPLE_DATA_DESCRIPTION": "Usa datos de muestra editables que se guardan solo en este dispositivo. No se envían solicitudes al servidor de la aplicación.",
@@ -69,7 +64,8 @@
       "SYNC_REMOTE": "Sincronizar Remoto (GET)",
       "SYNC_LOCAL": "Sincronizar Local",
       "SYNCING": "Sincronizando...",
-      "REGISTER_SOURCE": "Registrar Fuente"
+      "REGISTER_SOURCE": "Registrar Fuente",
+      "ADD_CATALOG": "Agregar catálogo"
     },
     "METRICS": {
       "TOTAL": "Total Registrados",
@@ -111,10 +107,6 @@
       "NAME_LABEL": "Nombre del Catálogo",
       "NAME_PLACEHOLDER": "ej., Sistemas Distribuidos y Kafka",
       "NAME_ERROR": "El nombre es requerido (máx 100 caracteres).",
-      "SHEET_LABEL": "ID o URL de Google Sheet",
-      "SHEET_PLACEHOLDER": "ID o URL de Google Sheet",
-      "SHEET_HINT": "Pegue la URL completa de la hoja de cálculo o el ID único de la hoja.",
-      "SHEET_ERROR": "Se requiere un ID o URL válido de Google Sheet.",
       "SUBJECT_LABEL": "Materia",
       "SUBJECT_PLACEHOLDER": "Ingrese la materia de la entrada...",
       "SUBJECT_ERROR": "La materia es requerida.",
@@ -134,6 +126,21 @@
       "SUBMIT_CREATE": "Registrar Fuente",
       "SUBMIT_EDIT": "Guardar Cambios"
     },
+    "ADD_CATALOG": {
+      "TITLE": "Agregar un catálogo público maestro",
+      "URL_LABEL": "URL de Google Sheet público maestro",
+      "URL_PLACEHOLDER": "Pega la URL completa de Google Sheets",
+      "URL_ERROR": "Ingresa una URL válida de Google Sheets.",
+      "OPTION_LABEL": "¿Cómo quieres usar este catálogo?",
+      "CLONE": "Clonar en mi Drive",
+      "CLONE_DESCRIPTION": "Esto llenará tu catálogo desde un catálogo público compartido. Si todo sale bien, tendrás un clon en tu propio Drive. El original solo se usa como fuente.",
+      "SHARED": "Usar el catálogo compartido",
+      "SHARED_DESCRIPTION": "Puedes leer y editar el catálogo público mientras su propietario te conceda acceso de Editor.",
+      "SHARED_PERMISSION_NOTE": "El propietario debe agregar la cuenta de Google que desplegó esta aplicación web de Apps Script.",
+      "CANCEL": "Cancelar",
+      "SUBMIT": "Agregar catálogo",
+      "SUBMITTING": "Agregando catálogo..."
+    },
     "EMPTY": {
       "TITLE": "No se encontraron fuentes en el catálogo",
       "DESC": "Ninguna fuente de datos coincide con la categoría o filtros seleccionados.",
@@ -141,6 +148,8 @@
     },
     "ERRORS": {
       "malformedCatalog": "Se recibió una respuesta de catálogo malformada.",
+      "copyCatalogFailed": "No se pudo agregar el catálogo. Verifica la URL e inténtalo de nuevo.",
+      "copyCatalogUnavailable": "Solo se puede agregar un catálogo cuando el catálogo remoto está vacío.",
       "syncFailed": "No se pudo conectar con el endpoint de la Web App. Verifica que la URL termine en /exec, que el despliegue tenga acceso 'Cualquiera', que estés conectado a internet, y que ninguna VPN/proxy esté bloqueando script.google.com."
     }
   },

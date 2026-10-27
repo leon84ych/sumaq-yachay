@@ -5,16 +5,16 @@ Act as an expert Frontend Developer Agent specializing in Angular (Signals, Stan
 
 Your sole objective is to receive a JSON specification of an academic/literary domain and generate ten domain files: the domain view, an extracted form child, a reusable entry card, and the domain row model.
 
-1. `src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.ts`
-2. `src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.html`
-3. `src/app/features/domain-[xxx]/domain-[xxx]/domain-[xxx].component.css` (minimal; delegate shared layout to existing global styles)
-4. `src/app/features/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.ts`
-5. `src/app/features/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.html`
-6. `src/app/features/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.css`
-7. `src/app/features/domain-[xxx]/model/domain-[xxx]-row.model.ts`
-8. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.ts`
-9. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.html`
-10. `src/app/features/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.css`
+1. `src/app/features/domain/domain-[xxx]/domain-[xxx]/domain-[xxx].component.ts`
+2. `src/app/features/domain/domain-[xxx]/domain-[xxx]/domain-[xxx].component.html`
+3. `src/app/features/domain/domain-[xxx]/domain-[xxx]/domain-[xxx].component.css` (minimal; delegate shared layout to existing global styles)
+4. `src/app/features/domain/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.ts`
+5. `src/app/features/domain/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.html`
+6. `src/app/features/domain/domain-[xxx]/components/domain-[xxx]-form/domain-[xxx]-form.component.css`
+7. `src/app/features/domain/domain-[xxx]/model/domain-[xxx]-row.model.ts`
+8. `src/app/features/domain/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.ts`
+9. `src/app/features/domain/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.html`
+10. `src/app/features/domain/domain-[xxx]/components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component.css`
 
 ---
 
@@ -67,7 +67,7 @@ Your sole objective is to receive a JSON specification of an academic/literary d
 5. **Folder structure, naming and models (mandatory):**
   - `[xxx]` is the lowercase domain name (e.g. `places`). Every domain lives in its own `domain-[xxx]` folder with a main view, a `components/` folder for its entry card, and a `model/` folder:
 
-         src/app/features/domain-[xxx]/
+         src/app/features/domain/domain-[xxx]/
          ├── domain-[xxx]/                      # main component
          │   ├── domain-[xxx].component.ts
          │   ├── domain-[xxx].component.html
@@ -399,11 +399,11 @@ In addition to the 10 generated domain files, the Agent MUST provide the followi
 
 #### 5.2 Domain model (`domain-sheet.model.ts` is NOT modified)
 
-The model is generated in `src/app/features/domain-[xxx]/model/domain-[xxx]-row.model.ts` (File D) and extends `DomainSheetRow` imported from `catalog-detail/models/domain-sheet.model.ts`. Do NOT add `[InterfaceName]Row` or any domain type to `domain-sheet.model.ts`: centralized models are not allowed.
+The model is generated in `src/app/features/domain/domain-[xxx]/model/domain-[xxx]-row.model.ts` (File D) and extends `DomainSheetRow` imported from `catalog-detail/models/domain-sheet.model.ts`. Do NOT add `[InterfaceName]Row` or any domain type to `domain-sheet.model.ts`: centralized models are not allowed.
 
 #### 5.3 src/app/core/services/storage/app-db.service.ts
 
-1. Declare the local table type REUSING the domain model (no duplicated fields): `export type [InterfaceName]Record = [InterfaceName]Row & { row: number; book?: string; author?: string };`, importing `[InterfaceName]Row` from `../../../features/domain-[xxx]/model/domain-[xxx]-row.model`.
+1. Declare the local table type REUSING the domain model (no duplicated fields): `export type [InterfaceName]Record = [InterfaceName]Row & { row: number; book?: string; author?: string };`, importing `[InterfaceName]Row` from `../../../features/domain/domain-[xxx]/model/domain-[xxx]-row.model`.
 2. Declare the property on AppDatabase: `[table]!: Table<[InterfaceName]Record, string>;`.
 3. Register the store with the shared array-tag schema: `'id, row, book, author, *tags'`.
 4. If the database already exists in users' browsers, DO NOT modify version(1): create this.version(N+1).stores({ [table]: '...' }) with the new store (without repeating existing ones).
@@ -412,7 +412,7 @@ The model is generated in `src/app/features/domain-[xxx]/model/domain-[xxx]-row.
 #### 5.4 Related files that must also be updated
 
 - catalog-detail/services/domain-data.service.ts: Add the table name to DomainTableName, the key [DOMAIN]: '[table]' in DOMAIN_TABLES, and new columns (lowercase, no symbols → canonical name) in headerNames inside normalizePaginatedRow.
-- catalog-detail/components/sheet-view-resolver/: Add @case ('[DOMAIN]') in the HTML with <app-domain-[xxx]> (inputs: rows, currentSheet, bookName, bookAuthor, isAddingEntry; output: closeEntry), the typed rows computed (typed with `[InterfaceName]Row` imported from `features/domain-[xxx]/model/`), and the component import from `features/domain-[xxx]/domain-[xxx]/`. The domain view imports and renders its entry-card and form child components.
+- catalog-detail/components/sheet-view-resolver/: Add @case ('[DOMAIN]') in the HTML with <app-domain-[xxx]> (inputs: rows, currentSheet, bookName, bookAuthor, isAddingEntry; output: closeEntry), the typed rows computed (typed with `[InterfaceName]Row` imported from `features/domain/domain-[xxx]/model/`), and the component import from `features/domain/domain-[xxx]/domain-[xxx]/`. The domain view imports and renders its entry-card and form child components.
 - public/i18n/en.json and es.json: Add keys under DOMAINS.[DOMAIN].* (NEW_ENTRY_TITLE, field labels, TAGS, SEARCH, NO_MATCHES, CHARACTERS_LEFT, and *_OPTIONS for each select).
 
 #### 5.5 Domain feature service taxonomy isolation and tests
@@ -558,7 +558,7 @@ Every create/edit form opens in the shared fullscreen modal. Do not render `.add
 
 1. **Extract the form UI:**
 
-- Create a standalone child form component in `src/app/features/domain-[xxx]/components/[domain]-form/`.
+- Create a standalone child form component in `src/app/features/domain/domain-[xxx]/components/[domain]-form/`.
 - Keep domain signals, validation, `editEntry`, save methods, and persistence in the existing parent domain component. The child receives a required, typed parent context input named `form`; bind fields and actions through `form()`.
 - The parent renders the child only while creating or editing:
 

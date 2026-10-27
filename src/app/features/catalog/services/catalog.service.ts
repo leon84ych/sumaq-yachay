@@ -4,7 +4,7 @@ import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config.service';
 import { CatalogApiService } from './catalog-api.service';
 import { CatalogItem } from '../models/catalog-item.model';
-import { CatalogPostPayload } from '../models/catalog-api.model';
+import { CatalogPostPayload, CatalogCopyOption, CopyCatalogPayload } from '../models/catalog-api.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { GlobalLoadingService } from '../../../core/services/global-loading.service';
 import { PermissionService } from '../../../core/services/permission.service';
@@ -271,6 +271,48 @@ export class CatalogService {
       await this.dbService.db.catalogs.put(errorItem);
       this.updateLocalItemInState(errorItem);
     } finally {
+      this.globalLoadingService.end(operation);
+    }
+  }
+
+  async addCatalogFromSheet(sheetUrl: string, option: CatalogCopyOption): Promise<boolean> {
+    if (this.configService.isLocalSampleDataEnabled() || this.items().length > 0) {
+      this.errorMessage.set('CATALOG.ERRORS.copyCatalogUnavailable');
+      return false;
+    }
+
+    if (!this.authService.idToken()) {
+      this.errorMessage.set('CATALOG.ERRORS.authRequired');
+      return false;
+    }
+
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      const payload: CopyCatalogPayload = {
+        action: 'COPY_CATALOG',
+        SheetId: sheetUrl,
+        option,
+      };
+      const response = await firstValueFrom(this.apiService.copyCatalog(payload));
+      if (response?.status !== 'success') {
+        throw new Error(response?.message || 'Catalog copy failed');
+      }
+
+      await this.syncFromRemote();
+      return true;
+    } catch (error: unknown) {
+      console.error('Google Sheet catalog request failed:', error);
+      this.errorMessage.set(
+        error instanceof Error && error.message
+          ? error.message
+          : 'CATALOG.ERRORS.copyCatalogFailed',
+      );
+      return false;
+    } finally {
+      this.isLoading.set(false);
       this.globalLoadingService.end(operation);
     }
   }

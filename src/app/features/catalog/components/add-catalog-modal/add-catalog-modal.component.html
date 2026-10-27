@@ -1,0 +1,69 @@
+<div class="modal-overlay" (click)="onBackdropClick($event)">
+  <section
+    class="modal-dialog"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'CATALOG.ADD_CATALOG.TITLE' | transloco"
+  >
+    <header class="modal-header">
+      <h2>{{ 'CATALOG.ADD_CATALOG.TITLE' | transloco }}</h2>
+      <button type="button" class="btn-close" (click)="close.emit()" [disabled]="isLoading()">
+        <span class="visually-hidden">{{ 'CATALOG.ADD_CATALOG.CANCEL' | transloco }}</span>
+        <span aria-hidden="true">&#10005;</span>
+      </button>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="modal-form">
+      @if (error()) {
+        <p class="request-error" role="alert">{{ error() }}</p>
+      }
+
+      <div class="form-group">
+        <label for="public-sheet-url">{{ 'CATALOG.ADD_CATALOG.URL_LABEL' | transloco }}</label>
+        <input
+          id="public-sheet-url"
+          type="url"
+          formControlName="sheetUrl"
+          [placeholder]="'CATALOG.ADD_CATALOG.URL_PLACEHOLDER' | transloco"
+          autocomplete="url"
+        />
+        @if (form.controls.sheetUrl.touched && form.controls.sheetUrl.invalid) {
+          <span class="field-error">{{ 'CATALOG.ADD_CATALOG.URL_ERROR' | transloco }}</span>
+        }
+      </div>
+
+      <fieldset class="option-group">
+        <legend>{{ 'CATALOG.ADD_CATALOG.OPTION_LABEL' | transloco }}</legend>
+        <label class="option-item" [class.selected]="form.controls.option.value === 'CLONE'">
+          <input type="radio" formControlName="option" value="CLONE" />
+          <span class="option-copy">
+            <strong>{{ 'CATALOG.ADD_CATALOG.CLONE' | transloco }}</strong>
+            <span>{{ 'CATALOG.ADD_CATALOG.CLONE_DESCRIPTION' | transloco }}</span>
+          </span>
+        </label>
+
+        <label class="option-item" [class.selected]="form.controls.option.value === 'SHARED'">
+          <input type="radio" formControlName="option" value="SHARED" />
+          <span class="option-copy">
+            <strong>{{ 'CATALOG.ADD_CATALOG.SHARED' | transloco }}</strong>
+            <span>{{ 'CATALOG.ADD_CATALOG.SHARED_DESCRIPTION' | transloco }}</span>
+            <span class="permission-note">{{ 'CATALOG.ADD_CATALOG.SHARED_PERMISSION_NOTE' | transloco }}</span>
+          </span>
+        </label>
+      </fieldset>
+
+      <footer class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="close.emit()" [disabled]="isLoading()">
+          {{ 'CATALOG.ADD_CATALOG.CANCEL' | transloco }}
+        </button>
+        <button type="submit" class="btn-submit" [disabled]="form.invalid || isLoading()">
+          @if (isLoading()) {
+            {{ 'CATALOG.ADD_CATALOG.SUBMITTING' | transloco }}
+          } @else {
+            {{ 'CATALOG.ADD_CATALOG.SUBMIT' | transloco }}
+          }
+        </button>
+      </footer>
+    </form>
+  </section>
+</div>

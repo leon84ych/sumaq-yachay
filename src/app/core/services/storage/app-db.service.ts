@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import Dexie, { Table } from 'dexie';
 import { CatalogItem } from '../../../features/catalog/models/catalog-item.model';
-import { BookEventRecord } from '../../../features/domain-book-events/model/book-event-row.model';
-import { CharacterRecord } from '../../../features/domain-character/models/domain-character-row.model';
-import { ConceptRecord } from '../../../features/domain-concepts/model/domain-concept-row.model';
-import { GlossaryEntryRecord } from '../../../features/domain-glosary/model/domain-glosary-row.model';
-import { IndexTopicRecord } from '../../../features/domain-index/model/index-view-row';
-import { PassageRecord } from '../../../features/domain-passages/model/domain-passage-row.model';
-import { PlaceRecord } from '../../../features/domain-places/model/domain-place-row.model';
-import { QuestionRecord } from '../../../features/domain-questions/model/domain-question-row.model';
-import { QuoteRecord } from '../../../features/domain-quotes/model/domain-quote-row.model';
-import { BookRelationRecord } from '../../../features/domain-relations/model/book-relation.model';
-import { BookAssociationRecord } from '../../../features/domain-association/model/book-association.model';
+import { BookEventRecord } from '../../../features/domain/domain-book-events/model/book-event-row.model';
+import { CharacterRecord } from '../../../features/domain/domain-character/models/domain-character-row.model';
+import { ConceptRecord } from '../../../features/domain/domain-concepts/model/domain-concept-row.model';
+import { GlossaryEntryRecord } from '../../../features/domain/domain-glosary/model/domain-glosary-row.model';
+import { IndexTopicRecord } from '../../../features/domain/domain-index/model/index-view-row';
+import { PassageRecord } from '../../../features/domain/domain-passages/model/domain-passage-row.model';
+import { PlaceRecord } from '../../../features/domain/domain-places/model/domain-place-row.model';
+import { QuestionRecord } from '../../../features/domain/domain-questions/model/domain-question-row.model';
+import { QuoteRecord } from '../../../features/domain/domain-quotes/model/domain-quote-row.model';
+import { BookRelationRecord } from '../../../features/domain/domain-relations/model/book-relation.model';
+import { BookAssociationRecord } from '../../../features/domain/domain-association/model/book-association.model';
 import {
   LOCAL_SAMPLE_CATALOG,
   LOCAL_SAMPLE_DOMAIN_TABLES,

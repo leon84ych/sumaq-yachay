@@ -8,6 +8,14 @@ describe('ConfigService LocalSampleData mode', () => {
     localStorage.clear();
   });
 
+  it('uses a fixed 6000ms Google Apps Script timeout', () => {
+    localStorage.setItem('sumaq_yachay_gas_timeout_ms', '360000');
+    const service = new ConfigService();
+
+    expect(service.getGasTimeoutMs()).toBe(6000);
+    expect(service.gasRequestTimeoutMs()).toBe(6000);
+  });
+
   it('disables LocalSampleData by default and persists explicit changes', () => {
     const service = new ConfigService();
 

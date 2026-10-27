@@ -1,21 +1,17 @@
 import { Injectable, signal } from '@angular/core';
 
 const WEB_APP_URL_KEY = 'sumaq_yachay_web_app_url';
-const GAS_TIMEOUT_KEY = 'sumaq_yachay_gas_timeout_ms';
 const LOCAL_SAMPLE_DATA_KEY = 'sumaq_yachay_local_sample_data_enabled';
+const DEFAULT_GAS_TIMEOUT_MS = 6000;
 const DEFAULT_WEB_APP_URL =
   'https://script.google.com/macros/s/AKfycbyQ541zFbZU4FEbXJM0ppG1cVdX35DGFToUzRBwH_m9OoDASUaHoZgN5KTECqZ7C_zjpg/exec';
-
-export const GAS_TIMEOUT_OPTIONS = [30000, 60000, 180000, 360000] as const;
-
-export type GasTimeoutMs = (typeof GAS_TIMEOUT_OPTIONS)[number];
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConfigService {
   private urlSignal = signal<string>(this.loadStoredUrl());
-  private timeoutSignal = signal<GasTimeoutMs>(this.loadStoredGasTimeout());
+  private timeoutSignal = signal(DEFAULT_GAS_TIMEOUT_MS);
   private localSampleDataSignal = signal<boolean>(this.loadStoredLocalSampleDataEnabled());
 
   readonly webAppUrl = this.urlSignal.asReadonly();
@@ -40,14 +36,6 @@ export class ConfigService {
     }
   }
 
-  setGasTimeoutMs(timeoutMs: number): void {
-    const safeTimeout = GAS_TIMEOUT_OPTIONS.includes(timeoutMs as GasTimeoutMs)
-      ? (timeoutMs as GasTimeoutMs)
-      : 60000;
-    this.timeoutSignal.set(safeTimeout);
-    localStorage.setItem(GAS_TIMEOUT_KEY, String(safeTimeout));
-  }
-
   isLocalSampleDataEnabled(): boolean {
     return this.localSampleDataSignal();
   }
@@ -63,18 +51,6 @@ export class ConfigService {
     } catch {
       return DEFAULT_WEB_APP_URL;
     }
-  }
-
-  private loadStoredGasTimeout(): GasTimeoutMs {
-    try {
-      const stored = Number(localStorage.getItem(GAS_TIMEOUT_KEY));
-      if (GAS_TIMEOUT_OPTIONS.includes(stored as GasTimeoutMs)) {
-        return stored as GasTimeoutMs;
-      }
-    } catch {
-      // fall through to default below
-    }
-    return 60000;
   }
 
   private loadStoredLocalSampleDataEnabled(): boolean {

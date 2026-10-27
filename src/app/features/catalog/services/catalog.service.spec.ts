@@ -1,6 +1,9 @@
+// @vitest-environment jsdom
+
 import { TestBed } from '@angular/core/testing';
+import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
 import { signal } from '@angular/core';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { of } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config.service';
@@ -16,16 +19,23 @@ describe('CatalogService', () => {
   let bulkPutSpy: ReturnType<typeof vi.fn>;
   let clearAllTablesSpy: ReturnType<typeof vi.fn>;
   let saveCatalogItemSpy: ReturnType<typeof vi.fn>;
+  let copyCatalogSpy: ReturnType<typeof vi.fn>;
   let seedLocalSampleDataSpy: ReturnType<typeof vi.fn>;
+
+  beforeAll(() => {
+    TestBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
+  });
 
   beforeEach(() => {
     TestBed.resetTestingModule();
+    localStorage.clear();
     logoutSpy = vi.fn();
     idToken = signal<string | null>(null);
     catalogsToArray = vi.fn().mockResolvedValue([]);
     bulkPutSpy = vi.fn().mockResolvedValue(undefined);
     clearAllTablesSpy = vi.fn().mockResolvedValue(undefined);
     saveCatalogItemSpy = vi.fn();
+    copyCatalogSpy = vi.fn();
     seedLocalSampleDataSpy = vi.fn().mockResolvedValue(undefined);
     getCatalogSpy = vi.fn().mockReturnValue(
       of({
@@ -54,7 +64,11 @@ describe('CatalogService', () => {
         },
         {
           provide: CatalogApiService,
-          useValue: { getCatalog: getCatalogSpy, saveCatalogItem: saveCatalogItemSpy },
+          useValue: {
+            getCatalog: getCatalogSpy,
+            saveCatalogItem: saveCatalogItemSpy,
+            copyCatalog: copyCatalogSpy,
+          },
         },
         {
           provide: GoogleAuthService,
@@ -166,5 +180,65 @@ describe('CatalogService', () => {
 
     expect(saveCatalogItemSpy).not.toHaveBeenCalled();
     expect(service.items()[0]).toMatchObject({ row: 1, syncStatus: 'synced' });
+  });
+
+  it('clones a public catalog using the COPY_CATALOG URL and option payload', async () => {
+    copyCatalogSpy.mockReturnValue(of({ status: 'success' }));
+    getCatalogSpy.mockReturnValue(
+      of({ status: 'success', timestamp: '2026-01-01T00:00:00.000Z', data: [] }),
+    );
+    idToken.set('valid-token');
+    const service = TestBed.inject(CatalogService);
+
+    const imported = await service.addCatalogFromSheet(
+      'https://docs.google.com/spreadsheets/d/sheet-id/edit',
+      'CLONE',
+    );
+
+    expect(imported).toBe(true);
+    expect(copyCatalogSpy).toHaveBeenCalledWith({
+      action: 'COPY_CATALOG',
+      SheetId: 'https://docs.google.com/spreadsheets/d/sheet-id/edit',
+      option: 'CLONE',
+    });
+    expect(clearAllTablesSpy).toHaveBeenCalled();
+  });
+
+  it('does not request a catalog copy in LocalSampleData mode', async () => {
+    TestBed.inject(ConfigService).setLocalSampleDataEnabled(true);
+    const service = TestBed.inject(CatalogService);
+
+    const result = await service.addCatalogFromSheet(
+      'https://docs.google.com/spreadsheets/d/sheet-id/edit',
+      'SHARED',
+    );
+
+    expect(result).toBe(false);
+    expect(copyCatalogSpy).not.toHaveBeenCalled();
+  });
+
+  it('does not request a catalog copy when catalog items already exist', async () => {
+    const service = TestBed.inject(CatalogService);
+    service.items.set([
+      {
+        id: 'existing',
+        subject: 'Knowledge',
+        topic: 'Existing',
+        name: 'Existing catalog',
+        author: 'Owner',
+        active: true,
+        count: 0,
+        row: 1,
+        updatedAt: '2026-01-01T00:00:00.000Z',
+      },
+    ]);
+
+    const result = await service.addCatalogFromSheet(
+      'https://docs.google.com/spreadsheets/d/sheet-id/edit',
+      'CLONE',
+    );
+
+    expect(result).toBe(false);
+    expect(copyCatalogSpy).not.toHaveBeenCalled();
   });
 });

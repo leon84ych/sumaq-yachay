@@ -1,32 +1,32 @@
 import { Component, computed, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomainConceptsComponent } from '../../../domain-concepts/domain-concept/domain-concept.component';
-import { DomainQuoteComponent } from '../../../domain-quotes/domain-quote/domain-quote.component';
-import { DomainPassageComponent } from '../../../domain-passages/domain-passage/domain-passage.component';
-import { DomainCharacterComponent } from '../../../domain-character/domain-character/domain-character.component';
-import { DomainGlossaryComponent } from '../../../domain-glosary/domain-glosary/domain-glossary.component';
+import { DomainConceptsComponent } from '../../../domain/domain-concepts/domain-concept/domain-concept.component';
+import { DomainQuoteComponent } from '../../../domain/domain-quotes/domain-quote/domain-quote.component';
+import { DomainPassageComponent } from '../../../domain/domain-passages/domain-passage/domain-passage.component';
+import { DomainCharacterComponent } from '../../../domain/domain-character/domain-character/domain-character.component';
+import { DomainGlossaryComponent } from '../../../domain/domain-glosary/domain-glosary/domain-glossary.component';
 import { DomainSheet } from '../../models/domain-sheet.model';
-import { CharacterRow } from '../../../domain-character/models/domain-character-row.model';
+import { CharacterRow } from '../../../domain/domain-character/models/domain-character-row.model';
 import { TranslocoPipe } from '@jsverse/transloco';
 import {
   DomainIndexComponent,
   IndexViewRow,
-} from '../../../domain-index/domain-index/domain-index.component';
+} from '../../../domain/domain-index/domain-index/domain-index.component';
 import { DomainDataService } from '../../services/domain-data.service';
-import { QuestionsComponent } from '../../../domain-questions/domain-questions/question.component';
-import { QuestionRow } from '../../../domain-questions/model/domain-question-row.model';
-import { PlaceRow } from '../../../domain-places/model/domain-place-row.model';
-import { DomainPlacesComponent } from '../../../domain-places/domain-places/domain-places.component';
-import { ConceptRow } from '../../../domain-concepts/model/domain-concept-row.model';
-import { QuoteRow } from '../../../domain-quotes/model/domain-quote-row.model';
-import { GlossaryRow } from '../../../domain-glosary/model/domain-glosary-row.model';
-import { PassagesRow } from '../../../domain-passages/model/domain-passage-row.model';
-import { BookEvent } from '../../../domain-book-events/model/book-event-row.model';
-import { DomainBookEventsComponent } from '../../../domain-book-events/domain-book-events/domain-book-events.component';
-import { BookRelation } from '../../../domain-relations/model/book-relation.model';
-import { DomainRelationsComponent } from '../../../domain-relations/domain-relations/domain-relations.component';
-import { BookAssociation } from '../../../domain-association/model/book-association.model';
-import { DomainAssociationComponent } from '../../../domain-association/domain-association/domain-association.component';
+import { QuestionsComponent } from '../../../domain/domain-questions/domain-questions/question.component';
+import { QuestionRow } from '../../../domain/domain-questions/model/domain-question-row.model';
+import { PlaceRow } from '../../../domain/domain-places/model/domain-place-row.model';
+import { DomainPlacesComponent } from '../../../domain/domain-places/domain-places/domain-places.component';
+import { ConceptRow } from '../../../domain/domain-concepts/model/domain-concept-row.model';
+import { QuoteRow } from '../../../domain/domain-quotes/model/domain-quote-row.model';
+import { GlossaryRow } from '../../../domain/domain-glosary/model/domain-glosary-row.model';
+import { PassagesRow } from '../../../domain/domain-passages/model/domain-passage-row.model';
+import { BookEvent } from '../../../domain/domain-book-events/model/book-event-row.model';
+import { DomainBookEventsComponent } from '../../../domain/domain-book-events/domain-book-events/domain-book-events.component';
+import { BookRelation } from '../../../domain/domain-relations/model/book-relation.model';
+import { DomainRelationsComponent } from '../../../domain/domain-relations/domain-relations/domain-relations.component';
+import { BookAssociation } from '../../../domain/domain-association/model/book-association.model';
+import { DomainAssociationComponent } from '../../../domain/domain-association/domain-association/domain-association.component';
 
 @Component({
   selector: 'app-sheet-view-resolver',

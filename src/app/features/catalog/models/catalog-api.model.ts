@@ -30,6 +30,14 @@ export interface CatalogPostPayload {
   rowValues: CatalogRowValues;
 }
 
+export type CatalogCopyOption = 'CLONE' | 'SHARED';
+
+export interface CopyCatalogPayload {
+  action: 'COPY_CATALOG';
+  SheetId: string;
+  option: CatalogCopyOption;
+}
+
 export interface CatalogPostResponse {
   status: 'success' | 'error';
   id?: string;

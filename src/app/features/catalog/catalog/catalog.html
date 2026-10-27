@@ -9,6 +9,17 @@
       </div>
 
       <div class="header-actions">
+        @if (canAddCatalog()) {
+          <button
+            type="button"
+            class="btn btn-add-catalog"
+            [disabled]="!authService.idToken() || catalogService.isLoading()"
+            (click)="openAddCatalogModal()"
+          >
+            <span>{{ 'CATALOG.HEADER.ADD_CATALOG' | transloco }}</span>
+          </button>
+        }
+
         <!-- Sync Remote Button (HTTP GET) -->
         <button
           type="button"
@@ -105,6 +116,14 @@
       [editItem]="selectedItemForEdit()"
       (save)="handleSaveItem($event)"
       (close)="closeModal()"
+    />
+  }
+  @if (isAddCatalogModalOpen()) {
+    <app-add-catalog-modal
+      [isLoading]="catalogService.isLoading()"
+      [error]="catalogService.errorMessage()"
+      (add)="handleAddCatalog($event)"
+      (close)="isAddCatalogModalOpen.set(false)"
     />
   }
 </div>

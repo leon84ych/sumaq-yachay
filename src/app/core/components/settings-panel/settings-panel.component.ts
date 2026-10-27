@@ -1,11 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import {
-    ConfigService,
-    GAS_TIMEOUT_OPTIONS,
-    GasTimeoutMs,
-} from '../../services/config.service';
+import { ConfigService } from '../../services/config.service';
 import { AppDbService } from '../../services/storage/app-db.service';
 import { PermissionService } from '../../services/permission.service';
 
@@ -30,10 +26,6 @@ export class SettingsPanelComponent {
 
     readonly showSettings = signal(false);
     readonly apiUrlInput = signal(this.configService.getWebAppUrl());
-    readonly gasTimeoutInput = signal<GasTimeoutMs>(
-        this.configService.getGasTimeoutMs() as GasTimeoutMs,
-    );
-    readonly gasTimeoutOptions = GAS_TIMEOUT_OPTIONS;
     readonly localSampleDataEnabled = this.configService.localSampleDataEnabled;
     readonly isClearing = signal(false);
     readonly clearStatus = signal<string | null>(null);
@@ -65,7 +57,6 @@ export class SettingsPanelComponent {
 
     saveApiConfig(): void {
         this.configService.setWebAppUrl(this.apiUrlInput());
-        this.configService.setGasTimeoutMs(this.gasTimeoutInput());
         this.showSettings.set(false);
     }
 

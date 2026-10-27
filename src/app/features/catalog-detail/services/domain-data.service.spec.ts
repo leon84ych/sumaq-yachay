@@ -8,14 +8,14 @@ import { ConfigService } from '../../../core/services/config.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { DomainDataApiService } from './domain-data-api.service';
 import { DomainDataService } from './domain-data.service';
-import { DomainCharacterService } from '../../domain-character/services/domain-character.service';
-import { DomainConceptsService } from '../../domain-concepts/services/domain-concepts.service';
-import { DomainQuotesService } from '../../domain-quotes/services/domain-quotes.service';
-import { DomainPassagesService } from '../../domain-passages/services/domain-passages.service';
-import { DomainPlacesService } from '../../domain-places/services/domain-places.service';
-import { DomainGlosaryService } from '../../domain-glosary/services/domain-glosary.service';
-import { DomainQuestionsService } from '../../domain-questions/services/domain-questions.service';
-import { DomainIndexService } from '../../domain-index/services/domain-index.service';
+import { DomainCharacterService } from '../../domain/domain-character/services/domain-character.service';
+import { DomainConceptsService } from '../../domain/domain-concepts/services/domain-concepts.service';
+import { DomainQuotesService } from '../../domain/domain-quotes/services/domain-quotes.service';
+import { DomainPassagesService } from '../../domain/domain-passages/services/domain-passages.service';
+import { DomainPlacesService } from '../../domain/domain-places/services/domain-places.service';
+import { DomainGlosaryService } from '../../domain/domain-glosary/services/domain-glosary.service';
+import { DomainQuestionsService } from '../../domain/domain-questions/services/domain-questions.service';
+import { DomainIndexService } from '../../domain/domain-index/services/domain-index.service';
 import { DomainSheet } from '../models/domain-sheet.model';
 
 describe('DomainDataService.deleteDomainRow', () => {
