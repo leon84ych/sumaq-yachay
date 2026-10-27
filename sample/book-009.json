@@ -813,7 +813,264 @@
       "syncStatus": "synced"
     }
   ],
-  "QUESTIONS": [],
+  "QUESTIONS": [
+    {
+      "id": "sample-question-01",
+      "question": "True or false: the index links the chapter “Introduction” with the theme “Being.”",
+      "answer": "True. The index links “Introduction” with “Being.” Existence and the structure of reality",
+      "type": "true-false",
+      "options": [
+        {
+          "id": "true",
+          "text": "true",
+          "isCorrect": true
+        },
+        {
+          "id": "false",
+          "text": "false",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "INDEX",
+      "sourceRowId": "sample-index-01",
+      "sourceTerm": "Introduction",
+      "bookRow": 9,
+      "bookName": "Being and Nothingness",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#being"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-02",
+      "question": "Which concept is defined as: “Sartre's philosophical category for being considered independently of the self-transcending structure associated with consciousness.”?",
+      "answer": "Being-in-itself: Sartre's philosophical category for being considered independently of the self-transcending structure associated with consciousness.",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Being-for-itself",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Being-in-itself",
+          "isCorrect": true
+        },
+        {
+          "id": "option-3",
+          "text": "Nothingness",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Bad faith",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CONCEPTS",
+      "sourceRowId": "sample-concept-01",
+      "sourceTerm": "Being-in-itself",
+      "bookRow": 9,
+      "bookName": "Being and Nothingness",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#being", "#ontology", "#being-in-itself"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-03",
+      "question": "Which character is described as follows: “An explicitly analytical sample figure representing the conscious individual examined through Sartre's distinctions between being,”?",
+      "answer": "The Conscious Subject",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "The Other",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "The Bad-Faith Actor",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "The Conscious Subject",
+          "isCorrect": true
+        },
+        {
+          "id": "option-4",
+          "text": "The Free Agent",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CHARACTER",
+      "sourceRowId": "sample-character-01",
+      "sourceTerm": "The Conscious Subject",
+      "bookRow": 9,
+      "bookName": "Being and Nothingness",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#analytical-sample", "#consciousness", "#being"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-04",
+      "question": "Which place is described as follows: “An explicitly analytical sample setting for examining absence, expectation, choice, and encounters with others.”?",
+      "answer": "Existential Café",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Reflective Room",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Field of Possibilities",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "World of Facticity",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Existential Café",
+          "isCorrect": true
+        }
+      ],
+      "sourceDomain": "PLACES",
+      "sourceRowId": "sample-place-01",
+      "sourceTerm": "Existential Café",
+      "bookRow": 9,
+      "bookName": "Being and Nothingness",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#analytical-sample", "#consciousness", "#everyday-life"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-05",
+      "question": "What interpretation is given for this quote: “Freedom becomes difficult precisely when circumstances cannot make the choice for us.”?",
+      "answer": "An original reflection on freedom within concrete situations.",
+      "type": "open",
+      "sourceDomain": "QUOTES",
+      "sourceRowId": "sample-quote-01",
+      "sourceTerm": "Freedom becomes difficult precisely when circumstances cannot make the choice for us.",
+      "bookRow": 9,
+      "bookName": "Being and Nothingness",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#freedom", "#choice"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-06",
+      "question": "What idea is explored in the passage “The Empty Chair”?",
+      "answer": "He entered expecting to find his friend and noticed the empty chair immediately. The absence was not another object in the room, yet it reorganized everything he saw.",
+      "type": "open",
+      "sourceDomain": "PASSAGES",
+      "sourceRowId": "sample-passage-01",
+      "sourceTerm": "The Empty Chair",
+      "bookRow": 9,
+      "bookName": "Being and Nothingness",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#nothingness", "#negation"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-07",
+      "question": "What does the study event “Study event 1: Introduction / Being” describe?",
+      "answer": "Study synthesis for “Introduction”: the index highlights Being (Existence and the structure of reality). The description of The Conscious Subject (“An explicitly analytical sample figure representing the conscious individual examined through Sartre's distinctions between being, nothingness, freedom, and self-awareness.”) is considered here alongside Being-in-itself (“Sartre's philosophical category for being considered independently of the self-transcending structure associated with consciousness.”). Existential Café and the passage “The Empty Chair” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "type": "open",
+      "sourceDomain": "BOOK_EVENTS",
+      "sourceRowId": "sample-book-event-01",
+      "sourceTerm": "Study event 1: Introduction / Being",
+      "bookRow": 9,
+      "bookName": "Being and Nothingness",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": [
+        "#being",
+        "#analytical-sample",
+        "#consciousness",
+        "#being-in-itself",
+        "#ontology",
+        "#everyday-life"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-08",
+      "question": "What relationship is recorded between The Conscious Subject and The Other?",
+      "answer": "thematic comparison. This reading association links The Conscious Subject (An explicitly analytical sample figure representing the conscious individual examined through Sartre's distinctions between being, nothingness, freedom, and self-awareness.) with The Other (An explicitly analytical sample figure representing another consciousness whose presence introduces recognition, objectification, conflict, and interpersonal awareness.). The theme “Being” and subtheme “Existence and the structure of reality” guide the comparison; the passage “The Empty Chair” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "type": "open",
+      "sourceDomain": "RELATIONS",
+      "sourceRowId": "sample-character-relation-01",
+      "bookRow": 9,
+      "bookName": "Being and Nothingness",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#analytical-sample", "#consciousness", "#being", "#other", "#relationships"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-09",
+      "question": "How are “Being-in-itself” and “Being-for-itself” connected in the catalog?",
+      "answer": "provides context for. The definition of “Being-in-itself” (“Sartre's philosophical category for being considered independently of the self-transcending structure associated with consciousness.”) can be read in relation to “Being-for-itself” (“Sartre's category associated with consciousness as a form of being that relates to itself and can project possibilities beyond its present state.”). The theme Being and subtheme Existence and the structure of reality, together with the passage “The Empty Chair”, place this conceptual connection in the book’s reading context.",
+      "type": "open",
+      "sourceDomain": "ASSOCIATIONS",
+      "sourceRowId": "sample-concept-relation-01",
+      "bookRow": 9,
+      "bookName": "Being and Nothingness",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#being-in-itself", "#being", "#ontology", "#being-for-itself", "#consciousness"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-10",
+      "question": "Define “ontology” in this book’s glossary.",
+      "answer": "The branch of philosophy concerned with being and what it means for something to exist.",
+      "type": "flashcard",
+      "sourceDomain": "GLOSARY",
+      "sourceRowId": "sample-glosary-01",
+      "sourceTerm": "ontology",
+      "bookRow": 9,
+      "bookName": "Being and Nothingness",
+      "page": "0",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#ontology", "#being"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
   "BOOK_EVENTS": [
     {
       "id": "sample-book-event-01",
@@ -829,7 +1086,14 @@
       "book": "Being and Nothingness",
       "author": "Jean-Paul Sartre",
       "page": "",
-      "tags": ["#being", "#analytical-sample", "#consciousness", "#being-in-itself", "#ontology", "#everyday-life"],
+      "tags": [
+        "#being",
+        "#analytical-sample",
+        "#consciousness",
+        "#being-in-itself",
+        "#ontology",
+        "#everyday-life"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -848,7 +1112,16 @@
       "book": "Being and Nothingness",
       "author": "Jean-Paul Sartre",
       "page": "",
-      "tags": ["#nothingness", "#analytical-sample", "#bad-faith", "#identity", "#negation", "#consciousness", "#reflection", "#self"],
+      "tags": [
+        "#nothingness",
+        "#analytical-sample",
+        "#bad-faith",
+        "#identity",
+        "#negation",
+        "#consciousness",
+        "#reflection",
+        "#self"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -867,7 +1140,16 @@
       "book": "Being and Nothingness",
       "author": "Jean-Paul Sartre",
       "page": "",
-      "tags": ["#bad-faith", "#analytical-sample", "#look", "#otherness", "#freedom", "#choice", "#responsibility", "#possibility"],
+      "tags": [
+        "#bad-faith",
+        "#analytical-sample",
+        "#look",
+        "#otherness",
+        "#freedom",
+        "#choice",
+        "#responsibility",
+        "#possibility"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -886,7 +1168,16 @@
       "book": "Being and Nothingness",
       "author": "Jean-Paul Sartre",
       "page": "",
-      "tags": ["#consciousness", "#analytical-sample", "#choice", "#identity", "#transcendence", "#possibility", "#facticity", "#situation"],
+      "tags": [
+        "#consciousness",
+        "#analytical-sample",
+        "#choice",
+        "#identity",
+        "#transcendence",
+        "#possibility",
+        "#facticity",
+        "#situation"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -922,7 +1213,14 @@
       "book": "Being and Nothingness",
       "author": "Jean-Paul Sartre",
       "page": "",
-      "tags": ["#analytical-sample", "#bad-faith", "#identity", "#freedom", "#choice", "#nothingness"],
+      "tags": [
+        "#analytical-sample",
+        "#bad-faith",
+        "#identity",
+        "#freedom",
+        "#choice",
+        "#nothingness"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -956,7 +1254,14 @@
       "book": "Being and Nothingness",
       "author": "Jean-Paul Sartre",
       "page": "",
-      "tags": ["#analytical-sample", "#choice", "#identity", "#situation", "#freedom", "#consciousness"],
+      "tags": [
+        "#analytical-sample",
+        "#choice",
+        "#identity",
+        "#situation",
+        "#freedom",
+        "#consciousness"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -992,7 +1297,14 @@
       "book": "Being and Nothingness",
       "author": "Jean-Paul Sartre",
       "page": "",
-      "tags": ["#nothingness", "#negation", "#consciousness", "#bad-faith", "#freedom", "#self-deception"],
+      "tags": [
+        "#nothingness",
+        "#negation",
+        "#consciousness",
+        "#bad-faith",
+        "#freedom",
+        "#self-deception"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1009,7 +1321,15 @@
       "book": "Being and Nothingness",
       "author": "Jean-Paul Sartre",
       "page": "",
-      "tags": ["#freedom", "#choice", "#responsibility", "#facticity", "#situation", "#existence", "#bad-faith"],
+      "tags": [
+        "#freedom",
+        "#choice",
+        "#responsibility",
+        "#facticity",
+        "#situation",
+        "#existence",
+        "#bad-faith"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1026,7 +1346,14 @@
       "book": "Being and Nothingness",
       "author": "Jean-Paul Sartre",
       "page": "",
-      "tags": ["#transcendence", "#possibility", "#consciousness", "#being-for-others", "#otherness", "#relationships"],
+      "tags": [
+        "#transcendence",
+        "#possibility",
+        "#consciousness",
+        "#being-for-others",
+        "#otherness",
+        "#relationships"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"

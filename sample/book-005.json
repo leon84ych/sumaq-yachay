@@ -813,7 +813,276 @@
       "syncStatus": "synced"
     }
   ],
-  "QUESTIONS": [],
+  "QUESTIONS": [
+    {
+      "id": "sample-question-01",
+      "question": "True or false: the index links the chapter “The Karamazov Family” with the theme “Family.”",
+      "answer": "True. The index links “The Karamazov Family” with “Family.” Conflict, inheritance, and responsibility",
+      "type": "true-false",
+      "options": [
+        {
+          "id": "true",
+          "text": "true",
+          "isCorrect": true
+        },
+        {
+          "id": "false",
+          "text": "false",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "INDEX",
+      "sourceRowId": "sample-index-01",
+      "sourceTerm": "The Karamazov Family",
+      "bookRow": 5,
+      "bookName": "The Brothers Karamazov",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#family"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-02",
+      "question": "Which concept is defined as: “The philosophical problem of whether individuals possess meaningful freedom to choose their actions and accept responsibility for them.”?",
+      "answer": "Free will: The philosophical problem of whether individuals possess meaningful freedom to choose their actions and accept responsibility for them.",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Moral responsibility",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Free will",
+          "isCorrect": true
+        },
+        {
+          "id": "option-3",
+          "text": "Faith",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Problem of evil",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CONCEPTS",
+      "sourceRowId": "sample-concept-01",
+      "sourceTerm": "Free will",
+      "bookRow": 5,
+      "bookName": "The Brothers Karamazov",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#freedom", "#responsibility", "#free-will"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-03",
+      "question": "Which character is described as follows: “The eldest Karamazov brother, passionate and impulsive, whose conflicts over money, desire, and his father become central to the n”?",
+      "answer": "Dmitri Karamazov",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Ivan Karamazov",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Alexei Karamazov",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Dmitri Karamazov",
+          "isCorrect": true
+        },
+        {
+          "id": "option-4",
+          "text": "Fyodor Pavlovich Karamazov",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CHARACTER",
+      "sourceRowId": "sample-character-01",
+      "sourceTerm": "Dmitri Karamazov",
+      "bookRow": 5,
+      "bookName": "The Brothers Karamazov",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#dmitri", "#passion", "#guilt"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-04",
+      "question": "Which place is described as follows: “The fictional provincial town in which the principal events surrounding the Karamazov family unfold.”?",
+      "answer": "Skotoprigonyevsk",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Russia",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Karamazov House",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "The Monastery",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Skotoprigonyevsk",
+          "isCorrect": true
+        }
+      ],
+      "sourceDomain": "PLACES",
+      "sourceRowId": "sample-place-01",
+      "sourceTerm": "Skotoprigonyevsk",
+      "bookRow": 5,
+      "bookName": "The Brothers Karamazov",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#skotoprigonyevsk", "#town", "#setting"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-05",
+      "question": "What interpretation is given for this quote: “Freedom becomes morally serious when a person must accept what follows from choosing.”?",
+      "answer": "An original reflection on free will and responsibility.",
+      "type": "open",
+      "sourceDomain": "QUOTES",
+      "sourceRowId": "sample-quote-01",
+      "sourceTerm": "Freedom becomes morally serious when a person must accept what follows from choosing.",
+      "bookRow": 5,
+      "bookName": "The Brothers Karamazov",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#freedom", "#responsibility"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-06",
+      "question": "What idea is explored in the passage “Three Brothers”?",
+      "answer": "Three brothers could inherit the same family name yet carry entirely different questions into adulthood. One followed passion, another argument, and another compassion, but none could remain untouched by the others.",
+      "type": "open",
+      "sourceDomain": "PASSAGES",
+      "sourceRowId": "sample-passage-01",
+      "sourceTerm": "Three Brothers",
+      "bookRow": 5,
+      "bookName": "The Brothers Karamazov",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#family", "#identity"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-07",
+      "question": "What does the study event “Study event 1: The Karamazov Family / Family” describe?",
+      "answer": "Study synthesis for “The Karamazov Family”: the index highlights Family (Conflict, inheritance, and responsibility). The description of Dmitri Karamazov (“The eldest Karamazov brother, passionate and impulsive, whose conflicts over money, desire, and his father become central to the novel.”) is considered here alongside Free will (“The philosophical problem of whether individuals possess meaningful freedom to choose their actions and accept responsibility for them.”). Skotoprigonyevsk and the passage “Three Brothers” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "type": "open",
+      "sourceDomain": "BOOK_EVENTS",
+      "sourceRowId": "sample-book-event-01",
+      "sourceTerm": "Study event 1: The Karamazov Family / Family",
+      "bookRow": 5,
+      "bookName": "The Brothers Karamazov",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": [
+        "#family",
+        "#dmitri",
+        "#passion",
+        "#guilt",
+        "#free-will",
+        "#freedom",
+        "#responsibility",
+        "#skotoprigonyevsk",
+        "#town",
+        "#setting"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-08",
+      "question": "What relationship is recorded between Dmitri Karamazov and Ivan Karamazov?",
+      "answer": "thematic comparison. This reading association links Dmitri Karamazov (The eldest Karamazov brother, passionate and impulsive, whose conflicts over money, desire, and his father become central to the novel.) with Ivan Karamazov (The intellectual Karamazov brother whose ideas and doubts frame major philosophical questions about suffering, morality, freedom, and faith.). The theme “Family” and subtheme “Conflict, inheritance, and responsibility” guide the comparison; the passage “Three Brothers” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "type": "open",
+      "sourceDomain": "RELATIONS",
+      "sourceRowId": "sample-character-relation-01",
+      "bookRow": 5,
+      "bookName": "The Brothers Karamazov",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#dmitri", "#passion", "#guilt", "#ivan", "#reason", "#faith", "#family"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-09",
+      "question": "How are “Free will” and “Moral responsibility” connected in the catalog?",
+      "answer": "provides context for. The definition of “Free will” (“The philosophical problem of whether individuals possess meaningful freedom to choose their actions and accept responsibility for them.”) can be read in relation to “Moral responsibility” (“The idea that individuals may bear responsibility not only for actions but also for choices, influence, and their relationships with others.”). The theme Family and subtheme Conflict, inheritance, and responsibility, together with the passage “Three Brothers”, place this conceptual connection in the book’s reading context.",
+      "type": "open",
+      "sourceDomain": "ASSOCIATIONS",
+      "sourceRowId": "sample-concept-relation-01",
+      "bookRow": 5,
+      "bookName": "The Brothers Karamazov",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": [
+        "#free-will",
+        "#freedom",
+        "#responsibility",
+        "#moral-responsibility",
+        "#ethics",
+        "#guilt",
+        "#family"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-10",
+      "question": "Define “theodicy” in this book’s glossary.",
+      "answer": "An attempt to address the apparent conflict between the existence of suffering or evil and belief in divine goodness.",
+      "type": "flashcard",
+      "sourceDomain": "GLOSARY",
+      "sourceRowId": "sample-glosary-01",
+      "sourceTerm": "theodicy",
+      "bookRow": 5,
+      "bookName": "The Brothers Karamazov",
+      "page": "0",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#faith", "#suffering"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
   "BOOK_EVENTS": [
     {
       "id": "sample-book-event-01",
@@ -829,7 +1098,18 @@
       "book": "The Brothers Karamazov",
       "author": "Fyodor Dostoevsky",
       "page": "",
-      "tags": ["#family", "#dmitri", "#passion", "#guilt", "#free-will", "#freedom", "#responsibility", "#skotoprigonyevsk", "#town", "#setting"],
+      "tags": [
+        "#family",
+        "#dmitri",
+        "#passion",
+        "#guilt",
+        "#free-will",
+        "#freedom",
+        "#responsibility",
+        "#skotoprigonyevsk",
+        "#town",
+        "#setting"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -848,7 +1128,16 @@
       "book": "The Brothers Karamazov",
       "author": "Fyodor Dostoevsky",
       "page": "",
-      "tags": ["#faith", "#alyosha", "#compassion", "#religion", "#doubt", "#russia", "#society", "#culture"],
+      "tags": [
+        "#faith",
+        "#alyosha",
+        "#compassion",
+        "#religion",
+        "#doubt",
+        "#russia",
+        "#society",
+        "#culture"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -867,7 +1156,16 @@
       "book": "The Brothers Karamazov",
       "author": "Fyodor Dostoevsky",
       "page": "",
-      "tags": ["#desire", "#smerdyakov", "#responsibility", "#guilt", "#justice", "#karamazov", "#family", "#home"],
+      "tags": [
+        "#desire",
+        "#smerdyakov",
+        "#responsibility",
+        "#guilt",
+        "#justice",
+        "#karamazov",
+        "#family",
+        "#home"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -886,7 +1184,18 @@
       "book": "The Brothers Karamazov",
       "author": "Fyodor Dostoevsky",
       "page": "",
-      "tags": ["#suffering", "#katerina", "#pride", "#relationships", "#freedom-authority", "#freedom", "#authority", "#monastery", "#faith", "#zosima"],
+      "tags": [
+        "#suffering",
+        "#katerina",
+        "#pride",
+        "#relationships",
+        "#freedom-authority",
+        "#freedom",
+        "#authority",
+        "#monastery",
+        "#faith",
+        "#zosima"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -956,7 +1265,15 @@
       "book": "The Brothers Karamazov",
       "author": "Fyodor Dostoevsky",
       "page": "",
-      "tags": ["#katerina", "#pride", "#relationships", "#zosima", "#faith", "#responsibility", "#suffering"],
+      "tags": [
+        "#katerina",
+        "#pride",
+        "#relationships",
+        "#zosima",
+        "#faith",
+        "#responsibility",
+        "#suffering"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -975,7 +1292,15 @@
       "book": "The Brothers Karamazov",
       "author": "Fyodor Dostoevsky",
       "page": "",
-      "tags": ["#free-will", "#freedom", "#responsibility", "#moral-responsibility", "#ethics", "#guilt", "#family"],
+      "tags": [
+        "#free-will",
+        "#freedom",
+        "#responsibility",
+        "#moral-responsibility",
+        "#ethics",
+        "#guilt",
+        "#family"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1009,7 +1334,15 @@
       "book": "The Brothers Karamazov",
       "author": "Fyodor Dostoevsky",
       "page": "",
-      "tags": ["#guilt", "#responsibility", "#justice", "#redemption", "#transformation", "#morality", "#desire"],
+      "tags": [
+        "#guilt",
+        "#responsibility",
+        "#justice",
+        "#redemption",
+        "#transformation",
+        "#morality",
+        "#desire"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"

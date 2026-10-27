@@ -813,13 +813,275 @@
       "syncStatus": "synced"
     }
   ],
-  "QUESTIONS": [],
+  "QUESTIONS": [
+    {
+      "id": "sample-question-01",
+      "question": "Verdadero o falso: el índice relaciona el capítulo «El viejo» con el tema «Identidad».",
+      "answer": "Verdadero. El índice relaciona «El viejo» con «Identidad». Origen, pertenencia y memoria cultural",
+      "type": "true-false",
+      "options": [
+        {
+          "id": "true",
+          "text": "true",
+          "isCorrect": true
+        },
+        {
+          "id": "false",
+          "text": "false",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "INDEX",
+      "sourceRowId": "sample-index-01",
+      "sourceTerm": "El viejo",
+      "bookRow": 20,
+      "bookName": "Los ríos profundos",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#identidad"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-02",
+      "question": "¿Qué concepto se define así: «Proceso de transformación cultural producido mediante el contacto y la interacción entre tradiciones diferentes.»?",
+      "answer": "Transculturación: Proceso de transformación cultural producido mediante el contacto y la interacción entre tradiciones diferentes.",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Identidad cultural",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Bilingüismo cultural",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Transculturación",
+          "isCorrect": true
+        },
+        {
+          "id": "option-4",
+          "text": "Cosmovisión andina",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CONCEPTS",
+      "sourceRowId": "sample-concept-01",
+      "sourceTerm": "Transculturación",
+      "bookRow": 20,
+      "bookName": "Los ríos profundos",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#cultura", "#identidad", "#transculturación"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-03",
+      "question": "¿Qué personaje se describe así: «Joven protagonista cuya experiencia entre distintos espacios sociales y culturales constituye el centro de la exploración de ident»?",
+      "answer": "Ernesto",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "El padre de Ernesto",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "El Viejo",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Antero",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Ernesto",
+          "isCorrect": true
+        }
+      ],
+      "sourceDomain": "CHARACTER",
+      "sourceRowId": "sample-character-01",
+      "sourceTerm": "Ernesto",
+      "bookRow": 20,
+      "bookName": "Los ríos profundos",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#ernesto", "#identidad", "#mundo-andino"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-04",
+      "question": "¿Qué lugar se describe así: «Ciudad andina que constituye uno de los principales escenarios de la experiencia de Ernesto y de los conflictos sociales de la nov»?",
+      "answer": "Abancay",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Abancay",
+          "isCorrect": true
+        },
+        {
+          "id": "option-2",
+          "text": "Cusco",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Perú",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Internado de Abancay",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "PLACES",
+      "sourceRowId": "sample-place-01",
+      "sourceTerm": "Abancay",
+      "bookRow": 20,
+      "bookName": "Los ríos profundos",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#abancay", "#perú", "#andes"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-05",
+      "question": "¿Qué interpretación ofrece esta cita: «Una lengua no solo nombra el mundo; también conserva maneras particulares de sentirlo.»?",
+      "answer": "Reflexión original sobre lengua, cultura y percepción.",
+      "type": "open",
+      "sourceDomain": "QUOTES",
+      "sourceRowId": "sample-quote-01",
+      "sourceTerm": "Una lengua no solo nombra el mundo; también conserva maneras particulares de sentirlo.",
+      "bookRow": 20,
+      "bookName": "Los ríos profundos",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#muestra", "#lengua", "#cultura"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-06",
+      "question": "¿Qué idea se desarrolla en el pasaje «El río»?",
+      "answer": "El agua avanzaba entre las piedras con una voz que parecía anterior a los caminos. Ernesto escuchaba su movimiento como si el paisaje pudiera conservar recuerdos que las personas no sabían expresar.",
+      "type": "open",
+      "sourceDomain": "PASSAGES",
+      "sourceRowId": "sample-passage-01",
+      "sourceTerm": "El río",
+      "bookRow": 20,
+      "bookName": "Los ríos profundos",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#muestra", "#río", "#memoria"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-07",
+      "question": "¿Qué describe el evento de estudio «Evento de estudio 1: El viejo / Identidad»?",
+      "answer": "Síntesis de estudio para «El viejo»: el índice destaca Identidad (Origen, pertenencia y memoria cultural). La descripción de Ernesto («Joven protagonista cuya experiencia entre distintos espacios sociales y culturales constituye el centro de la exploración de identidad, memoria y pertenencia.») se relaciona aquí con el concepto Transculturación («Proceso de transformación cultural producido mediante el contacto y la interacción entre tradiciones diferentes.»). Abancay y el pasaje «El río» añaden contexto del escenario y la lectura. Esta entrada organiza el material de muestra y debe contrastarse con la edición del libro.",
+      "type": "open",
+      "sourceDomain": "BOOK_EVENTS",
+      "sourceRowId": "sample-book-event-01",
+      "sourceTerm": "Evento de estudio 1: El viejo / Identidad",
+      "bookRow": 20,
+      "bookName": "Los ríos profundos",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": [
+        "#identidad",
+        "#ernesto",
+        "#mundo-andino",
+        "#transculturación",
+        "#cultura",
+        "#abancay",
+        "#perú",
+        "#andes"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-08",
+      "question": "¿Qué relación se registra entre Ernesto y El padre de Ernesto?",
+      "answer": "comparación temática. Esta asociación de lectura vincula Ernesto (Joven protagonista cuya experiencia entre distintos espacios sociales y culturales constituye el centro de la exploración de identidad, memoria y pertenencia.) con El padre de Ernesto (Abogado itinerante y padre del protagonista, cuyos desplazamientos contribuyen a la formación y experiencia geográfica de Ernesto.). El tema «Identidad» y el subtema «Origen, pertenencia y memoria cultural» orientan la comparación; el pasaje «El río» aporta contexto del propio libro. Es una conexión interpretativa basada en estas entradas, no una afirmación de que ambos personajes compartan una escena.",
+      "type": "open",
+      "sourceDomain": "RELATIONS",
+      "sourceRowId": "sample-character-relation-01",
+      "bookRow": 20,
+      "bookName": "Los ríos profundos",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#ernesto", "#identidad", "#mundo-andino", "#padre", "#viaje"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-09",
+      "question": "¿Cómo se relacionan «Transculturación» y «Identidad cultural» en el catálogo?",
+      "answer": "da contexto a. La definición de «Transculturación» («Proceso de transformación cultural producido mediante el contacto y la interacción entre tradiciones diferentes.») puede leerse en relación con «Identidad cultural» («Comprensión de la propia pertenencia construida mediante lengua, memoria, comunidad, experiencias y tradiciones culturales.»). El tema Identidad y el subtema Origen, pertenencia y memoria cultural, junto con el pasaje «El río», sitúan esta conexión conceptual dentro del contexto de lectura del libro.",
+      "type": "open",
+      "sourceDomain": "ASSOCIATIONS",
+      "sourceRowId": "sample-concept-relation-01",
+      "bookRow": 20,
+      "bookName": "Los ríos profundos",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#transculturación", "#cultura", "#identidad", "#identidad-cultural"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-10",
+      "question": "Define «zumbayllu» según el glosario del libro.",
+      "answer": "Trompo asociado en la novela con sonido, juego, comunicación y memoria.",
+      "type": "flashcard",
+      "sourceDomain": "GLOSARY",
+      "sourceRowId": "sample-glosary-01",
+      "sourceTerm": "zumbayllu",
+      "bookRow": 20,
+      "bookName": "Los ríos profundos",
+      "page": "0",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#zumbayllu", "#quechua"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
   "BOOK_EVENTS": [
     {
       "id": "sample-book-event-01",
       "displayRow": 1,
       "mainCharacterId": "book-es-010-sample-character-01",
-      "secondaryCharacterIds": ["book-es-010-sample-character-02", "book-es-010-sample-character-03"],
+      "secondaryCharacterIds": [
+        "book-es-010-sample-character-02",
+        "book-es-010-sample-character-03"
+      ],
       "placeId": "book-es-010-sample-place-01",
       "dateLabel": "El viejo",
       "eventOrder": 1,
@@ -829,7 +1091,16 @@
       "book": "Los ríos profundos",
       "author": "José María Arguedas",
       "page": "",
-      "tags": ["#identidad", "#ernesto", "#mundo-andino", "#transculturación", "#cultura", "#abancay", "#perú", "#andes"],
+      "tags": [
+        "#identidad",
+        "#ernesto",
+        "#mundo-andino",
+        "#transculturación",
+        "#cultura",
+        "#abancay",
+        "#perú",
+        "#andes"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -838,7 +1109,10 @@
       "id": "sample-book-event-02",
       "displayRow": 2,
       "mainCharacterId": "book-es-010-sample-character-03",
-      "secondaryCharacterIds": ["book-es-010-sample-character-04", "book-es-010-sample-character-05"],
+      "secondaryCharacterIds": [
+        "book-es-010-sample-character-04",
+        "book-es-010-sample-character-05"
+      ],
       "placeId": "book-es-010-sample-place-02",
       "dateLabel": "Los viajes",
       "eventOrder": 2,
@@ -848,7 +1122,18 @@
       "book": "Los ríos profundos",
       "author": "José María Arguedas",
       "page": "",
-      "tags": ["#formación", "#el-viejo", "#poder", "#familia", "#bilingüismo-cultural", "#quechua", "#español", "#cusco", "#andes", "#historia"],
+      "tags": [
+        "#formación",
+        "#el-viejo",
+        "#poder",
+        "#familia",
+        "#bilingüismo-cultural",
+        "#quechua",
+        "#español",
+        "#cusco",
+        "#andes",
+        "#historia"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -857,7 +1142,10 @@
       "id": "sample-book-event-03",
       "displayRow": 3,
       "mainCharacterId": "book-es-010-sample-character-05",
-      "secondaryCharacterIds": ["book-es-010-sample-character-06", "book-es-010-sample-character-07"],
+      "secondaryCharacterIds": [
+        "book-es-010-sample-character-06",
+        "book-es-010-sample-character-07"
+      ],
       "placeId": "book-es-010-sample-place-03",
       "dateLabel": "El internado",
       "eventOrder": 3,
@@ -867,7 +1155,17 @@
       "book": "Los ríos profundos",
       "author": "José María Arguedas",
       "page": "",
-      "tags": ["#internado", "#muestra-analítica", "#juventud", "#amistad", "#desigualdad-social", "#sociedad", "#poder", "#perú", "#identidad"],
+      "tags": [
+        "#internado",
+        "#muestra-analítica",
+        "#juventud",
+        "#amistad",
+        "#desigualdad-social",
+        "#sociedad",
+        "#poder",
+        "#perú",
+        "#identidad"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -876,7 +1174,10 @@
       "id": "sample-book-event-04",
       "displayRow": 4,
       "mainCharacterId": "book-es-010-sample-character-07",
-      "secondaryCharacterIds": ["book-es-010-sample-character-08", "book-es-010-sample-character-09"],
+      "secondaryCharacterIds": [
+        "book-es-010-sample-character-08",
+        "book-es-010-sample-character-09"
+      ],
       "placeId": "book-es-010-sample-place-04",
       "dateLabel": "Ernesto",
       "eventOrder": 4,
@@ -886,7 +1187,18 @@
       "book": "Los ríos profundos",
       "author": "José María Arguedas",
       "page": "",
-      "tags": ["#identidad-cultural", "#doña-felipa", "#resistencia", "#chicheras", "#naturaleza-animada", "#naturaleza", "#paisaje", "#internado", "#abancay", "#ernesto"],
+      "tags": [
+        "#identidad-cultural",
+        "#doña-felipa",
+        "#resistencia",
+        "#chicheras",
+        "#naturaleza-animada",
+        "#naturaleza",
+        "#paisaje",
+        "#internado",
+        "#abancay",
+        "#ernesto"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -922,7 +1234,15 @@
       "book": "Los ríos profundos",
       "author": "José María Arguedas",
       "page": "",
-      "tags": ["#el-viejo", "#poder", "#familia", "#antero", "#zumbayllu", "#internado", "#formación"],
+      "tags": [
+        "#el-viejo",
+        "#poder",
+        "#familia",
+        "#antero",
+        "#zumbayllu",
+        "#internado",
+        "#formación"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -939,7 +1259,15 @@
       "book": "Los ríos profundos",
       "author": "José María Arguedas",
       "page": "",
-      "tags": ["#muestra-analítica", "#juventud", "#amistad", "#padre-linares", "#religión", "#autoridad", "#internado"],
+      "tags": [
+        "#muestra-analítica",
+        "#juventud",
+        "#amistad",
+        "#padre-linares",
+        "#religión",
+        "#autoridad",
+        "#internado"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -956,7 +1284,15 @@
       "book": "Los ríos profundos",
       "author": "José María Arguedas",
       "page": "",
-      "tags": ["#doña-felipa", "#resistencia", "#chicheras", "#palacitos", "#internado", "#identidad", "#identidad-cultural"],
+      "tags": [
+        "#doña-felipa",
+        "#resistencia",
+        "#chicheras",
+        "#palacitos",
+        "#internado",
+        "#identidad",
+        "#identidad-cultural"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -992,7 +1328,15 @@
       "book": "Los ríos profundos",
       "author": "José María Arguedas",
       "page": "",
-      "tags": ["#bilingüismo-cultural", "#quechua", "#español", "#cosmovisión-andina", "#andes", "#naturaleza", "#formación"],
+      "tags": [
+        "#bilingüismo-cultural",
+        "#quechua",
+        "#español",
+        "#cosmovisión-andina",
+        "#andes",
+        "#naturaleza",
+        "#formación"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1009,7 +1353,15 @@
       "book": "Los ríos profundos",
       "author": "José María Arguedas",
       "page": "",
-      "tags": ["#desigualdad-social", "#sociedad", "#poder", "#zumbayllu", "#comunicación", "#memoria", "#internado"],
+      "tags": [
+        "#desigualdad-social",
+        "#sociedad",
+        "#poder",
+        "#zumbayllu",
+        "#comunicación",
+        "#memoria",
+        "#internado"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1026,7 +1378,15 @@
       "book": "Los ríos profundos",
       "author": "José María Arguedas",
       "page": "",
-      "tags": ["#naturaleza-animada", "#naturaleza", "#paisaje", "#memoria-comunitaria", "#memoria", "#comunidad", "#identidad-cultural"],
+      "tags": [
+        "#naturaleza-animada",
+        "#naturaleza",
+        "#paisaje",
+        "#memoria-comunitaria",
+        "#memoria",
+        "#comunidad",
+        "#identidad-cultural"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"

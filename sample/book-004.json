@@ -813,7 +813,273 @@
       "syncStatus": "synced"
     }
   ],
-  "QUESTIONS": [],
+  "QUESTIONS": [
+    {
+      "id": "sample-question-01",
+      "question": "True or false: the index links the chapter “The Arrest” with the theme “Authority.”",
+      "answer": "True. The index links “The Arrest” with “Authority.” Power without explanation",
+      "type": "true-false",
+      "options": [
+        {
+          "id": "true",
+          "text": "true",
+          "isCorrect": true
+        },
+        {
+          "id": "false",
+          "text": "false",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "INDEX",
+      "sourceRowId": "sample-index-01",
+      "sourceTerm": "The Arrest",
+      "bookRow": 4,
+      "bookName": "The Trial",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#authority"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-02",
+      "question": "Which concept is defined as: “An administrative system organized through offices, procedures, officials, and institutional rules.”?",
+      "answer": "Bureaucracy: An administrative system organized through offices, procedures, officials, and institutional rules.",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Bureaucracy",
+          "isCorrect": true
+        },
+        {
+          "id": "option-2",
+          "text": "Alienation",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Guilt",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Absurdity",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CONCEPTS",
+      "sourceRowId": "sample-concept-01",
+      "sourceTerm": "Bureaucracy",
+      "bookRow": 4,
+      "bookName": "The Trial",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#authority", "#institution", "#bureaucracy"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-03",
+      "question": "Which character is described as follows: “A bank employee who becomes the subject of an opaque legal process and struggles to understand the accusation and the system pursu”?",
+      "answer": "Josef K.",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Fräulein Bürstner",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Josef K.",
+          "isCorrect": true
+        },
+        {
+          "id": "option-3",
+          "text": "Advocate Huld",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Leni",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CHARACTER",
+      "sourceRowId": "sample-character-01",
+      "sourceTerm": "Josef K.",
+      "bookRow": 4,
+      "bookName": "The Trial",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#josef-k", "#guilt", "#alienation"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-04",
+      "question": "Which place is described as follows: “The residential setting where Josef K. encounters the officials who anNounce his arrest.”?",
+      "answer": "Josef K.'s Boarding House",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "The Bank",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Court Offices",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Josef K.'s Boarding House",
+          "isCorrect": true
+        },
+        {
+          "id": "option-4",
+          "text": "Courtroom",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "PLACES",
+      "sourceRowId": "sample-place-01",
+      "sourceTerm": "Josef K.'s Boarding House",
+      "bookRow": 4,
+      "bookName": "The Trial",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#boarding-house", "#arrest", "#josef-k"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-05",
+      "question": "What interpretation is given for this quote: “A system becomes most frightening when everyone obeys rules that no one can clearly explain.”?",
+      "answer": "An original reflection on opaque institutional authority and bureaucracy.",
+      "type": "open",
+      "sourceDomain": "QUOTES",
+      "sourceRowId": "sample-quote-01",
+      "sourceTerm": "A system becomes most frightening when everyone obeys rules that no one can clearly explain.",
+      "bookRow": 4,
+      "bookName": "The Trial",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#bureaucracy", "#authority"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-06",
+      "question": "What idea is explored in the passage “An Unexplained Notice”?",
+      "answer": "The officials spoke as though everything had already been decided, yet none could explain what decision had been made. Their certainty made the absence of information more disturbing.",
+      "type": "open",
+      "sourceDomain": "PASSAGES",
+      "sourceRowId": "sample-passage-01",
+      "sourceTerm": "An Unexplained Notice",
+      "bookRow": 4,
+      "bookName": "The Trial",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#authority", "#uncertainty"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-07",
+      "question": "What does the study event “Study event 1: The Arrest / Authority” describe?",
+      "answer": "Study synthesis for “The Arrest”: the index highlights Authority (Power without explanation). The description of Josef K. (“A bank employee who becomes the subject of an opaque legal process and struggles to understand the accusation and the system pursuing him.”) is considered here alongside Bureaucracy (“An administrative system organized through offices, procedures, officials, and institutional rules.”). Josef K.'s Boarding House and the passage “An Unexplained Notice” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "type": "open",
+      "sourceDomain": "BOOK_EVENTS",
+      "sourceRowId": "sample-book-event-01",
+      "sourceTerm": "Study event 1: The Arrest / Authority",
+      "bookRow": 4,
+      "bookName": "The Trial",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": [
+        "#authority",
+        "#josef-k",
+        "#guilt",
+        "#alienation",
+        "#bureaucracy",
+        "#institution",
+        "#boarding-house",
+        "#arrest"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-08",
+      "question": "What relationship is recorded between Josef K. and Fräulein Bürstner?",
+      "answer": "thematic comparison. This reading association links Josef K. (A bank employee who becomes the subject of an opaque legal process and struggles to understand the accusation and the system pursuing him.) with Fräulein Bürstner (A fellow lodger in Josef K.'s boarding house who becomes connected with his reflections and behavior following his arrest.). The theme “Authority” and subtheme “Power without explanation” guide the comparison; the passage “An Unexplained Notice” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "type": "open",
+      "sourceDomain": "RELATIONS",
+      "sourceRowId": "sample-character-relation-01",
+      "bookRow": 4,
+      "bookName": "The Trial",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#josef-k", "#guilt", "#alienation", "#buerstner", "#boarding-house", "#authority"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-09",
+      "question": "How are “Bureaucracy” and “Alienation” connected in the catalog?",
+      "answer": "provides context for. The definition of “Bureaucracy” (“An administrative system organized through offices, procedures, officials, and institutional rules.”) can be read in relation to “Alienation” (“A condition of estrangement from other people, institutions, surroundings, or one's own sense of agency.”). The theme Authority and subtheme Power without explanation, together with the passage “An Unexplained Notice”, place this conceptual connection in the book’s reading context.",
+      "type": "open",
+      "sourceDomain": "ASSOCIATIONS",
+      "sourceRowId": "sample-concept-relation-01",
+      "bookRow": 4,
+      "bookName": "The Trial",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": [
+        "#bureaucracy",
+        "#authority",
+        "#institution",
+        "#alienation",
+        "#isolation",
+        "#existentialism"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-10",
+      "question": "Define “bureaucracy” in this book’s glossary.",
+      "answer": "A system of administration involving offices, officials, procedures, and formal organization.",
+      "type": "flashcard",
+      "sourceDomain": "GLOSARY",
+      "sourceRowId": "sample-glosary-01",
+      "sourceTerm": "bureaucracy",
+      "bookRow": 4,
+      "bookName": "The Trial",
+      "page": "0",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#bureaucracy", "#authority"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
   "BOOK_EVENTS": [
     {
       "id": "sample-book-event-01",
@@ -829,7 +1095,16 @@
       "book": "The Trial",
       "author": "Franz Kafka",
       "page": "",
-      "tags": ["#authority", "#josef-k", "#guilt", "#alienation", "#bureaucracy", "#institution", "#boarding-house", "#arrest"],
+      "tags": [
+        "#authority",
+        "#josef-k",
+        "#guilt",
+        "#alienation",
+        "#bureaucracy",
+        "#institution",
+        "#boarding-house",
+        "#arrest"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -848,7 +1123,16 @@
       "book": "The Trial",
       "author": "Franz Kafka",
       "page": "",
-      "tags": ["#guilt", "#huld", "#law", "#bureaucracy", "#judgment", "#bank", "#work", "#josef-k"],
+      "tags": [
+        "#guilt",
+        "#huld",
+        "#law",
+        "#bureaucracy",
+        "#judgment",
+        "#bank",
+        "#work",
+        "#josef-k"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -867,7 +1151,15 @@
       "book": "The Trial",
       "author": "Franz Kafka",
       "page": "",
-      "tags": ["#bureaucracy", "#titorelli", "#court", "#justice", "#opaque-authority", "#power", "#law"],
+      "tags": [
+        "#bureaucracy",
+        "#titorelli",
+        "#court",
+        "#justice",
+        "#opaque-authority",
+        "#power",
+        "#law"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -886,7 +1178,18 @@
       "book": "The Trial",
       "author": "Franz Kafka",
       "page": "",
-      "tags": ["#alienation", "#priest", "#law", "#interpretation", "#judgment", "#guilt", "#justice", "#courtroom", "#trial", "#authority"],
+      "tags": [
+        "#alienation",
+        "#priest",
+        "#law",
+        "#interpretation",
+        "#judgment",
+        "#guilt",
+        "#justice",
+        "#courtroom",
+        "#trial",
+        "#authority"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -939,7 +1242,15 @@
       "book": "The Trial",
       "author": "Franz Kafka",
       "page": "",
-      "tags": ["#titorelli", "#court", "#justice", "#uncle-karl", "#family", "#law", "#bureaucracy"],
+      "tags": [
+        "#titorelli",
+        "#court",
+        "#justice",
+        "#uncle-karl",
+        "#family",
+        "#law",
+        "#bureaucracy"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -956,7 +1267,15 @@
       "book": "The Trial",
       "author": "Franz Kafka",
       "page": "",
-      "tags": ["#priest", "#law", "#interpretation", "#block", "#trial", "#dependence", "#alienation"],
+      "tags": [
+        "#priest",
+        "#law",
+        "#interpretation",
+        "#block",
+        "#trial",
+        "#dependence",
+        "#alienation"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -975,7 +1294,14 @@
       "book": "The Trial",
       "author": "Franz Kafka",
       "page": "",
-      "tags": ["#bureaucracy", "#authority", "#institution", "#alienation", "#isolation", "#existentialism"],
+      "tags": [
+        "#bureaucracy",
+        "#authority",
+        "#institution",
+        "#alienation",
+        "#isolation",
+        "#existentialism"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1026,7 +1352,15 @@
       "book": "The Trial",
       "author": "Franz Kafka",
       "page": "",
-      "tags": ["#judgment", "#guilt", "#justice", "#institutional-labyrinth", "#bureaucracy", "#confusion", "#alienation"],
+      "tags": [
+        "#judgment",
+        "#guilt",
+        "#justice",
+        "#institutional-labyrinth",
+        "#bureaucracy",
+        "#confusion",
+        "#alienation"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"

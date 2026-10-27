@@ -813,7 +813,273 @@
       "syncStatus": "synced"
     }
   ],
-  "QUESTIONS": [],
+  "QUESTIONS": [
+    {
+      "id": "sample-question-01",
+      "question": "True or false: the index links the chapter “Telemachus” with the theme “Identity.”",
+      "answer": "True. The index links “Telemachus” with “Identity.” Self-definition and belonging",
+      "type": "true-false",
+      "options": [
+        {
+          "id": "true",
+          "text": "true",
+          "isCorrect": true
+        },
+        {
+          "id": "false",
+          "text": "false",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "INDEX",
+      "sourceRowId": "sample-index-01",
+      "sourceTerm": "Telemachus",
+      "bookRow": 1,
+      "bookName": "Ulysses",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#identity"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-02",
+      "question": "Which concept is defined as: “A narrative technique that represents the shifting flow of a character's thoughts, impressions, memories, and perceptions.”?",
+      "answer": "Stream of consciousness: A narrative technique that represents the shifting flow of a character's thoughts, impressions, memories, and perceptions.",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Modernism",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Stream of consciousness",
+          "isCorrect": true
+        },
+        {
+          "id": "option-3",
+          "text": "Interiority",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Allusion",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CONCEPTS",
+      "sourceRowId": "sample-concept-01",
+      "sourceTerm": "Stream of consciousness",
+      "bookRow": 1,
+      "bookName": "Ulysses",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#modernism", "#narrative", "#stream-of-consciousness"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-03",
+      "question": "Which character is described as follows: “A central figure whose movement through Dublin provides a major perspective on ordinary experience, memory, relationships, and ide”?",
+      "answer": "Leopold Bloom",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Stephen Dedalus",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Molly Bloom",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Leopold Bloom",
+          "isCorrect": true
+        },
+        {
+          "id": "option-4",
+          "text": "Buck Mulligan",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CHARACTER",
+      "sourceRowId": "sample-character-01",
+      "sourceTerm": "Leopold Bloom",
+      "bookRow": 1,
+      "bookName": "Ulysses",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#bloom", "#identity", "#dublin"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-04",
+      "question": "Which place is described as follows: “The Irish city that provides the principal urban setting for the novel.”?",
+      "answer": "Dublin",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Ireland",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Martello Tower, Sandycove",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Sandymount",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Dublin",
+          "isCorrect": true
+        }
+      ],
+      "sourceDomain": "PLACES",
+      "sourceRowId": "sample-place-01",
+      "sourceTerm": "Dublin",
+      "bookRow": 1,
+      "bookName": "Ulysses",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#dublin", "#city", "#ireland"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-05",
+      "question": "What interpretation is given for this quote: “A city becomes immense when every passing thought is allowed to have a street of its own.”?",
+      "answer": "An original reflection on the relationship between urban movement and interior consciousness.",
+      "type": "open",
+      "sourceDomain": "QUOTES",
+      "sourceRowId": "sample-quote-01",
+      "sourceTerm": "A city becomes immense when every passing thought is allowed to have a street of its own.",
+      "bookRow": 1,
+      "bookName": "Ulysses",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#city", "#consciousness"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-06",
+      "question": "What idea is explored in the passage “Morning and Memory”?",
+      "answer": "Morning gathers around the walker in fragments: a door closing, a distant bell, a thought unfinished. The city is awake before the mind has decided what the day means.",
+      "type": "open",
+      "sourceDomain": "PASSAGES",
+      "sourceRowId": "sample-passage-01",
+      "sourceTerm": "Morning and Memory",
+      "bookRow": 1,
+      "bookName": "Ulysses",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#memory", "#city"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-07",
+      "question": "What does the study event “Study event 1: Telemachus / Identity” describe?",
+      "answer": "Study synthesis for “Telemachus”: the index highlights Identity (Self-definition and belonging). The description of Leopold Bloom (“A central figure whose movement through Dublin provides a major perspective on ordinary experience, memory, relationships, and identity.”) is considered here alongside Stream of consciousness (“A narrative technique that represents the shifting flow of a character's thoughts, impressions, memories, and perceptions.”). Dublin and the passage “Morning and Memory” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "type": "open",
+      "sourceDomain": "BOOK_EVENTS",
+      "sourceRowId": "sample-book-event-01",
+      "sourceTerm": "Study event 1: Telemachus / Identity",
+      "bookRow": 1,
+      "bookName": "Ulysses",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": [
+        "#identity",
+        "#bloom",
+        "#dublin",
+        "#stream-of-consciousness",
+        "#modernism",
+        "#narrative",
+        "#city",
+        "#ireland"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-08",
+      "question": "What relationship is recorded between Leopold Bloom and Stephen Dedalus?",
+      "answer": "thematic comparison. This reading association links Leopold Bloom (A central figure whose movement through Dublin provides a major perspective on ordinary experience, memory, relationships, and identity.) with Stephen Dedalus (A young intellectual preoccupied with art, philosophy, family, history, and his place in the world.). The theme “Identity” and subtheme “Self-definition and belonging” guide the comparison; the passage “Morning and Memory” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "type": "open",
+      "sourceDomain": "RELATIONS",
+      "sourceRowId": "sample-character-relation-01",
+      "bookRow": 1,
+      "bookName": "Ulysses",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#bloom", "#identity", "#dublin", "#stephen", "#art"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-09",
+      "question": "How are “Stream of consciousness” and “Modernism” connected in the catalog?",
+      "answer": "provides context for. The definition of “Stream of consciousness” (“A narrative technique that represents the shifting flow of a character's thoughts, impressions, memories, and perceptions.”) can be read in relation to “Modernism” (“A broad artistic movement associated with formal experimentation and new approaches to representing modern experience.”). The theme Identity and subtheme Self-definition and belonging, together with the passage “Morning and Memory”, place this conceptual connection in the book’s reading context.",
+      "type": "open",
+      "sourceDomain": "ASSOCIATIONS",
+      "sourceRowId": "sample-concept-relation-01",
+      "bookRow": 1,
+      "bookName": "Ulysses",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": [
+        "#stream-of-consciousness",
+        "#modernism",
+        "#narrative",
+        "#literature",
+        "#experimentation",
+        "#identity"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-10",
+      "question": "Define “allusion” in this book’s glossary.",
+      "answer": "An indirect reference to another work, person, event, or cultural tradition.",
+      "type": "flashcard",
+      "sourceDomain": "GLOSARY",
+      "sourceRowId": "sample-glosary-01",
+      "sourceTerm": "allusion",
+      "bookRow": 1,
+      "bookName": "Ulysses",
+      "page": "0",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#literary-device", "#reading"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
   "BOOK_EVENTS": [
     {
       "id": "sample-book-event-01",
@@ -829,7 +1095,16 @@
       "book": "Ulysses",
       "author": "James Joyce",
       "page": "",
-      "tags": ["#identity", "#bloom", "#dublin", "#stream-of-consciousness", "#modernism", "#narrative", "#city", "#ireland"],
+      "tags": [
+        "#identity",
+        "#bloom",
+        "#dublin",
+        "#stream-of-consciousness",
+        "#modernism",
+        "#narrative",
+        "#city",
+        "#ireland"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -848,7 +1123,16 @@
       "book": "Ulysses",
       "author": "James Joyce",
       "page": "",
-      "tags": ["#history", "#molly", "#memory", "#consciousness", "#interiority", "#psychology", "#ireland", "#identity"],
+      "tags": [
+        "#history",
+        "#molly",
+        "#memory",
+        "#consciousness",
+        "#interiority",
+        "#psychology",
+        "#ireland",
+        "#identity"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -867,7 +1151,18 @@
       "book": "Ulysses",
       "author": "James Joyce",
       "page": "",
-      "tags": ["#perception", "#haines", "#ireland", "#identity", "#myth", "#structure", "#odyssey", "#sandycove", "#tower", "#stephen"],
+      "tags": [
+        "#perception",
+        "#haines",
+        "#ireland",
+        "#identity",
+        "#myth",
+        "#structure",
+        "#odyssey",
+        "#sandycove",
+        "#tower",
+        "#stephen"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -886,7 +1181,18 @@
       "book": "Ulysses",
       "author": "James Joyce",
       "page": "",
-      "tags": ["#everyday-life", "#boylan", "#relationships", "#bloom", "#identity", "#self", "#belonging", "#sandymount", "#dublin", "#coast"],
+      "tags": [
+        "#everyday-life",
+        "#boylan",
+        "#relationships",
+        "#bloom",
+        "#identity",
+        "#self",
+        "#belonging",
+        "#sandymount",
+        "#dublin",
+        "#coast"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -956,7 +1262,15 @@
       "book": "Ulysses",
       "author": "James Joyce",
       "page": "",
-      "tags": ["#boylan", "#relationships", "#bloom", "#milly", "#family", "#memory", "#everyday-life"],
+      "tags": [
+        "#boylan",
+        "#relationships",
+        "#bloom",
+        "#milly",
+        "#family",
+        "#memory",
+        "#everyday-life"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -975,7 +1289,14 @@
       "book": "Ulysses",
       "author": "James Joyce",
       "page": "",
-      "tags": ["#stream-of-consciousness", "#modernism", "#narrative", "#literature", "#experimentation", "#identity"],
+      "tags": [
+        "#stream-of-consciousness",
+        "#modernism",
+        "#narrative",
+        "#literature",
+        "#experimentation",
+        "#identity"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -992,7 +1313,15 @@
       "book": "Ulysses",
       "author": "James Joyce",
       "page": "",
-      "tags": ["#interiority", "#consciousness", "#psychology", "#allusion", "#references", "#interpretation", "#history"],
+      "tags": [
+        "#interiority",
+        "#consciousness",
+        "#psychology",
+        "#allusion",
+        "#references",
+        "#interpretation",
+        "#history"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1009,7 +1338,15 @@
       "book": "Ulysses",
       "author": "James Joyce",
       "page": "",
-      "tags": ["#myth", "#structure", "#odyssey", "#urban-experience", "#dublin", "#city", "#perception"],
+      "tags": [
+        "#myth",
+        "#structure",
+        "#odyssey",
+        "#urban-experience",
+        "#dublin",
+        "#city",
+        "#perception"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1026,7 +1363,15 @@
       "book": "Ulysses",
       "author": "James Joyce",
       "page": "",
-      "tags": ["#identity", "#self", "#belonging", "#memory", "#past", "#consciousness", "#everyday-life"],
+      "tags": [
+        "#identity",
+        "#self",
+        "#belonging",
+        "#memory",
+        "#past",
+        "#consciousness",
+        "#everyday-life"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"

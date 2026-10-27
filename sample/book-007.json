@@ -813,7 +813,266 @@
       "syncStatus": "synced"
     }
   ],
-  "QUESTIONS": [],
+  "QUESTIONS": [
+    {
+      "id": "sample-question-01",
+      "question": "True or false: the index links the chapter “Arrival” with the theme “Time.”",
+      "answer": "True. The index links “Arrival” with “Time.” Separation from ordinary temporal rhythms",
+      "type": "true-false",
+      "options": [
+        {
+          "id": "true",
+          "text": "true",
+          "isCorrect": true
+        },
+        {
+          "id": "false",
+          "text": "false",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "INDEX",
+      "sourceRowId": "sample-index-01",
+      "sourceTerm": "Arrival",
+      "bookRow": 7,
+      "bookName": "The Magic Mountain",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#time"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-02",
+      "question": "Which concept is defined as: “The experience of time as altered by routine, memory, expectation, repetition, and consciousness.”?",
+      "answer": "Subjective time: The experience of time as altered by routine, memory, expectation, repetition, and consciousness.",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Illness",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Bildungsroman",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Humanism",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Subjective time",
+          "isCorrect": true
+        }
+      ],
+      "sourceDomain": "CONCEPTS",
+      "sourceRowId": "sample-concept-01",
+      "sourceTerm": "Subjective time",
+      "bookRow": 7,
+      "bookName": "The Magic Mountain",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#time", "#consciousness", "#subjective-time"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-03",
+      "question": "Which character is described as follows: “A young German engineer whose visit to a Swiss sanatorium develops into an extended intellectual and personal education.”?",
+      "answer": "Hans Castorp",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Hans Castorp",
+          "isCorrect": true
+        },
+        {
+          "id": "option-2",
+          "text": "Joachim Ziemssen",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Lodovico Settembrini",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Leo Naphta",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CHARACTER",
+      "sourceRowId": "sample-character-01",
+      "sourceTerm": "Hans Castorp",
+      "bookRow": 7,
+      "bookName": "The Magic Mountain",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#hans-castorp", "#education", "#time"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-04",
+      "question": "Which place is described as follows: “The Swiss alpine resort town providing the geographical setting for the sanatorium world of the novel.”?",
+      "answer": "Davos",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Switzerland",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Davos",
+          "isCorrect": true
+        },
+        {
+          "id": "option-3",
+          "text": "Berghof Sanatorium",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Hamburg",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "PLACES",
+      "sourceRowId": "sample-place-01",
+      "sourceTerm": "Davos",
+      "bookRow": 7,
+      "bookName": "The Magic Mountain",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#davos", "#switzerland", "#mountains"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-05",
+      "question": "What interpretation is given for this quote: “Time changes character when every day is designed to resemble the one before it.”?",
+      "answer": "An original reflection on repetition and subjective experiences of time.",
+      "type": "open",
+      "sourceDomain": "QUOTES",
+      "sourceRowId": "sample-quote-01",
+      "sourceTerm": "Time changes character when every day is designed to resemble the one before it.",
+      "bookRow": 7,
+      "bookName": "The Magic Mountain",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#time", "#routine"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-06",
+      "question": "What idea is explored in the passage “Arrival Above”?",
+      "answer": "The journey upward seemed to subtract obligations with every turn. By the time the valley had disappeared, ordinary schedules already felt like customs belonging to another world.",
+      "type": "open",
+      "sourceDomain": "PASSAGES",
+      "sourceRowId": "sample-passage-01",
+      "sourceTerm": "Arrival Above",
+      "bookRow": 7,
+      "bookName": "The Magic Mountain",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#mountain", "#time"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-07",
+      "question": "What does the study event “Study event 1: Arrival / Time” describe?",
+      "answer": "Study synthesis for “Arrival”: the index highlights Time (Separation from ordinary temporal rhythms). The description of Hans Castorp (“A young German engineer whose visit to a Swiss sanatorium develops into an extended intellectual and personal education.”) is considered here alongside Subjective time (“The experience of time as altered by routine, memory, expectation, repetition, and consciousness.”). Davos and the passage “Arrival Above” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "type": "open",
+      "sourceDomain": "BOOK_EVENTS",
+      "sourceRowId": "sample-book-event-01",
+      "sourceTerm": "Study event 1: Arrival / Time",
+      "bookRow": 7,
+      "bookName": "The Magic Mountain",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": [
+        "#time",
+        "#hans-castorp",
+        "#education",
+        "#subjective-time",
+        "#consciousness",
+        "#davos",
+        "#switzerland",
+        "#mountains"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-08",
+      "question": "What relationship is recorded between Hans Castorp and Joachim Ziemssen?",
+      "answer": "thematic comparison. This reading association links Hans Castorp (A young German engineer whose visit to a Swiss sanatorium develops into an extended intellectual and personal education.) with Joachim Ziemssen (Hans Castorp's cousin, a sanatorium patient whose disciplined character and military aspirations contrast with Hans's increasing absorption in life on the mountain.). The theme “Time” and subtheme “Separation from ordinary temporal rhythms” guide the comparison; the passage “Arrival Above” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "type": "open",
+      "sourceDomain": "RELATIONS",
+      "sourceRowId": "sample-character-relation-01",
+      "bookRow": 7,
+      "bookName": "The Magic Mountain",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#hans-castorp", "#education", "#time", "#joachim", "#discipline", "#illness"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-09",
+      "question": "How are “Subjective time” and “Illness” connected in the catalog?",
+      "answer": "provides context for. The definition of “Subjective time” (“The experience of time as altered by routine, memory, expectation, repetition, and consciousness.”) can be read in relation to “Illness” (“A physical condition that also functions as a framework for examining identity, society, culture, and mortality.”). The theme Time and subtheme Separation from ordinary temporal rhythms, together with the passage “Arrival Above”, place this conceptual connection in the book’s reading context.",
+      "type": "open",
+      "sourceDomain": "ASSOCIATIONS",
+      "sourceRowId": "sample-concept-relation-01",
+      "bookRow": 7,
+      "bookName": "The Magic Mountain",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#subjective-time", "#time", "#consciousness", "#illness", "#body", "#mortality"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-10",
+      "question": "Define “sanatorium” in this book’s glossary.",
+      "answer": "A medical institution historically associated with extended treatment and recuperation, particularly for chronic illnesses.",
+      "type": "flashcard",
+      "sourceDomain": "GLOSARY",
+      "sourceRowId": "sample-glosary-01",
+      "sourceTerm": "sanatorium",
+      "bookRow": 7,
+      "bookName": "The Magic Mountain",
+      "page": "0",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#sanatorium", "#illness"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
   "BOOK_EVENTS": [
     {
       "id": "sample-book-event-01",
@@ -829,7 +1088,16 @@
       "book": "The Magic Mountain",
       "author": "Thomas Mann",
       "page": "",
-      "tags": ["#time", "#hans-castorp", "#education", "#subjective-time", "#consciousness", "#davos", "#switzerland", "#mountains"],
+      "tags": [
+        "#time",
+        "#hans-castorp",
+        "#education",
+        "#subjective-time",
+        "#consciousness",
+        "#davos",
+        "#switzerland",
+        "#mountains"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -848,7 +1116,18 @@
       "book": "The Magic Mountain",
       "author": "Thomas Mann",
       "page": "",
-      "tags": ["#illness", "#settembrini", "#humanism", "#reason", "#bildungsroman", "#education", "#development", "#switzerland", "#alps", "#setting"],
+      "tags": [
+        "#illness",
+        "#settembrini",
+        "#humanism",
+        "#reason",
+        "#bildungsroman",
+        "#education",
+        "#development",
+        "#switzerland",
+        "#alps",
+        "#setting"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -867,7 +1146,18 @@
       "book": "The Magic Mountain",
       "author": "Thomas Mann",
       "page": "",
-      "tags": ["#transformation", "#clavdia", "#desire", "#hans-castorp", "#ideological-conflict", "#politics", "#ideas", "#berghof", "#sanatorium", "#illness"],
+      "tags": [
+        "#transformation",
+        "#clavdia",
+        "#desire",
+        "#hans-castorp",
+        "#ideological-conflict",
+        "#politics",
+        "#ideas",
+        "#berghof",
+        "#sanatorium",
+        "#illness"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -886,7 +1176,18 @@
       "book": "The Magic Mountain",
       "author": "Thomas Mann",
       "page": "",
-      "tags": ["#humanism", "#krokowski", "#psychology", "#illness", "#isolation", "#sanatorium", "#society", "#hamburg", "#hans-castorp", "#ordinary-life"],
+      "tags": [
+        "#humanism",
+        "#krokowski",
+        "#psychology",
+        "#illness",
+        "#isolation",
+        "#sanatorium",
+        "#society",
+        "#hamburg",
+        "#hans-castorp",
+        "#ordinary-life"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -922,7 +1223,15 @@
       "book": "The Magic Mountain",
       "author": "Thomas Mann",
       "page": "",
-      "tags": ["#settembrini", "#humanism", "#reason", "#naphta", "#ideology", "#authority", "#illness"],
+      "tags": [
+        "#settembrini",
+        "#humanism",
+        "#reason",
+        "#naphta",
+        "#ideology",
+        "#authority",
+        "#illness"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -939,7 +1248,15 @@
       "book": "The Magic Mountain",
       "author": "Thomas Mann",
       "page": "",
-      "tags": ["#clavdia", "#desire", "#hans-castorp", "#behrens", "#medicine", "#authority", "#transformation"],
+      "tags": [
+        "#clavdia",
+        "#desire",
+        "#hans-castorp",
+        "#behrens",
+        "#medicine",
+        "#authority",
+        "#transformation"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -956,7 +1273,15 @@
       "book": "The Magic Mountain",
       "author": "Thomas Mann",
       "page": "",
-      "tags": ["#krokowski", "#psychology", "#illness", "#peeperkorn", "#charisma", "#vitality", "#humanism"],
+      "tags": [
+        "#krokowski",
+        "#psychology",
+        "#illness",
+        "#peeperkorn",
+        "#charisma",
+        "#vitality",
+        "#humanism"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -992,7 +1317,15 @@
       "book": "The Magic Mountain",
       "author": "Thomas Mann",
       "page": "",
-      "tags": ["#bildungsroman", "#education", "#development", "#humanism", "#reason", "#settembrini", "#illness"],
+      "tags": [
+        "#bildungsroman",
+        "#education",
+        "#development",
+        "#humanism",
+        "#reason",
+        "#settembrini",
+        "#illness"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1009,7 +1342,15 @@
       "book": "The Magic Mountain",
       "author": "Thomas Mann",
       "page": "",
-      "tags": ["#ideological-conflict", "#politics", "#ideas", "#mortality", "#death", "#illness", "#transformation"],
+      "tags": [
+        "#ideological-conflict",
+        "#politics",
+        "#ideas",
+        "#mortality",
+        "#death",
+        "#illness",
+        "#transformation"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1026,7 +1367,15 @@
       "book": "The Magic Mountain",
       "author": "Thomas Mann",
       "page": "",
-      "tags": ["#isolation", "#sanatorium", "#society", "#european-modernity", "#europe", "#politics", "#humanism"],
+      "tags": [
+        "#isolation",
+        "#sanatorium",
+        "#society",
+        "#european-modernity",
+        "#europe",
+        "#politics",
+        "#humanism"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"

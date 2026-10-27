@@ -813,7 +813,274 @@
       "syncStatus": "synced"
     }
   ],
-  "QUESTIONS": [],
+  "QUESTIONS": [
+    {
+      "id": "sample-question-01",
+      "question": "True or false: the index links the chapter “From the Other Side” with the theme “Search.”",
+      "answer": "True. The index links “From the Other Side” with “Search.” The pursuit of meaning beyond ordinary reality",
+      "type": "true-false",
+      "options": [
+        {
+          "id": "true",
+          "text": "true",
+          "isCorrect": true
+        },
+        {
+          "id": "false",
+          "text": "false",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "INDEX",
+      "sourceRowId": "sample-index-01",
+      "sourceTerm": "From the Other Side",
+      "bookRow": 8,
+      "bookName": "Hopscotch",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#search"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-02",
+      "question": "Which concept is defined as: “A method of reading in which narrative sections can be approached in an order different from conventional sequential progression.”?",
+      "answer": "Nonlinear reading: A method of reading in which narrative sections can be approached in an order different from conventional sequential progression.",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Nonlinear reading",
+          "isCorrect": true
+        },
+        {
+          "id": "option-2",
+          "text": "Reader participation",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Existential search",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Alienation",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CONCEPTS",
+      "sourceRowId": "sample-concept-01",
+      "sourceTerm": "Nonlinear reading",
+      "bookRow": 8,
+      "bookName": "Hopscotch",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#structure", "#experimentation", "#nonlinear-reading"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-03",
+      "question": "Which character is described as follows: “An Argentine intellectual whose experiences in Paris and Buenos Aires center the novel's exploration of alienation, meaning, love,”?",
+      "answer": "Horacio Oliveira",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "La Maga",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Horacio Oliveira",
+          "isCorrect": true
+        },
+        {
+          "id": "option-3",
+          "text": "Traveler",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Talita",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CHARACTER",
+      "sourceRowId": "sample-character-01",
+      "sourceTerm": "Horacio Oliveira",
+      "bookRow": 8,
+      "bookName": "Hopscotch",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#oliveira", "#search", "#alienation"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-04",
+      "question": "Which place is described as follows: “The principal setting of the first major section, associated with Oliveira, La Maga, intellectual wandering, jazz, and the Serpent”?",
+      "answer": "Paris",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Buenos Aires",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "France",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Paris",
+          "isCorrect": true
+        },
+        {
+          "id": "option-4",
+          "text": "Argentina",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "PLACES",
+      "sourceRowId": "sample-place-01",
+      "sourceTerm": "Paris",
+      "bookRow": 8,
+      "bookName": "Hopscotch",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#paris", "#france", "#oliveira"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-05",
+      "question": "What interpretation is given for this quote: “A different order of reading can produce a different map of the same uncertainty.”?",
+      "answer": "An original reflection on nonlinear structure and reader participation.",
+      "type": "open",
+      "sourceDomain": "QUOTES",
+      "sourceRowId": "sample-quote-01",
+      "sourceTerm": "A different order of reading can produce a different map of the same uncertainty.",
+      "bookRow": 8,
+      "bookName": "Hopscotch",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#reading", "#structure"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-06",
+      "question": "What idea is explored in the passage “Crossing Paris”?",
+      "answer": "He crossed the city without deciding whether the walk had a destination. Every corner offered another possibility, as though direction mattered less than remaining available to coincidence.",
+      "type": "open",
+      "sourceDomain": "PASSAGES",
+      "sourceRowId": "sample-passage-01",
+      "sourceTerm": "Crossing Paris",
+      "bookRow": 8,
+      "bookName": "Hopscotch",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#paris", "#search"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-07",
+      "question": "What does the study event “Study event 1: From the Other Side / Search” describe?",
+      "answer": "Study synthesis for “From the Other Side”: the index highlights Search (The pursuit of meaning beyond ordinary reality). The description of Horacio Oliveira (“An Argentine intellectual whose experiences in Paris and Buenos Aires center the novel's exploration of alienation, meaning, love, and intellectual uncertainty.”) is considered here alongside Nonlinear reading (“A method of reading in which narrative sections can be approached in an order different from conventional sequential progression.”). Paris and the passage “Crossing Paris” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "type": "open",
+      "sourceDomain": "BOOK_EVENTS",
+      "sourceRowId": "sample-book-event-01",
+      "sourceTerm": "Study event 1: From the Other Side / Search",
+      "bookRow": 8,
+      "bookName": "Hopscotch",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": [
+        "#search",
+        "#oliveira",
+        "#alienation",
+        "#nonlinear-reading",
+        "#structure",
+        "#experimentation",
+        "#paris",
+        "#france"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-08",
+      "question": "What relationship is recorded between Horacio Oliveira and La Maga?",
+      "answer": "thematic comparison. This reading association links Horacio Oliveira (An Argentine intellectual whose experiences in Paris and Buenos Aires center the novel's exploration of alienation, meaning, love, and intellectual uncertainty.) with La Maga (Oliveira's Uruguayan companion in Paris, often associated with intuition, immediacy, emotional experience, and a way of understanding life that contrasts with his intellectualism.). The theme “Search” and subtheme “The pursuit of meaning beyond ordinary reality” guide the comparison; the passage “Crossing Paris” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "type": "open",
+      "sourceDomain": "RELATIONS",
+      "sourceRowId": "sample-character-relation-01",
+      "bookRow": 8,
+      "bookName": "Hopscotch",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#oliveira", "#search", "#alienation", "#la-maga", "#intuition", "#love"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-09",
+      "question": "How are “Nonlinear reading” and “Reader participation” connected in the catalog?",
+      "answer": "provides context for. The definition of “Nonlinear reading” (“A method of reading in which narrative sections can be approached in an order different from conventional sequential progression.”) can be read in relation to “Reader participation” (“The idea that the reader actively constructs connections and meanings rather than receiving a completely predetermined narrative sequence.”). The theme Search and subtheme The pursuit of meaning beyond ordinary reality, together with the passage “Crossing Paris”, place this conceptual connection in the book’s reading context.",
+      "type": "open",
+      "sourceDomain": "ASSOCIATIONS",
+      "sourceRowId": "sample-concept-relation-01",
+      "bookRow": 8,
+      "bookName": "Hopscotch",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": [
+        "#nonlinear-reading",
+        "#structure",
+        "#experimentation",
+        "#reader-participation",
+        "#reading",
+        "#interpretation",
+        "#search"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-10",
+      "question": "Define “nonlinear” in this book’s glossary.",
+      "answer": "Not organized according to a single continuous or sequential progression.",
+      "type": "flashcard",
+      "sourceDomain": "GLOSARY",
+      "sourceRowId": "sample-glosary-01",
+      "sourceTerm": "nonlinear",
+      "bookRow": 8,
+      "bookName": "Hopscotch",
+      "page": "0",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#structure", "#reading"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
   "BOOK_EVENTS": [
     {
       "id": "sample-book-event-01",
@@ -829,7 +1096,16 @@
       "book": "Hopscotch",
       "author": "Julio Cortázar",
       "page": "",
-      "tags": ["#search", "#oliveira", "#alienation", "#nonlinear-reading", "#structure", "#experimentation", "#paris", "#france"],
+      "tags": [
+        "#search",
+        "#oliveira",
+        "#alienation",
+        "#nonlinear-reading",
+        "#structure",
+        "#experimentation",
+        "#paris",
+        "#france"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -848,7 +1124,17 @@
       "book": "Hopscotch",
       "author": "Julio Cortázar",
       "page": "",
-      "tags": ["#love", "#traveler", "#friendship", "#identity", "#existential-search", "#meaning", "#buenos-aires", "#argentina", "#return"],
+      "tags": [
+        "#love",
+        "#traveler",
+        "#friendship",
+        "#identity",
+        "#existential-search",
+        "#meaning",
+        "#buenos-aires",
+        "#argentina",
+        "#return"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -867,7 +1153,17 @@
       "book": "Hopscotch",
       "author": "Julio Cortázar",
       "page": "",
-      "tags": ["#paris", "#morelli", "#literature", "#experimentation", "#intuition-intellect", "#intuition", "#reason", "#france", "#europe"],
+      "tags": [
+        "#paris",
+        "#morelli",
+        "#literature",
+        "#experimentation",
+        "#intuition-intellect",
+        "#intuition",
+        "#reason",
+        "#france",
+        "#europe"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -886,7 +1182,17 @@
       "book": "Hopscotch",
       "author": "Julio Cortázar",
       "page": "",
-      "tags": ["#return", "#ronald", "#serpent-club", "#jazz", "#fragmentation", "#structure", "#modern-fiction", "#argentina", "#buenos-aires"],
+      "tags": [
+        "#return",
+        "#ronald",
+        "#serpent-club",
+        "#jazz",
+        "#fragmentation",
+        "#structure",
+        "#modern-fiction",
+        "#argentina",
+        "#buenos-aires"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -939,7 +1245,15 @@
       "book": "Hopscotch",
       "author": "Julio Cortázar",
       "page": "",
-      "tags": ["#morelli", "#literature", "#experimentation", "#etienne", "#serpent-club", "#art", "#paris"],
+      "tags": [
+        "#morelli",
+        "#literature",
+        "#experimentation",
+        "#etienne",
+        "#serpent-club",
+        "#art",
+        "#paris"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -975,7 +1289,15 @@
       "book": "Hopscotch",
       "author": "Julio Cortázar",
       "page": "",
-      "tags": ["#nonlinear-reading", "#structure", "#experimentation", "#reader-participation", "#reading", "#interpretation", "#search"],
+      "tags": [
+        "#nonlinear-reading",
+        "#structure",
+        "#experimentation",
+        "#reader-participation",
+        "#reading",
+        "#interpretation",
+        "#search"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -992,7 +1314,14 @@
       "book": "Hopscotch",
       "author": "Julio Cortázar",
       "page": "",
-      "tags": ["#existential-search", "#meaning", "#identity", "#alienation", "#isolation", "#love"],
+      "tags": [
+        "#existential-search",
+        "#meaning",
+        "#identity",
+        "#alienation",
+        "#isolation",
+        "#love"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1009,7 +1338,15 @@
       "book": "Hopscotch",
       "author": "Julio Cortázar",
       "page": "",
-      "tags": ["#intuition-intellect", "#intuition", "#reason", "#metafiction", "#literature", "#experimentation", "#paris"],
+      "tags": [
+        "#intuition-intellect",
+        "#intuition",
+        "#reason",
+        "#metafiction",
+        "#literature",
+        "#experimentation",
+        "#paris"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1026,7 +1363,15 @@
       "book": "Hopscotch",
       "author": "Julio Cortázar",
       "page": "",
-      "tags": ["#fragmentation", "#structure", "#modern-fiction", "#play", "#language", "#experimentation", "#return"],
+      "tags": [
+        "#fragmentation",
+        "#structure",
+        "#modern-fiction",
+        "#play",
+        "#language",
+        "#experimentation",
+        "#return"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
