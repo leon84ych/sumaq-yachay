@@ -168,7 +168,10 @@ export class DomainDataService {
   }
 
   canLoadMore(sheetName: string): boolean {
-    if (this.configService.isLocalSampleDataEnabled()) {
+    if (
+      this.configService.isLocalSampleDataEnabled() ||
+      !DOMAIN_TABLES[sheetName.toUpperCase()]
+    ) {
       return false;
     }
     const state = this.pagination()[this.paginationKey(sheetName)];

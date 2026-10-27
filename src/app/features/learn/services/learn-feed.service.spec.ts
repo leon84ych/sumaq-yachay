@@ -1,5 +1,8 @@
+// @vitest-environment jsdom
+
 import { TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config.service';
 import { LearnFeedService } from './learn-feed.service';
@@ -12,6 +15,10 @@ describe('LearnFeedService', () => {
   let characterRows: Record<string, unknown>[];
   let characterRelationRows: Record<string, unknown>[];
   let conceptRelationRows: Record<string, unknown>[];
+
+  beforeAll(() => {
+    TestBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
+  });
 
   beforeEach(() => {
     TestBed.resetTestingModule();
@@ -82,7 +89,7 @@ describe('LearnFeedService', () => {
   });
 
   it('filters entries by book, domain, and tags before slicing the batch', async () => {
-    quoteRows[0]['tags'] = '#rare-tag';
+    quoteRows[0]['tags'] = ['#rare-tag'];
     const service = TestBed.inject(LearnFeedService);
 
     const byBook = await service.loadRandomBatch(new Set(), 50, 'book one');

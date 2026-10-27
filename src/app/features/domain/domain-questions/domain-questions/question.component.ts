@@ -5,7 +5,12 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/global-error.service';
 import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
-import { QuestionDifficulty, QuestionRow, QuestionType } from '../model/domain-question-row.model';
+import {
+  QuestionDifficulty,
+  QuestionOption,
+  QuestionRow,
+  QuestionType,
+} from '../model/domain-question-row.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
@@ -34,6 +39,8 @@ export class QuestionsComponent {
   readonly newQuestion = signal('');
   readonly newAnswer = signal('');
   readonly newType = signal<QuestionType>('open');
+  readonly optionDrafts = signal<string[]>(['', '']);
+  readonly correctOptionIndex = signal(0);
   readonly newSourceDomain = signal('MANUAL');
   readonly newSourceTerm = signal('');
   readonly newPage = signal('');
@@ -75,6 +82,9 @@ export class QuestionsComponent {
       !this.newQuestion().trim() ||
       !this.newAnswer().trim() ||
       !this.newSourceDomain().trim() ||
+      (this.newType() === 'multiple-choice' &&
+        (this.optionDrafts().filter((option) => option.trim()).length < 2 ||
+          !this.optionDrafts()[this.correctOptionIndex()]?.trim())) ||
       this.invalidTagsDetected().length > 0
     );
   });
@@ -109,11 +119,36 @@ export class QuestionsComponent {
     }
   }
 
+  setOptionText(index: number, text: string): void {
+    this.optionDrafts.update((options) => options.map((option, optionIndex) =>
+      optionIndex === index ? text : option,
+    ));
+  }
+
+  addOption(): void {
+    this.optionDrafts.update((options) => [...options, '']);
+  }
+
+  removeOption(index: number): void {
+    const options = this.optionDrafts();
+    if (options.length <= 2) return;
+    this.optionDrafts.set(options.filter((_, optionIndex) => optionIndex !== index));
+    const correctIndex = this.correctOptionIndex();
+    this.correctOptionIndex.set(
+      correctIndex === index ? 0 : correctIndex > index ? correctIndex - 1 : correctIndex,
+    );
+  }
+
   editEntry(row: QuestionRow): void {
     this.editingId.set(row.id);
     this.newQuestion.set(row.question);
     this.newAnswer.set(row.answer);
     this.newType.set(row.type);
+    const options = row.options ?? [];
+    this.optionDrafts.set(
+      options.length >= 2 ? options.map((option) => option.text) : ['', ''],
+    );
+    this.correctOptionIndex.set(Math.max(0, options.findIndex((option) => option.isCorrect)));
     this.newSourceDomain.set(row.sourceDomain);
     this.newSourceTerm.set(row.sourceTerm ?? '');
     this.newPage.set(row.page ?? '');
@@ -143,6 +178,11 @@ export class QuestionsComponent {
       if (editingId && !originalRow) {
         throw new Error('The question being edited is no longer available.');
       }
+      const optionTexts = this.optionDrafts()
+        .map((option) => option.trim())
+        .filter(Boolean);
+      const originalOptions = (originalRow?.['options'] as QuestionOption[] | undefined) ?? [];
+      const optionIdPrefix = `question_${Date.now()}`;
 
       const newRow: QuestionRow = {
         ...(originalRow as QuestionRow | undefined),
@@ -150,6 +190,15 @@ export class QuestionsComponent {
         question,
         answer,
         type: this.newType(),
+        ...(this.newType() === 'multiple-choice'
+          ? {
+              options: optionTexts.map((text, index) => ({
+                id: originalOptions[index]?.id ?? `${optionIdPrefix}_option_${index + 1}`,
+                text,
+                isCorrect: index === this.correctOptionIndex(),
+              })),
+            }
+          : { options: undefined }),
         sourceDomain,
         sourceTerm: this.newSourceTerm().trim() || undefined,
         page: this.newPage().trim() || undefined,
@@ -187,6 +236,8 @@ export class QuestionsComponent {
     this.newQuestion.set('');
     this.newAnswer.set('');
     this.newType.set('open');
+    this.optionDrafts.set(['', '']);
+    this.correctOptionIndex.set(0);
     this.newSourceDomain.set('MANUAL');
     this.newSourceTerm.set('');
     this.newPage.set('');

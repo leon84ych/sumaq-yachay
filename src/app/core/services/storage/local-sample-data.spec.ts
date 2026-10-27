@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+
 import { describe, expect, it } from 'vitest';
 import { ALL_AVAILABLE_DOMAINS } from '../../../features/catalog-detail/models/domain-sheet-config';
 import { AppDatabase } from './app-db.service';
@@ -97,7 +99,34 @@ describe('LocalSampleData fixtures', () => {
           (entry, indexWithinDomain) => entry['displayRow'] === (indexWithinDomain % 4) + 1,
         ),
       ).toBe(true);
-      expect(domainData['QUESTIONS'], catalogItem.id).toEqual([]);
+    }
+  });
+
+  it('provides ten localized questions with valid domain sources for every book', async () => {
+    const supportedTypes = new Set(['flashcard', 'multiple-choice', 'true-false', 'open']);
+
+    for (const catalogItem of LOCAL_SAMPLE_CATALOG) {
+      const domainData = await getLocalSampleDomainData(catalogItem.id);
+      const questions = domainData['QUESTIONS'];
+      expect(questions, catalogItem.id).toHaveLength(10);
+
+      for (const question of questions) {
+        expect(question['question']).toBeTruthy();
+        expect(question['answer']).toBeTruthy();
+        expect(question['bookRow']).toBe(catalogItem.row);
+        expect(supportedTypes.has(String(question['type']))).toBe(true);
+
+        const sourceRows = domainData[String(question['sourceDomain'])];
+        expect(
+          sourceRows.some((row) => row['id'] === question['sourceRowId']),
+          `${catalogItem.id} ${String(question['id'])} source`,
+        ).toBe(true);
+
+        if (question['type'] === 'multiple-choice' || question['type'] === 'true-false') {
+          const options = question['options'] as Array<{ isCorrect: boolean }>;
+          expect(options.filter((option) => option.isCorrect)).toHaveLength(1);
+        }
+      }
     }
   });
 
@@ -124,10 +153,20 @@ describe('LocalSampleData fixtures', () => {
     const book001Data = await getLocalSampleDomainData('book-001');
     const domainTables = database.tables
       .map((table) => table.name)
-      .filter((name) => !['catalogs', 'domainSheets', 'bookTags'].includes(name));
+      .filter((name) => !['catalogs', 'domainSheets', 'bookTags', 'questionAttempts'].includes(name));
 
     expect(Object.keys(LOCAL_SAMPLE_DOMAIN_TABLES).sort()).toEqual(Object.keys(book001Data).sort());
     expect(Object.values(LOCAL_SAMPLE_DOMAIN_TABLES).sort()).toEqual(domainTables.sort());
+    database.close();
+  });
+
+  it('adds the attempts store without removing the v1 questions store', () => {
+    const database = new AppDatabase('SumaqYachayDB-schema-test');
+    const tableNames = database.tables.map((table) => table.name);
+
+    expect(database.verno).toBe(2);
+    expect(tableNames).toContain('questions');
+    expect(tableNames).toContain('questionAttempts');
     database.close();
   });
 

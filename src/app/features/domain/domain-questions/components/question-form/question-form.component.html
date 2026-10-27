@@ -48,6 +48,50 @@
         }
       </select>
     </div>
+    @if (form().newType() === 'multiple-choice') {
+      <fieldset class="question-options">
+        <legend>{{ 'DOMAINS.QUESTIONS.OPTIONS' | transloco }}</legend>
+        @for (option of form().optionDrafts(); track $index) {
+          <div class="question-option-row">
+            <label class="question-option-text">
+              <span>{{ 'DOMAINS.QUESTIONS.OPTION' | transloco }} {{ $index + 1 }}</span>
+              <input
+                type="text"
+                [ngModel]="option"
+                (ngModelChange)="form().setOptionText($index, $event)"
+                [name]="'question-option-' + $index"
+                required
+              />
+            </label>
+            <label class="correct-option-label">
+              <input
+                type="radio"
+                name="correct-question-option"
+                [checked]="form().correctOptionIndex() === $index"
+                (change)="form().correctOptionIndex.set($index)"
+              />
+              <span>{{ 'DOMAINS.QUESTIONS.CORRECT_OPTION' | transloco }}</span>
+            </label>
+            @if (form().optionDrafts().length > 2) {
+              <button
+                type="button"
+                class="remove-option-button"
+                [attr.aria-label]="'DOMAINS.QUESTIONS.REMOVE_OPTION' | transloco"
+                (click)="form().removeOption($index)"
+              >
+                {{ 'DOMAINS.QUESTIONS.REMOVE_OPTION' | transloco }}
+              </button>
+            }
+          </div>
+        }
+        @if (form().optionDrafts().filter((option) => option.trim()).length < 2) {
+          <span class="tag-validation-error">{{ 'DOMAINS.QUESTIONS.OPTIONS_REQUIRED' | transloco }}</span>
+        }
+        <button type="button" class="add-option-button" (click)="form().addOption()">
+          {{ 'DOMAINS.QUESTIONS.ADD_OPTION' | transloco }}
+        </button>
+      </fieldset>
+    }
     <div class="form-group">
       <label for="question-source-domain">{{
         'DOMAINS.QUESTIONS.SOURCE_DOMAIN' | transloco

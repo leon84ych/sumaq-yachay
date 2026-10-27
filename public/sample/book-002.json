@@ -813,7 +813,274 @@
       "syncStatus": "synced"
     }
   ],
-  "QUESTIONS": [],
+  "QUESTIONS": [
+    {
+      "id": "sample-question-01",
+      "question": "True or false: the index links the chapter “Benjy” with the theme “Time.”",
+      "answer": "True. The index links “Benjy” with “Time.” Fragmented memory and nonlinear perception",
+      "type": "true-false",
+      "options": [
+        {
+          "id": "true",
+          "text": "true",
+          "isCorrect": true
+        },
+        {
+          "id": "false",
+          "text": "false",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "INDEX",
+      "sourceRowId": "sample-index-01",
+      "sourceTerm": "Benjy",
+      "bookRow": 2,
+      "bookName": "The Sound and the Fury",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#time"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-02",
+      "question": "Which concept is defined as: “A narrative structure in which events are presented outside straightforward chronological order.”?",
+      "answer": "Nonlinear chronology: A narrative structure in which events are presented outside straightforward chronological order.",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Stream of consciousness",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Subjective time",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Nonlinear chronology",
+          "isCorrect": true
+        },
+        {
+          "id": "option-4",
+          "text": "Fragmentation",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CONCEPTS",
+      "sourceRowId": "sample-concept-01",
+      "sourceTerm": "Nonlinear chronology",
+      "bookRow": 2,
+      "bookName": "The Sound and the Fury",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#time", "#structure", "#nonlinear-chronology"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-03",
+      "question": "Which character is described as follows: “A member of the Compson family whose fragmented perceptions and memories form the novel's opening narrative perspective.”?",
+      "answer": "Benjy Compson",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Quentin Compson",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Jason Compson IV",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Candace Compson",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Benjy Compson",
+          "isCorrect": true
+        }
+      ],
+      "sourceDomain": "CHARACTER",
+      "sourceRowId": "sample-character-01",
+      "sourceTerm": "Benjy Compson",
+      "bookRow": 2,
+      "bookName": "The Sound and the Fury",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#benjy", "#memory", "#perception"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-04",
+      "question": "Which place is described as follows: “Faulkner's fictional Mississippi community and the principal geographic context surrounding the Compson family.”?",
+      "answer": "Jefferson",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Jefferson",
+          "isCorrect": true
+        },
+        {
+          "id": "option-2",
+          "text": "Yoknapatawpha County",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Compson Property",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Harvard University",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "PLACES",
+      "sourceRowId": "sample-place-01",
+      "sourceTerm": "Jefferson",
+      "bookRow": 2,
+      "bookName": "The Sound and the Fury",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#jefferson", "#mississippi", "#setting"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-05",
+      "question": "What interpretation is given for this quote: “Memory does not respect the borders that clocks draw around experience.”?",
+      "answer": "An original reflection on the novel's nonlinear treatment of remembered and present experience.",
+      "type": "open",
+      "sourceDomain": "QUOTES",
+      "sourceRowId": "sample-quote-01",
+      "sourceTerm": "Memory does not respect the borders that clocks draw around experience.",
+      "bookRow": 2,
+      "bookName": "The Sound and the Fury",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#memory", "#time"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-06",
+      "question": "What idea is explored in the passage “Memory Without Warning”?",
+      "answer": "The present held for an instant, then something small opened the past again. A sound, scarcely noticed by anyone else, was enough to make years stand beside one another.",
+      "type": "open",
+      "sourceDomain": "PASSAGES",
+      "sourceRowId": "sample-passage-01",
+      "sourceTerm": "Memory Without Warning",
+      "bookRow": 2,
+      "bookName": "The Sound and the Fury",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#memory", "#time"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-07",
+      "question": "What does the study event “Study event 1: Benjy / Time” describe?",
+      "answer": "Study synthesis for “Benjy”: the index highlights Time (Fragmented memory and nonlinear perception). The description of Benjy Compson (“A member of the Compson family whose fragmented perceptions and memories form the novel's opening narrative perspective.”) is considered here alongside Nonlinear chronology (“A narrative structure in which events are presented outside straightforward chronological order.”). Jefferson and the passage “Memory Without Warning” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "type": "open",
+      "sourceDomain": "BOOK_EVENTS",
+      "sourceRowId": "sample-book-event-01",
+      "sourceTerm": "Study event 1: Benjy / Time",
+      "bookRow": 2,
+      "bookName": "The Sound and the Fury",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": [
+        "#time",
+        "#benjy",
+        "#memory",
+        "#perception",
+        "#nonlinear-chronology",
+        "#structure",
+        "#jefferson",
+        "#mississippi",
+        "#setting"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-08",
+      "question": "What relationship is recorded between Benjy Compson and Quentin Compson?",
+      "answer": "thematic comparison. This reading association links Benjy Compson (A member of the Compson family whose fragmented perceptions and memories form the novel's opening narrative perspective.) with Quentin Compson (A Compson sibling whose perspective is deeply concerned with family, memory, morality, identity, and time.). The theme “Time” and subtheme “Fragmented memory and nonlinear perception” guide the comparison; the passage “Memory Without Warning” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "type": "open",
+      "sourceDomain": "RELATIONS",
+      "sourceRowId": "sample-character-relation-01",
+      "bookRow": 2,
+      "bookName": "The Sound and the Fury",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#benjy", "#memory", "#perception", "#quentin", "#time", "#family"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-09",
+      "question": "How are “Nonlinear chronology” and “Stream of consciousness” connected in the catalog?",
+      "answer": "provides context for. The definition of “Nonlinear chronology” (“A narrative structure in which events are presented outside straightforward chronological order.”) can be read in relation to “Stream of consciousness” (“A narrative technique that attempts to represent the shifting movement of thoughts, memories, sensations, and associations.”). The theme Time and subtheme Fragmented memory and nonlinear perception, together with the passage “Memory Without Warning”, place this conceptual connection in the book’s reading context.",
+      "type": "open",
+      "sourceDomain": "ASSOCIATIONS",
+      "sourceRowId": "sample-concept-relation-01",
+      "bookRow": 2,
+      "bookName": "The Sound and the Fury",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": [
+        "#nonlinear-chronology",
+        "#time",
+        "#structure",
+        "#stream-of-consciousness",
+        "#modernism",
+        "#consciousness"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-10",
+      "question": "Define “chronology” in this book’s glossary.",
+      "answer": "The arrangement of events according to their order in time.",
+      "type": "flashcard",
+      "sourceDomain": "GLOSARY",
+      "sourceRowId": "sample-glosary-01",
+      "sourceTerm": "chronology",
+      "bookRow": 2,
+      "bookName": "The Sound and the Fury",
+      "page": "0",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#time", "#structure"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
   "BOOK_EVENTS": [
     {
       "id": "sample-book-event-01",
@@ -829,7 +1096,17 @@
       "book": "The Sound and the Fury",
       "author": "William Faulkner",
       "page": "",
-      "tags": ["#time", "#benjy", "#memory", "#perception", "#nonlinear-chronology", "#structure", "#jefferson", "#mississippi", "#setting"],
+      "tags": [
+        "#time",
+        "#benjy",
+        "#memory",
+        "#perception",
+        "#nonlinear-chronology",
+        "#structure",
+        "#jefferson",
+        "#mississippi",
+        "#setting"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -848,7 +1125,17 @@
       "book": "The Sound and the Fury",
       "author": "William Faulkner",
       "page": "",
-      "tags": ["#memory", "#jason", "#resentment", "#control", "#subjective-time", "#time", "#yoknapatawpha", "#region", "#faulkner"],
+      "tags": [
+        "#memory",
+        "#jason",
+        "#resentment",
+        "#control",
+        "#subjective-time",
+        "#time",
+        "#yoknapatawpha",
+        "#region",
+        "#faulkner"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -867,7 +1154,15 @@
       "book": "The Sound and the Fury",
       "author": "William Faulkner",
       "page": "",
-      "tags": ["#family", "#dilsey", "#endurance", "#family-decline", "#decline", "#compson", "#home"],
+      "tags": [
+        "#family",
+        "#dilsey",
+        "#endurance",
+        "#family-decline",
+        "#decline",
+        "#compson",
+        "#home"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -886,7 +1181,18 @@
       "book": "The Sound and the Fury",
       "author": "William Faulkner",
       "page": "",
-      "tags": ["#time", "#father", "#compson", "#family", "#multiple-perspective", "#narrator", "#interpretation", "#harvard", "#quentin", "#university"],
+      "tags": [
+        "#time",
+        "#father",
+        "#compson",
+        "#family",
+        "#multiple-perspective",
+        "#narrator",
+        "#interpretation",
+        "#harvard",
+        "#quentin",
+        "#university"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -975,7 +1281,14 @@
       "book": "The Sound and the Fury",
       "author": "William Faulkner",
       "page": "",
-      "tags": ["#nonlinear-chronology", "#time", "#structure", "#stream-of-consciousness", "#modernism", "#consciousness"],
+      "tags": [
+        "#nonlinear-chronology",
+        "#time",
+        "#structure",
+        "#stream-of-consciousness",
+        "#modernism",
+        "#consciousness"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -992,7 +1305,14 @@
       "book": "The Sound and the Fury",
       "author": "William Faulkner",
       "page": "",
-      "tags": ["#subjective-time", "#time", "#memory", "#fragmentation", "#modernism", "#structure"],
+      "tags": [
+        "#subjective-time",
+        "#time",
+        "#memory",
+        "#fragmentation",
+        "#modernism",
+        "#structure"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1026,7 +1346,15 @@
       "book": "The Sound and the Fury",
       "author": "William Faulkner",
       "page": "",
-      "tags": ["#multiple-perspective", "#narrator", "#interpretation", "#modernism", "#literature", "#experimentation", "#time"],
+      "tags": [
+        "#multiple-perspective",
+        "#narrator",
+        "#interpretation",
+        "#modernism",
+        "#literature",
+        "#experimentation",
+        "#time"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"

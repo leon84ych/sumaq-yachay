@@ -813,7 +813,265 @@
       "syncStatus": "synced"
     }
   ],
-  "QUESTIONS": [],
+  "QUESTIONS": [
+    {
+      "id": "sample-question-01",
+      "question": "True or false: the index links the chapter “Introduction” with the theme “Identity.”",
+      "answer": "True. The index links “Introduction” with “Identity.” Possibility and the absence of fixed qualities",
+      "type": "true-false",
+      "options": [
+        {
+          "id": "true",
+          "text": "true",
+          "isCorrect": true
+        },
+        {
+          "id": "false",
+          "text": "false",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "INDEX",
+      "sourceRowId": "sample-index-01",
+      "sourceTerm": "Introduction",
+      "bookRow": 6,
+      "bookName": "The Man Without Qualities",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#identity"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-02",
+      "question": "Which concept is defined as: “A mode of thinking that considers what could exist alongside or instead of what currently exists.”?",
+      "answer": "Sense of possibility: A mode of thinking that considers what could exist alongside or instead of what currently exists.",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Sense of reality",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Modern identity",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Sense of possibility",
+          "isCorrect": true
+        },
+        {
+          "id": "option-4",
+          "text": "Rationalization",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "CONCEPTS",
+      "sourceRowId": "sample-concept-01",
+      "sourceTerm": "Sense of possibility",
+      "bookRow": 6,
+      "bookName": "The Man Without Qualities",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#philosophy", "#ulrich", "#possibility"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-03",
+      "question": "Which character is described as follows: “The central character, an intellectually restless man who approaches society and identity through skepticism, analysis, and a stro”?",
+      "answer": "Ulrich",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Agathe",
+          "isCorrect": false
+        },
+        {
+          "id": "option-2",
+          "text": "Diotima",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Arnheim",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Ulrich",
+          "isCorrect": true
+        }
+      ],
+      "sourceDomain": "CHARACTER",
+      "sourceRowId": "sample-character-01",
+      "sourceTerm": "Ulrich",
+      "bookRow": 6,
+      "bookName": "The Man Without Qualities",
+      "difficulty": "easy",
+      "aiGenerated": false,
+      "tags": ["#ulrich", "#identity", "#possibility"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-04",
+      "question": "Which place is described as follows: “The principal urban model for the novel's metropolitan setting and its intellectual, political, and social life.”?",
+      "answer": "Vienna",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "option-1",
+          "text": "Vienna",
+          "isCorrect": true
+        },
+        {
+          "id": "option-2",
+          "text": "Austria-Hungary",
+          "isCorrect": false
+        },
+        {
+          "id": "option-3",
+          "text": "Kakania",
+          "isCorrect": false
+        },
+        {
+          "id": "option-4",
+          "text": "Diotima's Salon",
+          "isCorrect": false
+        }
+      ],
+      "sourceDomain": "PLACES",
+      "sourceRowId": "sample-place-01",
+      "sourceTerm": "Vienna",
+      "bookRow": 6,
+      "bookName": "The Man Without Qualities",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#vienna", "#city", "#modernity"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-05",
+      "question": "What interpretation is given for this quote: “Reality becomes less inevitable when possibility is treated with equal seriousness.”?",
+      "answer": "An original reflection on the tension between existing conditions and alternative possibilities.",
+      "type": "open",
+      "sourceDomain": "QUOTES",
+      "sourceRowId": "sample-quote-01",
+      "sourceTerm": "Reality becomes less inevitable when possibility is treated with equal seriousness.",
+      "bookRow": 6,
+      "bookName": "The Man Without Qualities",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#possibility", "#reality"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-06",
+      "question": "What idea is explored in the passage “Possible Lives”?",
+      "answer": "He regarded each decision as only one member of a large family of unrealized decisions. What existed therefore seemed less final than it did to people who considered facts sufficient evidence of necessity.",
+      "type": "open",
+      "sourceDomain": "PASSAGES",
+      "sourceRowId": "sample-passage-01",
+      "sourceTerm": "Possible Lives",
+      "bookRow": 6,
+      "bookName": "The Man Without Qualities",
+      "page": "0",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": ["#sample", "#possibility", "#identity"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-07",
+      "question": "What does the study event “Study event 1: Introduction / Identity” describe?",
+      "answer": "Study synthesis for “Introduction”: the index highlights Identity (Possibility and the absence of fixed qualities). The description of Ulrich (“The central character, an intellectually restless man who approaches society and identity through skepticism, analysis, and a strong sense of unrealized possibility.”) is considered here alongside Sense of possibility (“A mode of thinking that considers what could exist alongside or instead of what currently exists.”). Vienna and the passage “Possible Lives” add setting and reading context. This entry organizes the sample material and should be checked against the book edition.",
+      "type": "open",
+      "sourceDomain": "BOOK_EVENTS",
+      "sourceRowId": "sample-book-event-01",
+      "sourceTerm": "Study event 1: Introduction / Identity",
+      "bookRow": 6,
+      "bookName": "The Man Without Qualities",
+      "difficulty": "medium",
+      "aiGenerated": false,
+      "tags": [
+        "#identity",
+        "#ulrich",
+        "#possibility",
+        "#philosophy",
+        "#vienna",
+        "#city",
+        "#modernity"
+      ],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-08",
+      "question": "What relationship is recorded between Ulrich and Agathe?",
+      "answer": "thematic comparison. This reading association links Ulrich (The central character, an intellectually restless man who approaches society and identity through skepticism, analysis, and a strong sense of unrealized possibility.) with Agathe (Ulrich's sister, whose renewed relationship with him becomes important to the novel's later exploration of intimacy, morality, and alternative ways of living.). The theme “Identity” and subtheme “Possibility and the absence of fixed qualities” guide the comparison; the passage “Possible Lives” supplies context from the book itself. It is an interpretive connection based on these entries, not a claim that the characters share a scene.",
+      "type": "open",
+      "sourceDomain": "RELATIONS",
+      "sourceRowId": "sample-character-relation-01",
+      "bookRow": 6,
+      "bookName": "The Man Without Qualities",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#ulrich", "#identity", "#possibility", "#agathe", "#relationship"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-09",
+      "question": "How are “Sense of possibility” and “Sense of reality” connected in the catalog?",
+      "answer": "provides context for. The definition of “Sense of possibility” (“A mode of thinking that considers what could exist alongside or instead of what currently exists.”) can be read in relation to “Sense of reality” (“An orientation toward existing conditions, practical facts, and established arrangements.”). The theme Identity and subtheme Possibility and the absence of fixed qualities, together with the passage “Possible Lives”, place this conceptual connection in the book’s reading context.",
+      "type": "open",
+      "sourceDomain": "ASSOCIATIONS",
+      "sourceRowId": "sample-concept-relation-01",
+      "bookRow": 6,
+      "bookName": "The Man Without Qualities",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#possibility", "#philosophy", "#ulrich", "#reality", "#identity"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    },
+    {
+      "id": "sample-question-10",
+      "question": "Define “possibility” in this book’s glossary.",
+      "answer": "A condition, event, or form of existence that could occur or be imagined even if it is not presently actual.",
+      "type": "flashcard",
+      "sourceDomain": "GLOSARY",
+      "sourceRowId": "sample-glosary-01",
+      "sourceTerm": "possibility",
+      "bookRow": 6,
+      "bookName": "The Man Without Qualities",
+      "page": "0",
+      "difficulty": "hard",
+      "aiGenerated": false,
+      "tags": ["#possibility", "#philosophy"],
+      "feed": 5,
+      "contributor": "Local Sample Data",
+      "syncStatus": "synced"
+    }
+  ],
   "BOOK_EVENTS": [
     {
       "id": "sample-book-event-01",
@@ -829,7 +1087,15 @@
       "book": "The Man Without Qualities",
       "author": "Robert Musil",
       "page": "",
-      "tags": ["#identity", "#ulrich", "#possibility", "#philosophy", "#vienna", "#city", "#modernity"],
+      "tags": [
+        "#identity",
+        "#ulrich",
+        "#possibility",
+        "#philosophy",
+        "#vienna",
+        "#city",
+        "#modernity"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -848,7 +1114,17 @@
       "book": "The Man Without Qualities",
       "author": "Robert Musil",
       "page": "",
-      "tags": ["#politics", "#diotima", "#idealism", "#society", "#modern-identity", "#identity", "#modernity", "#austria-hungary", "#empire"],
+      "tags": [
+        "#politics",
+        "#diotima",
+        "#idealism",
+        "#society",
+        "#modern-identity",
+        "#identity",
+        "#modernity",
+        "#austria-hungary",
+        "#empire"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -867,7 +1143,17 @@
       "book": "The Man Without Qualities",
       "author": "Robert Musil",
       "page": "",
-      "tags": ["#society", "#walter", "#art", "#modernity", "#political-symbolism", "#politics", "#kakania", "#empire", "#satire"],
+      "tags": [
+        "#society",
+        "#walter",
+        "#art",
+        "#modernity",
+        "#political-symbolism",
+        "#politics",
+        "#kakania",
+        "#empire",
+        "#satire"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -886,7 +1172,18 @@
       "book": "The Man Without Qualities",
       "author": "Robert Musil",
       "page": "",
-      "tags": ["#possibility", "#moosbrugger", "#justice", "#psychology", "#intellectual-pluralism", "#ideas", "#philosophy", "#analytical-sample", "#diotima", "#society"],
+      "tags": [
+        "#possibility",
+        "#moosbrugger",
+        "#justice",
+        "#psychology",
+        "#intellectual-pluralism",
+        "#ideas",
+        "#philosophy",
+        "#analytical-sample",
+        "#diotima",
+        "#society"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -956,7 +1253,15 @@
       "book": "The Man Without Qualities",
       "author": "Robert Musil",
       "page": "",
-      "tags": ["#moosbrugger", "#justice", "#psychology", "#stumm", "#military", "#ideas", "#possibility"],
+      "tags": [
+        "#moosbrugger",
+        "#justice",
+        "#psychology",
+        "#stumm",
+        "#military",
+        "#ideas",
+        "#possibility"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -992,7 +1297,14 @@
       "book": "The Man Without Qualities",
       "author": "Robert Musil",
       "page": "",
-      "tags": ["#modern-identity", "#identity", "#modernity", "#rationalization", "#reason", "#politics"],
+      "tags": [
+        "#modern-identity",
+        "#identity",
+        "#modernity",
+        "#rationalization",
+        "#reason",
+        "#politics"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"
@@ -1026,7 +1338,15 @@
       "book": "The Man Without Qualities",
       "author": "Robert Musil",
       "page": "",
-      "tags": ["#intellectual-pluralism", "#ideas", "#philosophy", "#moral-ambiguity", "#ethics", "#judgment", "#possibility"],
+      "tags": [
+        "#intellectual-pluralism",
+        "#ideas",
+        "#philosophy",
+        "#moral-ambiguity",
+        "#ethics",
+        "#judgment",
+        "#possibility"
+      ],
       "feed": 1,
       "contributor": "Local Sample Data",
       "syncStatus": "synced"

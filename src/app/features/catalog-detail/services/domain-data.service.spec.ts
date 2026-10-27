@@ -1,5 +1,8 @@
+// @vitest-environment jsdom
+
 import { TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { of, Subject, throwError } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
@@ -28,7 +31,12 @@ describe('DomainDataService.deleteDomainRow', () => {
   let localSampleDataEnabled: boolean;
   let refreshTaxonomySpy: ReturnType<typeof vi.fn>;
 
+  beforeAll(() => {
+    TestBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
+  });
+
   beforeEach(() => {
+    TestBed.resetTestingModule();
     persistedRows = [
       { id: 'concept-1', row: 4, tags: ['#first'], syncStatus: 'synced' },
       { id: 'concept-2', row: 4, tags: ['#second'], syncStatus: 'synced' },

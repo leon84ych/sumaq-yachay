@@ -61,7 +61,10 @@ export async function getLocalSampleDomainData(bookId: string): Promise<LocalSam
   }
 
   const module = await loadDomainData();
-  return { ...EMPTY_LOCAL_SAMPLE_DOMAIN_DATA, ...module.default };
+  const supportedDomainData = Object.fromEntries(
+    Object.entries(module.default).filter(([domain]) => domain in LOCAL_SAMPLE_DOMAIN_TABLES),
+  );
+  return { ...EMPTY_LOCAL_SAMPLE_DOMAIN_DATA, ...supportedDomainData };
 }
 
 export function normalizeSampleDomainRow(row: Record<string, unknown>): Record<string, unknown> {

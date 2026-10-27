@@ -16,6 +16,13 @@ export const routes: Routes = [
     loadComponent: () => import('./features/learn/learn/learn.component').then((m) => m.Learn),
   },
   {
+    path: 'quiz',
+    loadComponent: () =>
+      import('./features/domain/domain-questions/practice/question-practice.component').then(
+        (m) => m.QuestionPracticeComponent,
+      ),
+  },
+  {
     path: 'catalog/:id',
     loadComponent: () =>
       import('./features/catalog-detail/catalog-detail/catalog-detail').then(

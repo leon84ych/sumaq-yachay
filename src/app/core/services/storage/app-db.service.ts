@@ -9,6 +9,7 @@ import { IndexTopicRecord } from '../../../features/domain/domain-index/model/in
 import { PassageRecord } from '../../../features/domain/domain-passages/model/domain-passage-row.model';
 import { PlaceRecord } from '../../../features/domain/domain-places/model/domain-place-row.model';
 import { QuestionRecord } from '../../../features/domain/domain-questions/model/domain-question-row.model';
+import { QuestionAttempt } from '../../../features/domain/domain-questions/model/question-attempt.model';
 import { QuoteRecord } from '../../../features/domain/domain-quotes/model/domain-quote-row.model';
 import { BookRelationRecord } from '../../../features/domain/domain-relations/model/book-relation.model';
 import { BookAssociationRecord } from '../../../features/domain/domain-association/model/book-association.model';
@@ -18,6 +19,24 @@ import {
   getLocalSampleDomainData,
   normalizeSampleDomainRow,
 } from './local-sample-data';
+
+const VERSION_ONE_STORES = {
+  catalogs:
+    'id, subject, topic, name, author, description, source, active, syncStatus, updatedAt',
+  domainSheets: 'row, count',
+  bookTags: 'id, [row+name], row, name, scope, subject, topic, book, author',
+  indexTopics: 'id, row, book, author, *tags',
+  concepts: 'id, row, book, author, *tags',
+  quotes: 'id, row, book, author, *tags',
+  passages: 'id, row, book, author, *tags',
+  characters: 'id, row, book, author, *tags',
+  places: 'id, row, book, author, *tags',
+  bookEvents: 'id, row, book, author, *tags',
+  relationsCharacters: 'id, row, book, author, *tags',
+  relationsConcepts: 'id, row, book, author, *tags',
+  glosary: 'id, row, book, author, *tags',
+  questions: 'id, row, book, author, *tags',
+} as const;
 
 export interface DomainSheetCount {
   row: number;
@@ -57,26 +76,15 @@ export class AppDatabase extends Dexie {
   relationsCharacters!: Table<BookRelationRecord, string>;
   relationsConcepts!: Table<BookAssociationRecord, string>;
   glosary!: Table<GlossaryEntryRecord, string>;
-  questions!: Table<QuestionRecord, string>;
+  questions!: Table<QuestionRecord & Record<string, unknown>, string>;
+  questionAttempts!: Table<QuestionAttempt, number>;
 
-  constructor() {
-    super('SumaqYachayDB');
-    this.version(1).stores({
-      catalogs:
-        'id, subject, topic, name, author, description, source, active, syncStatus, updatedAt',
-      domainSheets: 'row, count',
-      bookTags: 'id, [row+name], row, name, scope, subject, topic, book, author',
-      indexTopics: 'id, row, book, author, *tags',
-      concepts: 'id, row, book, author, *tags',
-      quotes: 'id, row, book, author, *tags',
-      passages: 'id, row, book, author, *tags',
-      characters: 'id, row, book, author, *tags',
-      places: 'id, row, book, author, *tags',
-      bookEvents: 'id, row, book, author, *tags',
-      relationsCharacters: 'id, row, book, author, *tags',
-      relationsConcepts: 'id, row, book, author, *tags',
-      glosary: 'id, row, book, author, *tags',
-      questions: 'id, row, book, author, *tags',
+  constructor(databaseName = 'SumaqYachayDB') {
+    super(databaseName);
+    this.version(1).stores(VERSION_ONE_STORES);
+    this.version(2).stores({
+      ...VERSION_ONE_STORES,
+      questionAttempts: '++id, questionId, bookRow, timestamp, type',
     });
   }
 }

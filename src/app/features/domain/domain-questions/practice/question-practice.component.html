@@ -1,0 +1,179 @@
+<main class="practice-page">
+  <label class="domain-search practice-search">
+    <span class="visually-hidden">{{ 'DOMAINS.QUESTIONS.PRACTICE.SEARCH' | transloco }}</span>
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="8.75" cy="8.75" r="5.75" />
+      <path d="m13 13 4 4" />
+    </svg>
+    <input
+      type="search"
+      [value]="searchQuery()"
+      [placeholder]="'DOMAINS.QUESTIONS.PRACTICE.SEARCH' | transloco"
+      (input)="onSearchInput($any($event.target).value)"
+    />
+  </label>
+
+  @if (errorMessage(); as error) {
+    <p class="practice-error" role="alert">{{ error | transloco }}</p>
+  }
+
+  @if (isLoading() && questions().length === 0) {
+    <p class="practice-state" role="status">{{ 'DOMAINS.QUESTIONS.PRACTICE.LOADING' | transloco }}</p>
+  } @else if (currentQuestion(); as question) {
+    <section class="question-session" [attr.aria-label]="'NAV.QUIZ' | transloco">
+      <div class="question-meta">
+        <span>{{ question.bookName }}</span>
+        @if (question.difficulty) {
+          <span>{{ 'DOMAINS.QUESTIONS.DIFFICULTY_OPTIONS.' + question.difficulty | transloco }}</span>
+        }
+        <span>{{ progressLabel() }}</span>
+      </div>
+
+      <h2>{{ question.question }}</h2>
+
+      @switch (question.type) {
+        @case ('flashcard') {
+          @if (answerRevealed()) {
+            <div class="answer-panel">
+              <h3>{{ 'DOMAINS.QUESTIONS.ANSWER' | transloco }}</h3>
+              <p>{{ question.answer }}</p>
+            </div>
+            @if (!isSubmitted()) {
+              <div class="answer-actions">
+                <button type="button" class="practice-secondary" (click)="assessFlashcard(false)">
+                  {{ 'DOMAINS.QUESTIONS.PRACTICE.NEEDS_REVIEW' | transloco }}
+                </button>
+                <button type="button" class="practice-primary" (click)="assessFlashcard(true)">
+                  {{ 'DOMAINS.QUESTIONS.PRACTICE.GOT_IT' | transloco }}
+                </button>
+              </div>
+            }
+          } @else {
+            <button type="button" class="practice-primary" (click)="revealFlashcardAnswer()">
+              {{ 'DOMAINS.QUESTIONS.PRACTICE.REVEAL_ANSWER' | transloco }}
+            </button>
+          }
+        }
+        @case ('multiple-choice') {
+          <fieldset class="choice-list" [disabled]="answerRevealed() || isSaving()">
+            <legend>{{ 'DOMAINS.QUESTIONS.PRACTICE.SELECT_ANSWER' | transloco }}</legend>
+            @for (option of currentOptions(); track option.id) {
+              <label class="choice-option" [class.selected]="selectedOptionId() === option.id">
+                <input
+                  type="radio"
+                  [name]="'question-' + question.id"
+                  [checked]="selectedOptionId() === option.id"
+                  (change)="selectOption(option)"
+                />
+                <span>{{ option.text }}</span>
+              </label>
+            } @empty {
+              <p class="practice-state">{{ 'DOMAINS.QUESTIONS.PRACTICE.NO_OPTIONS' | transloco }}</p>
+            }
+          </fieldset>
+          @if (!answerRevealed()) {
+            <button
+              type="button"
+              class="practice-primary"
+              [disabled]="!selectedOptionId() || isSaving()"
+              (click)="submitChoice()"
+            >
+              {{ 'DOMAINS.QUESTIONS.PRACTICE.SUBMIT_ANSWER' | transloco }}
+            </button>
+          }
+          @if (answerRevealed()) {
+            <ng-container *ngTemplateOutlet="answerFeedback; context: { $implicit: question }" />
+          }
+        }
+        @case ('true-false') {
+          <fieldset class="choice-list" [disabled]="answerRevealed() || isSaving()">
+            <legend>{{ 'DOMAINS.QUESTIONS.PRACTICE.SELECT_ANSWER' | transloco }}</legend>
+            @for (option of currentOptions(); track option.id) {
+              <label class="choice-option" [class.selected]="selectedOptionId() === option.id">
+                <input
+                  type="radio"
+                  [name]="'question-' + question.id"
+                  [checked]="selectedOptionId() === option.id"
+                  (change)="selectOption(option)"
+                />
+                <span>
+                  @if (option.text === 'true') {
+                    {{ 'DOMAINS.QUESTIONS.PRACTICE.TRUE' | transloco }}
+                  } @else if (option.text === 'false') {
+                    {{ 'DOMAINS.QUESTIONS.PRACTICE.FALSE' | transloco }}
+                  } @else {
+                    {{ option.text }}
+                  }
+                </span>
+              </label>
+            } @empty {
+              <p class="practice-state">{{ 'DOMAINS.QUESTIONS.PRACTICE.NO_OPTIONS' | transloco }}</p>
+            }
+          </fieldset>
+          @if (!answerRevealed()) {
+            <button
+              type="button"
+              class="practice-primary"
+              [disabled]="!selectedOptionId() || isSaving()"
+              (click)="submitChoice()"
+            >
+              {{ 'DOMAINS.QUESTIONS.PRACTICE.SUBMIT_ANSWER' | transloco }}
+            </button>
+          }
+          @if (answerRevealed()) {
+            <ng-container *ngTemplateOutlet="answerFeedback; context: { $implicit: question }" />
+          }
+        }
+        @case ('open') {
+          <label class="response-field">
+            <span>{{ 'DOMAINS.QUESTIONS.PRACTICE.YOUR_RESPONSE' | transloco }}</span>
+            <textarea
+              rows="4"
+              [value]="freeResponse()"
+              [disabled]="answerRevealed() || isSaving()"
+              (input)="freeResponse.set($any($event.target).value)"
+            ></textarea>
+          </label>
+          @if (!answerRevealed()) {
+            <button
+              type="button"
+              class="practice-primary"
+              [disabled]="!freeResponse().trim() || isSaving()"
+              (click)="submitOpenResponse()"
+            >
+              {{ 'DOMAINS.QUESTIONS.PRACTICE.RECORD_RESPONSE' | transloco }}
+            </button>
+          }
+          @if (answerRevealed()) {
+            <div class="answer-panel">
+              <h3>{{ 'DOMAINS.QUESTIONS.ANSWER' | transloco }}</h3>
+              <p>{{ question.answer }}</p>
+              <p class="practice-note">{{ 'DOMAINS.QUESTIONS.PRACTICE.UNGRADED' | transloco }}</p>
+            </div>
+          }
+        }
+      }
+
+      @if (answerRevealed()) {
+        <button type="button" class="practice-secondary next-button" (click)="advance()">
+          {{ (currentIndex() + 1 < questions().length ? 'DOMAINS.QUESTIONS.PRACTICE.NEXT' : 'DOMAINS.QUESTIONS.PRACTICE.NEW_SAMPLE') | transloco }}
+        </button>
+      }
+    </section>
+  } @else {
+    <section class="practice-empty" aria-live="polite">
+      <h2>{{ 'DOMAINS.QUESTIONS.PRACTICE.EMPTY_TITLE' | transloco }}</h2>
+      <p>{{ 'DOMAINS.QUESTIONS.PRACTICE.EMPTY_DESCRIPTION' | transloco }}</p>
+    </section>
+  }
+</main>
+
+<ng-template #answerFeedback let-question>
+  <div class="answer-panel">
+    <p class="answer-result" [class.correct]="answerCorrect()" [class.incorrect]="answerCorrect() === false">
+      {{ (answerCorrect() ? 'DOMAINS.QUESTIONS.PRACTICE.CORRECT' : 'DOMAINS.QUESTIONS.PRACTICE.INCORRECT') | transloco }}
+    </p>
+    <h3>{{ 'DOMAINS.QUESTIONS.ANSWER' | transloco }}</h3>
+    <p>{{ question.answer }}</p>
+  </div>
+</ng-template>

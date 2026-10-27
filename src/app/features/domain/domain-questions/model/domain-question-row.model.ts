@@ -33,15 +33,8 @@ export interface QuestionRow extends DomainSheetRow {
   // Herencia de DomainSheetRow: id, tags, feed, contributor, syncStatus
 }
 
-export interface QuestionRecord {
-  id: string;
+export interface QuestionRecord extends QuestionRow {
   row: number;
   book?: string;
   author?: string;
-  tags: string[];
-  question: string;
-  answer: string;
-  difficulty: string;
-  status: string;
-  syncStatus: 'pending' | 'synced' | 'error';
 }

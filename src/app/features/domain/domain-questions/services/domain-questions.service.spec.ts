@@ -1,5 +1,8 @@
+// @vitest-environment jsdom
+
 import { TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
+import { beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import jasmineCore from 'jasmine-core';
 import { AppDbService } from '../../../../core/services/storage/app-db.service';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
@@ -10,7 +13,12 @@ const jasmine = jasmineCore.jasmine;
 describe('DomainQuestionsService', () => {
   let mockTaxonomyService: jasmine.SpyObj<TaxonomyService>;
 
+  beforeAll(() => {
+    TestBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
+  });
+
   beforeEach(() => {
+    TestBed.resetTestingModule();
     mockTaxonomyService = jasmine.createSpyObj<TaxonomyService>('TaxonomyService', [
       'filterAllowedTags',
     ]);
