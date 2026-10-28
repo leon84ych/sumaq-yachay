@@ -28,16 +28,17 @@
         [attr.aria-label]="'DOMAINS.RELATIONS.TAGS' | transloco"
       >
         @for (tag of splitTags(row().tags); track $index) {
-          <span>{{ tag }}</span>
+          <button type="button" [appStudyTag]="tag">{{ tag }}</button>
         }
       </div>
     }
   </div>
 
-  @if (showActions()) {
+  @if (showActions() || row().contributor) {
     <footer class="domain-card-footer">
       <div class="domain-card-footer__management">
-        @if (permissionService.validatePermission(role(), 'DELETE_ROW')) {
+        <app-domain-contributor [contributor]="row().contributor" />
+        @if (showActions() && permissionService.validatePermission(role(), 'DELETE_ROW')) {
           <button
             type="button"
             class="domain-delete-button"
@@ -50,7 +51,7 @@
             </svg>
           </button>
         }
-        @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+        @if (showActions() && permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
           <button
             type="button"
             class="domain-edit-button"

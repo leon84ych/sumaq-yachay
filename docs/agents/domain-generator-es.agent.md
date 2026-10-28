@@ -143,8 +143,21 @@ Tu único objetivo es recibir la especificación JSON de un dominio académico/l
 - Inyecta el `PermissionService` compartido en los componentes con acciones de escritura y expón `readonly permissionService` y `readonly role = this.permissionService.role` a la plantilla. El rol viene de las respuestas del backend y empieza como `guest`; nunca lo infieras del email ni del token del cliente.
 - Usa `@if (permissionService.validatePermission(role(), 'OPERACION'))` alrededor de cada acción. Usa `UPDATE_SHEET_ROWS` para guardar/editar filas de dominio, `DELETE_ROW` para borrarlas, `CREATE_SHEET` para crear pestañas, `CREATE_CATALOG_ITEM` para crear elementos del catálogo, `UPDATE_CATALOG_ITEM` para editarlos/cambiar su estado y `DELETE_CATALOG_ITEM` para borrarlos. Mantén visibles las acciones de lectura según sus operaciones GET.
 - El mapa compartido permite las lecturas (`GET_CATALOG`, `GET_SHEETS_NAMES`, `GET_PAGINATED_ROWS`, `GET_CATALOG_HEALTH`) a `guest`, `user` y `admin`; las escrituras son solo para `admin`. Los roles u operaciones desconocidos se deniegan por defecto. Los guards de interfaz no sustituyen la autorización del backend.
-- En las tarjetas de todos los dominios excepto INDEX, usa el footer global `domain-card-footer`. A la izquierda coloca `domain-card-footer__management` con este orden: borrar, editar. A la derecha coloca las acciones existentes en `domain-card-footer__actions`. Los botones usan los estilos globales `.domain-edit-button` y `.domain-delete-button`, con `aria-label` y `title` Transloco. No muevas las demás acciones al grupo de gestión.
-- INDEX conserva su disposición compacta por fila, pero editar y borrar también requieren guards RBAC. INDEX usa la misma propiedad `tags: string[]` que los demás dominios. Respeta el orden recibido de las filas de la hoja; no ordenes alfabéticamente la jerarquía.
+- Todos los dominios, incluido INDEX, usan `domain-card-footer`. Coloca primero a la izquierda `<app-domain-contributor [contributor]="row().contributor" />`, antes de las acciones existentes como borrar/editar. Conserva las demás acciones en `domain-card-footer__actions` a la derecha, con sus propios guards de visibilidad y permisos. Los botones de edición/borrado usan estilos compartidos y etiquetas Transloco; filtrar por colaborador es una lectura, no una operación exclusiva de administradores.
+- Mantén visible el colaborador en tarjetas de solo lectura de Learn y cuando `showActions()` sea falso. Usa una condición como `showActions() || row().contributor`, añadiendo los flags de lectura/exportación existentes si corresponde. Protege las escrituras por separado con `showActions()` y permisos; mostrar un colaborador no autoriza escrituras.
+- INDEX conserva el contenido compacto y los guards por rol, pero también tiene footer de colaborador y búsqueda compartida. Conserva `contributor` al normalizar sus filas. Usa la misma propiedad `tags: string[]` y respeta el orden recibido de la jerarquía.
+
+7. **Búsqueda de estudio compartida y filtros interactivos (obligatorio):**
+
+- Reutiliza `StudySearchService` de `src/app/core/services/study-search.service.ts`. Enlaza `searchTerm` con `inject(StudySearchService).query`; no crees una señal de búsqueda local, no limpies la consulta al navegar ni la guardes en localStorage. La consulta permanece entre rutas y se restablece al recargar la página. Los filtros de materia/activos del Catálogo son independientes.
+- Reutiliza `parseStudySearch` y `matchesStudySearch` de `src/app/shared/utils/study-search.ts`; no reimplementes búsquedas con `includes` ni dividas la consulta por espacios. Se combinan con AND la frase de texto libre, las frases entre comillas, todas las etiquetas canónicas exactas y todas las restricciones de metadatos. El texto puede coincidir en distintos campos; `book:"Ulysses"`, `author:"James Joyce"` y `contributor:"leon84ych"` deben coincidir con su metadato exacto.
+- Pasa los tres contextos al matcher: `{ book: this.bookName() || row.book, author: this.bookAuthor() || row.author, contributor: row.contributor }`. Incluye contenido del dominio, libro/autor, alias EN/ES del dominio y etiquetas entre los campos buscables. Conserva la identidad original del colaborador en modelos, almacenamiento, normalización, ediciones, resolver y adaptadores de Learn; resuelve la identidad al crear desde el flujo de autenticación existente, no con el literal `currentUser`.
+- Cada etiqueta visible usa `<button type="button" class="[clase-existente]" [appStudyTag]="tag">{{ tag }}</button>`. Importa `StudyTagDirective` desde `src/app/shared/directives/study-tag.directive.ts` en cada tarjeta/lector standalone que la use. Conserva `<app-tag-picker>` para editar etiquetas, no para mostrar filtros. Reutiliza `.study-tag` y los estilos de chips; adapta los selectores que antes apuntaban a `span`.
+- `StudyTagDirective` llama `StudySearchService.addTag(tag)`. Los botones de libro/autor del header compartido llaman `addText(value, 'book' | 'author')`. `DomainContributorComponent`, en `src/app/features/domain/shared/domain-contributor/`, llama `addText(rawContributor, 'contributor')`. Reutiliza estos controles; no los dupliques por dominio. Añadir filtros conserva la consulta y no duplica restricciones equivalentes; se eliminan editando o vaciando el buscador compartido.
+- El colaborador muestra solo el nombre de usuario, pero se filtra por su identidad completa guardada. No elimines el dominio del correo al persistir ni mezcles cuentas con el mismo nombre de usuario. Sin colaborador no hay botón. Los datos de ejemplo EN/ES usan `leon84ych`; conserva otros colaboradores del usuario durante la normalización de muestras.
+- Los botones nativos deben ser accesibles por teclado, exponer `aria-pressed`, usar foco/selección compatibles con ambos temas y ajustarse en móvil. Los clics y Enter/Espacio no deben voltear citas, navegar por la tarjeta padre ni enviar formularios. Las tarjetas de solo lectura conservan los controles de búsqueda disponibles.
+- Para nuevos dominios, registra la conversión de resultados y los alias localizados en `LearnFeedService` (`src/app/features/learn/services/learn-feed.service.ts`) y `CatalogService.CONTENT_SEARCH_TERMS` (`src/app/features/catalog/services/catalog.service.ts`). El Catálogo obtiene libros relacionados del contenido local, sin peticiones remotas; las restricciones combinadas deben coincidir en la misma entrada y su contexto de libro. Cuestionario/práctica también reutiliza el matcher. Filtra antes de paginar, reinicia IDs/resultados al cambiar la consulta, conserva el debounce e ignora respuestas asíncronas obsoletas.
+- Prueba selección acumulativa de etiquetas/libro/autor/colaborador, duplicados, limpieza, navegación, metadatos exactos frente a menciones en el texto, filas de distintos colaboradores, tarjetas de solo lectura, aislamiento de eventos y temas claro/oscuro en escritorio/móvil. Reutiliza las suites y configuraciones TypeScript aisladas indicadas en el validador.
 
 ---
 
@@ -178,6 +191,10 @@ import { DomainDataService } from '../../catalog-detail/services/domain-data.ser
 import { DomainSheet } from '../../catalog-detail/models/domain-sheet.model';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { matchesStudySearch, parseStudySearch } from '../../../../shared/utils/study-search';
+import { ConfigService } from '../../../../core/services/config.service';
+import { GoogleAuthService } from '../../../authentication/services/google-auth-service';
 import { Domain[xxx]FormComponent } from '../components/domain-[xxx]-form/domain-[xxx]-form.component';
 import { Domain[xxx]EntryCardComponent } from '../components/domain-[xxx]-entry-card/domain-[xxx]-entry-card.component';
 import { [InterfaceName]Row } from '../model/domain-[xxx]-row.model';
@@ -201,7 +218,14 @@ readonly editingId = signal<string | null>(null);
 readonly permissionService = inject(PermissionService);
 readonly role = this.permissionService.role;
 private readonly taxonomyService = inject(TaxonomyService);
-readonly searchTerm = signal<string>('');
+private readonly configService = inject(ConfigService);
+private readonly authService = inject(GoogleAuthService);
+readonly contributorIdentity = computed(() =>
+  this.configService.localSampleDataEnabled()
+    ? 'leon84ych'
+    : (this.authService.currentUser()?.email?.trim() ?? ''),
+);
+readonly searchTerm = inject(StudySearchService).query;
 readonly newTags = signal<string[]>([]);
 readonly invalidTagsDetected = computed<string[]>(() =>
 this.newTags().filter((tag) => !this.taxonomyService.isTagAllowed(tag)),
@@ -215,15 +239,14 @@ return hasMissingRequiredFields || this.invalidTagsDetected().length > 0;
 // ...
 
 readonly filteredRows = computed(() => {
-const query = this.searchTerm().trim().toLocaleLowerCase();
-if (!query) return this.rows();
-
-    return this.rows().filter((row) =>
-      Object.values(row).some((val) =>
-        String(val ?? '').toLocaleLowerCase().includes(query)
-      )
-    );
-
+const search = parseStudySearch(this.searchTerm());
+return this.rows().filter((row) => matchesStudySearch(
+  search,
+  [this.bookName(), this.bookAuthor(), '[DOMAIN]', ...Object.values(row), ...(row.tags ?? [])],
+  row.tags,
+  { book: this.bookName() || row.book, author: this.bookAuthor() || row.author,
+    contributor: row.contributor },
+));
 });
 
 private domainDataService = inject(DomainDataService);
@@ -326,7 +349,7 @@ export interface [InterfaceName]Row extends DomainSheetRow {
 
 Genera una tarjeta standalone en `components/domain-[xxx]-entry-card/`. Recibe `row` tipado como input obligatorio, `bookName`, `bookAuthor`, `showContext` (por defecto `false`) y `showActions` (por defecto `true`). Emite `editRequested` con la fila y `deleteRequested` con el ID. Añade outputs solo para acciones propias del dominio que ya existan. La tarjeta presenta la fila; la vista del dominio conserva la persistencia.
 
-Usa `DomainEntryCardComponent` de `src/app/shared/domain-entry-card/` para el contenedor estándar y `DomainEntryHeaderComponent` indirectamente. No reimplementes el markup dominio/libro/autor/estado. Si se requiere un contenedor visual propio, usa `DomainEntryHeaderComponent` directamente.
+Usa `DomainEntryCardComponent` de `src/app/features/domain/shared/domain-entry-card/` para el contenedor estándar y `DomainEntryHeaderComponent` indirectamente. No recrees los filtros de libro/autor ni el estado de sincronización. Si se requiere un contenedor propio, usa el header compartido directamente. Importa `StudyTagDirective` y `DomainContributorComponent` en los `imports` standalone de la tarjeta y resuelve las rutas relativas desde el archivo generado.
 
 #### Archivo F: `domain-[xxx]-entry-card.component.html`
 
@@ -342,13 +365,19 @@ Renderiza los campos, chips y acciones propios de la fila. Pasa el dominio, tít
   [showContext]="showContext()"
 >
   <!-- Distintivos y contenido específico de la fila -->
-  @if (showActions()) {
+  @for (tag of row().tags ?? []; track $index) {
+    <button type="button" class="concept-tag" [appStudyTag]="tag">{{ tag }}</button>
+  }
+  @if (showActions() || row().contributor) {
   <footer class="domain-card-footer">
     <div class="domain-card-footer__management">
-      <!-- Botones borrar y luego editar, protegidos por permisos -->
+      <app-domain-contributor [contributor]="row().contributor" />
+      @if (showActions()) {
+        <!-- Botones borrar y luego editar, protegidos por permisos -->
+      }
     </div>
     <div class="domain-card-footer__actions">
-      <!-- Acciones existentes específicas del dominio -->
+      <!-- Acciones existentes, conservando sus propios guards de visibilidad y permisos -->
     </div>
   </footer>
   }
@@ -459,7 +488,8 @@ La fila que se envía se construye SIEMPRE en este orden, dentro de `addEntry()`
 - `id` primero. Usa `editingId()` al editar; al crear, usa un ID local temporal (ver Paso 0), que se omite de la petición.
 - Campos requeridos con propiedad abreviada (`term`, `definition`).
 - Campos opcionales con propagación condicional: `...(etymology ? { etymology } : {})`, de modo que un valor vacío NO se envía (la propiedad se omite en lugar de enviar `''` o `undefined`).
-- Cierre fijo: `feed: 5, contributor: 'currentUser', syncStatus: 'pending'`.
+- Conserva `originalRow.contributor` al editar. Al crear, resuelve `const contributor = originalRow?.contributor ?? this.contributorIdentity();` y no guardes si está vacío. El computed compartido usa `GoogleAuthService.currentUser()?.email`; solo el modo de datos de ejemplo locales usa `leon84ych`. No sustituyas un correo existente por su nombre de usuario visible.
+- Cierre fijo: `feed: 5, contributor, syncStatus: 'pending'`.
 - No incluir `row`, `book` ni `author` salvo que el JSON los defina como campos.
 
 4. **Petición**: Construye la lista local completa y llama `updateDomainSheetRows(sheetName, allLocalRows, true, editingId ?? undefined, editingId ? undefined : newRow.id)` (ver 6.1). El servicio persiste la lista local completa, pero solo envía la fila modificada a GAS.
@@ -486,6 +516,9 @@ async addEntry(): Promise<void> {
     return;
   }
 
+  const contributor = originalRow?.contributor ?? this.contributorIdentity();
+  if (!contributor) return;
+
   const newRow: GlossaryRow = {
     ...(originalRow ?? {}),
     id: editingId ?? `glossary_${Date.now()}`,
@@ -496,7 +529,7 @@ async addEntry(): Promise<void> {
     ...(source ? { source } : {}),
     ...(tags.length > 0 ? { tags } : {}),
     feed: 5,
-    contributor: 'currentUser',
+    contributor,
     syncStatus: 'pending',
   };
 
@@ -560,7 +593,7 @@ Se aplica cuando el usuario pide "mejora/alinea el componente X tomando como ref
    - `const newRow: [InterfaceName]Row` (tipo completo, NO `Partial<...>`), para que el compilador exija los campos obligatorios;
 
 - opcionales con propagación condicional; `tags` permanece como `string[]` y nunca se une en una cadena;
-- cierre fijo `feed: 5`, `contributor: 'currentUser'`, `syncStatus: 'pending'`.
+- cierre fijo `feed: 5`, `contributor` (identidad original al editar; identidad autenticada o de muestras locales al crear), `syncStatus: 'pending'`.
 
 5. **Eliminar campos que el modelo no define** (ej. `row`, `book`, `author` si no están en la interfaz); el servicio ya conoce la fila del catálogo.
 6. **Conservar sin cambios** el bloque `try/catch`, el mensaje de error y `resetForm()`, salvo que difieran del patrón de la sección 6.2.

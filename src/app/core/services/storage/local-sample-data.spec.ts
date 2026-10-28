@@ -54,6 +54,7 @@ describe('LocalSampleData fixtures', () => {
       for (const [domain, rows] of Object.entries(domainData)) {
         for (const row of rows) {
           expect(Array.isArray(row['tags']), `${catalogItem.id} ${domain} tags`).toBe(true);
+          expect(row['contributor'], `${catalogItem.id} ${domain} contributor`).toBe('leon84ych');
           expect(row, `${catalogItem.id} ${domain}`).not.toHaveProperty('tag');
         }
       }
@@ -179,6 +180,14 @@ describe('LocalSampleData fixtures', () => {
     ).toEqual({
       tags: ['#first', '#second'],
       synonyms: 'first term, alternate term',
+      contributor: 'leon84ych',
     });
+  });
+
+  it('updates legacy sample contributors without overwriting other contributors or content', () => {
+    expect(normalizeSampleDomainRow({ contributor: 'Local Sample Data', term: 'Edited locally' }))
+      .toMatchObject({ contributor: 'leon84ych', term: 'Edited locally' });
+    expect(normalizeSampleDomainRow({ contributor: 'student@gmail.com' }))
+      .toMatchObject({ contributor: 'student@gmail.com' });
   });
 });

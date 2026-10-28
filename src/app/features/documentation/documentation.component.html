@@ -1,0 +1,45 @@
+<div class="documentation-page">
+  <header class="documentation-heading">
+    <h1>{{ 'DOCUMENTATION.TITLE' | transloco }}</h1>
+    <a routerLink="/catalog">{{ 'NAV.CATALOG' | transloco }}</a>
+  </header>
+
+  <div class="documentation-layout">
+    <nav class="documentation-menu" [attr.aria-label]="'DOCUMENTATION.TITLE' | transloco">
+      <h2>{{ 'DOCUMENTATION.CONTENTS' | transloco }}</h2>
+      <ul>
+        @for (entry of state().entries; track entry.file) {
+          <li>
+            <a [routerLink]="['/documentation', entry.order.toString().padStart(3, '0')]"
+              [class.selected]="state().selected?.file === entry.file"
+              [attr.aria-current]="state().selected?.file === entry.file ? 'page' : null">
+              {{ entry.title }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <section class="documentation-reader" [attr.aria-busy]="state().loading"
+      [attr.aria-label]="state().selected?.title || ('DOCUMENTATION.TITLE' | transloco)">
+      @if (state().loading) {
+        <p class="documentation-status" role="status">{{ 'COMMON.LOADING' | transloco }}</p>
+      } @else if (state().error) {
+        <div class="documentation-status" role="alert">
+          <p>{{ 'DOCUMENTATION.ERROR' | transloco }}</p>
+          <button type="button" class="btn-primary" (click)="retry()">{{ 'COMMON.RETRY' | transloco }}</button>
+        </div>
+      } @else if (state().missing) {
+        <p class="documentation-status" role="status">{{ 'DOCUMENTATION.NOT_FOUND' | transloco }}</p>
+      } @else if (!state().entries.length) {
+        <p class="documentation-status" role="status">{{ 'DOCUMENTATION.EMPTY' | transloco }}</p>
+      } @else {
+        <article class="documentation-markdown" [attr.lang]="state().language" [innerHTML]="state().html"></article>
+        <footer class="documentation-source">
+          <a [href]="'docs/' + state().language + '/manual/' + state().selected!.file"
+            target="_blank" rel="noopener">{{ 'DOCUMENTATION.SOURCE' | transloco }}</a>
+        </footer>
+      }
+    </section>
+  </div>
+</div>

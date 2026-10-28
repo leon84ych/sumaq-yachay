@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/features/domain/shared/domain-contributor/**/*.spec.ts",
+    "src/app/features/domain/shared/domain-entry-card/**/*.spec.ts",
+    "src/app/core/services/storage/local-sample-data.spec.ts"
+  ]
+}

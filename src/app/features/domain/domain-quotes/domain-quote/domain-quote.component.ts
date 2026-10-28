@@ -22,6 +22,8 @@ import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.ser
 import { PermissionService } from '../../../../core/services/permission.service';
 import { QuoteEntryCardComponent } from '../components/quote-entry-card/quote-entry-card.component';
 import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
 import { QuoteFormComponent } from '../components/quote-form/quote-form.component';
 
@@ -50,7 +52,7 @@ export class DomainQuoteComponent {
   readonly newTags = signal<string[]>([]);
   readonly exportRow = signal<QuoteRow | null>(null);
   readonly isExporting = signal(false);
-  readonly searchTerm = signal('');
+  readonly searchTerm = inject(StudySearchService).query;
   readonly editingId = signal<string | null>(null);
   readonly quoteMaxLength = 600;
   readonly quoteCharactersRemaining = computed(() => this.quoteMaxLength - this.newQuote().length);
@@ -97,12 +99,9 @@ export class DomainQuoteComponent {
     return this.rows().filter(
       (row) =>
         !query ||
-        [row.quote, row.analysis, row.author, row.book, row.page, ...(row.tags ?? [])].some(
-          (value) =>
-            String(value ?? '')
-              .toLocaleLowerCase()
-              .includes(query),
-        ),
+        matchesStudySearch(query, [this.bookName(), this.bookAuthor(), 'quotes', 'citas',
+          row.quote, row.analysis, row.author, row.book, row.page, ...(row.tags ?? [])], row.tags,
+          { book: this.bookName() || row.book, author: this.bookAuthor() || row.author, contributor: row.contributor }),
     );
   });
 

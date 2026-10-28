@@ -6,7 +6,8 @@
       "theme": "Identity",
       "subtheme": "Self-definition and belonging",
       "syncStatus": "synced",
-      "tags": ["#identity"]
+      "tags": ["#identity"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-02",
@@ -14,7 +15,8 @@
       "theme": "History",
       "subtheme": "Memory and inherited conflict",
       "syncStatus": "synced",
-      "tags": ["#history"]
+      "tags": ["#history"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-03",
@@ -22,7 +24,8 @@
       "theme": "Perception",
       "subtheme": "Consciousness and sensory experience",
       "syncStatus": "synced",
-      "tags": ["#perception"]
+      "tags": ["#perception"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-04",
@@ -30,7 +33,8 @@
       "theme": "Everyday Life",
       "subtheme": "Domestic routine and observation",
       "syncStatus": "synced",
-      "tags": ["#everyday-life"]
+      "tags": ["#everyday-life"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-05",
@@ -38,7 +42,8 @@
       "theme": "Escape",
       "subtheme": "Distraction and temporary withdrawal",
       "syncStatus": "synced",
-      "tags": ["#escape"]
+      "tags": ["#escape"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-06",
@@ -46,7 +51,8 @@
       "theme": "Mortality",
       "subtheme": "Death, grief, and remembrance",
       "syncStatus": "synced",
-      "tags": ["#mortality"]
+      "tags": ["#mortality"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-07",
@@ -54,7 +60,8 @@
       "theme": "Language",
       "subtheme": "Rhetoric and public communication",
       "syncStatus": "synced",
-      "tags": ["#language"]
+      "tags": ["#language"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-08",
@@ -62,7 +69,8 @@
       "theme": "Embodiment",
       "subtheme": "Hunger, appetite, and the city",
       "syncStatus": "synced",
-      "tags": ["#embodiment"]
+      "tags": ["#embodiment"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-09",
@@ -70,7 +78,8 @@
       "theme": "Interpretation",
       "subtheme": "Literature and intellectual argument",
       "syncStatus": "synced",
-      "tags": ["#interpretation"]
+      "tags": ["#interpretation"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-10",
@@ -78,7 +87,8 @@
       "theme": "Consciousness",
       "subtheme": "Memory, intimacy, and interior thought",
       "syncStatus": "synced",
-      "tags": ["#consciousness"]
+      "tags": ["#consciousness"],
+      "contributor": "leon84ych"
     }
   ],
   "CHARACTER": [
@@ -92,7 +102,7 @@
       "source": "Ulysses",
       "tags": ["#bloom", "#identity", "#dublin"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#3A7D44"
     },
@@ -106,7 +116,7 @@
       "source": "Ulysses",
       "tags": ["#stephen", "#art", "#identity"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#735D78"
     },
@@ -120,7 +130,7 @@
       "source": "Ulysses",
       "tags": ["#molly", "#memory", "#consciousness"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#C49A3A"
     },
@@ -134,7 +144,7 @@
       "source": "Ulysses",
       "tags": ["#mulligan", "#stephen", "#wit"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#4F6D7A"
     },
@@ -148,7 +158,7 @@
       "source": "Ulysses",
       "tags": ["#haines", "#ireland", "#identity"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#5C4D7D"
     },
@@ -162,7 +172,7 @@
       "source": "Ulysses",
       "tags": ["#family", "#stephen", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#D17B49"
     },
@@ -176,7 +186,7 @@
       "source": "Ulysses",
       "tags": ["#boylan", "#relationships", "#bloom"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#6A994E"
     },
@@ -190,7 +200,7 @@
       "source": "Ulysses",
       "tags": ["#milly", "#family", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#2F6690"
     },
@@ -204,7 +214,7 @@
       "source": "Ulysses",
       "tags": ["#rudy", "#loss", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#A44A3F"
     },
@@ -218,7 +228,7 @@
       "source": "Ulysses",
       "tags": ["#citizen", "#nationalism", "#conflict"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#B56576"
     }
@@ -231,7 +241,8 @@
       "category": "Narrative technique",
       "source": "Study context for Ulysses",
       "tags": ["#modernism", "#narrative", "#stream-of-consciousness"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-02",
@@ -240,7 +251,8 @@
       "category": "Literary movement",
       "source": "Study context for Ulysses",
       "tags": ["#literature", "#experimentation", "#modernism"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-03",
@@ -249,7 +261,8 @@
       "category": "Narrative perspective",
       "source": "Study context for Ulysses",
       "tags": ["#consciousness", "#psychology", "#interiority"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-04",
@@ -258,7 +271,8 @@
       "category": "Literary device",
       "source": "Study context for Ulysses",
       "tags": ["#references", "#interpretation", "#allusion"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-05",
@@ -267,7 +281,8 @@
       "category": "Literary structure",
       "source": "Study context for Ulysses",
       "tags": ["#structure", "#odyssey", "#myth"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-06",
@@ -276,7 +291,8 @@
       "category": "Theme",
       "source": "Study context for Ulysses",
       "tags": ["#dublin", "#city", "#urban-experience"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-07",
@@ -285,7 +301,8 @@
       "category": "Theme",
       "source": "Study context for Ulysses",
       "tags": ["#self", "#belonging", "#identity"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-08",
@@ -294,7 +311,8 @@
       "category": "Theme",
       "source": "Study context for Ulysses",
       "tags": ["#past", "#consciousness", "#memory"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-09",
@@ -303,7 +321,8 @@
       "category": "Theme",
       "source": "Study context for Ulysses",
       "tags": ["#daily-life", "#modernism", "#ordinary-life"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-10",
@@ -312,7 +331,8 @@
       "category": "Narrative technique",
       "source": "Study context for Ulysses",
       "tags": ["#style", "#modernism", "#experimental-form"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "GLOSARY": [
@@ -327,7 +347,7 @@
       "page": 0,
       "tags": ["#literary-device", "#reading"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -341,7 +361,7 @@
       "page": 0,
       "tags": ["#consciousness", "#narrative"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -355,7 +375,7 @@
       "page": 0,
       "tags": ["#modernism", "#literature"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -369,7 +389,7 @@
       "page": 0,
       "tags": ["#voice", "#narrative"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -383,7 +403,7 @@
       "page": 0,
       "tags": ["#theme", "#analysis"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -397,7 +417,7 @@
       "page": 0,
       "tags": ["#style", "#experimentation"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -411,7 +431,7 @@
       "page": 0,
       "tags": ["#language", "#communication"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -425,7 +445,7 @@
       "page": 0,
       "tags": ["#symbols", "#analysis"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -439,7 +459,7 @@
       "page": 0,
       "tags": ["#structure", "#modernism"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -453,7 +473,7 @@
       "page": 0,
       "tags": ["#perception", "#consciousness"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -467,7 +487,7 @@
       "page": 0,
       "tags": ["#sample", "#memory", "#city"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -479,7 +499,7 @@
       "page": 0,
       "tags": ["#sample", "#dublin", "#movement"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -491,7 +511,7 @@
       "page": 0,
       "tags": ["#sample", "#consciousness", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -503,7 +523,7 @@
       "page": 0,
       "tags": ["#sample", "#ordinary-life", "#attention"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -515,7 +535,7 @@
       "page": 0,
       "tags": ["#sample", "#language", "#communication"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -527,7 +547,7 @@
       "page": 0,
       "tags": ["#sample", "#memory", "#identity"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -539,7 +559,7 @@
       "page": 0,
       "tags": ["#sample", "#rhetoric", "#perspective"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -551,7 +571,7 @@
       "page": 0,
       "tags": ["#sample", "#embodiment", "#everyday-life"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -563,7 +583,7 @@
       "page": 0,
       "tags": ["#sample", "#literature", "#interpretation"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -575,7 +595,7 @@
       "page": 0,
       "tags": ["#sample", "#interiority", "#consciousness"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -591,7 +611,7 @@
       "source": "Ulysses",
       "tags": ["#dublin", "#city", "#ireland"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -605,7 +625,7 @@
       "source": "Ulysses",
       "tags": ["#ireland", "#identity", "#history"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -619,7 +639,7 @@
       "source": "Ulysses",
       "tags": ["#sandycove", "#tower", "#stephen"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -633,7 +653,7 @@
       "source": "Ulysses",
       "tags": ["#sandymount", "#dublin", "#coast"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -647,7 +667,7 @@
       "source": "Ulysses",
       "tags": ["#library", "#literature", "#dublin"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -661,7 +681,7 @@
       "source": "Ulysses",
       "tags": ["#glasnevin", "#mortality", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -675,7 +695,7 @@
       "source": "Ulysses",
       "tags": ["#eccles-street", "#bloom", "#home"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -689,7 +709,7 @@
       "source": "Ulysses",
       "tags": ["#westland-row", "#dublin", "#urban"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -703,7 +723,7 @@
       "source": "Ulysses",
       "tags": ["#dublin-bay", "#sea", "#landscape"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -717,7 +737,7 @@
       "source": "Analytical sample context for Ulysses",
       "tags": ["#analytical-sample", "#dublin", "#history"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -729,7 +749,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#city", "#consciousness"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-02",
@@ -738,7 +759,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#ordinary-life", "#attention"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-03",
@@ -747,7 +769,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#memory", "#time"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-04",
@@ -756,7 +779,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#identity", "#dublin"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-05",
@@ -765,7 +789,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#language", "#modernism"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-06",
@@ -774,7 +799,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#memory", "#fragmentation"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-07",
@@ -783,7 +809,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#journey", "#consciousness"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-08",
@@ -792,7 +819,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#communication", "#interpretation"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-09",
@@ -801,7 +829,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#reading", "#interpretation"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-10",
@@ -810,7 +839,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#consciousness", "#modernism"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "QUESTIONS": [
@@ -820,16 +850,8 @@
       "answer": "True. The index links “Telemachus” with “Identity.” Self-definition and belonging",
       "type": "true-false",
       "options": [
-        {
-          "id": "true",
-          "text": "true",
-          "isCorrect": true
-        },
-        {
-          "id": "false",
-          "text": "false",
-          "isCorrect": false
-        }
+        { "id": "true", "text": "true", "isCorrect": true },
+        { "id": "false", "text": "false", "isCorrect": false }
       ],
       "sourceDomain": "INDEX",
       "sourceRowId": "sample-index-01",
@@ -840,7 +862,7 @@
       "aiGenerated": false,
       "tags": ["#identity"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -849,26 +871,10 @@
       "answer": "Stream of consciousness: A narrative technique that represents the shifting flow of a character's thoughts, impressions, memories, and perceptions.",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Modernism",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Stream of consciousness",
-          "isCorrect": true
-        },
-        {
-          "id": "option-3",
-          "text": "Interiority",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Allusion",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Modernism", "isCorrect": false },
+        { "id": "option-2", "text": "Stream of consciousness", "isCorrect": true },
+        { "id": "option-3", "text": "Interiority", "isCorrect": false },
+        { "id": "option-4", "text": "Allusion", "isCorrect": false }
       ],
       "sourceDomain": "CONCEPTS",
       "sourceRowId": "sample-concept-01",
@@ -879,7 +885,7 @@
       "aiGenerated": false,
       "tags": ["#modernism", "#narrative", "#stream-of-consciousness"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -888,26 +894,10 @@
       "answer": "Leopold Bloom",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Stephen Dedalus",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Molly Bloom",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Leopold Bloom",
-          "isCorrect": true
-        },
-        {
-          "id": "option-4",
-          "text": "Buck Mulligan",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Stephen Dedalus", "isCorrect": false },
+        { "id": "option-2", "text": "Molly Bloom", "isCorrect": false },
+        { "id": "option-3", "text": "Leopold Bloom", "isCorrect": true },
+        { "id": "option-4", "text": "Buck Mulligan", "isCorrect": false }
       ],
       "sourceDomain": "CHARACTER",
       "sourceRowId": "sample-character-01",
@@ -918,7 +908,7 @@
       "aiGenerated": false,
       "tags": ["#bloom", "#identity", "#dublin"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -927,26 +917,10 @@
       "answer": "Dublin",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Ireland",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Martello Tower, Sandycove",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Sandymount",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Dublin",
-          "isCorrect": true
-        }
+        { "id": "option-1", "text": "Ireland", "isCorrect": false },
+        { "id": "option-2", "text": "Martello Tower, Sandycove", "isCorrect": false },
+        { "id": "option-3", "text": "Sandymount", "isCorrect": false },
+        { "id": "option-4", "text": "Dublin", "isCorrect": true }
       ],
       "sourceDomain": "PLACES",
       "sourceRowId": "sample-place-01",
@@ -957,7 +931,7 @@
       "aiGenerated": false,
       "tags": ["#dublin", "#city", "#ireland"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -975,7 +949,7 @@
       "aiGenerated": false,
       "tags": ["#sample", "#city", "#consciousness"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -993,7 +967,7 @@
       "aiGenerated": false,
       "tags": ["#sample", "#memory", "#city"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1019,7 +993,7 @@
         "#ireland"
       ],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1035,7 +1009,7 @@
       "aiGenerated": false,
       "tags": ["#bloom", "#identity", "#dublin", "#stephen", "#art"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1058,7 +1032,7 @@
         "#identity"
       ],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1076,7 +1050,7 @@
       "aiGenerated": false,
       "tags": ["#literary-device", "#reading"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1106,7 +1080,7 @@
         "#ireland"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1134,7 +1108,7 @@
         "#identity"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1164,7 +1138,7 @@
         "#stephen"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1194,7 +1168,7 @@
         "#coast"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1213,7 +1187,7 @@
       "page": "",
       "tags": ["#bloom", "#identity", "#dublin", "#stephen", "#art"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1230,7 +1204,7 @@
       "page": "",
       "tags": ["#molly", "#memory", "#consciousness", "#mulligan", "#stephen", "#wit", "#history"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1247,7 +1221,7 @@
       "page": "",
       "tags": ["#haines", "#ireland", "#identity", "#family", "#stephen", "#memory", "#perception"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1272,7 +1246,7 @@
         "#everyday-life"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1298,7 +1272,7 @@
         "#identity"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1323,7 +1297,7 @@
         "#history"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1348,7 +1322,7 @@
         "#perception"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1373,7 +1347,7 @@
         "#everyday-life"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ]

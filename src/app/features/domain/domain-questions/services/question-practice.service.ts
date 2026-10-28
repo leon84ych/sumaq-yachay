@@ -3,6 +3,7 @@ import { CatalogItem } from '../../../catalog/models/catalog-item.model';
 import { AppDbService } from '../../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../../core/services/config.service';
 import { parseTags } from '../../../../shared/utils/tag-utils';
+import { matchesStudySearch, parseStudySearch } from '../../../../shared/utils/study-search';
 import {
   QuestionOption,
   QuestionRecord,
@@ -49,7 +50,7 @@ export class QuestionPracticeService {
       this.dbService.db.questions.toArray(),
     ]);
     const catalogByRow = new Map(catalogs.map((catalog) => [catalog.row, catalog]));
-    const query = normalizeText(filters.query);
+    const query = parseStudySearch(filters.query ?? '');
     const matching: QuestionPracticeItem[] = [];
 
     for (const question of questions) {
@@ -72,7 +73,9 @@ export class QuestionPracticeService {
         'preguntas',
         ...tags,
       ];
-      if (query && !searchFields.some((field) => normalizeText(field).includes(query))) continue;
+      if (!matchesStudySearch(query, searchFields, tags, {
+        book: bookName, author: bookAuthor, contributor: question.contributor,
+      })) continue;
       if (!QUESTION_TYPES.has(question.type)) continue;
 
       matching.push({

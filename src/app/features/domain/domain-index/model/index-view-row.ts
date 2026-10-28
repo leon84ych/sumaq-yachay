@@ -8,6 +8,7 @@ export interface IndexViewRow extends Record<string, unknown> {
   subtheme: string;
   tags: string[];
   syncStatus: 'pending' | 'synced';
+  contributor?: string;
 }
 
 export function normalizeIndexRows(rows: readonly Record<string, unknown>[]): IndexViewRow[] {
@@ -21,6 +22,7 @@ export function normalizeIndexRows(rows: readonly Record<string, unknown>[]): In
       subtheme: String(row['subtheme'] ?? ''),
       tags,
       syncStatus: row['syncStatus'] === 'synced' ? 'synced' : 'pending',
+      ...(typeof row['contributor'] === 'string' ? { contributor: row['contributor'] } : {}),
     };
   });
 }

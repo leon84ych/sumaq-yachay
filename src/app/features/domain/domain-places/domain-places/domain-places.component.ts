@@ -11,6 +11,8 @@ import { PermissionService } from '../../../../core/services/permission.service'
 import { PlaceEntryCardComponent } from '../components/place-entry-card/place-entry-card.component';
 import { DomainMapComponent } from '../../domain-map/domain-map/domain-map.component';
 import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
 import { PlaceFormComponent } from '../components/place-form/place-form.component';
 
@@ -36,7 +38,7 @@ export class DomainPlacesComponent {
   readonly isAddingEntry = input<boolean>(false);
   readonly closeEntry = output<void>();
 
-  readonly searchTerm = signal<string>('');
+  readonly searchTerm = inject(StudySearchService).query;
   readonly showMap = signal(false);
   readonly newTags = signal<string[]>([]);
   readonly editingId = signal<string | null>(null);
@@ -85,12 +87,9 @@ export class DomainPlacesComponent {
     const query = this.searchTerm().trim().toLocaleLowerCase();
     if (!query) return this.rows();
 
-    return this.rows().filter((row) =>
-      Object.values(row).some((val) =>
-        String(val ?? '')
-          .toLocaleLowerCase()
-          .includes(query),
-      ),
+    return this.rows().filter((row) => matchesStudySearch(query,
+      [this.bookName(), this.bookAuthor(), 'places', 'lugares', ...Object.values(row)], row.tags,
+      { book: this.bookName(), author: this.bookAuthor(), contributor: row.contributor }),
     );
   });
 

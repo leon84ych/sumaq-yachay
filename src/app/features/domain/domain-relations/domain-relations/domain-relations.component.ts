@@ -15,6 +15,8 @@ import { GlobalErrorService } from '../../../../core/services/global-error.servi
 import { PermissionService } from '../../../../core/services/permission.service';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
 import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
 import { CharacterRow } from '../../domain-character/models/domain-character-row.model';
@@ -45,7 +47,7 @@ export class DomainRelationsComponent {
   readonly closeEntry = output<void>();
 
   readonly editingId = signal<string | null>(null);
-  readonly searchTerm = signal('');
+  readonly searchTerm = inject(StudySearchService).query;
   readonly newSourceCharacterId = signal('');
   readonly newTargetCharacterId = signal('');
   readonly newRelationType = signal('');
@@ -121,8 +123,9 @@ export class DomainRelationsComponent {
       return this.rows();
     }
 
-    return this.rows().filter((relation) =>
+    return this.rows().filter((relation) => matchesStudySearch(query,
       [
+        this.bookName(), this.bookAuthor(), 'relations', 'relationships', 'relaciones',
         this.characterName(relation.sourceCharacterId),
         this.characterName(relation.targetCharacterId),
         relation.relationType,
@@ -131,7 +134,8 @@ export class DomainRelationsComponent {
         relation.author,
         relation.page,
         ...relation.tags,
-      ].some((value) => this.normalizeSearch(value).includes(query)),
+      ], relation.tags, { book: this.bookName() || relation.book, author: this.bookAuthor() || relation.author,
+        contributor: relation.contributor }),
     );
   });
 

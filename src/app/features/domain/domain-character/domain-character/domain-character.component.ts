@@ -10,6 +10,8 @@ import { CharacterEntryCardComponent } from '../components/character-entry-card/
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
 const CHARACTER_ROLES: CharacterRole[] = [
   'protagonist',
@@ -54,7 +56,7 @@ export class DomainCharacterComponent {
   readonly newSource = signal<string>('');
   readonly newColor = signal<string>('#3b82f6');
   readonly newTags = signal<string[]>([]);
-  readonly searchTerm = signal<string>('');
+  readonly searchTerm = inject(StudySearchService).query;
   readonly editingId = signal<string | null>(null);
 
   readonly source = computed(() => this.newSource().trim() || this.bookName().trim());
@@ -100,8 +102,9 @@ export class DomainCharacterComponent {
       return this.rows();
     }
 
-    return this.rows().filter((row) =>
+    return this.rows().filter((row) => matchesStudySearch(query,
       [
+        this.bookName(), this.bookAuthor(), 'characters', 'personajes',
         row.name,
         row.role,
         row.nature ?? '',
@@ -109,7 +112,7 @@ export class DomainCharacterComponent {
         row.description ?? '',
         row.archetype ?? '',
         ...(row.tags ?? []),
-      ].some((value) => value.toLocaleLowerCase().includes(query)),
+      ], row.tags, { book: this.bookName(), author: this.bookAuthor(), contributor: row.contributor }),
     );
   });
 

@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 
 const WEB_APP_URL_KEY = 'sumaq_yachay_web_app_url';
 const LOCAL_SAMPLE_DATA_KEY = 'sumaq_yachay_local_sample_data_enabled';
-const DEFAULT_GAS_TIMEOUT_MS = 6000;
+const DEFAULT_GAS_TIMEOUT_MS = 60_000;
 const DEFAULT_WEB_APP_URL =
   'https://script.google.com/macros/s/AKfycbyQ541zFbZU4FEbXJM0ppG1cVdX35DGFToUzRBwH_m9OoDASUaHoZgN5KTECqZ7C_zjpg/exec';
 

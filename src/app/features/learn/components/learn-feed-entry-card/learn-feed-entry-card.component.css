@@ -21,7 +21,7 @@
   list-style: none;
 }
 
-.learn-tags li {
+.learn-tags .study-tag {
   padding: 0.2rem 0.45rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);

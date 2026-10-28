@@ -146,13 +146,13 @@ export class CatalogApiService {
       body: JSON.stringify(authenticatedPayload)
     })
       .then((response) => {
-        clearTimeout(timeoutId);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json(); // Read and parse the actual JSON payload
       })
       .then((data) => {
+        clearTimeout(timeoutId);
         this.permissionService.setRole(data?.role);
         resolve(data); // Returns { status: 'success', message: '...', data: { ... } }
       })

@@ -3,12 +3,14 @@ import { Component, inject, input, output } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission.service';
 import { DomainEntryCardComponent } from '../../../shared/domain-entry-card/domain-entry-card.component';
+import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
 import { parseTags } from '../../../../../shared/utils/tag-utils';
+import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { BookEvent } from '../../model/book-event-row.model';
 
 @Component({
   selector: 'app-book-event-entry-card',
-  imports: [DatePipe, TranslocoPipe, DomainEntryCardComponent],
+  imports: [DatePipe, TranslocoPipe, DomainEntryCardComponent, DomainContributorComponent, StudyTagDirective],
   templateUrl: './book-event-entry-card.component.html',
   styleUrl: './book-event-entry-card.component.css',
 })

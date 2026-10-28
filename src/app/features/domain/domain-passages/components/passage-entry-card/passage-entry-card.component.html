@@ -26,15 +26,16 @@
   @if (row().tags) {
     <div class="passage-tags" [attr.aria-label]="'DOMAINS.PASSAGE.TAGS' | transloco">
       @for (tag of splitTags(row().tags); track $index) {
-        <span class="passage-tag">{{ tag }}</span>
+        <button type="button" class="passage-tag" [appStudyTag]="tag">{{ tag }}</button>
       }
     </div>
   }
 
-  @if (showActions() || showReadAction()) {
+  @if (showActions() || showReadAction() || row().contributor) {
     <footer class="domain-card-footer passage-card-footer">
-      @if (showActions()) {
-        <div class="domain-card-footer__management">
+      <div class="domain-card-footer__management">
+        <app-domain-contributor [contributor]="row().contributor" />
+        @if (showActions()) {
           @if (permissions.validatePermission(role(), 'DELETE_ROW')) {
             <button
               type="button"
@@ -61,8 +62,8 @@
               </svg>
             </button>
           }
-        </div>
-      }
+        }
+      </div>
       @if (showReadAction()) {
         <div class="domain-card-footer__actions">
           <button type="button" class="read-passage-button" (click)="requestRead()">
@@ -75,8 +76,5 @@
 </article>
 
 @if (readerMode() === 'internal' && selectedPassage(); as passage) {
-  <app-passage-reader
-    [passage]="passage"
-    (closeRequested)="selectedPassage.set(null)"
-  />
+  <app-passage-reader [passage]="passage" (closeRequested)="selectedPassage.set(null)" />
 }

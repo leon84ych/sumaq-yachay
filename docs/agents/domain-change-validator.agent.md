@@ -1,6 +1,6 @@
 ---
 name: Domain Change Validator
-description: 'Read-only audit for domain renames and changes. Use alongside a change request to check stale names, sample JSON, Transloco keys, light/dark styling, IndexedDB compatibility, tag taxonomy, and tests. Never edit files.'
+description: 'Read-only audit for domain renames and changes. Check shared cross-view search by tags, book, author, and contributor; stale names, sample JSON, Transloco, themes, IndexedDB compatibility, taxonomy, and tests. Never edit files.'
 tools: [read, search, execute]
 user-invocable: true
 disable-model-invocation: true
@@ -71,10 +71,29 @@ Example:
 - Sample fixtures, display names, component/domain routing, Learn-feed aliases, and tests agree on the requested public names.
 - Existing data is not deleted, silently rewritten, or made incompatible as a side effect of naming cleanup.
 
-### 7. Validation
+### 7. Shared Search And Interactive Metadata
+
+- Verify domain views bind `searchTerm`/`searchQuery` to `StudySearchService.query` from `src/app/core/services/study-search.service.ts`, not isolated local signals. The query survives route changes and resets on page reload; form resets/navigation must not clear it. Catalog subject/active filters remain independent.
+- Verify filtering delegates to `parseStudySearch`/`matchesStudySearch` in `src/app/shared/utils/study-search.ts`. Require AND across free text, quoted phrases, every exact normalized hashtag, and exact `book:`, `author:`, and `contributor:` constraints. Do not accept concatenated substring matching that breaks multiword names or matches mere body mentions instead of selected metadata.
+- Check every matcher receives raw `{ book, author, contributor }` context. Follow metadata through the sheet resolver, domain view, entry card, normalization (including INDEX), storage, and Learn adapters. Missing contributors must not match selected identities; accounts sharing a displayed username but having different full identities must remain distinct.
+- Displayed tags must be native `<button type="button" [appStudyTag]="tag">` controls importing `StudyTagDirective` from `src/app/shared/directives/study-tag.directive.ts`; keep `<app-tag-picker>` for editing. Shared `DomainEntryHeaderComponent` owns book/author filter buttons; shared `DomainContributorComponent` owns the contributor filter. Do not duplicate these controls in domain-local markup.
+- Confirm `addTag(tag)` and `addText(value, 'book' | 'author' | 'contributor')` preserve existing filters and avoid duplicates. Selection exposes `aria-pressed`, clearing/editing the query removes constraints, and click/Enter/Space events do not flip quotes, navigate parent cards, or submit forms. Check focus, hover/selected states, wrapping, and light/dark tokens.
+- All domain footers, including INDEX and read-only Learn cards, show username-only attribution before existing left-side actions. Match the full stored contributor identity, not its stripped display label. Contributor presence must not enable write controls or bypass `PermissionService`. Keep existing read/export controls and their flags intact.
+- Parse affected EN/ES sample JSON and confirm contributor values remain `leon84ych`, including previously missing fields. Legacy sample normalization may update missing/`Local Sample Data` values but must preserve other contributors and edited content. New-row contributor identity must come from the existing authenticated flow, not a placeholder; edits preserve original attribution.
+- Check domain aliases/result mappings in `LearnFeedService` and `CatalogService.CONTENT_SEARCH_TERMS`, plus shared matcher use in Quiz/practice. Catalog lookup must combine constraints on the same local content row and its book metadata, without remote searches. Filter before pagination; reset seen IDs/results, retain debounce, and discard stale async responses after query changes or destruction.
+- Exercise text/tag/book/author/contributor combinations, repeated clicks, clearing, navigation, same-username/different-account rows, empty identities, read-only cards, and all affected domains. Verify actual result sets, not just query text. Report browser checks separately from source/test inspection.
+
+### 8. Validation
 
 - Run `npm run build`.
 - Run the narrow tests for the changed domain/configuration, sample fixtures, and Learn-feed behavior.
+- For shared filtering changes, run the focused Vitest suites through Angular's current unit-test builder; do not assume Karma/Jasmine from older notes:
+
+	```sh
+	npm test -- --watch=false --ts-config=tsconfig.study-search-spec.json --include=src/app/core/services/study-search.service.spec.ts
+	npm test -- --watch=false --ts-config=tsconfig.contributor-spec.json --include=src/app/features/domain/shared/domain-contributor/**/*.spec.ts --include=src/app/features/domain/shared/domain-entry-card/**/*.spec.ts --include=src/app/core/services/storage/local-sample-data.spec.ts
+	```
+
 - If a test runner fails before the changed tests execute, report the setup/compiler blocker and separate it from failures in the reviewed change.
 - Search for stale identifiers again after validation. Report the exact count and locations.
 

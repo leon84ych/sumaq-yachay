@@ -30,6 +30,16 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'documentation',
+    loadComponent: () =>
+      import('./features/documentation/documentation.component').then((m) => m.DocumentationComponent),
+  },
+  {
+    path: 'documentation/:manual',
+    loadComponent: () =>
+      import('./features/documentation/documentation.component').then((m) => m.DocumentationComponent),
+  },
+  {
     path: '**',
     redirectTo: 'catalog',
   },

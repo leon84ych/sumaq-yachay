@@ -9,6 +9,8 @@ import { PassagesRow } from '../model/domain-passage-row.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import { PassageEntryCardComponent } from '../components/passage-entry-card/passage-entry-card.component';
 import { PassageReaderComponent } from '../components/passage-reader/passage-reader.component';
 
@@ -36,7 +38,7 @@ export class DomainPassageComponent {
   readonly isAddingEntry = input<boolean>(false);
   readonly closeEntry = output<void>();
   readonly selectedPassage = signal<PassagesRow | null>(null);
-  readonly searchTerm = signal('');
+  readonly searchTerm = inject(StudySearchService).query;
 
   readonly newTitle = signal<string>('');
   readonly newPassageText = signal<string>('');
@@ -93,10 +95,10 @@ export class DomainPassageComponent {
       return this.rows();
     }
 
-    return this.rows().filter((row) =>
-      [row.title, row.passageText, row.book, row.author, row.page ?? '', ...(row.tags ?? [])].some(
-        (value) => value.toLocaleLowerCase().includes(query),
-      ),
+    return this.rows().filter((row) => matchesStudySearch(query,
+      [this.bookName(), this.bookAuthor(), 'passages', 'pasajes',
+        row.title, row.passageText, row.book, row.author, row.page ?? '', ...(row.tags ?? [])], row.tags,
+        { book: this.bookName() || row.book, author: this.bookAuthor() || row.author, contributor: row.contributor }),
     );
   });
 

@@ -8,6 +8,8 @@ import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import { GlossaryEntryCardComponent } from '../components/glossary-entry-card/glossary-entry-card.component';
 
 import type { GlossaryRow, PartOfSpeech } from '../model/domain-glosary-row.model';
@@ -47,7 +49,7 @@ export class DomainGlossaryComponent {
   readonly newSource = signal<string>('');
   readonly newPage = signal<string>('');
   readonly newTags = signal<string[]>([]);
-  readonly searchTerm = signal<string>('');
+  readonly searchTerm = inject(StudySearchService).query;
   readonly editingId = signal<string | null>(null);
 
   readonly source = computed(() => this.newSource().trim() || this.bookName().trim());
@@ -95,8 +97,9 @@ export class DomainGlossaryComponent {
     const query = this.searchTerm().trim().toLocaleLowerCase();
     if (!query) return this.rows();
 
-    return this.rows().filter((row) =>
+    return this.rows().filter((row) => matchesStudySearch(query,
       [
+        this.bookName(), this.bookAuthor(), 'glossary', 'glosary', 'glosario',
         row.term,
         row.definition,
         row.partOfSpeech ?? '',
@@ -106,11 +109,7 @@ export class DomainGlossaryComponent {
         row.source ?? '',
         row.page ?? '',
         ...(row.tags ?? []),
-      ].some((val) =>
-        String(val ?? '')
-          .toLocaleLowerCase()
-          .includes(query),
-      ),
+      ], row.tags, { book: this.bookName(), author: this.bookAuthor(), contributor: row.contributor }),
     );
   });
 

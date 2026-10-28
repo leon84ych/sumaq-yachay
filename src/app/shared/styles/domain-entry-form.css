@@ -94,6 +94,29 @@
   font-weight: 700;
 }
 
+.study-tag {
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.study-tag:hover,
+.study-tag[aria-pressed='true'] {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.study-tag:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 3px;
+}
+
 .domain-card-footer {
   display: flex;
   flex-wrap: wrap;
@@ -118,9 +141,12 @@
 
 .domain-card-footer__management {
   display: flex;
-  flex: 0 0 auto;
+  min-width: 0;
+  max-width: 100%;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
 .domain-edit-button,

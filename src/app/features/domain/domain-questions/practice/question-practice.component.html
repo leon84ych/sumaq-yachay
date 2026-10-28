@@ -18,13 +18,17 @@
   }
 
   @if (isLoading() && questions().length === 0) {
-    <p class="practice-state" role="status">{{ 'DOMAINS.QUESTIONS.PRACTICE.LOADING' | transloco }}</p>
+    <p class="practice-state" role="status">
+      {{ 'DOMAINS.QUESTIONS.PRACTICE.LOADING' | transloco }}
+    </p>
   } @else if (currentQuestion(); as question) {
     <section class="question-session" [attr.aria-label]="'NAV.QUIZ' | transloco">
       <div class="question-meta">
         <span>{{ question.bookName }}</span>
         @if (question.difficulty) {
-          <span>{{ 'DOMAINS.QUESTIONS.DIFFICULTY_OPTIONS.' + question.difficulty | transloco }}</span>
+          <span>{{
+            'DOMAINS.QUESTIONS.DIFFICULTY_OPTIONS.' + question.difficulty | transloco
+          }}</span>
         }
         <span>{{ progressLabel() }}</span>
       </div>
@@ -68,7 +72,9 @@
                 <span>{{ option.text }}</span>
               </label>
             } @empty {
-              <p class="practice-state">{{ 'DOMAINS.QUESTIONS.PRACTICE.NO_OPTIONS' | transloco }}</p>
+              <p class="practice-state">
+                {{ 'DOMAINS.QUESTIONS.PRACTICE.NO_OPTIONS' | transloco }}
+              </p>
             }
           </fieldset>
           @if (!answerRevealed()) {
@@ -107,7 +113,9 @@
                 </span>
               </label>
             } @empty {
-              <p class="practice-state">{{ 'DOMAINS.QUESTIONS.PRACTICE.NO_OPTIONS' | transloco }}</p>
+              <p class="practice-state">
+                {{ 'DOMAINS.QUESTIONS.PRACTICE.NO_OPTIONS' | transloco }}
+              </p>
             }
           </fieldset>
           @if (!answerRevealed()) {
@@ -154,11 +162,19 @@
         }
       }
 
-      @if (answerRevealed()) {
-        <button type="button" class="practice-secondary next-button" (click)="advance()">
-          {{ (currentIndex() + 1 < questions().length ? 'DOMAINS.QUESTIONS.PRACTICE.NEXT' : 'DOMAINS.QUESTIONS.PRACTICE.NEW_SAMPLE') | transloco }}
-        </button>
-      }
+      <footer class="domain-card-footer">
+        <app-domain-contributor [contributor]="question.contributor" />
+        @if (answerRevealed()) {
+          <button type="button" class="practice-secondary next-button" (click)="advance()">
+            {{
+              (currentIndex() + 1 < questions().length
+                ? 'DOMAINS.QUESTIONS.PRACTICE.NEXT'
+                : 'DOMAINS.QUESTIONS.PRACTICE.NEW_SAMPLE'
+              ) | transloco
+            }}
+          </button>
+        }
+      </footer>
     </section>
   } @else {
     <section class="practice-empty" aria-live="polite">
@@ -170,8 +186,17 @@
 
 <ng-template #answerFeedback let-question>
   <div class="answer-panel">
-    <p class="answer-result" [class.correct]="answerCorrect()" [class.incorrect]="answerCorrect() === false">
-      {{ (answerCorrect() ? 'DOMAINS.QUESTIONS.PRACTICE.CORRECT' : 'DOMAINS.QUESTIONS.PRACTICE.INCORRECT') | transloco }}
+    <p
+      class="answer-result"
+      [class.correct]="answerCorrect()"
+      [class.incorrect]="answerCorrect() === false"
+    >
+      {{
+        (answerCorrect()
+          ? 'DOMAINS.QUESTIONS.PRACTICE.CORRECT'
+          : 'DOMAINS.QUESTIONS.PRACTICE.INCORRECT'
+        ) | transloco
+      }}
     </p>
     <h3>{{ 'DOMAINS.QUESTIONS.ANSWER' | transloco }}</h3>
     <p>{{ question.answer }}</p>

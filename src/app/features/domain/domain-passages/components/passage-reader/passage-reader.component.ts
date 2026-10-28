@@ -3,10 +3,11 @@ import { DOCUMENT } from '@angular/common';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PassagesRow } from '../../model/domain-passage-row.model';
 import { parseTags } from '../../../../../shared/utils/tag-utils';
+import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 
 @Component({
   selector: 'app-passage-reader',
-  imports: [TranslocoPipe],
+  imports: [TranslocoPipe, StudyTagDirective],
   templateUrl: './passage-reader.component.html',
   styleUrl: './passage-reader.component.css',
   host: {

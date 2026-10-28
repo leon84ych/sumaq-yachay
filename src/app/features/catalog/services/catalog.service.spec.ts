@@ -1,9 +1,8 @@
 // @vitest-environment jsdom
 
 import { TestBed } from '@angular/core/testing';
-import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
 import { signal } from '@angular/core';
-import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { of } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config.service';
@@ -21,10 +20,6 @@ describe('CatalogService', () => {
   let saveCatalogItemSpy: ReturnType<typeof vi.fn>;
   let copyCatalogSpy: ReturnType<typeof vi.fn>;
   let seedLocalSampleDataSpy: ReturnType<typeof vi.fn>;
-
-  beforeAll(() => {
-    TestBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
-  });
 
   beforeEach(() => {
     TestBed.resetTestingModule();
@@ -182,7 +177,7 @@ describe('CatalogService', () => {
     expect(service.items()[0]).toMatchObject({ row: 1, syncStatus: 'synced' });
   });
 
-  it('clones a public catalog using the COPY_CATALOG URL and option payload', async () => {
+  it('clones a public catalog using only the CLONE_CATALOG action and SheetId', async () => {
     copyCatalogSpy.mockReturnValue(of({ status: 'success' }));
     getCatalogSpy.mockReturnValue(
       of({ status: 'success', timestamp: '2026-01-01T00:00:00.000Z', data: [] }),
@@ -192,14 +187,12 @@ describe('CatalogService', () => {
 
     const imported = await service.addCatalogFromSheet(
       'https://docs.google.com/spreadsheets/d/sheet-id/edit',
-      'CLONE',
     );
 
     expect(imported).toBe(true);
     expect(copyCatalogSpy).toHaveBeenCalledWith({
-      action: 'COPY_CATALOG',
+      action: 'CLONE_CATALOG',
       SheetId: 'https://docs.google.com/spreadsheets/d/sheet-id/edit',
-      option: 'CLONE',
     });
     expect(clearAllTablesSpy).toHaveBeenCalled();
   });
@@ -210,7 +203,6 @@ describe('CatalogService', () => {
 
     const result = await service.addCatalogFromSheet(
       'https://docs.google.com/spreadsheets/d/sheet-id/edit',
-      'SHARED',
     );
 
     expect(result).toBe(false);
@@ -235,7 +227,6 @@ describe('CatalogService', () => {
 
     const result = await service.addCatalogFromSheet(
       'https://docs.google.com/spreadsheets/d/sheet-id/edit',
-      'CLONE',
     );
 
     expect(result).toBe(false);

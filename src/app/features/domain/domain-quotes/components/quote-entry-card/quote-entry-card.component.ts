@@ -2,7 +2,9 @@ import { Component, computed, inject, input, output, signal } from '@angular/cor
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission.service';
 import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
+import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
 import { parseTags } from '../../../../../shared/utils/tag-utils';
+import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { QuoteRow } from '../../model/domain-quote-row.model';
 
 export interface QuoteImageExportRequest {
@@ -13,7 +15,7 @@ export interface QuoteImageExportRequest {
 
 @Component({
   selector: 'app-quote-entry-card',
-  imports: [TranslocoPipe, DomainEntryHeaderComponent],
+  imports: [TranslocoPipe, DomainEntryHeaderComponent, DomainContributorComponent, StudyTagDirective],
   templateUrl: './quote-entry-card.component.html',
   styleUrl: './quote-entry-card.component.css',
 })

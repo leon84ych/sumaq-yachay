@@ -6,6 +6,8 @@ import { GlobalErrorService } from '../../../../core/services/global-error.servi
 import { PermissionService } from '../../../../core/services/permission.service';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
 import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
 import { CharacterRow } from '../../domain-character/models/domain-character-row.model';
@@ -37,7 +39,7 @@ export class DomainBookEventsComponent {
   readonly isAddingEntry = input(false);
   readonly closeEntry = output<void>();
 
-  readonly searchTerm = signal('');
+  readonly searchTerm = inject(StudySearchService).query;
   readonly editingId = signal<string | null>(null);
   readonly newMainCharacterId = signal('');
   readonly newSecondaryCharacterIds = signal<string[]>([]);
@@ -99,8 +101,9 @@ export class DomainBookEventsComponent {
       return this.orderedRows();
     }
 
-    return this.orderedRows().filter((event) =>
+    return this.orderedRows().filter((event) => matchesStudySearch(query,
       [
+        this.bookName(), this.bookAuthor(), 'book events', 'book_events', 'eventos',
         event.event,
         event.description,
         event.dateLabel ?? '',
@@ -111,7 +114,8 @@ export class DomainBookEventsComponent {
         this.characterName(event.mainCharacterId),
         ...event.secondaryCharacterIds.map((id) => this.characterName(id)),
         event.placeId ? this.placeName(event.placeId) : '',
-      ].some((value) => this.normalizeSearch(value).includes(query)),
+      ], event.tags, { book: this.bookName() || event.book, author: this.bookAuthor() || event.author,
+        contributor: event.contributor }),
     );
   });
 

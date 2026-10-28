@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, effect, inject, signal, untracked } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { QuestionAttemptService } from '../services/question-attempt.service';
 import {
@@ -8,11 +8,13 @@ import {
   QuestionPracticeService,
 } from '../services/question-practice.service';
 import { QuestionOption } from '../model/domain-question-row.model';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { DomainContributorComponent } from '../../shared/domain-contributor/domain-contributor.component';
 
 @Component({
   selector: 'app-question-practice',
   standalone: true,
-  imports: [CommonModule, TranslocoPipe],
+  imports: [CommonModule, TranslocoPipe, DomainContributorComponent],
   templateUrl: './question-practice.component.html',
   styleUrl: './question-practice.component.css',
 })
@@ -22,7 +24,7 @@ export class QuestionPracticeComponent {
   private readonly destroyRef = inject(DestroyRef);
 
   readonly questions = signal<QuestionPracticeItem[]>([]);
-  readonly searchQuery = signal('');
+  readonly searchQuery = inject(StudySearchService).query;
   readonly currentIndex = signal(0);
   readonly selectedOptionId = signal('');
   readonly freeResponse = signal('');
@@ -33,6 +35,7 @@ export class QuestionPracticeComponent {
   readonly errorMessage = signal<string | null>(null);
   readonly answerCorrect = signal<boolean | null>(null);
   private searchDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+  private requestVersion = 0;
 
   readonly currentQuestion = computed(() => this.questions()[this.currentIndex()] ?? null);
   readonly currentOptions = computed(() => {
@@ -47,34 +50,52 @@ export class QuestionPracticeComponent {
 
   constructor() {
     this.destroyRef.onDestroy(() => {
+      ++this.requestVersion;
       if (this.searchDebounceTimer) clearTimeout(this.searchDebounceTimer);
     });
-    void this.refreshSample();
+    effect(() => {
+      const query = this.searchQuery();
+      untracked(() => this.scheduleSearch(query));
+    });
   }
 
   onSearchInput(query: string): void {
     this.searchQuery.set(query);
+  }
+
+  private scheduleSearch(query: string): void {
+    ++this.requestVersion;
     if (this.searchDebounceTimer) clearTimeout(this.searchDebounceTimer);
+    this.questions.set([]);
+    this.currentIndex.set(0);
+    this.resetAnswerState();
+    this.errorMessage.set(null);
+    this.isLoading.set(true);
     this.searchDebounceTimer = setTimeout(() => {
       this.searchDebounceTimer = null;
-      void this.refreshSample();
+      if (query === this.searchQuery()) void this.refreshSample();
     }, 250);
   }
 
   async refreshSample(): Promise<void> {
+    const requestVersion = ++this.requestVersion;
     this.isLoading.set(true);
     this.errorMessage.set(null);
     try {
       const filters: QuestionPracticeFilters = {
         query: this.searchQuery().trim(),
       };
-      this.questions.set(await this.practiceService.loadRandomBatch(filters));
+      const questions = await this.practiceService.loadRandomBatch(filters);
+      if (requestVersion !== this.requestVersion) return;
+      this.questions.set(questions);
       this.currentIndex.set(0);
       this.resetAnswerState();
     } catch (error) {
-      this.errorMessage.set(error instanceof Error ? error.message : 'DOMAINS.QUESTIONS.PRACTICE.ERROR');
+      if (requestVersion === this.requestVersion) {
+        this.errorMessage.set(error instanceof Error ? error.message : 'DOMAINS.QUESTIONS.PRACTICE.ERROR');
+      }
     } finally {
-      this.isLoading.set(false);
+      if (requestVersion === this.requestVersion) this.isLoading.set(false);
     }
   }
 

@@ -6,7 +6,8 @@
       "theme": "Time",
       "subtheme": "Fragmented memory and nonlinear perception",
       "syncStatus": "synced",
-      "tags": ["#time"]
+      "tags": ["#time"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-02",
@@ -14,7 +15,8 @@
       "theme": "Memory",
       "subtheme": "Sensory triggers and involuntary recollection",
       "syncStatus": "synced",
-      "tags": ["#memory"]
+      "tags": ["#memory"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-03",
@@ -22,7 +24,8 @@
       "theme": "Family",
       "subtheme": "Identity and inherited expectations",
       "syncStatus": "synced",
-      "tags": ["#family"]
+      "tags": ["#family"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-04",
@@ -30,7 +33,8 @@
       "theme": "Time",
       "subtheme": "Obsession with time and the past",
       "syncStatus": "synced",
-      "tags": ["#time"]
+      "tags": ["#time"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-05",
@@ -38,7 +42,8 @@
       "theme": "Resentment",
       "subtheme": "Anger, control, and frustration",
       "syncStatus": "synced",
-      "tags": ["#resentment"]
+      "tags": ["#resentment"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-06",
@@ -46,7 +51,8 @@
       "theme": "Decline",
       "subtheme": "Family deterioration and personal bitterness",
       "syncStatus": "synced",
-      "tags": ["#decline"]
+      "tags": ["#decline"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-07",
@@ -54,7 +60,8 @@
       "theme": "Endurance",
       "subtheme": "Continuity amid family instability",
       "syncStatus": "synced",
-      "tags": ["#endurance"]
+      "tags": ["#endurance"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-08",
@@ -62,7 +69,8 @@
       "theme": "Community",
       "subtheme": "Family life viewed through social relationships",
       "syncStatus": "synced",
-      "tags": ["#community"]
+      "tags": ["#community"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-09",
@@ -70,7 +78,8 @@
       "theme": "Perspective",
       "subtheme": "Multiple narrators and subjective experience",
       "syncStatus": "synced",
-      "tags": ["#perspective"]
+      "tags": ["#perspective"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-10",
@@ -78,7 +87,8 @@
       "theme": "Modernism",
       "subtheme": "Fragmentation and experimental narrative form",
       "syncStatus": "synced",
-      "tags": ["#modernism"]
+      "tags": ["#modernism"],
+      "contributor": "leon84ych"
     }
   ],
   "CHARACTER": [
@@ -92,7 +102,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#benjy", "#memory", "#perception"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#D17B49"
     },
@@ -106,7 +116,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#quentin", "#time", "#family"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#735D78"
     },
@@ -120,7 +130,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#jason", "#resentment", "#control"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#C49A3A"
     },
@@ -134,7 +144,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#caddy", "#family", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#3A7D44"
     },
@@ -148,7 +158,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#dilsey", "#endurance", "#family"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#A44A3F"
     },
@@ -162,7 +172,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#caroline", "#family", "#compson"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#4F6D7A"
     },
@@ -176,7 +186,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#father", "#compson", "#family"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#5C4D7D"
     },
@@ -190,7 +200,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#miss-quentin", "#family", "#conflict"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#6A994E"
     },
@@ -204,7 +214,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#luster", "#benjy", "#gibson-family"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#B56576"
     },
@@ -218,7 +228,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#tp", "#gibson-family", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#2F6690"
     }
@@ -231,7 +241,8 @@
       "category": "Narrative technique",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#time", "#structure", "#nonlinear-chronology"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-02",
@@ -240,7 +251,8 @@
       "category": "Narrative technique",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#modernism", "#consciousness", "#stream-of-consciousness"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-03",
@@ -249,7 +261,8 @@
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#time", "#memory", "#subjective-time"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-04",
@@ -258,7 +271,8 @@
       "category": "Narrative structure",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#modernism", "#structure", "#fragmentation"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-05",
@@ -267,7 +281,8 @@
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#family", "#decline", "#family-decline"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-06",
@@ -276,7 +291,8 @@
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#past", "#consciousness", "#memory"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-07",
@@ -285,7 +301,8 @@
       "category": "Narrative technique",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#narrator", "#interpretation", "#multiple-perspective"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-08",
@@ -294,7 +311,8 @@
       "category": "Literary movement",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#literature", "#experimentation", "#modernism"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-09",
@@ -303,7 +321,8 @@
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#self", "#family", "#identity"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-10",
@@ -312,7 +331,8 @@
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#dilsey", "#family", "#endurance"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "GLOSARY": [
@@ -327,7 +347,7 @@
       "page": 0,
       "tags": ["#time", "#structure"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -341,7 +361,7 @@
       "page": 0,
       "tags": ["#modernism", "#narrative"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -355,7 +375,7 @@
       "page": 0,
       "tags": ["#perspective", "#narrator"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -369,7 +389,7 @@
       "page": 0,
       "tags": ["#memory", "#past"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -383,7 +403,7 @@
       "page": 0,
       "tags": ["#consciousness", "#narrative"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -397,7 +417,7 @@
       "page": 0,
       "tags": ["#perspective", "#consciousness"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -411,7 +431,7 @@
       "page": 0,
       "tags": ["#decline", "#family"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -425,7 +445,7 @@
       "page": 0,
       "tags": ["#analysis", "#theme"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -439,7 +459,7 @@
       "page": 0,
       "tags": ["#reading", "#fragmentation"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -453,7 +473,7 @@
       "page": 0,
       "tags": ["#endurance", "#theme"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -467,7 +487,7 @@
       "page": 0,
       "tags": ["#sample", "#memory", "#time"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -479,7 +499,7 @@
       "page": 0,
       "tags": ["#sample", "#time", "#consciousness"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -491,7 +511,7 @@
       "page": 0,
       "tags": ["#sample", "#family", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -503,7 +523,7 @@
       "page": 0,
       "tags": ["#sample", "#perspective", "#subjectivity"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -515,7 +535,7 @@
       "page": 0,
       "tags": ["#sample", "#family", "#identity"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -527,7 +547,7 @@
       "page": 0,
       "tags": ["#sample", "#resentment", "#anger"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -539,7 +559,7 @@
       "page": 0,
       "tags": ["#sample", "#endurance", "#family"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -551,7 +571,7 @@
       "page": 0,
       "tags": ["#sample", "#fragmentation", "#reading"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -563,7 +583,7 @@
       "page": 0,
       "tags": ["#sample", "#decline", "#family"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -575,7 +595,7 @@
       "page": 0,
       "tags": ["#sample", "#perspective", "#interpretation"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -591,7 +611,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#jefferson", "#mississippi", "#setting"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -605,7 +625,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#yoknapatawpha", "#region", "#faulkner"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -619,7 +639,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#compson", "#home", "#family"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -633,7 +653,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#harvard", "#quentin", "#university"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -647,7 +667,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#cambridge", "#quentin", "#massachusetts"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -661,7 +681,7 @@
       "source": "Study context for The Sound and the Fury",
       "tags": ["#mississippi", "#south", "#setting"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -675,7 +695,7 @@
       "source": "The Sound and the Fury",
       "tags": ["#compson", "#pasture", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -689,7 +709,7 @@
       "source": "Analytical sample context for The Sound and the Fury",
       "tags": ["#analytical-sample", "#home", "#family"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -703,7 +723,7 @@
       "source": "Analytical sample context for The Sound and the Fury",
       "tags": ["#analytical-sample", "#jefferson", "#community"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -717,7 +737,7 @@
       "source": "Analytical sample context for The Sound and the Fury",
       "tags": ["#analytical-sample", "#landscape", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -729,7 +749,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#memory", "#time"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-02",
@@ -738,7 +759,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#family", "#perspective"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-03",
@@ -747,7 +769,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#chronology", "#modernism"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-04",
@@ -756,7 +779,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#past", "#memory"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-05",
@@ -765,7 +789,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#decline", "#family"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-06",
@@ -774,7 +799,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#narrator", "#perspective"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-07",
@@ -783,7 +809,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#fragmentation", "#reading"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-08",
@@ -792,7 +819,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#home", "#family"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-09",
@@ -801,7 +829,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#resentment", "#perspective"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-10",
@@ -810,7 +839,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#endurance", "#change"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "QUESTIONS": [
@@ -820,16 +850,8 @@
       "answer": "True. The index links “Benjy” with “Time.” Fragmented memory and nonlinear perception",
       "type": "true-false",
       "options": [
-        {
-          "id": "true",
-          "text": "true",
-          "isCorrect": true
-        },
-        {
-          "id": "false",
-          "text": "false",
-          "isCorrect": false
-        }
+        { "id": "true", "text": "true", "isCorrect": true },
+        { "id": "false", "text": "false", "isCorrect": false }
       ],
       "sourceDomain": "INDEX",
       "sourceRowId": "sample-index-01",
@@ -840,7 +862,7 @@
       "aiGenerated": false,
       "tags": ["#time"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -849,26 +871,10 @@
       "answer": "Nonlinear chronology: A narrative structure in which events are presented outside straightforward chronological order.",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Stream of consciousness",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Subjective time",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Nonlinear chronology",
-          "isCorrect": true
-        },
-        {
-          "id": "option-4",
-          "text": "Fragmentation",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Stream of consciousness", "isCorrect": false },
+        { "id": "option-2", "text": "Subjective time", "isCorrect": false },
+        { "id": "option-3", "text": "Nonlinear chronology", "isCorrect": true },
+        { "id": "option-4", "text": "Fragmentation", "isCorrect": false }
       ],
       "sourceDomain": "CONCEPTS",
       "sourceRowId": "sample-concept-01",
@@ -879,7 +885,7 @@
       "aiGenerated": false,
       "tags": ["#time", "#structure", "#nonlinear-chronology"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -888,26 +894,10 @@
       "answer": "Benjy Compson",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Quentin Compson",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Jason Compson IV",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Candace Compson",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Benjy Compson",
-          "isCorrect": true
-        }
+        { "id": "option-1", "text": "Quentin Compson", "isCorrect": false },
+        { "id": "option-2", "text": "Jason Compson IV", "isCorrect": false },
+        { "id": "option-3", "text": "Candace Compson", "isCorrect": false },
+        { "id": "option-4", "text": "Benjy Compson", "isCorrect": true }
       ],
       "sourceDomain": "CHARACTER",
       "sourceRowId": "sample-character-01",
@@ -918,7 +908,7 @@
       "aiGenerated": false,
       "tags": ["#benjy", "#memory", "#perception"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -927,26 +917,10 @@
       "answer": "Jefferson",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Jefferson",
-          "isCorrect": true
-        },
-        {
-          "id": "option-2",
-          "text": "Yoknapatawpha County",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Compson Property",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Harvard University",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Jefferson", "isCorrect": true },
+        { "id": "option-2", "text": "Yoknapatawpha County", "isCorrect": false },
+        { "id": "option-3", "text": "Compson Property", "isCorrect": false },
+        { "id": "option-4", "text": "Harvard University", "isCorrect": false }
       ],
       "sourceDomain": "PLACES",
       "sourceRowId": "sample-place-01",
@@ -957,7 +931,7 @@
       "aiGenerated": false,
       "tags": ["#jefferson", "#mississippi", "#setting"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -975,7 +949,7 @@
       "aiGenerated": false,
       "tags": ["#sample", "#memory", "#time"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -993,7 +967,7 @@
       "aiGenerated": false,
       "tags": ["#sample", "#memory", "#time"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1020,7 +994,7 @@
         "#setting"
       ],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1036,7 +1010,7 @@
       "aiGenerated": false,
       "tags": ["#benjy", "#memory", "#perception", "#quentin", "#time", "#family"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1059,7 +1033,7 @@
         "#consciousness"
       ],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1077,7 +1051,7 @@
       "aiGenerated": false,
       "tags": ["#time", "#structure"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1108,7 +1082,7 @@
         "#setting"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1137,7 +1111,7 @@
         "#faulkner"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1164,7 +1138,7 @@
         "#home"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1194,7 +1168,7 @@
         "#university"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1213,7 +1187,7 @@
       "page": "",
       "tags": ["#benjy", "#memory", "#perception", "#quentin", "#time", "#family"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1230,7 +1204,7 @@
       "page": "",
       "tags": ["#jason", "#resentment", "#control", "#caddy", "#family", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1247,7 +1221,7 @@
       "page": "",
       "tags": ["#dilsey", "#endurance", "#family", "#caroline", "#compson"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1264,7 +1238,7 @@
       "page": "",
       "tags": ["#father", "#compson", "#family", "#miss-quentin", "#conflict", "#time"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1290,7 +1264,7 @@
         "#consciousness"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1314,7 +1288,7 @@
         "#structure"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1331,7 +1305,7 @@
       "page": "",
       "tags": ["#family-decline", "#family", "#decline", "#memory", "#past", "#consciousness"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1356,7 +1330,7 @@
         "#time"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ]

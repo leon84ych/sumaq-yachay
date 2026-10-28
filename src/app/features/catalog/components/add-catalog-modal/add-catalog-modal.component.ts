@@ -1,11 +1,9 @@
 import { Component, inject, input, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { CatalogCopyOption } from '../../models/catalog-api.model';
 
 export interface AddCatalogEvent {
   sheetUrl: string;
-  option: CatalogCopyOption;
 }
 
 @Component({
@@ -33,7 +31,6 @@ export class AddCatalogModalComponent {
         ),
       ],
     ],
-    option: ['CLONE' as CatalogCopyOption, Validators.required],
   });
 
   submit(): void {
@@ -43,11 +40,11 @@ export class AddCatalogModalComponent {
     const formValue = this.form.getRawValue();
     this.add.emit({
       sheetUrl: formValue.sheetUrl.trim(),
-      option: formValue.option,
     });
   }
 
   onBackdropClick(event: MouseEvent): void {
+    if (this.isLoading()) return;
     if ((event.target as HTMLElement).classList.contains('modal-overlay')) {
       this.close.emit();
     }

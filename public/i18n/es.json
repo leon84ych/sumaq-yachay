@@ -1,4 +1,12 @@
 {
+  "DOCUMENTATION": {
+    "TITLE": "Manual de Sumaq Yachay",
+    "CONTENTS": "Contenido",
+    "SOURCE": "Ver archivo Markdown",
+    "ERROR": "No se pudo cargar el manual. Inténtalo de nuevo.",
+    "NOT_FOUND": "Esta entrada del manual no está disponible en el idioma seleccionado.",
+    "EMPTY": "Todavía no hay manuales disponibles en este idioma."
+  },
   "AUTH": {
     "LOGIN": "Entrar",
     "LOGOUT": "Salir",
@@ -7,7 +15,7 @@
   },
   "LEARN": {
     "TITLE": "Aprender",
-    "SEARCH": "Buscar libros, autores, dominios o etiquetas...",
+    "SEARCH": "Buscar libros, autores, colaboradores, dominios o etiquetas...",
     "EMPTY_TITLE": "No se encontraron entradas para aprender",
     "EMPTY_DESCRIPTION": "Todavía no hay entradas locales de los dominios disponibles.",
     "NO_SEARCH_RESULTS_TITLE": "No se encontraron entradas coincidentes",
@@ -29,7 +37,6 @@
       "TITLE": "Configuración",
       "LOGIN": "Entrar",
       "LOGOUT": "Salir",
-      "DESCRIPTION": "Configura la URL de la aplicación web de Google Apps Script y ajusta la apariencia.",
       "SOURCE_URL": "URL de Google Apps Script Web App",
       "URL_PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
       "SAVE": "Guardar Cambios",
@@ -65,7 +72,7 @@
       "SYNC_LOCAL": "Sincronizar Local",
       "SYNCING": "Sincronizando...",
       "REGISTER_SOURCE": "Registrar Fuente",
-      "ADD_CATALOG": "Agregar catálogo"
+      "ADD_CATALOG": "Clonar catálogo maestro"
     },
     "METRICS": {
       "TOTAL": "Total Registrados",
@@ -76,7 +83,7 @@
       "PENDING": "Pendiente / Error"
     },
     "FILTER": {
-      "SEARCH_PLACEHOLDER": "Buscar catálogos por nombre, tipo o descripción...",
+      "SEARCH_PLACEHOLDER": "Buscar libros, autores, colaboradores, dominios o etiquetas...",
       "ALL": "Todos",
       "TECHNICAL": "Técnico",
       "PHILOSOPHY": "Filosofía",
@@ -127,19 +134,14 @@
       "SUBMIT_EDIT": "Guardar Cambios"
     },
     "ADD_CATALOG": {
-      "TITLE": "Agregar un catálogo público maestro",
+      "TITLE": "Clonar catálogo maestro",
       "URL_LABEL": "URL de Google Sheet público maestro",
       "URL_PLACEHOLDER": "Pega la URL completa de Google Sheets",
       "URL_ERROR": "Ingresa una URL válida de Google Sheets.",
-      "OPTION_LABEL": "¿Cómo quieres usar este catálogo?",
-      "CLONE": "Clonar en mi Drive",
-      "CLONE_DESCRIPTION": "Esto llenará tu catálogo desde un catálogo público compartido. Si todo sale bien, tendrás un clon en tu propio Drive. El original solo se usa como fuente.",
-      "SHARED": "Usar el catálogo compartido",
-      "SHARED_DESCRIPTION": "Puedes leer y editar el catálogo público mientras su propietario te conceda acceso de Editor.",
-      "SHARED_PERMISSION_NOTE": "El propietario debe agregar la cuenta de Google que desplegó esta aplicación web de Apps Script.",
+      "CLONE_DESCRIPTION": "Este catálogo maestro se va a clonar en tu propio Drive. El original solo se utiliza como fuente. La solicitud puede tardar hasta un minuto.",
       "CANCEL": "Cancelar",
-      "SUBMIT": "Agregar catálogo",
-      "SUBMITTING": "Agregando catálogo..."
+      "SUBMIT": "Clonar catálogo maestro",
+      "SUBMITTING": "Clonando catálogo maestro..."
     },
     "EMPTY": {
       "TITLE": "No se encontraron fuentes en el catálogo",
@@ -148,8 +150,8 @@
     },
     "ERRORS": {
       "malformedCatalog": "Se recibió una respuesta de catálogo malformada.",
-      "copyCatalogFailed": "No se pudo agregar el catálogo. Verifica la URL e inténtalo de nuevo.",
-      "copyCatalogUnavailable": "Solo se puede agregar un catálogo cuando el catálogo remoto está vacío.",
+      "copyCatalogFailed": "No se pudo clonar el catálogo maestro. Verifica la URL e inténtalo de nuevo.",
+      "copyCatalogUnavailable": "Solo se puede clonar un catálogo maestro cuando el catálogo remoto está vacío.",
       "syncFailed": "No se pudo conectar con el endpoint de la Web App. Verifica que la URL termine en /exec, que el despliegue tenga acceso 'Cualquiera', que estés conectado a internet, y que ninguna VPN/proxy esté bloqueando script.google.com."
     }
   },

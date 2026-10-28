@@ -5,6 +5,14 @@
   @if (rows().length === 0) {
     <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
   } @else {
+    <label class="domain-search">
+      <span class="visually-hidden">{{ 'LEARN.SEARCH' | transloco }}</span>
+      <input type="search" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)"
+        [placeholder]="'LEARN.SEARCH' | transloco" />
+    </label>
+    @if (hierarchy().length === 0) {
+      <p class="empty-state" role="status">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+    }
     <div class="hierarchy-list">
       @for (chapterGroup of hierarchy(); track chapterGroup.chapter) {
         <section class="chapter-group">

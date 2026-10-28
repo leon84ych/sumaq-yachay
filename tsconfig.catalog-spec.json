@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/core/services/config.service.spec.ts",
+    "src/app/features/catalog/services/catalog*.spec.ts",
+    "src/app/features/catalog/components/add-catalog-modal/add-catalog-modal.component.spec.ts"
+  ]
+}

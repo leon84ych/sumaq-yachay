@@ -6,7 +6,8 @@
       "theme": "Infancia",
       "subtheme": "Familia, sensibilidad y construcción de la conciencia",
       "syncStatus": "synced",
-      "tags": ["#infancia"]
+      "tags": ["#infancia"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-02",
@@ -14,7 +15,8 @@
       "theme": "Identidad",
       "subtheme": "Formación intelectual, afectiva y poética",
       "syncStatus": "synced",
-      "tags": ["#identidad"]
+      "tags": ["#identidad"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-03",
@@ -22,7 +24,8 @@
       "theme": "Memoria",
       "subtheme": "Herencia familiar y reconstrucción del pasado",
       "syncStatus": "synced",
-      "tags": ["#memoria"]
+      "tags": ["#memoria"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-04",
@@ -30,7 +33,8 @@
       "theme": "Cuerpo",
       "subtheme": "Fragilidad física y experiencia interior",
       "syncStatus": "synced",
-      "tags": ["#cuerpo"]
+      "tags": ["#cuerpo"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-05",
@@ -38,7 +42,8 @@
       "theme": "Conocimiento",
       "subtheme": "Conversación, aprendizaje y descubrimiento intelectual",
       "syncStatus": "synced",
-      "tags": ["#conocimiento"]
+      "tags": ["#conocimiento"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-06",
@@ -46,7 +51,8 @@
       "theme": "Formación",
       "subtheme": "Ideas, literatura y desarrollo intelectual",
       "syncStatus": "synced",
-      "tags": ["#formación"]
+      "tags": ["#formación"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-07",
@@ -54,7 +60,8 @@
       "theme": "Poesía",
       "subtheme": "Metáfora, imagen y conocimiento poético",
       "syncStatus": "synced",
-      "tags": ["#poesía"]
+      "tags": ["#poesía"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-08",
@@ -62,7 +69,8 @@
       "theme": "Ciudad",
       "subtheme": "Experiencia urbana, cultura y memoria",
       "syncStatus": "synced",
-      "tags": ["#la-habana"]
+      "tags": ["#la-habana"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-09",
@@ -70,7 +78,8 @@
       "theme": "Imagen",
       "subtheme": "Relaciones inesperadas entre objetos, ideas y tradiciones",
       "syncStatus": "synced",
-      "tags": ["#imagen"]
+      "tags": ["#imagen"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-10",
@@ -78,7 +87,8 @@
       "theme": "Barroco",
       "subtheme": "Densidad verbal, referencias culturales y expansión metafórica",
       "syncStatus": "synced",
-      "tags": ["#barroco"]
+      "tags": ["#barroco"],
+      "contributor": "leon84ych"
     }
   ],
   "CHARACTER": [
@@ -92,7 +102,7 @@
       "source": "Paradiso",
       "tags": ["#josé-cemí", "#poesía", "#formación"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#5C4D7D"
     },
@@ -106,7 +116,7 @@
       "source": "Paradiso",
       "tags": ["#oppiano-licario", "#poesía", "#conocimiento"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#A44A3F"
     },
@@ -120,7 +130,7 @@
       "source": "Paradiso",
       "tags": ["#fronesis", "#amistad", "#universidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#D17B49"
     },
@@ -134,7 +144,7 @@
       "source": "Paradiso",
       "tags": ["#foción", "#amistad", "#ideas"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#735D78"
     },
@@ -148,7 +158,7 @@
       "source": "Paradiso",
       "tags": ["#familia-cemí", "#padre", "#memoria"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#C49A3A"
     },
@@ -162,7 +172,7 @@
       "source": "Paradiso",
       "tags": ["#rialta", "#familia", "#memoria"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#B56576"
     },
@@ -176,7 +186,7 @@
       "source": "Paradiso",
       "tags": ["#baldovina", "#infancia", "#casa"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#6A994E"
     },
@@ -190,7 +200,7 @@
       "source": "Paradiso",
       "tags": ["#alberto-olaya", "#familia", "#pasado"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#2F6690"
     },
@@ -204,7 +214,7 @@
       "source": "Contexto analítico de muestra para Paradiso",
       "tags": ["#muestra-analítica", "#imagen", "#poesía"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#3A7D44"
     },
@@ -218,7 +228,7 @@
       "source": "Contexto analítico de muestra para Paradiso",
       "tags": ["#muestra-analítica", "#barroco", "#lectura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#4F6D7A"
     }
@@ -231,7 +241,8 @@
       "category": "Estética",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#lenguaje", "#estilo", "#barroco"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-02",
@@ -240,7 +251,8 @@
       "category": "Poética",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#poesía", "#metáfora", "#imagen-poética"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-03",
@@ -249,7 +261,8 @@
       "category": "Recurso literario",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#lenguaje", "#imagen", "#metáfora"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-04",
@@ -258,7 +271,8 @@
       "category": "Tema",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#identidad", "#conocimiento", "#formación"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-05",
@@ -267,7 +281,8 @@
       "category": "Tema",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#familia", "#pasado", "#memoria-familiar"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-06",
@@ -276,7 +291,8 @@
       "category": "Técnica literaria",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#referencias", "#literatura", "#intertextualidad"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-07",
@@ -285,7 +301,8 @@
       "category": "Concepto filosófico",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#poesía", "#conocimiento", "#conocimiento-poético"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-08",
@@ -294,7 +311,8 @@
       "category": "Tema",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#cuerpo", "#experiencia", "#cuerpo-enfermedad"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-09",
@@ -303,7 +321,8 @@
       "category": "Tema",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#familia", "#memoria", "#genealogía"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-10",
@@ -312,7 +331,8 @@
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#experimentación", "#lenguaje", "#prosa-experimental"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "GLOSARY": [
@@ -327,7 +347,7 @@
       "page": 0,
       "tags": ["#barroco", "#estilo"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -341,7 +361,7 @@
       "page": 0,
       "tags": ["#metáfora", "#imagen"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -355,7 +375,7 @@
       "page": 0,
       "tags": ["#erudición", "#cultura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -369,7 +389,7 @@
       "page": 0,
       "tags": ["#intertextualidad", "#literatura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -383,7 +403,7 @@
       "page": 0,
       "tags": ["#genealogía", "#familia"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -397,7 +417,7 @@
       "page": 0,
       "tags": ["#cosmogonía", "#mitología"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -411,7 +431,7 @@
       "page": 0,
       "tags": ["#analogía", "#imagen"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -425,7 +445,7 @@
       "page": 0,
       "tags": ["#hermetismo", "#lectura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -439,7 +459,7 @@
       "page": 0,
       "tags": ["#poética", "#literatura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -453,7 +473,7 @@
       "page": 0,
       "tags": ["#imagen", "#poesía"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -467,7 +487,7 @@
       "page": 0,
       "tags": ["#muestra", "#cuerpo", "#infancia"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -479,7 +499,7 @@
       "page": 0,
       "tags": ["#muestra", "#familia", "#memoria"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -491,7 +511,7 @@
       "page": 0,
       "tags": ["#muestra", "#imagen", "#imaginación"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -503,7 +523,7 @@
       "page": 0,
       "tags": ["#muestra", "#amistad", "#conocimiento"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -515,7 +535,7 @@
       "page": 0,
       "tags": ["#muestra", "#la-habana", "#memoria"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -527,7 +547,7 @@
       "page": 0,
       "tags": ["#muestra", "#formación", "#conocimiento"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -539,7 +559,7 @@
       "page": 0,
       "tags": ["#muestra", "#metáfora", "#poesía"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -551,7 +571,7 @@
       "page": 0,
       "tags": ["#muestra", "#intertextualidad", "#lectura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -563,7 +583,7 @@
       "page": 0,
       "tags": ["#muestra", "#genealogía", "#familia"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -575,7 +595,7 @@
       "page": 0,
       "tags": ["#muestra", "#barroco", "#lectura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -591,7 +611,7 @@
       "source": "Paradiso",
       "tags": ["#la-habana", "#cuba", "#ciudad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -605,7 +625,7 @@
       "source": "Paradiso",
       "tags": ["#cuba", "#cultura", "#identidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -619,7 +639,7 @@
       "source": "Contexto analítico de muestra para Paradiso",
       "tags": ["#muestra-analítica", "#familia-cemí", "#memoria"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -633,7 +653,7 @@
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#universidad", "#la-habana", "#formación"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -647,7 +667,7 @@
       "source": "Contexto analítico de muestra para Paradiso",
       "tags": ["#muestra-analítica", "#la-habana", "#familia"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -661,7 +681,7 @@
       "source": "Contexto analítico de muestra para Paradiso",
       "tags": ["#muestra-analítica", "#la-habana", "#conocimiento"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -675,7 +695,7 @@
       "source": "Contexto analítico de muestra para Paradiso",
       "tags": ["#muestra-analítica", "#literatura", "#intertextualidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -689,7 +709,7 @@
       "source": "Contexto analítico de muestra para Paradiso",
       "tags": ["#muestra-analítica", "#imagen", "#poesía"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -703,7 +723,7 @@
       "source": "Contexto analítico de muestra para Paradiso",
       "tags": ["#muestra-analítica", "#genealogía", "#memoria"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -717,7 +737,7 @@
       "source": "Contexto analítico de muestra para Paradiso",
       "tags": ["#muestra-analítica", "#barroco", "#lectura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -729,7 +749,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#imagen", "#poesía"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-02",
@@ -738,7 +759,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#familia", "#memoria"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-03",
@@ -747,7 +769,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#lectura", "#barroco"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-04",
@@ -756,7 +779,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#conocimiento", "#poesía"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-05",
@@ -765,7 +789,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#intertextualidad", "#imaginación"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-06",
@@ -774,7 +799,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#cuerpo", "#formación"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-07",
@@ -783,7 +809,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#amistad", "#conocimiento"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-08",
@@ -792,7 +819,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#erudición", "#experiencia"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-09",
@@ -801,7 +829,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#formación", "#genealogía"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-10",
@@ -810,7 +839,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#barroco", "#interpretación"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "QUESTIONS": [
@@ -820,16 +850,8 @@
       "answer": "Verdadero. El índice relaciona «Formación» con «Infancia». Familia, sensibilidad y construcción de la conciencia",
       "type": "true-false",
       "options": [
-        {
-          "id": "true",
-          "text": "true",
-          "isCorrect": true
-        },
-        {
-          "id": "false",
-          "text": "false",
-          "isCorrect": false
-        }
+        { "id": "true", "text": "true", "isCorrect": true },
+        { "id": "false", "text": "false", "isCorrect": false }
       ],
       "sourceDomain": "INDEX",
       "sourceRowId": "sample-index-01",
@@ -840,7 +862,7 @@
       "aiGenerated": false,
       "tags": ["#infancia"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -849,26 +871,10 @@
       "answer": "Barroco: Estética caracterizada por la elaboración formal, la abundancia de imágenes, la complejidad expresiva y la proliferación de relaciones culturales.",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Imagen poética",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Barroco",
-          "isCorrect": true
-        },
-        {
-          "id": "option-3",
-          "text": "Metáfora",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Formación",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Imagen poética", "isCorrect": false },
+        { "id": "option-2", "text": "Barroco", "isCorrect": true },
+        { "id": "option-3", "text": "Metáfora", "isCorrect": false },
+        { "id": "option-4", "text": "Formación", "isCorrect": false }
       ],
       "sourceDomain": "CONCEPTS",
       "sourceRowId": "sample-concept-01",
@@ -879,7 +885,7 @@
       "aiGenerated": false,
       "tags": ["#lenguaje", "#estilo", "#barroco"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -888,26 +894,10 @@
       "answer": "José Cemí",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Oppiano Licario",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Ricardo Fronesis",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "José Cemí",
-          "isCorrect": true
-        },
-        {
-          "id": "option-4",
-          "text": "Eugenio Foción",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Oppiano Licario", "isCorrect": false },
+        { "id": "option-2", "text": "Ricardo Fronesis", "isCorrect": false },
+        { "id": "option-3", "text": "José Cemí", "isCorrect": true },
+        { "id": "option-4", "text": "Eugenio Foción", "isCorrect": false }
       ],
       "sourceDomain": "CHARACTER",
       "sourceRowId": "sample-character-01",
@@ -918,7 +908,7 @@
       "aiGenerated": false,
       "tags": ["#josé-cemí", "#poesía", "#formación"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -927,26 +917,10 @@
       "answer": "La Habana",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Cuba",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Casa de la familia Cemí",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Universidad de La Habana",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "La Habana",
-          "isCorrect": true
-        }
+        { "id": "option-1", "text": "Cuba", "isCorrect": false },
+        { "id": "option-2", "text": "Casa de la familia Cemí", "isCorrect": false },
+        { "id": "option-3", "text": "Universidad de La Habana", "isCorrect": false },
+        { "id": "option-4", "text": "La Habana", "isCorrect": true }
       ],
       "sourceDomain": "PLACES",
       "sourceRowId": "sample-place-01",
@@ -957,7 +931,7 @@
       "aiGenerated": false,
       "tags": ["#la-habana", "#cuba", "#ciudad"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -975,7 +949,7 @@
       "aiGenerated": false,
       "tags": ["#muestra", "#imagen", "#poesía"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -993,7 +967,7 @@
       "aiGenerated": false,
       "tags": ["#muestra", "#cuerpo", "#infancia"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1021,7 +995,7 @@
         "#ciudad"
       ],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1044,7 +1018,7 @@
         "#infancia"
       ],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1068,7 +1042,7 @@
         "#infancia"
       ],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1086,7 +1060,7 @@
       "aiGenerated": false,
       "tags": ["#barroco", "#estilo"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1121,7 +1095,7 @@
         "#ciudad"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1153,7 +1127,7 @@
         "#cultura"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1183,7 +1157,7 @@
         "#muestra-analítica"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1216,7 +1190,7 @@
         "#formación"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1242,7 +1216,7 @@
         "#infancia"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1259,7 +1233,7 @@
       "page": "",
       "tags": ["#fronesis", "#amistad", "#universidad", "#foción", "#ideas", "#identidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1276,7 +1250,7 @@
       "page": "",
       "tags": ["#familia-cemí", "#padre", "#memoria", "#rialta", "#familia"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1301,7 +1275,7 @@
         "#cuerpo"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1328,7 +1302,7 @@
         "#infancia"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1345,7 +1319,7 @@
       "page": "",
       "tags": ["#metáfora", "#lenguaje", "#imagen", "#formación", "#identidad", "#conocimiento"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1370,7 +1344,7 @@
         "#memoria"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1394,7 +1368,7 @@
         "#experiencia"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ]

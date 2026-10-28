@@ -15,6 +15,8 @@ import { GlobalErrorService } from '../../../../core/services/global-error.servi
 import { PermissionService } from '../../../../core/services/permission.service';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
 import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
 import { ConceptRow } from '../../domain-concepts/model/domain-concept-row.model';
@@ -44,7 +46,7 @@ export class DomainAssociationComponent {
   readonly closeEntry = output<void>();
 
   readonly editingId = signal<string | null>(null);
-  readonly searchTerm = signal('');
+  readonly searchTerm = inject(StudySearchService).query;
   readonly newSourceConceptId = signal('');
   readonly newTargetConceptId = signal('');
   readonly newRelationType = signal('');
@@ -120,8 +122,9 @@ export class DomainAssociationComponent {
       return this.rows();
     }
 
-    return this.rows().filter((relation) =>
+    return this.rows().filter((relation) => matchesStudySearch(query,
       [
+        this.bookName(), this.bookAuthor(), 'associations', 'asociaciones',
         this.conceptName(relation.sourceConceptId),
         this.conceptName(relation.targetConceptId),
         relation.relationType,
@@ -130,7 +133,8 @@ export class DomainAssociationComponent {
         relation.author,
         relation.page,
         ...relation.tags,
-      ].some((value) => this.normalizeSearch(value).includes(query)),
+      ], relation.tags, { book: this.bookName() || relation.book, author: this.bookAuthor() || relation.author,
+        contributor: relation.contributor }),
     );
   });
 

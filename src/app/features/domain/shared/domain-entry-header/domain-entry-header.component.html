@@ -14,9 +14,30 @@
       </span>
       <div class="domain-entry-header__source">
         <span class="domain-entry-header__book">
-          {{ bookName() }}
-          @if (bookAuthor()) {
-            <span> · {{ bookAuthor() }}</span>
+          @if (bookName().trim()) {
+            <button
+              type="button"
+              class="domain-entry-header__filter domain-entry-header__book-filter"
+              [attr.aria-pressed]="bookSelected()"
+              (click)="filterBy($event, bookName(), 'book')"
+              (keydown)="onFilterKeydown($event)"
+            >
+              {{ bookName() }}
+            </button>
+          }
+          @if (bookAuthor().trim()) {
+            @if (bookName().trim()) {
+              <span aria-hidden="true"> · </span>
+            }
+            <button
+              type="button"
+              class="domain-entry-header__filter domain-entry-header__author-filter"
+              [attr.aria-pressed]="authorSelected()"
+              (click)="filterBy($event, bookAuthor(), 'author')"
+              (keydown)="onFilterKeydown($event)"
+            >
+              {{ bookAuthor() }}
+            </button>
           }
         </span>
         @if (status()) {

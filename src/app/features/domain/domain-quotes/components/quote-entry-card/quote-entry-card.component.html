@@ -45,7 +45,7 @@
       @if (row().tags) {
         <div class="quote-tags" [attr.aria-label]="'DOMAINS.QUOTE.TAGS' | transloco">
           @for (tag of splitTags(row().tags); track $index) {
-            <span class="quote-tag-chip">{{ tag }}</span>
+            <button type="button" class="quote-tag-chip" [appStudyTag]="tag">{{ tag }}</button>
           }
         </div>
       }
@@ -64,10 +64,11 @@
     }
   </div>
 
-  @if (showActions() || showImageExport()) {
+  @if (showActions() || showImageExport() || row().contributor) {
     <footer class="domain-card-footer quote-card-footer">
-      @if (showActions()) {
-        <div class="domain-card-footer__management">
+      <div class="domain-card-footer__management">
+        <app-domain-contributor [contributor]="row().contributor" />
+        @if (showActions()) {
           @if (permissions.validatePermission(role(), 'DELETE_ROW')) {
             <button
               type="button"
@@ -94,8 +95,8 @@
               </svg>
             </button>
           }
-        </div>
-      }
+        }
+      </div>
       @if (showImageExport()) {
         <div class="domain-card-footer__actions">
           @if (isFlipped()) {

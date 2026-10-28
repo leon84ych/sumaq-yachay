@@ -2,12 +2,14 @@ import { Component, inject, input, output } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission.service';
 import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
+import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
 import { parseTags } from '../../../../../shared/utils/tag-utils';
+import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { PlaceRow } from '../../model/domain-place-row.model';
 
 @Component({
   selector: 'app-place-entry-card',
-  imports: [TranslocoPipe, DomainEntryHeaderComponent],
+  imports: [TranslocoPipe, DomainEntryHeaderComponent, DomainContributorComponent, StudyTagDirective],
   templateUrl: './place-entry-card.component.html',
   styleUrl: './place-entry-card.component.css',
 })

@@ -3,8 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "docs:index": "node scripts/generate-manual-index.mjs",
+    "prestart": "npm run docs:index",
     "start": "ng serve",
+    "prebuild": "npm run docs:index",
     "build": "ng build",
+    "prewatch": "npm run docs:index",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "deploy": "ng build --base-href \"https://leon84ych.github.io/sumaq-yachay/\" && npx angular-cli-ghpages --dir=dist/sumaq-yachay/browser"
@@ -22,6 +26,7 @@
     "dexie": "^4.4.6",
     "html-to-image": "^1.11.13",
     "leaflet": "^1.9.4",
+    "marked": "^18.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

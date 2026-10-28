@@ -4,13 +4,16 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  effect,
   inject,
   signal,
   Type,
+  untracked,
   ViewChild,
 } from '@angular/core';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../core/services/global-error.service';
+import { StudySearchService } from '../../../core/services/study-search.service';
 import { downloadJpeg } from '../../../shared/utils/image-export';
 import { PlaceEntryCardComponent } from '../../domain/domain-places/components/place-entry-card/place-entry-card.component';
 import { GlossaryEntryCardComponent } from '../../domain/domain-glosary/components/glossary-entry-card/glossary-entry-card.component';
@@ -47,7 +50,7 @@ export class Learn {
   private readonly seenEntryIds = new Set<string>();
 
   readonly entries = signal<LearnFeedEntry[]>([]);
-  readonly searchQuery = signal('');
+  readonly searchQuery = inject(StudySearchService).query;
   readonly entryBeingExported = signal<LearnFeedEntry | null>(null);
   readonly exportTheme = signal<'dark' | 'light'>('dark');
   readonly exportUrl = signal('');
@@ -185,15 +188,22 @@ export class Learn {
 
   constructor() {
     this.destroyRef.onDestroy(() => {
+      ++this.requestVersion;
       if (this.searchDebounceTimer) {
         clearTimeout(this.searchDebounceTimer);
       }
     });
-    void this.loadMore();
+    effect(() => {
+      const query = this.searchQuery();
+      untracked(() => this.scheduleSearch(query));
+    });
   }
 
   onSearchInput(query: string): void {
     this.searchQuery.set(query);
+  }
+
+  private scheduleSearch(query: string): void {
     if (this.searchDebounceTimer) {
       clearTimeout(this.searchDebounceTimer);
     }

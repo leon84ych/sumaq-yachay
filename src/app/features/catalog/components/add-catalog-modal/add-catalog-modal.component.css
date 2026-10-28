@@ -66,8 +66,7 @@
   gap: 0.4rem;
 }
 
-label,
-legend {
+label {
   color: var(--text);
   font-size: 0.9rem;
   font-weight: 650;
@@ -85,63 +84,21 @@ input[type='url'] {
 }
 
 input[type='url']:focus-visible,
-button:focus-visible,
-.option-item:focus-within {
+button:focus-visible {
   outline: 2px solid var(--secondary);
   outline-offset: 2px;
 }
 
-.option-group {
-  display: grid;
-  gap: 0.65rem;
-  min-width: 0;
+.clone-notice {
   margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-.option-group legend {
-  margin-bottom: 0.65rem;
-}
-
-.option-item {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: start;
-  gap: 0.75rem;
   padding: 0.85rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: var(--background);
-  cursor: pointer;
-}
-
-.option-item.selected {
-  border-color: var(--secondary);
-  box-shadow: inset 3px 0 var(--secondary);
-}
-
-.option-item input {
-  margin: 0.2rem 0 0;
-  accent-color: var(--secondary);
-}
-
-.option-copy {
-  display: grid;
-  gap: 0.35rem;
-  color: var(--text-muted);
+  background: var(--primary-light);
+  color: var(--text);
   font-size: 0.85rem;
   line-height: 1.45;
-}
-
-.option-copy strong {
-  color: var(--text);
-  font-size: 0.95rem;
-}
-
-.permission-note {
-  color: var(--primary);
-  font-weight: 650;
+  overflow-wrap: anywhere;
 }
 
 .field-error,
@@ -160,6 +117,7 @@ button:focus-visible,
 
 .modal-footer {
   justify-content: flex-end;
+  flex-wrap: wrap;
   padding: 1rem 0 0;
   border-top: 1px solid var(--border);
 }
@@ -167,12 +125,14 @@ button:focus-visible,
 .btn-secondary,
 .btn-submit {
   min-height: 2.5rem;
+  max-width: 100%;
   padding: 0.55rem 1rem;
   border: 0;
   border-radius: var(--radius-sm);
   font: inherit;
   font-weight: 650;
   cursor: pointer;
+  overflow-wrap: anywhere;
 }
 
 .btn-secondary {

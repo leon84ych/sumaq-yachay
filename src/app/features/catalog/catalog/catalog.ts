@@ -72,8 +72,8 @@ export class Catalog {
     this.isAddCatalogModalOpen.set(true);
   }
 
-  async handleAddCatalog(event: { sheetUrl: string; option: 'CLONE' | 'SHARED' }): Promise<void> {
-    if (await this.catalogService.addCatalogFromSheet(event.sheetUrl, event.option)) {
+  async handleAddCatalog(event: { sheetUrl: string }): Promise<void> {
+    if (await this.catalogService.addCatalogFromSheet(event.sheetUrl)) {
       this.isAddCatalogModalOpen.set(false);
     }
   }

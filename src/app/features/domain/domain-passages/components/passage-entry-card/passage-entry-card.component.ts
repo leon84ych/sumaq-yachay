@@ -2,13 +2,15 @@ import { Component, computed, inject, input, output, signal } from '@angular/cor
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission.service';
 import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
+import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
 import { parseTags } from '../../../../../shared/utils/tag-utils';
+import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { PassageReaderComponent } from '../passage-reader/passage-reader.component';
 import { PassagesRow } from '../../model/domain-passage-row.model';
 
 @Component({
   selector: 'app-passage-entry-card',
-  imports: [TranslocoPipe, DomainEntryHeaderComponent, PassageReaderComponent],
+  imports: [TranslocoPipe, DomainEntryHeaderComponent, PassageReaderComponent, DomainContributorComponent, StudyTagDirective],
   templateUrl: './passage-entry-card.component.html',
   styleUrl: './passage-entry-card.component.css',
 })

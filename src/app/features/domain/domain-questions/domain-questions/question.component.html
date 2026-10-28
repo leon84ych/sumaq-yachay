@@ -45,12 +45,13 @@
             @if (row.tags) {
               <div class="question-tags" [attr.aria-label]="'DOMAINS.QUESTIONS.TAGS' | transloco">
                 @for (tag of splitTags(row.tags); track $index) {
-                  <span class="question-tag">{{ tag }}</span>
+                  <button type="button" class="question-tag" [appStudyTag]="tag">{{ tag }}</button>
                 }
               </div>
             }
             <footer class="domain-card-footer question-card-footer">
               <div class="domain-card-footer__management">
+                <app-domain-contributor [contributor]="row.contributor" />
                 @if (permissionService.validatePermission(role(), 'DELETE_ROW')) {
                   <button
                     type="button"

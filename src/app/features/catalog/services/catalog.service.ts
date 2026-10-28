@@ -4,11 +4,28 @@ import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config.service';
 import { CatalogApiService } from './catalog-api.service';
 import { CatalogItem } from '../models/catalog-item.model';
-import { CatalogPostPayload, CatalogCopyOption, CopyCatalogPayload } from '../models/catalog-api.model';
+import { CatalogPostPayload, CopyCatalogPayload } from '../models/catalog-api.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { GlobalLoadingService } from '../../../core/services/global-loading.service';
 import { PermissionService } from '../../../core/services/permission.service';
 import { mapCatalogItemToRowValues } from './catalog-row-values';
+import { StudySearchService } from '../../../core/services/study-search.service';
+import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
+
+const CONTENT_SEARCH_TERMS: Record<string, string[]> = {
+  indexTopics: ['index', 'índice'],
+  concepts: ['concepts', 'conceptos'],
+  quotes: ['quotes', 'citas'],
+  passages: ['passages', 'pasajes'],
+  characters: ['character', 'characters', 'personaje', 'personajes'],
+  places: ['places', 'lugar', 'lugares'],
+  bookEvents: ['book events', 'book_events', 'events', 'eventos'],
+  relationsCharacters: ['relations', 'relationships', 'relaciones'],
+  relationsConcepts: ['associations', 'concept relationships', 'asociaciones'],
+  glosary: ['glosary', 'glossary', 'glosario'],
+  questions: ['questions', 'preguntas'],
+  bookTags: [],
+};
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +41,12 @@ export class CatalogService {
   // State Signals
   readonly items = signal<CatalogItem[]>([]);
   readonly selectedSubject = signal<string>('ALL');
-  readonly searchQuery = signal<string>('');
+  readonly searchQuery = inject(StudySearchService).query;
   readonly showActiveOnly = signal<boolean>(false);
   readonly isLoading = signal<boolean>(false);
   readonly errorMessage = signal<string | null>(null);
   readonly lastSyncedAt = signal<string | null>(null);
+  private readonly relatedMatches = signal({ query: '', rows: new Set<number>() });
 
   // Computed Derived State
   readonly filteredItems = computed(() => {
@@ -36,15 +54,18 @@ export class CatalogService {
     const subject = this.selectedSubject();
     const query = this.searchQuery().toLowerCase().trim();
     const activeOnly = this.showActiveOnly();
+    const related = this.relatedMatches();
 
     return list.filter((item) => {
       const matchesSubject = subject === 'ALL' || item.subject === subject;
       const matchesActive = !activeOnly || item.active;
       const matchesQuery =
         !query ||
-        item.name.toLowerCase().includes(query) ||
-        item.subject.toLowerCase().includes(query) ||
-        (item.description && item.description.toLowerCase().includes(query));
+        (related.query === query && related.rows.has(item.row)) ||
+        matchesStudySearch(query,
+          [item.name, item.subject, item.topic, item.author, item.description ?? '', item.source ?? ''],
+          [], { book: item.name, author: item.author },
+        );
 
       return matchesSubject && matchesActive && matchesQuery;
     });
@@ -76,6 +97,24 @@ export class CatalogService {
   });
 
   constructor() {
+    effect((onCleanup) => {
+      const query = this.searchQuery().toLowerCase().trim();
+      const items = this.items();
+      if (!query || items.length === 0) return;
+
+      let active = true;
+      const timer = setTimeout(() => {
+        void this.loadRelatedMatches(query).then(
+          (rows) => { if (active) this.relatedMatches.set({ query, rows }); },
+          () => { if (active) this.relatedMatches.set({ query, rows: new Set<number>() }); },
+        );
+      }, 250);
+      onCleanup(() => {
+        active = false;
+        clearTimeout(timer);
+      });
+    });
+
     effect(() => {
       const localSampleDataEnabled = this.configService.localSampleDataEnabled();
       if (localSampleDataEnabled) {
@@ -93,6 +132,33 @@ export class CatalogService {
     if (!this.configService.isLocalSampleDataEnabled()) {
       void this.init();
     }
+  }
+
+  private async loadRelatedMatches(query: string): Promise<Set<number>> {
+    const matches = new Set<number>();
+    const search = parseStudySearch(query);
+    const catalogByRow = new Map(this.items().map((item) => [item.row, item]));
+    const tables = (this.dbService.db.tables ?? [])
+      .filter((table) => Object.hasOwn(CONTENT_SEARCH_TERMS, table.name));
+    await Promise.all(tables.map(async (table) => {
+      const rows = await table.toArray() as Record<string, unknown>[];
+      for (const row of rows) {
+        const bookRow = Number(row['row']);
+        const catalog = catalogByRow.get(bookRow);
+        const fields = Object.values(row).flatMap((value) =>
+          typeof value === 'string' ? [value] : Array.isArray(value)
+            ? value.filter((entry): entry is string => typeof entry === 'string') : [],
+        );
+        const tags = table.name === 'bookTags' ? [row['name']] : row['tags'];
+        if (matchesStudySearch(search, [
+          ...fields, ...CONTENT_SEARCH_TERMS[table.name],
+          catalog?.name, catalog?.author, catalog?.subject, catalog?.topic,
+        ], tags, { book: catalog?.name, author: catalog?.author, contributor: row['contributor'] })) {
+          if (Number.isFinite(bookRow)) matches.add(bookRow);
+        }
+      }
+    }));
+    return matches;
   }
 
   async init(): Promise<void> {
@@ -275,7 +341,7 @@ export class CatalogService {
     }
   }
 
-  async addCatalogFromSheet(sheetUrl: string, option: CatalogCopyOption): Promise<boolean> {
+  async addCatalogFromSheet(sheetUrl: string): Promise<boolean> {
     if (this.configService.isLocalSampleDataEnabled() || this.items().length > 0) {
       this.errorMessage.set('CATALOG.ERRORS.copyCatalogUnavailable');
       return false;
@@ -292,9 +358,8 @@ export class CatalogService {
 
     try {
       const payload: CopyCatalogPayload = {
-        action: 'COPY_CATALOG',
+        action: 'CLONE_CATALOG',
         SheetId: sheetUrl,
-        option,
       };
       const response = await firstValueFrom(this.apiService.copyCatalog(payload));
       if (response?.status !== 'success') {

@@ -70,6 +70,9 @@ export async function getLocalSampleDomainData(bookId: string): Promise<LocalSam
 export function normalizeSampleDomainRow(row: Record<string, unknown>): Record<string, unknown> {
   const normalized = { ...row };
   normalized['tags'] = serializeTags(normalized['tags']);
+  if (!normalized['contributor'] || normalized['contributor'] === 'Local Sample Data') {
+    normalized['contributor'] = 'leon84ych';
+  }
 
   if (Array.isArray(normalized['synonyms'])) {
     normalized['synonyms'] = normalized['synonyms']

@@ -14,6 +14,10 @@ import {
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { matchesStudySearch } from '../../../../shared/utils/study-search';
+import { DomainContributorComponent } from '../../shared/domain-contributor/domain-contributor.component';
+import { StudyTagDirective } from '../../../../shared/directives/study-tag.directive';
 
 const QUESTION_TYPES: QuestionType[] = ['flashcard', 'multiple-choice', 'true-false', 'open'];
 const QUESTION_DIFFICULTIES: QuestionDifficulty[] = ['easy', 'medium', 'hard'];
@@ -23,7 +27,7 @@ import { QuestionFormComponent } from '../components/question-form/question-form
 @Component({
   selector: 'app-questions',
   standalone: true,
-  imports: [QuestionFormComponent, QuestionFormComponent, CommonModule, FormsModule, TranslocoPipe],
+  imports: [QuestionFormComponent, QuestionFormComponent, CommonModule, FormsModule, TranslocoPipe, DomainContributorComponent, StudyTagDirective],
   templateUrl: './question.component.html',
   styleUrl: './question.component.css',
 })
@@ -31,6 +35,7 @@ export class QuestionsComponent {
   readonly rows = input.required<QuestionRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
   readonly bookName = input<string>('');
+  readonly bookAuthor = input<string>('');
   readonly isAddingEntry = input<boolean>(false);
   readonly closeEntry = output<void>();
 
@@ -46,7 +51,7 @@ export class QuestionsComponent {
   readonly newPage = signal('');
   readonly newDifficulty = signal<QuestionDifficulty | ''>('');
   readonly newTags = signal<string[]>([]);
-  readonly searchTerm = signal('');
+  readonly searchTerm = inject(StudySearchService).query;
   readonly isSaving = signal(false);
   readonly editingId = signal<string | null>(null);
 
@@ -95,10 +100,12 @@ export class QuestionsComponent {
       return this.rows();
     }
 
-    return this.rows().filter((row) =>
-      [row.question, row.answer, row.sourceDomain, row.sourceTerm ?? '', ...(row.tags ?? [])].some(
-        (value) => value.toLocaleLowerCase().includes(query),
-      ),
+    return this.rows().filter((row) => matchesStudySearch(query,
+      [
+        this.bookName(), this.bookAuthor(), row.bookName ?? '',
+        row.question, row.answer, row.sourceDomain, row.sourceTerm ?? '',
+        'questions', 'preguntas', ...(row.tags ?? []),
+      ], row.tags, { book: this.bookName() || row.bookName, author: this.bookAuthor(), contributor: row.contributor }),
     );
   });
 

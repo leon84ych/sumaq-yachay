@@ -9,6 +9,8 @@ import { IndexViewRow, normalizeIndexRows } from '../model/index-view-row';
 import { serializeTags } from '../../../../shared/utils/tag-utils';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { IndexEntryCardComponent } from '../components/index-entry-card/index-entry-card.component';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
 export type { IndexViewRow } from '../model/index-view-row';
 
@@ -48,6 +50,7 @@ export class DomainIndexComponent {
   readonly newSubtheme = signal<string>('');
   readonly newTags = signal<string[]>([]);
   readonly editingId = signal<string | null>(null);
+  readonly searchTerm = inject(StudySearchService).query;
 
   private readonly domainDataService = inject(DomainDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
@@ -64,8 +67,15 @@ export class DomainIndexComponent {
     return !this.newChapter().trim() || !this.newTheme().trim() || this.newTags().length === 0;
   });
 
+  readonly filteredRows = computed(() => this.rows().filter((row) =>
+    matchesStudySearch(this.searchTerm(), [
+      this.bookName(), this.bookAuthor(), 'index', 'índice',
+      row.chapter, row.theme, row.subtheme, ...(row.tags ?? []),
+    ], row.tags, { book: this.bookName(), author: this.bookAuthor(), contributor: row.contributor }),
+  ));
+
   readonly hierarchy = computed<IndexHierarchyGroup[]>(() => {
-    const orderedRows = normalizeIndexRows(this.rows());
+    const orderedRows = normalizeIndexRows(this.filteredRows());
 
     const groups = new Map<string, IndexHierarchyGroup>();
 

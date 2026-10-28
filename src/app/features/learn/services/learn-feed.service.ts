@@ -3,6 +3,7 @@ import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config.service';
 import { DomainName } from '../../catalog-detail/models/domain-sheet-config';
 import { parseTags } from '../../../shared/utils/tag-utils';
+import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
 
 export interface LearnFeedEntry {
   id: string;
@@ -50,14 +51,6 @@ export function selectLearnFeedBatch(
     0,
     Math.max(0, batchSize),
   );
-}
-
-function normalizeSearchText(value: string): string {
-  return value
-    .trim()
-    .toLocaleLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
 }
 
 @Injectable({ providedIn: 'root' })
@@ -110,7 +103,7 @@ export class LearnFeedService {
       }
     }
     const candidates: LearnFeedEntry[] = [];
-    const normalizedQuery = normalizeSearchText(query);
+    const search = parseStudySearch(query);
 
     for (const [domain, rows] of domainRows) {
       for (const sourceRow of rows as unknown as Record<string, unknown>[]) {
@@ -138,9 +131,10 @@ export class LearnFeedService {
               ...entry.tags,
             ]
           : [];
-        const matchesQuery =
-          !normalizedQuery ||
-          searchFields.some((field) => normalizeSearchText(field).includes(normalizedQuery));
+        const matchesQuery = matchesStudySearch(search, searchFields, entry?.tags, {
+          book: entry?.bookName, author: entry?.bookAuthor,
+          contributor: entry?.sourceRow['contributor'],
+        });
 
         if (entry && !excludedIds.has(entry.id) && matchesQuery) {
           candidates.push(entry);

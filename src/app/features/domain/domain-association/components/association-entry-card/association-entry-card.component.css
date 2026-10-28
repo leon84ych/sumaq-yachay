@@ -29,7 +29,7 @@
   gap: 0.35rem;
 }
 
-.association-entry-card__tags span {
+.association-entry-card__tags .study-tag {
   padding: 0.15rem 0.55rem;
   border: 1px solid var(--quote-tag-border);
   border-radius: var(--radius-full);

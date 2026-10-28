@@ -4,6 +4,58 @@
 
 It features a **Universal 5-Entity Learning Schema** that seamlessly adapts to technical architectures (e.g., Apache Kafka), philosophical texts (e.g., Nietzsche), and narrative fiction (e.g., Isabel Allende).
 
+## User Manual
+
+Select the application brand to open `/documentation`. The responsive manual follows the language,
+light/dark theme, and text size selected in Settings.
+
+Manuals are public Markdown files in `public/docs/en/manual/` and `public/docs/es/manual/`.
+Name each file `001_Title.md`: the numeric prefix sets the order, and the remaining filename
+becomes the link label, with underscores displayed as spaces. Use the same unique numeric prefix
+for matching topics in both languages so language switching stays on the current topic.
+
+`npm start`, `npm run build`, and `npm run watch` regenerate `public/docs/manuals.json` automatically.
+After adding, removing, or renaming files during development, run `npm run docs:index` or restart
+the server. Editing an existing Markdown file does not require regenerating the index. When invoking
+`ng` directly rather than the npm scripts, run `npm run docs:index` first.
+
+Run the documentation tests independently with:
+
+```bash
+npm test -- --watch=false --ts-config=tsconfig.documentation-spec.json --include=src/app/features/documentation/**/*.spec.ts
+```
+
+## Master Catalog Cloning
+
+**Clone Master Catalog** is the only master-catalog import operation. The dialog retains a clone
+warning but has no clone/shared mode selector. It submits `{ action: 'CLONE_CATALOG', SheetId: url }`;
+the HTTP client adds `idToken`, with no `option` field. GAS requests wait up to 60 seconds.
+Cloning remains unavailable in Local Sample Data mode or while catalog items already exist.
+
+## Study Session Search
+
+`StudySearchService` owns the in-memory keyword shared by Catalog, Learn, Quiz, and the searchable
+book-content views. Clearing a search box clears it everywhere; reloading the application starts
+with an empty keyword. Catalog also checks locally stored learning content for related books.
+
+Domain tag buttons append canonical hashtags to that keyword without duplicates. The shared
+matcher requires the free-text phrase and every exact tag to match, for example
+`James Joyce #memory #identity`. Removing hashtags in the search field removes those constraints.
+
+Book and author header buttons add exact metadata constraints such as `book:"Ulysses"` and
+`author:"James Joyce"`, preserving existing text and tags. These constraints do not match mere
+mentions of the selected title or author in other entries' body text.
+
+Contributor footer buttons add `contributor:"identity"` filters across domains, Catalog, and
+Learn without clearing other filters. They display the username but match the full stored
+contributor identity; entries from different accounts sharing a username remain distinct.
+
+Run the shared-search integration tests with:
+
+```bash
+npm test -- --watch=false --ts-config=tsconfig.study-search-spec.json --include=src/app/core/services/study-search.service.spec.ts
+```
+
 ---
 
 ## 📋 Table of Contents

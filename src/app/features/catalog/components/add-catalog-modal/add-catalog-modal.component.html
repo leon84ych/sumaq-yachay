@@ -4,6 +4,7 @@
     role="dialog"
     aria-modal="true"
     [attr.aria-label]="'CATALOG.ADD_CATALOG.TITLE' | transloco"
+    aria-describedby="clone-catalog-notice"
   >
     <header class="modal-header">
       <h2>{{ 'CATALOG.ADD_CATALOG.TITLE' | transloco }}</h2>
@@ -32,25 +33,9 @@
         }
       </div>
 
-      <fieldset class="option-group">
-        <legend>{{ 'CATALOG.ADD_CATALOG.OPTION_LABEL' | transloco }}</legend>
-        <label class="option-item" [class.selected]="form.controls.option.value === 'CLONE'">
-          <input type="radio" formControlName="option" value="CLONE" />
-          <span class="option-copy">
-            <strong>{{ 'CATALOG.ADD_CATALOG.CLONE' | transloco }}</strong>
-            <span>{{ 'CATALOG.ADD_CATALOG.CLONE_DESCRIPTION' | transloco }}</span>
-          </span>
-        </label>
-
-        <label class="option-item" [class.selected]="form.controls.option.value === 'SHARED'">
-          <input type="radio" formControlName="option" value="SHARED" />
-          <span class="option-copy">
-            <strong>{{ 'CATALOG.ADD_CATALOG.SHARED' | transloco }}</strong>
-            <span>{{ 'CATALOG.ADD_CATALOG.SHARED_DESCRIPTION' | transloco }}</span>
-            <span class="permission-note">{{ 'CATALOG.ADD_CATALOG.SHARED_PERMISSION_NOTE' | transloco }}</span>
-          </span>
-        </label>
-      </fieldset>
+      <p id="clone-catalog-notice" class="clone-notice" role="note">
+        {{ 'CATALOG.ADD_CATALOG.CLONE_DESCRIPTION' | transloco }}
+      </p>
 
       <footer class="modal-footer">
         <button type="button" class="btn-secondary" (click)="close.emit()" [disabled]="isLoading()">

@@ -10,6 +10,8 @@ import { ConceptRow } from '../model/domain-concept-row.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { StudySearchService } from '../../../../core/services/study-search.service';
+import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
 const NODE_CATEGORIES = [
   'theory-model',
@@ -50,7 +52,7 @@ export class DomainConceptsComponent {
   readonly customCategory = signal<string>('');
   readonly newSource = signal<string>('');
   readonly newTags = signal<string[]>([]);
-  readonly searchTerm = signal<string>('');
+  readonly searchTerm = inject(StudySearchService).query;
   readonly editingId = signal<string | null>(null);
   readonly source = computed(() => this.newSource().trim() || this.bookName().trim());
   readonly definitionMaxLength = 400;
@@ -99,10 +101,10 @@ export class DomainConceptsComponent {
       return this.rows();
     }
 
-    return this.rows().filter((row) =>
-      [row.term, row.category ?? '', ...(row.tags ?? [])].some((value) =>
-        value.toLocaleLowerCase().includes(query),
-      ),
+    return this.rows().filter((row) => matchesStudySearch(query,
+      [this.bookName(), this.bookAuthor(), 'concepts', 'conceptos',
+        row.term, row.category ?? '', ...(row.tags ?? [])], row.tags,
+        { book: this.bookName(), author: this.bookAuthor(), contributor: row.contributor }),
     );
   });
 
