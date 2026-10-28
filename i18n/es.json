@@ -1,6 +1,5 @@
 {
   "DOCUMENTATION": {
-    "TITLE": "Manual de Sumaq Yachay",
     "CONTENTS": "Contenido",
     "SOURCE": "Ver archivo Markdown",
     "ERROR": "No se pudo cargar el manual. Inténtalo de nuevo.",
@@ -108,6 +107,15 @@
     "MODAL": {
       "TITLE_CREATE": "Registrar Nueva Fuente de Datos",
       "TITLE_EDIT": "Editar Fuente del Catálogo",
+      "SOURCE_MODE": "Método de registro",
+      "MODE_MANUAL": "Nueva fuente de datos",
+      "MODE_URL": "URL",
+      "URL_LABEL": "URL de Google Sheet",
+      "URL_PLACEHOLDER": "Pega la URL de Google Sheets que quieres clonar",
+      "URL_ERROR": "Introduce una URL válida de Google Sheets.",
+      "CLONE_DESCRIPTION": "Esta hoja de Google existente se clonará y se añadirá como fuente a tu catálogo. El original solo se utiliza como fuente. La clonación puede tardar hasta un minuto.",
+      "CLONE_SHEET": "Clonar hoja",
+      "CLONING": "Clonando hoja...",
       "ID_LABEL": "ID del Catálogo",
       "ID_PLACEHOLDER": "ej., cat-2024-001",
       "ID_ERROR": "El ID es requerido (máx 100 caracteres).",
@@ -152,6 +160,10 @@
       "malformedCatalog": "Se recibió una respuesta de catálogo malformada.",
       "copyCatalogFailed": "No se pudo clonar el catálogo maestro. Verifica la URL e inténtalo de nuevo.",
       "copyCatalogUnavailable": "Solo se puede clonar un catálogo maestro cuando el catálogo remoto está vacío.",
+      "cloneItemFailed": "No se pudo clonar la hoja. Revisa la URL y los permisos de la fuente antes de volver a intentarlo.",
+      "cloneItemUnavailable": "Clonar una hoja desde una URL no está disponible en el modo de datos de ejemplo locales.",
+      "cloneItemRefreshFailed": "La hoja se clonó, pero no se pudo actualizar el catálogo. Cierra este diálogo y utiliza Sincronizar Remoto antes de intentar otra clonación.",
+      "authRequired": "Inicia sesión con Google antes de realizar esta operación.",
       "syncFailed": "No se pudo conectar con el endpoint de la Web App. Verifica que la URL termine en /exec, que el despliegue tenga acceso 'Cualquiera', que estés conectado a internet, y que ninguna VPN/proxy esté bloqueando script.google.com."
     }
   },
