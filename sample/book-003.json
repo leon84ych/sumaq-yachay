@@ -6,7 +6,8 @@
       "theme": "Memory",
       "subtheme": "Involuntary memory and sensory experience",
       "syncStatus": "synced",
-      "tags": ["#memory"]
+      "tags": ["#memory"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-02",
@@ -14,7 +15,8 @@
       "theme": "Childhood",
       "subtheme": "Family, longing, and early perception",
       "syncStatus": "synced",
-      "tags": ["#childhood"]
+      "tags": ["#childhood"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-03",
@@ -22,7 +24,8 @@
       "theme": "Love",
       "subtheme": "Desire, jealousy, and obsession",
       "syncStatus": "synced",
-      "tags": ["#love"]
+      "tags": ["#love"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-04",
@@ -30,7 +33,8 @@
       "theme": "Imagination",
       "subtheme": "Anticipation and imagined places",
       "syncStatus": "synced",
-      "tags": ["#imagination"]
+      "tags": ["#imagination"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-05",
@@ -38,7 +42,8 @@
       "theme": "Identity",
       "subtheme": "Youth, attraction, and self-discovery",
       "syncStatus": "synced",
-      "tags": ["#identity"]
+      "tags": ["#identity"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-06",
@@ -46,7 +51,8 @@
       "theme": "Society",
       "subtheme": "Status, prestige, and social observation",
       "syncStatus": "synced",
-      "tags": ["#society"]
+      "tags": ["#society"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-07",
@@ -54,7 +60,8 @@
       "theme": "Perception",
       "subtheme": "Observation, interpretation, and uncertainty",
       "syncStatus": "synced",
-      "tags": ["#perception"]
+      "tags": ["#perception"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-08",
@@ -62,7 +69,8 @@
       "theme": "Jealousy",
       "subtheme": "Possession, uncertainty, and emotional confinement",
       "syncStatus": "synced",
-      "tags": ["#jealousy"]
+      "tags": ["#jealousy"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-09",
@@ -70,7 +78,8 @@
       "theme": "Loss",
       "subtheme": "Absence, grief, and transformation of memory",
       "syncStatus": "synced",
-      "tags": ["#loss"]
+      "tags": ["#loss"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-10",
@@ -78,7 +87,8 @@
       "theme": "Art",
       "subtheme": "Memory, time, and artistic creation",
       "syncStatus": "synced",
-      "tags": ["#art"]
+      "tags": ["#art"],
+      "contributor": "leon84ych"
     }
   ],
   "CHARACTER": [
@@ -92,7 +102,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#marcel", "#memory", "#identity"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#2F6690"
     },
@@ -106,7 +116,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#swann", "#love", "#jealousy"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#A44A3F"
     },
@@ -120,7 +130,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#odette", "#swann", "#society"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#C49A3A"
     },
@@ -134,7 +144,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#albertine", "#love", "#jealousy"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#3A7D44"
     },
@@ -148,7 +158,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#gilberte", "#youth", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#B56576"
     },
@@ -162,7 +172,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#charlus", "#aristocracy", "#society"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#735D78"
     },
@@ -176,7 +186,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#saint-loup", "#friendship", "#society"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#D17B49"
     },
@@ -190,7 +200,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#guermantes", "#aristocracy", "#society"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#5C4D7D"
     },
@@ -204,7 +214,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#francoise", "#family", "#domestic-life"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#6A994E"
     },
@@ -218,7 +228,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#bergotte", "#art", "#literature"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#4F6D7A"
     }
@@ -231,7 +241,8 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#memory", "#time", "#involuntary-memory"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-02",
@@ -240,7 +251,8 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#time", "#consciousness", "#subjective-time"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-03",
@@ -249,7 +261,8 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#past", "#identity", "#memory"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-04",
@@ -258,7 +271,8 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#love", "#desire", "#jealousy"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-05",
@@ -267,7 +281,8 @@
       "category": "Social theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#society", "#identity", "#social-performance"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-06",
@@ -276,7 +291,8 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#art", "#literature", "#artistic-vocation"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-07",
@@ -285,7 +301,8 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#consciousness", "#interpretation", "#perception"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-08",
@@ -294,7 +311,8 @@
       "category": "Social theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#society", "#aristocracy", "#social-class"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-09",
@@ -303,7 +321,8 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#self", "#memory", "#identity"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-10",
@@ -312,7 +331,8 @@
       "category": "Narrative technique",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#modernism", "#consciousness", "#modernist-introspection"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "GLOSARY": [
@@ -327,7 +347,7 @@
       "page": 0,
       "tags": ["#memory", "#time"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -341,7 +361,7 @@
       "page": 0,
       "tags": ["#consciousness", "#modernism"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -355,7 +375,7 @@
       "page": 0,
       "tags": ["#time", "#narrative"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -369,7 +389,7 @@
       "page": 0,
       "tags": ["#memory", "#sensation"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -383,7 +403,7 @@
       "page": 0,
       "tags": ["#society", "#social-class"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -397,7 +417,7 @@
       "page": 0,
       "tags": ["#aristocracy", "#society"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -411,7 +431,7 @@
       "page": 0,
       "tags": ["#perception", "#consciousness"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -425,7 +445,7 @@
       "page": 0,
       "tags": ["#imagination", "#desire"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -439,7 +459,7 @@
       "page": 0,
       "tags": ["#insight", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -453,7 +473,7 @@
       "page": 0,
       "tags": ["#art", "#perception"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -467,7 +487,7 @@
       "page": 0,
       "tags": ["#sample", "#memory", "#sensation"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -479,7 +499,7 @@
       "page": 0,
       "tags": ["#sample", "#time", "#anticipation"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -491,7 +511,7 @@
       "page": 0,
       "tags": ["#sample", "#imagination", "#places"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -503,7 +523,7 @@
       "page": 0,
       "tags": ["#sample", "#society", "#perception"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -515,7 +535,7 @@
       "page": 0,
       "tags": ["#sample", "#jealousy", "#imagination"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -527,7 +547,7 @@
       "page": 0,
       "tags": ["#sample", "#love", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -539,7 +559,7 @@
       "page": 0,
       "tags": ["#sample", "#society", "#status"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -551,7 +571,7 @@
       "page": 0,
       "tags": ["#sample", "#loss", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -563,7 +583,7 @@
       "page": 0,
       "tags": ["#sample", "#art", "#experience"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -575,7 +595,7 @@
       "page": 0,
       "tags": ["#sample", "#time", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -591,7 +611,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#combray", "#childhood", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -605,7 +625,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#paris", "#society", "#art"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -619,7 +639,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#balbec", "#travel", "#youth"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -633,7 +653,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#guermantes", "#aristocracy", "#imagination"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -647,7 +667,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#meseglise", "#combray", "#landscape"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -661,7 +681,7 @@
       "source": "In Search of Lost Time",
       "tags": ["#venice", "#travel", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -675,7 +695,7 @@
       "source": "Analytical sample context for In Search of Lost Time",
       "tags": ["#analytical-sample", "#combray", "#family"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -689,7 +709,7 @@
       "source": "Analytical sample context for In Search of Lost Time",
       "tags": ["#analytical-sample", "#balbec", "#society"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -703,7 +723,7 @@
       "source": "Analytical sample context for In Search of Lost Time",
       "tags": ["#analytical-sample", "#salon", "#society"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -717,7 +737,7 @@
       "source": "Analytical sample context for In Search of Lost Time",
       "tags": ["#analytical-sample", "#landscape", "#memory"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -729,7 +749,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#memory", "#sensation"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-02",
@@ -738,7 +759,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#time", "#identity"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-03",
@@ -747,7 +769,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#imagination", "#places"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-04",
@@ -756,7 +779,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#jealousy", "#love"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-05",
@@ -765,7 +789,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#society", "#perception"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-06",
@@ -774,7 +799,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#memory", "#transformation"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-07",
@@ -783,7 +809,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#desire", "#imagination"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-08",
@@ -792,7 +819,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#society", "#social-class"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-09",
@@ -801,7 +829,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#art", "#experience"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-10",
@@ -810,7 +839,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#time", "#memory"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "QUESTIONS": [
@@ -820,16 +850,8 @@
       "answer": "True. The index links “Combray” with “Memory.” Involuntary memory and sensory experience",
       "type": "true-false",
       "options": [
-        {
-          "id": "true",
-          "text": "true",
-          "isCorrect": true
-        },
-        {
-          "id": "false",
-          "text": "false",
-          "isCorrect": false
-        }
+        { "id": "true", "text": "true", "isCorrect": true },
+        { "id": "false", "text": "false", "isCorrect": false }
       ],
       "sourceDomain": "INDEX",
       "sourceRowId": "sample-index-01",
@@ -840,7 +862,7 @@
       "aiGenerated": false,
       "tags": ["#memory"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -849,26 +871,10 @@
       "answer": "Involuntary memory: The unexpected recovery of past experience through a sensory impression rather than deliberate recollection.",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Subjective time",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Memory",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Jealousy",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Involuntary memory",
-          "isCorrect": true
-        }
+        { "id": "option-1", "text": "Subjective time", "isCorrect": false },
+        { "id": "option-2", "text": "Memory", "isCorrect": false },
+        { "id": "option-3", "text": "Jealousy", "isCorrect": false },
+        { "id": "option-4", "text": "Involuntary memory", "isCorrect": true }
       ],
       "sourceDomain": "CONCEPTS",
       "sourceRowId": "sample-concept-01",
@@ -879,7 +885,7 @@
       "aiGenerated": false,
       "tags": ["#memory", "#time", "#involuntary-memory"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -888,26 +894,10 @@
       "answer": "Marcel",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Marcel",
-          "isCorrect": true
-        },
-        {
-          "id": "option-2",
-          "text": "Charles Swann",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Odette de Crécy",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Albertine Simonet",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Marcel", "isCorrect": true },
+        { "id": "option-2", "text": "Charles Swann", "isCorrect": false },
+        { "id": "option-3", "text": "Odette de Crécy", "isCorrect": false },
+        { "id": "option-4", "text": "Albertine Simonet", "isCorrect": false }
       ],
       "sourceDomain": "CHARACTER",
       "sourceRowId": "sample-character-01",
@@ -918,7 +908,7 @@
       "aiGenerated": false,
       "tags": ["#marcel", "#memory", "#identity"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -927,26 +917,10 @@
       "answer": "Combray",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Paris",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Combray",
-          "isCorrect": true
-        },
-        {
-          "id": "option-3",
-          "text": "Balbec",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Guermantes",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Paris", "isCorrect": false },
+        { "id": "option-2", "text": "Combray", "isCorrect": true },
+        { "id": "option-3", "text": "Balbec", "isCorrect": false },
+        { "id": "option-4", "text": "Guermantes", "isCorrect": false }
       ],
       "sourceDomain": "PLACES",
       "sourceRowId": "sample-place-01",
@@ -957,7 +931,7 @@
       "aiGenerated": false,
       "tags": ["#combray", "#childhood", "#memory"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -975,7 +949,7 @@
       "aiGenerated": false,
       "tags": ["#sample", "#memory", "#sensation"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -993,7 +967,7 @@
       "aiGenerated": false,
       "tags": ["#sample", "#memory", "#sensation"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1018,7 +992,7 @@
         "#childhood"
       ],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1034,7 +1008,7 @@
       "aiGenerated": false,
       "tags": ["#marcel", "#memory", "#identity", "#swann", "#love", "#jealousy"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1050,7 +1024,7 @@
       "aiGenerated": false,
       "tags": ["#involuntary-memory", "#memory", "#time", "#subjective-time", "#consciousness"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1068,7 +1042,7 @@
       "aiGenerated": false,
       "tags": ["#memory", "#time"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1097,7 +1071,7 @@
         "#childhood"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1126,7 +1100,7 @@
         "#art"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1155,7 +1129,7 @@
         "#travel"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1184,7 +1158,7 @@
         "#aristocracy"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1203,7 +1177,7 @@
       "page": "",
       "tags": ["#marcel", "#memory", "#identity", "#swann", "#love", "#jealousy"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1220,7 +1194,7 @@
       "page": "",
       "tags": ["#odette", "#swann", "#society", "#albertine", "#love", "#jealousy", "#childhood"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1237,7 +1211,7 @@
       "page": "",
       "tags": ["#gilberte", "#youth", "#memory", "#charlus", "#aristocracy", "#society", "#love"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1261,7 +1235,7 @@
         "#imagination"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1280,7 +1254,7 @@
       "page": "",
       "tags": ["#involuntary-memory", "#memory", "#time", "#subjective-time", "#consciousness"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1297,7 +1271,7 @@
       "page": "",
       "tags": ["#memory", "#past", "#identity", "#jealousy", "#love", "#desire", "#childhood"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1322,7 +1296,7 @@
         "#love"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1347,7 +1321,7 @@
         "#imagination"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ]

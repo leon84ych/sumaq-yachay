@@ -6,7 +6,8 @@
       "theme": "Identity",
       "subtheme": "Possibility and the absence of fixed qualities",
       "syncStatus": "synced",
-      "tags": ["#identity"]
+      "tags": ["#identity"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-02",
@@ -14,7 +15,8 @@
       "theme": "Politics",
       "subtheme": "Symbolic action and political idealism",
       "syncStatus": "synced",
-      "tags": ["#politics"]
+      "tags": ["#politics"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-03",
@@ -22,7 +24,8 @@
       "theme": "Society",
       "subtheme": "Institutions, prestige, and social performance",
       "syncStatus": "synced",
-      "tags": ["#society"]
+      "tags": ["#society"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-04",
@@ -30,7 +33,8 @@
       "theme": "Possibility",
       "subtheme": "Alternative ways of understanding reality",
       "syncStatus": "synced",
-      "tags": ["#possibility"]
+      "tags": ["#possibility"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-05",
@@ -38,7 +42,8 @@
       "theme": "Idealism",
       "subtheme": "Intellectual ambition and social contradiction",
       "syncStatus": "synced",
-      "tags": ["#idealism"]
+      "tags": ["#idealism"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-06",
@@ -46,7 +51,8 @@
       "theme": "Reason",
       "subtheme": "Psychology, judgment, and social interpretation",
       "syncStatus": "synced",
-      "tags": ["#reason"]
+      "tags": ["#reason"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-07",
@@ -54,7 +60,8 @@
       "theme": "Art",
       "subtheme": "Creativity, ambition, and instability",
       "syncStatus": "synced",
-      "tags": ["#art"]
+      "tags": ["#art"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-08",
@@ -62,7 +69,8 @@
       "theme": "Relationship",
       "subtheme": "Intimacy and alternative forms of existence",
       "syncStatus": "synced",
-      "tags": ["#relationship"]
+      "tags": ["#relationship"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-09",
@@ -70,7 +78,8 @@
       "theme": "Modernity",
       "subtheme": "Rationalization, specialization, and uncertainty",
       "syncStatus": "synced",
-      "tags": ["#modernity"]
+      "tags": ["#modernity"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-10",
@@ -78,7 +87,8 @@
       "theme": "Philosophy",
       "subtheme": "The tension between reality and possibility",
       "syncStatus": "synced",
-      "tags": ["#philosophy"]
+      "tags": ["#philosophy"],
+      "contributor": "leon84ych"
     }
   ],
   "CHARACTER": [
@@ -92,7 +102,7 @@
       "source": "The Man Without Qualities",
       "tags": ["#ulrich", "#identity", "#possibility"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#735D78"
     },
@@ -106,7 +116,7 @@
       "source": "The Man Without Qualities",
       "tags": ["#agathe", "#ulrich", "#relationship"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#3A7D44"
     },
@@ -120,7 +130,7 @@
       "source": "The Man Without Qualities",
       "tags": ["#diotima", "#idealism", "#society"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#C49A3A"
     },
@@ -134,7 +144,7 @@
       "source": "The Man Without Qualities",
       "tags": ["#arnheim", "#power", "#politics"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#6A994E"
     },
@@ -148,7 +158,7 @@
       "source": "The Man Without Qualities",
       "tags": ["#walter", "#art", "#modernity"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#D17B49"
     },
@@ -162,7 +172,7 @@
       "source": "The Man Without Qualities",
       "tags": ["#clarisse", "#psychology", "#art"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#A44A3F"
     },
@@ -176,7 +186,7 @@
       "source": "The Man Without Qualities",
       "tags": ["#moosbrugger", "#justice", "#psychology"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#B56576"
     },
@@ -190,7 +200,7 @@
       "source": "The Man Without Qualities",
       "tags": ["#stumm", "#military", "#ideas"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#4F6D7A"
     },
@@ -204,7 +214,7 @@
       "source": "The Man Without Qualities",
       "tags": ["#leinsdorf", "#politics", "#parallel-campaign"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#2F6690"
     },
@@ -218,7 +228,7 @@
       "source": "The Man Without Qualities",
       "tags": ["#bonadea", "#ulrich", "#relationships"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#5C4D7D"
     }
@@ -231,7 +241,8 @@
       "category": "Philosophical concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#philosophy", "#ulrich", "#possibility"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-02",
@@ -240,7 +251,8 @@
       "category": "Philosophical concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#reality", "#possibility"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-03",
@@ -249,7 +261,8 @@
       "category": "Theme",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#identity", "#modernity", "#modern-identity"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-04",
@@ -258,7 +271,8 @@
       "category": "Social concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#reason", "#modernity", "#rationalization"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-05",
@@ -267,7 +281,8 @@
       "category": "Political concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#politics", "#society", "#political-symbolism"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-06",
@@ -276,7 +291,8 @@
       "category": "Social theme",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#society", "#identity", "#social-performance"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-07",
@@ -285,7 +301,8 @@
       "category": "Philosophical concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#ideas", "#philosophy", "#intellectual-pluralism"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-08",
@@ -294,7 +311,8 @@
       "category": "Ethical concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#ethics", "#judgment", "#moral-ambiguity"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-09",
@@ -303,7 +321,8 @@
       "category": "Literary concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#society", "#politics", "#social-critique"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-10",
@@ -312,7 +331,8 @@
       "category": "Narrative technique",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#modernism", "#philosophy", "#essayistic-fiction"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "GLOSARY": [
@@ -327,7 +347,7 @@
       "page": 0,
       "tags": ["#possibility", "#philosophy"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -341,7 +361,7 @@
       "page": 0,
       "tags": ["#reason", "#philosophy"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -355,7 +375,7 @@
       "page": 0,
       "tags": ["#idealism", "#politics"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -369,7 +389,7 @@
       "page": 0,
       "tags": ["#ambivalence", "#psychology"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -383,7 +403,7 @@
       "page": 0,
       "tags": ["#modernity", "#society"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -397,7 +417,7 @@
       "page": 0,
       "tags": ["#bureaucracy", "#politics"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -411,7 +431,7 @@
       "page": 0,
       "tags": ["#irony", "#social-critique"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -425,7 +445,7 @@
       "page": 0,
       "tags": ["#identity", "#self"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -439,7 +459,7 @@
       "page": 0,
       "tags": ["#idealism", "#society"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -453,7 +473,7 @@
       "page": 0,
       "tags": ["#introspection", "#psychology"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -467,7 +487,7 @@
       "page": 0,
       "tags": ["#sample", "#possibility", "#identity"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -479,7 +499,7 @@
       "page": 0,
       "tags": ["#sample", "#politics", "#irony"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -491,7 +511,7 @@
       "page": 0,
       "tags": ["#sample", "#reason", "#values"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -503,7 +523,7 @@
       "page": 0,
       "tags": ["#sample", "#society", "#ideas"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -515,7 +535,7 @@
       "page": 0,
       "tags": ["#sample", "#identity", "#possibility"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -527,7 +547,7 @@
       "page": 0,
       "tags": ["#sample", "#idealism", "#politics"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -539,7 +559,7 @@
       "page": 0,
       "tags": ["#sample", "#psychology", "#judgment"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -551,7 +571,7 @@
       "page": 0,
       "tags": ["#sample", "#modernity", "#knowledge"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -563,7 +583,7 @@
       "page": 0,
       "tags": ["#sample", "#possibility", "#relationship"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -575,7 +595,7 @@
       "page": 0,
       "tags": ["#sample", "#reason", "#philosophy"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -591,7 +611,7 @@
       "source": "Study context for The Man Without Qualities",
       "tags": ["#vienna", "#city", "#modernity"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -605,7 +625,7 @@
       "source": "Study context for The Man Without Qualities",
       "tags": ["#austria-hungary", "#empire", "#politics"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -619,7 +639,7 @@
       "source": "The Man Without Qualities",
       "tags": ["#kakania", "#empire", "#satire"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -633,7 +653,7 @@
       "source": "Analytical sample context for The Man Without Qualities",
       "tags": ["#analytical-sample", "#diotima", "#society"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -647,7 +667,7 @@
       "source": "Analytical sample context for The Man Without Qualities",
       "tags": ["#analytical-sample", "#ulrich", "#reflection"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -661,7 +681,7 @@
       "source": "Analytical sample context for The Man Without Qualities",
       "tags": ["#analytical-sample", "#parallel-campaign", "#bureaucracy"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -675,7 +695,7 @@
       "source": "Analytical sample context for The Man Without Qualities",
       "tags": ["#analytical-sample", "#administration", "#politics"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -689,7 +709,7 @@
       "source": "Analytical sample context for The Man Without Qualities",
       "tags": ["#analytical-sample", "#vienna", "#intellectual-life"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -703,7 +723,7 @@
       "source": "Analytical sample context for The Man Without Qualities",
       "tags": ["#analytical-sample", "#walter", "#clarisse"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -717,7 +737,7 @@
       "source": "Analytical sample context for The Man Without Qualities",
       "tags": ["#analytical-sample", "#modernity", "#city"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -729,7 +749,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#possibility", "#reality"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-02",
@@ -738,7 +759,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#identity", "#self"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-03",
@@ -747,7 +769,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#politics", "#idealism"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-04",
@@ -756,7 +779,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#reason", "#values"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-05",
@@ -765,7 +789,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#modernity", "#knowledge"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-06",
@@ -774,7 +799,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#irony", "#society"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-07",
@@ -783,7 +809,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#possibility", "#freedom"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-08",
@@ -792,7 +819,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#intelligence", "#uncertainty"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-09",
@@ -801,7 +829,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#institutions", "#psychology"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-10",
@@ -810,7 +839,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#philosophy", "#uncertainty"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "QUESTIONS": [
@@ -820,16 +850,8 @@
       "answer": "True. The index links “Introduction” with “Identity.” Possibility and the absence of fixed qualities",
       "type": "true-false",
       "options": [
-        {
-          "id": "true",
-          "text": "true",
-          "isCorrect": true
-        },
-        {
-          "id": "false",
-          "text": "false",
-          "isCorrect": false
-        }
+        { "id": "true", "text": "true", "isCorrect": true },
+        { "id": "false", "text": "false", "isCorrect": false }
       ],
       "sourceDomain": "INDEX",
       "sourceRowId": "sample-index-01",
@@ -840,7 +862,7 @@
       "aiGenerated": false,
       "tags": ["#identity"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -849,26 +871,10 @@
       "answer": "Sense of possibility: A mode of thinking that considers what could exist alongside or instead of what currently exists.",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Sense of reality",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Modern identity",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Sense of possibility",
-          "isCorrect": true
-        },
-        {
-          "id": "option-4",
-          "text": "Rationalization",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Sense of reality", "isCorrect": false },
+        { "id": "option-2", "text": "Modern identity", "isCorrect": false },
+        { "id": "option-3", "text": "Sense of possibility", "isCorrect": true },
+        { "id": "option-4", "text": "Rationalization", "isCorrect": false }
       ],
       "sourceDomain": "CONCEPTS",
       "sourceRowId": "sample-concept-01",
@@ -879,7 +885,7 @@
       "aiGenerated": false,
       "tags": ["#philosophy", "#ulrich", "#possibility"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -888,26 +894,10 @@
       "answer": "Ulrich",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Agathe",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Diotima",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Arnheim",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Ulrich",
-          "isCorrect": true
-        }
+        { "id": "option-1", "text": "Agathe", "isCorrect": false },
+        { "id": "option-2", "text": "Diotima", "isCorrect": false },
+        { "id": "option-3", "text": "Arnheim", "isCorrect": false },
+        { "id": "option-4", "text": "Ulrich", "isCorrect": true }
       ],
       "sourceDomain": "CHARACTER",
       "sourceRowId": "sample-character-01",
@@ -918,7 +908,7 @@
       "aiGenerated": false,
       "tags": ["#ulrich", "#identity", "#possibility"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -927,26 +917,10 @@
       "answer": "Vienna",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Vienna",
-          "isCorrect": true
-        },
-        {
-          "id": "option-2",
-          "text": "Austria-Hungary",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Kakania",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Diotima's Salon",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Vienna", "isCorrect": true },
+        { "id": "option-2", "text": "Austria-Hungary", "isCorrect": false },
+        { "id": "option-3", "text": "Kakania", "isCorrect": false },
+        { "id": "option-4", "text": "Diotima's Salon", "isCorrect": false }
       ],
       "sourceDomain": "PLACES",
       "sourceRowId": "sample-place-01",
@@ -957,7 +931,7 @@
       "aiGenerated": false,
       "tags": ["#vienna", "#city", "#modernity"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -975,7 +949,7 @@
       "aiGenerated": false,
       "tags": ["#sample", "#possibility", "#reality"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -993,7 +967,7 @@
       "aiGenerated": false,
       "tags": ["#sample", "#possibility", "#identity"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1018,7 +992,7 @@
         "#modernity"
       ],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1034,7 +1008,7 @@
       "aiGenerated": false,
       "tags": ["#ulrich", "#identity", "#possibility", "#agathe", "#relationship"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1050,7 +1024,7 @@
       "aiGenerated": false,
       "tags": ["#possibility", "#philosophy", "#ulrich", "#reality", "#identity"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1068,7 +1042,7 @@
       "aiGenerated": false,
       "tags": ["#possibility", "#philosophy"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1097,7 +1071,7 @@
         "#modernity"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1126,7 +1100,7 @@
         "#empire"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1155,7 +1129,7 @@
         "#satire"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1185,7 +1159,7 @@
         "#society"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1204,7 +1178,7 @@
       "page": "",
       "tags": ["#ulrich", "#identity", "#possibility", "#agathe", "#relationship"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1221,7 +1195,7 @@
       "page": "",
       "tags": ["#diotima", "#idealism", "#society", "#arnheim", "#power", "#politics"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1238,7 +1212,7 @@
       "page": "",
       "tags": ["#walter", "#art", "#modernity", "#clarisse", "#psychology", "#society"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1263,7 +1237,7 @@
         "#possibility"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1282,7 +1256,7 @@
       "page": "",
       "tags": ["#possibility", "#philosophy", "#ulrich", "#reality", "#identity"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1306,7 +1280,7 @@
         "#politics"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1323,7 +1297,7 @@
       "page": "",
       "tags": ["#political-symbolism", "#politics", "#society", "#social-performance", "#identity"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1348,7 +1322,7 @@
         "#possibility"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ]

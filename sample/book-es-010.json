@@ -6,7 +6,8 @@
       "theme": "Identidad",
       "subtheme": "Origen, pertenencia y memoria cultural",
       "syncStatus": "synced",
-      "tags": ["#identidad"]
+      "tags": ["#identidad"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-02",
@@ -14,7 +15,8 @@
       "theme": "Formación",
       "subtheme": "Paisaje andino, aprendizaje y desplazamiento",
       "syncStatus": "synced",
-      "tags": ["#formación"]
+      "tags": ["#formación"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-03",
@@ -22,7 +24,8 @@
       "theme": "Aislamiento",
       "subtheme": "Disciplina, jerarquía y experiencia adolescente",
       "syncStatus": "synced",
-      "tags": ["#internado"]
+      "tags": ["#internado"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-04",
@@ -30,7 +33,8 @@
       "theme": "Identidad cultural",
       "subtheme": "Convivencia de distintas tradiciones culturales y lingüísticas",
       "syncStatus": "synced",
-      "tags": ["#identidad-cultural"]
+      "tags": ["#identidad-cultural"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-05",
@@ -38,7 +42,8 @@
       "theme": "Comunicación",
       "subtheme": "Sonido, memoria y conexión afectiva",
       "syncStatus": "synced",
-      "tags": ["#zumbayllu"]
+      "tags": ["#zumbayllu"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-06",
@@ -46,7 +51,8 @@
       "theme": "Sociedad",
       "subtheme": "Desigualdad, conflicto y relaciones de poder",
       "syncStatus": "synced",
-      "tags": ["#sociedad"]
+      "tags": ["#sociedad"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-07",
@@ -54,7 +60,8 @@
       "theme": "Resistencia",
       "subtheme": "Acción colectiva frente a la desigualdad",
       "syncStatus": "synced",
-      "tags": ["#resistencia"]
+      "tags": ["#resistencia"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-08",
@@ -62,7 +69,8 @@
       "theme": "Naturaleza",
       "subtheme": "Paisaje, movimiento y experiencia espiritual",
       "syncStatus": "synced",
-      "tags": ["#naturaleza"]
+      "tags": ["#naturaleza"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-09",
@@ -70,7 +78,8 @@
       "theme": "Quechua",
       "subtheme": "Lenguaje, sensibilidad y formas de comprender el mundo",
       "syncStatus": "synced",
-      "tags": ["#quechua"]
+      "tags": ["#quechua"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-10",
@@ -78,7 +87,8 @@
       "theme": "Mundo andino",
       "subtheme": "Identidad, memoria, conflicto cultural y comunidad",
       "syncStatus": "synced",
-      "tags": ["#mundo-andino"]
+      "tags": ["#mundo-andino"],
+      "contributor": "leon84ych"
     }
   ],
   "CHARACTER": [
@@ -92,7 +102,7 @@
       "source": "Los ríos profundos",
       "tags": ["#ernesto", "#identidad", "#mundo-andino"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#A44A3F"
     },
@@ -106,7 +116,7 @@
       "source": "Los ríos profundos",
       "tags": ["#padre", "#viaje", "#ernesto"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#4F6D7A"
     },
@@ -120,7 +130,7 @@
       "source": "Los ríos profundos",
       "tags": ["#el-viejo", "#poder", "#familia"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#5C4D7D"
     },
@@ -134,7 +144,7 @@
       "source": "Los ríos profundos",
       "tags": ["#antero", "#zumbayllu", "#internado"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#2F6690"
     },
@@ -148,7 +158,7 @@
       "source": "Contexto analítico de muestra para Los ríos profundos",
       "tags": ["#muestra-analítica", "#juventud", "#amistad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#C49A3A"
     },
@@ -162,7 +172,7 @@
       "source": "Los ríos profundos",
       "tags": ["#padre-linares", "#religión", "#autoridad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#3A7D44"
     },
@@ -176,7 +186,7 @@
       "source": "Los ríos profundos",
       "tags": ["#doña-felipa", "#resistencia", "#chicheras"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#735D78"
     },
@@ -190,7 +200,7 @@
       "source": "Los ríos profundos",
       "tags": ["#palacitos", "#internado", "#identidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#B56576"
     },
@@ -204,7 +214,7 @@
       "source": "Contexto analítico de muestra para Los ríos profundos",
       "tags": ["#muestra-analítica", "#migración", "#identidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#D17B49"
     },
@@ -218,7 +228,7 @@
       "source": "Contexto analítico de muestra para Los ríos profundos",
       "tags": ["#muestra-analítica", "#comunidad", "#memoria"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#6A994E"
     }
@@ -231,7 +241,8 @@
       "category": "Concepto cultural",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#cultura", "#identidad", "#transculturación"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-02",
@@ -240,7 +251,8 @@
       "category": "Tema",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#identidad", "#cultura", "#identidad-cultural"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-03",
@@ -249,7 +261,8 @@
       "category": "Concepto lingüístico",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#quechua", "#español", "#bilingüismo-cultural"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-04",
@@ -258,7 +271,8 @@
       "category": "Concepto cultural",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#andes", "#naturaleza", "#cosmovisión-andina"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-05",
@@ -267,7 +281,8 @@
       "category": "Tema social",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#sociedad", "#poder", "#desigualdad-social"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-06",
@@ -276,7 +291,8 @@
       "category": "Símbolo",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#comunicación", "#memoria", "#zumbayllu"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-07",
@@ -285,7 +301,8 @@
       "category": "Concepto literario",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#naturaleza", "#paisaje", "#naturaleza-animada"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-08",
@@ -294,7 +311,8 @@
       "category": "Tema",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#memoria", "#comunidad", "#memoria-comunitaria"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-09",
@@ -303,7 +321,8 @@
       "category": "Tema social",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#poder", "#desigualdad", "#jerarquía-social"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-10",
@@ -312,7 +331,8 @@
       "category": "Tema social",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#comunidad", "#resistencia", "#resistencia-colectiva"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "GLOSARY": [
@@ -327,7 +347,7 @@
       "page": 0,
       "tags": ["#zumbayllu", "#quechua"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -341,7 +361,7 @@
       "page": 0,
       "tags": ["#quechua", "#lengua"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -355,7 +375,7 @@
       "page": 0,
       "tags": ["#chicheras", "#comunidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -369,7 +389,7 @@
       "page": 0,
       "tags": ["#ayllu", "#comunidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -383,7 +403,7 @@
       "page": 0,
       "tags": ["#huayno", "#música"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -397,7 +417,7 @@
       "page": 0,
       "tags": ["#hacienda", "#sociedad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -411,7 +431,7 @@
       "page": 0,
       "tags": ["#misti", "#sociedad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -425,7 +445,7 @@
       "page": 0,
       "tags": ["#internado", "#educación"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -439,7 +459,7 @@
       "page": 0,
       "tags": ["#cosmovisión", "#cultura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -453,7 +473,7 @@
       "page": 0,
       "tags": ["#transculturación", "#identidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -467,7 +487,7 @@
       "page": 0,
       "tags": ["#muestra", "#río", "#memoria"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -479,7 +499,7 @@
       "page": 0,
       "tags": ["#muestra", "#quechua", "#lengua"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -491,7 +511,7 @@
       "page": 0,
       "tags": ["#muestra", "#internado", "#sociedad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -503,7 +523,7 @@
       "page": 0,
       "tags": ["#muestra", "#zumbayllu", "#comunicación"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -515,7 +535,7 @@
       "page": 0,
       "tags": ["#muestra", "#naturaleza", "#andes"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -527,7 +547,7 @@
       "page": 0,
       "tags": ["#muestra", "#resistencia", "#comunidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -539,7 +559,7 @@
       "page": 0,
       "tags": ["#muestra", "#territorio", "#memoria"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -551,7 +571,7 @@
       "page": 0,
       "tags": ["#muestra", "#identidad", "#cultura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -563,7 +583,7 @@
       "page": 0,
       "tags": ["#muestra", "#desigualdad", "#poder"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -575,7 +595,7 @@
       "page": 0,
       "tags": ["#muestra", "#ríos", "#memoria"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -591,7 +611,7 @@
       "source": "Los ríos profundos",
       "tags": ["#abancay", "#perú", "#andes"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -605,7 +625,7 @@
       "source": "Los ríos profundos",
       "tags": ["#cusco", "#andes", "#historia"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -619,7 +639,7 @@
       "source": "Los ríos profundos",
       "tags": ["#perú", "#identidad", "#sociedad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -633,7 +653,7 @@
       "source": "Los ríos profundos",
       "tags": ["#internado", "#abancay", "#ernesto"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -647,7 +667,7 @@
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#andes", "#perú", "#naturaleza"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -661,7 +681,7 @@
       "source": "Contexto analítico de muestra para Los ríos profundos",
       "tags": ["#muestra-analítica", "#ríos", "#naturaleza"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -675,7 +695,7 @@
       "source": "Contexto analítico de muestra para Los ríos profundos",
       "tags": ["#muestra-analítica", "#comunidad", "#quechua"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -689,7 +709,7 @@
       "source": "Contexto analítico de muestra para Los ríos profundos",
       "tags": ["#muestra-analítica", "#chicheras", "#comunidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -703,7 +723,7 @@
       "source": "Contexto analítico de muestra para Los ríos profundos",
       "tags": ["#muestra-analítica", "#viaje", "#andes"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -717,7 +737,7 @@
       "source": "Contexto analítico de muestra para Los ríos profundos",
       "tags": ["#muestra-analítica", "#memoria", "#paisaje"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -729,7 +749,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#lengua", "#cultura"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-02",
@@ -738,7 +759,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#paisaje", "#identidad"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-03",
@@ -747,7 +769,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#identidad-cultural", "#transculturación"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-04",
@@ -756,7 +779,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#zumbayllu", "#memoria"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-05",
@@ -765,7 +789,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#comunidad", "#resistencia"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-06",
@@ -774,7 +799,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#viaje", "#formación"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-07",
@@ -783,7 +809,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#desigualdad", "#poder"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-08",
@@ -792,7 +819,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#memoria", "#comunidad"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-09",
@@ -801,7 +829,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#río", "#territorio"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-10",
@@ -810,7 +839,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#identidad", "#cultura"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "QUESTIONS": [
@@ -820,16 +850,8 @@
       "answer": "Verdadero. El índice relaciona «El viejo» con «Identidad». Origen, pertenencia y memoria cultural",
       "type": "true-false",
       "options": [
-        {
-          "id": "true",
-          "text": "true",
-          "isCorrect": true
-        },
-        {
-          "id": "false",
-          "text": "false",
-          "isCorrect": false
-        }
+        { "id": "true", "text": "true", "isCorrect": true },
+        { "id": "false", "text": "false", "isCorrect": false }
       ],
       "sourceDomain": "INDEX",
       "sourceRowId": "sample-index-01",
@@ -840,7 +862,7 @@
       "aiGenerated": false,
       "tags": ["#identidad"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -849,26 +871,10 @@
       "answer": "Transculturación: Proceso de transformación cultural producido mediante el contacto y la interacción entre tradiciones diferentes.",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Identidad cultural",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Bilingüismo cultural",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Transculturación",
-          "isCorrect": true
-        },
-        {
-          "id": "option-4",
-          "text": "Cosmovisión andina",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Identidad cultural", "isCorrect": false },
+        { "id": "option-2", "text": "Bilingüismo cultural", "isCorrect": false },
+        { "id": "option-3", "text": "Transculturación", "isCorrect": true },
+        { "id": "option-4", "text": "Cosmovisión andina", "isCorrect": false }
       ],
       "sourceDomain": "CONCEPTS",
       "sourceRowId": "sample-concept-01",
@@ -879,7 +885,7 @@
       "aiGenerated": false,
       "tags": ["#cultura", "#identidad", "#transculturación"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -888,26 +894,10 @@
       "answer": "Ernesto",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "El padre de Ernesto",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "El Viejo",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Antero",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Ernesto",
-          "isCorrect": true
-        }
+        { "id": "option-1", "text": "El padre de Ernesto", "isCorrect": false },
+        { "id": "option-2", "text": "El Viejo", "isCorrect": false },
+        { "id": "option-3", "text": "Antero", "isCorrect": false },
+        { "id": "option-4", "text": "Ernesto", "isCorrect": true }
       ],
       "sourceDomain": "CHARACTER",
       "sourceRowId": "sample-character-01",
@@ -918,7 +908,7 @@
       "aiGenerated": false,
       "tags": ["#ernesto", "#identidad", "#mundo-andino"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -927,26 +917,10 @@
       "answer": "Abancay",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Abancay",
-          "isCorrect": true
-        },
-        {
-          "id": "option-2",
-          "text": "Cusco",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Perú",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Internado de Abancay",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Abancay", "isCorrect": true },
+        { "id": "option-2", "text": "Cusco", "isCorrect": false },
+        { "id": "option-3", "text": "Perú", "isCorrect": false },
+        { "id": "option-4", "text": "Internado de Abancay", "isCorrect": false }
       ],
       "sourceDomain": "PLACES",
       "sourceRowId": "sample-place-01",
@@ -957,7 +931,7 @@
       "aiGenerated": false,
       "tags": ["#abancay", "#perú", "#andes"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -975,7 +949,7 @@
       "aiGenerated": false,
       "tags": ["#muestra", "#lengua", "#cultura"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -993,7 +967,7 @@
       "aiGenerated": false,
       "tags": ["#muestra", "#río", "#memoria"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1019,7 +993,7 @@
         "#andes"
       ],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1035,7 +1009,7 @@
       "aiGenerated": false,
       "tags": ["#ernesto", "#identidad", "#mundo-andino", "#padre", "#viaje"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1051,7 +1025,7 @@
       "aiGenerated": false,
       "tags": ["#transculturación", "#cultura", "#identidad", "#identidad-cultural"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1069,7 +1043,7 @@
       "aiGenerated": false,
       "tags": ["#zumbayllu", "#quechua"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1102,7 +1076,7 @@
         "#andes"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1135,7 +1109,7 @@
         "#historia"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1167,7 +1141,7 @@
         "#identidad"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1200,7 +1174,7 @@
         "#ernesto"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1219,7 +1193,7 @@
       "page": "",
       "tags": ["#ernesto", "#identidad", "#mundo-andino", "#padre", "#viaje"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1244,7 +1218,7 @@
         "#formación"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1269,7 +1243,7 @@
         "#internado"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1294,7 +1268,7 @@
         "#identidad-cultural"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1313,7 +1287,7 @@
       "page": "",
       "tags": ["#transculturación", "#cultura", "#identidad", "#identidad-cultural"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1338,7 +1312,7 @@
         "#formación"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1363,7 +1337,7 @@
         "#internado"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1388,7 +1362,7 @@
         "#identidad-cultural"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ]

@@ -6,7 +6,8 @@
       "theme": "Búsqueda",
       "subtheme": "La búsqueda de sentido más allá de la realidad cotidiana",
       "syncStatus": "synced",
-      "tags": ["#búsqueda"]
+      "tags": ["#búsqueda"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-02",
@@ -14,7 +15,8 @@
       "theme": "Amor",
       "subtheme": "Intimidad, distancia e incertidumbre emocional",
       "syncStatus": "synced",
-      "tags": ["#amor"]
+      "tags": ["#amor"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-03",
@@ -22,7 +24,8 @@
       "theme": "París",
       "subtheme": "Recorrido urbano y experiencia intelectual",
       "syncStatus": "synced",
-      "tags": ["#parís"]
+      "tags": ["#parís"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-04",
@@ -30,7 +33,8 @@
       "theme": "Regreso",
       "subtheme": "Desplazamiento y readaptación en Buenos Aires",
       "syncStatus": "synced",
-      "tags": ["#regreso"]
+      "tags": ["#regreso"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-05",
@@ -38,7 +42,8 @@
       "theme": "Identidad",
       "subtheme": "Duplicidad, reconocimiento y percepción inestable",
       "syncStatus": "synced",
-      "tags": ["#identidad"]
+      "tags": ["#identidad"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-06",
@@ -46,7 +51,8 @@
       "theme": "Experimentación",
       "subtheme": "Órdenes alternativos de lectura y estructura fragmentaria",
       "syncStatus": "synced",
-      "tags": ["#experimentación"]
+      "tags": ["#experimentación"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-07",
@@ -54,7 +60,8 @@
       "theme": "Arte",
       "subtheme": "Jazz, literatura, filosofía y conversación",
       "syncStatus": "synced",
-      "tags": ["#arte"]
+      "tags": ["#arte"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-08",
@@ -62,7 +69,8 @@
       "theme": "Alienación",
       "subtheme": "Distancia intelectual frente a la experiencia",
       "syncStatus": "synced",
-      "tags": ["#alienación"]
+      "tags": ["#alienación"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-09",
@@ -70,7 +78,8 @@
       "theme": "Intuición",
       "subtheme": "La experiencia frente a la abstracción intelectual",
       "syncStatus": "synced",
-      "tags": ["#intuición"]
+      "tags": ["#intuición"],
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-index-10",
@@ -78,7 +87,8 @@
       "theme": "Lectura",
       "subtheme": "Participación del lector e interpretación no lineal",
       "syncStatus": "synced",
-      "tags": ["#lectura"]
+      "tags": ["#lectura"],
+      "contributor": "leon84ych"
     }
   ],
   "CHARACTER": [
@@ -92,7 +102,7 @@
       "source": "Rayuela",
       "tags": ["#oliveira", "#búsqueda", "#alienación"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#3A7D44"
     },
@@ -106,7 +116,7 @@
       "source": "Rayuela",
       "tags": ["#la-maga", "#intuición", "#amor"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#B56576"
     },
@@ -120,7 +130,7 @@
       "source": "Rayuela",
       "tags": ["#traveler", "#amistad", "#identidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#6A994E"
     },
@@ -134,7 +144,7 @@
       "source": "Rayuela",
       "tags": ["#talita", "#traveler", "#percepción"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#2F6690"
     },
@@ -148,7 +158,7 @@
       "source": "Rayuela",
       "tags": ["#morelli", "#literatura", "#experimentación"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#D17B49"
     },
@@ -162,7 +172,7 @@
       "source": "Rayuela",
       "tags": ["#étienne", "#club-de-la-serpiente", "#arte"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#4F6D7A"
     },
@@ -176,7 +186,7 @@
       "source": "Rayuela",
       "tags": ["#ronald", "#club-de-la-serpiente", "#jazz"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#A44A3F"
     },
@@ -190,7 +200,7 @@
       "source": "Rayuela",
       "tags": ["#babs", "#club-de-la-serpiente", "#parís"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#5C4D7D"
     },
@@ -204,7 +214,7 @@
       "source": "Rayuela",
       "tags": ["#gregorovius", "#club-de-la-serpiente", "#filosofía"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#735D78"
     },
@@ -218,7 +228,7 @@
       "source": "Rayuela",
       "tags": ["#rocamadour", "#la-maga", "#vulnerabilidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced",
       "color": "#C49A3A"
     }
@@ -231,7 +241,8 @@
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#estructura", "#experimentación", "#lectura-no-lineal"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-02",
@@ -240,7 +251,8 @@
       "category": "Concepto literario",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#lectura", "#interpretación", "#participación-del-lector"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-03",
@@ -249,7 +261,8 @@
       "category": "Tema filosófico",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#sentido", "#identidad", "#búsqueda-existencial"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-04",
@@ -258,7 +271,8 @@
       "category": "Tema",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#aislamiento", "#identidad", "#alienación"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-05",
@@ -267,7 +281,8 @@
       "category": "Tema filosófico",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#intuición", "#razón", "#intuición-intelecto"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-06",
@@ -276,7 +291,8 @@
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#literatura", "#experimentación", "#metaficción"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-07",
@@ -285,7 +301,8 @@
       "category": "Estructura narrativa",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#estructura", "#narrativa", "#fragmentación"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-08",
@@ -294,7 +311,8 @@
       "category": "Concepto literario",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#lenguaje", "#experimentación", "#juego"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-09",
@@ -303,7 +321,8 @@
       "category": "Concepto analítico",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#jazz", "#arte", "#improvisación-jazzística"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-concept-10",
@@ -312,7 +331,8 @@
       "category": "Concepto filosófico",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#búsqueda", "#sentido", "#otro-lado"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "GLOSARY": [
@@ -327,7 +347,7 @@
       "page": 0,
       "tags": ["#estructura", "#lectura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -341,7 +361,7 @@
       "page": 0,
       "tags": ["#metaficción", "#literatura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -355,7 +375,7 @@
       "page": 0,
       "tags": ["#fragmentación", "#estructura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -369,7 +389,7 @@
       "page": 0,
       "tags": ["#alienación", "#identidad"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -383,7 +403,7 @@
       "page": 0,
       "tags": ["#intuición", "#percepción"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -397,7 +417,7 @@
       "page": 0,
       "tags": ["#jazz", "#experimentación"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -411,7 +431,7 @@
       "page": 0,
       "tags": ["#parís", "#arte"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -425,7 +445,7 @@
       "page": 0,
       "tags": ["#referencias", "#literatura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -439,7 +459,7 @@
       "page": 0,
       "tags": ["#absurdo", "#sentido"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -453,7 +473,7 @@
       "page": 0,
       "tags": ["#experimental", "#literatura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -467,7 +487,7 @@
       "page": 0,
       "tags": ["#muestra", "#parís", "#búsqueda"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -479,7 +499,7 @@
       "page": 0,
       "tags": ["#muestra", "#intelecto", "#alienación"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -491,7 +511,7 @@
       "page": 0,
       "tags": ["#muestra", "#jazz", "#improvisación"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -503,7 +523,7 @@
       "page": 0,
       "tags": ["#muestra", "#intuición", "#razón"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -515,7 +535,7 @@
       "page": 0,
       "tags": ["#muestra", "#estructura", "#lectura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -527,7 +547,7 @@
       "page": 0,
       "tags": ["#muestra", "#buenos-aires", "#alienación"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -539,7 +559,7 @@
       "page": 0,
       "tags": ["#muestra", "#identidad", "#memoria"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -551,7 +571,7 @@
       "page": 0,
       "tags": ["#muestra", "#club-de-la-serpiente", "#ideas"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -563,7 +583,7 @@
       "page": 0,
       "tags": ["#muestra", "#lectura", "#elección"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -575,7 +595,7 @@
       "page": 0,
       "tags": ["#muestra", "#búsqueda", "#sentido"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -591,7 +611,7 @@
       "source": "Rayuela",
       "tags": ["#parís", "#francia", "#oliveira"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -605,7 +625,7 @@
       "source": "Rayuela",
       "tags": ["#buenos-aires", "#argentina", "#regreso"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -619,7 +639,7 @@
       "source": "Rayuela",
       "tags": ["#francia", "#parís", "#europa"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -633,7 +653,7 @@
       "source": "Rayuela",
       "tags": ["#argentina", "#buenos-aires", "#regreso"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -647,7 +667,7 @@
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#sena", "#parís", "#río"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -661,7 +681,7 @@
       "source": "Contexto analítico de muestra para Rayuela",
       "tags": ["#muestra-analítica", "#club-de-la-serpiente", "#jazz"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -675,7 +695,7 @@
       "source": "Contexto analítico de muestra para Rayuela",
       "tags": ["#muestra-analítica", "#parís", "#recorrido"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -689,7 +709,7 @@
       "source": "Contexto analítico de muestra para Rayuela",
       "tags": ["#muestra-analítica", "#circo", "#buenos-aires"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -703,7 +723,7 @@
       "source": "Contexto analítico de muestra para Rayuela",
       "tags": ["#muestra-analítica", "#clínica", "#buenos-aires"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -717,7 +737,7 @@
       "source": "Contexto analítico de muestra para Rayuela",
       "tags": ["#muestra-analítica", "#rayuela", "#estructura"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -729,7 +749,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#lectura", "#estructura"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-02",
@@ -738,7 +759,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#sentido", "#alienación"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-03",
@@ -747,7 +769,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#viaje", "#posibilidad"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-04",
@@ -756,7 +779,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#intuición", "#intelecto"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-05",
@@ -765,7 +789,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#jazz", "#improvisación"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-06",
@@ -774,7 +799,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#regreso", "#identidad"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-07",
@@ -783,7 +809,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#conversación", "#ideas"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-08",
@@ -792,7 +819,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#lector", "#experimentación"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-09",
@@ -801,7 +829,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#identidad", "#duplicidad"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     },
     {
       "id": "sample-quote-10",
@@ -810,7 +839,8 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#búsqueda", "#sentido"],
-      "syncStatus": "synced"
+      "syncStatus": "synced",
+      "contributor": "leon84ych"
     }
   ],
   "QUESTIONS": [
@@ -820,16 +850,8 @@
       "answer": "Verdadero. El índice relaciona «Del lado de allá» con «Búsqueda». La búsqueda de sentido más allá de la realidad cotidiana",
       "type": "true-false",
       "options": [
-        {
-          "id": "true",
-          "text": "true",
-          "isCorrect": true
-        },
-        {
-          "id": "false",
-          "text": "false",
-          "isCorrect": false
-        }
+        { "id": "true", "text": "true", "isCorrect": true },
+        { "id": "false", "text": "false", "isCorrect": false }
       ],
       "sourceDomain": "INDEX",
       "sourceRowId": "sample-index-01",
@@ -840,7 +862,7 @@
       "aiGenerated": false,
       "tags": ["#búsqueda"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -849,26 +871,10 @@
       "answer": "Lectura no lineal: Forma de lectura en la que las secciones narrativas pueden abordarse siguiendo un orden distinto de la progresión secuencial convencional.",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "Participación del lector",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Búsqueda existencial",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Lectura no lineal",
-          "isCorrect": true
-        },
-        {
-          "id": "option-4",
-          "text": "Alienación",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "Participación del lector", "isCorrect": false },
+        { "id": "option-2", "text": "Búsqueda existencial", "isCorrect": false },
+        { "id": "option-3", "text": "Lectura no lineal", "isCorrect": true },
+        { "id": "option-4", "text": "Alienación", "isCorrect": false }
       ],
       "sourceDomain": "CONCEPTS",
       "sourceRowId": "sample-concept-01",
@@ -879,7 +885,7 @@
       "aiGenerated": false,
       "tags": ["#estructura", "#experimentación", "#lectura-no-lineal"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -888,26 +894,10 @@
       "answer": "Horacio Oliveira",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "La Maga",
-          "isCorrect": false
-        },
-        {
-          "id": "option-2",
-          "text": "Traveler",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Talita",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Horacio Oliveira",
-          "isCorrect": true
-        }
+        { "id": "option-1", "text": "La Maga", "isCorrect": false },
+        { "id": "option-2", "text": "Traveler", "isCorrect": false },
+        { "id": "option-3", "text": "Talita", "isCorrect": false },
+        { "id": "option-4", "text": "Horacio Oliveira", "isCorrect": true }
       ],
       "sourceDomain": "CHARACTER",
       "sourceRowId": "sample-character-01",
@@ -918,7 +908,7 @@
       "aiGenerated": false,
       "tags": ["#oliveira", "#búsqueda", "#alienación"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -927,26 +917,10 @@
       "answer": "París",
       "type": "multiple-choice",
       "options": [
-        {
-          "id": "option-1",
-          "text": "París",
-          "isCorrect": true
-        },
-        {
-          "id": "option-2",
-          "text": "Buenos Aires",
-          "isCorrect": false
-        },
-        {
-          "id": "option-3",
-          "text": "Francia",
-          "isCorrect": false
-        },
-        {
-          "id": "option-4",
-          "text": "Argentina",
-          "isCorrect": false
-        }
+        { "id": "option-1", "text": "París", "isCorrect": true },
+        { "id": "option-2", "text": "Buenos Aires", "isCorrect": false },
+        { "id": "option-3", "text": "Francia", "isCorrect": false },
+        { "id": "option-4", "text": "Argentina", "isCorrect": false }
       ],
       "sourceDomain": "PLACES",
       "sourceRowId": "sample-place-01",
@@ -957,7 +931,7 @@
       "aiGenerated": false,
       "tags": ["#parís", "#francia", "#oliveira"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -975,7 +949,7 @@
       "aiGenerated": false,
       "tags": ["#muestra", "#lectura", "#estructura"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -993,7 +967,7 @@
       "aiGenerated": false,
       "tags": ["#muestra", "#parís", "#búsqueda"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1019,7 +993,7 @@
         "#francia"
       ],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1035,7 +1009,7 @@
       "aiGenerated": false,
       "tags": ["#oliveira", "#búsqueda", "#alienación", "#la-maga", "#intuición", "#amor"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1059,7 +1033,7 @@
         "#búsqueda"
       ],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1077,7 +1051,7 @@
       "aiGenerated": false,
       "tags": ["#estructura", "#lectura"],
       "feed": 5,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1110,7 +1084,7 @@
         "#francia"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1142,7 +1116,7 @@
         "#regreso"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1174,7 +1148,7 @@
         "#europa"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1206,7 +1180,7 @@
         "#buenos-aires"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1225,7 +1199,7 @@
       "page": "",
       "tags": ["#oliveira", "#búsqueda", "#alienación", "#la-maga", "#intuición", "#amor"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1242,7 +1216,7 @@
       "page": "",
       "tags": ["#traveler", "#amistad", "#identidad", "#talita", "#percepción", "#amor"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1267,7 +1241,7 @@
         "#parís"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1284,7 +1258,7 @@
       "page": "",
       "tags": ["#ronald", "#club-de-la-serpiente", "#jazz", "#babs", "#parís", "#regreso"],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ],
@@ -1311,7 +1285,7 @@
         "#búsqueda"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1335,7 +1309,7 @@
         "#amor"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1360,7 +1334,7 @@
         "#parís"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     },
     {
@@ -1385,7 +1359,7 @@
         "#regreso"
       ],
       "feed": 1,
-      "contributor": "Local Sample Data",
+      "contributor": "leon84ych",
       "syncStatus": "synced"
     }
   ]

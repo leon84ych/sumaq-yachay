@@ -1,4 +1,12 @@
 {
+  "DOCUMENTATION": {
+    "TITLE": "Sumaq Yachay Manual",
+    "CONTENTS": "Contents",
+    "SOURCE": "View Markdown source",
+    "ERROR": "Could not load the manual. Please try again.",
+    "NOT_FOUND": "This manual entry is not available in the selected language.",
+    "EMPTY": "No manuals are available in this language yet."
+  },
   "AUTH": {
     "LOGIN": "Login",
     "LOGOUT": "Logout",
@@ -34,7 +42,7 @@
   },
   "LEARN": {
     "TITLE": "Learn",
-    "SEARCH": "Search books, authors, domains, or tags...",
+    "SEARCH": "Search books, authors, contributors, domains, or tags...",
     "EMPTY_TITLE": "No learning entries found",
     "EMPTY_DESCRIPTION": "There are no local domain entries to show yet.",
     "NO_SEARCH_RESULTS_TITLE": "No matching entries found",
@@ -56,7 +64,6 @@
       "TITLE": "Settings",
       "LOGIN": "Login",
       "LOGOUT": "Logout",
-      "DESCRIPTION": "Configure the Google Apps Script Web App URL and adjust appearance.",
       "SOURCE_URL": "Google Apps Script Web App URL",
       "URL_PLACEHOLDER": "https://script.google.com/macros/s/.../exec",
       "SAVE": "Save Changes",
@@ -92,7 +99,7 @@
       "SYNC_LOCAL": "Sync Local",
       "SYNCING": "Syncing...",
       "REGISTER_SOURCE": "Register Source",
-      "ADD_CATALOG": "Add Catalog"
+      "ADD_CATALOG": "Clone Master Catalog"
     },
     "METRICS": {
       "TOTAL": "Total Registered",
@@ -103,7 +110,7 @@
       "PENDING": "Pending / Error"
     },
     "FILTER": {
-      "SEARCH_PLACEHOLDER": "Search catalogs by name, type, or description...",
+      "SEARCH_PLACEHOLDER": "Search books, authors, contributors, domains, or tags...",
       "ALL": "All",
       "TECHNICAL": "Technical",
       "PHILOSOPHY": "Philosophy",
@@ -154,19 +161,14 @@
       "SUBMIT_EDIT": "Save Changes"
     },
     "ADD_CATALOG": {
-      "TITLE": "Add a Public Master Catalog",
+      "TITLE": "Clone Master Catalog",
       "URL_LABEL": "Public Google Sheet URL",
       "URL_PLACEHOLDER": "Paste the full Google Sheets URL",
       "URL_ERROR": "Enter a valid Google Sheets URL.",
-      "OPTION_LABEL": "How would you like to use this catalog?",
-      "CLONE": "Clone to my Drive",
-      "CLONE_DESCRIPTION": "This will populate your catalog from a public shared catalog. If successful, you will get a clone in your own Drive. The original is only used as the source.",
-      "SHARED": "Use the shared catalog",
-      "SHARED_DESCRIPTION": "You can read and edit the public catalog while its owner grants you Editor access.",
-      "SHARED_PERMISSION_NOTE": "The owner must add the Google account that deployed this Apps Script Web App.",
+      "CLONE_DESCRIPTION": "This master catalog is about to be cloned into your own Drive. The original is only used as the source. The request can take up to one minute.",
       "CANCEL": "Cancel",
-      "SUBMIT": "Add Catalog",
-      "SUBMITTING": "Adding Catalog..."
+      "SUBMIT": "Clone Master Catalog",
+      "SUBMITTING": "Cloning Master Catalog..."
     },
     "EMPTY": {
       "TITLE": "No Catalog Sources Found",
@@ -175,8 +177,8 @@
     },
     "ERRORS": {
       "malformedCatalog": "Malformed catalog response received.",
-      "copyCatalogFailed": "The catalog could not be added. Check the URL and try again.",
-      "copyCatalogUnavailable": "A catalog can only be added when the remote catalog is empty.",
+      "copyCatalogFailed": "The master catalog could not be cloned. Check the URL and try again.",
+      "copyCatalogUnavailable": "A master catalog can only be cloned when the remote catalog is empty.",
       "syncFailed": "Failed to reach the Web App endpoint. Verify the URL ends with /exec, the deployment is redeployed with 'Anyone' access, you're online, and no VPN/proxy is blocking script.google.com."
     }
   },
