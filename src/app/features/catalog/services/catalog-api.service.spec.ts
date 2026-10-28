@@ -67,6 +67,20 @@ describe('CatalogApiService clone requests', () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 
+  it('clones an existing sheet as one source with only the URL, action, and token', async () => {
+    await firstValueFrom(
+      service.cloneCatalogItem({ action: 'CLONE_CATALOG_ITEM', SheetId: sheetUrl }),
+    );
+    const [url, options] = fetchRequest.mock.calls[0];
+    expect(url).toBe('https://example.com/exec');
+    expect(options.method).toBe('POST');
+    expect(JSON.parse(options.body)).toEqual({
+      action: 'CLONE_CATALOG_ITEM',
+      SheetId: sheetUrl,
+      idToken: 'test-token',
+    });
+  });
+
   it.each(['clone', 'get', 'clone-body', 'get-body'])(
     'aborts a pending %s request at one minute, not earlier',
     async (operation) => {

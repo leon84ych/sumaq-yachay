@@ -4,7 +4,7 @@ import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config.service';
 import { CatalogApiService } from './catalog-api.service';
 import { CatalogItem } from '../models/catalog-item.model';
-import { CatalogPostPayload, CopyCatalogPayload } from '../models/catalog-api.model';
+import { CatalogPostPayload, CloneCatalogItemPayload, CopyCatalogPayload } from '../models/catalog-api.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { GlobalLoadingService } from '../../../core/services/global-loading.service';
 import { PermissionService } from '../../../core/services/permission.service';
@@ -337,6 +337,42 @@ export class CatalogService {
       await this.dbService.db.catalogs.put(errorItem);
       this.updateLocalItemInState(errorItem);
     } finally {
+      this.globalLoadingService.end(operation);
+    }
+  }
+
+  async cloneCatalogItemFromSheet(sheetUrl: string): Promise<boolean> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      this.errorMessage.set('CATALOG.ERRORS.cloneItemUnavailable');
+      return false;
+    }
+    if (!this.authService.idToken()) {
+      this.errorMessage.set('CATALOG.ERRORS.authRequired');
+      return false;
+    }
+    if (this.isLoading()) return false;
+
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+    try {
+      const payload: CloneCatalogItemPayload = { action: 'CLONE_CATALOG_ITEM', SheetId: sheetUrl };
+      const response = await firstValueFrom(this.apiService.cloneCatalogItem(payload));
+      if (response?.status !== 'success') {
+        throw new Error(response?.message || 'CATALOG.ERRORS.cloneItemFailed');
+      }
+      await this.syncFromRemote();
+      if (this.errorMessage()) {
+        this.errorMessage.set('CATALOG.ERRORS.cloneItemRefreshFailed');
+        return false;
+      }
+      return true;
+    } catch (error: unknown) {
+      this.errorMessage.set(error instanceof Error && error.message
+        ? error.message : 'CATALOG.ERRORS.cloneItemFailed');
+      return false;
+    } finally {
+      this.isLoading.set(false);
       this.globalLoadingService.end(operation);
     }
   }

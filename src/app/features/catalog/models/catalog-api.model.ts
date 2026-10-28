@@ -35,6 +35,11 @@ export interface CopyCatalogPayload {
   SheetId: string;
 }
 
+export interface CloneCatalogItemPayload {
+  action: 'CLONE_CATALOG_ITEM';
+  SheetId: string;
+}
+
 export interface CatalogPostResponse {
   status: 'success' | 'error';
   id?: string;

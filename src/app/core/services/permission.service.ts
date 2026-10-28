@@ -8,6 +8,7 @@ const OPERATION_ROLE_MAP = new Map<string, readonly UserRole[]>([
   ['GET_PAGINATED_ROWS', ['user', 'admin', 'guest']],
   ['GET_CATALOG_HEALTH', ['user', 'admin', 'guest']],
   ['CREATE_CATALOG_ITEM', ['admin']],
+  ['CLONE_CATALOG_ITEM', ['admin']],
   ['UPDATE_CATALOG_ITEM', ['admin']],
   ['DELETE_CATALOG_ITEM', ['admin']],
   ['CREATE_SHEET', ['admin']],

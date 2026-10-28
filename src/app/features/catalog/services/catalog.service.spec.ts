@@ -3,7 +3,7 @@
 import { TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { of } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config.service';
 import { CatalogApiService } from './catalog-api.service';
@@ -19,6 +19,7 @@ describe('CatalogService', () => {
   let clearAllTablesSpy: ReturnType<typeof vi.fn>;
   let saveCatalogItemSpy: ReturnType<typeof vi.fn>;
   let copyCatalogSpy: ReturnType<typeof vi.fn>;
+  let cloneCatalogItemSpy: ReturnType<typeof vi.fn>;
   let seedLocalSampleDataSpy: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
@@ -31,6 +32,7 @@ describe('CatalogService', () => {
     clearAllTablesSpy = vi.fn().mockResolvedValue(undefined);
     saveCatalogItemSpy = vi.fn();
     copyCatalogSpy = vi.fn();
+    cloneCatalogItemSpy = vi.fn();
     seedLocalSampleDataSpy = vi.fn().mockResolvedValue(undefined);
     getCatalogSpy = vi.fn().mockReturnValue(
       of({
@@ -48,8 +50,10 @@ describe('CatalogService', () => {
             clearAllTables: clearAllTablesSpy,
             seedLocalSampleData: seedLocalSampleDataSpy,
             db: {
+              transaction: async (_mode: string, _table: unknown, operation: () => Promise<void>) => operation(),
               catalogs: {
                 toArray: catalogsToArray,
+                clear: vi.fn().mockResolvedValue(undefined),
                 bulkPut: bulkPutSpy,
                 put: vi.fn().mockResolvedValue(undefined),
                 delete: vi.fn().mockResolvedValue(undefined),
@@ -63,6 +67,7 @@ describe('CatalogService', () => {
             getCatalog: getCatalogSpy,
             saveCatalogItem: saveCatalogItemSpy,
             copyCatalog: copyCatalogSpy,
+            cloneCatalogItem: cloneCatalogItemSpy,
           },
         },
         {
@@ -195,6 +200,88 @@ describe('CatalogService', () => {
       SheetId: 'https://docs.google.com/spreadsheets/d/sheet-id/edit',
     });
     expect(clearAllTablesSpy).toHaveBeenCalled();
+  });
+
+  it('clones a single sheet into an existing catalog and refreshes the entries', async () => {
+    const service = TestBed.inject(CatalogService);
+    await service.loadFromLocal();
+    idToken.set('valid-token');
+    const existing = {
+      id: 'existing', row: 1, name: 'Existing Book', author: 'Owner', subject: 'Literature',
+      topic: 'Memory', active: true, count: 0, updatedAt: '',
+    };
+    const cloned = { ...existing, id: 'cloned', row: 2, name: 'Cloned Book' };
+    service.items.set([existing]);
+    cloneCatalogItemSpy.mockReturnValue(of({ status: 'success' }));
+    getCatalogSpy.mockReturnValue(of({ status: 'success', data: [existing, cloned] }));
+    const result = await service.cloneCatalogItemFromSheet('https://docs.google.com/spreadsheets/d/source-id/edit');
+    expect(result).toBe(true);
+    expect(cloneCatalogItemSpy).toHaveBeenCalledExactlyOnceWith({
+      action: 'CLONE_CATALOG_ITEM', SheetId: 'https://docs.google.com/spreadsheets/d/source-id/edit',
+    });
+    expect(copyCatalogSpy).not.toHaveBeenCalled();
+    expect(saveCatalogItemSpy).not.toHaveBeenCalled();
+    expect(service.items().map((entry) => entry.id)).toEqual(['existing', 'cloned']);
+    expect(service.isLoading()).toBe(false);
+  });
+
+  it('keeps the existing catalog and reports backend clone errors', async () => {
+    const service = TestBed.inject(CatalogService);
+    await service.loadFromLocal();
+    idToken.set('valid-token');
+    cloneCatalogItemSpy.mockReturnValue(of({ status: 'error', message: 'Cannot access this sheet.' }));
+    expect(await service.cloneCatalogItemFromSheet('https://docs.google.com/spreadsheets/d/source-id/edit')).toBe(false);
+    expect(service.errorMessage()).toBe('Cannot access this sheet.');
+    expect(service.isLoading()).toBe(false);
+    expect(getCatalogSpy).not.toHaveBeenCalled();
+  });
+
+  it('reports clone transport errors without sending a manual create request', async () => {
+    const service = TestBed.inject(CatalogService);
+    await service.loadFromLocal();
+    idToken.set('valid-token');
+    cloneCatalogItemSpy.mockReturnValue(throwError(() => new Error('Request timed out.')));
+    expect(await service.cloneCatalogItemFromSheet('https://docs.google.com/spreadsheets/d/source-id/edit')).toBe(false);
+    expect(service.errorMessage()).toBe('Request timed out.');
+    expect(saveCatalogItemSpy).not.toHaveBeenCalled();
+    expect(service.isLoading()).toBe(false);
+  });
+
+  it('distinguishes an already-cloned sheet from a failed catalog refresh', async () => {
+    const service = TestBed.inject(CatalogService);
+    await service.loadFromLocal();
+    idToken.set('valid-token');
+    cloneCatalogItemSpy.mockReturnValue(of({ status: 'success' }));
+    getCatalogSpy.mockReturnValue(throwError(() => new Error('Refresh failed.')));
+    expect(await service.cloneCatalogItemFromSheet('https://docs.google.com/spreadsheets/d/source-id/edit')).toBe(false);
+    expect(service.errorMessage()).toBe('CATALOG.ERRORS.cloneItemRefreshFailed');
+  });
+
+  it('prevents a second source clone while one is pending', async () => {
+    const service = TestBed.inject(CatalogService);
+    await service.loadFromLocal();
+    idToken.set('valid-token');
+    const response = new Subject<{ status: string }>();
+    cloneCatalogItemSpy.mockReturnValue(response);
+    getCatalogSpy.mockReturnValue(of({ status: 'success', data: [] }));
+    const first = service.cloneCatalogItemFromSheet('https://docs.google.com/spreadsheets/d/source-id/edit');
+    expect(await service.cloneCatalogItemFromSheet('https://docs.google.com/spreadsheets/d/source-id/edit')).toBe(false);
+    expect(cloneCatalogItemSpy).toHaveBeenCalledTimes(1);
+    response.next({ status: 'success' });
+    response.complete();
+    expect(await first).toBe(true);
+  });
+
+  it('does not clone individual sources without authentication or in sample mode', async () => {
+    const service = TestBed.inject(CatalogService);
+    await service.loadFromLocal();
+    expect(await service.cloneCatalogItemFromSheet('https://docs.google.com/spreadsheets/d/source-id/edit')).toBe(false);
+    expect(service.errorMessage()).toBe('CATALOG.ERRORS.authRequired');
+    idToken.set('valid-token');
+    TestBed.inject(ConfigService).setLocalSampleDataEnabled(true);
+    expect(await service.cloneCatalogItemFromSheet('https://docs.google.com/spreadsheets/d/source-id/edit')).toBe(false);
+    expect(service.errorMessage()).toBe('CATALOG.ERRORS.cloneItemUnavailable');
+    expect(cloneCatalogItemSpy).not.toHaveBeenCalled();
   });
 
   it('does not request a catalog copy in LocalSampleData mode', async () => {

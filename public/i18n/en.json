@@ -1,6 +1,5 @@
 {
   "DOCUMENTATION": {
-    "TITLE": "Sumaq Yachay Manual",
     "CONTENTS": "Contents",
     "SOURCE": "View Markdown source",
     "ERROR": "Could not load the manual. Please try again.",
@@ -135,6 +134,15 @@
     "MODAL": {
       "TITLE_CREATE": "Register New Data Source",
       "TITLE_EDIT": "Edit Catalog Source",
+      "SOURCE_MODE": "Registration method",
+      "MODE_MANUAL": "New data source",
+      "MODE_URL": "URL",
+      "URL_LABEL": "Google Sheet URL",
+      "URL_PLACEHOLDER": "Paste the Google Sheets URL to clone",
+      "URL_ERROR": "Enter a valid Google Sheets URL.",
+      "CLONE_DESCRIPTION": "This existing Google Sheet will be cloned and added as a source in your catalog. The original is used only as the source. Cloning can take up to one minute.",
+      "CLONE_SHEET": "Clone Sheet",
+      "CLONING": "Cloning Sheet...",
       "ID_LABEL": "Catalog ID",
       "ID_PLACEHOLDER": "e.g., cat-2024-001",
       "ID_ERROR": "ID is required (max 100 characters).",
@@ -179,6 +187,10 @@
       "malformedCatalog": "Malformed catalog response received.",
       "copyCatalogFailed": "The master catalog could not be cloned. Check the URL and try again.",
       "copyCatalogUnavailable": "A master catalog can only be cloned when the remote catalog is empty.",
+      "cloneItemFailed": "The sheet could not be cloned. Check the URL and source permissions, then try again.",
+      "cloneItemUnavailable": "Cloning a sheet from a URL is not available in Local Sample Data mode.",
+      "cloneItemRefreshFailed": "The sheet was cloned, but the catalog could not be refreshed. Close this dialog and use Sync Remote before attempting another clone.",
+      "authRequired": "Sign in with Google before performing this operation.",
       "syncFailed": "Failed to reach the Web App endpoint. Verify the URL ends with /exec, the deployment is redeployed with 'Anyone' access, you're online, and no VPN/proxy is blocking script.google.com."
     }
   },

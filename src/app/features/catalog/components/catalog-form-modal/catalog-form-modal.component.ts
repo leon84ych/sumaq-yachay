@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, output } from '@angular/core';
+import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
@@ -10,7 +10,7 @@ import { PermissionService } from '../../../../core/services/permission.service'
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, TranslocoPipe],
   templateUrl: './catalog-form-modal.component.html', // Fixed to templateUrl path
-  styleUrls: ['./catalog-form-modal.component.css'],  // Fixed to styleUrls array path
+  styleUrls: ['./catalog-form-modal.component.css'], // Fixed to styleUrls array path
 })
 export class CatalogFormModalComponent {
   private fb = inject(FormBuilder);
@@ -18,6 +18,11 @@ export class CatalogFormModalComponent {
   readonly role = this.permissionService.role;
 
   readonly editItem = input<CatalogItem | null>(null);
+  readonly isLoading = input(false);
+  readonly error = input<string | null>(null);
+  readonly registrationMode = signal<'manual' | 'url'>('manual');
+  readonly isUrlMode = computed(() => !this.editItem() && this.registrationMode() === 'url');
+  readonly clone = output<string>();
 
   readonly save = output<{
     item: Omit<CatalogItem, 'updatedAt' | 'syncStatus'>;
@@ -37,9 +42,23 @@ export class CatalogFormModalComponent {
     active: [true],
   });
 
+  readonly urlForm = this.fb.nonNullable.group({
+    sheetUrl: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(
+          /^https:\/\/docs\.google\.com\/spreadsheets\/(?:u\/\d+\/)?d\/[A-Za-z0-9_-]+(?:\/.*)?$/,
+        ),
+      ],
+    ],
+  });
+
   constructor() {
     effect(() => {
       const item = this.editItem();
+      this.registrationMode.set('manual');
+      this.urlForm.reset({ sheetUrl: '' });
       if (item) {
         this.form.get('id')?.disable();
         // 2. Map existing payload keys to the reactive controls
@@ -71,6 +90,13 @@ export class CatalogFormModalComponent {
   }
 
   onSubmit(): void {
+    if (this.isLoading()) return;
+    if (this.isUrlMode()) {
+      this.urlForm.markAllAsTouched();
+      if (this.urlForm.invalid) return;
+      this.clone.emit(this.urlForm.controls.sheetUrl.value.trim());
+      return;
+    }
     if (this.form.invalid) return;
 
     const formValue = this.form.getRawValue();
@@ -88,7 +114,7 @@ export class CatalogFormModalComponent {
       source: formValue.source || '',
       active: !!formValue.active,
       row: existing ? existing.row : 0,
-      count:0,
+      count: 0,
     };
 
     this.save.emit({
@@ -97,7 +123,12 @@ export class CatalogFormModalComponent {
     });
   }
 
+  setRegistrationMode(mode: 'manual' | 'url'): void {
+    if (!this.isLoading() && !this.editItem()) this.registrationMode.set(mode);
+  }
+
   onBackdropClick(event: MouseEvent): void {
+    if (this.isLoading()) return;
     if ((event.target as HTMLElement).classList.contains('modal-overlay')) {
       this.close.emit();
     }

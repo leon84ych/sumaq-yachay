@@ -32,6 +32,15 @@ warning but has no clone/shared mode selector. It submits `{ action: 'CLONE_CATA
 the HTTP client adds `idToken`, with no `option` field. GAS requests wait up to 60 seconds.
 Cloning remains unavailable in Local Sample Data mode or while catalog items already exist.
 
+## Registering Data Sources
+
+**Register Source** supports **New data source** (the existing fields-based create operation) and
+**URL** (clone one existing Google Sheet). URL mode submits
+`{ action: 'CLONE_CATALOG_ITEM', SheetId: url }`; the HTTP client adds only `idToken`.
+It does not send catalog metadata or mode options and can add to a non-empty catalog.
+The clone operation requires administrator permissions and remote mode, retains the one-minute
+timeout, and refreshes the catalog after success. Editing remains fields-only.
+
 ## Study Session Search
 
 `StudySearchService` owns the in-memory keyword shared by Catalog, Learn, Quiz, and the searchable

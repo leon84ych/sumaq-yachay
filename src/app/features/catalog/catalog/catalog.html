@@ -114,7 +114,10 @@
   @if (isModalOpen()) {
     <app-catalog-form-modal
       [editItem]="selectedItemForEdit()"
+      [isLoading]="catalogService.isLoading()"
+      [error]="catalogService.errorMessage()"
       (save)="handleSaveItem($event)"
+      (clone)="handleCloneSource($event)"
       (close)="closeModal()"
     />
   }

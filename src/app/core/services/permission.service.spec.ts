@@ -9,6 +9,7 @@ describe('PermissionService', () => {
     expect(service.validatePermission(service.role(), 'GET_CATALOG')).toBe(true);
     expect(service.validatePermission(service.role(), 'GET_PAGINATED_ROWS')).toBe(true);
     expect(service.validatePermission(service.role(), 'UPDATE_SHEET_ROWS')).toBe(false);
+    expect(service.validatePermission(service.role(), 'CLONE_CATALOG_ITEM')).toBe(false);
   });
 
   it('allows admin to perform catalog, sheet, and row writes', () => {
@@ -16,6 +17,7 @@ describe('PermissionService', () => {
     service.setRole('admin');
 
     expect(service.validatePermission(service.role(), 'CREATE_CATALOG_ITEM')).toBe(true);
+    expect(service.validatePermission(service.role(), 'CLONE_CATALOG_ITEM')).toBe(true);
     expect(service.validatePermission(service.role(), 'UPDATE_CATALOG_ITEM')).toBe(true);
     expect(service.validatePermission(service.role(), 'CREATE_SHEET')).toBe(true);
     expect(service.validatePermission(service.role(), 'UPDATE_SHEET_ROWS')).toBe(true);
@@ -29,6 +31,7 @@ describe('PermissionService', () => {
 
     expect(service.validatePermission(service.role(), 'GET_SHEETS_NAMES')).toBe(true);
     expect(service.validatePermission(service.role(), 'CREATE_CATALOG_ITEM')).toBe(false);
+    expect(service.validatePermission(service.role(), 'CLONE_CATALOG_ITEM')).toBe(false);
     expect(service.validatePermission(service.role(), 'UPDATE_SHEET_ROWS')).toBe(false);
     expect(service.validatePermission(service.role(), 'DELETE_ROW')).toBe(false);
   });

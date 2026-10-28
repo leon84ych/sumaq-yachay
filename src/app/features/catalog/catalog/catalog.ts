@@ -45,11 +45,13 @@ export class Catalog {
   readonly selectedItemForEdit = signal<CatalogItem | null>(null);
 
   openCreateModal(): void {
+    this.catalogService.errorMessage.set(null);
     this.selectedItemForEdit.set(null);
     this.isModalOpen.set(true);
   }
 
   openEditModal(item: CatalogItem): void {
+    this.catalogService.errorMessage.set(null);
     this.selectedItemForEdit.set(item);
     this.isModalOpen.set(true);
   }
@@ -70,6 +72,10 @@ export class Catalog {
     if (!this.canAddCatalog()) return;
     this.catalogService.errorMessage.set(null);
     this.isAddCatalogModalOpen.set(true);
+  }
+
+  async handleCloneSource(sheetUrl: string): Promise<void> {
+    if (await this.catalogService.cloneCatalogItemFromSheet(sheetUrl)) this.closeModal();
   }
 
   async handleAddCatalog(event: { sheetUrl: string }): Promise<void> {

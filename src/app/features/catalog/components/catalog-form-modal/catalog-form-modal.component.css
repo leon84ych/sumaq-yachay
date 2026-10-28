@@ -18,6 +18,7 @@
   border-radius: var(--radius-lg);
   width: 100%;
   max-width: 540px;
+  max-height: calc(100dvh - 2rem);
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border);
   overflow: hidden;
@@ -48,6 +49,8 @@
 }
 
 .modal-header h2 {
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--primary);
@@ -74,6 +77,69 @@
   display: flex;
   flex-direction: column;
   gap: 1.15rem;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.source-mode {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.source-mode legend {
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.source-mode label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--background);
+  cursor: pointer;
+}
+
+.source-mode label.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.source-mode input {
+  accent-color: var(--primary);
+}
+
+.source-mode label:focus-within,
+.btn:focus-visible,
+.btn-close:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 3px;
+}
+
+.clone-notice,
+.request-error {
+  margin: 0;
+  padding: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--primary-light);
+  color: var(--text);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.request-error {
+  border-color: var(--error);
+  background: var(--error-light);
+  color: var(--error);
 }
 
 .form-group {
@@ -89,6 +155,7 @@
 
 .flex-1 {
   flex: 1;
+  min-width: 0;
 }
 
 label {
@@ -102,13 +169,17 @@ label {
 }
 
 .form-control {
+  min-width: 0;
+  width: 100%;
   padding: 0.6rem 0.85rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 0.95rem;
   background: var(--background);
   color: var(--text);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .form-control:focus {
@@ -146,7 +217,7 @@ textarea.form-control {
   cursor: pointer;
 }
 
-.checkbox-label input[type="checkbox"] {
+.checkbox-label input[type='checkbox'] {
   accent-color: var(--primary);
   width: 17px;
   height: 17px;
@@ -154,6 +225,7 @@ textarea.form-control {
 
 .modal-footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 0.75rem;
   margin-top: 0.5rem;
@@ -162,6 +234,8 @@ textarea.form-control {
 }
 
 .btn {
+  max-width: 100%;
+  overflow-wrap: anywhere;
   padding: 0.6rem 1.25rem;
   font-size: 0.9rem;
   font-weight: 600;
@@ -195,7 +269,6 @@ textarea.form-control {
   background: var(--primary-hover);
 }
 
-
 /* Style for the locked input field */
 .read-only-input {
   background-color: #f3f4f6;
@@ -222,4 +295,16 @@ textarea.form-control {
 .warning-icon {
   flex-shrink: 0;
   color: #d97706;
+}
+
+@media (max-width: 540px) {
+  .modal-form {
+    padding: 1rem;
+  }
+  .modal-header {
+    padding: 1rem;
+  }
+  .form-row {
+    flex-direction: column;
+  }
 }
