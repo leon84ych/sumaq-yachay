@@ -105,10 +105,10 @@
       "FAILED": "Fallo de Sincronización"
     },
     "MODAL": {
-      "TITLE_CREATE": "Registrar Nueva Fuente de Datos",
+      "TITLE_CREATE": "Registrar Nueva Fuente",
       "TITLE_EDIT": "Editar Fuente del Catálogo",
       "SOURCE_MODE": "Método de registro",
-      "MODE_MANUAL": "Nueva fuente de datos",
+      "MODE_MANUAL": "Nueva fuente",
       "MODE_URL": "URL",
       "URL_LABEL": "URL de Google Sheet",
       "URL_PLACEHOLDER": "Pega la URL de Google Sheets que quieres clonar",
@@ -134,6 +134,10 @@
       "SOURCE_LABEL": "Fuentes",
       "SOURCE_PLACEHOLDER": "PDF, URL, Vídeo, etc.",
       "SHEET_PROTECTED_WARNING": "Este valor debe ser modificado dentro de la interfaz de Google Sheets.",
+      "PAGES_LABEL": "Páginas",
+      "PAGES_PLACEHOLDER": "Ingrese el número de páginas del libro...",
+      "PAGE_LABEL": "Página",
+      "PAGE_PLACEHOLDER": "Ingrese el número de la página actual...",
       "DESCRIPTION_LABEL": "Descripción (Opcional)",
       "DESCRIPTION_PLACEHOLDER": "Breve resumen de los temas o conceptos cubiertos...",
       "ACTIVE_LABEL": "Marcar como Activo en el Índice Maestro",
