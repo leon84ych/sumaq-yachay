@@ -22,7 +22,7 @@ import { DomainAssociationService } from '../../domain/domain-association/servic
 import { sortDomainTabs } from '../models/domain-sheet-config';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
-import { normalizeTagsFromArray, parseTagsFromArray, deserializeTagsFromBE, serializeTagsToArray, serializeTagsToString } from '../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray, parseTagsFromArray, deserializeTagsFromBE, serializeTagsToArray, serializeTagsToString, serializeTagsToBE } from '../../../shared/utils/tag-utils';
 
 type DomainTableName =
   | 'indexTopics'
@@ -125,7 +125,7 @@ export class DomainDataService {
 
   private loadedRow: number | null = null;
 
-  readonly sheetNames = computed(() => this.sheets().filter(sheet => sheet.name!='ID').map((sheet) => sheet.name));
+  readonly sheetNames = computed(() => this.sheets().filter(sheet => sheet.name != 'ID').map((sheet) => sheet.name));
 
   extractAndNormalizeTags(tags: string[]): string[] {
     return normalizeTagsFromArray(tags);
@@ -455,15 +455,13 @@ export class DomainDataService {
         throw new Error('The active catalog item could not be found.');
       }
 
-      const normalizedRows = updatedRows.map((record, index) => {
-        const normalized = this.normalizeRecordTags(record, sheetName);
-        return ['RELATIONS', 'ASSOCIATIONS'].includes(sheetName.toUpperCase())
-          ? {
-              ...normalized,
-              displayRow: Number(normalized['displayRow'] ?? normalized['row'] ?? index + 1),
-            }
-          : normalized;
-      });
+      const normalizedRows = updatedRows.
+        filter(record => record != null && record !== undefined)
+        .map((record, index) => {
+          console.log("Normalizing record:", record);
+          const normalized = this.serializeRecordTags(record, sheetName);
+          return normalized;
+        });
       const editedRow = editedRowId
         ? normalizedRows.find((record) => String(record['id']) === editedRowId)
         : undefined;
@@ -488,8 +486,8 @@ export class DomainDataService {
         sheetName.toUpperCase(),
       )
         ? selectedRemoteRows.map(
-            ({ row: _displayRow, displayRow: _localDisplayRow, ...record }) => record,
-          )
+          ({ row: _displayRow, displayRow: _localDisplayRow, ...record }) => record,
+        )
         : selectedRemoteRows;
       const localSampleDataEnabled = this.configService.isLocalSampleDataEnabled();
       const rowsWithPendingStatus = normalizedRows.map((record) => ({
@@ -722,11 +720,24 @@ export class DomainDataService {
     );
   }
 
-  private normalizeRecordTags(
+  private deserializeRecordTags(
     record: Record<string, unknown>,
     sheetName: string,
   ): Record<string, unknown> {
-    let normalizedTags = deserializeTagsFromBE(record['tags']); 
+    let normalizedTags = deserializeTagsFromBE(record['tags']);
+    const normalizedRecord: Record<string, unknown> = {
+      ...record,
+      tags: normalizedTags,
+    };
+    return normalizedRecord;
+  }
+
+
+  private serializeRecordTags(
+    record: Record<string, unknown>,
+    sheetName: string,
+  ): Record<string, unknown> {
+    let normalizedTags = serializeTagsToBE(record['tags']);
     const normalizedRecord: Record<string, unknown> = {
       ...record,
       tags: normalizedTags,
@@ -761,7 +772,7 @@ export class DomainDataService {
       // 1. Transform raw elements into fully compliant DomainSheet objects
       const normalizedSheets: DomainSheet[] = response.data.sheets.map((sheet) => ({
         ...sheet,
-        rows: sheet.rows.map((sourceRow) => this.normalizeRecordTags(sourceRow, sheet.name)),
+        rows: sheet.rows.map((sourceRow) => this.deserializeRecordTags(sourceRow, sheet.name)),
         row, // Inject the parent catalog identifier
         id: sheet.name.toLowerCase(), // Generate the runtime identifier key
       }));
@@ -1018,7 +1029,7 @@ export class DomainDataService {
   ): Record<string, unknown>[] {
     const tableName = this.getDomainTableName(sheetName);
     return sourceRows.map((sourceRow, index) => {
-      const normalizedRow = this.normalizeRecordTags(
+      const normalizedRow = this.deserializeRecordTags(
         this.normalizePaginatedRow(sourceRow),
         sheetName,
       );

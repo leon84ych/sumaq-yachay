@@ -88,7 +88,9 @@ export class QuestionGeneratorComponent {
         contributor: 'browser-ai',
         aiGenerated: true,
         syncStatus: 'pending',
+        tags: this.tags()
       };
+      //TODO validate that tags are properly formatted before saving
 
       await this.domainDataService.updateDomainSheetRows('QUESTIONS', [
         ...existingRows,

@@ -172,20 +172,23 @@ export class DomainCharacterComponent {
     const description = this.newDescription().trim();
     const archetype = this.newArchetype().trim();
     const source = this.source();
-    const tags = serializeTagsToArray(this.newTags());
+    const tags = this.newTags();
     const editingId = this.editingId();
 
     try {
       const localRows = editingId
         ? ((await this.domainDataService.getLocalDomainSheetRows(
-            this.currentSheet().name,
-          )) as CharacterRow[])
+          this.currentSheet().name,
+        )) as CharacterRow[])
         : this.rows();
       const existingRows = localRows.length > 0 ? localRows : this.rows();
       const originalRow = editingId ? existingRows.find((row) => row.id === editingId) : undefined;
       if (editingId && !originalRow) {
         throw new Error('The character being edited is no longer available.');
       }
+
+      console.log("newTags 1:", this.newTags());
+      console.log("tags 2:", tags);
 
       const newRow: CharacterRow = {
         ...(originalRow ?? {}),
@@ -202,9 +205,14 @@ export class DomainCharacterComponent {
         contributor: originalRow?.contributor ?? 'currentUser',
         syncStatus: 'pending',
       };
+
+      console.log("newRow[tags]:", newRow['tags']);
+
       const updatedRows = editingId
         ? existingRows.map((row) => (row.id === editingId ? newRow : row))
         : [...existingRows, newRow];
+
+
 
       await this.domainDataService.updateDomainSheetRows(
         this.currentSheet().name,

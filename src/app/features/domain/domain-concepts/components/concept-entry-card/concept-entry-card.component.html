@@ -60,7 +60,8 @@
           </button>
         }
       </div>
-      @if (showActions()) {
+      <!-- Quiz generator is currently disabled @TODO -->
+      @if (showActions() && false) { 
         <div class="domain-card-footer__actions">
           <app-concept-quiz-generator
             [concept]="row()"
