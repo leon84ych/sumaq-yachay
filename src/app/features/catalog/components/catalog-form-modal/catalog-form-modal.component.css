@@ -148,15 +148,7 @@
   gap: 0.35rem;
 }
 
-.form-row {
-  display: flex;
-  gap: 1rem;
-}
 
-.flex-1 {
-  flex: 1;
-  min-width: 0;
-}
 
 label {
   font-size: 0.875rem;
@@ -303,8 +295,5 @@ textarea.form-control {
   }
   .modal-header {
     padding: 1rem;
-  }
-  .form-row {
-    flex-direction: column;
   }
 }

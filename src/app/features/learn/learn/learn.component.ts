@@ -28,7 +28,7 @@ import { GlossaryRow } from '../../domain/domain-glosary/model/domain-glosary-ro
 import { PlaceRow } from '../../domain/domain-places/model/domain-place-row.model';
 import { PassagesRow } from '../../domain/domain-passages/model/domain-passage-row.model';
 import { QuoteRow } from '../../domain/domain-quotes/model/domain-quote-row.model';
-import { normalizeIndexRows } from '../../domain/domain-index/model/index-view-row';
+import { IndexRow } from '../../domain/domain-index/model/index-view-row';
 import { LearnFeedEntryCardComponent } from '../components/learn-feed-entry-card/learn-feed-entry-card.component';
 import { LearnFeedEntry, LearnFeedService } from '../services/learn-feed.service';
 
@@ -122,7 +122,7 @@ export class Learn {
       case 'INDEX':
         return {
           ...context,
-          row: normalizeIndexRows([entry.sourceRow])[0],
+          row: entry.sourceRow as unknown as IndexRow,
           showActions: false,
           showContext: true,
           showHierarchy: true,
@@ -217,7 +217,7 @@ export class Learn {
 
     this.searchDebounceTimer = setTimeout(() => {
       this.searchDebounceTimer = null;
-      void this.loadBatch(requestVersion, query.trim());
+      void this.loadBatch(requestVersion, query.trim(), false);
     }, 250);
   }
 
@@ -228,16 +228,23 @@ export class Learn {
 
     this.isLoading.set(true);
     this.errorMessage.set(null);
-    await this.loadBatch(this.requestVersion, this.searchQuery().trim());
+    await this.loadBatch(this.requestVersion, this.searchQuery().trim(), true);
   }
 
-  private async loadBatch(requestVersion: number, query: string): Promise<void> {
+  private async loadBatch(
+    requestVersion: number,
+    query: string,
+    allowRemote: boolean,
+  ): Promise<void> {
     try {
-      const batch = await this.learnFeedService.loadRandomBatch(
+      let batch = await this.learnFeedService.loadRandomBatch(
         this.seenEntryIds,
         BATCH_SIZE,
         query,
       );
+      if (allowRemote && batch.length < BATCH_SIZE && this.learnFeedService.canFetchRemote()) {
+        batch = await this.learnFeedService.loadRemoteBatch(this.seenEntryIds, BATCH_SIZE, query);
+      }
       if (requestVersion !== this.requestVersion) {
         return;
       }
@@ -245,7 +252,7 @@ export class Learn {
         this.seenEntryIds.add(entry.id);
       }
       this.entries.update((current) => [...current, ...batch]);
-      this.hasMore.set(batch.length === BATCH_SIZE);
+      this.hasMore.set(batch.length === BATCH_SIZE || this.learnFeedService.canFetchRemote());
     } catch {
       if (requestVersion === this.requestVersion) {
         this.errorMessage.set('LEARN.ERROR');

@@ -3,7 +3,7 @@ import { AppDbService } from '../../../../core/services/storage/app-db.service';
 import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
 import { DomainFeatureHandler } from '../../../../shared/interfaces/domain-feature-handler.service';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
-import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
 import { BookEventRecord } from '../model/book-event-row.model';
 
 @Injectable({ providedIn: 'root' })
@@ -19,7 +19,7 @@ export class DomainBookEventsService implements DomainFeatureHandler<BookEventRe
       .map(({ row: _catalogRow, displayRow, ...record }) => ({
         ...record,
         row: displayRow,
-        tags: serializeTags(record['tags']),
+        tags: serializeTagsToArray(record['tags']),
       }));
 
     return {
@@ -37,11 +37,9 @@ export class DomainBookEventsService implements DomainFeatureHandler<BookEventRe
   ): Promise<void> {
     const table = this.dbService.db.bookEvents;
     await this.dbService.db.transaction('rw', table, async () => {
-      await table.where('row').equals(row).delete();
-
       const records: BookEventRecord[] = syncedRows.map((sourceRow, index) => {
-        const tags = serializeTags(
-          this.validateAndSanitizeTags(parseTags(sourceRow['tags'])),
+        const tags = serializeTagsToArray(
+          this.validateAndSanitizeTags(parseTagsFromArray(sourceRow['tags'])),
         );
         const rawSecondaryIds: unknown = sourceRow['secondaryCharacterIds'];
         const secondaryCharacterIds = Array.isArray(rawSecondaryIds)

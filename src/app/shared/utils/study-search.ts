@@ -1,4 +1,4 @@
-import { normalizeTags } from './tag-utils';
+import { normalizeTagsFromArray } from './tag-utils';
 
 export type StudySearchField = 'book' | 'author' | 'contributor';
 
@@ -43,7 +43,7 @@ export function parseStudySearch(query: string): StudySearch {
   });
   return {
     text: normalizeText(text.replace(/\s+/g, ' ')),
-    tags: normalizeTags(tags).map(normalizeText),
+    tags: normalizeTagsFromArray(tags).map(normalizeText),
     ...(phrases.length ? { phrases: [...new Set(phrases)] } : {}),
     ...(contexts.length ? { contexts } : {}),
   };
@@ -56,7 +56,7 @@ export function matchesStudySearch(
   context: { book?: unknown; author?: unknown; contributor?: unknown } = {},
 ): boolean {
   const search = typeof query === 'string' ? parseStudySearch(query) : query;
-  const availableTags = new Set(normalizeTags(tags).map(normalizeText));
+  const availableTags = new Set(normalizeTagsFromArray(tags).map(normalizeText));
   const searchableFields = [...fields, ...Object.values(context)];
   return (
     (!search.text ||

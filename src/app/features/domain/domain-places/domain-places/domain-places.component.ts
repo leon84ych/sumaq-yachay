@@ -10,7 +10,7 @@ import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.ser
 import { PermissionService } from '../../../../core/services/permission.service';
 import { PlaceEntryCardComponent } from '../components/place-entry-card/place-entry-card.component';
 import { DomainMapComponent } from '../../domain-map/domain-map/domain-map.component';
-import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
 import { StudySearchService } from '../../../../core/services/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
@@ -94,7 +94,7 @@ export class DomainPlacesComponent {
   });
 
   splitTags(tags: string[]): string[] {
-    return parseTags(tags);
+    return parseTagsFromArray(tags);
   }
 
   async deleteEntry(id: string): Promise<void> {
@@ -135,7 +135,7 @@ export class DomainPlacesComponent {
     const color = this.newColor();
     const description = this.newDescription().trim();
     const source = this.newSource().trim();
-    const tags = serializeTags(this.newTags());
+    const tags = serializeTagsToArray(this.newTags());
     const editingId = this.editingId();
 
     try {

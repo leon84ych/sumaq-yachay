@@ -59,7 +59,7 @@ describe('StudySearchService', () => {
     loadQuestionBatch.mockReset().mockResolvedValue([]);
     TestBed.configureTestingModule({
       providers: [
-        { provide: LearnFeedService, useValue: { loadRandomBatch: loadLearnBatch } },
+        { provide: LearnFeedService, useValue: { loadRandomBatch: loadLearnBatch, canFetchRemote: () => false } },
         { provide: QuestionPracticeService, useValue: {
           loadRandomBatch: loadQuestionBatch, optionsFor: () => [],
         } },

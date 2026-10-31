@@ -4,7 +4,7 @@ import { ConceptRecord } from '../model/domain-concept-row.model';
 import { DomainSheet } from "../../../catalog-detail/models/domain-sheet.model";
 import { DomainFeatureHandler } from "../../../../shared/interfaces/domain-feature-handler.service";
 import { TaxonomyService } from "../../../../core/services/taxonomy/taxonomy.service";
-import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
 
 @Injectable({
     providedIn: 'root',
@@ -43,16 +43,14 @@ export class DomainConceptsService implements DomainFeatureHandler<ConceptRecord
         const table = this.dbService.db.concepts;
 
         await this.dbService.db.transaction('rw', table, async () => {
-            await table.where('row').equals(row).delete();
-
             // Explicit type assignment to Concept[] satisfies the generic constraint completely
             const persistedRows: ConceptRecord[] = syncedRows.map((sourceRow, index) => {
                 // 1. Extract the raw incoming tags handling key variance safely
-                const parsedTags = parseTags(sourceRow['tags']);
+                const parsedTags = parseTagsFromArray(sourceRow['tags']);
 
                 // 2. Validate and filter tags using the live INDEX domain whitelist via the service helper
                 const authorizedTags = this.validateAndSanitizeTags(parsedTags);
-                const tags = serializeTags(authorizedTags);
+                const tags = serializeTagsToArray(authorizedTags);
 
                 return {
                     ...sourceRow,

@@ -5,6 +5,7 @@ import { ConfigService } from '../../../core/services/config.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { PermissionService } from '../../../core/services/permission.service';
 import { GetDomainSheetsResponse, PaginatedDomainRowsResponse } from '../models/domain-sheet.model';
+import { serializeTagsToBE } from '../../../shared/utils/tag-utils';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -265,6 +266,9 @@ export class DomainDataApiService {
       if (createRowWithoutId) {
         delete rowData['id'];
       }
+      // Serialize tags to the backend format before sending the row data
+      const tags = serializeTagsToBE(rowData['tags']); 
+      rowData['tags'] = tags;
       return rowData;
     });
 

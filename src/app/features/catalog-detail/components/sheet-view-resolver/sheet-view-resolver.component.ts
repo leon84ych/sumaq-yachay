@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output } from '@angular/core';
+import { Component, computed, effect, inject, input, output, untracked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomainConceptsComponent } from '../../../domain/domain-concepts/domain-concept/domain-concept.component';
 import { DomainQuoteComponent } from '../../../domain/domain-quotes/domain-quote/domain-quote.component';
@@ -56,6 +56,18 @@ export class SheetViewResolverComponent {
 
   readonly isAddingEntry = input<boolean>(false);
   readonly closeEntry = output<void>();
+
+  private readonly sheetName = computed(() => this.sheet()?.name ?? null);
+
+  constructor() {
+    // On tab render, show rows already stored in IndexedDB before offering the server button.
+    effect(() => {
+      const name = this.sheetName();
+      if (name) {
+        untracked(() => void this.domainDataService.mergeLocalRows(name));
+      }
+    });
+  }
 
   readonly viewKind = computed(() => {
     const current = this.sheet();

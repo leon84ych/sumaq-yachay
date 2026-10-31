@@ -10,9 +10,9 @@ import { TranslocoPipe } from '@jsverse/transloco';
   styleUrls: ['./catalog-sheet-tabs.component.css'],
 })
 export class CatalogSheetTabsComponent {
+  
   readonly sheetNames = input.required<string[]>();
   readonly activeSheetName = input<string | null>(null);
-
   readonly selectTab = output<string>();
 
 }

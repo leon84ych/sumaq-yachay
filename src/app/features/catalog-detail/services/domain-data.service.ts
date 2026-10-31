@@ -22,7 +22,7 @@ import { DomainAssociationService } from '../../domain/domain-association/servic
 import { sortDomainTabs } from '../models/domain-sheet-config';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../core/services/permission.service';
-import { normalizeTags, parseTags, serializeTags } from '../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray, parseTagsFromArray, deserializeTagsFromBE, serializeTagsToArray, serializeTagsToString } from '../../../shared/utils/tag-utils';
 
 type DomainTableName =
   | 'indexTopics'
@@ -125,10 +125,10 @@ export class DomainDataService {
 
   private loadedRow: number | null = null;
 
-  readonly sheetNames = computed(() => this.sheets().map((sheet) => sheet.name));
+  readonly sheetNames = computed(() => this.sheets().filter(sheet => sheet.name!='ID').map((sheet) => sheet.name));
 
   extractAndNormalizeTags(tags: string[]): string[] {
-    return normalizeTags(tags);
+    return normalizeTagsFromArray(tags);
   }
 
   async upsertBookTags(tags: string[], bookContext: BookTagContext): Promise<void> {
@@ -210,6 +210,41 @@ export class DomainDataService {
     }
   }
 
+  /** Adds rows that exist in IndexedDB for the loaded book but are not yet in the sheet state. */
+  async mergeLocalRows(sheetName: string): Promise<number> {
+    const row = this.loadedRow;
+    const handler = this.featureHandlers.find((h) => h.name === sheetName.toUpperCase());
+    if (row === null || !handler) {
+      return 0;
+    }
+
+    const localSheet = await handler.loadLocalSheet(row);
+    if (this.loadedRow !== row || !localSheet) {
+      return 0;
+    }
+    const currentSheet = this.sheets().find((candidate) => candidate.name === sheetName);
+    if (!currentSheet) {
+      return 0;
+    }
+
+    const knownIds = new Set(currentSheet.rows.map((item) => String(item['id'])));
+    const missing = localSheet.rows.filter((item) => !knownIds.has(String(item['id'])));
+    if (missing.length === 0) {
+      return 0;
+    }
+
+    this.updateLocalSheetRowsState(sheetName, this.mergeRows(currentSheet.rows, missing));
+    return missing.length;
+  }
+
+  /** Renders any unseen rows already in IndexedDB first; requests the server only if none. */
+  async loadMore(sheetName: string): Promise<void> {
+    if ((await this.mergeLocalRows(sheetName)) > 0) {
+      return;
+    }
+    await this.loadNextPage(sheetName);
+  }
+
   async loadNextPage(sheetName: string): Promise<void> {
     if (this.configService.isLocalSampleDataEnabled()) {
       return;
@@ -250,22 +285,7 @@ export class DomainDataService {
       }
 
       const tableName = this.getDomainTableName(sheetName);
-      const pageRows = response.rows.map((sourceRow, index) => {
-        const normalizedRow = this.normalizeRecordTags(
-          this.normalizePaginatedRow(sourceRow),
-          sheetName,
-        );
-        const displayRow = (nextPage - 1) * DOMAIN_PAGE_SIZE + index + 1;
-        return {
-          ...normalizedRow,
-          id: String(normalizedRow['id'] ?? `${tableName}_${row}_${nextPage}_${index}`),
-          row: ['RELATIONS', 'ASSOCIATIONS'].includes(sheetName.toUpperCase()) ? displayRow : row,
-          ...(['RELATIONS', 'ASSOCIATIONS'].includes(sheetName.toUpperCase())
-            ? { displayRow }
-            : {}),
-          syncStatus: 'synced',
-        };
-      });
+      const pageRows = this.mapPaginatedRows(row, sheetName, nextPage, response.rows);
       const persistedRows = this.preparePersistedRows(tableName, row, pageRows);
       const table = this.domainTable(tableName);
       const nextSheets = this.sheets().map((currentSheet) =>
@@ -706,24 +726,12 @@ export class DomainDataService {
     record: Record<string, unknown>,
     sheetName: string,
   ): Record<string, unknown> {
+    let normalizedTags = deserializeTagsFromBE(record['tags']); 
     const normalizedRecord: Record<string, unknown> = {
       ...record,
-      tags: serializeTags(record['tags']),
+      tags: normalizedTags,
     };
-    delete normalizedRecord['tag'];
-    if (['BOOK_EVENTS', 'RELATIONS', 'ASSOCIATIONS'].includes(sheetName.toUpperCase())) {
-      normalizedRecord['displayRow'] =
-        typeof record['displayRow'] === 'number'
-          ? record['displayRow']
-          : typeof record['row'] === 'number'
-            ? record['row']
-            : 1;
-    }
     return normalizedRecord;
-  }
-
-  private optionalString(value: unknown): string | undefined {
-    return typeof value === 'string' && value.trim() ? value.trim() : undefined;
   }
 
   private updateLocalSheetRowsState(sheetName: string, newRows: Record<string, unknown>[]): void {
@@ -782,19 +790,12 @@ export class DomainDataService {
 
       await this.taxonomyService.refreshGlobalTaxonomy(row);
 
+      // Remote data is merged into IndexedDB, so show the full stored rows, not only the response.
       const normalizedRemoteSheets = await Promise.all(
         remoteSheets.map(async (sheet) => {
-          if (!['BOOK_EVENTS', 'RELATIONS', 'ASSOCIATIONS'].includes(sheet.name.toUpperCase())) {
-            return sheet;
-          }
-
-          const localSheet =
-            sheet.name.toUpperCase() === 'BOOK_EVENTS'
-              ? await this.bookEventsService.loadLocalSheet(row)
-              : sheet.name.toUpperCase() === 'RELATIONS'
-                ? await this.relationsService.loadLocalSheet(row)
-                : await this.associationService.loadLocalSheet(row);
-          return { ...localSheet, index: sheet.index };
+          const handler = this.featureHandlers.find((h) => h.name === sheet.name.toUpperCase());
+          const localSheet = handler ? await handler.loadLocalSheet(row) : null;
+          return localSheet ? { ...localSheet, index: sheet.index } : sheet;
         }),
       );
       this.sheets.set(normalizedRemoteSheets);
@@ -930,7 +931,7 @@ export class DomainDataService {
       }
 
       for (const sourceRow of sheet.rows) {
-        for (const tag of parseTags(sourceRow['tags'])) {
+        for (const tag of parseTagsFromArray(sourceRow['tags'])) {
           if (new RegExp(`^${tableName}_\\d+$`).test(tag)) {
             continue;
           }
@@ -965,6 +966,72 @@ export class DomainDataService {
     if (bookTags.length > 0) {
       await this.dbService.db.bookTags.bulkPut(bookTags);
     }
+  }
+
+  /**
+   * Fetches one remote page for any book/sheet and stores it in IndexedDB without touching
+   * the sheets currently displayed. Locally pending rows are never overwritten.
+   */
+  async fetchRemotePageToLocal(
+    row: number,
+    sheetName: string,
+    page: number,
+  ): Promise<{ added: number; totalPages: number }> {
+    const response = await firstValueFrom(
+      this.apiService.getPaginatedRows(row, sheetName, page, DOMAIN_PAGE_SIZE),
+    );
+    if (!Array.isArray(response?.rows)) {
+      throw new Error('Malformed paginated domain response: rows array is missing.');
+    }
+
+    const tableName = this.getDomainTableName(sheetName);
+    const table = this.domainTable(tableName);
+    const incoming = this.preparePersistedRows(
+      tableName,
+      row,
+      this.mapPaginatedRows(row, sheetName, page, response.rows),
+    );
+    const existing = await table.bulkGet(incoming.map((item) => item.id));
+    const pendingIds = new Set(
+      existing.filter((item) => item?.syncStatus === 'pending').map((item) => item!.id),
+    );
+    const existingIds = new Set(existing.filter(Boolean).map((item) => item!.id));
+    const toStore = incoming.filter((item) => !pendingIds.has(item.id));
+    await table.bulkPut(toStore);
+
+    return {
+      added: toStore.filter((item) => !existingIds.has(item.id)).length,
+      totalPages: response.totalPages,
+    };
+  }
+
+  async countLocalRows(row: number, sheetName: string): Promise<number> {
+    const table = this.domainTable(this.getDomainTableName(sheetName));
+    return table.where('row').equals(row).count();
+  }
+
+  private mapPaginatedRows(
+    row: number,
+    sheetName: string,
+    page: number,
+    sourceRows: Record<string, unknown>[],
+  ): Record<string, unknown>[] {
+    const tableName = this.getDomainTableName(sheetName);
+    return sourceRows.map((sourceRow, index) => {
+      const normalizedRow = this.normalizeRecordTags(
+        this.normalizePaginatedRow(sourceRow),
+        sheetName,
+      );
+      const displayRow = (page - 1) * DOMAIN_PAGE_SIZE + index + 1;
+      const isRelation = ['RELATIONS', 'ASSOCIATIONS'].includes(sheetName.toUpperCase());
+      return {
+        ...normalizedRow,
+        id: String(normalizedRow['id'] ?? `${tableName}_${row}_${page}_${index}`),
+        row: isRelation ? displayRow : row,
+        ...(isRelation ? { displayRow } : {}),
+        syncStatus: 'synced',
+      };
+    });
   }
 
   private paginationKey(sheetName: string): string {
@@ -1056,7 +1123,7 @@ export class DomainDataService {
         ...(tableName === 'relationsCharacters' || tableName === 'relationsConcepts'
           ? { displayRow: Number(sourceRow['displayRow'] ?? index + 1) }
           : {}),
-        tags: serializeTags(sourceRow['tags']),
+        tags: serializeTagsToArray(sourceRow['tags']),
         syncStatus: (sourceRow['syncStatus'] as PersistedDomainRow['syncStatus']) ?? 'pending',
       };
     });

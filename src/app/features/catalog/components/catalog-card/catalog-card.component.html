@@ -28,6 +28,23 @@
 
     <p class="card-desc">{{ item().description || ('CATALOG.CARD.NO_DESCRIPTION' | transloco) }}</p>
 
+    <div class="progress">
+      <div class="progress-labels">
+        <span>{{ item().page }} / {{ item().pages }} {{ ('CATALOG.MODAL.PAGES_LABEL' | transloco) }}</span>
+        <span>{{ progress() }}%</span>
+      </div>
+      <div
+        class="progress-track"
+        role="progressbar"
+        [attr.aria-valuenow]="progress()"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [attr.aria-label]="item().name"
+      >
+        <div class="progress-fill" [style.width.%]="progress()"></div>
+      </div>
+    </div>
+
     <div class="entry-count">
       <span>{{ 'CATALOG.CARD.ENTRIES' | transloco }}</span>
       <strong>{{ item().count }}</strong>

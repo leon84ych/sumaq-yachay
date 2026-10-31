@@ -3,7 +3,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission.service';
 import { DomainEntryCardComponent } from '../../../shared/domain-entry-card/domain-entry-card.component';
 import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
-import { parseTags } from '../../../../../shared/utils/tag-utils';
+import { parseTagsFromArray } from '../../../../../shared/utils/tag-utils';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { GlossaryRow } from '../../model/domain-glosary-row.model';
 
@@ -27,6 +27,6 @@ export class GlossaryEntryCardComponent {
   readonly permissions = this.permissionService;
 
   splitTags(tags: string[] | undefined): string[] {
-    return parseTags(tags);
+    return parseTagsFromArray(tags);
   }
 }

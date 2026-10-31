@@ -10,6 +10,8 @@ export interface CatalogItem {
   description?: string;     // Optional context
   source?: string;          // Optional source URL
   active: boolean;          // Active flag in Master Index
+  page: number;             // Current page number
+  pages: number;            // Total number of pages
   updatedAt: string;        // ISO-8601 timestamp
   count: number;            // Count of related items
   syncStatus?: SyncState;   // Local sync tracking flag

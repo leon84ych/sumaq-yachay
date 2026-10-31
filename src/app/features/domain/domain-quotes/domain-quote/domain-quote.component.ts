@@ -21,7 +21,7 @@ import type { QuoteRow } from '../model/domain-quote-row.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { QuoteEntryCardComponent } from '../components/quote-entry-card/quote-entry-card.component';
-import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
 import { StudySearchService } from '../../../../core/services/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
@@ -106,7 +106,7 @@ export class DomainQuoteComponent {
   });
 
   splitTags(tags: string[]): string[] {
-    return parseTags(tags);
+    return parseTagsFromArray(tags);
   }
 
   @ViewChild('ghostQuoteCard') private ghostQuoteCard?: ElementRef<HTMLElement>;
@@ -207,7 +207,7 @@ export class DomainQuoteComponent {
     const book = this.newBook().trim();
     const author = this.newAuthor().trim();
     const page = this.newPage().trim();
-    const tags = serializeTags(this.newTags());
+    const tags = serializeTagsToArray(this.newTags());
     const editingId = this.editingId();
 
     try {

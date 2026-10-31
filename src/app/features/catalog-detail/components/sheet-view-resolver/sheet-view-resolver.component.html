@@ -131,7 +131,7 @@
           domainDataService.pagination()[currentSheet.row + ':' + currentSheet.name.toUpperCase()]
             ?.isLoading
         "
-        (click)="domainDataService.loadNextPage(currentSheet.name)"
+        (click)="domainDataService.loadMore(currentSheet.name)"
       >
         @if (
           domainDataService.pagination()[currentSheet.row + ':' + currentSheet.name.toUpperCase()]

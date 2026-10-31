@@ -5,7 +5,8 @@
     "002_Clone_Master_Catalog.md",
     "003_Add_Catalog_Entry.md",
     "004_Add_Domain_to_Catalog.md",
-    "005_Search_Across_Catalog_Learn_and_Questions.md"
+    "005_Search_Across_Catalog_Learn_and_Questions.md",
+    "006_Storage.md"
   ],
   "es": [
     "000_About.md",
@@ -13,6 +14,7 @@
     "002_Clonar_Catálogo_Maestro.md",
     "003_Añadir_Entrada_de_Catálogo.md",
     "004_Añadir_Dominio_al_Catálogo.md",
-    "005_Búsqueda_en_Catálogo_Aprender_y_Preguntas.md"
+    "005_Búsqueda_en_Catálogo_Aprender_y_Preguntas.md",
+    "006_Almacenamiento.md"
   ]
 }

@@ -9,7 +9,7 @@ import { ConceptEntryCardComponent } from '../components/concept-entry-card/conc
 import { ConceptRow } from '../model/domain-concept-row.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission.service';
-import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
 import { StudySearchService } from '../../../../core/services/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
@@ -109,7 +109,7 @@ export class DomainConceptsComponent {
   });
 
   splitTags(tags: string[]): string[] {
-    return parseTags(tags);
+    return parseTagsFromArray(tags);
   }
 
   async deleteEntry(id: string): Promise<void> {
@@ -161,7 +161,7 @@ export class DomainConceptsComponent {
     const selectedCategory = this.newCategory();
     const category = selectedCategory === 'other' ? this.customCategory().trim() : selectedCategory;
     const source = this.source();
-    const tags = serializeTags(this.newTags());
+    const tags = serializeTagsToArray(this.newTags());
     const editingId = this.editingId();
 
     try {

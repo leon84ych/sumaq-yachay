@@ -8,7 +8,7 @@ import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
 import { PassagesRow } from '../model/domain-passage-row.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission.service';
-import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
 import { StudySearchService } from '../../../../core/services/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import { PassageEntryCardComponent } from '../components/passage-entry-card/passage-entry-card.component';
@@ -114,7 +114,7 @@ export class DomainPassageComponent {
   }
 
   splitTags(tags: string[]): string[] {
-    return parseTags(tags);
+    return parseTagsFromArray(tags);
   }
 
   openReader(row: PassagesRow): void {
@@ -176,7 +176,7 @@ export class DomainPassageComponent {
     const book = this.newBook().trim();
     const author = this.newAuthor().trim();
     const page = this.newPage().trim();
-    const tags = serializeTags(this.newTags());
+    const tags = serializeTagsToArray(this.newTags());
     const editingId = this.editingId();
 
     try {

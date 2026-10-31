@@ -3,7 +3,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission.service';
 import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
 import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
-import { parseTags } from '../../../../../shared/utils/tag-utils';
+import { parseTagsFromArray } from '../../../../../shared/utils/tag-utils';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { QuoteRow } from '../../model/domain-quote-row.model';
 
@@ -55,6 +55,6 @@ export class QuoteEntryCardComponent {
   }
 
   splitTags(tags: string[] | undefined): string[] {
-    return parseTags(tags);
+    return parseTagsFromArray(tags);
   }
 }

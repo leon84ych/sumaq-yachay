@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, input, model, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { AppDbService, BookTag } from '../../core/services/storage/app-db.service';
-import { normalizeTags } from '../utils/tag-utils';
+import { normalizeTagsFromArray } from '../utils/tag-utils';
 
 @Component({
   selector: 'app-tag-picker',
@@ -20,7 +20,7 @@ export class TagPickerComponent {
   readonly inputValue = signal('');
   readonly isFocused = signal(false);
   readonly suggestions = signal<BookTag[]>([]);
-  readonly selectedTags = computed(() => normalizeTags(this.value()));
+  readonly selectedTags = computed(() => normalizeTagsFromArray(this.value()));
   readonly matchingSuggestions = computed(() => {
     const query = this.inputValue().trim().toLocaleLowerCase();
     const selected = new Set(this.selectedTags().map((tag) => tag.toLocaleLowerCase()));
@@ -90,18 +90,18 @@ export class TagPickerComponent {
   }
 
   addTag(tag: string): void {
-    const incomingTags = normalizeTags(tag.split(/[\s,;]+/));
+    const incomingTags = normalizeTagsFromArray(tag.split(/[\s,;]+/));
     if (incomingTags.length === 0) {
       this.inputValue.set('');
       return;
     }
 
-    this.value.set(normalizeTags([...this.selectedTags(), ...incomingTags]));
+    this.value.set(normalizeTagsFromArray([...this.selectedTags(), ...incomingTags]));
     this.inputValue.set('');
   }
 
   removeTag(tagToRemove: string): void {
-    this.value.set(normalizeTags(this.selectedTags().filter((tag) => tag !== tagToRemove)));
+    this.value.set(normalizeTagsFromArray(this.selectedTags().filter((tag) => tag !== tagToRemove)));
   }
 
   setFocused(focused: boolean): void {

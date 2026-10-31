@@ -1,7 +1,7 @@
 import { Directive, computed, inject, input } from '@angular/core';
 import { StudySearchService } from '../../core/services/study-search.service';
 import { parseStudySearch } from '../utils/study-search';
-import { normalizeTags } from '../utils/tag-utils';
+import { normalizeTagsFromArray } from '../utils/tag-utils';
 
 @Directive({
   selector: 'button[appStudyTag]',
@@ -17,7 +17,7 @@ export class StudyTagDirective {
   private readonly search = inject(StudySearchService);
   readonly selected = computed(() =>
     parseStudySearch(this.search.query()).tags.includes(
-      parseStudySearch(normalizeTags([this.tag()]).join(' ')).tags[0],
+      parseStudySearch(normalizeTagsFromArray([this.tag()]).join(' ')).tags[0],
     ),
   );
 

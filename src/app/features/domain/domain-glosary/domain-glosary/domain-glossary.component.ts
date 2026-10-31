@@ -7,7 +7,7 @@ import { DomainDataService } from '../../../catalog-detail/services/domain-data.
 import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission.service';
-import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
 import { StudySearchService } from '../../../../core/services/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import { GlossaryEntryCardComponent } from '../components/glossary-entry-card/glossary-entry-card.component';
@@ -114,7 +114,7 @@ export class DomainGlossaryComponent {
   });
 
   splitTags(tags: string[]): string[] {
-    return parseTags(tags);
+    return parseTagsFromArray(tags);
   }
 
   async deleteEntry(id: string): Promise<void> {
@@ -139,7 +139,7 @@ export class DomainGlossaryComponent {
     this.newSynonyms.set(row.synonyms ?? '');
     this.newContextSentence.set(row.contextSentence ?? '');
     this.newSource.set(row.source ?? '');
-    this.newPage.set(row.page ?? '');
+    this.newPage.set(String(row.page ?? ''));
     this.newTags.set(row.tags ?? []);
   }
 
@@ -170,8 +170,8 @@ export class DomainGlossaryComponent {
     const synonyms = this.newSynonyms().trim();
     const contextSentence = this.newContextSentence().trim();
     const source = this.source();
-    const page = this.newPage().trim();
-    const tags = serializeTags(this.newTags());
+    const page = String(this.newPage() ?? '').trim();
+    const tags = serializeTagsToArray(this.newTags());
     const editingId = this.editingId();
 
     try {

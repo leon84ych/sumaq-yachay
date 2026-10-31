@@ -1,8 +1,10 @@
 import { Injectable, inject } from '@angular/core';
+import { GoogleAuthService } from '../../authentication/services/google-auth-service';
+import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config.service';
 import { DomainName } from '../../catalog-detail/models/domain-sheet-config';
-import { parseTags } from '../../../shared/utils/tag-utils';
+import { parseTagsFromArray } from '../../../shared/utils/tag-utils';
 import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
 
 export interface LearnFeedEntry {
@@ -57,7 +59,69 @@ export function selectLearnFeedBatch(
 export class LearnFeedService {
   private readonly appDbService = inject(AppDbService);
   private readonly configService = inject(ConfigService);
+  private readonly domainDataService = inject(DomainDataService);
+  private readonly authService = inject(GoogleAuthService);
   private sampleDataSeeded = false;
+  private remoteExhausted = false;
+  private readonly remoteCursors = new Map<string, number>();
+
+  canFetchRemote(): boolean {
+    return (
+      !this.configService.isLocalSampleDataEnabled() &&
+      !!this.authService.idToken() &&
+      !this.remoteExhausted
+    );
+  }
+
+  /**
+   * Requests the next unseen server pages (book by book, domain by domain) and stores them in
+   * IndexedDB until the local feed can fill a batch or the server has nothing left.
+   */
+  async loadRemoteBatch(
+    excludedIds: ReadonlySet<string>,
+    batchSize = BATCH_SIZE,
+    query = '',
+  ): Promise<LearnFeedEntry[]> {
+    let batch = await this.loadRandomBatch(excludedIds, batchSize, query);
+    if (!this.canFetchRemote()) {
+      return batch;
+    }
+
+    const catalogs = await this.appDbService.db.catalogs.toArray();
+    const sheets = Object.keys(DOMAIN_SEARCH_TERMS) as DomainName[];
+    for (const catalog of catalogs) {
+      for (const sheet of sheets) {
+        while (batch.length < batchSize) {
+          const key = `${catalog.row}:${sheet}`;
+          const page =
+            this.remoteCursors.get(key) ??
+            Math.floor((await this.domainDataService.countLocalRows(catalog.row, sheet)) / 50) + 1;
+          if (page === Infinity) {
+            break;
+          }
+          try {
+            const result = await this.domainDataService.fetchRemotePageToLocal(
+              catalog.row,
+              sheet,
+              page,
+            );
+            this.remoteCursors.set(key, page < result.totalPages ? page + 1 : Infinity);
+            if (result.added > 0) {
+              batch = await this.loadRandomBatch(excludedIds, batchSize, query);
+            }
+          } catch {
+            this.remoteCursors.set(key, Infinity);
+            break;
+          }
+        }
+      }
+    }
+
+    if (batch.length < batchSize) {
+      this.remoteExhausted = true;
+    }
+    return batch;
+  }
 
   async loadRandomBatch(
     excludedIds: ReadonlySet<string>,
@@ -72,6 +136,8 @@ export class LearnFeedService {
     const [catalogItems, domainRows] = await Promise.all([
       this.appDbService.db.catalogs.toArray(),
       Promise.all([
+        this.appDbService.db.indexTopics.toArray().then((rows) => ['INDEX', rows] as const),
+        this.appDbService.db.bookEvents.toArray().then((rows) => ['BOOK_EVENTS', rows] as const),
         this.appDbService.db.concepts.toArray().then((rows) => ['CONCEPTS', rows] as const),
         this.appDbService.db.quotes.toArray().then((rows) => ['QUOTES', rows] as const),
         this.appDbService.db.passages.toArray().then((rows) => ['PASSAGES', rows] as const),
@@ -164,6 +230,11 @@ export class LearnFeedService {
     let note = '';
 
     switch (domain) {
+      case 'INDEX':
+        title = getText('theme') || getText('chapter');
+        body = getText('subtheme');
+        note = getText('chapter');
+        break;
       case 'CONCEPTS':
         title = getText('term');
         body = getText('definition');
@@ -224,7 +295,7 @@ export class LearnFeedService {
       return null;
     }
 
-    const tags = [...new Set(parseTags(row['tags']))];
+    const tags = [...new Set(parseTagsFromArray(row['tags']))];
     const accentColor = typeof row['color'] === 'string' ? row['color'] : undefined;
 
     return {

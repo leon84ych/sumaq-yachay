@@ -9,7 +9,6 @@ import { CharacterEntryCardComponent } from '../../domain-character/components/c
 import { ConceptEntryCardComponent } from '../../domain-concepts/components/concept-entry-card/concept-entry-card.component';
 import { GlossaryEntryCardComponent } from '../../domain-glosary/components/glossary-entry-card/glossary-entry-card.component';
 import { IndexEntryCardComponent } from '../../domain-index/components/index-entry-card/index-entry-card.component';
-import { normalizeIndexRows } from '../../domain-index/model/index-view-row';
 import { PassageEntryCardComponent } from '../../domain-passages/components/passage-entry-card/passage-entry-card.component';
 import { PlaceEntryCardComponent } from '../../domain-places/components/place-entry-card/place-entry-card.component';
 import { QuoteEntryCardComponent } from '../../domain-quotes/components/quote-entry-card/quote-entry-card.component';
@@ -190,9 +189,4 @@ describe('Contributor card footers', () => {
       ).toHaveLength(2);
     });
   }
-
-  it('preserves contributor metadata when normalizing Index rows', () => {
-    const [row] = normalizeIndexRows([{ id: 'index-1', contributor: 'leon84ych@gmail.com' }]);
-    expect(row.contributor).toBe('leon84ych@gmail.com');
-  });
 });

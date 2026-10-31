@@ -3,7 +3,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission.service';
 import { DomainEntryCardComponent } from '../../../shared/domain-entry-card/domain-entry-card.component';
 import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
-import { parseTags } from '../../../../../shared/utils/tag-utils';
+import { parseTagsFromArray } from '../../../../../shared/utils/tag-utils';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { BookAssociation } from '../../model/book-association.model';
 
@@ -33,6 +33,6 @@ export class AssociationEntryCardComponent {
   );
 
   splitTags(tags: string[]): string[] {
-    return parseTags(tags);
+    return parseTagsFromArray(tags);
   }
 }

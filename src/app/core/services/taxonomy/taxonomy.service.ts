@@ -1,6 +1,6 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { AppDbService } from '../../services/storage/app-db.service';
-import { parseTags } from '../../../shared/utils/tag-utils';
+import { parseTagsFromArray } from '../../../shared/utils/tag-utils';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class TaxonomyService {
     const masterTags = new Set<string>();
 
     for (const record of indexRecords) {
-      for (const segment of parseTags(record['tags'])) {
+      for (const segment of parseTagsFromArray(record['tags'])) {
         const cleanTag = segment.trim().replace(/^#+/, '').toLowerCase();
         if (cleanTag) {
           masterTags.add(`#${cleanTag}`);

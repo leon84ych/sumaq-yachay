@@ -3,9 +3,9 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission.service';
 import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
 import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
-import { parseTags } from '../../../../../shared/utils/tag-utils';
+import { parseTagsFromArray } from '../../../../../shared/utils/tag-utils';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
-import { IndexViewRow } from '../../model/index-view-row';
+import { IndexRow } from '../../model/index-view-row';
 
 @Component({
   selector: 'app-index-entry-card',
@@ -16,18 +16,18 @@ import { IndexViewRow } from '../../model/index-view-row';
 export class IndexEntryCardComponent {
   private readonly permissionService = inject(PermissionService);
 
-  readonly row = input.required<IndexViewRow>();
+  readonly row = input.required<IndexRow>();
   readonly bookName = input('');
   readonly bookAuthor = input('');
   readonly showActions = input(true);
   readonly showContext = input(false);
   readonly showHierarchy = input(true);
-  readonly editRequested = output<IndexViewRow>();
+  readonly editRequested = output<IndexRow>();
   readonly deleteRequested = output<string>();
   readonly role = this.permissionService.role;
   readonly permissions = this.permissionService;
 
   splitTags(value: string[]): string[] {
-    return parseTags(value);
+    return parseTagsFromArray(value);
   }
 }

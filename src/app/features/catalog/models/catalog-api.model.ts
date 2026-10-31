@@ -18,6 +18,8 @@ export type CatalogRowValues = [
   string,
   string,
   boolean,
+  number,
+  number, 
   string,
   number,
   string,

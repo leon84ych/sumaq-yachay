@@ -5,7 +5,7 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/global-error.service';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
-import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
 import { StudySearchService } from '../../../../core/services/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
@@ -150,7 +150,7 @@ export class DomainBookEventsComponent {
   }
 
   splitTags(value: string[]): string[] {
-    return parseTags(value);
+    return parseTagsFromArray(value);
   }
 
   async deleteEntry(id: string): Promise<void> {
@@ -201,7 +201,7 @@ export class DomainBookEventsComponent {
     const book = this.bookName().trim();
     const author = this.bookAuthor().trim();
     const page = this.newPage().trim();
-    const tags = serializeTags(
+    const tags = serializeTagsToArray(
       this.splitTags(this.newTags()).filter((tag) => this.taxonomyService.isTagAllowed(tag)),
     );
     const editingId = this.editingId();

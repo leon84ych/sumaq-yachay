@@ -1,46 +1,30 @@
-import { DomainSheetRow } from "../../../catalog-detail/models/domain-sheet.model";
-import { normalizeTags } from '../../../../shared/utils/tag-utils';
+import { DomainLearnableRecord, DomainSheetRow } from "../../../catalog-detail/models/domain-sheet.model";
 
-export interface IndexViewRow extends Record<string, unknown> {
+export interface IndexRow extends Record<string, unknown> , DomainSheetRow {
   id: string;
   chapter: string;
   theme: string;
   subtheme: string;
-  tags: string[];
+  syncStatus: 'pending' | 'synced';
+}
+
+
+export interface IndexDto extends Record<string, unknown> {
+  id: string;
+  chapter: string;
+  theme: string;
+  subtheme: string;
+  tags: string;
   syncStatus: 'pending' | 'synced';
   contributor?: string;
 }
 
-export function normalizeIndexRows(rows: readonly Record<string, unknown>[]): IndexViewRow[] {
-  return rows.map((row) => {
-    const tags = normalizeTags(row['tags']);
 
-    return {
-      id: String(row['id'] ?? ''),
-      chapter: String(row['chapter'] ?? ''),
-      theme: String(row['theme'] ?? ''),
-      subtheme: String(row['subtheme'] ?? ''),
-      tags,
-      syncStatus: row['syncStatus'] === 'synced' ? 'synced' : 'pending',
-      ...(typeof row['contributor'] === 'string' ? { contributor: row['contributor'] } : {}),
-    };
-  });
-}
-
-
-export interface IndexRow extends DomainSheetRow {
-  chapter: string;
-  theme: string;
-  subtheme: string;
-  tags: string[];
-}
-
-export interface IndexTopicRecord {
-  id: string;
+export interface IndexTopicRecord extends DomainLearnableRecord
+ {
   row: number;
   book?: string;
   author?: string;
-  tags: string[];
   chapter: string;
   theme: string;
   subtheme: string;

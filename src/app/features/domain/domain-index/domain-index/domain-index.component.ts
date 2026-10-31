@@ -5,20 +5,20 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/global-error.service';
 import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
 import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
-import { IndexViewRow, normalizeIndexRows } from '../model/index-view-row';
-import { serializeTags } from '../../../../shared/utils/tag-utils';
+import { IndexDto, IndexRow } from '../model/index-view-row';
+import { serializeTagsToArray, serializeTagsToBE } from '../../../../shared/utils/tag-utils';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { IndexEntryCardComponent } from '../components/index-entry-card/index-entry-card.component';
 import { StudySearchService } from '../../../../core/services/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
-export type { IndexViewRow } from '../model/index-view-row';
+export type { IndexRow as IndexViewRow } from '../model/index-view-row';
 
 interface IndexHierarchyGroup {
   chapter: string;
   themes: Array<{
     theme: string;
-    rows: IndexViewRow[];
+    rows: IndexRow[];
   }>;
 }
 
@@ -38,7 +38,7 @@ import { IndexEntryFormComponent } from '../components/index-entry-form/index-en
   styleUrls: ['./domain-index.component.css'],
 })
 export class DomainIndexComponent {
-  readonly rows = input.required<IndexViewRow[]>();
+  readonly rows = input.required<IndexRow[]>();
   readonly currentSheet = input.required<DomainSheet>();
   readonly bookName = input<string>('');
   readonly bookAuthor = input<string>('');
@@ -75,11 +75,10 @@ export class DomainIndexComponent {
   ));
 
   readonly hierarchy = computed<IndexHierarchyGroup[]>(() => {
-    const orderedRows = normalizeIndexRows(this.filteredRows());
 
     const groups = new Map<string, IndexHierarchyGroup>();
 
-    for (const row of orderedRows) {
+    for (const row of this.filteredRows()) {
       let chapterGroup = groups.get(row.chapter);
       if (!chapterGroup) {
         chapterGroup = { chapter: row.chapter, themes: [] };
@@ -111,12 +110,12 @@ export class DomainIndexComponent {
     }
   }
 
-  editEntry(row: IndexViewRow): void {
+  editEntry(row: IndexRow): void {
     this.editingId.set(row.id);
     this.newChapter.set(row.chapter);
     this.newTheme.set(row.theme);
     this.newSubtheme.set(row.subtheme);
-    this.newTags.set(row.tags);
+    this.newTags.set(serializeTagsToArray(row.tags));
   }
 
   resetForm(): void {
@@ -136,14 +135,16 @@ export class DomainIndexComponent {
     const chapter = this.newChapter().trim();
     const theme = this.newTheme().trim();
     const subtheme = this.newSubtheme().trim();
-    const tags = serializeTags(this.newTags());
+    console.log('Tags before:', this.newTags());
+    const tags = serializeTagsToBE(this.newTags());
+    console.log('Tags after serialization:', tags);
     const editingId = this.editingId();
 
     try {
       const localRows = editingId
         ? ((await this.domainDataService.getLocalDomainSheetRows(
             this.currentSheet().name,
-          )) as IndexViewRow[])
+          )) as IndexRow[])
         : this.rows();
       const existingRows = localRows.length > 0 ? localRows : this.rows();
       const originalRow = editingId ? existingRows.find((row) => row.id === editingId) : undefined;
@@ -151,7 +152,7 @@ export class DomainIndexComponent {
         throw new Error('The INDEX entry being edited is no longer available.');
       }
 
-      const newRow: IndexViewRow = {
+      const newRow: IndexDto = {
         ...(originalRow ?? {}),
         id: editingId ?? `idx_${Date.now()}`,
         chapter,

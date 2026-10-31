@@ -14,7 +14,7 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/global-error.service';
 import { PermissionService } from '../../../../core/services/permission.service';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
-import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
 import { StudySearchService } from '../../../../core/services/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
@@ -140,7 +140,7 @@ export class DomainRelationsComponent {
   });
 
   splitTags(value: string[]): string[] {
-    return parseTags(value);
+    return parseTagsFromArray(value);
   }
 
   characterName(id: string): string {
@@ -187,7 +187,7 @@ export class DomainRelationsComponent {
     const book = this.bookName().trim();
     const author = this.bookAuthor().trim();
     const page = this.newPage().trim();
-    const tags = serializeTags(this.newTags());
+    const tags = serializeTagsToArray(this.newTags());
     const editingId = this.editingId();
     const originalRow = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
 

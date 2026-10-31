@@ -4,7 +4,7 @@ import { IndexTopicRecord } from '../model/index-view-row';
 import { DomainSheet } from "../../../catalog-detail/models/domain-sheet.model";
 import { DomainFeatureHandler } from "../../../../shared/interfaces/domain-feature-handler.service";
 import { TaxonomyService } from "../../../../core/services/taxonomy/taxonomy.service";
-import { serializeTags } from '../../../../shared/utils/tag-utils';
+import { serializeTagsToArray } from '../../../../shared/utils/tag-utils';
 
 @Injectable({
     providedIn: 'root',
@@ -45,11 +45,9 @@ export class DomainIndexService implements DomainFeatureHandler<IndexTopicRecord
         const table = this.dbService.db.indexTopics;
 
         await this.dbService.db.transaction('rw', table, async () => {
-            await table.where('row').equals(row).delete();
-
             // Explicit type assignment to IndexTopic[] satisfies the generic constraint completely
             const persistedRows: IndexTopicRecord[] = syncedRows.map((sourceRow, index) => {
-                const tags = serializeTags(sourceRow['tags']);
+                const tags = serializeTagsToArray(sourceRow['tags']);
 
                 return {
                     ...sourceRow,

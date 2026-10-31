@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { normalizeTags } from '../../shared/utils/tag-utils';
+import { normalizeTagsFromArray } from '../../shared/utils/tag-utils';
 import { parseStudySearch, StudySearchField } from '../../shared/utils/study-search';
 
 @Injectable({ providedIn: 'root' })
@@ -26,7 +26,7 @@ export class StudySearchService {
   }
 
   addTag(tag: string): void {
-    const candidates = normalizeTags([tag]);
+    const candidates = normalizeTagsFromArray([tag]);
     this.query.update((query) => {
       const selected = new Set(parseStudySearch(query).tags);
       const additions = candidates.filter(

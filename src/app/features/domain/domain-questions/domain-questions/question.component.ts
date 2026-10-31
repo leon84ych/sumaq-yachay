@@ -13,7 +13,7 @@ import {
 } from '../model/domain-question-row.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission.service';
-import { parseTags, serializeTags } from '../../../../shared/utils/tag-utils';
+import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
 import { StudySearchService } from '../../../../core/services/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import { DomainContributorComponent } from '../../shared/domain-contributor/domain-contributor.component';
@@ -110,7 +110,7 @@ export class QuestionsComponent {
   });
 
   splitTags(tags: string[]): string[] {
-    return parseTags(tags);
+    return parseTagsFromArray(tags);
   }
 
   async deleteEntry(id: string): Promise<void> {
@@ -172,7 +172,7 @@ export class QuestionsComponent {
     const question = this.newQuestion().trim();
     const answer = this.newAnswer().trim();
     const sourceDomain = this.newSourceDomain().trim();
-    const tags = serializeTags(this.newTags());
+    const tags = serializeTagsToArray(this.newTags());
     const editingId = this.editingId();
 
     this.isSaving.set(true);

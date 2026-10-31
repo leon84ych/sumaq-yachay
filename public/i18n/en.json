@@ -1,5 +1,6 @@
 {
   "DOCUMENTATION": {
+    "TITLE": "Documentation",
     "CONTENTS": "Contents",
     "SOURCE": "View Markdown source",
     "ERROR": "Could not load the manual. Please try again.",
@@ -161,6 +162,10 @@
       "SOURCE_LABEL": "Source",
       "SOURCE_PLACEHOLDER": "PDF, URL, Video, etc.",
       "SHEET_PROTECTED_WARNING": "This value must be changed within the Google Sheet interface.",
+      "PAGES_LABEL": "Pages",
+      "PAGES_PLACEHOLDER": "Enter number of pages of the book...",
+      "PAGE_LABEL": "Page",
+      "PAGE_PLACEHOLDER": "Enter current page number...",
       "DESCRIPTION_LABEL": "Description (Optional)",
       "DESCRIPTION_PLACEHOLDER": "Brief summary of the topics or concepts covered...",
       "ACTIVE_LABEL": "Mark as Active in Master Index",

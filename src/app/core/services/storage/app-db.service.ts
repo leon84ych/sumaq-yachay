@@ -36,6 +36,7 @@ const VERSION_ONE_STORES = {
   relationsConcepts: 'id, row, book, author, *tags',
   glosary: 'id, row, book, author, *tags',
   questions: 'id, row, book, author, *tags',
+  questionAttempts: '++id, questionId, bookRow, timestamp, type',
 } as const;
 
 export interface DomainSheetCount {
@@ -82,10 +83,6 @@ export class AppDatabase extends Dexie {
   constructor(databaseName = 'SumaqYachayDB') {
     super(databaseName);
     this.version(1).stores(VERSION_ONE_STORES);
-    this.version(2).stores({
-      ...VERSION_ONE_STORES,
-      questionAttempts: '++id, questionId, bookRow, timestamp, type',
-    });
   }
 }
 

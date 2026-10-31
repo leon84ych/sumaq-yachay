@@ -43,4 +43,19 @@ export interface DomainSheetRow extends Record<string, unknown> {
 }
 
 
+/**
+ * Represents a record within a domain sheet, including metadata for study tracking.
+ */
+export interface DomainLearnableRecord extends Record<string, unknown> {
+  id: string; // Row ID within the sheet
+  tags?: string[]; // Canonical hashtags, e.g. ['#tag1', '#tag2']
+  repetitions: number; // Number of times the row has been reviewed successfuly 
+  interval: number; // Interval in days until the next review
+  easeFactor: number; // Complexity level associated with the row
+  frequency: number; // Frequency level associated with the row
+  lastReviewed: Date; // Last studied date associated with the row
+  dueDate: Date; // Next review date associated with the row
+}
+
+
 

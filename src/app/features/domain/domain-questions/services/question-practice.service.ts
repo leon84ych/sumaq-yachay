@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { CatalogItem } from '../../../catalog/models/catalog-item.model';
 import { AppDbService } from '../../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../../core/services/config.service';
-import { parseTags } from '../../../../shared/utils/tag-utils';
+import { parseTagsFromArray } from '../../../../shared/utils/tag-utils';
 import { matchesStudySearch, parseStudySearch } from '../../../../shared/utils/study-search';
 import {
   QuestionOption,
@@ -55,7 +55,7 @@ export class QuestionPracticeService {
 
     for (const question of questions) {
       const catalog = catalogByRow.get(question.row);
-      const tags = parseTags(question.tags);
+      const tags = parseTagsFromArray(question.tags);
 
       const bookName = question.bookName || catalog?.name || '';
       const bookAuthor = question.author || catalog?.author || '';

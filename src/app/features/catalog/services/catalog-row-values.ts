@@ -11,6 +11,8 @@ export function mapCatalogItemToRowValues(item: CatalogItem): CatalogRowValues {
     item.description || '',
     item.source || 'PDF',
     item.active ?? true,
+    item.page ?? 0,
+    item.pages ?? 0,
     item.updatedAt || new Date().toISOString(),
     item.count ?? 0,
     item.syncStatus || 'pending',
