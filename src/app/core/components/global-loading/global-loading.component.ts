@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { GlobalLoadingService } from '../../services/global-loading.service';
+import { GlobalLoadingService } from '../../services/loading/global-loading.service';
 
 @Component({
   selector: 'app-global-loading',

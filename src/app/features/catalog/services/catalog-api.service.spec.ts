@@ -3,8 +3,8 @@ import { TestBed } from '@angular/core/testing';
 import { TranslocoService } from '@jsverse/transloco';
 import { firstValueFrom } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { ConfigService } from '../../../core/services/config.service';
-import { PermissionService } from '../../../core/services/permission.service';
+import { ConfigService } from '../../../core/services/config/config.service';
+import { PermissionService } from '../../../core/services/permission/permission.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { CatalogApiService } from './catalog-api.service';
 

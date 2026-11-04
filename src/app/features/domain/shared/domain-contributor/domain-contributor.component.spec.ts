@@ -2,7 +2,7 @@ import { Type, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { PermissionService } from '../../../../core/services/permission.service';
+import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { AssociationEntryCardComponent } from '../../domain-association/components/association-entry-card/association-entry-card.component';
 import { BookEventEntryCardComponent } from '../../domain-book-events/components/book-event-entry-card/book-event-entry-card.component';
 import { CharacterEntryCardComponent } from '../../domain-character/components/character-entry-card/character-entry-card.component';
@@ -14,7 +14,7 @@ import { PlaceEntryCardComponent } from '../../domain-places/components/place-en
 import { QuoteEntryCardComponent } from '../../domain-quotes/components/quote-entry-card/quote-entry-card.component';
 import { RelationEntryCardComponent } from '../../domain-relations/components/relation-entry-card/relation-entry-card.component';
 import { DomainContributorComponent } from './domain-contributor.component';
-import { StudySearchService } from '../../../../core/services/study-search.service';
+import { StudySearchService } from '../../../../core/services/search/study-search.service';
 
 describe('DomainContributorComponent', () => {
   it.each([

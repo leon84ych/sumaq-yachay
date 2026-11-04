@@ -1,0 +1,16 @@
+<div class="sheet-tabs-container" role="region" aria-label="Catalog Sheets Navigation">
+  <div class="sheet-tabs" role="tablist">
+    @for (name of sheetNames(); track name) {
+      <button
+        type="button"
+        class="tab-button"
+        role="tab"
+        [class.active]="name === activeSheetName()"
+        [attr.aria-selected]="name === activeSheetName()"
+        (click)="selectTab.emit(name)"
+      >
+        {{ 'DOMAINS.DOMAINS.' + name | transloco }}
+      </button>
+    }
+  </div>
+</div>

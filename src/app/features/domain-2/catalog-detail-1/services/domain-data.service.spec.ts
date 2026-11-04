@@ -1,0 +1,328 @@
+// @vitest-environment jsdom
+
+import { TestBed } from '@angular/core/testing';
+import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { of, Subject, throwError } from 'rxjs';
+import { AppDbService } from '../../../core/services/storage/app-db.service';
+import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
+import { GlobalLoadingService } from '../../../core/services/global-loading.service';
+import { ConfigService } from '../../../core/services/config/config.service';
+import { GoogleAuthService } from '../../authentication/services/google-auth-service';
+import { DomainDataApiService } from './domain-data-api.service';
+import { DomainDataService } from './domain-data.service';
+import { DomainCharacterService } from '../../domain/domain-character/services/domain-character.service';
+import { DomainConceptsService } from '../../domain/domain-concepts/services/domain-concepts.service';
+import { DomainQuotesService } from '../../domain/domain-quotes/services/domain-quotes.service';
+import { DomainPassagesService } from '../../domain/domain-passages/services/domain-passages.service';
+import { DomainPlacesService } from '../../domain/domain-places/services/domain-places.service';
+import { DomainGlosaryService } from '../../domain/domain-glosary/services/domain-glosary.service';
+import { DomainQuestionsService } from '../../domain/domain-questions/services/domain-questions.service';
+import { DomainIndexService } from '../../domain/domain-index/services/domain-index.service';
+import { DomainSheet } from '../models/domain-sheet.model';
+
+describe('DomainDataService.deleteDomainRow', () => {
+  let service: DomainDataService;
+  let deleteRowSpy: ReturnType<typeof vi.fn>;
+  let updateRowsSpy: ReturnType<typeof vi.fn>;
+  let globalLoadingService: GlobalLoadingService;
+  let persistedRows: Record<string, unknown>[];
+  let persistedBookTags: Record<string, unknown>[];
+  let localSampleDataEnabled: boolean;
+  let refreshTaxonomySpy: ReturnType<typeof vi.fn>;
+
+  beforeAll(() => {
+    TestBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
+  });
+
+  beforeEach(() => {
+    TestBed.resetTestingModule();
+    persistedRows = [
+      { id: 'concept-1', row: 4, tags: ['#first'], syncStatus: 'synced' },
+      { id: 'concept-2', row: 4, tags: ['#second'], syncStatus: 'synced' },
+    ];
+    persistedBookTags = [];
+    localSampleDataEnabled = false;
+    refreshTaxonomySpy = vi.fn(async () => undefined);
+    deleteRowSpy = vi.fn();
+    updateRowsSpy = vi.fn();
+    globalLoadingService = new GlobalLoadingService();
+
+    const table = {
+      where: vi.fn(() => ({
+        equals: vi.fn((row: number) => ({
+          delete: vi.fn(async () => {
+            const previousLength = persistedRows.length;
+            persistedRows = persistedRows.filter((record) => Number(record['row']) !== row);
+            return previousLength - persistedRows.length;
+          }),
+          filter: vi.fn((predicate: (record: Record<string, unknown>) => boolean) => ({
+            delete: vi.fn(async () => {
+              const previousLength = persistedRows.length;
+              persistedRows = persistedRows.filter(
+                (record) => Number(record['row']) !== row || !predicate(record),
+              );
+              return previousLength - persistedRows.length;
+            }),
+          })),
+        })),
+      })),
+      put: vi.fn(async (record: Record<string, unknown>) => {
+        persistedRows.push(record);
+      }),
+      bulkPut: vi.fn(async (records: Record<string, unknown>[]) => {
+        persistedRows = records;
+      }),
+    };
+    const bookTagsTable = {
+      where: vi.fn(() => ({
+        equals: vi.fn(() => ({
+          delete: vi.fn(async () => {
+            persistedBookTags = [];
+          }),
+        })),
+      })),
+      bulkPut: vi.fn(async (records: Record<string, unknown>[]) => {
+        persistedBookTags.push(...records);
+      }),
+    };
+    const database = {
+      concepts: table,
+      bookTags: bookTagsTable,
+      catalogs: {
+        toArray: vi.fn(async () => [
+          { row: 4, id: 'catalog-item-4', name: 'Book 4', author: 'Author 4' },
+        ]),
+      },
+      domainSheets: {
+        get: vi.fn(async () => undefined),
+        put: vi.fn(async () => undefined),
+      },
+      transaction: vi.fn(
+        async (_mode: unknown, _tables: unknown, operation: () => Promise<void>) => operation(),
+      ),
+    };
+
+    TestBed.configureTestingModule({
+      providers: [
+        DomainDataService,
+        { provide: AppDbService, useValue: { db: database } as unknown as AppDbService },
+        {
+          provide: DomainDataApiService,
+          useValue: { deleteRow: deleteRowSpy, updateRows: updateRowsSpy },
+        },
+        { provide: GoogleAuthService, useValue: {} },
+        { provide: GlobalLoadingService, useValue: globalLoadingService },
+        {
+          provide: ConfigService,
+          useValue: { isLocalSampleDataEnabled: () => localSampleDataEnabled },
+        },
+        { provide: TaxonomyService, useValue: { refreshGlobalTaxonomy: refreshTaxonomySpy } },
+        { provide: DomainCharacterService, useValue: {} },
+        {
+          provide: DomainConceptsService,
+          useValue: {
+            name: 'CONCEPTS',
+            syncRemoteRows: vi.fn(async (_row: number, rows: Record<string, unknown>[]) => {
+              persistedRows = rows;
+            }),
+          },
+        },
+        { provide: DomainQuotesService, useValue: {} },
+        { provide: DomainPassagesService, useValue: {} },
+        { provide: DomainPlacesService, useValue: {} },
+        { provide: DomainGlosaryService, useValue: {} },
+        { provide: DomainQuestionsService, useValue: {} },
+        { provide: DomainIndexService, useValue: {} },
+      ],
+    });
+
+    service = TestBed.inject(DomainDataService);
+    service['loadedRow'] = 4;
+    service.sheets.set([
+      {
+        row: 4,
+        id: 'concepts',
+        name: 'CONCEPTS',
+        index: 0,
+        rows: [
+          { id: 'concept-1', tags: ['#first'], syncStatus: 'synced' },
+          { id: 'concept-2', tags: ['#second'], syncStatus: 'synced' },
+        ],
+      },
+    ]);
+  });
+
+  it('removes the row locally and sends its identity to GAS', async () => {
+    deleteRowSpy.mockReturnValue(of({ status: 'success' }));
+
+    await service.deleteDomainRow('CONCEPTS', 'concept-1');
+
+    expect(service.sheets()[0].rows.map((record) => record['id'])).toEqual(['concept-2']);
+    expect(persistedRows.map((record) => record['id'])).toEqual(['concept-2']);
+    expect(deleteRowSpy).toHaveBeenCalledWith(4, 'CONCEPTS', 'concept-1', 'catalog-item-4');
+  });
+
+  it('keeps the loading overlay active until GAS responds', async () => {
+    const response = new Subject<unknown>();
+    deleteRowSpy.mockReturnValue(response);
+
+    const deletePromise = service.deleteDomainRow('CONCEPTS', 'concept-1');
+    await vi.waitFor(() => expect(deleteRowSpy).toHaveBeenCalled());
+
+    expect(globalLoadingService.isLoading()).toBe(true);
+    response.next({ status: 'success' });
+    response.complete();
+    await deletePromise;
+
+    expect(globalLoadingService.isLoading()).toBe(false);
+  });
+
+  it('restores the row and book tags when the GAS request fails', async () => {
+    deleteRowSpy.mockReturnValue(throwError(() => new Error('GAS unavailable')));
+
+    await expect(service.deleteDomainRow('CONCEPTS', 'concept-1')).rejects.toThrow('GAS unavailable');
+
+    expect(service.sheets()[0].rows.map((record) => record['id'])).toEqual([
+      'concept-1',
+      'concept-2',
+    ]);
+    expect(persistedRows.map((record) => record['id'])).toEqual(['concept-2', 'concept-1']);
+    expect(persistedBookTags.map((record) => record['name'])).toEqual(['#first', '#second']);
+  });
+
+  it('sends only the edited row while preserving the other local rows', async () => {
+    updateRowsSpy.mockReturnValue(of({ status: 'success' }));
+    const editedRow = {
+      id: 'concept-1',
+      term: 'Updated term',
+      tags: ['#first'],
+      syncStatus: 'pending',
+    };
+
+    await service.updateDomainSheetRows(
+      'CONCEPTS',
+      [editedRow, { id: 'concept-2', tags: ['#second'], syncStatus: 'synced' }],
+      true,
+      'concept-1',
+    );
+
+    expect(updateRowsSpy).toHaveBeenCalledWith(
+      4,
+      'CONCEPTS',
+      [editedRow],
+      'catalog-item-4',
+      false,
+    );
+    expect(persistedRows.map((record) => record['id'])).toEqual(['concept-1', 'concept-2']);
+  });
+
+  it('sends only a new row and replaces its local id with the GAS-assigned id', async () => {
+    updateRowsSpy.mockReturnValue(of({ status: 'success', createdRowId: 'gas-concept-3' }));
+    const newRow = {
+      id: 'temporary-concept-3',
+      term: 'New concept',
+      tags: ['#new'],
+      syncStatus: 'pending',
+    };
+
+    await service.updateDomainSheetRows(
+      'CONCEPTS',
+      [
+        { id: 'concept-1', tags: ['#first'], syncStatus: 'synced' },
+        { id: 'concept-2', tags: ['#second'], syncStatus: 'synced' },
+        newRow,
+      ],
+      true,
+      undefined,
+      newRow.id,
+    );
+
+    const sentRows = updateRowsSpy.mock.calls[0][2] as Record<string, unknown>[];
+    expect(sentRows).toHaveLength(1);
+    expect(sentRows[0]['id']).toBe('temporary-concept-3');
+    expect(service.sheets()[0].rows.map((record) => record['id'])).toEqual([
+      'concept-1',
+      'concept-2',
+      'gas-concept-3',
+    ]);
+    expect(persistedRows.map((record) => record['id'])).toEqual([
+      'concept-1',
+      'concept-2',
+      'gas-concept-3',
+    ]);
+  });
+
+  it('normalizes INDEX rows to the canonical tags array', () => {
+    const normalized = service['normalizeRecordTags'](
+      { id: 'index-1', tags: ['#single', '#duplicate'] },
+      'INDEX',
+    );
+
+    expect(normalized['tags']).toEqual(['#single', '#duplicate']);
+    expect(normalized).not.toHaveProperty('tag');
+  });
+
+  it('rebuilds tag suggestions and taxonomy when loading local sheets', async () => {
+    localSampleDataEnabled = true;
+    const localSheets: DomainSheet[] = [
+      {
+        row: 4,
+        id: 'index',
+        name: 'INDEX',
+        index: 0,
+        rows: [{ id: 'index-1', tags: ['#Identity'] }],
+      },
+    ];
+    service['featureHandlers'].splice(0, service['featureHandlers'].length, {
+        name: 'INDEX',
+        loadLocalSheet: async () => localSheets[0],
+        validateAndSanitizeTags: (tags: string[]) => tags,
+        syncRemoteRows: async () => undefined,
+      });
+
+    await service.loadForCatalog(4);
+
+    expect(persistedBookTags).toContainEqual(
+      expect.objectContaining({ row: 4, name: '#identity' }),
+    );
+    expect(refreshTaxonomySpy).toHaveBeenCalledWith(4);
+  });
+
+  it('preserves BookEvent tags as the canonical array', () => {
+    const normalized = service['normalizeRecordTags'](
+      { id: 'event-1', tags: ['#war', '#journey'] },
+      'BOOK_EVENTS',
+    );
+
+    expect(normalized['tags']).toEqual(['#war', '#journey']);
+    expect(normalized).not.toHaveProperty('tag');
+  });
+
+  it('keeps domain edits local in LocalSampleData mode', async () => {
+    localSampleDataEnabled = true;
+    const editedRow = {
+      id: 'concept-1',
+      term: 'Locally edited concept',
+      tags: ['#first'],
+    };
+
+    await service.updateDomainSheetRows(
+      'CONCEPTS',
+      [editedRow, { id: 'concept-2', tags: ['#second'], syncStatus: 'synced' }],
+    );
+
+    expect(updateRowsSpy).not.toHaveBeenCalled();
+    expect(persistedRows[0]).toMatchObject({ term: 'Locally edited concept', syncStatus: 'synced' });
+  });
+
+  it('deletes domain rows locally without calling the API in LocalSampleData mode', async () => {
+    localSampleDataEnabled = true;
+
+    await service.deleteDomainRow('CONCEPTS', 'concept-1');
+
+    expect(deleteRowSpy).not.toHaveBeenCalled();
+    expect(service.sheets()[0].rows.map((record) => record['id'])).toEqual(['concept-2']);
+  });
+});
+

@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
-import { ConfigService } from '../../../core/services/config.service';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { LearnFeedService } from './learn-feed.service';
 
 describe('LearnFeedService', () => {

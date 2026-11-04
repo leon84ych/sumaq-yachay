@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { PermissionService } from './permission.service';
+import { PermissionService } from '../permission.service';
 
 describe('PermissionService', () => {
   it('defaults to guest and permits read operations', () => {

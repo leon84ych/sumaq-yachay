@@ -2,14 +2,14 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { CatalogService } from '../services/catalog.service';
-import { ConfigService } from '../../../core/services/config.service';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { CatalogCardComponent } from '../components/catalog-card/catalog-card.component';
 import { CatalogFilterComponent } from '../components/catalog-filter/catalog-filter.component';
 import { CatalogFormModalComponent } from '../components/catalog-form-modal/catalog-form-modal.component';
 import { AddCatalogModalComponent } from '../components/add-catalog-modal/add-catalog-modal.component';
 import { CatalogItem } from '../models/catalog-item.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
-import { PermissionService } from '../../../core/services/permission.service';
+import { PermissionService } from '../../../core/services/permission/permission.service';
 
 @Component({
   selector: 'app-catalog',

@@ -12,8 +12,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { GlobalErrorService } from '../../../core/services/global-error.service';
-import { StudySearchService } from '../../../core/services/study-search.service';
+import { GlobalErrorService } from '../../../core/services/error/global-error.service';
+import { StudySearchService } from '../../../core/services/search/study-search.service';
 import { downloadJpeg } from '../../../shared/utils/image-export';
 import { PlaceEntryCardComponent } from '../../domain/domain-places/components/place-entry-card/place-entry-card.component';
 import { GlossaryEntryCardComponent } from '../../domain/domain-glosary/components/glossary-entry-card/glossary-entry-card.component';

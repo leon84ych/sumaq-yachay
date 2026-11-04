@@ -1,15 +1,15 @@
 import { effect, Injectable, computed, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
-import { ConfigService } from '../../../core/services/config.service';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { CatalogApiService } from './catalog-api.service';
 import { CatalogItem } from '../models/catalog-item.model';
 import { CatalogPostPayload, CloneCatalogItemPayload, CopyCatalogPayload } from '../models/catalog-api.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
-import { GlobalLoadingService } from '../../../core/services/global-loading.service';
-import { PermissionService } from '../../../core/services/permission.service';
+import { GlobalLoadingService } from '../../../core/services/loading/global-loading.service';
+import { PermissionService } from '../../../core/services/permission/permission.service';
 import { mapCatalogItemToRowValues } from './catalog-row-values';
-import { StudySearchService } from '../../../core/services/study-search.service';
+import { StudySearchService } from '../../../core/services/search/study-search.service';
 import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
 
 const CONTENT_SEARCH_TERMS: Record<string, string[]> = {

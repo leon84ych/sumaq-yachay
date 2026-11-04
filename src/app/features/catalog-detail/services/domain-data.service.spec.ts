@@ -7,7 +7,7 @@ import { of, Subject, throwError } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
 import { GlobalLoadingService } from '../../../core/services/global-loading.service';
-import { ConfigService } from '../../../core/services/config.service';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { DomainDataApiService } from './domain-data-api.service';
 import { DomainDataService } from './domain-data.service';

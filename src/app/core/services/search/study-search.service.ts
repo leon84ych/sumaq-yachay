@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { normalizeTagsFromArray } from '../../shared/utils/tag-utils';
-import { parseStudySearch, StudySearchField } from '../../shared/utils/study-search';
+import { normalizeTagsFromArray } from '../../../shared/utils/tag-utils';
+import { parseStudySearch, StudySearchField } from '../../../shared/utils/study-search';
 
 @Injectable({ providedIn: 'root' })
 export class StudySearchService {

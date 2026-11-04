@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, output } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { PermissionService } from '../../../../../core/services/permission.service';
+import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { parseTagsFromArray } from '../../../../../shared/utils/tag-utils';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { CharacterRow } from '../../models/domain-character-row.model';

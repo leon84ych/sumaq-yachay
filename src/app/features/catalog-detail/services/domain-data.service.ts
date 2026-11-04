@@ -5,8 +5,8 @@ import { AppDbService, BookTag } from '../../../core/services/storage/app-db.ser
 import { DomainDataApiService } from './domain-data-api.service';
 import { DomainSheet } from '../models/domain-sheet.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
-import { GlobalLoadingService } from '../../../core/services/global-loading.service';
-import { ConfigService } from '../../../core/services/config.service';
+import { GlobalLoadingService } from '../../../core/services/loading/global-loading.service';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { DomainCharacterService } from '../../domain/domain-character/services/domain-character.service';
 import { DomainConceptsService } from '../../domain/domain-concepts/services/domain-concepts.service';
 import { DomainQuotesService } from '../../domain/domain-quotes/services/domain-quotes.service';
@@ -21,7 +21,7 @@ import { DomainRelationsService } from '../../domain/domain-relations/services/d
 import { DomainAssociationService } from '../../domain/domain-association/services/domain-association.service';
 import { sortDomainTabs } from '../models/domain-sheet-config';
 import { TaxonomyService } from '../../../core/services/taxonomy/taxonomy.service';
-import { PermissionService } from '../../../core/services/permission.service';
+import { PermissionService } from '../../../core/services/permission/permission.service';
 import { normalizeTagsFromArray, parseTagsFromArray, deserializeTagsFromBE, serializeTagsToArray, serializeTagsToString, serializeTagsToBE } from '../../../shared/utils/tag-utils';
 
 type DomainTableName =

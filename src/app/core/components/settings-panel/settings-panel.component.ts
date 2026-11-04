@@ -1,9 +1,9 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ConfigService } from '../../services/config.service';
+import { ConfigService } from '../../services/config/config.service';
 import { AppDbService } from '../../services/storage/app-db.service';
-import { PermissionService } from '../../services/permission.service';
+import { PermissionService } from '../../services/permission/permission.service';
 
 const THEME_KEY = 'sumaq_yachay_theme';
 const FONT_SCALE_KEY = 'sumaq_yachay_font_scale';

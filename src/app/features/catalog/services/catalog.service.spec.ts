@@ -5,7 +5,7 @@ import { signal } from '@angular/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { of, Subject, throwError } from 'rxjs';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
-import { ConfigService } from '../../../core/services/config.service';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { CatalogApiService } from './catalog-api.service';
 import { CatalogService } from './catalog.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';

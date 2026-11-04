@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { GlobalErrorService } from '../../../../core/services/global-error.service';
+import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
 import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
 import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
 import { IndexDto, IndexRow } from '../model/index-view-row';
 import { serializeTagsToArray, serializeTagsToBE } from '../../../../shared/utils/tag-utils';
-import { PermissionService } from '../../../../core/services/permission.service';
+import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { IndexEntryCardComponent } from '../components/index-entry-card/index-entry-card.component';
-import { StudySearchService } from '../../../../core/services/study-search.service';
+import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
 export type { IndexRow as IndexViewRow } from '../model/index-view-row';

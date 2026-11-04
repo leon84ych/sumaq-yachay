@@ -2,15 +2,15 @@ import { Component, computed, inject, input, output, signal } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { GlobalErrorService } from '../../../../core/services/global-error.service';
+import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
 import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
 import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
 import { CharacterNature, CharacterRole, CharacterRow } from '../models/domain-character-row.model';
 import { CharacterEntryCardComponent } from '../components/character-entry-card/character-entry-card.component';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
-import { PermissionService } from '../../../../core/services/permission.service';
+import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
-import { StudySearchService } from '../../../../core/services/study-search.service';
+import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
 const CHARACTER_ROLES: CharacterRole[] = [

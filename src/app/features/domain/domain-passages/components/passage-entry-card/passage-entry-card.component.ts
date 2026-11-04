@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { PermissionService } from '../../../../../core/services/permission.service';
+import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
 import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
 import { parseTagsFromArray } from '../../../../../shared/utils/tag-utils';

@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { GlobalErrorService } from '../core/services/global-error.service';
+import { GlobalErrorService } from '../core/services/error/global-error.service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const globalErrorService = inject(GlobalErrorService);

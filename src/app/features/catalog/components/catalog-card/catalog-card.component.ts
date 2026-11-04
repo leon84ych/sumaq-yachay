@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { CatalogItem } from '../../models/catalog-item.model';
 import { CatalogSyncBadgeComponent } from '../catalog-sync-badge/catalog-sync-badge.component';
-import { PermissionService } from '../../../../core/services/permission.service';
+import { PermissionService } from '../../../../core/services/permission/permission.service';
 
 @Component({
   selector: 'app-catalog-card',

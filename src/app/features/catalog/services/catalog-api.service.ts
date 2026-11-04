@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 import { from, Observable, throwError } from 'rxjs';
-import { ConfigService } from '../../../core/services/config.service';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { map } from 'rxjs/operators';
 import {
   CatalogPostPayload,
@@ -11,7 +11,7 @@ import {
 } from '../models/catalog-api.model';
 
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
-import { PermissionService } from '../../../core/services/permission.service';
+import { PermissionService } from '../../../core/services/permission/permission.service';
 
 @Injectable({
   providedIn: 'root',

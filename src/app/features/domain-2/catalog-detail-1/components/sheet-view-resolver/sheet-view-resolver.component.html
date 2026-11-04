@@ -1,0 +1,147 @@
+@switch (viewKind()) {
+  @case ('INDEX') {
+    <app-domain-index
+      [currentSheet]="currentSheet()"
+      [rows]="indexRows()"
+      [bookName]="bookName()"
+      [bookAuthor]="bookAuthor()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @case ('CONCEPTS') {
+    <app-domain-concept
+      [rows]="conceptRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [bookAuthor]="bookAuthor()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @case ('QUOTES') {
+    <app-domain-quote
+      [rows]="quoteRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [bookAuthor]="bookAuthor()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @case ('PASSAGES') {
+    <app-domain-passage
+      [rows]="passageRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [bookAuthor]="bookAuthor()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @case ('CHARACTER') {
+    <app-domain-character
+      [rows]="characterRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [bookAuthor]="bookAuthor()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @case ('PLACES') {
+    <app-places
+      [rows]="placeRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [bookAuthor]="bookAuthor()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @case ('BOOK_EVENTS') {
+    <app-domain-book-events
+      [rows]="bookEventRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [bookAuthor]="bookAuthor()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @case ('RELATIONS') {
+    <app-domain-relations
+      [rows]="relationRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [bookAuthor]="bookAuthor()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @case ('ASSOCIATIONS') {
+    <app-domain-association
+      [rows]="associationRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [bookAuthor]="bookAuthor()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @case ('GLOSARY') {
+    <app-domain-glossary
+      [rows]="glossaryRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [bookAuthor]="bookAuthor()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @case ('QUESTIONS') {
+    <app-questions
+      [rows]="questionRows()"
+      [currentSheet]="currentSheet()"
+      [bookName]="bookName()"
+      [bookAuthor]="bookAuthor()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
+  @default {
+    <p class="unsupported-sheet">{{ 'CATALOG_DETAIL.UNSUPPORTED_SHEET' | transloco }}</p>
+  }
+}
+
+@if (sheet(); as currentSheet) {
+  @if (viewKind() !== 'INDEX' && domainDataService.canLoadMore(currentSheet.name)) {
+    <div class="load-more-container">
+      @if (
+        domainDataService.pagination()[currentSheet.row + ':' + currentSheet.name.toUpperCase()]
+          ?.error;
+        as loadError
+      ) {
+        <p class="load-more-error" role="alert">{{ loadError }}</p>
+      }
+      <button
+        type="button"
+        class="btn-primary load-more-button"
+        [disabled]="
+          domainDataService.pagination()[currentSheet.row + ':' + currentSheet.name.toUpperCase()]
+            ?.isLoading
+        "
+        (click)="domainDataService.loadMore(currentSheet.name)"
+      >
+        @if (
+          domainDataService.pagination()[currentSheet.row + ':' + currentSheet.name.toUpperCase()]
+            ?.isLoading
+        ) {
+          {{ 'COMMON.LOADING' | transloco }}
+        } @else {
+          {{ 'COMMON.LOAD_MORE' | transloco }}
+        }
+      </button>
+    </div>
+  }
+}

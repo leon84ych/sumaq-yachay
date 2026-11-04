@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 import { from, Observable, throwError } from 'rxjs';
-import { ConfigService } from '../../../core/services/config.service';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
-import { PermissionService } from '../../../core/services/permission.service';
+import { PermissionService } from '../../../core/services/permission/permission.service';
 import { GetDomainSheetsResponse, PaginatedDomainRowsResponse } from '../models/domain-sheet.model';
 import { serializeTagsToBE } from '../../../shared/utils/tag-utils';
 

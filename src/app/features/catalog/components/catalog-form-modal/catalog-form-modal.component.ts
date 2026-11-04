@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { CatalogItem } from '../../models/catalog-item.model';
-import { PermissionService } from '../../../../core/services/permission.service';
+import { PermissionService } from '../../../../core/services/permission/permission.service';
 
 @Component({
   selector: 'app-catalog-form-modal',

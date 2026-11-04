@@ -8,7 +8,7 @@ import {
   QuestionPracticeService,
 } from '../services/question-practice.service';
 import { QuestionOption } from '../model/domain-question-row.model';
-import { StudySearchService } from '../../../../core/services/study-search.service';
+import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { DomainContributorComponent } from '../../shared/domain-contributor/domain-contributor.component';
 
 @Component({

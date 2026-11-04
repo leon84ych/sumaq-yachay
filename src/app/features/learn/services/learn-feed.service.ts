@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
-import { ConfigService } from '../../../core/services/config.service';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { DomainName } from '../../catalog-detail/models/domain-sheet-config';
 import { parseTagsFromArray } from '../../../shared/utils/tag-utils';
 import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';

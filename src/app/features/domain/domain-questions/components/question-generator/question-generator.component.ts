@@ -1,10 +1,10 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { BrowserAiService } from '../../../../../core/services/ia/BrowserIA.service';
-import { GlobalErrorService } from '../../../../../core/services/global-error.service';
+import { GlobalErrorService } from '../../../../../core/services/error/global-error.service';
 import { DomainDataService } from '../../../../catalog-detail/services/domain-data.service';
 import { QuestionRow, QuestionType } from '../../model/domain-question-row.model';
-import { PermissionService } from '../../../../../core/services/permission.service';
+import { PermissionService } from '../../../../../core/services/permission/permission.service';
 
 const QUESTION_TYPES: QuestionType[] = ['flashcard', 'multiple-choice', 'true-false', 'open'];
 

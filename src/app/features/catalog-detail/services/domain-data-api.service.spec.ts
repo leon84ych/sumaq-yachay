@@ -2,10 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { firstValueFrom } from 'rxjs';
 import { TranslocoService } from '@jsverse/transloco';
-import { ConfigService } from '../../../core/services/config.service';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { DomainDataApiService } from './domain-data-api.service';
-import { PermissionService } from '../../../core/services/permission.service';
+import { PermissionService } from '../../../core/services/permission/permission.service';
 
 describe('DomainDataApiService.deleteRow', () => {
   let fetchSpy: ReturnType<typeof vi.fn>;

@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { ConfigService } from '../../../core/services/config.service';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { CatalogService } from '../../catalog/services/catalog.service';
 import { CatalogOverviewComponent } from '../components/catalog-overview/catalog-overview.component';
 import { CatalogSheetTabsComponent } from '../components/catalog-sheet-tabs/catalog-sheet-tabs.component';
 import { SheetViewResolverComponent } from '../components/sheet-view-resolver/sheet-view-resolver.component';
 import { DomainDataService } from '../services/domain-data.service';
-import { GlobalErrorService } from '../../../core/services/global-error.service';
+import { GlobalErrorService } from '../../../core/services/error/global-error.service';
 import { ALL_AVAILABLE_DOMAINS, getDefaultHeadersForDomain } from '../models/domain-sheet-config';
-import { PermissionService } from '../../../core/services/permission.service';
+import { PermissionService } from '../../../core/services/permission/permission.service';
 
 @Component({
   selector: 'app-catalog-detail',

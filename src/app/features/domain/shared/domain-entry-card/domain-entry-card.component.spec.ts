@@ -4,7 +4,7 @@ import { provideTransloco, TranslocoLoader } from '@jsverse/transloco';
 import { Observable, of } from 'rxjs';
 import { DomainEntryCardComponent } from './domain-entry-card.component';
 import { Translation } from '@jsverse/transloco';
-import { StudySearchService } from '../../../../core/services/study-search.service';
+import { StudySearchService } from '../../../../core/services/search/study-search.service';
 
 class LearnCardTestLoader implements TranslocoLoader {
   getTranslation(): Observable<Translation> {

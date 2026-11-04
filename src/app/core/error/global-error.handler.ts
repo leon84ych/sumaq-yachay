@@ -1,5 +1,5 @@
 import { ErrorHandler, inject } from '@angular/core';
-import { GlobalErrorService } from '../services/global-error.service';
+import { GlobalErrorService } from '../services/error/global-error.service';
 
 export class GlobalErrorHandler extends ErrorHandler {
   private readonly globalErrorService = inject(GlobalErrorService);

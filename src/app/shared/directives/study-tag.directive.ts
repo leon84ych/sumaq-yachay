@@ -1,5 +1,5 @@
 import { Directive, computed, inject, input } from '@angular/core';
-import { StudySearchService } from '../../core/services/study-search.service';
+import { StudySearchService } from '../../core/services/search/study-search.service';
 import { parseStudySearch } from '../utils/study-search';
 import { normalizeTagsFromArray } from '../utils/tag-utils';
 
