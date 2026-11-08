@@ -69,6 +69,7 @@
       "TITLE": "Sumaq Yachay",
       "SUBTITLE": "Base de Conocimiento",
       "SYNC_REMOTE": "Sincronizar Remoto (GET)",
+      "SYNC_WARNING": "Todos los datos locales serán sobreescritos",
       "SYNC_LOCAL": "Sincronizar Local",
       "SYNCING": "Sincronizando...",
       "REGISTER_SOURCE": "Registrar Fuente",

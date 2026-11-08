@@ -9,7 +9,7 @@ export const routes: Routes = [
   {
     path: 'catalog',
     loadComponent: () =>
-      import('./features/catalog/catalog/catalog').then((m) => m.Catalog),
+      import('./features/domain-1/catalog/catalog/catalog').then((m) => m.Catalog),
   },
   {
     path: 'learn',
