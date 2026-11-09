@@ -8,6 +8,8 @@ import { PermissionService } from '../../../../core/services/permission/permissi
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { matchesStudySearch, parseStudySearch } from '../../../../shared/utils/study-search';
 import { CatalogGASRepository } from '../../../../core/infrastructure/gas/catalog-gas-repository';
+import { LocalDBService } from '../../../../shared/local-db/local-db.service';
+import { Status } from '../../shared/model/domain-shared-model';
 
 
 const CONTENT_SEARCH_TERMS: Record<string, string[]> = {
@@ -18,7 +20,7 @@ const CONTENT_SEARCH_TERMS: Record<string, string[]> = {
   providedIn: 'root',
 })
 export class CatalogService {
-  private dbService = inject(AppDbService);
+
   private authService = inject(GoogleAuthService);
   private configService = inject(ConfigService);
   private globalLoadingService = inject(GlobalLoadingService);
@@ -26,6 +28,7 @@ export class CatalogService {
 
 
   private catalogGASRepository = inject(CatalogGASRepository);
+  private localDBService = inject(LocalDBService);
 
   // State Signals
   readonly items = signal<CatalogRecord[]>([]);
@@ -111,11 +114,7 @@ export class CatalogService {
         void this.loadLocalSampleData();
         return;
       }
-
-      //const token = this.authService.idToken();
-      //if (!token) return;
-      //console.log("syncFromRemote called here");
-      //void this.syncFromRemote();
+      void this.loadFromLocal();
     });
 
     if (!this.configService.isLocalSampleDataEnabled()) {
@@ -127,7 +126,7 @@ export class CatalogService {
     const matches = new Set<number>();
     const search = parseStudySearch(query);
     const catalogByRow = new Map(this.items().map((item) => [item.row, item]));
-    const tables = (this.dbService.db.tables ?? [])
+    const tables = (this.localDBService.indexedDB.tables ?? [])
       .filter((table) => Object.hasOwn(CONTENT_SEARCH_TERMS, table.name));
     await Promise.all(tables.map(async (table) => {
       const rows = await table.toArray() as Record<string, unknown>[];
@@ -161,7 +160,8 @@ export class CatalogService {
   private async loadLocalSampleData(): Promise<void> {
     this.isLoading.set(true);
     try {
-      await this.dbService.seedLocalSampleData();
+      // Seed local sample data
+      //await this.localDBService.seedLocalSampleData();
       await this.loadFromLocal();
     } catch (err) {
       this.errorMessage.set('CATALOG.ERRORS.syncFailed');
@@ -171,23 +171,15 @@ export class CatalogService {
     }
   }
 
+
   /**
    * Load stored items from IndexedDB
    */
   async loadFromLocal(): Promise<void> {
     this.isLoading.set(true);
     try {
-      const localItems = await this.dbService.db.catalogs.toArray();
-      const generatedSampleIds = new Set(['cat-tech-01', 'cat-phil-01']);
-      const userItems = localItems.filter((item) => !generatedSampleIds.has(item.id));
-
-      if (userItems.length !== localItems.length) {
-        await this.dbService.db.catalogs.bulkDelete(
-          localItems.filter((item) => generatedSampleIds.has(item.id)).map((item) => item.id)
-        );
-      }
-
-      this.items.set(userItems);
+      const localItems = await this.localDBService.indexedDB.catalogs.toArray();
+      this.items.set(localItems);
     } catch (err) {
       console.error('Failed to load catalogs from IndexedDB:', err);
     } finally {
@@ -216,12 +208,23 @@ export class CatalogService {
       const pageSize = 2;
       let page = 1;
       let totalPages = 1;
+      //clear local data
+      await this.localDBService.indexedDB.catalogs.clear();
       this.items.set([]);
-      
+
       while (page <= totalPages) {
         const response = await this.catalogGASRepository.getCatalogs(page, pageSize);
+        const message = typeof response.message === 'string' ? response.message : '';
+        if (
+          response.status === Status.ERROR &&
+          message.includes('Invalid or expired Google token')
+        ) {
+          console.warn('Google token expired; logging the user out.');
+          this.authService.logout();
+        }
+
         if (response.status !== 'success' || !Array.isArray(response.data.rows)) {
-          throw new Error(response.message || 'CATALOG.ERRORS.malformedCatalog');
+          throw new Error(message || 'CATALOG.ERRORS.malformedCatalog');
         }
         //progressively update the items signal with each page of data
         this.items.update(items => [...items, ...response.data.rows]);
@@ -233,40 +236,14 @@ export class CatalogService {
       }
 
       this.lastSyncedAt.set(new Date().toLocaleTimeString());
-      //     throw new Error("Method not implemented.");
 
-      // try {
-      //   const response = await firstValueFrom(this.apiService.getCatalog());
-      //   if (response && response.status === 'success' && Array.isArray(response.data)) {
-      //     if (response.data.length === 0) {
-      //       await this.dbService.clearAllTables();
+      //save all items in IndexedDB
+      await this.localDBService.indexedDB.transaction('rw', this.localDBService.indexedDB.catalogs, async () => {
+        await this.localDBService.indexedDB.catalogs.clear();
+        await this.localDBService.indexedDB.catalogs.bulkPut(this.items());
+      });
 
-      //       this.items.set([]);
-      //       this.lastSyncedAt.set(new Date().toLocaleTimeString());
-      //       return;
-      //     }
 
-      //     const normalized: CatalogRecord[] = response.data.map((item) => ({
-      //       ...item,
-      //       syncStatus: 'synced',
-      //     }));
-
-      //     await this.dbService.db.transaction('rw', this.dbService.db.catalogs, async () => {
-      //       await this.dbService.db.catalogs.clear();
-      //       await this.dbService.db.catalogs.bulkPut(normalized);
-      //     });
-
-      //     this.items.set(normalized);
-      //     this.lastSyncedAt.set(new Date().toLocaleTimeString());
-      //   } else {
-      //     const message = typeof response?.message === 'string' ? response.message : '';
-      //     if (response?.status === 'error' && message.includes('Invalid or expired Google token')) {
-      //       console.warn('Google token expired; logging the user out.');
-      //       this.authService.logout();
-      //     }
-
-      //     throw new Error(message || 'CATALOG.ERRORS.malformedCatalog');
-      //   }
     } catch (err: unknown) {
       this.errorMessage.set('CATALOG.ERRORS.syncFailed');
       console.warn('Sync from remote failed; maintaining local cache:', err);
@@ -300,14 +277,14 @@ export class CatalogService {
 
     // Handle key mutation in IndexedDB if the ID changed during an edit
     if (isEdit && originalId && originalId !== item.id) {
-      await this.dbService.db.catalogs.delete(originalId);
+      // await this.dbService.db.catalogs.delete(originalId);
       this.removeLocalItemInState(originalId); // Helper to clear state array
     }
 
     const operation = this.globalLoadingService.begin();
 
     // 1. Optimistic local update
-    await this.dbService.db.catalogs.put(item);
+    // await this.dbService.db.catalogs.put(item);
     this.updateLocalItemInState(item);
 
     if (localSampleDataEnabled) {
@@ -444,7 +421,7 @@ export class CatalogService {
    * Delete item locally from IndexedDB
    */
   async deleteItem(id: string): Promise<void> {
-    await this.dbService.db.catalogs.delete(id);
+    //await this.dbService.db.catalogs.delete(id);
     this.items.update((list) => list.filter((i) => i.id !== id));
   }
 

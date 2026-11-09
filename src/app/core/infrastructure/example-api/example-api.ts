@@ -1,15 +1,15 @@
 
 import { CatalogRecord } from "../../../features/domain-1/catalog/models/catalog-item.model";
-import { CatalogResponse } from "../../../features/domain-1/shared/model/domain-shared-model";
+import { CatalogResponse, PaginatedResponse } from "../../../features/domain-1/shared/model/domain-shared-model";
 import { CatalogRepositoryInterface } from "../catalog-repository-interface";
 
 /**
  * Indexed implementation of all operations 
  */
-export class CataloLocalRepository implements CatalogRepositoryInterface {
+export class ExampleApi implements CatalogRepositoryInterface {
 
 
-    getCatalogs(page: number, pageSize: number): Promise<CatalogResponse<CatalogRecord>> {
+    getCatalogs(page: number, pageSize: number): Promise<CatalogResponse<PaginatedResponse<CatalogRecord>>> {
         throw new Error("Method not implemented.");
     }
 

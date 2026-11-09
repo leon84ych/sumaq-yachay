@@ -3,7 +3,7 @@ import { CatalogRepositoryInterface } from "../catalog-repository-interface";
 import { GoogleAppScriptAPI } from "./google-app-script-api.service";
 import { getCatalogRecord } from "./gas-mapper.mapper";
 
-import { CatalogResponse, Role, Status } from "../../../features/domain-1/shared/model/domain-shared-model";
+import { CatalogResponse, PaginatedResponse, Role, Status } from "../../../features/domain-1/shared/model/domain-shared-model";
 import { CatalogRow } from "./gas-model.model";
 import { CatalogRecord } from "../../../features/domain-1/catalog/models/catalog-item.model";
 
@@ -16,13 +16,13 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
 
     private googleAppScriptApi = inject(GoogleAppScriptAPI);
 
-    async getCatalogs(page: number, pageSize: number): Promise<CatalogResponse<CatalogRecord>> {
+    async getCatalogs(page: number, pageSize: number): Promise<CatalogResponse<PaginatedResponse<CatalogRecord>>> {
         try {
             const catalogResponseRow = await this.googleAppScriptApi.getCatalog(page, pageSize);
 
             const data = catalogResponseRow.data.rows.map((row: CatalogRow) => getCatalogRecord(row));
 
-            const response: CatalogResponse<CatalogRecord> = {
+            const response: CatalogResponse<PaginatedResponse<CatalogRecord>> = {
                 ...catalogResponseRow,
                 status: mapStatus(catalogResponseRow.status),
                 role: mapRole(catalogResponseRow.role),

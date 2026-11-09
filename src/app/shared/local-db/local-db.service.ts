@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import Dexie, { Table } from "dexie";
-import { IndexRecord } from "../../../features/domain-1/index/model/index-model";
-import { CatalogItem } from "../../../features/catalog/models/catalog-item.model";
+import { IndexRecord } from "../../features/domain-1/index/model/index-model";
+import { CatalogItem } from "../../features/catalog/models/catalog-item.model";
 
 
 
@@ -29,14 +29,9 @@ export class LocalDBService {
 
     readonly indexedDB = new IndexedDB();
 
-
     async getCatalog(): Promise<CatalogItem[]> {
         return this.indexedDB.catalogs.toArray();
     }
-    
-    
-    
-    
     
     async clearAllTables(): Promise<void> {
     const tables = this.indexedDB.tables;

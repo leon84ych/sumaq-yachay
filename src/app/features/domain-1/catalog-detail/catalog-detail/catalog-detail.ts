@@ -16,7 +16,7 @@ import { GlobalErrorService } from '../../../../core/services/error/global-error
 
 
 @Component({
-  selector: 'app-catalog-detail',
+  selector: 'app-catalog-detail-1',
   standalone: true,
   imports: [
     CommonModule,

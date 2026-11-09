@@ -25,7 +25,7 @@ export const routes: Routes = [
   {
     path: 'catalog/:id',
     loadComponent: () =>
-      import('./features/catalog-detail/catalog-detail/catalog-detail').then(
+      import('./features/domain-1/catalog-detail/catalog-detail/catalog-detail').then(
         (m) => m.CatalogDetail
       ),
   },

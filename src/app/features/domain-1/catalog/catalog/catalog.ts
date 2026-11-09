@@ -10,6 +10,7 @@ import { AddCatalogModalComponent } from '../components/add-catalog-modal/add-ca
 import { GoogleAuthService } from '../../../authentication/services/google-auth-service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { CatalogRecord } from '../models/catalog-item.model';
+import { LocalDBService } from '../../../../shared/local-db/local-db.service';
 
 @Component({
   selector: 'app-catalog-1',
@@ -31,6 +32,8 @@ export class Catalog {
   readonly authService = inject(GoogleAuthService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
+
+  private localDBService = inject(LocalDBService);
   private transloco = inject(TranslocoService);
 
   readonly canAddCatalog = computed(
@@ -98,9 +101,12 @@ export class Catalog {
   }
 
   async handleSync(): Promise<void> {
-    console.log("handleSync called");
-    const confirmMsg = this.transloco.translate('CATALOG.HEADER.SYNC_WARNING');
-    if (!confirm(confirmMsg)) return;
+    const catalogs = await this.localDBService.indexedDB.catalogs.toArray();
+
+    if (catalogs.length > 0) {
+      const confirmMsg = this.transloco.translate('CATALOG.HEADER.SYNC_WARNING');
+      if (!confirm(confirmMsg)) return;
+    }
 
     await this.catalogService.syncFromRemote();
   }

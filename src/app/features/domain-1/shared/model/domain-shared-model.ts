@@ -55,7 +55,7 @@ export interface CatalogResponse<T> {
     message: string;
     email: string;
     role: Role;
-    data: PaginatedResponse<T>;
+    data: T;
 }
 
 
