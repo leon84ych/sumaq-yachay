@@ -1,6 +1,8 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, Injector, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { PermissionService } from '../../../core/services/permission/permission.service';
+import { CatalogGASRepository } from '../../../core/infrastructure/gas/catalog-gas-repository';
 
 declare const google: any;
 
@@ -14,8 +16,14 @@ export interface UserProfile {
   providedIn: 'root',
 })
 export class GoogleAuthService {
+
   private readonly router = inject(Router);
   private readonly permissionService = inject(PermissionService);
+  private readonly configService = inject(ConfigService);
+
+  // Resolved lazily: the repository depends on this service (circular DI otherwise)
+  private readonly injector = inject(Injector);
+
   private readonly TOKEN_KEY = 'g_id_token';
   private readonly storedToken = this.getStoredToken();
   private googleInitialized = false;
@@ -23,6 +31,13 @@ export class GoogleAuthService {
   // State Signals
   readonly idToken = signal<string | null>(this.storedToken);
   readonly currentUser = signal<UserProfile | null>(this.decodeUserFromToken(this.storedToken));
+
+  constructor() {
+    if (this.storedToken) {
+      // Refresh the role based on the stored token when the service is initialized
+      queueMicrotask(() => this.refreshRole());
+    }
+  }
 
   initializeGoogleIdentity(clientId: string): void {
     if (this.googleInitialized || typeof google === 'undefined' || !google.accounts?.id) {
@@ -71,8 +86,21 @@ export class GoogleAuthService {
     localStorage.setItem(this.TOKEN_KEY, token);
     this.idToken.set(token);
     this.currentUser.set(user);
+    
     this.permissionService.setRole('guest');
+    
+    this.refreshRole();
+
     this.router.navigateByUrl('/catalog');
+  }
+
+
+  //To avoid circular dependency issues, we use the injector to get the CatalogGASRepository instance when needed.
+  private refreshRole(): void {
+    this.injector
+      .get(CatalogGASRepository)
+      .getHealth()
+      .catch((err) => console.warn('Failed to load user role:', err));
   }
 
   private getStoredToken(): string | null {

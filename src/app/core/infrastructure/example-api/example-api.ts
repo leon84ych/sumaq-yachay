@@ -7,6 +7,11 @@ import { CatalogRepositoryInterface } from "../catalog-repository-interface";
  * Indexed implementation of all operations 
  */
 export class ExampleApi implements CatalogRepositoryInterface {
+    
+    
+    getHealth(): Promise<string> {
+        throw new Error("Method not implemented.");
+    }
 
 
     getCatalogs(page: number, pageSize: number): Promise<CatalogResponse<PaginatedResponse<CatalogRecord>>> {

@@ -3,7 +3,7 @@ import { GoogleAuthService } from "../../../features/authentication/services/goo
 import { TranslocoService } from "@jsverse/transloco";
 import { PermissionService } from "../../services/permission/permission.service";
 import { from, Observable, throwError } from "rxjs";
-import { CatalogResponseRow, CatalogRow } from "./gas-model.model";
+import { CatalogResponseRaw, CatalogRaw } from "./gas-model.model";
 
 
 const WEB_APP_URL_KEY = 'sumaq_yachay_web_app_url';
@@ -32,7 +32,39 @@ export class GoogleAppScriptAPI {
     readonly gasRequestTimeoutMs = this.timeoutSignal.asReadonly();
 
 
-    getCatalog(page: number, pageSize: number): Promise<CatalogResponseRow<CatalogRow>> {
+    async getHealth(): Promise<string> {
+        const webAppUrl = this.getWebAppUrl();
+        if (!webAppUrl) {
+            return Promise.reject(
+                new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'))
+            );
+        }
+
+        const idToken = this.authService.idToken();
+        let endpoint = `${webAppUrl}?action=GET_CATALOG_HEALTH`;
+
+        if (idToken) {
+            endpoint += `&idToken=${encodeURIComponent(idToken)}`;
+        }
+
+        // Return the fetch promise directly without wrapping it in from()
+        return fetch(endpoint).then(
+            async (response) => {
+                if (!response.ok) {
+                    throw new Error(
+                        this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+                            status: response.status,
+                        }),
+                    );
+                }
+                const data: unknown = await response.json();
+                this.captureRole(data);
+                return data as string;
+            },
+        );
+    }
+
+    getCatalog(page: number, pageSize: number): Promise<CatalogResponseRaw<CatalogRaw>> {
 
         const webAppUrl = this.getWebAppUrl();
         if (!webAppUrl) {
@@ -60,7 +92,7 @@ export class GoogleAppScriptAPI {
                 }
                 const data: unknown = await response.json();
                 this.captureRole(data);
-                return data as CatalogResponseRow<CatalogRow>; // Delivers the whole array at once
+                return data as CatalogResponseRaw<CatalogRaw>; // Delivers the whole array at once
             },
         );
     }

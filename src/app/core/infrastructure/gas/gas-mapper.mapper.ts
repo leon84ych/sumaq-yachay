@@ -1,9 +1,9 @@
 
 import { CatalogRecord } from "../../../features/domain-1/catalog/models/catalog-item.model";
 import { SyncStatus } from "../../../features/domain-1/shared/model/domain-shared-model";
-import { CatalogRow } from "./gas-model.model";
+import { CatalogRaw } from "./gas-model.model";
 
-export function getCatalogRow(item: CatalogRecord): CatalogRow {    
+export function getCatalogRow(item: CatalogRecord): CatalogRaw {    
     return {
         id: item.id,
         subject: item.subject,
@@ -22,7 +22,7 @@ export function getCatalogRow(item: CatalogRecord): CatalogRow {
     };
 }
 
-export function getCatalogRecord(row: CatalogRow): CatalogRecord {
+export function getCatalogRecord(row: CatalogRaw): CatalogRecord {
     return {
         id: row.id,
         subject: row.subject,

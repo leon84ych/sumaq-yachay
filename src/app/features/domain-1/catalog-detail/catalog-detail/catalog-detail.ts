@@ -30,8 +30,11 @@ import { GlobalErrorService } from '../../../../core/services/error/global-error
 })
 export class CatalogDetail {
   private route = inject(ActivatedRoute);
+
+
   readonly catalogService = inject(CatalogService);
   readonly domainDataService = inject(DomainDataService);
+  
   readonly configService = inject(ConfigService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
@@ -54,12 +57,12 @@ export class CatalogDetail {
   readonly isAddingEntry = signal<boolean>(false);
   readonly isAddingDomain = signal(false);
   readonly isCreatingDomain = signal(false);
-  // readonly availableDomains = computed(() => {
-  //   // const existingDomains = new Set(
-  //   //   this.domainDataService.sheetNames().map((name) => name.toUpperCase()),
-  //   // );
-  //   return ALL_AVAILABLE_DOMAINS.filter((domain) => !existingDomains.has(domain));
-  // });
+  readonly availableDomains = computed(() => {
+     const existingDomains = new Set(
+       this.domainDataService.sheetNames().map((name) => name.toUpperCase()),
+     );
+    return ALL_AVAILABLE_DOMAINS.filter((domain) => !existingDomains.has(domain));
+  });
 
   constructor() {
     // Load the entry's Domain Data Sheets whenever the routed id changes.

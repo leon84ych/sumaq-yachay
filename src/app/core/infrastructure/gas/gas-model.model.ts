@@ -2,22 +2,23 @@
  * This models are raw only, representing the structure of data as returned by the GAS backend.
  * Do not include any application-specific logic or transformations here.
  * Do not include any feature or domain-specific types or logic here.
+ * Use Raw sufix as it is returned without processing from GAS
  */
 
 
 /**
  * Response wrapper to all request to the server
  */
-export interface CatalogResponseRow<CatalogRow> extends Record<string, any> {
+export interface CatalogResponseRaw<CatalogRow> extends Record<string, any> {
     status: string;
     message: string;
     email: string;
     role: string;
-    data: PaginatedResponseRow<CatalogRow>;
+    data: PaginatedResponseRaw<CatalogRow>;
 }
 
 
-export interface PaginatedResponseRow<CatalogRow> extends Record<string, any> {
+export interface PaginatedResponseRaw<CatalogRow> extends Record<string, any> {
   sheetName: string;
   page: number;
   pageSize: number;
@@ -31,7 +32,7 @@ export interface PaginatedResponseRow<CatalogRow> extends Record<string, any> {
  * Specific model for catalog with GAS Google Sheets integration
  */
 
-export interface CatalogRow extends Record<string, unknown>{
+export interface CatalogRaw extends Record<string, unknown>{
   id: string;               // Unique ID
   subject: string;          // Entity schema subject
   topic: string;            // Entity schema topic
@@ -46,4 +47,40 @@ export interface CatalogRow extends Record<string, unknown>{
   count: number;            // Count of related items
   syncStatus?: string;      // Local sync tracking flag
   row: number;              // Row number in Master Index (1-based, for display only)
+}
+
+
+export interface DomainSheetRaw {
+  row: number; // Owning Catalog entry row (local cache key, not sent to Sheets)
+  id: string; // Tab name lowercased; second half of the [row+id] primary key
+  name: string; // Raw tab name as returned by Apps Script (e.g. "Definitions")
+  index: number; // Tab index as returned by Apps Script
+  rows: Record<string, unknown>[]; // Row objects keyed by column header
+}
+
+export interface CatalogItemRaw {
+  status: 'success' | 'error';
+  email?: string;
+  role?: string;
+  message?: string;
+  data: {
+    status: 'success' | 'error';
+    message?: string;
+    sheets: Array<{
+      index: number;
+      name: string;
+      rows: Record<string, unknown>[];
+    }>;
+  };
+}
+
+export interface PaginatedDomainResponseRaw {
+  row: number;
+  sheetName: string;
+  role?: string;
+  page: number;
+  pageSize: number;
+  totalRows: number;
+  totalPages: number;
+  rows: Record<string, unknown>[];
 }

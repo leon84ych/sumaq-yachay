@@ -4,7 +4,7 @@ import { GoogleAppScriptAPI } from "./google-app-script-api.service";
 import { getCatalogRecord } from "./gas-mapper.mapper";
 
 import { CatalogResponse, PaginatedResponse, Role, Status } from "../../../features/domain-1/shared/model/domain-shared-model";
-import { CatalogRow } from "./gas-model.model";
+import { CatalogRaw } from "./gas-model.model";
 import { CatalogRecord } from "../../../features/domain-1/catalog/models/catalog-item.model";
 
 
@@ -16,11 +16,20 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
 
     private googleAppScriptApi = inject(GoogleAppScriptAPI);
 
+    async getHealth(): Promise<string> {
+        try {
+            return await this.googleAppScriptApi.getHealth();
+        } catch (error) {
+            console.error('Failed to get health:', error);
+            throw error;
+        }
+    }
+
     async getCatalogs(page: number, pageSize: number): Promise<CatalogResponse<PaginatedResponse<CatalogRecord>>> {
         try {
             const catalogResponseRow = await this.googleAppScriptApi.getCatalog(page, pageSize);
 
-            const data = catalogResponseRow.data.rows.map((row: CatalogRow) => getCatalogRecord(row));
+            const data = catalogResponseRow.data.rows.map((row: CatalogRaw) => getCatalogRecord(row));
 
             const response: CatalogResponse<PaginatedResponse<CatalogRecord>> = {
                 ...catalogResponseRow,

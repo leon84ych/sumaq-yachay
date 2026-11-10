@@ -5,6 +5,11 @@ import { CatalogResponse, PaginatedResponse } from "../../features/domain-1/shar
 export interface CatalogRepositoryInterface {
     
     /**
+     * Get the health status of the catalog service
+     */
+    getHealth(): Promise<string>;
+    
+    /**
      * Get the list of catalogs avaiable
      */
     getCatalogs(page: number, pageSize: number): Promise<CatalogResponse<PaginatedResponse<CatalogRecord>>>;
