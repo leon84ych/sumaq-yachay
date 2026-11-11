@@ -15,13 +15,19 @@ export interface CatalogRepositoryInterface {
     getCatalogs(page: number, pageSize: number): Promise<CatalogResponse<PaginatedResponse<CatalogRecord>>>;
 
 
-    createItem(item : CatalogRecord):CatalogResponse<CatalogRecord>;
+    createItem(item : CatalogRecord): Promise<CatalogResponse<CatalogRecord>>;
 
 
-    updateItem(item: CatalogRecord):CatalogResponse<CatalogRecord>;
+    updateItem(item: CatalogRecord): Promise<CatalogResponse<CatalogRecord>>;
 
 
-    deleteItem(catalogItemId:string):CatalogResponse<string>;
+    deleteItem(catalogItemId:string): Promise<CatalogResponse<string>>;
+
+
+    /**
+     * Clone a whole catalog from a public sheet into the user's catalog
+     */
+    cloneCatalog(sheetUrl: string): Promise<CatalogResponse<unknown>>;
 
 
 }

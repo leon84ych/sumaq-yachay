@@ -9,12 +9,12 @@
 /**
  * Response wrapper to all request to the server
  */
-export interface CatalogResponseRaw<CatalogRow> extends Record<string, any> {
-    status: string;
-    message: string;
-    email: string;
-    role: string;
-    data: PaginatedResponseRaw<CatalogRow>;
+export interface CatalogResponseRaw<T> extends Record<string, any> {
+  status: string;
+  message: string;
+  email: string;
+  role: string;
+  data: T;
 }
 
 
@@ -32,7 +32,7 @@ export interface PaginatedResponseRaw<CatalogRow> extends Record<string, any> {
  * Specific model for catalog with GAS Google Sheets integration
  */
 
-export interface CatalogRaw extends Record<string, unknown>{
+export interface CatalogRaw extends Record<string, unknown> {
   id: string;               // Unique ID
   subject: string;          // Entity schema subject
   topic: string;            // Entity schema topic
@@ -49,6 +49,44 @@ export interface CatalogRaw extends Record<string, unknown>{
   row: number;              // Row number in Master Index (1-based, for display only)
 }
 
+/**
+ * Tuple representing the values of a catalog row to be sent to GAS
+ */
+export type CatalogRowValues = [
+  string,   //id
+  string,   //subject
+  string,   //topic
+  string,   //name
+  string,   //author     
+  string,   //description
+  string,   //source
+  boolean,   //active
+  number,   //page
+  number,   //pages
+  string,   //updatedAt
+  number,   //count
+  string,   //syncStatus
+];
+
+
+/**
+ * Payload structure for creating or updating a catalog item in GAS
+ */
+export interface CatalogPostPayload {
+  action: 'UPDATE_CATALOG_ITEM' | 'CREATE_CATALOG_ITEM';
+  id: string;
+  row: number;
+  rowValues: CatalogRowValues;
+}
+
+
+/**
+ * Payload structure for cloning a whole catalog from a public sheet in GAS
+ */
+export interface CloneCatalogPayload {
+  action: 'CLONE_CATALOG';
+  SheetId: string;
+}
 
 export interface DomainSheetRaw {
   row: number; // Owning Catalog entry row (local cache key, not sent to Sheets)

@@ -1,19 +1,19 @@
 import { inject, Injectable, signal } from "@angular/core";
-import { GoogleAuthService } from "../../../features/authentication/services/google-auth-service";
 import { TranslocoService } from "@jsverse/transloco";
 import { PermissionService } from "../../services/permission/permission.service";
-import { from, Observable, throwError } from "rxjs";
-import { CatalogResponseRaw, CatalogRaw } from "./gas-model.model";
+import { CatalogPostPayload, CatalogRaw, CatalogResponseRaw, CloneCatalogPayload, PaginatedResponseRaw } from "./gas-model.model";
+import { getCatalogRowValues } from "./gas-mapper.mapper";
+import { DEFAULT_GAS_TIMEOUT_MS, DEFAULT_WEB_APP_URL, TOKEN_KEY, WEB_APP_URL_KEY } from "./gas-constants.constants";
+import { CatalogRecord } from "../../../features/domain-1/catalog/models/catalog-item.model";
+import { SyncStatus } from "../../../features/domain-1/shared/model/domain-shared-model";
 
 
-const WEB_APP_URL_KEY = 'sumaq_yachay_web_app_url';
-const DEFAULT_GAS_TIMEOUT_MS = 60_000;
-const DEFAULT_WEB_APP_URL =
-    'https://script.google.com/macros/s/AKfycbyQ541zFbZU4FEbXJM0ppG1cVdX35DGFToUzRBwH_m9OoDASUaHoZgN5KTECqZ7C_zjpg/exec';
+
 
 /**
  * GAS BE will always return EntityRow wich extends Record<string, unknown> 
- * This layer only know about Row entities, never Records 
+ * This layer only know about Row entities, never Records
+ * The loading screen is managed withing the UI layer
  */
 
 @Injectable({
@@ -21,7 +21,6 @@ const DEFAULT_WEB_APP_URL =
 })
 export class GoogleAppScriptAPI {
 
-    private authService = inject(GoogleAuthService);
     private transloco = inject(TranslocoService);
     private permissionService = inject(PermissionService);
 
@@ -29,7 +28,7 @@ export class GoogleAppScriptAPI {
     private timeoutSignal = signal(DEFAULT_GAS_TIMEOUT_MS);
 
     readonly webAppUrl = this.urlSignal.asReadonly();
-    readonly gasRequestTimeoutMs = this.timeoutSignal.asReadonly();
+
 
 
     async getHealth(): Promise<string> {
@@ -40,7 +39,7 @@ export class GoogleAppScriptAPI {
             );
         }
 
-        const idToken = this.authService.idToken();
+        const idToken = localStorage.getItem(TOKEN_KEY);
         let endpoint = `${webAppUrl}?action=GET_CATALOG_HEALTH`;
 
         if (idToken) {
@@ -64,7 +63,7 @@ export class GoogleAppScriptAPI {
         );
     }
 
-    getCatalog(page: number, pageSize: number): Promise<CatalogResponseRaw<CatalogRaw>> {
+    async getCatalog(page: number, pageSize: number): Promise<CatalogResponseRaw<PaginatedResponseRaw<CatalogRaw>>> {
 
         const webAppUrl = this.getWebAppUrl();
         if (!webAppUrl) {
@@ -73,7 +72,7 @@ export class GoogleAppScriptAPI {
             );
         }
 
-        const idToken = this.authService.idToken();
+        const idToken = localStorage.getItem(TOKEN_KEY);
         let endpoint = `${webAppUrl}?action=GET_CATALOG&page=${page}&pageSize=${pageSize}`;
 
         if (idToken) {
@@ -92,11 +91,69 @@ export class GoogleAppScriptAPI {
                 }
                 const data: unknown = await response.json();
                 this.captureRole(data);
-                return data as CatalogResponseRaw<CatalogRaw>; // Delivers the whole array at once
+                return data as CatalogResponseRaw<PaginatedResponseRaw<CatalogRaw>>; // Delivers the whole array at once
             },
         );
     }
 
+
+    async saveCatalogItem(
+        itemInput: CatalogRecord,
+    ): Promise<CatalogResponseRaw<CatalogRaw>> {
+
+        //1. Build the payload 
+        const now = new Date().toISOString();
+        const item: CatalogRecord = {
+            ...itemInput,
+            updatedAt: now,
+            syncStatus: SyncStatus.PENDING,
+        };
+
+        const payload: CatalogPostPayload = {
+            action: item.row ? 'UPDATE_CATALOG_ITEM' : 'CREATE_CATALOG_ITEM',
+            id: item.id,
+            row: item.row,
+            rowValues: getCatalogRowValues(item),
+        };
+        return this.postCatalogPayload<CatalogRaw>(payload);
+    }
+
+    async cloneCatalog(sheetUrl: string): Promise<CatalogResponseRaw<unknown>> {
+        const payload: CloneCatalogPayload = { action: 'CLONE_CATALOG', SheetId: sheetUrl };
+        return this.postCatalogPayload<unknown>(payload);
+    }
+
+    async cloneCatalogItem(sheetUrl: string): Promise<CatalogResponseRaw<CatalogRaw>> {
+        
+        const webAppUrl = this.getWebAppUrl();
+        if (!webAppUrl) {
+            return Promise.reject(
+                new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'))
+            );
+        }
+
+        const idToken = localStorage.getItem(TOKEN_KEY);
+        let endpoint = `${webAppUrl}?action=CLONE_CATALOG_ITEM&sheetUrl=${encodeURIComponent(sheetUrl)}`;
+
+        if (idToken) {
+            endpoint += `&idToken=${encodeURIComponent(idToken)}`;
+        }
+
+        return fetch(endpoint).then(
+            async (response) => {
+                if (!response.ok) {
+                    throw new Error(
+                        this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+                            status: response.status,
+                        }),
+                    );
+                }
+                const data: unknown = await response.json();
+                this.captureRole(data);
+                return data as CatalogResponseRaw<CatalogRaw>;
+            },
+        );
+    }
 
     // /**
     //  * HTTP POST: Optimistically save or update an item locally and push to Google Sheets
@@ -253,40 +310,40 @@ export class GoogleAppScriptAPI {
     * HTTP GET: Fetches Catalog Item by Number
     * @param row the number in the sheet corresponding to the desired catalog item
     */
-    getCatalogItemByNumber(row: number): Observable<Record<string, unknown>> {
+    // getCatalogItemByNumber(row: number): Observable<Record<string, unknown>> {
 
-        const webAppUrl = this.getWebAppUrl();
-        if (!webAppUrl) {
-            return throwError(
-                () =>
-                    new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED')),
-            );
-        }
+    //     const webAppUrl = this.getWebAppUrl();
+    //     if (!webAppUrl) {
+    //         return throwError(
+    //             () =>
+    //                 new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED')),
+    //         );
+    //     }
 
-        const idToken = this.authService.idToken();
-        let endpoint = `${webAppUrl}?action=GET_SHEETS_NAMES&row=${encodeURIComponent(row)}`;
+    //     const idToken = localStorage.getItem(TOKEN_KEY);
+    //     let endpoint = `${webAppUrl}?action=GET_SHEETS_NAMES&row=${encodeURIComponent(row)}`;
 
-        if (idToken) {
-            endpoint += `&idToken=${encodeURIComponent(idToken)}`;
-        }
+    //     if (idToken) {
+    //         endpoint += `&idToken=${encodeURIComponent(idToken)}`;
+    //     }
 
-        const fetchPromise: Promise<Record<string, unknown>> = fetch(endpoint).then(
-            async (response) => {
-                if (!response.ok) {
-                    throw new Error(
-                        this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
-                            status: response.status,
-                        }),
-                    );
-                }
-                const data: unknown = await response.json();
-                this.captureRole(data);
-                return data as Record<string, unknown>;
-            },
-        );
+    //     const fetchPromise: Promise<Record<string, unknown>> = fetch(endpoint).then(
+    //         async (response) => {
+    //             if (!response.ok) {
+    //                 throw new Error(
+    //                     this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+    //                         status: response.status,
+    //                     }),
+    //                 );
+    //             }
+    //             const data: unknown = await response.json();
+    //             this.captureRole(data);
+    //             return data as Record<string, unknown>;
+    //         },
+    //     );
 
-        return from(fetchPromise);
-    }
+    //     return from(fetchPromise);
+    // }
 
 
     getWebAppUrl(): string {
@@ -313,6 +370,34 @@ export class GoogleAppScriptAPI {
 
     private isRecord(value: unknown): value is Record<string, unknown> {
         return typeof value === 'object' && value !== null && !Array.isArray(value);
+    }
+
+
+    private async postCatalogPayload<T>(payload: CatalogPostPayload | CloneCatalogPayload): Promise<CatalogResponseRaw<T>> {
+
+        const webAppUrl = this.getWebAppUrl();
+        const idToken = localStorage.getItem(TOKEN_KEY);
+
+        // 2. Attach token to payload
+        const authenticatedPayload = {
+            ...payload,
+            idToken: idToken
+        };
+
+        const response = await fetch(webAppUrl, {
+            method: 'POST',
+            redirect: 'follow', // Automatically follow GAS 302 redirects
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8' // Keeps simple POST, avoids CORS preflight
+            },
+            body: JSON.stringify(authenticatedPayload)
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data: unknown = await response.json();
+        this.captureRole(data);
+        return data as CatalogResponseRaw<T>;
     }
 
 }

@@ -10,7 +10,7 @@ import { CatalogRecord } from "../../../features/domain-1/catalog/models/catalog
 
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class CatalogGASRepository implements CatalogRepositoryInterface {
 
@@ -48,17 +48,62 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
         }
     }
 
-    createItem(item: CatalogRecord): CatalogResponse<CatalogRecord> {
-        throw new Error("Method not implemented.");
+    async createItem(item: CatalogRecord): Promise<CatalogResponse<CatalogRecord>> {
+        try {
+            const createResponse = await this.googleAppScriptApi.saveCatalogItem(item);
+
+            const response: CatalogResponse<CatalogRecord> = {
+                ...createResponse,
+                status: mapStatus(createResponse.status),
+                role: mapRole(createResponse.role),
+                data: getCatalogRecord(createResponse.data),
+            };
+            return response;
+        } catch (error) {
+            console.error('Failed to save catalog item:', error);
+            throw error;
+        }
+
     }
 
 
-    updateItem(item: CatalogRecord): CatalogResponse<CatalogRecord> {
-        throw new Error("Method not implemented.");
+    async updateItem(item: CatalogRecord): Promise<CatalogResponse<CatalogRecord>> {
+        return this.createItem(item);
     }
 
+    async cloneCatalog(sheetUrl: string): Promise<CatalogResponse<unknown>> {
+        try {
+            const cloneResponse = await this.googleAppScriptApi.cloneCatalog(sheetUrl);
 
-    deleteItem(catalogItemId: string): CatalogResponse<string> {
+            return {
+                ...cloneResponse,
+                status: mapStatus(cloneResponse.status),
+                role: mapRole(cloneResponse.role),
+            };
+        } catch (error) {
+            console.error('Failed to clone catalog:', error);
+            throw error;
+        }
+    }
+
+    async cloneCatalogItem(sheetUrl: string): Promise<CatalogResponse<CatalogRecord>> {
+        try {
+            const cloneResponse = await this.googleAppScriptApi.cloneCatalogItem(sheetUrl);
+
+            const response: CatalogResponse<CatalogRecord> = {
+                ...cloneResponse,
+                status: mapStatus(cloneResponse.status),
+                role: mapRole(cloneResponse.role),
+                data: getCatalogRecord(cloneResponse.data),
+            };
+            return response;
+        } catch (error) {
+            console.error('Failed to clone catalog item:', error);
+            throw error;
+        }
+    }
+
+    async deleteItem(catalogItemId: string): Promise<CatalogResponse<string>> {
         throw new Error("Method not implemented.");
     }
 

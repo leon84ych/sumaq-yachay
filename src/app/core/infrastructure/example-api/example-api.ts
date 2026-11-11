@@ -7,33 +7,38 @@ import { CatalogRepositoryInterface } from "../catalog-repository-interface";
  * Indexed implementation of all operations 
  */
 export class ExampleApi implements CatalogRepositoryInterface {
+    cloneCatalog(sheetUrl: string): Promise<CatalogResponse<unknown>> {
+        throw new Error("Method not implemented.");
+    }
     
     
-    getHealth(): Promise<string> {
+    async getHealth(): Promise<string> {
         throw new Error("Method not implemented.");
     }
 
 
-    getCatalogs(page: number, pageSize: number): Promise<CatalogResponse<PaginatedResponse<CatalogRecord>>> {
+    async getCatalogs(page: number, pageSize: number): Promise<CatalogResponse<PaginatedResponse<CatalogRecord>>> {
         throw new Error("Method not implemented.");
     }
 
 
-    createItem(item: CatalogRecord): CatalogResponse<CatalogRecord> {
+    async createItem(item: CatalogRecord): Promise<CatalogResponse<CatalogRecord>> {
         throw new Error("Method not implemented.");
     }
 
 
-    updateItem(item: CatalogRecord): CatalogResponse<CatalogRecord> {
+    async updateItem(item: CatalogRecord): Promise<CatalogResponse<CatalogRecord>> {
         throw new Error("Method not implemented.");
     }
 
 
-    deleteItem(catalogItemId: string): CatalogResponse<string> {
+    async deleteItem(catalogItemId: string): Promise<CatalogResponse<string>> {
         throw new Error("Method not implemented.");
     }
 
 
-
+    async getCatalogItem(id: string): Promise<CatalogResponse<CatalogRecord>> {
+        throw new Error("Method not implemented.");
+    }
 
 }

@@ -259,74 +259,49 @@ export class CatalogService {
  * HTTP POST: Optimistically save or update an item locally and push to Google Sheets
  */
   async saveItem(
-    itemInput: Omit<CatalogRecord, 'updatedAt' | 'syncStatus'>,
+    itemInput: Omit<CatalogRecord, 'updatedAt'>,
     isEdit: boolean,
     originalId?: string // Pass original ID to handle primary key renames during edits
   ): Promise<void> {
-    const localSampleDataEnabled = this.configService.isLocalSampleDataEnabled();
-    const localRow = localSampleDataEnabled && !itemInput.row
-      ? Math.max(0, ...this.items().map((existing) => existing.row)) + 1
-      : itemInput.row;
+
     const now = new Date().toISOString();
     const item: CatalogRecord = {
       ...itemInput,
-      row: localRow,
       updatedAt: now,
-      syncStatus: localSampleDataEnabled ? 'synced' : 'pending',
+      syncStatus: 'pending',
     };
-
-    // Handle key mutation in IndexedDB if the ID changed during an edit
-    if (isEdit && originalId && originalId !== item.id) {
-      // await this.dbService.db.catalogs.delete(originalId);
-      this.removeLocalItemInState(originalId); // Helper to clear state array
-    }
 
     const operation = this.globalLoadingService.begin();
 
-    // 1. Optimistic local update
-    // await this.dbService.db.catalogs.put(item);
-    this.updateLocalItemInState(item);
+    try {
+      // Delete item in update local 
+      if (isEdit && originalId) {
+        await this.deleteItem(originalId);
+      }
+      // Save or update the item locally
+      await this.localDBService.indexedDB.catalogs.put(item);
+      // Push the item to server
+      const createResponse = await this.catalogGASRepository.createItem(item);
+      // Merge server response with local item to create a synced item
+      const syncedItem: CatalogRecord = {
+        ...item,
+        id: createResponse.data?.id ?? item.id,
+        row: createResponse.data?.row ?? item.row,
+        syncStatus: createResponse.data?.syncStatus ?? item.syncStatus,
+        updatedAt: createResponse.data?.updatedAt ?? item.updatedAt,
+      };
+      // Update local record with server response
+      await this.localDBService.indexedDB.catalogs.put(syncedItem);
 
-    if (localSampleDataEnabled) {
+      // Return a new array: mutating in place would not notify the signal
+      this.items.update(items =>
+        items.some(i => i.id === syncedItem.id)
+          ? items.map(i => (i.id === syncedItem.id ? syncedItem : i))
+          : [...items, syncedItem],
+      );
+    } finally {
       this.globalLoadingService.end(operation);
-      return;
     }
-    throw new Error("Method not implemented.");
-    // // 2. Prepare POST payload for Apps Script
-    // const payload: CatalogPostPayload = {
-    //   action: isEdit ? 'UPDATE_CATALOG_ITEM' : 'CREATE_CATALOG_ITEM',
-    //   id: item.id,
-    //   row: item.row,
-    //   rowValues: mapCatalogRecordToRowValues(item),
-    // };
-
-    // // 3. Send over HTTP POST to GAS
-    // try {
-    //   const res = await firstValueFrom(this.apiService.saveCatalogRecord(payload));
-
-    //   if (res && res.status === 'success') {
-    //     const serverData = res.data || {};
-
-    //     const syncedItem: CatalogRecord = {
-    //       ...item,
-    //       row: serverData.row || item.row,
-    //       updatedAt: serverData.updatedAt || item.updatedAt,
-    //       syncStatus: serverData.syncStatus || 'synced',
-    //     };
-
-    //     await this.dbService.db.catalogs.put(syncedItem);
-    //     this.updateLocalItemInState(syncedItem);
-    //   } else {
-    //     throw new Error(res?.message || 'Remote save failed');
-    //   }
-    // } catch (err: unknown) {
-    //   console.error('Remote POST save failed, marked as error:', err);
-    //   const errorItem: CatalogRecord = { ...item, syncStatus: 'error' };
-    //   await this.dbService.db.catalogs.put(errorItem);
-    //   this.updateLocalItemInState(errorItem);
-    // } finally {
-    //   this.globalLoadingService.end(operation);
-    // }
   }
 
   async cloneCatalogRecordFromSheet(sheetUrl: string): Promise<boolean> {
@@ -339,30 +314,36 @@ export class CatalogService {
       return false;
     }
     if (this.isLoading()) return false;
-    throw new Error("Method not implemented.");
-    // const operation = this.globalLoadingService.begin();
-    // this.isLoading.set(true);
-    // this.errorMessage.set(null);
-    // try {
-    //   const payload: CloneCatalogRecordPayload = { action: 'CLONE_CATALOG_ITEM', SheetId: sheetUrl };
-    //   const response = await firstValueFrom(this.apiService.cloneCatalogRecord(payload));
-    //   if (response?.status !== 'success') {
-    //     throw new Error(response?.message || 'CATALOG.ERRORS.cloneItemFailed');
-    //   }
-    //   await this.syncFromRemote();
-    //   if (this.errorMessage()) {
-    //     this.errorMessage.set('CATALOG.ERRORS.cloneItemRefreshFailed');
-    //     return false;
-    //   }
-    //   return true;
-    // } catch (error: unknown) {
-    //   this.errorMessage.set(error instanceof Error && error.message
-    //     ? error.message : 'CATALOG.ERRORS.cloneItemFailed');
-    //   return false;
-    // } finally {
-    //   this.isLoading.set(false);
-    //   this.globalLoadingService.end(operation);
-    // }
+
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      // Clone the item on the server
+      const cloneResponse = await this.catalogGASRepository.cloneCatalogItem(sheetUrl);
+      if (cloneResponse.status !== Status.SUCCESS || !cloneResponse.data) {
+        throw new Error(cloneResponse.message || 'CATALOG.ERRORS.cloneItemFailed');
+      }
+      const clonedItem: CatalogRecord = { ...cloneResponse.data, syncStatus: 'synced' };
+      // Save the cloned record locally
+      await this.localDBService.indexedDB.catalogs.put(clonedItem);
+
+      // Return a new array so the signal notifies
+      this.items.update(items =>
+        items.some(i => i.id === clonedItem.id)
+          ? items.map(i => (i.id === clonedItem.id ? clonedItem : i))
+          : [...items, clonedItem],
+      );
+      return true;
+    } catch (error: unknown) {
+      this.errorMessage.set(error instanceof Error && error.message
+        ? error.message : 'CATALOG.ERRORS.cloneItemFailed');
+      return false;
+    } finally {
+      this.isLoading.set(false);
+      this.globalLoadingService.end(operation);
+    }
   }
 
   async addCatalogFromSheet(sheetUrl: string): Promise<boolean> {
@@ -370,40 +351,36 @@ export class CatalogService {
       this.errorMessage.set('CATALOG.ERRORS.copyCatalogUnavailable');
       return false;
     }
-    throw new Error("Method not implemented.");
-    // if (!this.authService.idToken()) {
-    //   this.errorMessage.set('CATALOG.ERRORS.authRequired');
-    //   return false;
-    // }
+    if (!this.authService.idToken()) {
+      this.errorMessage.set('CATALOG.ERRORS.authRequired');
+      return false;
+    }
 
-    // const operation = this.globalLoadingService.begin();
-    // this.isLoading.set(true);
-    // this.errorMessage.set(null);
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
 
-    // try {
-    //   const payload: CopyCatalogPayload = {
-    //     action: 'CLONE_CATALOG',
-    //     SheetId: sheetUrl,
-    //   };
-    //   const response = await firstValueFrom(this.apiService.copyCatalog(payload));
-    //   if (response?.status !== 'success') {
-    //     throw new Error(response?.message || 'Catalog copy failed');
-    //   }
-
-    //   await this.syncFromRemote();
-    //   return true;
-    // } catch (error: unknown) {
-    //   console.error('Google Sheet catalog request failed:', error);
-    //   this.errorMessage.set(
-    //     error instanceof Error && error.message
-    //       ? error.message
-    //       : 'CATALOG.ERRORS.copyCatalogFailed',
-    //   );
-    //   return false;
-    // } finally {
-    //   this.isLoading.set(false);
-    //   this.globalLoadingService.end(operation);
-    // }
+    try {
+      // Clone the whole catalog on the server
+      const response = await this.catalogGASRepository.cloneCatalog(sheetUrl);
+      if (response.status !== Status.SUCCESS) {
+        throw new Error(response.message || 'CATALOG.ERRORS.copyCatalogFailed');
+      }
+      // Reload the cloned rows into IndexedDB and the items signal
+      await this.syncFromRemote();
+      return !this.errorMessage();
+    } catch (error: unknown) {
+      console.error('Google Sheet catalog request failed:', error);
+      this.errorMessage.set(
+        error instanceof Error && error.message
+          ? error.message
+          : 'CATALOG.ERRORS.copyCatalogFailed',
+      );
+      return false;
+    } finally {
+      this.isLoading.set(false);
+      this.globalLoadingService.end(operation);
+    }
   }
 
   /**
@@ -421,7 +398,7 @@ export class CatalogService {
    * Delete item locally from IndexedDB
    */
   async deleteItem(id: string): Promise<void> {
-    //await this.dbService.db.catalogs.delete(id);
+    await this.localDBService.indexedDB.catalogs.delete(id);
     this.items.update((list) => list.filter((i) => i.id !== id));
   }
 
@@ -436,18 +413,6 @@ export class CatalogService {
 
   setShowActiveOnly(show: boolean): void {
     this.showActiveOnly.set(show);
-  }
-
-  private updateLocalItemInState(item: CatalogRecord): void {
-    this.items.update((list) => {
-      const index = list.findIndex((i) => i.id === item.id);
-      if (index >= 0) {
-        const copy = [...list];
-        copy[index] = item;
-        return copy;
-      }
-      return [item, ...list];
-    });
   }
 
   /**

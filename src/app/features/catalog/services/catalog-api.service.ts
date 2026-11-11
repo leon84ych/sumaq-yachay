@@ -115,59 +115,59 @@ export class CatalogApiService {
   }
 
   private postCatalogPayload(payload: CatalogPostPayload | CopyCatalogPayload | CloneCatalogItemPayload): Observable<any> {
-  if (this.config.isLocalSampleDataEnabled()) {
-    return throwError(() => new Error('Remote requests are disabled in LocalSampleData mode.'));
-  }
+    if (this.config.isLocalSampleDataEnabled()) {
+      return throwError(() => new Error('Remote requests are disabled in LocalSampleData mode.'));
+    }
 
-  const webAppUrl = this.config.getWebAppUrl();
-  const timeoutMs = this.config.getGasTimeoutMs();
+    const webAppUrl = this.config.getWebAppUrl();
+    const timeoutMs = this.config.getGasTimeoutMs();
 
-  // 1. Retrieve the token
-  const token = this.authService.idToken();
-  if (!token) {
-    return throwError(() => new Error('User is not authenticated with Google.'));
-  }
+    // 1. Retrieve the token
+    const token = this.authService.idToken();
+    if (!token) {
+      return throwError(() => new Error('User is not authenticated with Google.'));
+    }
 
-  // 2. Attach token to payload
-  const authenticatedPayload = {
-    ...payload,
-    idToken: token
-  };
+    // 2. Attach token to payload
+    const authenticatedPayload = {
+      ...payload,
+      idToken: token
+    };
 
-  const fetchPromise = new Promise((resolve, reject) => {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => {
-      controller.abort();
-      reject(new Error(`Google Apps Script call timed out after ${timeoutMs}ms.`));
-    }, timeoutMs);
+    const fetchPromise = new Promise((resolve, reject) => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => {
+        controller.abort();
+        reject(new Error(`Google Apps Script call timed out after ${timeoutMs}ms.`));
+      }, timeoutMs);
 
-    fetch(webAppUrl, {
-      method: 'POST',
-      redirect: 'follow', // Automatically follow GAS 302 redirects
-      signal: controller.signal,
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8' // Keeps simple POST, avoids CORS preflight
-      },
-      body: JSON.stringify(authenticatedPayload)
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json(); // Read and parse the actual JSON payload
+      fetch(webAppUrl, {
+        method: 'POST',
+        redirect: 'follow', // Automatically follow GAS 302 redirects
+        signal: controller.signal,
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8' // Keeps simple POST, avoids CORS preflight
+        },
+        body: JSON.stringify(authenticatedPayload)
       })
-      .then((data) => {
-        clearTimeout(timeoutId);
-        this.permissionService.setRole(data?.role);
-        resolve(data); // Returns { status: 'success', message: '...', data: { ... } }
-      })
-      .catch((err) => {
-        clearTimeout(timeoutId);
-        reject(err);
-      });
-  });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json(); // Read and parse the actual JSON payload
+        })
+        .then((data) => {
+          clearTimeout(timeoutId);
+          this.permissionService.setRole(data?.role);
+          resolve(data); // Returns { status: 'success', message: '...', data: { ... } }
+        })
+        .catch((err) => {
+          clearTimeout(timeoutId);
+          reject(err);
+        });
+    });
 
-  return from(fetchPromise);
-}
+    return from(fetchPromise);
+  }
 
 }

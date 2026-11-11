@@ -1,8 +1,8 @@
-import { Injectable, Injector, inject, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfigService } from '../../../core/services/config/config.service';
 import { PermissionService } from '../../../core/services/permission/permission.service';
-import { CatalogGASRepository } from '../../../core/infrastructure/gas/catalog-gas-repository';
+import { GoogleAppScriptAPI } from '../../../core/infrastructure/gas/google-app-script-api.service';
+import { TOKEN_KEY } from '../../../core/infrastructure/gas/gas-constants.constants';
 
 declare const google: any;
 
@@ -19,12 +19,8 @@ export class GoogleAuthService {
 
   private readonly router = inject(Router);
   private readonly permissionService = inject(PermissionService);
-  private readonly configService = inject(ConfigService);
+  private readonly googleAppScriptApi = inject(GoogleAppScriptAPI);
 
-  // Resolved lazily: the repository depends on this service (circular DI otherwise)
-  private readonly injector = inject(Injector);
-
-  private readonly TOKEN_KEY = 'g_id_token';
   private readonly storedToken = this.getStoredToken();
   private googleInitialized = false;
 
@@ -33,10 +29,7 @@ export class GoogleAuthService {
   readonly currentUser = signal<UserProfile | null>(this.decodeUserFromToken(this.storedToken));
 
   constructor() {
-    if (this.storedToken) {
-      // Refresh the role based on the stored token when the service is initialized
-      queueMicrotask(() => this.refreshRole());
-    }
+    this.googleAppScriptApi.getHealth().catch((err) => console.warn('Failed to load user role:', err));
   }
 
   initializeGoogleIdentity(clientId: string): void {
@@ -66,7 +59,7 @@ export class GoogleAuthService {
   }
 
   clearSession(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(TOKEN_KEY);
     this.idToken.set(null);
     this.currentUser.set(null);
     this.permissionService.setRole('guest');
@@ -83,32 +76,22 @@ export class GoogleAuthService {
       return;
     }
 
-    localStorage.setItem(this.TOKEN_KEY, token);
+    localStorage.setItem(TOKEN_KEY, token);
     this.idToken.set(token);
     this.currentUser.set(user);
-    
-    this.permissionService.setRole('guest');
-    
-    this.refreshRole();
-
+    //Takes care of refreshing the role based on Health response
+    this.googleAppScriptApi.getHealth().catch((err) => console.warn('Failed to load user role:', err));
     this.router.navigateByUrl('/catalog');
   }
 
 
-  //To avoid circular dependency issues, we use the injector to get the CatalogGASRepository instance when needed.
-  private refreshRole(): void {
-    this.injector
-      .get(CatalogGASRepository)
-      .getHealth()
-      .catch((err) => console.warn('Failed to load user role:', err));
-  }
 
   private getStoredToken(): string | null {
-    const token = localStorage.getItem(this.TOKEN_KEY);
+    const token = localStorage.getItem(TOKEN_KEY);
     const user = this.decodeUserFromToken(token);
 
     if (!user || this.isTokenExpired(token)) {
-      localStorage.removeItem(this.TOKEN_KEY);
+      localStorage.removeItem(TOKEN_KEY);
       return null;
     }
 
