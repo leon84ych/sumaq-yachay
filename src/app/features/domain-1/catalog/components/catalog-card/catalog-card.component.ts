@@ -18,6 +18,7 @@ export class CatalogCardComponent {
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
   readonly item = input.required<CatalogRecord>();
+  readonly highlighted = input(false);
   readonly progress = computed(() => {
     const { page, pages } = this.item();
     return pages > 0 ? Math.min(100, Math.max(0, Math.round((page / pages) * 100))) : 0;

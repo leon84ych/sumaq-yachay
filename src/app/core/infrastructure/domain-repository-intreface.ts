@@ -4,6 +4,13 @@
  */
 export interface DomainRepositoryInterface<T> {
 
+
+
+    /**
+     * Get the source of the domain items
+     */
+    getSource(row: number): Promise<any>;
+
     /**
      * Get the list of domain items avaiable
      */

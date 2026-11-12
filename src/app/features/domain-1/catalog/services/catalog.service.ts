@@ -38,6 +38,7 @@ export class CatalogService {
   readonly isLoading = signal<boolean>(false);
   readonly errorMessage = signal<string | null>(null);
   readonly lastSyncedAt = signal<string | null>(null);
+  readonly recentlyAddedId = signal<string | null>(null);
   private readonly relatedMatches = signal({ query: '', rows: new Set<number>() });
 
   // Computed Derived State
@@ -305,10 +306,6 @@ export class CatalogService {
   }
 
   async cloneCatalogRecordFromSheet(sheetUrl: string): Promise<boolean> {
-    if (this.configService.isLocalSampleDataEnabled()) {
-      this.errorMessage.set('CATALOG.ERRORS.cloneItemUnavailable');
-      return false;
-    }
     if (!this.authService.idToken()) {
       this.errorMessage.set('CATALOG.ERRORS.authRequired');
       return false;
@@ -325,16 +322,17 @@ export class CatalogService {
       if (cloneResponse.status !== Status.SUCCESS || !cloneResponse.data) {
         throw new Error(cloneResponse.message || 'CATALOG.ERRORS.cloneItemFailed');
       }
-      const clonedItem: CatalogRecord = { ...cloneResponse.data, syncStatus: 'synced' };
+      const clonedItem: CatalogRecord = { ...cloneResponse.data };
       // Save the cloned record locally
       await this.localDBService.indexedDB.catalogs.put(clonedItem);
 
-      // Return a new array so the signal notifies
-      this.items.update(items =>
-        items.some(i => i.id === clonedItem.id)
-          ? items.map(i => (i.id === clonedItem.id ? clonedItem : i))
-          : [...items, clonedItem],
-      );
+      // Show the new item first; a new array is needed so the signal notifies
+      this.items.update(items => [clonedItem, ...items.filter(i => i.id !== clonedItem.id)]);
+      // Clear filters that could hide the new item
+      this.selectedSubject.set('ALL');
+      this.searchQuery.set('');
+      this.showActiveOnly.set(false);
+      this.recentlyAddedId.set(clonedItem.id);
       return true;
     } catch (error: unknown) {
       this.errorMessage.set(error instanceof Error && error.message
@@ -383,6 +381,38 @@ export class CatalogService {
     }
   }
 
+
+  /**
+   * 
+   * @param sheetUrl Pending validation TODO 
+   * @returns 
+   */
+  async cloneCatalogItemFromSheet(sheetUrl: string): Promise<boolean> {
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      const response = await this.catalogGASRepository.cloneCatalogItem(sheetUrl);
+      if (response.status !== Status.SUCCESS) {
+        throw new Error(response.message || 'CATALOG.ERRORS.cloneItemFailed');
+      }
+      await this.syncFromRemote();
+      return !this.errorMessage();
+    } catch (error: unknown) {
+      console.error('Google Sheet catalog item request failed:', error);
+      this.errorMessage.set(
+        error instanceof Error && error.message
+          ? error.message
+          : 'CATALOG.ERRORS.cloneItemFailed',
+      );
+      return false;
+    } finally {
+      this.isLoading.set(false);
+      this.globalLoadingService.end(operation);
+    }
+  }
+
   /**
    * Toggle the active status of a catalog item
    */
@@ -392,6 +422,45 @@ export class CatalogService {
       active: !item.active,
     };
     await this.saveItem(updated, true);
+  }
+
+  /**
+   * HTTP POST: Delete the item on the server, then remove it locally only if that succeeded
+   */
+  async deleteCatalogRecord(item: CatalogRecord): Promise<boolean> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      await this.deleteItem(item.id);
+      return true;
+    }
+    if (!this.authService.idToken()) {
+      this.errorMessage.set('CATALOG.ERRORS.authRequired');
+      return false;
+    }
+    if (this.isLoading()) return false;
+
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      const response = await this.catalogGASRepository.deleteItem(item);
+      if (response.status !== Status.SUCCESS) {
+        throw new Error(response.message || 'CATALOG.ERRORS.deleteItemFailed');
+      }
+      await this.deleteItem(item.id);
+      return true;
+    } catch (error: unknown) {
+      console.error('Delete catalog item request failed:', error);
+      this.errorMessage.set(
+        error instanceof Error && error.message
+          ? error.message
+          : 'CATALOG.ERRORS.deleteItemFailed',
+      );
+      return false;
+    } finally {
+      this.isLoading.set(false);
+      this.globalLoadingService.end(operation);
+    }
   }
 
   /**

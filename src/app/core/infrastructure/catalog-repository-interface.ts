@@ -21,7 +21,7 @@ export interface CatalogRepositoryInterface {
     updateItem(item: CatalogRecord): Promise<CatalogResponse<CatalogRecord>>;
 
 
-    deleteItem(catalogItemId:string): Promise<CatalogResponse<string>>;
+    deleteItem(item: CatalogRecord): Promise<CatalogResponse<string>>;
 
 
     /**

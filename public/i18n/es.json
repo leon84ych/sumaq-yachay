@@ -98,7 +98,7 @@
       "INACTIVE": "Inactivo",
       "EDIT": "Editar",
       "DELETE": "Eliminar",
-      "DELETE_CONFIRM": "¿Estás seguro de que deseas eliminar esta fuente de datos del almacenamiento local?",
+      "DELETE_CONFIRM": "¿Estás seguro de que deseas eliminar esta fuente de datos?",
       "VIEW_SOURCE": "Fuente"
     },
     "SYNC_STATUS": {
@@ -167,6 +167,7 @@
       "copyCatalogFailed": "No se pudo clonar el catálogo maestro. Verifica la URL e inténtalo de nuevo.",
       "copyCatalogUnavailable": "Solo se puede clonar un catálogo maestro cuando el catálogo remoto está vacío.",
       "cloneItemFailed": "No se pudo clonar la hoja. Revisa la URL y los permisos de la fuente antes de volver a intentarlo.",
+      "deleteItemFailed": "No se pudo eliminar el elemento del catálogo. Inténtalo de nuevo.",
       "cloneItemUnavailable": "Clonar una hoja desde una URL no está disponible en el modo de datos de ejemplo locales.",
       "cloneItemRefreshFailed": "La hoja se clonó, pero no se pudo actualizar el catálogo. Cierra este diálogo y utiliza Sincronizar Remoto antes de intentar otra clonación.",
       "authRequired": "Inicia sesión con Google antes de realizar esta operación.",

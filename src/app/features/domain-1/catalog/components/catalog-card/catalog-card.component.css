@@ -222,3 +222,7 @@
   background: var(--error-light);
   border-color: var(--error);
 }
+.card.highlighted {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}

@@ -1,4 +1,4 @@
-<div class="card" [class.inactive]="!item().active" [routerLink]="['/catalog', item().id]">
+<div class="card" [class.inactive]="!item().active" [class.highlighted]="highlighted()" [routerLink]="['/catalog', item().id]">
   <!-- Card Header -->
   <div class="card-header">
     <div class="badges">

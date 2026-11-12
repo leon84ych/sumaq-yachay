@@ -125,7 +125,7 @@
       "INACTIVE": "Inactive",
       "EDIT": "Edit",
       "DELETE": "Delete",
-      "DELETE_CONFIRM": "Are you sure you want to remove this data source from local storage?",
+      "DELETE_CONFIRM": "Are you sure you want to remove this data source?",
       "VIEW_SOURCE": "Source"
     },
     "SYNC_STATUS": {
@@ -194,6 +194,7 @@
       "copyCatalogFailed": "The master catalog could not be cloned. Check the URL and try again.",
       "copyCatalogUnavailable": "A master catalog can only be cloned when the remote catalog is empty.",
       "cloneItemFailed": "The sheet could not be cloned. Check the URL and source permissions, then try again.",
+      "deleteItemFailed": "The catalog item could not be deleted. Try again.",
       "cloneItemUnavailable": "Cloning a sheet from a URL is not available in Local Sample Data mode.",
       "cloneItemRefreshFailed": "The sheet was cloned, but the catalog could not be refreshed. Close this dialog and use Sync Remote before attempting another clone.",
       "authRequired": "Sign in with Google before performing this operation.",

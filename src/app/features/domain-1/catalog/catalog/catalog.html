@@ -89,6 +89,7 @@
         @for (item of catalogService.filteredItems(); track item.id) {
           <app-catalog-card-1
             [item]="item"
+            [highlighted]="item.id === catalogService.recentlyAddedId()"
             (toggleActive)="handleToggleActive($event)"
             (edit)="openEditModal($event)"
             (delete)="handleDeleteItem($event)"

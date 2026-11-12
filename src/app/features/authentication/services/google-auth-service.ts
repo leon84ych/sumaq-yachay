@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { PermissionService } from '../../../core/services/permission/permission.service';
-import { GoogleAppScriptAPI } from '../../../core/infrastructure/gas/google-app-script-api.service';
+import { GASCatalogAPI } from '../../../core/infrastructure/gas/gas-catalog-api.service';
 import { TOKEN_KEY } from '../../../core/infrastructure/gas/gas-constants.constants';
 
 declare const google: any;
@@ -19,7 +19,7 @@ export class GoogleAuthService {
 
   private readonly router = inject(Router);
   private readonly permissionService = inject(PermissionService);
-  private readonly googleAppScriptApi = inject(GoogleAppScriptAPI);
+  private readonly googleAppScriptApi = inject(GASCatalogAPI);
 
   private readonly storedToken = this.getStoredToken();
   private googleInitialized = false;

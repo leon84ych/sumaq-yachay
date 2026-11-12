@@ -32,7 +32,7 @@ export class ExampleApi implements CatalogRepositoryInterface {
     }
 
 
-    async deleteItem(catalogItemId: string): Promise<CatalogResponse<string>> {
+    async deleteItem(item: CatalogRecord): Promise<CatalogResponse<string>> {
         throw new Error("Method not implemented.");
     }
 

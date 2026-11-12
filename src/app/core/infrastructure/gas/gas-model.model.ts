@@ -9,7 +9,7 @@
 /**
  * Response wrapper to all request to the server
  */
-export interface CatalogResponseRaw<T> extends Record<string, any> {
+export interface GASResponseRaw<T> extends Record<string, any> {
   status: string;
   message: string;
   email: string;
@@ -60,7 +60,7 @@ export type CatalogRowValues = [
   string,   //author     
   string,   //description
   string,   //source
-  boolean,   //active
+  boolean,  //active
   number,   //page
   number,   //pages
   string,   //updatedAt
@@ -88,6 +88,30 @@ export interface CloneCatalogPayload {
   SheetId: string;
 }
 
+export interface CloneCatalogItemPayload {
+  action: 'CLONE_CATALOG_ITEM';
+  SheetId: string;
+}
+export interface DeleteCatalogItemPayload {
+  action: 'DELETE_CATALOG_ITEM';
+  row: number;
+  id: string;
+}
+
+
+//-----------------------------------------------------------------
+
+/**
+ * Tabs of the Domain Data spreadsheet owned by a Catalog row
+ */
+export interface SheetNamesRaw {
+  sheets: Array<{
+    index: number;
+    name: string;
+    rows?: Record<string, unknown>[];
+  }>;
+}
+
 export interface DomainSheetRaw {
   row: number; // Owning Catalog entry row (local cache key, not sent to Sheets)
   id: string; // Tab name lowercased; second half of the [row+id] primary key
@@ -96,21 +120,21 @@ export interface DomainSheetRaw {
   rows: Record<string, unknown>[]; // Row objects keyed by column header
 }
 
-export interface CatalogItemRaw {
-  status: 'success' | 'error';
-  email?: string;
-  role?: string;
-  message?: string;
-  data: {
-    status: 'success' | 'error';
-    message?: string;
-    sheets: Array<{
-      index: number;
-      name: string;
-      rows: Record<string, unknown>[];
-    }>;
-  };
-}
+// export interface CatalogItemRaw {
+//   status: 'success' | 'error';
+//   email?: string;
+//   role?: string;
+//   message?: string;
+//   data: {
+//     status: 'success' | 'error';
+//     message?: string;
+//     sheets: Array<{
+//       index: number;
+//       name: string;
+//       rows: Record<string, unknown>[];
+//     }>;
+//   };
+// }
 
 export interface PaginatedDomainResponseRaw {
   row: number;

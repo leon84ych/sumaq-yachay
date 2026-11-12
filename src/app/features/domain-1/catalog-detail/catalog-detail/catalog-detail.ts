@@ -50,9 +50,9 @@ export class CatalogDetail {
 
   readonly activeSheetName = signal<string | null>(null);
 
-  // readonly activeSheet = computed(
-  //   () => this.domainDataService.sheets().find((s) => s.name === this.activeSheetName()) ?? null,
-  // );
+  readonly activeSheet = computed(
+    () => this.domainDataService.sheets().find((s) => s.name === this.activeSheetName()) ?? null,
+  );
 
   readonly isAddingEntry = signal<boolean>(false);
   readonly isAddingDomain = signal(false);
@@ -66,21 +66,21 @@ export class CatalogDetail {
 
   constructor() {
     // Load the entry's Domain Data Sheets whenever the routed id changes.
-    // effect(() => {
-    //   const row = this.item()?.row;
-    //   if (row !== undefined && row !== null) {
-    //     this.activeSheetName.set(null);
-    //     void this.domainDataService.loadForCatalog(row);
-    //   }
-    // });
+    effect(() => {
+      const row = this.item()?.row;
+      if (row !== undefined && row !== null) {
+        this.activeSheetName.set(null);
+        void this.domainDataService.loadForCatalog(row);
+      }
+    });
 
-    // // Default to the first available sheet tab once sheets arrive.
-    // effect(() => {
-    //   const names = this.domainDataService.sheetNames();
-    //   if (names.length > 0 && !this.activeSheetName()) {
-    //     this.activeSheetName.set(names[0]);
-    //   }
-    // });
+    // Default to the first available sheet tab once sheets arrive.
+    effect(() => {
+      const names = this.domainDataService.sheetNames();
+      if (names.length > 0 && !this.activeSheetName()) {
+        this.activeSheetName.set(names[0]);
+      }
+    });
   }
 
   selectTab(name: string): void {
@@ -98,17 +98,17 @@ export class CatalogDetail {
     }
 
     this.isCreatingDomain.set(true);
-    // try {
-    //   await this.domainDataService.createDomainSheet(domainName, [
-    //     ...getDefaultHeadersForDomain(domainName),
-    //   ]);
-    //   this.activeSheetName.set(domainName);
-    // } catch (error) {
-    //   const message = error instanceof Error ? error.message : 'Failed to create domain sheet.';
-    //   this.globalErrorService.show(message);
-    // } finally {
-    //   this.isCreatingDomain.set(false);
-    //   this.isAddingDomain.set(false);
-    // }
+    try {
+      await this.domainDataService.createDomainSheet(domainName, [
+        ...getDefaultHeadersForDomain(domainName),
+      ]);
+      this.activeSheetName.set(domainName);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to create domain sheet.';
+      this.globalErrorService.show(message);
+    } finally {
+      this.isCreatingDomain.set(false);
+      this.isAddingDomain.set(false);
+    }
   }
 }

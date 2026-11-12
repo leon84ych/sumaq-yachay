@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { CatalogRepositoryInterface } from "../catalog-repository-interface";
-import { GoogleAppScriptAPI } from "./google-app-script-api.service";
+import { GASCatalogAPI } from "./gas-catalog-api.service";
 import { getCatalogRecord } from "./gas-mapper.mapper";
 
 import { CatalogResponse, PaginatedResponse, Role, Status } from "../../../features/domain-1/shared/model/domain-shared-model";
@@ -14,11 +14,11 @@ import { CatalogRecord } from "../../../features/domain-1/catalog/models/catalog
 })
 export class CatalogGASRepository implements CatalogRepositoryInterface {
 
-    private googleAppScriptApi = inject(GoogleAppScriptAPI);
+    private gasCatalogApi = inject(GASCatalogAPI);
 
     async getHealth(): Promise<string> {
         try {
-            return await this.googleAppScriptApi.getHealth();
+            return await this.gasCatalogApi.getHealth();
         } catch (error) {
             console.error('Failed to get health:', error);
             throw error;
@@ -27,7 +27,7 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
 
     async getCatalogs(page: number, pageSize: number): Promise<CatalogResponse<PaginatedResponse<CatalogRecord>>> {
         try {
-            const catalogResponseRow = await this.googleAppScriptApi.getCatalog(page, pageSize);
+            const catalogResponseRow = await this.gasCatalogApi.getCatalog(page, pageSize);
 
             const data = catalogResponseRow.data.rows.map((row: CatalogRaw) => getCatalogRecord(row));
 
@@ -50,7 +50,7 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
 
     async createItem(item: CatalogRecord): Promise<CatalogResponse<CatalogRecord>> {
         try {
-            const createResponse = await this.googleAppScriptApi.saveCatalogItem(item);
+            const createResponse = await this.gasCatalogApi.saveCatalogItem(item);
 
             const response: CatalogResponse<CatalogRecord> = {
                 ...createResponse,
@@ -73,7 +73,7 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
 
     async cloneCatalog(sheetUrl: string): Promise<CatalogResponse<unknown>> {
         try {
-            const cloneResponse = await this.googleAppScriptApi.cloneCatalog(sheetUrl);
+            const cloneResponse = await this.gasCatalogApi.cloneCatalog(sheetUrl);
 
             return {
                 ...cloneResponse,
@@ -88,7 +88,7 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
 
     async cloneCatalogItem(sheetUrl: string): Promise<CatalogResponse<CatalogRecord>> {
         try {
-            const cloneResponse = await this.googleAppScriptApi.cloneCatalogItem(sheetUrl);
+            const cloneResponse = await this.gasCatalogApi.cloneCatalogItem(sheetUrl);
 
             const response: CatalogResponse<CatalogRecord> = {
                 ...cloneResponse,
@@ -103,8 +103,19 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
         }
     }
 
-    async deleteItem(catalogItemId: string): Promise<CatalogResponse<string>> {
-        throw new Error("Method not implemented.");
+    async deleteItem(item: CatalogRecord): Promise<CatalogResponse<string>> {
+        try {
+            const deleteResponse = await this.gasCatalogApi.deleteCatalogItem(item.row, item.id);
+
+            return {
+                ...deleteResponse,
+                status: mapStatus(deleteResponse.status),
+                role: mapRole(deleteResponse.role),
+            };
+        } catch (error) {
+            console.error('Failed to delete catalog item:', error);
+            throw error;
+        }
     }
 
     getCatalogItem(id: string): Promise<unknown> {

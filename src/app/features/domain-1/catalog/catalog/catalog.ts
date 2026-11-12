@@ -79,8 +79,7 @@ export class Catalog {
   }
 
   async handleCloneSource(sheetUrl: string): Promise<void> {
-    throw new Error("Method not implemented.");
-    //if (await this.catalogService.cloneCatalogItemFromSheet(sheetUrl)) this.closeModal();
+    if (await this.catalogService.cloneCatalogRecordFromSheet(sheetUrl)) this.closeModal();
   }
 
   async handleAddCatalog(event: { sheetUrl: string }): Promise<void> {
@@ -95,8 +94,9 @@ export class Catalog {
 
   async handleDeleteItem(id: string): Promise<void> {
     const confirmMsg = this.transloco.translate('CATALOG.CARD.DELETE_CONFIRM');
-    if (confirm(confirmMsg)) {
-      await this.catalogService.deleteItem(id);
+    const item = this.catalogService.items().find((i) => i.id === id);
+    if (item && confirm(confirmMsg)) {
+      await this.catalogService.deleteCatalogRecord(item);
     }
   }
 
