@@ -1,51 +1,44 @@
 import { effect, Injectable, computed, inject, signal } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { CatalogRecord } from '../models/catalog-item.model';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
-import { ConfigService } from '../../../core/services/config/config.service';
-import { CatalogApiService } from './catalog-api.service';
-import { CatalogItem } from '../models/catalog-item.model';
-import { CatalogPostPayload, CloneCatalogItemPayload, CopyCatalogPayload } from '../models/catalog-api.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
+import { ConfigService } from '../../../core/services/config/config.service';
 import { GlobalLoadingService } from '../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../core/services/permission/permission.service';
-import { mapCatalogItemToRowValues } from './catalog-row-values';
 import { StudySearchService } from '../../../core/services/search/study-search.service';
 import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
+import { CatalogGASRepository } from '../../../core/infrastructure/gas/catalog-gas-repository';
+import { LocalDBService } from '../../../shared/local-db/local-db.service';
+import { Status } from '../../domain-1/shared/model/domain-shared-model';
+
 
 const CONTENT_SEARCH_TERMS: Record<string, string[]> = {
   indexTopics: ['index', 'índice'],
-  concepts: ['concepts', 'conceptos'],
-  quotes: ['quotes', 'citas'],
-  passages: ['passages', 'pasajes'],
-  characters: ['character', 'characters', 'personaje', 'personajes'],
-  places: ['places', 'lugar', 'lugares'],
-  bookEvents: ['book events', 'book_events', 'events', 'eventos'],
-  relationsCharacters: ['relations', 'relationships', 'relaciones'],
-  relationsConcepts: ['associations', 'concept relationships', 'asociaciones'],
-  glosary: ['glosary', 'glossary', 'glosario'],
-  questions: ['questions', 'preguntas'],
-  bookTags: [],
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class CatalogService {
-  private dbService = inject(AppDbService);
-  private apiService = inject(CatalogApiService);
+
   private authService = inject(GoogleAuthService);
   private configService = inject(ConfigService);
   private globalLoadingService = inject(GlobalLoadingService);
   private permissionService = inject(PermissionService);
 
+
+  private catalogGASRepository = inject(CatalogGASRepository);
+  private localDBService = inject(LocalDBService);
+
   // State Signals
-  readonly items = signal<CatalogItem[]>([]);
+  readonly items = signal<CatalogRecord[]>([]);
   readonly selectedSubject = signal<string>('ALL');
   readonly searchQuery = inject(StudySearchService).query;
   readonly showActiveOnly = signal<boolean>(false);
   readonly isLoading = signal<boolean>(false);
   readonly errorMessage = signal<string | null>(null);
   readonly lastSyncedAt = signal<string | null>(null);
+  readonly recentlyAddedId = signal<string | null>(null);
   private readonly relatedMatches = signal({ query: '', rows: new Set<number>() });
 
   // Computed Derived State
@@ -122,11 +115,7 @@ export class CatalogService {
         void this.loadLocalSampleData();
         return;
       }
-
-      const token = this.authService.idToken();
-      if (!token) return;
-
-      void this.syncFromRemote();
+      void this.loadFromLocal();
     });
 
     if (!this.configService.isLocalSampleDataEnabled()) {
@@ -138,7 +127,7 @@ export class CatalogService {
     const matches = new Set<number>();
     const search = parseStudySearch(query);
     const catalogByRow = new Map(this.items().map((item) => [item.row, item]));
-    const tables = (this.dbService.db.tables ?? [])
+    const tables = (this.localDBService.indexedDB.tables ?? [])
       .filter((table) => Object.hasOwn(CONTENT_SEARCH_TERMS, table.name));
     await Promise.all(tables.map(async (table) => {
       const rows = await table.toArray() as Record<string, unknown>[];
@@ -172,7 +161,8 @@ export class CatalogService {
   private async loadLocalSampleData(): Promise<void> {
     this.isLoading.set(true);
     try {
-      await this.dbService.seedLocalSampleData();
+      // Seed local sample data
+      //await this.localDBService.seedLocalSampleData();
       await this.loadFromLocal();
     } catch (err) {
       this.errorMessage.set('CATALOG.ERRORS.syncFailed');
@@ -182,23 +172,15 @@ export class CatalogService {
     }
   }
 
+
   /**
    * Load stored items from IndexedDB
    */
   async loadFromLocal(): Promise<void> {
     this.isLoading.set(true);
     try {
-      const localItems = await this.dbService.db.catalogs.toArray();
-      const generatedSampleIds = new Set(['cat-tech-01', 'cat-phil-01']);
-      const userItems = localItems.filter((item) => !generatedSampleIds.has(item.id));
-
-      if (userItems.length !== localItems.length) {
-        await this.dbService.db.catalogs.bulkDelete(
-          localItems.filter((item) => generatedSampleIds.has(item.id)).map((item) => item.id)
-        );
-      }
-
-      this.items.set(userItems);
+      const localItems = await this.localDBService.indexedDB.catalogs.toArray();
+      this.items.set(localItems);
     } catch (err) {
       console.error('Failed to load catalogs from IndexedDB:', err);
     } finally {
@@ -223,39 +205,46 @@ export class CatalogService {
     const operation = this.globalLoadingService.begin();
     this.isLoading.set(true);
     this.errorMessage.set(null);
-
     try {
-      const response = await firstValueFrom(this.apiService.getCatalog());
-      if (response && response.status === 'success' && Array.isArray(response.data)) {
-        if (response.data.length === 0) {
-          await this.dbService.clearAllTables();
+      const pageSize = 2;
+      let page = 1;
+      let totalPages = 1;
+      //clear local data
+      await this.localDBService.indexedDB.catalogs.clear();
+      this.items.set([]);
 
-          this.items.set([]);
-          this.lastSyncedAt.set(new Date().toLocaleTimeString());
-          return;
-        }
-
-        const normalized: CatalogItem[] = response.data.map((item) => ({
-          ...item,
-          syncStatus: 'synced',
-        }));
-
-        await this.dbService.db.transaction('rw', this.dbService.db.catalogs, async () => {
-          await this.dbService.db.catalogs.clear();
-          await this.dbService.db.catalogs.bulkPut(normalized);
-        });
-
-        this.items.set(normalized);
-        this.lastSyncedAt.set(new Date().toLocaleTimeString());
-      } else {
-        const message = typeof response?.message === 'string' ? response.message : '';
-        if (response?.status === 'error' && message.includes('Invalid or expired Google token')) {
+      while (page <= totalPages) {
+        const response = await this.catalogGASRepository.getCatalogs(page, pageSize);
+        const message = typeof response.message === 'string' ? response.message : '';
+        if (
+          response.status === Status.ERROR &&
+          message.includes('Invalid or expired Google token')
+        ) {
           console.warn('Google token expired; logging the user out.');
           this.authService.logout();
         }
 
-        throw new Error(message || 'CATALOG.ERRORS.malformedCatalog');
+        if (response.status !== 'success' || !Array.isArray(response.data.rows)) {
+          throw new Error(message || 'CATALOG.ERRORS.malformedCatalog');
+        }
+        //progressively update the items signal with each page of data
+        this.items.update(items => [...items, ...response.data.rows]);
+        //remove loading after first page successfuly retrieved
+        this.globalLoadingService.end(operation);
+        this.isLoading.set(false);
+        totalPages = response.data.totalPages;
+        page++;
       }
+
+      this.lastSyncedAt.set(new Date().toLocaleTimeString());
+
+      //save all items in IndexedDB
+      await this.localDBService.indexedDB.transaction('rw', this.localDBService.indexedDB.catalogs, async () => {
+        await this.localDBService.indexedDB.catalogs.clear();
+        await this.localDBService.indexedDB.catalogs.bulkPut(this.items());
+      });
+
+
     } catch (err: unknown) {
       this.errorMessage.set('CATALOG.ERRORS.syncFailed');
       console.warn('Sync from remote failed; maintaining local cache:', err);
@@ -271,81 +260,52 @@ export class CatalogService {
  * HTTP POST: Optimistically save or update an item locally and push to Google Sheets
  */
   async saveItem(
-    itemInput: Omit<CatalogItem, 'updatedAt' | 'syncStatus'>,
+    itemInput: Omit<CatalogRecord, 'updatedAt'>,
     isEdit: boolean,
     originalId?: string // Pass original ID to handle primary key renames during edits
   ): Promise<void> {
-    const localSampleDataEnabled = this.configService.isLocalSampleDataEnabled();
-    const localRow = localSampleDataEnabled && !itemInput.row
-      ? Math.max(0, ...this.items().map((existing) => existing.row)) + 1
-      : itemInput.row;
-    const now = new Date().toISOString();
-    const item: CatalogItem = {
-      ...itemInput,
-      row: localRow,
-      updatedAt: now,
-      syncStatus: localSampleDataEnabled ? 'synced' : 'pending',
-    };
 
-    // Handle key mutation in IndexedDB if the ID changed during an edit
-    if (isEdit && originalId && originalId !== item.id) {
-      await this.dbService.db.catalogs.delete(originalId);
-      this.removeLocalItemInState(originalId); // Helper to clear state array
-    }
+    const now = new Date().toISOString();
+    const item: CatalogRecord = {
+      ...itemInput,
+      updatedAt: now,
+      syncStatus: 'pending',
+    };
 
     const operation = this.globalLoadingService.begin();
 
-    // 1. Optimistic local update
-    await this.dbService.db.catalogs.put(item);
-    this.updateLocalItemInState(item);
-
-    if (localSampleDataEnabled) {
-      this.globalLoadingService.end(operation);
-      return;
-    }
-
-    // 2. Prepare POST payload for Apps Script
-    const payload: CatalogPostPayload = {
-      action: isEdit ? 'UPDATE_CATALOG_ITEM' : 'CREATE_CATALOG_ITEM',
-      id: item.id,
-      row: item.row,
-      rowValues: mapCatalogItemToRowValues(item),
-    };
-
-    // 3. Send over HTTP POST to GAS
     try {
-      const res = await firstValueFrom(this.apiService.saveCatalogItem(payload));
-
-      if (res && res.status === 'success') {
-        const serverData = res.data || {};
-
-        const syncedItem: CatalogItem = {
-          ...item,
-          row: serverData.row || item.row,
-          updatedAt: serverData.updatedAt || item.updatedAt,
-          syncStatus: serverData.syncStatus || 'synced',
-        };
-
-        await this.dbService.db.catalogs.put(syncedItem);
-        this.updateLocalItemInState(syncedItem);
-      } else {
-        throw new Error(res?.message || 'Remote save failed');
+      // Delete item in update local 
+      if (isEdit && originalId) {
+        await this.deleteItem(originalId);
       }
-    } catch (err: unknown) {
-      console.error('Remote POST save failed, marked as error:', err);
-      const errorItem: CatalogItem = { ...item, syncStatus: 'error' };
-      await this.dbService.db.catalogs.put(errorItem);
-      this.updateLocalItemInState(errorItem);
+      // Save or update the item locally
+      await this.localDBService.indexedDB.catalogs.put(item);
+      // Push the item to server
+      const createResponse = await this.catalogGASRepository.createItem(item);
+      // Merge server response with local item to create a synced item
+      const syncedItem: CatalogRecord = {
+        ...item,
+        id: createResponse.data?.id ?? item.id,
+        row: createResponse.data?.row ?? item.row,
+        syncStatus: createResponse.data?.syncStatus ?? item.syncStatus,
+        updatedAt: createResponse.data?.updatedAt ?? item.updatedAt,
+      };
+      // Update local record with server response
+      await this.localDBService.indexedDB.catalogs.put(syncedItem);
+
+      // Return a new array: mutating in place would not notify the signal
+      this.items.update(items =>
+        items.some(i => i.id === syncedItem.id)
+          ? items.map(i => (i.id === syncedItem.id ? syncedItem : i))
+          : [...items, syncedItem],
+      );
     } finally {
       this.globalLoadingService.end(operation);
     }
   }
 
-  async cloneCatalogItemFromSheet(sheetUrl: string): Promise<boolean> {
-    if (this.configService.isLocalSampleDataEnabled()) {
-      this.errorMessage.set('CATALOG.ERRORS.cloneItemUnavailable');
-      return false;
-    }
+  async cloneCatalogRecordFromSheet(sheetUrl: string): Promise<boolean> {
     if (!this.authService.idToken()) {
       this.errorMessage.set('CATALOG.ERRORS.authRequired');
       return false;
@@ -355,17 +315,24 @@ export class CatalogService {
     const operation = this.globalLoadingService.begin();
     this.isLoading.set(true);
     this.errorMessage.set(null);
+
     try {
-      const payload: CloneCatalogItemPayload = { action: 'CLONE_CATALOG_ITEM', SheetId: sheetUrl };
-      const response = await firstValueFrom(this.apiService.cloneCatalogItem(payload));
-      if (response?.status !== 'success') {
-        throw new Error(response?.message || 'CATALOG.ERRORS.cloneItemFailed');
+      // Clone the item on the server
+      const cloneResponse = await this.catalogGASRepository.cloneCatalogItem(sheetUrl);
+      if (cloneResponse.status !== Status.SUCCESS || !cloneResponse.data) {
+        throw new Error(cloneResponse.message || 'CATALOG.ERRORS.cloneItemFailed');
       }
-      await this.syncFromRemote();
-      if (this.errorMessage()) {
-        this.errorMessage.set('CATALOG.ERRORS.cloneItemRefreshFailed');
-        return false;
-      }
+      const clonedItem: CatalogRecord = { ...cloneResponse.data };
+      // Save the cloned record locally
+      await this.localDBService.indexedDB.catalogs.put(clonedItem);
+
+      // Show the new item first; a new array is needed so the signal notifies
+      this.items.update(items => [clonedItem, ...items.filter(i => i.id !== clonedItem.id)]);
+      // Clear filters that could hide the new item
+      this.selectedSubject.set('ALL');
+      this.searchQuery.set('');
+      this.showActiveOnly.set(false);
+      this.recentlyAddedId.set(clonedItem.id);
       return true;
     } catch (error: unknown) {
       this.errorMessage.set(error instanceof Error && error.message
@@ -382,7 +349,6 @@ export class CatalogService {
       this.errorMessage.set('CATALOG.ERRORS.copyCatalogUnavailable');
       return false;
     }
-
     if (!this.authService.idToken()) {
       this.errorMessage.set('CATALOG.ERRORS.authRequired');
       return false;
@@ -393,17 +359,14 @@ export class CatalogService {
     this.errorMessage.set(null);
 
     try {
-      const payload: CopyCatalogPayload = {
-        action: 'CLONE_CATALOG',
-        SheetId: sheetUrl,
-      };
-      const response = await firstValueFrom(this.apiService.copyCatalog(payload));
-      if (response?.status !== 'success') {
-        throw new Error(response?.message || 'Catalog copy failed');
+      // Clone the whole catalog on the server
+      const response = await this.catalogGASRepository.cloneCatalog(sheetUrl);
+      if (response.status !== Status.SUCCESS) {
+        throw new Error(response.message || 'CATALOG.ERRORS.copyCatalogFailed');
       }
-
+      // Reload the cloned rows into IndexedDB and the items signal
       await this.syncFromRemote();
-      return true;
+      return !this.errorMessage();
     } catch (error: unknown) {
       console.error('Google Sheet catalog request failed:', error);
       this.errorMessage.set(
@@ -418,11 +381,43 @@ export class CatalogService {
     }
   }
 
+
+  /**
+   * 
+   * @param sheetUrl Pending validation TODO 
+   * @returns 
+   */
+  async cloneCatalogItemFromSheet(sheetUrl: string): Promise<boolean> {
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      const response = await this.catalogGASRepository.cloneCatalogItem(sheetUrl);
+      if (response.status !== Status.SUCCESS) {
+        throw new Error(response.message || 'CATALOG.ERRORS.cloneItemFailed');
+      }
+      await this.syncFromRemote();
+      return !this.errorMessage();
+    } catch (error: unknown) {
+      console.error('Google Sheet catalog item request failed:', error);
+      this.errorMessage.set(
+        error instanceof Error && error.message
+          ? error.message
+          : 'CATALOG.ERRORS.cloneItemFailed',
+      );
+      return false;
+    } finally {
+      this.isLoading.set(false);
+      this.globalLoadingService.end(operation);
+    }
+  }
+
   /**
    * Toggle the active status of a catalog item
    */
-  async toggleActive(item: CatalogItem): Promise<void> {
-    const updated: CatalogItem = {
+  async toggleActive(item: CatalogRecord): Promise<void> {
+    const updated: CatalogRecord = {
       ...item,
       active: !item.active,
     };
@@ -430,10 +425,49 @@ export class CatalogService {
   }
 
   /**
+   * HTTP POST: Delete the item on the server, then remove it locally only if that succeeded
+   */
+  async deleteCatalogRecord(item: CatalogRecord): Promise<boolean> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      await this.deleteItem(item.id);
+      return true;
+    }
+    if (!this.authService.idToken()) {
+      this.errorMessage.set('CATALOG.ERRORS.authRequired');
+      return false;
+    }
+    if (this.isLoading()) return false;
+
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      const response = await this.catalogGASRepository.deleteItem(item);
+      if (response.status !== Status.SUCCESS) {
+        throw new Error(response.message || 'CATALOG.ERRORS.deleteItemFailed');
+      }
+      await this.deleteItem(item.id);
+      return true;
+    } catch (error: unknown) {
+      console.error('Delete catalog item request failed:', error);
+      this.errorMessage.set(
+        error instanceof Error && error.message
+          ? error.message
+          : 'CATALOG.ERRORS.deleteItemFailed',
+      );
+      return false;
+    } finally {
+      this.isLoading.set(false);
+      this.globalLoadingService.end(operation);
+    }
+  }
+
+  /**
    * Delete item locally from IndexedDB
    */
   async deleteItem(id: string): Promise<void> {
-    await this.dbService.db.catalogs.delete(id);
+    await this.localDBService.indexedDB.catalogs.delete(id);
     this.items.update((list) => list.filter((i) => i.id !== id));
   }
 
@@ -448,18 +482,6 @@ export class CatalogService {
 
   setShowActiveOnly(show: boolean): void {
     this.showActiveOnly.set(show);
-  }
-
-  private updateLocalItemInState(item: CatalogItem): void {
-    this.items.update((list) => {
-      const index = list.findIndex((i) => i.id === item.id);
-      if (index >= 0) {
-        const copy = [...list];
-        copy[index] = item;
-        return copy;
-      }
-      return [item, ...list];
-    });
   }
 
   /**

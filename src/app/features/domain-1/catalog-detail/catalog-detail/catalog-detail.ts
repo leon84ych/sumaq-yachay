@@ -4,26 +4,24 @@ import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslocoPipe } from '@jsverse/transloco';
 
-import { CatalogOverviewComponent } from '../components/catalog-overview/catalog-overview.component';
 import { CatalogSheetTabsComponent } from '../components/catalog-sheet-tabs/catalog-sheet-tabs.component';
-import { SheetViewResolverComponent } from '../components/sheet-view-resolver/sheet-view-resolver.component';
+import { DomainViewResolverComponent } from '../components/domain-view-resolver/domain-view-resolver.component';
 import { DomainDataService } from '../services/domain-data.service';
 import { ALL_AVAILABLE_DOMAINS, getDefaultHeadersForDomain } from '../models/domain-sheet-config';
-import { CatalogService } from '../../catalog/services/catalog.service';
+import { CatalogService } from '../../../catalog/services/catalog.service';
 import { ConfigService } from '../../../../core/services/config/config.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
 
 
 @Component({
-  selector: 'app-catalog-detail-1',
+  selector: 'app-catalog-detail',
   standalone: true,
   imports: [
     CommonModule,
     TranslocoPipe,
-    CatalogOverviewComponent,
     CatalogSheetTabsComponent,
-    SheetViewResolverComponent,
+    DomainViewResolverComponent,
   ],
   templateUrl: './catalog-detail.html',
   styleUrl: './catalog-detail.css',
@@ -48,10 +46,10 @@ export class CatalogDetail {
     () => this.catalogService.items().find((i) => i.id === this.itemId()) ?? null,
   );
 
-  readonly activeSheetName = signal<string | null>(null);
+  readonly activeDomainName = signal<string | null>(null);
 
-  readonly activeSheet = computed(
-    () => this.domainDataService.sheets().find((s) => s.name === this.activeSheetName()) ?? null,
+  readonly activeDomain = computed(
+    () => this.domainDataService.domainsInfo().find((s) => s.id === this.activeDomainName()) ?? null,
   );
 
   readonly isAddingEntry = signal<boolean>(false);
@@ -59,7 +57,7 @@ export class CatalogDetail {
   readonly isCreatingDomain = signal(false);
   readonly availableDomains = computed(() => {
      const existingDomains = new Set(
-       this.domainDataService.sheetNames().map((name) => name.toUpperCase()),
+       this.domainDataService.domainsInfo().map((domain) => domain.id.toUpperCase()),
      );
     return ALL_AVAILABLE_DOMAINS.filter((domain) => !existingDomains.has(domain));
   });
@@ -69,22 +67,22 @@ export class CatalogDetail {
     effect(() => {
       const row = this.item()?.row;
       if (row !== undefined && row !== null) {
-        this.activeSheetName.set(null);
+        this.activeDomainName.set(null);
         void this.domainDataService.loadForCatalog(row);
       }
     });
 
     // Default to the first available sheet tab once sheets arrive.
     effect(() => {
-      const names = this.domainDataService.sheetNames();
-      if (names.length > 0 && !this.activeSheetName()) {
-        this.activeSheetName.set(names[0]);
+      const names = this.domainDataService.domainsNames();
+      if (names.length > 0 && !this.activeDomainName()) {
+        this.activeDomainName.set(names[0]);
       }
     });
   }
 
   selectTab(name: string): void {
-    this.activeSheetName.set(name);
+    this.activeDomainName.set(name);
   }
 
 
@@ -102,7 +100,7 @@ export class CatalogDetail {
       await this.domainDataService.createDomainSheet(domainName, [
         ...getDefaultHeadersForDomain(domainName),
       ]);
-      this.activeSheetName.set(domainName);
+      this.activeDomainName.set(domainName);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to create domain sheet.';
       this.globalErrorService.show(message);

@@ -76,6 +76,15 @@ app-sheet-view-resolver {
   color: var(--text-secondary, #666);
 }
 
+.overview {
+  padding: 0 0 1rem;
+}
+
+.overview-title {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
 @media (max-width: 640px) {
   .detail-page {
     padding: 1rem;

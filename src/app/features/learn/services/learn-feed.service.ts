@@ -173,16 +173,16 @@ export class LearnFeedService {
 
     for (const [domain, rows] of domainRows) {
       for (const sourceRow of rows as unknown as Record<string, unknown>[]) {
-        const catalogItem = catalogByRow.get(Number(sourceRow['row']));
-        if (!catalogItem) {
+        const catalogRecord = catalogByRow.get(Number(sourceRow['row']));
+        if (!catalogRecord) {
           continue;
         }
 
         const entry = this.toLearnFeedEntry(
           domain,
           sourceRow,
-          catalogItem.name,
-          catalogItem.author,
+          catalogRecord.name,
+          catalogRecord.author,
           characterNames,
           conceptNames,
         );

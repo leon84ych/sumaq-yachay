@@ -1,7 +1,47 @@
 
-import { CatalogRecord } from "../../../features/domain-1/catalog/models/catalog-item.model";
-import { SyncStatus } from "../../../features/domain-1/shared/model/domain-shared-model";
-import { CatalogRaw, CatalogRowValues } from "./gas-model.model";
+import { CatalogRecord } from "../../../features/catalog/models/catalog-item.model";
+import { IndexRecord } from "../../../features/domain-1/index/model/index-model";
+import { Response, Role, Status, SyncStatus } from "../../../features/domain-1/shared/model/domain-shared-model";
+import { CatalogRaw, CatalogRawValues, GASResponseRaw, IndexRaw } from "./gas-model.model";
+
+
+//-----------------RESPONSE MAPPERS---------------------------
+
+export function getResponse(responseRaw: GASResponseRaw<any>):Response<any> {
+  
+  return {
+    ...responseRaw,
+    status: parseResponseStatus(responseRaw.status),
+    role: parseResponseRole(responseRaw.role)
+  } as Response<any>; 
+}
+
+
+/**
+ * 
+ * @param value The retrieved value for Role
+ * @returns Valid role or guest if none 
+ */
+export function parseResponseRole(value: unknown): Role {
+  const validRoles: Role[] = ['admin', 'user', 'guest'];
+  return validRoles.includes(value as Role) 
+    ? (value as Role) 
+    : 'guest'; 
+}
+
+
+/**
+ * 
+ * @param value The retrieved value for Status
+ * @returns Valid status or 'error' if none
+ */
+export function parseResponseStatus(value: unknown): Status {
+  const validStatuses: Status[] = ['success', 'error'];
+  return validStatuses.includes(value as Status) 
+    ? (value as Status) 
+    : 'error';
+}
+
 
 
 //-----------------CATALOG MAPPERS---------------------------
@@ -60,19 +100,16 @@ export function getCatalogRecord(raw: CatalogRaw): CatalogRecord {
  * @param value retrieved value for Status
  * @returns Valid status or pending if none 
  */
-function parseSyncStatus(value: unknown): SyncStatus {
+export function parseSyncStatus(value: unknown): SyncStatus {
   const validStatuses: SyncStatus[] = ['synced', 'pending', 'error'];
   return validStatuses.includes(value as SyncStatus) 
     ? (value as SyncStatus) 
-    : 'pending'; // Valor por defecto en caso de que llegue vacío o inválido
+    : 'pending';
 }
-
-
-
 
 //-----------------CATALOG ITEM MAPPERS---------------------------
 
-export function getCatalogRowValues(item: CatalogRecord): CatalogRowValues {
+export function getCatalogRowValues(item: CatalogRecord): CatalogRawValues {
   return [
     item.id,
     item.subject || '',
@@ -89,3 +126,71 @@ export function getCatalogRowValues(item: CatalogRecord): CatalogRowValues {
     item.syncStatus || 'pending',
   ];
 }
+
+
+//----------------- INDEX MAPPERS---------------------------
+
+export function getIndexRaw(index: IndexRecord): IndexRaw {
+    return {
+        id: index.id,
+        row: index.row,
+        chapter: index.chapter,
+        theme: index.theme,
+        subtheme: index.subtheme,
+        tags: mapTagsToString(index.tags),
+        syncStatus: index.syncStatus,
+        contributor: index.contributor,
+        feed: index.feed,
+    };
+}
+
+export function getIndexRecord(raw: IndexRaw): IndexRecord {
+    return {
+        id: raw.id,
+        row: raw.row,
+        chapter: raw.chapter,
+        theme: raw.theme,
+        subtheme: raw.subtheme,
+        tags: mapTagsToArray(raw.tags),
+        syncStatus: parseSyncStatus(raw.syncStatus),
+        contributor: raw.contributor,
+        feed: raw.feed,
+    };
+}
+
+
+/**
+ * 
+ * @param rawTags Google Sheets tags format tag1|tag2|tag3
+ * @returns Array of tags [tag1, tag2, tag3]
+ */
+export function mapTagsToArray(rawTags: string): string[] {
+  if (!rawTags) return [];
+
+  return rawTags
+    .split('|')
+    .map(tag => tag.trim())
+    .filter(tag => tag.length > 0);
+}
+
+
+/**
+ * 
+ * @param tags Array of tags [tag1, tag2, tag3]
+ * @returns Google Sheets tags format tag1|tag2|tag3
+ */
+export function mapTagsToString(tags: string[]): string {
+  if (!tags || tags.length === 0) return '';
+
+  const cleaned = tags
+    .map(tag => tag.trim())
+    .filter(tag => tag.length > 0);
+
+  if (cleaned.length === 0) return '';
+
+  return  cleaned.join('|');
+}
+
+
+
+//----------------- INDEX MAPPERS---------------------------

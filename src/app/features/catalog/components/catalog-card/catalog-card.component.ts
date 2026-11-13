@@ -2,9 +2,10 @@ import { Component, computed, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { CatalogItem } from '../../models/catalog-item.model';
+
 import { CatalogSyncBadgeComponent } from '../catalog-sync-badge/catalog-sync-badge.component';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
+import { CatalogRecord } from '../../models/catalog-item.model';
 
 @Component({
   selector: 'app-catalog-card',
@@ -16,13 +17,14 @@ import { PermissionService } from '../../../../core/services/permission/permissi
 export class CatalogCardComponent {
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
-  readonly item = input.required<CatalogItem>();
+  readonly item = input.required<CatalogRecord>();
+  readonly highlighted = input(false);
   readonly progress = computed(() => {
     const { page, pages } = this.item();
     return pages > 0 ? Math.min(100, Math.max(0, Math.round((page / pages) * 100))) : 0;
   });
-  readonly toggleActive = output<CatalogItem>();
-  readonly edit = output<CatalogItem>();
+  readonly toggleActive = output<CatalogRecord>();
+  readonly edit = output<CatalogRecord>();
   readonly delete = output<string>();
 }
 

@@ -25,8 +25,8 @@ describe('LocalSampleData fixtures', () => {
       '#735D78',
     ];
 
-    for (const catalogItem of LOCAL_SAMPLE_CATALOG) {
-      const characters = (await getLocalSampleDomainData(catalogItem.id))['CHARACTER'];
+    for (const catalogRecord of LOCAL_SAMPLE_CATALOG) {
+      const characters = (await getLocalSampleDomainData(catalogRecord.id))['CHARACTER'];
       const colors = characters.map((character) => character['color']);
 
       expect(colors).toHaveLength(10);
@@ -45,39 +45,39 @@ describe('LocalSampleData fixtures', () => {
       'QUOTES',
     ];
 
-    for (const catalogItem of LOCAL_SAMPLE_CATALOG) {
-      const domainData = await getLocalSampleDomainData(catalogItem.id);
-      expect(Object.keys(domainData).sort(), catalogItem.id).toEqual(
+    for (const catalogRecord of LOCAL_SAMPLE_CATALOG) {
+      const domainData = await getLocalSampleDomainData(catalogRecord.id);
+      expect(Object.keys(domainData).sort(), catalogRecord.id).toEqual(
         [...ALL_AVAILABLE_DOMAINS].sort(),
       );
 
       for (const [domain, rows] of Object.entries(domainData)) {
         for (const row of rows) {
-          expect(Array.isArray(row['tags']), `${catalogItem.id} ${domain} tags`).toBe(true);
-          expect(row['contributor'], `${catalogItem.id} ${domain} contributor`).toBe('leon84ych');
-          expect(row, `${catalogItem.id} ${domain}`).not.toHaveProperty('tag');
+          expect(Array.isArray(row['tags']), `${catalogRecord.id} ${domain} tags`).toBe(true);
+          expect(row['contributor'], `${catalogRecord.id} ${domain} contributor`).toBe('leon84ych');
+          expect(row, `${catalogRecord.id} ${domain}`).not.toHaveProperty('tag');
         }
       }
 
       for (const domain of populatedDomains) {
         const rows = domainData[domain];
-        expect(rows, `${catalogItem.id} ${domain}`).toHaveLength(10);
+        expect(rows, `${catalogRecord.id} ${domain}`).toHaveLength(10);
         expect(rows.every((row) => typeof row['id'] === 'string')).toBe(true);
       }
 
       const characterIds = new Set(
-        domainData['CHARACTER'].map((character) => `${catalogItem.id}-${String(character['id'])}`),
+        domainData['CHARACTER'].map((character) => `${catalogRecord.id}-${String(character['id'])}`),
       );
       const conceptIds = new Set(
-        domainData['CONCEPTS'].map((concept) => `${catalogItem.id}-${String(concept['id'])}`),
+        domainData['CONCEPTS'].map((concept) => `${catalogRecord.id}-${String(concept['id'])}`),
       );
       const bookEvents = domainData['BOOK_EVENTS'];
       const characterRelations = domainData['RELATIONS'];
       const conceptRelations = domainData['ASSOCIATIONS'];
 
-      expect(bookEvents, catalogItem.id).toHaveLength(4);
-      expect(characterRelations, catalogItem.id).toHaveLength(4);
-      expect(conceptRelations, catalogItem.id).toHaveLength(4);
+      expect(bookEvents, catalogRecord.id).toHaveLength(4);
+      expect(characterRelations, catalogRecord.id).toHaveLength(4);
+      expect(conceptRelations, catalogRecord.id).toHaveLength(4);
       expect(bookEvents.every((event) => characterIds.has(String(event['mainCharacterId'])))).toBe(
         true,
       );
@@ -106,21 +106,21 @@ describe('LocalSampleData fixtures', () => {
   it('provides ten localized questions with valid domain sources for every book', async () => {
     const supportedTypes = new Set(['flashcard', 'multiple-choice', 'true-false', 'open']);
 
-    for (const catalogItem of LOCAL_SAMPLE_CATALOG) {
-      const domainData = await getLocalSampleDomainData(catalogItem.id);
+    for (const catalogRecord of LOCAL_SAMPLE_CATALOG) {
+      const domainData = await getLocalSampleDomainData(catalogRecord.id);
       const questions = domainData['QUESTIONS'];
-      expect(questions, catalogItem.id).toHaveLength(10);
+      expect(questions, catalogRecord.id).toHaveLength(10);
 
       for (const question of questions) {
         expect(question['question']).toBeTruthy();
         expect(question['answer']).toBeTruthy();
-        expect(question['bookRow']).toBe(catalogItem.row);
+        expect(question['bookRow']).toBe(catalogRecord.row);
         expect(supportedTypes.has(String(question['type']))).toBe(true);
 
         const sourceRows = domainData[String(question['sourceDomain'])];
         expect(
           sourceRows.some((row) => row['id'] === question['sourceRowId']),
-          `${catalogItem.id} ${String(question['id'])} source`,
+          `${catalogRecord.id} ${String(question['id'])} source`,
         ).toBe(true);
 
         if (question['type'] === 'multiple-choice' || question['type'] === 'true-false') {

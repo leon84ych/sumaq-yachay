@@ -1,5 +1,4 @@
 import { Injectable, inject } from '@angular/core';
-import { CatalogItem } from '../../../catalog/models/catalog-item.model';
 import { AppDbService } from '../../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../../core/services/config/config.service';
 import { parseTagsFromArray } from '../../../../shared/utils/tag-utils';

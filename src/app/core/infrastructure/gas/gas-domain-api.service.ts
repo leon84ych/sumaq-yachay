@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { GASAPI } from "./gas-api.service";
-import { GASResponseRaw, SheetNamesRaw } from "./gas-model.model";
+import { BookInfoRaw, GASResponseRaw, SheetNamesRaw } from "./gas-model.model";
 import { TOKEN_KEY } from "./gas-constants.constants";
 
 
@@ -47,4 +47,27 @@ export class GASDomainAPI extends GASAPI{
 
     
 
+    async getBookInfo(row: number): Promise<GASResponseRaw<BookInfoRaw>> {
+        const webAppUrl = this.getWebAppUrl();
+
+        const idToken = localStorage.getItem(TOKEN_KEY);
+        let endpoint = `${webAppUrl}?action=GET_BOOK_INFO&row=${encodeURIComponent(row)}`;
+
+        if (idToken) {
+            endpoint += `&idToken=${encodeURIComponent(idToken)}`;
+        }
+
+        const response = await fetch(endpoint);
+        if (!response.ok) {
+            throw new Error(
+                this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+                    status: response.status,
+                }),
+            );
+        }
+        const data: unknown = await response.json();
+        this.captureRole(data);
+
+        return data as GASResponseRaw<BookInfoRaw>;
+    }
 }

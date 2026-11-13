@@ -2,7 +2,7 @@ import { Component, computed, effect, inject, input, output, signal } from '@ang
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { CatalogItem } from '../../models/catalog-item.model';
+import { CatalogRecord } from '../../models/catalog-item.model';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class CatalogFormModalComponent {
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
 
-  readonly editItem = input<CatalogItem | null>(null);
+  readonly editItem = input<CatalogRecord | null>(null);
   readonly isLoading = input(false);
   readonly error = input<string | null>(null);
   readonly registrationMode = signal<'manual' | 'url'>('manual');
@@ -25,7 +25,7 @@ export class CatalogFormModalComponent {
   readonly clone = output<string>();
 
   readonly save = output<{
-    item: Omit<CatalogItem, 'updatedAt' | 'syncStatus'>;
+    item: Omit<CatalogRecord, 'updatedAt' | 'syncStatus'>;
     isEdit: boolean;
   }>();
   readonly close = output<void>();
@@ -110,7 +110,7 @@ export class CatalogFormModalComponent {
     const nextId = String(formValue.id ?? '').trim();
 
     // 3. Construct payload aligning perfectly with the updated Omit contract
-    const payload: Omit<CatalogItem, 'updatedAt' | 'syncStatus'> = {
+    const payload: Omit<CatalogRecord, 'updatedAt' | 'syncStatus'> = {
       id: nextId || (existing ? existing.id : 'cat-' + Date.now().toString(36)),
       name: formValue.name!,
       subject: formValue.subject!,

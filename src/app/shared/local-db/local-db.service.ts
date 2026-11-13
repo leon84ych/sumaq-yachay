@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import Dexie, { Table } from "dexie";
 import { IndexRecord } from "../../features/domain-1/index/model/index-model";
-import { CatalogItem } from "../../features/catalog/models/catalog-item.model";
+import { CatalogRecord } from "../../features/catalog/models/catalog-item.model";
 
 
 
@@ -15,7 +15,7 @@ const VERSION_ONE_STORES = {
 
 
 export class IndexedDB extends Dexie {
-  catalogs!: Table<CatalogItem, string>;
+  catalogs!: Table<CatalogRecord, string>;
   indexes!: Table<IndexRecord, string>;
 
   constructor(databaseName = 'LocalDB') {
@@ -29,7 +29,7 @@ export class LocalDBService {
 
     readonly indexedDB = new IndexedDB();
 
-    async getCatalog(): Promise<CatalogItem[]> {
+    async getCatalog(): Promise<CatalogRecord[]> {
         return this.indexedDB.catalogs.toArray();
     }
     

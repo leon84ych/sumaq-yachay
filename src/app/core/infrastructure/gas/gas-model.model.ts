@@ -18,13 +18,13 @@ export interface GASResponseRaw<T> extends Record<string, any> {
 }
 
 
-export interface PaginatedResponseRaw<CatalogRow> extends Record<string, any> {
+export interface PaginatedResponseRaw<CatalogRaw> extends Record<string, any> {
   sheetName: string;
   page: number;
   pageSize: number;
   totalRows: number;
   totalPages: number;
-  rows: CatalogRow[];
+  rows: CatalogRaw[];
 }
 
 
@@ -52,7 +52,7 @@ export interface CatalogRaw extends Record<string, unknown> {
 /**
  * Tuple representing the values of a catalog row to be sent to GAS
  */
-export type CatalogRowValues = [
+export type CatalogRawValues = [
   string,   //id
   string,   //subject
   string,   //topic
@@ -76,7 +76,7 @@ export interface CatalogPostPayload {
   action: 'UPDATE_CATALOG_ITEM' | 'CREATE_CATALOG_ITEM';
   id: string;
   row: number;
-  rowValues: CatalogRowValues;
+  rowValues: CatalogRawValues;
 }
 
 
@@ -145,4 +145,37 @@ export interface PaginatedDomainResponseRaw {
   totalRows: number;
   totalPages: number;
   rows: Record<string, unknown>[];
+}
+
+
+//-------------------- DOMAIN SHEET RAW --------------------
+
+
+export interface SheetInfoRaw {
+  id: string; // Name of the sheet tab
+  index: number; // Position within the document
+  count: number; // Number of rows without header
+}
+
+export interface BookInfoRaw {
+  id: CatalogRaw, 
+  index: IndexRaw[];
+  sheets: SheetInfoRaw[];
+}
+
+//-------------------- ID RAW --------------------
+// ID is the same as CatalogRaw
+
+//-------------------- INDEX RAW --------------------
+
+export interface IndexRaw {
+  id: string;
+  row: number;
+  chapter: string;
+  theme: string;
+  subtheme: string;
+  tags: string;
+  syncStatus: string;
+  contributor: string;
+  feed: number;
 }

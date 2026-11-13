@@ -1,8 +1,8 @@
-import { CatalogItem } from '../../../features/catalog/models/catalog-item.model';
+import { CatalogRecord } from '../../../features/catalog/models/catalog-item.model';
 import catalogItems from '../../../../../public/sample/Catalog.json';
 import { serializeTagsToArray } from '../../../shared/utils/tag-utils';
 
-export const LOCAL_SAMPLE_CATALOG: CatalogItem[] = catalogItems.map((item, index) => ({
+export const LOCAL_SAMPLE_CATALOG: CatalogRecord[] = catalogItems.map((item, index) => ({
   ...item,
   row: index + 1,
   syncStatus: 'synced',

@@ -2,12 +2,15 @@
 
   @if (item(); as entry) {
   <div class="detail-header">
-    <app-catalog-overview-1 [item]="entry" />
+    <div class="overview">
+      <h2 class="overview-title">{{ entry.name }}</h2>
+    </div>
+
     <div class="detail-actions">
       @if (domainDataService.sheetNames().length > 0) {
       <label class="mobile-sheet-selector">
         <span class="visually-hidden">{{ 'CATALOG_DETAIL.SELECT_VIEW' | transloco }}</span>
-        <select [value]="activeSheetName() ?? ''" [attr.aria-label]="'CATALOG_DETAIL.SELECT_VIEW' | transloco"
+        <select [value]="activeDomainName() ?? ''" [attr.aria-label]="'CATALOG_DETAIL.SELECT_VIEW' | transloco"
           (change)="selectTab($any($event.target).value)">
           @for (name of domainDataService.sheetNames(); track name) {
           <option [value]="name">{{ 'DOMAINS.DOMAINS.' + name | transloco }}</option>
@@ -15,7 +18,7 @@
         </select>
       </label>
       }
-      @if (activeSheetName() && permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+      @if (activeDomainName() && permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
       <button type="button" class="btn-primary" (click)="toggleAddingEntry()">
         + {{ 'DOMAINS.INDEX.ADD_ENTRY' | transloco }}
       </button>
@@ -28,9 +31,9 @@
           <option value="" disabled selected>
             {{ 'CATALOG_DETAIL.SELECT_DOMAIN' | transloco }}
           </option>
-           @for (domain of availableDomains(); track domain) {
-                  <option [value]="domain">{{ 'DOMAINS.DOMAINS.' + domain | transloco }}</option>
-                } 
+          @for (domain of availableDomains(); track domain) {
+          <option [value]="domain">{{ 'DOMAINS.DOMAINS.' + domain | transloco }}</option>
+          }
         </select>
         <button type="button" class="cancel-btn" [disabled]="isCreatingDomain()"
           [attr.aria-label]="'COMMON.CANCEL' | transloco" (click)="isAddingDomain.set(false)">
@@ -45,24 +48,16 @@
       }
     </div>
   </div>
-  <app-catalog-sheet-tabs-1
-      [sheetNames]="domainDataService.sheetNames()"
-      [activeSheetName]="activeSheetName()"
-      (selectTab)="selectTab($event)"
-    /> 
-  <!-- <app-sheet-view-resolver-1
-      [sheet]="activeSheet()"
-      [bookName]="item()?.name ?? ''"
-      [bookAuthor]="item()?.author ?? ''"
-      [isAddingEntry]="isAddingEntry()"
-      (closeEntry)="isAddingEntry.set(false)"
-    /> -->
+  <app-catalog-sheet-tabs [domainNames]="domainDataService.domainsNames()" [activeDomainName]="activeDomainName()"
+    (selectTab)="selectTab($event)" />
+  <app-domain-view-resolver [domain]="activeDomain()" [bookName]="item()?.name ?? ''"
+    [bookAuthor]="item()?.author ?? ''" [isAddingEntry]="isAddingEntry()" (closeEntry)="isAddingEntry.set(false)" />
   }
-  <!-- @else if (domainDataService.isLoading()) {
-    <p class="state-message" role="status" aria-live="polite">
-      {{ 'CATALOG_DETAIL.LOADING' | transloco }}
-    </p>
-  }  -->
+  @else if (domainDataService.isLoading()) {
+  <p class="state-message" role="status" aria-live="polite">
+    {{ 'CATALOG_DETAIL.LOADING' | transloco }}
+  </p>
+  }
   @else {
   <div class="not-found">
     <h2>{{ 'CATALOG_DETAIL.NOT_FOUND.TITLE' | transloco }}</h2>

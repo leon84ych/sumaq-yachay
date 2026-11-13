@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
-  selector: 'app-catalog-sheet-tabs-1',
+  selector: 'app-catalog-sheet-tabs',
   standalone: true,
   imports: [CommonModule, TranslocoPipe],
   templateUrl: './catalog-sheet-tabs.component.html',
@@ -11,8 +11,8 @@ import { TranslocoPipe } from '@jsverse/transloco';
 })
 export class CatalogSheetTabsComponent {
   
-  readonly sheetNames = input.required<string[]>();
-  readonly activeSheetName = input<string | null>(null);
+  readonly domainNames = input.required<string[]>();
+  readonly activeDomainName = input<string | null>(null);
   readonly selectTab = output<string>();
 
 }

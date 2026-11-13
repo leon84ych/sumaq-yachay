@@ -3,9 +3,9 @@ import { CatalogRepositoryInterface } from "../catalog-repository-interface";
 import { GASCatalogAPI } from "./gas-catalog-api.service";
 import { getCatalogRecord } from "./gas-mapper.mapper";
 
-import { CatalogResponse, PaginatedResponse, Role, Status } from "../../../features/domain-1/shared/model/domain-shared-model";
+import { Response, PaginatedResponse, Role, Status } from "../../../features/domain-1/shared/model/domain-shared-model";
 import { CatalogRaw } from "./gas-model.model";
-import { CatalogRecord } from "../../../features/domain-1/catalog/models/catalog-item.model";
+import { CatalogRecord } from "../../../features/catalog/models/catalog-item.model";
 
 
 
@@ -25,13 +25,13 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
         }
     }
 
-    async getCatalogs(page: number, pageSize: number): Promise<CatalogResponse<PaginatedResponse<CatalogRecord>>> {
+    async getCatalogs(page: number, pageSize: number): Promise<Response<PaginatedResponse<CatalogRecord>>> {
         try {
             const catalogResponseRow = await this.gasCatalogApi.getCatalog(page, pageSize);
 
             const data = catalogResponseRow.data.rows.map((row: CatalogRaw) => getCatalogRecord(row));
 
-            const response: CatalogResponse<PaginatedResponse<CatalogRecord>> = {
+            const response: Response<PaginatedResponse<CatalogRecord>> = {
                 ...catalogResponseRow,
                 status: mapStatus(catalogResponseRow.status),
                 role: mapRole(catalogResponseRow.role),
@@ -48,11 +48,11 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
         }
     }
 
-    async createItem(item: CatalogRecord): Promise<CatalogResponse<CatalogRecord>> {
+    async createItem(item: CatalogRecord): Promise<Response<CatalogRecord>> {
         try {
             const createResponse = await this.gasCatalogApi.saveCatalogItem(item);
 
-            const response: CatalogResponse<CatalogRecord> = {
+            const response: Response<CatalogRecord> = {
                 ...createResponse,
                 status: mapStatus(createResponse.status),
                 role: mapRole(createResponse.role),
@@ -67,11 +67,11 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
     }
 
 
-    async updateItem(item: CatalogRecord): Promise<CatalogResponse<CatalogRecord>> {
+    async updateItem(item: CatalogRecord): Promise<Response<CatalogRecord>> {
         return this.createItem(item);
     }
 
-    async cloneCatalog(sheetUrl: string): Promise<CatalogResponse<unknown>> {
+    async cloneCatalog(sheetUrl: string): Promise<Response<unknown>> {
         try {
             const cloneResponse = await this.gasCatalogApi.cloneCatalog(sheetUrl);
 
@@ -86,11 +86,11 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
         }
     }
 
-    async cloneCatalogItem(sheetUrl: string): Promise<CatalogResponse<CatalogRecord>> {
+    async cloneCatalogItem(sheetUrl: string): Promise<Response<CatalogRecord>> {
         try {
             const cloneResponse = await this.gasCatalogApi.cloneCatalogItem(sheetUrl);
 
-            const response: CatalogResponse<CatalogRecord> = {
+            const response: Response<CatalogRecord> = {
                 ...cloneResponse,
                 status: mapStatus(cloneResponse.status),
                 role: mapRole(cloneResponse.role),
@@ -103,7 +103,7 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
         }
     }
 
-    async deleteItem(item: CatalogRecord): Promise<CatalogResponse<string>> {
+    async deleteItem(item: CatalogRecord): Promise<Response<string>> {
         try {
             const deleteResponse = await this.gasCatalogApi.deleteCatalogItem(item.row, item.id);
 

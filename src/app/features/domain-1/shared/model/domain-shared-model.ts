@@ -26,11 +26,12 @@ export const Role = {
     GUEST: 'guest' as const,
 } as const;
 
-export interface DomainSheetRow extends Record<string, unknown> {
-    id: string; // Row ID within the sheet
-    tags: string; // String pipe separated hashtags, e.g. #tag1|#tag2|#tag3
-    contributor: string; // User who contributed the row
+export interface DomainSheet extends Record<string, unknown> {
+    id: string;
+    tags: string[]; 
+    contributor: string;
     syncStatus: SyncStatus;
+    row: number;
 }
 
 
@@ -50,7 +51,7 @@ export interface BookTagRecord {
 /**
  * Response wrapper to all request to the server
  */
-export interface CatalogResponse<T> {
+export interface Response<T> {
     status: Status;
     message: string;
     email: string;

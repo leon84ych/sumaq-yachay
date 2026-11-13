@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CatalogItem } from '../../../catalog/models/catalog-item.model';
+import { CatalogRecord } from '../../../catalog/models/catalog-item.model';
 
 @Component({
   selector: 'app-catalog-overview',
@@ -10,5 +10,5 @@ import { CatalogItem } from '../../../catalog/models/catalog-item.model';
   styleUrls: ['./catalog-overview.component.css'],
 })
 export class CatalogOverviewComponent {
-  readonly item = input.required<CatalogItem>();
+  readonly item = input.required<CatalogRecord>();
 }

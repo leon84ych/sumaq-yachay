@@ -448,10 +448,10 @@ export class DomainDataService {
     this.errorMessage.set(null);
 
     try {
-      const catalogItem = (await this.dbService.db.catalogs.toArray()).find(
+      const catalogRecord = (await this.dbService.db.catalogs.toArray()).find(
         (item) => item.row === row,
       );
-      if (!catalogItem) {
+      if (!catalogRecord) {
         throw new Error('The active catalog item could not be found.');
       }
 
@@ -534,7 +534,7 @@ export class DomainDataService {
           row,
           sheetName,
           remoteRows,
-          catalogItem.id,
+          catalogRecord.id,
           true,
           normalizedRows,
           createdRowId,
@@ -544,7 +544,7 @@ export class DomainDataService {
           row,
           sheetName,
           remoteRows,
-          catalogItem.id,
+          catalogRecord.id,
           false,
           normalizedRows,
           createdRowId,
@@ -592,10 +592,10 @@ export class DomainDataService {
       return;
     }
 
-    const catalogItem = (await this.dbService.db.catalogs.toArray()).find(
+    const catalogRecord = (await this.dbService.db.catalogs.toArray()).find(
       (item) => item.row === row,
     );
-    if (!catalogItem) {
+    if (!catalogRecord) {
       throw new Error('The active catalog item could not be found.');
     }
 
@@ -653,7 +653,7 @@ export class DomainDataService {
         await this.taxonomyService.refreshGlobalTaxonomy(row);
       }
       if (!this.configService.isLocalSampleDataEnabled()) {
-        await firstValueFrom(this.apiService.deleteRow(row, sheetName, id, catalogItem.id));
+        await firstValueFrom(this.apiService.deleteRow(row, sheetName, id, catalogRecord.id));
       }
     } catch (error) {
       if (localDeleteCommitted) {
@@ -928,11 +928,11 @@ export class DomainDataService {
   }
 
   private async buildBookTags(row: number, sheets: DomainSheet[]): Promise<BookTag[]> {
-    const catalogItem = (await this.dbService.db.catalogs.toArray()).find(
+    const catalogRecord = (await this.dbService.db.catalogs.toArray()).find(
       (item) => item.row === row,
     );
-    const book = catalogItem?.name.trim() || String(row);
-    const author = catalogItem?.author.trim() || undefined;
+    const book = catalogRecord?.name.trim() || String(row);
+    const author = catalogRecord?.author.trim() || undefined;
     const counts = new Map<string, BookTag>();
 
     for (const sheet of sortDomainTabs(sheets)) {
@@ -958,8 +958,8 @@ export class DomainDataService {
               row,
               book,
               ...(author ? { author } : {}),
-              ...(catalogItem?.subject ? { subject: catalogItem.subject } : {}),
-              ...(catalogItem?.topic ? { topic: catalogItem.topic } : {}),
+              ...(catalogRecord?.subject ? { subject: catalogRecord.subject } : {}),
+              ...(catalogRecord?.topic ? { topic: catalogRecord.topic } : {}),
               name: tag,
               domain: sheet.name,
               usageCount: 1,

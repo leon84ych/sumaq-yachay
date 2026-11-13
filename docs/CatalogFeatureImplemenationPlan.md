@@ -76,7 +76,7 @@ src/app/
 ```typescript
 export type SyncState = 'synced' | 'pending' | 'error';
 
-export interface CatalogItem {
+export interface CatalogRecord {
   id: string;               // Unique ID
   subject: string;          // Entity schema subject
   topic: string;            // Entity schema topic
@@ -226,10 +226,10 @@ export class CatalogApiService {
 ```typescript
 // app-db.service.ts
 import Dexie, { Table } from 'dexie';
-import { CatalogItem } from '../../features/catalog/models/catalog-item.model';
+import { CatalogRecord } from '../../features/catalog/models/catalog-item.model';
 
 export class AppDatabase extends Dexie {
-  catalogs!: Table<CatalogItem, string>;
+  catalogs!: Table<CatalogRecord, string>;
 
   constructor() {
     super('SumaqYachayDB');

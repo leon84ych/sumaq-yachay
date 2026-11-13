@@ -1,24 +1,13 @@
-import { DomainSheetRow, SyncStatus } from "../../shared/model/domain-shared-model";
+import { DomainSheet } from "../../shared/model/domain-shared-model";
 
-/**
- * Specific model for domain index with GAS Google Sheets integration
- */
-export interface IndexRow extends Record<string, unknown> , DomainSheetRow {
-  chapter: string;
-  theme: string;
-  subtheme: string;
-  syncStatus: SyncStatus;
-}
 
 /**
  * Specific record model for domain index
  */
-export interface IndexRecord {
-  id: string;
+export interface IndexRecord extends DomainSheet {
   chapter: string;
   theme: string;
   subtheme: string;
-  tags: string[];
-  syncStatus: SyncStatus;
-  contributor: string;
+  feed: number;
 }
+

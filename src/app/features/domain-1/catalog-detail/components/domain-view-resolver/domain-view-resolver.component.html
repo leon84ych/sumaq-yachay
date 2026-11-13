@@ -1,6 +1,6 @@
 @switch (viewKind()) {
-  <!-- @case ('INDEX') {
-    <app-domain-index
+   @case ('INDEX') {
+    <app-domain-index-1
       [currentSheet]="currentSheet()"
       [rows]="indexRows()"
       [bookName]="bookName()"
@@ -9,6 +9,7 @@
       (closeEntry)="closeEntry.emit()"
     />
   }
+  <!--
   @case ('CONCEPTS') {
     <app-domain-concept
       [rows]="conceptRows()"

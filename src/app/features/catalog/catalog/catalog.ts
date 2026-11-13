@@ -7,9 +7,10 @@ import { CatalogCardComponent } from '../components/catalog-card/catalog-card.co
 import { CatalogFilterComponent } from '../components/catalog-filter/catalog-filter.component';
 import { CatalogFormModalComponent } from '../components/catalog-form-modal/catalog-form-modal.component';
 import { AddCatalogModalComponent } from '../components/add-catalog-modal/add-catalog-modal.component';
-import { CatalogItem } from '../models/catalog-item.model';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { PermissionService } from '../../../core/services/permission/permission.service';
+import { CatalogRecord } from '../models/catalog-item.model';
+import { LocalDBService } from '../../../shared/local-db/local-db.service';
 
 @Component({
   selector: 'app-catalog',
@@ -31,7 +32,10 @@ export class Catalog {
   readonly authService = inject(GoogleAuthService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
+
+  private localDBService = inject(LocalDBService);
   private transloco = inject(TranslocoService);
+
   readonly canAddCatalog = computed(
     () =>
       !this.configService.isLocalSampleDataEnabled() &&
@@ -42,7 +46,7 @@ export class Catalog {
   // Modal State
   readonly isModalOpen = signal<boolean>(false);
   readonly isAddCatalogModalOpen = signal(false);
-  readonly selectedItemForEdit = signal<CatalogItem | null>(null);
+  readonly selectedItemForEdit = signal<CatalogRecord | null>(null);
 
   openCreateModal(): void {
     this.catalogService.errorMessage.set(null);
@@ -50,7 +54,7 @@ export class Catalog {
     this.isModalOpen.set(true);
   }
 
-  openEditModal(item: CatalogItem): void {
+  openEditModal(item: CatalogRecord): void {
     this.catalogService.errorMessage.set(null);
     this.selectedItemForEdit.set(item);
     this.isModalOpen.set(true);
@@ -62,7 +66,7 @@ export class Catalog {
   }
 
   async handleSaveItem(
-    event: { item: Omit<CatalogItem, 'updatedAt' | 'syncStatus'>; isEdit: boolean },
+    event: { item: Omit<CatalogRecord, 'updatedAt' | 'syncStatus'>; isEdit: boolean },
   ): Promise<void> {
     await this.catalogService.saveItem(event.item, event.isEdit);
     this.closeModal();
@@ -75,7 +79,7 @@ export class Catalog {
   }
 
   async handleCloneSource(sheetUrl: string): Promise<void> {
-    if (await this.catalogService.cloneCatalogItemFromSheet(sheetUrl)) this.closeModal();
+    if (await this.catalogService.cloneCatalogRecordFromSheet(sheetUrl)) this.closeModal();
   }
 
   async handleAddCatalog(event: { sheetUrl: string }): Promise<void> {
@@ -84,18 +88,26 @@ export class Catalog {
     }
   }
 
-  async handleToggleActive(item: CatalogItem): Promise<void> {
+  async handleToggleActive(item: CatalogRecord): Promise<void> {
     await this.catalogService.toggleActive(item);
   }
 
   async handleDeleteItem(id: string): Promise<void> {
     const confirmMsg = this.transloco.translate('CATALOG.CARD.DELETE_CONFIRM');
-    if (confirm(confirmMsg)) {
-      await this.catalogService.deleteItem(id);
+    const item = this.catalogService.items().find((i) => i.id === id);
+    if (item && confirm(confirmMsg)) {
+      await this.catalogService.deleteCatalogRecord(item);
     }
   }
 
   async handleSync(): Promise<void> {
+    const catalogs = await this.localDBService.indexedDB.catalogs.toArray();
+
+    if (catalogs.length > 0) {
+      const confirmMsg = this.transloco.translate('CATALOG.HEADER.SYNC_WARNING');
+      if (!confirm(confirmMsg)) return;
+    }
+
     await this.catalogService.syncFromRemote();
   }
 }
