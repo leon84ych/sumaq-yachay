@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from "@angular/core";
 import { TranslocoService } from "@jsverse/transloco";
 import { PermissionService } from "../../services/permission/permission.service";
-import { CatalogPostPayload, CatalogRaw, GASResponseRaw, CloneCatalogItemPayload, CloneCatalogPayload, DeleteCatalogItemPayload, PaginatedResponseRaw } from "./gas-model.model";
+import { CatalogPostPayload, CatalogRaw, GASResponseRaw, CloneCatalogItemPayload, CloneCatalogPayload, DeleteCatalogItemPayload, GASPaginatedResponseRaw, BookInfoRaw } from "./gas-model.model";
 import { getCatalogRowValues } from "./gas-mapper.mapper";
 import { DEFAULT_GAS_TIMEOUT_MS, DEFAULT_WEB_APP_URL, TOKEN_KEY, WEB_APP_URL_KEY } from "./gas-constants.constants";
 import { CatalogRecord } from "../../../features/catalog/models/catalog-item.model";
@@ -55,7 +55,7 @@ export class GASCatalogAPI extends GASAPI {
         );
     }
 
-    async getCatalog(page: number, pageSize: number): Promise<GASResponseRaw<PaginatedResponseRaw<CatalogRaw>>> {
+    async getCatalog(page: number, pageSize: number): Promise<GASResponseRaw<GASPaginatedResponseRaw<CatalogRaw>>> {
 
         const webAppUrl = this.getWebAppUrl();
         if (!webAppUrl) {
@@ -83,7 +83,7 @@ export class GASCatalogAPI extends GASAPI {
                 }
                 const data: unknown = await response.json();
                 this.captureRole(data);
-                return data as GASResponseRaw<PaginatedResponseRaw<CatalogRaw>>; // Delivers the whole array at once
+                return data as GASResponseRaw<GASPaginatedResponseRaw<CatalogRaw>>; // Delivers the whole array at once
             },
         );
     }
@@ -192,6 +192,31 @@ export class GASCatalogAPI extends GASAPI {
         const data: unknown = await response.json();
         this.captureRole(data);
         return data as GASResponseRaw<T>;
+    }
+
+
+    async getBookInfo(row: number): Promise<GASResponseRaw<BookInfoRaw>> {
+        const webAppUrl = this.getWebAppUrl();
+
+        const idToken = localStorage.getItem(TOKEN_KEY);
+        let endpoint = `${webAppUrl}?action=GET_BOOK_INFO&row=${encodeURIComponent(row)}`;
+
+        if (idToken) {
+            endpoint += `&idToken=${encodeURIComponent(idToken)}`;
+        }
+
+        const response = await fetch(endpoint);
+        if (!response.ok) {
+            throw new Error(
+                this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+                    status: response.status,
+                }),
+            );
+        }
+        const data: unknown = await response.json();
+        this.captureRole(data);
+
+        return data as GASResponseRaw<BookInfoRaw>;
     }
 
 }

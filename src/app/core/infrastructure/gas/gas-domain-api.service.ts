@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { GASAPI } from "./gas-api.service";
-import { BookInfoRaw, GASResponseRaw, SheetNamesRaw } from "./gas-model.model";
+import { BookInfoRaw, GASPaginatedResponseRaw, GASResponseRaw, SheetNamesRaw } from "./gas-model.model";
 import { TOKEN_KEY } from "./gas-constants.constants";
 
 
@@ -45,13 +45,14 @@ export class GASDomainAPI extends GASAPI{
         return data as GASResponseRaw<SheetNamesRaw>;
     }
 
-    
 
-    async getBookInfo(row: number): Promise<GASResponseRaw<BookInfoRaw>> {
+
+
+    async getDomainPaginated(row: number, domain: string, page: number, pageSize: number): Promise<GASPaginatedResponseRaw<any>> {
         const webAppUrl = this.getWebAppUrl();
 
         const idToken = localStorage.getItem(TOKEN_KEY);
-        let endpoint = `${webAppUrl}?action=GET_BOOK_INFO&row=${encodeURIComponent(row)}`;
+        let endpoint = `${webAppUrl}?action=GET_DOMAIN_PAGINATED&row=${encodeURIComponent(row)}&domain=${encodeURIComponent(domain)}&page=${encodeURIComponent(page)}&pageSize=${encodeURIComponent(pageSize)}`;
 
         if (idToken) {
             endpoint += `&idToken=${encodeURIComponent(idToken)}`;
@@ -68,6 +69,6 @@ export class GASDomainAPI extends GASAPI{
         const data: unknown = await response.json();
         this.captureRole(data);
 
-        return data as GASResponseRaw<BookInfoRaw>;
+        return data as GASPaginatedResponseRaw<any>;
     }
 }

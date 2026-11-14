@@ -7,7 +7,7 @@ import { GlobalLoadingService } from '../../../core/services/loading/global-load
 import { PermissionService } from '../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../core/services/search/study-search.service';
 import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
-import { CatalogGASRepository } from '../../../core/infrastructure/gas/catalog-gas-repository';
+import { CatalogGASRepository } from './catalog-gas-repository';
 import { LocalDBService } from '../../../shared/local-db/local-db.service';
 import { Status } from '../../domain-1/shared/model/domain-shared-model';
 

@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from "@angular/core";
 import { TranslocoService } from "@jsverse/transloco";
 import { PermissionService } from "../../services/permission/permission.service";
-import { CatalogPostPayload, CatalogRaw, GASResponseRaw, CloneCatalogItemPayload, CloneCatalogPayload, DeleteCatalogItemPayload, PaginatedResponseRaw } from "./gas-model.model";
+import { CatalogPostPayload, CatalogRaw, GASResponseRaw, CloneCatalogItemPayload, CloneCatalogPayload, DeleteCatalogItemPayload, GASPaginatedResponseRaw } from "./gas-model.model";
 import { getCatalogRowValues } from "./gas-mapper.mapper";
 import { DEFAULT_GAS_TIMEOUT_MS, DEFAULT_WEB_APP_URL, TOKEN_KEY, WEB_APP_URL_KEY } from "./gas-constants.constants";
 import { CatalogRecord } from "../../../features/catalog/models/catalog-item.model";

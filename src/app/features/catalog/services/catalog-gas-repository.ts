@@ -1,18 +1,19 @@
 import { inject, Injectable } from "@angular/core";
-import { CatalogRepositoryInterface } from "../catalog-repository-interface";
-import { GASCatalogAPI } from "./gas-catalog-api.service";
-import { getCatalogRecord } from "./gas-mapper.mapper";
+import { CatalogRepositoryInterface } from "../../../core/infrastructure/catalog-repository-interface";
+import { GASCatalogAPI } from "../../../core/infrastructure/gas/gas-catalog-api.service";
+import { mapRole, mapStatus, parseResponseRole, parseResponseStatus, parseSyncStatus } from "../../../core/infrastructure/gas/gas-mapper.mapper";
 
-import { Response, PaginatedResponse, Role, Status } from "../../../features/domain-1/shared/model/domain-shared-model";
-import { CatalogRaw } from "./gas-model.model";
-import { CatalogRecord } from "../../../features/catalog/models/catalog-item.model";
+import { Response, PaginatedResponse, Role, Status } from "../../domain-1/shared/model/domain-shared-model";
+import { CatalogRaw, IndexRaw } from "../../../core/infrastructure/gas/gas-model.model";
+import { CatalogRecord } from "../models/catalog-item.model";
+import { BookInfo } from "../../domain-1/catalog-detail/models/domain-sheet.model";
 
 
 
 @Injectable({
     providedIn: 'root',
 })
-export class CatalogGASRepository implements CatalogRepositoryInterface {
+export class CatalogGASRepository implements CatalogRepositoryInterface<CatalogRecord, CatalogRaw> {
 
     private gasCatalogApi = inject(GASCatalogAPI);
 
@@ -29,7 +30,7 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
         try {
             const catalogResponseRow = await this.gasCatalogApi.getCatalog(page, pageSize);
 
-            const data = catalogResponseRow.data.rows.map((row: CatalogRaw) => getCatalogRecord(row));
+            const data = catalogResponseRow.data.rows.map((row: CatalogRaw) => this.getRecord(row));
 
             const response: Response<PaginatedResponse<CatalogRecord>> = {
                 ...catalogResponseRow,
@@ -38,6 +39,7 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
                 data: {
                     ...catalogResponseRow.data,
                     rows: data,
+                    domain: catalogResponseRow.data.sheetName
                 },
             };
             return response;
@@ -56,7 +58,7 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
                 ...createResponse,
                 status: mapStatus(createResponse.status),
                 role: mapRole(createResponse.role),
-                data: getCatalogRecord(createResponse.data),
+                data: this.getRecord(createResponse.data),
             };
             return response;
         } catch (error) {
@@ -94,7 +96,7 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
                 ...cloneResponse,
                 status: mapStatus(cloneResponse.status),
                 role: mapRole(cloneResponse.role),
-                data: getCatalogRecord(cloneResponse.data),
+                data: this.getRecord(cloneResponse.data),
             };
             return response;
         } catch (error) {
@@ -122,18 +124,39 @@ export class CatalogGASRepository implements CatalogRepositoryInterface {
         throw new Error("Method not implemented.");
     }
 
+
+    /**
+     * Retrieves the book info for the specified row.
+     * @param row The row number of the book info to retrieve
+     * @returns A promise that resolves to the book info response containing the book info data for the specified row
+     */
+    async getSource(row: number): Promise<Response<BookInfo>> {
+
+        const bookInfoResponse = await this.gasCatalogApi.getBookInfo(row);
+
+        const bookInfo: Response<BookInfo> = {
+            ...bookInfoResponse,
+            status: parseResponseStatus(bookInfoResponse.status),
+            role: parseResponseRole(bookInfoResponse.role),
+            data: {
+                id: this.getRecord(bookInfoResponse.data.id),
+                domains: bookInfoResponse.data.sheets
+            }
+        }
+        return bookInfo;
+    }
+
+    getRecord(raw: CatalogRaw): CatalogRecord {
+        return {
+            ...raw,
+            syncStatus: parseSyncStatus(raw.syncStatus),
+        }
+    }
+
+    getRaw(record: CatalogRecord): CatalogRaw {
+        return {
+            ...record
+        };
+    }
 }
 
-function mapStatus(status: string): Status {
-    if (status === Status.SUCCESS || status === Status.ERROR) {
-        return status;
-    }
-    throw new Error(`Unexpected catalog response status: ${status}`);
-}
-
-function mapRole(role: string): Role {
-    if (role === Role.ADMIN || role === Role.USER || role === Role.GUEST) {
-        return role;
-    }
-    throw new Error(`Unexpected catalog response role: ${role}`);
-}

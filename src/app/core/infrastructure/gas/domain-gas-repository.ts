@@ -1,47 +1,33 @@
 import { DomainRepositoryInterface } from "../domain-repository-intreface";
 import { inject, Injectable } from "@angular/core";
-import { getCatalogRecord, getIndexRecord, parseResponseRole, parseResponseStatus } from "./gas-mapper.mapper";
 import { GASDomainAPI } from "./gas-domain-api.service";
-import { BookInfo } from "../../../features/domain-1/catalog-detail/models/domain-sheet.model";
-import { Response } from "../../../features/domain-1/shared/model/domain-shared-model";
+import { PaginatedResponse } from "../../../features/domain-1/shared/model/domain-shared-model";
 
 
 @Injectable({
     providedIn: 'root',
 })
-export class DomainGASRepository<T> implements DomainRepositoryInterface<T> {
+export abstract class DomainGASRepository<T, R> implements DomainRepositoryInterface<T, R> {
 
 
     private gasDomainApi = inject(GASDomainAPI);
 
-    async getSource(row: number): Promise<Response<BookInfo>> {
+    //Define the domain for this repository
+    abstract domain: string;
 
-        const bookInfoResponse = await this.gasDomainApi.getBookInfo(row);
-
-        const indexRecords = Array.isArray(bookInfoResponse.data.index)
-            ? bookInfoResponse.data.index.map(getIndexRecord)
-            : [];
-
-        const bookInfo : Response<BookInfo> = {
-            ...bookInfoResponse,
-            status : parseResponseStatus(bookInfoResponse.status),
-            role : parseResponseRole(bookInfoResponse.role),
-            data: {
-                id: getCatalogRecord(bookInfoResponse.data.id),
-                index: indexRecords,
-                domains: bookInfoResponse.data.sheets
-            }
-        }
-    
-        return bookInfo;
-    }
 
     getDomain(): Promise<T[]> {
         throw new Error("Method not implemented.");
     }
 
-    getDomainPaginated(page: number, pageSize: number): Promise<T[]> {
-        throw new Error("Method not implemented.");
+    async getDomainPaginated(row: number, page: number, pageSize: number): Promise<PaginatedResponse<T>> {
+
+
+        const response = await this.gasDomainApi.getDomainPaginated(row, this.domain, page, pageSize);
+        return {
+            ...response,
+            domain: response.sheetName
+        };
     }
 
     addDomainItem(id: string): Promise<T> {
@@ -56,6 +42,16 @@ export class DomainGASRepository<T> implements DomainRepositoryInterface<T> {
         throw new Error("Method not implemented.");
     }
 
+    /**
+     * Convert the raw server response into a domain record of type T 
+     * @param raw the retrieved value from server 
+     */
+    abstract getRecord(raw: R): T;
 
+    /**
+     * Convert the domain record of type T into a raw server-compatible format
+     * @param record the domain record to be converted into a raw server-compatible format 
+     */
+    abstract getRaw(record: T): R;
 
 }

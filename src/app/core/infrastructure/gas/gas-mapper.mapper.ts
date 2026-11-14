@@ -43,57 +43,20 @@ export function parseResponseStatus(value: unknown): Status {
 }
 
 
-
-//-----------------CATALOG MAPPERS---------------------------
-
-/**
- * 
- * @param item The catalog record to be converted to a raw format
- * @returns The raw catalog data suitable for GAS API
- */
-export function getCatalogRow(item: CatalogRecord): CatalogRaw {    
-    return {
-        id: item.id,
-        subject: item.subject,
-        topic: item.topic,
-        name: item.name,
-        author: item.author,
-        description: item.description,
-        source: item.source,
-        active: item.active,
-        page: item.page,
-        pages: item.pages,
-        updatedAt: item.updatedAt,
-        count: item.count,
-        syncStatus: item.syncStatus,
-        row: item.row
-    };
+export function mapStatus(status: string): Status {
+    if (status === Status.SUCCESS || status === Status.ERROR) {
+        return status;
+    }
+    throw new Error(`Unexpected catalog response status: ${status}`);
 }
 
-
-/**
- * 
- * @param raw The raw catalog data from GAS API
- * @returns The catalog record converted from raw data
- */
-export function getCatalogRecord(raw: CatalogRaw): CatalogRecord {
-    return {
-        id: raw.id,
-        subject: raw.subject,
-        topic: raw.topic,
-        name: raw.name,
-        author: raw.author,
-        description: raw.description,
-        source: raw.source,
-        active: raw.active,
-        page: raw.page,
-        pages: raw.pages,
-        updatedAt: raw.updatedAt,
-        count: raw.count,
-        syncStatus: parseSyncStatus(raw.syncStatus),
-        row: raw.row
-    };
+export function mapRole(role: string): Role {
+    if (role === Role.ADMIN || role === Role.USER || role === Role.GUEST) {
+        return role;
+    }
+    throw new Error(`Unexpected catalog response role: ${role}`);
 }
+
 
 /**
  * 
@@ -127,38 +90,6 @@ export function getCatalogRowValues(item: CatalogRecord): CatalogRawValues {
   ];
 }
 
-
-//----------------- INDEX MAPPERS---------------------------
-
-export function getIndexRaw(index: IndexRecord): IndexRaw {
-    return {
-        id: index.id,
-        row: index.row,
-        chapter: index.chapter,
-        theme: index.theme,
-        subtheme: index.subtheme,
-        tags: mapTagsToString(index.tags),
-        syncStatus: index.syncStatus,
-        contributor: index.contributor,
-        feed: index.feed,
-    };
-}
-
-export function getIndexRecord(raw: IndexRaw): IndexRecord {
-    return {
-        id: raw.id,
-        row: raw.row,
-        chapter: raw.chapter,
-        theme: raw.theme,
-        subtheme: raw.subtheme,
-        tags: mapTagsToArray(raw.tags),
-        syncStatus: parseSyncStatus(raw.syncStatus),
-        contributor: raw.contributor,
-        feed: raw.feed,
-    };
-}
-
-
 /**
  * 
  * @param rawTags Google Sheets tags format tag1|tag2|tag3
@@ -190,7 +121,3 @@ export function mapTagsToString(tags: string[]): string {
 
   return  cleaned.join('|');
 }
-
-
-
-//----------------- INDEX MAPPERS---------------------------

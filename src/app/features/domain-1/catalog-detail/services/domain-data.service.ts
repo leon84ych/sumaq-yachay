@@ -2,7 +2,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { DomainInfo, DomainSheet } from '../models/domain-sheet.model';
 import { LocalDBService } from '../../../../shared/local-db/local-db.service';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
-import { DomainGASRepository } from '../../../../core/infrastructure/gas/domain-gas-repository';
+import { CatalogGASRepository } from '../../../catalog/services/catalog-gas-repository';
 import { CatalogRecord } from '../../../catalog/models/catalog-item.model';
 import { IndexRecord } from '../../index/model/index-model';
 
@@ -21,7 +21,7 @@ export class DomainDataService {
 
   readonly sheetNames = computed(() => this.sheets().filter(sheet => sheet.name != 'ID').map((sheet) => sheet.name));
 
-  private catalogGASRepository = inject(DomainGASRepository);
+  private catalogGASRepository = inject(CatalogGASRepository);
   private localDBService = inject(LocalDBService);
   private globalErrorService = inject(GlobalErrorService);
 
@@ -49,11 +49,11 @@ export class DomainDataService {
 
       //Save index records to the local database
       // Omit saving the catalog record as it is already managed elsewhere
-      const database = this.localDBService.indexedDB;
-      await database.transaction('rw', database.indexes, async () => {
-        await database.indexes.bulkPut(response.data.index);
-      });
-      this.index.set(await database.indexes.where('row').equals(row).toArray());
+      // const database = this.localDBService.indexedDB;
+      // await database.transaction('rw', database.indexes, async () => {
+      //   await database.indexes.bulkPut(response.data.index);
+      // });
+      // this.index.set(await database.indexes.where('row').equals(row).toArray());
 
       // Store each domain 
       this.domainsInfo.set(response.data.domains.map(sheet => ({
@@ -70,7 +70,7 @@ export class DomainDataService {
     } finally {
       this.isLoading.set(false);
     }
-  }
+  } 
 
   createDomainSheet(domainName: string, headers: string[]): Promise<void> {
     this.isLoading.set(true);

@@ -61,7 +61,7 @@ export interface Response<T> {
 
 
 export interface PaginatedResponse<T> {
-  sheetName: string;
+  domain: string;
   page: number;
   pageSize: number;
   totalRows: number;

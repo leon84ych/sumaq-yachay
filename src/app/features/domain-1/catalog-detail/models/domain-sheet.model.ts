@@ -12,14 +12,8 @@ export interface DomainInfo {
 
 export interface BookInfo {
   id: CatalogRecord, 
-  index: IndexRecord[];
   domains: DomainInfo[];
 }
-
-
-
-
-
 
 export interface DomainSheet<T> {
   row: number; // Owning Catalog entry row (local cache key, not sent to Sheets)

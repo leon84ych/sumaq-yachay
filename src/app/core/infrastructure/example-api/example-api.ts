@@ -6,12 +6,24 @@ import { CatalogRepositoryInterface } from "../catalog-repository-interface";
 /**
  * Indexed implementation of all operations 
  */
-export class ExampleApi implements CatalogRepositoryInterface {
+export class ExampleApi implements CatalogRepositoryInterface<CatalogRecord, string> {
+
+
+    getRecord(raw: string): CatalogRecord {
+        throw new Error("Method not implemented.");
+    }
+
+    
+    getRaw(record: CatalogRecord): string {
+        throw new Error("Method not implemented.");
+    }
+
+
     cloneCatalog(sheetUrl: string): Promise<Response<unknown>> {
         throw new Error("Method not implemented.");
     }
-    
-    
+
+
     async getHealth(): Promise<string> {
         throw new Error("Method not implemented.");
     }

@@ -18,13 +18,13 @@ export interface GASResponseRaw<T> extends Record<string, any> {
 }
 
 
-export interface PaginatedResponseRaw<CatalogRaw> extends Record<string, any> {
+export interface GASPaginatedResponseRaw<T> extends Record<string, any> {
   sheetName: string;
   page: number;
   pageSize: number;
   totalRows: number;
   totalPages: number;
-  rows: CatalogRaw[];
+  rows: T[];
 }
 
 
@@ -159,7 +159,6 @@ export interface SheetInfoRaw {
 
 export interface BookInfoRaw {
   id: CatalogRaw, 
-  index: IndexRaw[];
   sheets: SheetInfoRaw[];
 }
 
