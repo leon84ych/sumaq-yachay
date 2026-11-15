@@ -1,13 +1,7 @@
-import { inject, Injectable, signal } from "@angular/core";
-import { TranslocoService } from "@jsverse/transloco";
-import { PermissionService } from "../../services/permission/permission.service";
-import { CatalogPostPayload, CatalogRaw, GASResponseRaw, CloneCatalogItemPayload, CloneCatalogPayload, DeleteCatalogItemPayload, GASPaginatedResponseRaw, BookInfoRaw } from "./gas-model.model";
-import { getCatalogRowValues } from "./gas-mapper.mapper";
-import { DEFAULT_GAS_TIMEOUT_MS, DEFAULT_WEB_APP_URL, TOKEN_KEY, WEB_APP_URL_KEY } from "./gas-constants.constants";
-import { CatalogRecord } from "../../../features/catalog/models/catalog-item.model";
-import { SyncStatus } from "../../../features/domain-1/shared/model/domain-shared-model";
+import {  Injectable } from "@angular/core";
+import { CatalogPostPayload, GASResponseRaw, CloneCatalogItemPayload, CloneCatalogPayload, DeleteCatalogItemPayload, GASPaginatedResponseRaw, BookInfoRaw } from "./gas-model.model";
+import { TOKEN_KEY } from "./gas-constants.constants";
 import { GASAPI } from "./gas-api.service";
-
 
 
 
@@ -15,12 +9,13 @@ import { GASAPI } from "./gas-api.service";
  * GAS BE will always return EntityRow wich extends Record<string, unknown> 
  * This layer only know about Row entities, never Records
  * The loading screen is managed withing the UI layer
+ * Only knows about the Raw values 
  */
 
 @Injectable({
     providedIn: 'root',
 })
-export class GASCatalogAPI extends GASAPI {
+export class GASCatalogAPI<TRaw, TRowValues> extends GASAPI {
 
 
     async getHealth(): Promise<string> {
@@ -55,7 +50,7 @@ export class GASCatalogAPI extends GASAPI {
         );
     }
 
-    async getCatalog(page: number, pageSize: number): Promise<GASResponseRaw<GASPaginatedResponseRaw<CatalogRaw>>> {
+    async getCatalog(page: number, pageSize: number): Promise<GASResponseRaw<GASPaginatedResponseRaw<TRaw>>> {
 
         const webAppUrl = this.getWebAppUrl();
         if (!webAppUrl) {
@@ -83,7 +78,7 @@ export class GASCatalogAPI extends GASAPI {
                 }
                 const data: unknown = await response.json();
                 this.captureRole(data);
-                return data as GASResponseRaw<GASPaginatedResponseRaw<CatalogRaw>>; // Delivers the whole array at once
+                return data as GASResponseRaw<GASPaginatedResponseRaw<TRaw>>; // Delivers the whole array at once
             },
         );
     }
@@ -91,7 +86,7 @@ export class GASCatalogAPI extends GASAPI {
     /**
      * 
      */
-    async getCatalogItem(row: number, id: string): Promise<GASResponseRaw<CatalogRaw>> {
+    async getCatalogItem(row: number, id: string): Promise<GASResponseRaw<TRaw>> {
 
         const webAppUrl = this.getWebAppUrl();
         if (!webAppUrl) {
@@ -118,31 +113,24 @@ export class GASCatalogAPI extends GASAPI {
                 }
                 const data: unknown = await response.json();
                 this.captureRole(data);
-                return data as GASResponseRaw<CatalogRaw>;
+                return data as GASResponseRaw<TRaw>;
             },
         );
     }
 
 
-    async saveCatalogItem(
-        itemInput: CatalogRecord,
-    ): Promise<GASResponseRaw<CatalogRaw>> {
+    async saveCatalogItem(id: string, row:number,
+        rowValues: TRowValues,
+    ): Promise<GASResponseRaw<TRaw>> {
 
         //1. Build the payload 
-        const now = new Date().toISOString();
-        const item: CatalogRecord = {
-            ...itemInput,
-            updatedAt: now,
-            syncStatus: SyncStatus.PENDING,
+        const payload: CatalogPostPayload<TRowValues> = {
+            action: row ? 'UPDATE_CATALOG_ITEM' : 'CREATE_CATALOG_ITEM',
+            id: id,
+            row: row,
+            rowValues: rowValues,
         };
-
-        const payload: CatalogPostPayload = {
-            action: item.row ? 'UPDATE_CATALOG_ITEM' : 'CREATE_CATALOG_ITEM',
-            id: item.id,
-            row: item.row,
-            rowValues: getCatalogRowValues(item),
-        };
-        return this.postCatalogPayload<CatalogRaw>(payload);
+        return this.postCatalogPayload<TRaw>(payload);
     }
 
     async cloneCatalog(sheetUrl: string): Promise<GASResponseRaw<unknown>> {
@@ -150,9 +138,9 @@ export class GASCatalogAPI extends GASAPI {
         return this.postCatalogPayload<unknown>(payload);
     }
 
-    async cloneCatalogItem(sheetUrl: string): Promise<GASResponseRaw<CatalogRaw>> {
+    async cloneCatalogItem(sheetUrl: string): Promise<GASResponseRaw<TRaw>> {
         const payload: CloneCatalogItemPayload = { action: 'CLONE_CATALOG_ITEM', SheetId: sheetUrl };
-        return this.postCatalogPayload<CatalogRaw>(payload);
+        return this.postCatalogPayload<TRaw>(payload);
     }
 
     async deleteCatalogItem(row: number, id: string): Promise<GASResponseRaw<string>> {
@@ -162,7 +150,7 @@ export class GASCatalogAPI extends GASAPI {
 
 
     private async postCatalogPayload<T>(
-        payload: CatalogPostPayload | CloneCatalogPayload | CloneCatalogItemPayload | DeleteCatalogItemPayload,
+        payload: CatalogPostPayload<TRowValues> | CloneCatalogPayload | CloneCatalogItemPayload | DeleteCatalogItemPayload,
     ): Promise<GASResponseRaw<T>> {
 
         const webAppUrl = this.getWebAppUrl();

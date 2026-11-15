@@ -13,7 +13,7 @@ import { TOKEN_KEY } from "./gas-constants.constants";
 @Injectable({
     providedIn: 'root',
 })
-export class GASDomainAPI extends GASAPI{
+export class GASDomainAPI<TRaw, TRowValues> extends GASAPI{
 
     /**
      * HTTP GET: Retrieves the sheet (tab) names of the Domain Data owned by a Catalog row
@@ -46,13 +46,11 @@ export class GASDomainAPI extends GASAPI{
     }
 
 
-
-
-    async getDomainPaginated(row: number, domain: string, page: number, pageSize: number): Promise<GASPaginatedResponseRaw<any>> {
+    async getDomainPaginated(row: number, domain: string, page: number, pageSize: number): Promise<GASResponseRaw<GASPaginatedResponseRaw<TRaw>>> {
         const webAppUrl = this.getWebAppUrl();
 
         const idToken = localStorage.getItem(TOKEN_KEY);
-        let endpoint = `${webAppUrl}?action=GET_DOMAIN_PAGINATED&row=${encodeURIComponent(row)}&domain=${encodeURIComponent(domain)}&page=${encodeURIComponent(page)}&pageSize=${encodeURIComponent(pageSize)}`;
+        let endpoint = `${webAppUrl}?action=GET_PAGINATED_ROWS&row=${encodeURIComponent(row)}&sheetName=${encodeURIComponent(domain)}&page=${encodeURIComponent(page)}&pageSize=${encodeURIComponent(pageSize)}`;
 
         if (idToken) {
             endpoint += `&idToken=${encodeURIComponent(idToken)}`;
@@ -69,6 +67,6 @@ export class GASDomainAPI extends GASAPI{
         const data: unknown = await response.json();
         this.captureRole(data);
 
-        return data as GASPaginatedResponseRaw<any>;
+        return data as GASResponseRaw<GASPaginatedResponseRaw<TRaw>>;
     }
 }

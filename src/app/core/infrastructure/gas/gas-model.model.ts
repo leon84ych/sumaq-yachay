@@ -5,6 +5,8 @@
  * Use Raw sufix as it is returned without processing from GAS
  */
 
+import { CatalogRaw } from "../../../features/catalog/models/catalog-item.model";
+
 
 /**
  * Response wrapper to all request to the server
@@ -29,54 +31,13 @@ export interface GASPaginatedResponseRaw<T> extends Record<string, any> {
 
 
 /**
- * Specific model for catalog with GAS Google Sheets integration
- */
-
-export interface CatalogRaw extends Record<string, unknown> {
-  id: string;               // Unique ID
-  subject: string;          // Entity schema subject
-  topic: string;            // Entity schema topic
-  name: string;             // Human-readable title
-  author: string;           // Entity schema author
-  description?: string;     // Optional context
-  source?: string;          // Optional source URL
-  active: boolean;          // Active flag in Master Index
-  page: number;             // Current page number
-  pages: number;            // Total number of pages
-  updatedAt: string;        // ISO-8601 timestamp
-  count: number;            // Count of related items
-  syncStatus?: string;      // Local sync tracking flag
-  row: number;              // Row number in Master Index (1-based, for display only)
-}
-
-/**
- * Tuple representing the values of a catalog row to be sent to GAS
- */
-export type CatalogRawValues = [
-  string,   //id
-  string,   //subject
-  string,   //topic
-  string,   //name
-  string,   //author     
-  string,   //description
-  string,   //source
-  boolean,  //active
-  number,   //page
-  number,   //pages
-  string,   //updatedAt
-  number,   //count
-  string,   //syncStatus
-];
-
-
-/**
  * Payload structure for creating or updating a catalog item in GAS
  */
-export interface CatalogPostPayload {
+export interface CatalogPostPayload<TRowValues> {
   action: 'UPDATE_CATALOG_ITEM' | 'CREATE_CATALOG_ITEM';
   id: string;
   row: number;
-  rowValues: CatalogRawValues;
+  rowValues: TRowValues;
 }
 
 
@@ -120,22 +81,6 @@ export interface DomainSheetRaw {
   rows: Record<string, unknown>[]; // Row objects keyed by column header
 }
 
-// export interface CatalogItemRaw {
-//   status: 'success' | 'error';
-//   email?: string;
-//   role?: string;
-//   message?: string;
-//   data: {
-//     status: 'success' | 'error';
-//     message?: string;
-//     sheets: Array<{
-//       index: number;
-//       name: string;
-//       rows: Record<string, unknown>[];
-//     }>;
-//   };
-// }
-
 export interface PaginatedDomainResponseRaw {
   row: number;
   sheetName: string;
@@ -160,21 +105,4 @@ export interface SheetInfoRaw {
 export interface BookInfoRaw {
   id: CatalogRaw, 
   sheets: SheetInfoRaw[];
-}
-
-//-------------------- ID RAW --------------------
-// ID is the same as CatalogRaw
-
-//-------------------- INDEX RAW --------------------
-
-export interface IndexRaw {
-  id: string;
-  row: number;
-  chapter: string;
-  theme: string;
-  subtheme: string;
-  tags: string;
-  syncStatus: string;
-  contributor: string;
-  feed: number;
 }

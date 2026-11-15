@@ -5,6 +5,7 @@ import { GlobalErrorService } from '../../../../core/services/error/global-error
 import { CatalogGASRepository } from '../../../catalog/services/catalog-gas-repository';
 import { CatalogRecord } from '../../../catalog/models/catalog-item.model';
 import { IndexRecord } from '../../index/model/index-model';
+import { IndexRepository } from '../../index/services/index-repository';
 
 
 
@@ -33,6 +34,8 @@ export class DomainDataService {
   readonly bookInfo = signal<CatalogRecord | null>(null);
   readonly index = signal<IndexRecord[] | null>(null);
 
+  private indexGasRepository = inject(IndexRepository);
+
   /**
    * Loads the sheet (tab) names of the Domain Data owned by a Catalog row
    */
@@ -46,14 +49,6 @@ export class DomainDataService {
       }
 
       this.bookInfo.set(response.data.id || null);
-
-      //Save index records to the local database
-      // Omit saving the catalog record as it is already managed elsewhere
-      // const database = this.localDBService.indexedDB;
-      // await database.transaction('rw', database.indexes, async () => {
-      //   await database.indexes.bulkPut(response.data.index);
-      // });
-      // this.index.set(await database.indexes.where('row').equals(row).toArray());
 
       // Store each domain 
       this.domainsInfo.set(response.data.domains.map(sheet => ({
@@ -69,12 +64,24 @@ export class DomainDataService {
       );
     } finally {
       this.isLoading.set(false);
+      console.log("Retrieve domains called");
+      this.retrieveDomains(row);
     }
   } 
 
   createDomainSheet(domainName: string, headers: string[]): Promise<void> {
     this.isLoading.set(true);
     throw new Error('Not implemented yet');
+  }
+
+  retrieveDomains(row: number){
+      this.domainsInfo().forEach(domain => {
+        console.log(domain);
+        if(domain.id==="INDEX"){
+          console.log("Found INDEX domain:", domain);
+          this.indexGasRepository.getDomain(row, domain.count); 
+        }
+      });
   }
 
 }

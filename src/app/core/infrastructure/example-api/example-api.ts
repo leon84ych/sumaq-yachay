@@ -1,20 +1,42 @@
 
-import { CatalogRecord } from "../../../features/catalog/models/catalog-item.model";
+import { CatalogRaw, CatalogRecord } from "../../../features/catalog/models/catalog-item.model";
 import { Response, PaginatedResponse } from "../../../features/domain-1/shared/model/domain-shared-model";
 import { CatalogRepositoryInterface } from "../catalog-repository-interface";
 
 /**
- * Indexed implementation of all operations 
+ * Example API implementation of the CatalogRepositoryInterface using CatalogRaw data.
+ * Provides methods for CRUD operations and mapping between raw and record formats.
  */
-export class ExampleApi implements CatalogRepositoryInterface<CatalogRecord, string> {
+export class ExampleApi implements CatalogRepositoryInterface<CatalogRaw> {
 
 
-    getRecord(raw: string): CatalogRecord {
+
+    getCatalogs(page: number, pageSize: number): Promise<Response<PaginatedResponse<CatalogRaw>>> {
+        throw new Error("Method not implemented.");
+    }
+    
+    
+    createItem(item: CatalogRaw): Promise<Response<CatalogRaw>> {
+        throw new Error("Method not implemented.");
+    }
+    
+    
+    updateItem(item: CatalogRaw): Promise<Response<CatalogRaw>> {
+        throw new Error("Method not implemented.");
+    }
+    
+    
+    deleteItem(item: CatalogRaw): Promise<Response<string>> {
         throw new Error("Method not implemented.");
     }
 
-    
-    getRaw(record: CatalogRecord): string {
+
+    getRecord(raw: CatalogRaw): CatalogRecord {
+        throw new Error("Method not implemented.");
+    }
+
+
+    getRaw(record: CatalogRecord): CatalogRaw {
         throw new Error("Method not implemented.");
     }
 
@@ -28,25 +50,6 @@ export class ExampleApi implements CatalogRepositoryInterface<CatalogRecord, str
         throw new Error("Method not implemented.");
     }
 
-
-    async getCatalogs(page: number, pageSize: number): Promise<Response<PaginatedResponse<CatalogRecord>>> {
-        throw new Error("Method not implemented.");
-    }
-
-
-    async createItem(item: CatalogRecord): Promise<Response<CatalogRecord>> {
-        throw new Error("Method not implemented.");
-    }
-
-
-    async updateItem(item: CatalogRecord): Promise<Response<CatalogRecord>> {
-        throw new Error("Method not implemented.");
-    }
-
-
-    async deleteItem(item: CatalogRecord): Promise<Response<string>> {
-        throw new Error("Method not implemented.");
-    }
 
 
     async getCatalogItem(id: string): Promise<Response<CatalogRecord>> {

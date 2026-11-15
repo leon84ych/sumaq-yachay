@@ -1,14 +1,15 @@
-import { PaginatedResponse } from "../../features/domain-1/shared/model/domain-shared-model";
+import { GASPaginatedResponseRaw } from "./gas/gas-model.model";
+
 
 /**
  * Different backend implementations for domain items
  */
-export interface DomainRepositoryInterface<T, R> {
+export interface DomainRepositoryInterface<TRow> {
 
     /**
      * Get the list of domain items avaiable
      */
-    getDomain(): Promise<T[]>;
+    getDomain(row:number,  total: number): Promise<TRow[]>;
 
     /**
      * Get the domain items paginated
@@ -16,39 +17,26 @@ export interface DomainRepositoryInterface<T, R> {
      * @param page The page number to retrieve
      * @param pageSize The number of items per page
      */
-    getDomainPaginated(row: number, page: number, pageSize: number): Promise<PaginatedResponse<T>>;
+    getDomainPaginated(row: number, page: number, pageSize: number): Promise<GASPaginatedResponseRaw<TRow>>;
 
 
     /**
      * Add a new domain item by its ID
      * @param id 
      */
-    addDomainItem(id: string): Promise<T>;
+    addDomainItem(id: string): Promise<TRow>;
 
 
     /**
      * Update the specific domain item by its ID
      * @param id 
      */
-    updateDomainItem(id: string): Promise<T>;
+    updateDomainItem(id: string): Promise<TRow>;
 
     /**
      * Delete the specific domain item by its ID
      * @param id 
      */
     deleteDomainItem(id: string): Promise<void>;
-
-
-    /**
- * Convert the raw server response into a domain record of type T 
- * @param raw the retrieved value from server 
- */
-    getRecord(raw: R): T;
-
-    /**
-     * Convert the domain record of type T into a raw server-compatible format
-     * @param record the domain record to be converted into a raw server-compatible format 
-     */
-    getRaw(record: T): R;
 
 }

@@ -1,31 +1,16 @@
-import { Injectable } from "@angular/core";
-import { DomainGASRepository } from "../../../../core/infrastructure/gas/domain-gas-repository";
-import { IndexRecord } from "../model/index-model";
-import { mapTagsToArray, mapTagsToString, parseSyncStatus } from "../../../../core/infrastructure/gas/gas-mapper.mapper";
-import { IndexRaw } from "../../../../core/infrastructure/gas/gas-model.model";
+import { inject, Injectable } from "@angular/core";
+import { IndexRaw, IndexRawValues } from "../model/index-model";
+import { GASDomainAPI } from "../../../../core/infrastructure/gas/gas-domain-api.service";
+import { GASDomainRepositoryAbstract } from "../../../../core/infrastructure/gas/gas-domain-repository-abstract";
 
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
-export class IndexGASRepository extends DomainGASRepository<IndexRecord, IndexRaw> {
+export class IndexGASRepository extends  GASDomainRepositoryAbstract<IndexRaw, IndexRawValues> {
+  
+  override domain: string= "INDEX";
+  override api = inject(GASDomainAPI<IndexRaw, IndexRawValues>);
 
-    override domain: string = "INDEX";
-
-    override getRecord(raw: IndexRaw): IndexRecord {
-        return {
-            ...raw,
-            tags: mapTagsToArray(raw.tags),
-            syncStatus: parseSyncStatus(raw.syncStatus),
-        };
-    }
-
-    override getRaw(record: IndexRecord): IndexRaw {
-        return {
-            ...record,
-            tags: mapTagsToString(record.tags),
-            syncStatus: record.syncStatus,
-        };
-    }
 
 }

@@ -1,8 +1,5 @@
-
-import { CatalogRecord } from "../../../features/catalog/models/catalog-item.model";
-import { IndexRecord } from "../../../features/domain-1/index/model/index-model";
 import { Response, Role, Status, SyncStatus } from "../../../features/domain-1/shared/model/domain-shared-model";
-import { CatalogRaw, CatalogRawValues, GASResponseRaw, IndexRaw } from "./gas-model.model";
+import { GASResponseRaw } from "./gas-model.model";
 
 
 //-----------------RESPONSE MAPPERS---------------------------
@@ -68,26 +65,6 @@ export function parseSyncStatus(value: unknown): SyncStatus {
   return validStatuses.includes(value as SyncStatus) 
     ? (value as SyncStatus) 
     : 'pending';
-}
-
-//-----------------CATALOG ITEM MAPPERS---------------------------
-
-export function getCatalogRowValues(item: CatalogRecord): CatalogRawValues {
-  return [
-    item.id,
-    item.subject || '',
-    item.topic || '',
-    item.name || '',
-    item.author || '',
-    item.description || '',
-    item.source || 'PDF',
-    item.active ?? true,
-    item.page ?? 0,
-    item.pages ?? 0,
-    item.updatedAt || new Date().toISOString(),
-    item.count ?? 0,
-    item.syncStatus || 'pending',
-  ];
 }
 
 /**

@@ -1,8 +1,7 @@
 
-import { CatalogRecord } from "../../features/catalog/models/catalog-item.model";
 import { Response, PaginatedResponse } from "../../features/domain-1/shared/model/domain-shared-model";
 
-export interface CatalogRepositoryInterface<T, R> {
+export interface CatalogRepositoryInterface<TRow> {
 
     /**
      * Get the health status of the catalog service
@@ -12,16 +11,16 @@ export interface CatalogRepositoryInterface<T, R> {
     /**
      * Get the list of catalogs avaiable
      */
-    getCatalogs(page: number, pageSize: number): Promise<Response<PaginatedResponse<T>>>;
+    getCatalogs(page: number, pageSize: number): Promise<Response<PaginatedResponse<TRow>>>;
 
 
-    createItem(item: T): Promise<Response<T>>;
+    createItem(item: TRow): Promise<Response<TRow>>;
 
 
-    updateItem(item: T): Promise<Response<T>>;
+    updateItem(item: TRow): Promise<Response<TRow>>;
 
 
-    deleteItem(item: T): Promise<Response<string>>;
+    deleteItem(item: TRow): Promise<Response<string>>;
 
 
     /**
@@ -29,17 +28,5 @@ export interface CatalogRepositoryInterface<T, R> {
      */
     cloneCatalog(sheetUrl: string): Promise<Response<unknown>>;
 
-
-    /**
-    * Convert the raw server response into a domain record of type T 
-    * @param raw the retrieved value from server 
-    */
-    getRecord(raw: R): T;
-
-    /**
-     * Convert the domain record of type T into a raw server-compatible format
-     * @param record the domain record to be converted into a raw server-compatible format 
-     */
-    getRaw(record: T): R;
 
 }

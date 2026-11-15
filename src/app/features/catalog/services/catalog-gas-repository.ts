@@ -3,23 +3,26 @@ import { CatalogRepositoryInterface } from "../../../core/infrastructure/catalog
 import { GASCatalogAPI } from "../../../core/infrastructure/gas/gas-catalog-api.service";
 import { mapRole, mapStatus, parseResponseRole, parseResponseStatus, parseSyncStatus } from "../../../core/infrastructure/gas/gas-mapper.mapper";
 
-import { Response, PaginatedResponse, Role, Status } from "../../domain-1/shared/model/domain-shared-model";
-import { CatalogRaw, IndexRaw } from "../../../core/infrastructure/gas/gas-model.model";
-import { CatalogRecord } from "../models/catalog-item.model";
+import { Response, PaginatedResponse } from "../../domain-1/shared/model/domain-shared-model";
+
+import { CatalogRaw, CatalogRawValues, CatalogRecord } from "../models/catalog-item.model";
 import { BookInfo } from "../../domain-1/catalog-detail/models/domain-sheet.model";
+import { CatalogGASMapper } from "../models/catalog-gas.mapper";
 
 
 
 @Injectable({
     providedIn: 'root',
 })
-export class CatalogGASRepository implements CatalogRepositoryInterface<CatalogRecord, CatalogRaw> {
+export class CatalogGASRepository implements CatalogRepositoryInterface<CatalogRecord> {
 
-    private gasCatalogApi = inject(GASCatalogAPI);
+    //convertir en clase abstracta para obligar el contrato contra las interfaces 
+    private api = inject(GASCatalogAPI<CatalogRaw, CatalogRawValues>);
+    private mapper = inject(CatalogGASMapper);
 
     async getHealth(): Promise<string> {
         try {
-            return await this.gasCatalogApi.getHealth();
+            return await this.api.getHealth();
         } catch (error) {
             console.error('Failed to get health:', error);
             throw error;
@@ -28,9 +31,9 @@ export class CatalogGASRepository implements CatalogRepositoryInterface<CatalogR
 
     async getCatalogs(page: number, pageSize: number): Promise<Response<PaginatedResponse<CatalogRecord>>> {
         try {
-            const catalogResponseRow = await this.gasCatalogApi.getCatalog(page, pageSize);
+            const catalogResponseRow = await this.api.getCatalog(page, pageSize);
 
-            const data = catalogResponseRow.data.rows.map((row: CatalogRaw) => this.getRecord(row));
+            const data = catalogResponseRow.data.rows.map((row: CatalogRaw) => this.mapper.toRecord(row));
 
             const response: Response<PaginatedResponse<CatalogRecord>> = {
                 ...catalogResponseRow,
@@ -52,13 +55,13 @@ export class CatalogGASRepository implements CatalogRepositoryInterface<CatalogR
 
     async createItem(item: CatalogRecord): Promise<Response<CatalogRecord>> {
         try {
-            const createResponse = await this.gasCatalogApi.saveCatalogItem(item);
+            const createResponse = await this.api.saveCatalogItem(item.id,item.row, this.mapper.toRaw(item));
 
             const response: Response<CatalogRecord> = {
                 ...createResponse,
                 status: mapStatus(createResponse.status),
                 role: mapRole(createResponse.role),
-                data: this.getRecord(createResponse.data),
+                data: this.mapper.toRecord(createResponse.data),
             };
             return response;
         } catch (error) {
@@ -75,7 +78,7 @@ export class CatalogGASRepository implements CatalogRepositoryInterface<CatalogR
 
     async cloneCatalog(sheetUrl: string): Promise<Response<unknown>> {
         try {
-            const cloneResponse = await this.gasCatalogApi.cloneCatalog(sheetUrl);
+            const cloneResponse = await this.api.cloneCatalog(sheetUrl);
 
             return {
                 ...cloneResponse,
@@ -90,13 +93,13 @@ export class CatalogGASRepository implements CatalogRepositoryInterface<CatalogR
 
     async cloneCatalogItem(sheetUrl: string): Promise<Response<CatalogRecord>> {
         try {
-            const cloneResponse = await this.gasCatalogApi.cloneCatalogItem(sheetUrl);
+            const cloneResponse = await this.api.cloneCatalogItem(sheetUrl);
 
             const response: Response<CatalogRecord> = {
                 ...cloneResponse,
                 status: mapStatus(cloneResponse.status),
                 role: mapRole(cloneResponse.role),
-                data: this.getRecord(cloneResponse.data),
+                data: this.mapper.toRecord(cloneResponse.data),
             };
             return response;
         } catch (error) {
@@ -107,7 +110,7 @@ export class CatalogGASRepository implements CatalogRepositoryInterface<CatalogR
 
     async deleteItem(item: CatalogRecord): Promise<Response<string>> {
         try {
-            const deleteResponse = await this.gasCatalogApi.deleteCatalogItem(item.row, item.id);
+            const deleteResponse = await this.api.deleteCatalogItem(item.row, item.id);
 
             return {
                 ...deleteResponse,
@@ -132,31 +135,20 @@ export class CatalogGASRepository implements CatalogRepositoryInterface<CatalogR
      */
     async getSource(row: number): Promise<Response<BookInfo>> {
 
-        const bookInfoResponse = await this.gasCatalogApi.getBookInfo(row);
+        const bookInfoResponse = await this.api.getBookInfo(row);
 
         const bookInfo: Response<BookInfo> = {
             ...bookInfoResponse,
             status: parseResponseStatus(bookInfoResponse.status),
             role: parseResponseRole(bookInfoResponse.role),
             data: {
-                id: this.getRecord(bookInfoResponse.data.id),
+                id: this.mapper.toRecord(bookInfoResponse.data.id),
                 domains: bookInfoResponse.data.sheets
             }
         }
         return bookInfo;
     }
 
-    getRecord(raw: CatalogRaw): CatalogRecord {
-        return {
-            ...raw,
-            syncStatus: parseSyncStatus(raw.syncStatus),
-        }
-    }
-
-    getRaw(record: CatalogRecord): CatalogRaw {
-        return {
-            ...record
-        };
-    }
+   
 }
 
