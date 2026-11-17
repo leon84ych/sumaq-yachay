@@ -19,22 +19,17 @@ export abstract class GASDomainRepositoryAbstract<TRaw, TRowValues> implements D
     /**
      * Retrieves the domain items in a paginated manner until the total number of items is reached.
      * @param row The row number to start fetching from.
-     * @param total The total number of items to retrieve.
+     * @param total The total number of items to retrieve (optional). If not provided, all items will be fetched.
      * @returns A promise that resolves to an array of domain items.
      */
-    async getDomain(row: number, total: number): Promise<TRaw[]> {
-        
+    async getDomain(row: number, total: number | null = null): Promise<TRaw[]> {
         const domain: TRaw[] = [];
-        const totalPages = Math.ceil(total / this.PAGE_SIZE);
-
+        const totalPages = total ? Math.ceil(total / this.PAGE_SIZE) : Infinity;
         for (let page = 1; page <= totalPages; page++) {
             const response = await this.getDomainPaginated(row, page, this.PAGE_SIZE);
-            console.log("ROWS:", response.rows);
             domain.push(...response.rows);
-
             if (response.rows.length === 0) break;
         }
-
         return domain;
     }
 

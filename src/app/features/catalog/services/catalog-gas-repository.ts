@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { CatalogRepositoryInterface } from "../../../core/infrastructure/catalog-repository-interface";
 import { GASCatalogAPI } from "../../../core/infrastructure/gas/gas-catalog-api.service";
-import { mapRole, mapStatus, parseResponseRole, parseResponseStatus, parseSyncStatus } from "../../../core/infrastructure/gas/gas-mapper.mapper";
+import { mapRole, mapStatus, parseResponseRole, parseResponseStatus, parseSyncStatus } from "../../../core/infrastructure/gas/gas-utils-mappers.mapper";
 
 import { Response, PaginatedResponse } from "../../domain-1/shared/model/domain-shared-model";
 

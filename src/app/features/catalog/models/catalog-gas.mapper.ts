@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { GASMapperInterface } from "../../../core/infrastructure/gas/gas-mapper-interface";
 import { CatalogRaw, CatalogRawValues, CatalogRecord } from "./catalog-item.model";
-import { parseSyncStatus } from "../../../core/infrastructure/gas/gas-mapper.mapper";
+import { parseSyncStatus } from "../../../core/infrastructure/gas/gas-utils-mappers.mapper";
 
 @Injectable({ providedIn: 'root' })
 export class CatalogGASMapper implements GASMapperInterface<CatalogRecord, CatalogRaw, CatalogRawValues> {

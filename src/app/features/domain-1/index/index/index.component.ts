@@ -1,16 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, input, output, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
-import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
-import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
-import { serializeTagsToArray, serializeTagsToBE } from '../../../../shared/utils/tag-utils';
+
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { IndexEntryCardComponent } from '../components/index-entry-card/index-entry-card.component';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
-import { matchesStudySearch } from '../../../../shared/utils/study-search';
-
 
 interface IndexHierarchyGroup {
   chapter: string;
@@ -22,6 +18,7 @@ interface IndexHierarchyGroup {
 
 import { IndexEntryFormComponent } from '../components/index-entry-form/index-entry-form.component';
 import { IndexRecord } from '../model/index-model';
+import { IndexDataService } from '../services/index.service';
 
 
 @Component({
@@ -37,13 +34,24 @@ import { IndexRecord } from '../model/index-model';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css'],
 })
-export class IndexComponent {
-  readonly rows = input.required<IndexRecord[]>();
-  readonly currentSheet = input.required<DomainSheet>();
-  readonly bookName = input<string>('');
-  readonly bookAuthor = input<string>('');
+export class IndexComponent implements OnInit {
+
+  /**
+   * Domain components must only receive the BookId, Row and the count of elements 
+   * and each domain is responsible for managing its own entries.
+   */
+
+
+  readonly bookId = input.required<string>();
+
+  // Input and output signals for managing Index Form
   readonly isAddingEntry = input<boolean>(false);
   readonly closeEntry = output<void>();
+
+  //Store the elements to be shown in this domain
+  readonly rows = signal<IndexRecord[]>([]);
+  readonly bookName = signal<string>('');
+  readonly bookAuthor = signal<string>('');
 
   readonly newChapter = signal<string>('');
   readonly newTheme = signal<string>('');
@@ -52,11 +60,29 @@ export class IndexComponent {
   readonly editingId = signal<string | null>(null);
   readonly searchTerm = inject(StudySearchService).query;
 
-  private readonly domainDataService = inject(DomainDataService);
+  private readonly indexDataService = inject(IndexDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
   private readonly transloco = inject(TranslocoService);
+
+
+  readonly filteredRows = signal<IndexRecord[]>([]);
+
+
+
+  async ngOnInit(): Promise<void> {
+    // Initialization logic if needed
+    //1. Retrieve the book info from service 
+    if (this.bookId() != null) {
+      const catalogRecord = await this.indexDataService.getCatalogRecord(this.bookId());
+      this.bookName.set(catalogRecord?.name ?? '');
+      this.bookAuthor.set(catalogRecord?.author ?? '');
+      // 2. Retrieve the index records for the specified book, row, and count
+      this.filteredRows.set(await this.indexDataService.getRecords(this.bookId()));
+    }
+
+  }
 
   /**
    * 1. MASTER DOMAIN VALIDATION CAP
@@ -67,12 +93,6 @@ export class IndexComponent {
     return !this.newChapter().trim() || !this.newTheme().trim() || this.newTags().length === 0;
   });
 
-  readonly filteredRows = computed(() => this.rows().filter((row) =>
-    matchesStudySearch(this.searchTerm(), [
-      this.bookName(), this.bookAuthor(), 'index', 'índice',
-      row.chapter, row.theme, row.subtheme, ...(row.tags ?? []),
-    ], row.tags, { book: this.bookName(), author: this.bookAuthor(), contributor: row.contributor }),
-  ));
 
   readonly hierarchy = computed<IndexHierarchyGroup[]>(() => {
 
@@ -103,7 +123,7 @@ export class IndexComponent {
     }
 
     try {
-      await this.domainDataService.deleteDomainRow(this.currentSheet().name, id);
+      // await this.indexDataService.deleteDomainRow(this.currentSheet().name, id);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to delete index entry.';
       this.globalErrorService.show(message);
@@ -115,7 +135,7 @@ export class IndexComponent {
     this.newChapter.set(row.chapter);
     this.newTheme.set(row.theme);
     this.newSubtheme.set(row.subtheme);
-    this.newTags.set(serializeTagsToArray(row.tags));
+    this.newTags.set(row.tags);
   }
 
   resetForm(): void {

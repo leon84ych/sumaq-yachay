@@ -1,10 +1,7 @@
 @switch (viewKind()) {
    @case ('INDEX') {
     <app-domain-index-1
-      [currentSheet]="currentSheet()"
-      [rows]="indexRows()"
-      [bookName]="bookName()"
-      [bookAuthor]="bookAuthor()"
+      [bookId]="bookId()"
       [isAddingEntry]="isAddingEntry()"
       (closeEntry)="closeEntry.emit()"
     />

@@ -10,7 +10,7 @@ const VERSION_ONE_STORES = {
     'id, subject, topic, name, author, description, source, active, syncStatus, updatedAt',
   //domainSheets: 'row, count',
   //bookTags: 'id, [row+name], row, name, scope, subject, topic, book, author',
-  indexes: 'id, row, book, author, *tags',
+  indexes: '[bookId+id], bookId, id, row, book, author, *tags',
 } as const;
 
 

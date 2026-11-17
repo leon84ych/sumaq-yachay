@@ -75,8 +75,7 @@ export class DomainDataService {
   }
 
   retrieveDomains(row: number){
-      this.domainsInfo().forEach(domain => {
-        console.log(domain);
+      this.domainsInfo().forEach(domain => {0
         if(domain.id==="INDEX"){
           console.log("Found INDEX domain:", domain);
           this.indexGasRepository.getDomain(row, domain.count); 

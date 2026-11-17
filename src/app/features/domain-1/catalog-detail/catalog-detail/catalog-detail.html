@@ -48,10 +48,17 @@
       }
     </div>
   </div>
-  <app-catalog-sheet-tabs [domainNames]="domainDataService.domainsNames()" [activeDomainName]="activeDomainName()"
-    (selectTab)="selectTab($event)" />
-  <app-domain-view-resolver [domain]="activeDomain()" [bookName]="item()?.name ?? ''"
-    [bookAuthor]="item()?.author ?? ''" [isAddingEntry]="isAddingEntry()" (closeEntry)="isAddingEntry.set(false)" />
+  <app-catalog-sheet-tabs 
+    [domainNames]="domainDataService.domainsNames()" 
+    [activeDomainName]="activeDomainName()"
+    (selectTab)="selectTab($event)" 
+    />
+  <app-domain-view-resolver 
+    [domain]="activeDomain()" 
+    [bookId]="item()?.id ?? ''" 
+    [isAddingEntry]="isAddingEntry()" 
+    (closeEntry)="isAddingEntry.set(false)" 
+    />
   }
   @else if (domainDataService.isLoading()) {
   <p class="state-message" role="status" aria-live="polite">

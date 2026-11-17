@@ -1,4 +1,4 @@
-import { DomainSheet } from "../../shared/model/domain-shared-model";
+import { Domain } from "../../shared/model/domain-shared-model";
 
 
 
@@ -7,6 +7,7 @@ import { DomainSheet } from "../../shared/model/domain-shared-model";
  */
 export interface IndexRaw {
   id: string;
+  bookId: string;
   row: number;
   chapter: string;
   theme: string;
@@ -21,7 +22,7 @@ export interface IndexRaw {
 /**
  * Specific record model for domain index
  */
-export interface IndexRecord extends DomainSheet {
+export interface IndexRecord extends Domain {
   chapter: string;
   theme: string;
   subtheme: string;

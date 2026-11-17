@@ -18,7 +18,7 @@ export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
   private gasRepository = inject(IndexGASRepository);
   private localDBService = inject(LocalDBService);
 
-  async getDomain(row: number, total: number): Promise<IndexRecord[]> {
+  async getDomain(row: number, total: number | null = null): Promise<IndexRecord[]> {
     console.log("Fetching domain for row:", row, "with total:", total);
     const domain: IndexRaw[] = await this.gasRepository.getDomain(row, total);
 

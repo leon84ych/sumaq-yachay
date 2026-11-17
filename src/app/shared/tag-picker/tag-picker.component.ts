@@ -12,6 +12,7 @@ import { normalizeTagsFromArray } from '../utils/tag-utils';
   styleUrl: './tag-picker.component.css',
 })
 export class TagPickerComponent {
+  
   readonly value = model<string[]>([]);
   readonly bookRow = input<number | null>(null);
   readonly ariaLabel = input.required<string>();

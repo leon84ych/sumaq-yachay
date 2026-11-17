@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { TagPickerComponent } from '../../../../../shared/tag-picker/tag-picker.component';
 import { DomainEntryFormOverlayComponent } from '../../../../domain/shared/domain-entry-form-overlay/domain-entry-form-overlay.component'; 
-import type { DomainIndexComponent } from '../../../../domain/domain-index/domain-index/domain-index.component';
+import { IndexComponent } from '../../index/index.component';
 
 @Component({
   selector: 'app-index-entry-form-1',
@@ -19,5 +19,5 @@ import type { DomainIndexComponent } from '../../../../domain/domain-index/domai
   templateUrl: './index-entry-form.component.html',
 })
 export class IndexEntryFormComponent {
-  readonly form = input.required<DomainIndexComponent>();
+  readonly form = input.required<IndexComponent>();
 }

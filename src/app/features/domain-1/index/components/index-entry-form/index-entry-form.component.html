@@ -47,7 +47,7 @@
       <app-tag-picker
         [ariaLabel]="'DOMAINS.INDEX.TAGS' | transloco"
         inputId="index-tags"
-        [bookRow]="form().currentSheet().row"
+        [bookRow]="null"
         [value]="form().newTags()"
         (valueChange)="form().newTags.set($event)"
       />

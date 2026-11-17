@@ -1,10 +1,8 @@
 import { Component, computed, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomainInfo, DomainSheet } from '../../models/domain-sheet.model';
+import { DomainInfo } from '../../models/domain-sheet.model';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { IndexRecord } from '../../../index/model/index-model';
 import { IndexComponent } from '../../../index/index/index.component';
-import { DomainDataService } from '../../services/domain-data.service';
 
 
 @Component({
@@ -19,11 +17,9 @@ import { DomainDataService } from '../../services/domain-data.service';
 })
 export class DomainViewResolverComponent {
   
-  private readonly domainDataService = inject(DomainDataService);
-
   readonly domain = input<DomainInfo | null>(null);
-  readonly bookName = input<string>('');
-  readonly bookAuthor = input<string>('');
+  readonly bookId = input<string>('');
+
   readonly isAddingEntry = input<boolean>(false);
   readonly closeEntry = output<void>();
 
@@ -32,23 +28,12 @@ export class DomainViewResolverComponent {
     return current ? current.id : 'unsupported';
   });
 
-  readonly currentSheet = computed<DomainSheet<IndexRecord>>(() => {
-    const domain = this.domain();
-    return {
-      row: this.domainDataService.bookInfo()?.row ?? 0,
-      id: domain?.id.toLowerCase() ?? 'INDEX',
-      name: domain?.id ?? 'INDEX',
-      index: domain?.index ?? 0,
-      rows: this.indexRows(),
-    };
-  });
-
   // readonly conceptRows = computed(() => (this.sheet()?.rows ?? []) as unknown as ConceptRow[]);
   // readonly quoteRows = computed(() => (this.sheet()?.rows ?? []) as unknown as QuoteRow[]);
   // readonly passageRows = computed(() => (this.sheet()?.rows ?? []) as unknown as PassagesRow[]);
   // readonly characterRows = computed(() => (this.sheet()?.rows ?? []) as unknown as CharacterRow[]);
   // readonly glossaryRows = computed(() => (this.sheet()?.rows ?? []) as unknown as GlossaryRow[]);
-  readonly indexRows = computed(() => this.domainDataService.index() ?? []);
+
 
   
 

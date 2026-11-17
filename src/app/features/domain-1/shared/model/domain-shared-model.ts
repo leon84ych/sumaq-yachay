@@ -26,12 +26,13 @@ export const Role = {
     GUEST: 'guest' as const,
 } as const;
 
-export interface DomainSheet extends Record<string, unknown> {
-    id: string;
-    tags: string[]; 
-    contributor: string;
-    syncStatus: SyncStatus;
-    row: number;
+export interface Domain extends Record<string, unknown> {
+    id: string;             //unique identifier for the domain sheet
+    bookId: string;         //stores the book ID associated with this domain sheet
+    tags: string[];         //list of tags associated with this domain sheet
+    contributor: string;    //stores the contributor of this domain sheet
+    syncStatus: SyncStatus; //indicates the synchronization status of this domain sheet
+    row: number;            //row number of this domain sheet in the source data
 }
 
 
@@ -61,11 +62,11 @@ export interface Response<T> {
 
 
 export interface PaginatedResponse<T> {
-  domain: string;
-  page: number;
-  pageSize: number;
-  totalRows: number;
-  totalPages: number;
-  rows: T[];
+    domain: string;
+    page: number;
+    pageSize: number;
+    totalRows: number;
+    totalPages: number;
+    rows: T[];
 }
 
