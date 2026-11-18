@@ -3,13 +3,16 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'catalog',
+    redirectTo: 'books',
     pathMatch: 'full',
   },
   {
+    path: 'books',
+    loadComponent: () => import('./features/book/book/book').then((m) => m.BookList),
+  },
+  {
     path: 'catalog',
-    loadComponent: () =>
-      import('./features/catalog/catalog/catalog').then((m) => m.Catalog),
+    redirectTo: 'books',
   },
   {
     path: 'learn',
@@ -23,11 +26,17 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'catalog/:id',
+    path: 'books/:id',
     loadComponent: () =>
-      import('./features/domain-1/catalog-detail/catalog-detail/catalog-detail').then(
-        (m) => m.CatalogDetail
-      ),
+      import('./features/domain-1/book-detail/book-detail/book-detail').then((m) => m.BookDetail),
+  },
+  {
+    path: 'catalog/:id',
+    redirectTo: 'books/:id',
+  },
+  {
+    path: 'book/:id',
+    redirectTo: 'books/:id',
   },
   {
     path: 'documentation',
@@ -41,6 +50,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'catalog',
+    redirectTo: 'books',
   },
 ];

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { AppDbService } from '../../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../../core/services/config/config.service';
-import { parseTagsFromArray } from '../../../../shared/utils/tag-utils';
+import { parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 import { matchesStudySearch, parseStudySearch } from '../../../../shared/utils/study-search';
 import {
   QuestionOption,
@@ -44,20 +44,20 @@ export class QuestionPracticeService {
 
   async loadRandomBatch(filters: QuestionPracticeFilters = {}): Promise<QuestionPracticeItem[]> {
     await this.ensureSampleData();
-    const [catalogs, questions] = await Promise.all([
-      this.dbService.db.catalogs.toArray(),
+    const [books, questions] = await Promise.all([
+      this.dbService.db.books.toArray(),
       this.dbService.db.questions.toArray(),
     ]);
-    const catalogByRow = new Map(catalogs.map((catalog) => [catalog.row, catalog]));
+    const bookByRow = new Map(books.map((book) => [book.row, book]));
     const query = parseStudySearch(filters.query ?? '');
     const matching: QuestionPracticeItem[] = [];
 
     for (const question of questions) {
-      const catalog = catalogByRow.get(question.row);
+      const book = bookByRow.get(question.row);
       const tags = parseTagsFromArray(question.tags);
 
-      const bookName = question.bookName || catalog?.name || '';
-      const bookAuthor = question.author || catalog?.author || '';
+      const bookName = question.bookName || book?.name || '';
+      const bookAuthor = question.author || book?.author || '';
       const searchFields = [
         question.question,
         question.answer,

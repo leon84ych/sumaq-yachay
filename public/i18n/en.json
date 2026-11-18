@@ -57,7 +57,7 @@
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
     "BRAND_TAGLINE": "Beautiful Knowledge",
-    "CATALOG": "Catalog",
+    "BOOK": "Book",
     "LEARN": "Learn",
     "QUIZ": "Quiz",
     "SETTINGS": {
@@ -90,17 +90,17 @@
       "DARK": "Dark"
     }
   },
-  "CATALOG": {
+  "BOOK": {
     "HEADER": {
       "BADGE": "Master Index",
       "TITLE": "Sumaq Yachay",
-      "SUBTITLE": "Knowledge Base & Study Catalog",
+      "SUBTITLE": "Knowledge Base & Study Book",
       "SYNC_REMOTE": "Sync Remote (GET)",
       "SYNC_WARNING": "All local data will be overwritten",
       "SYNC_LOCAL": "Sync Local",
       "SYNCING": "Syncing...",
       "REGISTER_SOURCE": "Register Source",
-      "ADD_CATALOG": "Clone Master Catalog"
+      "ADD_BOOK": "Clone Master Book List"
     },
     "METRICS": {
       "TOTAL": "Total Registered",
@@ -135,20 +135,20 @@
     },
     "MODAL": {
       "TITLE_CREATE": "Register New Data Source",
-      "TITLE_EDIT": "Edit Catalog Source",
+      "TITLE_EDIT": "Edit Book Source",
       "SOURCE_MODE": "Registration method",
       "MODE_MANUAL": "New data source",
       "MODE_URL": "URL",
       "URL_LABEL": "Google Sheet URL",
       "URL_PLACEHOLDER": "Paste the Google Sheets URL to clone",
       "URL_ERROR": "Enter a valid Google Sheets URL.",
-      "CLONE_DESCRIPTION": "This existing Google Sheet will be cloned and added as a source in your catalog. The original is used only as the source. Cloning can take up to one minute.",
+      "CLONE_DESCRIPTION": "This existing Google Sheet will be cloned and added as a source in your book. The original is used only as the source. Cloning can take up to one minute.",
       "CLONE_SHEET": "Clone Sheet",
       "CLONING": "Cloning Sheet...",
-      "ID_LABEL": "Catalog ID",
+      "ID_LABEL": "Book ID",
       "ID_PLACEHOLDER": "e.g., cat-2024-001",
       "ID_ERROR": "ID is required (max 100 characters).",
-      "NAME_LABEL": "Catalog Name",
+      "NAME_LABEL": "Book Name",
       "NAME_PLACEHOLDER": "e.g., Distributed Systems & Kafka",
       "NAME_ERROR": "Name is required (max 100 characters).",
       "SUBJECT_LABEL": "Subject",
@@ -174,44 +174,44 @@
       "SUBMIT_CREATE": "Register Source",
       "SUBMIT_EDIT": "Save Changes"
     },
-    "ADD_CATALOG": {
-      "TITLE": "Clone Master Catalog",
+    "ADD_BOOK": {
+      "TITLE": "Clone Master Book List",
       "URL_LABEL": "Public Google Sheet URL",
       "URL_PLACEHOLDER": "Paste the full Google Sheets URL",
       "URL_ERROR": "Enter a valid Google Sheets URL.",
-      "CLONE_DESCRIPTION": "This master catalog is about to be cloned into your own Drive. The original is only used as the source. The request can take up to one minute.",
+      "CLONE_DESCRIPTION": "This master book list is about to be cloned into your own Drive. The original is only used as the source. The request can take up to one minute.",
       "CANCEL": "Cancel",
-      "SUBMIT": "Clone Master Catalog",
-      "SUBMITTING": "Cloning Master Catalog..."
+      "SUBMIT": "Clone Master Book List",
+      "SUBMITTING": "Cloning Master Book List..."
     },
     "EMPTY": {
-      "TITLE": "No Catalog Sources Found",
+      "TITLE": "No Book Sources Found",
       "DESC": "No data sources match the selected category or search filters.",
       "ACTION": "Register New Source"
     },
     "ERRORS": {
-      "malformedCatalog": "Malformed catalog response received.",
-      "copyCatalogFailed": "The master catalog could not be cloned. Check the URL and try again.",
-      "copyCatalogUnavailable": "A master catalog can only be cloned when the remote catalog is empty.",
+      "malformedBook": "Malformed book response received.",
+      "copyBookFailed": "The master book list could not be cloned. Check the URL and try again.",
+      "copyBookUnavailable": "A master book list can only be cloned when the remote book is empty.",
       "cloneItemFailed": "The sheet could not be cloned. Check the URL and source permissions, then try again.",
-      "deleteItemFailed": "The catalog item could not be deleted. Try again.",
+      "deleteItemFailed": "The book item could not be deleted. Try again.",
       "cloneItemUnavailable": "Cloning a sheet from a URL is not available in Local Sample Data mode.",
-      "cloneItemRefreshFailed": "The sheet was cloned, but the catalog could not be refreshed. Close this dialog and use Sync Remote before attempting another clone.",
+      "cloneItemRefreshFailed": "The sheet was cloned, but the book could not be refreshed. Close this dialog and use Sync Remote before attempting another clone.",
       "authRequired": "Sign in with Google before performing this operation.",
       "syncFailed": "Failed to reach the Web App endpoint. Verify the URL ends with /exec, the deployment is redeployed with 'Anyone' access, you're online, and no VPN/proxy is blocking script.google.com."
     }
   },
-  "CATALOG_DETAIL": {
-    "LOADING": "Loading catalog entry...",
+  "BOOK_DETAIL": {
+    "LOADING": "Loading book entry...",
     "NO_DEFINITIONS": "No definitions found in this sheet.",
     "SYNONYMS": "Synonyms:",
     "UNSUPPORTED_SHEET": "This sheet type isn't supported for viewing yet.",
     "DOMAIN": "Domain",
     "SELECT_DOMAIN": "Select Domain",
-    "SELECT_VIEW": "Select catalog view",
+    "SELECT_VIEW": "Select book view",
     "NOT_FOUND": {
       "TITLE": "Entry Not Found",
-      "DESC": "This catalog entry doesn't exist locally. Try syncing or go back to the Catalog."
+      "DESC": "This book entry doesn't exist locally. Try syncing or go back to the Book."
     },
     "ERRORS": {
       "WEB_APP_URL_NOT_CONFIGURED": "Google Apps Script Web App URL is not configured.",

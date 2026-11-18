@@ -1,47 +1,47 @@
 
-import { CatalogRaw, CatalogRecord } from "../../../features/catalog/models/catalog-item.model";
+import { BookRaw, BookRecord } from "../../../features/book/models/book-item.model";
 import { Response, PaginatedResponse } from "../../../features/domain-1/shared/model/domain-shared-model";
-import { CatalogRepositoryInterface } from "../catalog-repository-interface";
+import { BookRepositoryInterface } from "../book-repository-interface";
 
 /**
- * Example API implementation of the CatalogRepositoryInterface using CatalogRaw data.
+ * Example API implementation of the BookRepositoryInterface using BookRaw data.
  * Provides methods for CRUD operations and mapping between raw and record formats.
  */
-export class ExampleApi implements CatalogRepositoryInterface<CatalogRaw> {
+export class ExampleApi implements BookRepositoryInterface<BookRaw> {
 
 
 
-    getCatalogs(page: number, pageSize: number): Promise<Response<PaginatedResponse<CatalogRaw>>> {
+    getBooks(page: number, pageSize: number): Promise<Response<PaginatedResponse<BookRaw>>> {
         throw new Error("Method not implemented.");
     }
     
     
-    createItem(item: CatalogRaw): Promise<Response<CatalogRaw>> {
+    createItem(item: BookRaw): Promise<Response<BookRaw>> {
         throw new Error("Method not implemented.");
     }
     
     
-    updateItem(item: CatalogRaw): Promise<Response<CatalogRaw>> {
+    updateItem(item: BookRaw): Promise<Response<BookRaw>> {
         throw new Error("Method not implemented.");
     }
     
     
-    deleteItem(item: CatalogRaw): Promise<Response<string>> {
+    deleteItem(item: BookRaw): Promise<Response<string>> {
         throw new Error("Method not implemented.");
     }
 
 
-    getRecord(raw: CatalogRaw): CatalogRecord {
+    getRecord(raw: BookRaw): BookRecord {
         throw new Error("Method not implemented.");
     }
 
 
-    getRaw(record: CatalogRecord): CatalogRaw {
+    getRaw(record: BookRecord): BookRaw {
         throw new Error("Method not implemented.");
     }
 
 
-    cloneCatalog(sheetUrl: string): Promise<Response<unknown>> {
+    cloneBook(sheetUrl: string): Promise<Response<unknown>> {
         throw new Error("Method not implemented.");
     }
 
@@ -52,7 +52,7 @@ export class ExampleApi implements CatalogRepositoryInterface<CatalogRaw> {
 
 
 
-    async getCatalogItem(id: string): Promise<Response<CatalogRecord>> {
+    async getBookItem(id: string): Promise<Response<BookRecord>> {
         throw new Error("Method not implemented.");
     }
 

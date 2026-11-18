@@ -16,13 +16,13 @@ import { TOKEN_KEY } from "./gas-constants.constants";
 export class GASDomainAPI<TRaw, TRowValues> extends GASAPI{
 
     /**
-     * HTTP GET: Retrieves the sheet (tab) names of the Domain Data owned by a Catalog row
-     * @param row The row in the Catalog Item
+     * HTTP GET: Retrieves the sheet (tab) names of the Domain Data owned by a Book row
+     * @param row The row in the Book Item
      */
     async getSheetNames(row: number): Promise<GASResponseRaw<SheetNamesRaw>> {
         const webAppUrl = this.getWebAppUrl();
         if (!webAppUrl) {
-            throw new Error(this.transloco.translate('CATALOG_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'));
+            throw new Error(this.transloco.translate('BOOK_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'));
         }
 
         const idToken = localStorage.getItem(TOKEN_KEY);
@@ -35,7 +35,7 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI{
         const response = await fetch(endpoint);
         if (!response.ok) {
             throw new Error(
-                this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+                this.transloco.translate('BOOK_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
                     status: response.status,
                 }),
             );
@@ -59,7 +59,7 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI{
         const response = await fetch(endpoint);
         if (!response.ok) {
             throw new Error(
-                this.transloco.translate('CATALOG_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+                this.transloco.translate('BOOK_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
                     status: response.status,
                 }),
             );

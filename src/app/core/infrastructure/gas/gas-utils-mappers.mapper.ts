@@ -44,14 +44,14 @@ export function mapStatus(status: string): Status {
     if (status === Status.SUCCESS || status === Status.ERROR) {
         return status;
     }
-    throw new Error(`Unexpected catalog response status: ${status}`);
+    throw new Error(`Unexpected book response status: ${status}`);
 }
 
 export function mapRole(role: string): Role {
     if (role === Role.ADMIN || role === Role.USER || role === Role.GUEST) {
         return role;
     }
-    throw new Error(`Unexpected catalog response role: ${role}`);
+    throw new Error(`Unexpected book response role: ${role}`);
 }
 
 
@@ -67,34 +67,3 @@ export function parseSyncStatus(value: unknown): SyncStatus {
     : 'pending';
 }
 
-/**
- * 
- * @param rawTags Google Sheets tags format tag1|tag2|tag3
- * @returns Array of tags [tag1, tag2, tag3]
- */
-export function mapTagsToArray(rawTags: string): string[] {
-  if (!rawTags) return [];
-
-  return rawTags
-    .split('|')
-    .map(tag => tag.trim())
-    .filter(tag => tag.length > 0);
-}
-
-
-/**
- * 
- * @param tags Array of tags [tag1, tag2, tag3]
- * @returns Google Sheets tags format tag1|tag2|tag3
- */
-export function mapTagsToString(tags: string[]): string {
-  if (!tags || tags.length === 0) return '';
-
-  const cleaned = tags
-    .map(tag => tag.trim())
-    .filter(tag => tag.length > 0);
-
-  if (cleaned.length === 0) return '';
-
-  return  cleaned.join('|');
-}

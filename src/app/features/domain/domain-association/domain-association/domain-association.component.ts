@@ -14,11 +14,11 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
-import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray, parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
-import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
-import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
+import { DomainSheet } from '../../../book-detail/models/domain-sheet.model';
+import { DomainDataService } from '../../../book-detail/services/domain-data.service';
 import { ConceptRow } from '../../domain-concepts/model/domain-concept-row.model';
 import { BookAssociation, getAssociationTypeSuggestions } from '../model/book-association.model';
 import { AssociationEntryCardComponent } from '../components/association-entry-card/association-entry-card.component';
@@ -185,7 +185,7 @@ export class DomainAssociationComponent {
     const book = this.bookName().trim();
     const author = this.bookAuthor().trim();
     const page = this.newPage().trim();
-    const tags = serializeTagsToArray(this.newTags());
+    const tags = normalizeTagsFromArray(this.newTags());
     const editingId = this.editingId();
     const originalRow = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
 

@@ -1,4 +1,5 @@
-import { normalizeTagsFromArray } from './tag-utils';
+import { normalizeTagsFromArray } from "../tag-picker/tag-picker.mapper";
+
 
 export type StudySearchField = 'book' | 'author' | 'contributor';
 

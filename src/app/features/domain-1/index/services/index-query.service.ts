@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { LocalDBService } from '../../../../shared/local-db/local-db.service';
 import { IndexRecord } from '../model/index-model';
-import { CatalogRecord } from '../../../catalog/models/catalog-item.model';
+import { BookRecord } from '../../../book/models/book-item.model';
 
 
 @Injectable({

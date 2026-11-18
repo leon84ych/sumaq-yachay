@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
-import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
-import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
+import { DomainDataService } from '../../../book-detail/services/domain-data.service';
+import { DomainSheet } from '../../../book-detail/models/domain-sheet.model';
 import { PlaceRow } from '../model/domain-place-row.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { PlaceEntryCardComponent } from '../components/place-entry-card/place-entry-card.component';
 import { DomainMapComponent } from '../../domain-map/domain-map/domain-map.component';
-import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray, parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
@@ -135,7 +135,7 @@ export class DomainPlacesComponent {
     const color = this.newColor();
     const description = this.newDescription().trim();
     const source = this.newSource().trim();
-    const tags = serializeTagsToArray(this.newTags());
+    const tags = normalizeTagsFromArray(this.newTags());
     const editingId = this.editingId();
 
     try {

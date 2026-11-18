@@ -2,10 +2,10 @@ import { Injector, Signal, Type, WritableSignal, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { TranslocoService } from '@jsverse/transloco';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { CatalogApiService } from '../../../features/catalog/services/catalog-api.service';
-import { CatalogService } from '../../../features/catalog/services/catalog.service';
+import { BookGASRepository } from '../../../features/book/services/book-gas-repository';
+import { BookService } from '../../../features/book/services/book.service';
 import { GoogleAuthService } from '../../../features/authentication/services/google-auth-service';
-import { DomainDataService } from '../../../features/catalog-detail/services/domain-data.service';
+import { DomainDataService } from '../../../features/book-detail/services/domain-data.service';
 import { DomainAssociationComponent } from '../../../features/domain/domain-association/domain-association/domain-association.component';
 import { DomainBookEventsComponent } from '../../../features/domain/domain-book-events/domain-book-events/domain-book-events.component';
 import { DomainCharacterComponent } from '../../../features/domain/domain-character/domain-character/domain-character.component';
@@ -75,11 +75,11 @@ describe('StudySearchService', () => {
         } },
         { provide: AppDbService, useValue: {
           db: {
-            catalogs: { toArray: async () => [] },
+            books: { toArray: async () => [] },
             tables: [{ name: 'concepts', toArray: async () => relatedRows }],
           },
         } },
-        { provide: CatalogApiService, useValue: {} },
+        { provide: BookGASRepository, useValue: {} },
         { provide: GoogleAuthService, useValue: { idToken: signal(null) } },
       ],
     });
@@ -92,38 +92,38 @@ describe('StudySearchService', () => {
 
   it('shares the keyword across view injectors and clears it everywhere', () => {
     const parent = TestBed.inject(Injector);
-    const catalog = Injector.create({ providers: [], parent }).get(StudySearchService);
+    const book = Injector.create({ providers: [], parent }).get(StudySearchService);
     const learn = Injector.create({ providers: [], parent }).get(StudySearchService);
     const questions = Injector.create({ providers: [], parent }).get(StudySearchService);
 
-    expect(catalog.query()).toBe('');
-    catalog.query.set('Kafka');
+    expect(book.query()).toBe('');
+    book.query.set('Kafka');
     expect(learn.query()).toBe('Kafka');
     expect(questions.query()).toBe('Kafka');
     questions.query.set('architecture');
-    expect(catalog.query()).toBe('architecture');
+    expect(book.query()).toBe('architecture');
     learn.query.set('');
-    expect(catalog.query()).toBe('');
+    expect(book.query()).toBe('');
     expect(questions.query()).toBe('');
   });
 
-  it('uses the shared keyword to filter catalog book names, authors, and topics', async () => {
-    const catalog = TestBed.inject(CatalogService);
-    await catalog.loadFromLocal();
+  it('uses the shared keyword to filter book book names, authors, and topics', async () => {
+    const book = TestBed.inject(BookService);
+    await book.loadFromLocal();
     const entry = {
       id: 'book-1', row: 1, name: 'Book One', author: 'Author One', subject: 'Science',
       topic: 'Physics', active: true, count: 1, updatedAt: '',
     };
-    catalog.items.set([entry]);
+    book.items.set([entry]);
     const search = TestBed.inject(StudySearchService);
     for (const query of ['Book One', 'Author One', 'Physics', 'book:"Book One"', 'author:"Author One"']) {
       search.query.set(query);
-      expect(catalog.filteredItems()).toEqual([entry]);
+      expect(book.filteredItems()).toEqual([entry]);
     }
     search.query.set('not present');
-    expect(catalog.filteredItems()).toEqual([]);
+    expect(book.filteredItems()).toEqual([]);
     search.query.set('');
-    expect(catalog.filteredItems()).toEqual([entry]);
+    expect(book.filteredItems()).toEqual([entry]);
   });
 
   it('appends clicked tags without replacing the phrase or duplicating existing tags', () => {
@@ -215,7 +215,7 @@ describe('StudySearchService', () => {
   });
 
   it('filters actual Learn and Quiz batches by author and all clicked tags before pagination', async () => {
-    const catalogs = [
+    const books = [
       { id: 'one', row: 1, name: 'Book One', author: 'Author One' },
       { id: 'two', row: 2, name: 'Book Two', author: 'Author Two' },
     ];
@@ -233,7 +233,7 @@ describe('StudySearchService', () => {
     }));
     const emptyTable = { toArray: async () => [] };
     Object.assign(TestBed.inject(AppDbService).db, {
-      catalogs: { toArray: async () => catalogs },
+      books: { toArray: async () => books },
       concepts: { toArray: async () => concepts },
       questions: { toArray: async () => questions },
       quotes: emptyTable, passages: emptyTable, characters: emptyTable, places: emptyTable,
@@ -252,11 +252,11 @@ describe('StudySearchService', () => {
     expect(await practice.loadRandomBatch({ query: `${query} #missing` })).toEqual([]);
   });
 
-  it('finds catalog books through tags and domains in locally stored learning content', async () => {
+  it('finds book books through tags and domains in locally stored learning content', async () => {
     vi.useFakeTimers();
-    const catalog = TestBed.inject(CatalogService);
-    await catalog.loadFromLocal();
-    catalog.items.set([
+    const book = TestBed.inject(BookService);
+    await book.loadFromLocal();
+    book.items.set([
       { id: 'one', row: 1, name: 'Book One', author: 'Author', subject: 'Science',
         topic: 'Physics', active: true, count: 1, updatedAt: '' },
       { id: 'two', row: 2, name: 'Book Two', author: 'Author', subject: 'Science',
@@ -270,7 +270,7 @@ describe('StudySearchService', () => {
       search.query.set(query);
       TestBed.tick();
       await vi.advanceTimersByTimeAsync(250);
-      expect(catalog.filteredItems().map((entry) => entry.id)).toEqual(['one']);
+      expect(book.filteredItems().map((entry) => entry.id)).toEqual(['one']);
     }
     relatedRows.push({ id: 'other-concept', row: 2, term: 'Entropy', tags: ['#study-tag'],
       contributor: 'other@gmail.com' });
@@ -278,13 +278,13 @@ describe('StudySearchService', () => {
       search.query.set(`contributor:${JSON.stringify(contributor)}`);
       TestBed.tick();
       await vi.advanceTimersByTimeAsync(250);
-      expect(catalog.filteredItems().map((entry) => entry.id)).toEqual([expectedId]);
+      expect(book.filteredItems().map((entry) => entry.id)).toEqual([expectedId]);
     }
     search.query.set('unknown-tag');
-    expect(catalog.filteredItems()).toEqual([]);
+    expect(book.filteredItems()).toEqual([]);
     TestBed.tick();
     await vi.advanceTimersByTimeAsync(250);
-    expect(catalog.filteredItems()).toEqual([]);
+    expect(book.filteredItems()).toEqual([]);
   });
 
   for (const { component, domain } of domainViews) {

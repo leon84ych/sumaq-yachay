@@ -1,10 +1,10 @@
 import { Injectable, inject } from "@angular/core";
 import { AppDbService } from "../../../../core/services/storage/app-db.service";
 import { IndexTopicRecord } from '../model/index-view-row';
-import { DomainSheet } from "../../../catalog-detail/models/domain-sheet.model";
+import { DomainSheet } from "../../../book-detail/models/domain-sheet.model";
 import { DomainFeatureHandler } from "../../../../shared/interfaces/domain-feature-handler.service";
 import { TaxonomyService } from "../../../../core/services/taxonomy/taxonomy.service";
-import { serializeTagsToArray } from '../../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 
 @Injectable({
     providedIn: 'root',
@@ -25,7 +25,7 @@ export class DomainIndexService implements DomainFeatureHandler<IndexTopicRecord
             return null;
         }
 
-        const cleanRows = records.map(({ row: _catalogRow, ...businessProperties }) => businessProperties);
+        const cleanRows = records.map(({ row: _bookRow, ...businessProperties }) => businessProperties);
 
         return {
             row,
@@ -47,7 +47,7 @@ export class DomainIndexService implements DomainFeatureHandler<IndexTopicRecord
         await this.dbService.db.transaction('rw', table, async () => {
             // Explicit type assignment to IndexTopic[] satisfies the generic constraint completely
             const persistedRows: IndexTopicRecord[] = syncedRows.map((sourceRow, index) => {
-                const tags = serializeTagsToArray(sourceRow['tags']);
+                const tags = normalizeTagsFromArray(sourceRow['tags']);
 
                 return {
                     ...sourceRow,

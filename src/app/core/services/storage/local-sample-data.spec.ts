@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
 
 import { describe, expect, it } from 'vitest';
-import { ALL_AVAILABLE_DOMAINS } from '../../../features/catalog-detail/models/domain-sheet-config';
+import { ALL_AVAILABLE_DOMAINS } from '../../../features/book-detail/models/domain-sheet-config';
 import { AppDatabase } from './app-db.service';
 import {
-  LOCAL_SAMPLE_CATALOG,
+  LOCAL_SAMPLE_BOOKS,
   LOCAL_SAMPLE_DOMAIN_TABLES,
   getLocalSampleDomainData,
   normalizeSampleDomainRow,
@@ -25,8 +25,8 @@ describe('LocalSampleData fixtures', () => {
       '#735D78',
     ];
 
-    for (const catalogRecord of LOCAL_SAMPLE_CATALOG) {
-      const characters = (await getLocalSampleDomainData(catalogRecord.id))['CHARACTER'];
+    for (const bookRecord of LOCAL_SAMPLE_BOOKS) {
+      const characters = (await getLocalSampleDomainData(bookRecord.id))['CHARACTER'];
       const colors = characters.map((character) => character['color']);
 
       expect(colors).toHaveLength(10);
@@ -34,7 +34,7 @@ describe('LocalSampleData fixtures', () => {
     }
   });
 
-  it('loads the matching JSON fixture for every catalog item', async () => {
+  it('loads the matching JSON fixture for every book item', async () => {
     const populatedDomains = [
       'INDEX',
       'CHARACTER',
@@ -45,39 +45,39 @@ describe('LocalSampleData fixtures', () => {
       'QUOTES',
     ];
 
-    for (const catalogRecord of LOCAL_SAMPLE_CATALOG) {
-      const domainData = await getLocalSampleDomainData(catalogRecord.id);
-      expect(Object.keys(domainData).sort(), catalogRecord.id).toEqual(
+    for (const bookRecord of LOCAL_SAMPLE_BOOKS) {
+      const domainData = await getLocalSampleDomainData(bookRecord.id);
+      expect(Object.keys(domainData).sort(), bookRecord.id).toEqual(
         [...ALL_AVAILABLE_DOMAINS].sort(),
       );
 
       for (const [domain, rows] of Object.entries(domainData)) {
         for (const row of rows) {
-          expect(Array.isArray(row['tags']), `${catalogRecord.id} ${domain} tags`).toBe(true);
-          expect(row['contributor'], `${catalogRecord.id} ${domain} contributor`).toBe('leon84ych');
-          expect(row, `${catalogRecord.id} ${domain}`).not.toHaveProperty('tag');
+          expect(Array.isArray(row['tags']), `${bookRecord.id} ${domain} tags`).toBe(true);
+          expect(row['contributor'], `${bookRecord.id} ${domain} contributor`).toBe('leon84ych');
+          expect(row, `${bookRecord.id} ${domain}`).not.toHaveProperty('tag');
         }
       }
 
       for (const domain of populatedDomains) {
         const rows = domainData[domain];
-        expect(rows, `${catalogRecord.id} ${domain}`).toHaveLength(10);
+        expect(rows, `${bookRecord.id} ${domain}`).toHaveLength(10);
         expect(rows.every((row) => typeof row['id'] === 'string')).toBe(true);
       }
 
       const characterIds = new Set(
-        domainData['CHARACTER'].map((character) => `${catalogRecord.id}-${String(character['id'])}`),
+        domainData['CHARACTER'].map((character) => `${bookRecord.id}-${String(character['id'])}`),
       );
       const conceptIds = new Set(
-        domainData['CONCEPTS'].map((concept) => `${catalogRecord.id}-${String(concept['id'])}`),
+        domainData['CONCEPTS'].map((concept) => `${bookRecord.id}-${String(concept['id'])}`),
       );
       const bookEvents = domainData['BOOK_EVENTS'];
       const characterRelations = domainData['RELATIONS'];
       const conceptRelations = domainData['ASSOCIATIONS'];
 
-      expect(bookEvents, catalogRecord.id).toHaveLength(4);
-      expect(characterRelations, catalogRecord.id).toHaveLength(4);
-      expect(conceptRelations, catalogRecord.id).toHaveLength(4);
+      expect(bookEvents, bookRecord.id).toHaveLength(4);
+      expect(characterRelations, bookRecord.id).toHaveLength(4);
+      expect(conceptRelations, bookRecord.id).toHaveLength(4);
       expect(bookEvents.every((event) => characterIds.has(String(event['mainCharacterId'])))).toBe(
         true,
       );
@@ -106,21 +106,21 @@ describe('LocalSampleData fixtures', () => {
   it('provides ten localized questions with valid domain sources for every book', async () => {
     const supportedTypes = new Set(['flashcard', 'multiple-choice', 'true-false', 'open']);
 
-    for (const catalogRecord of LOCAL_SAMPLE_CATALOG) {
-      const domainData = await getLocalSampleDomainData(catalogRecord.id);
+    for (const bookRecord of LOCAL_SAMPLE_BOOKS) {
+      const domainData = await getLocalSampleDomainData(bookRecord.id);
       const questions = domainData['QUESTIONS'];
-      expect(questions, catalogRecord.id).toHaveLength(10);
+      expect(questions, bookRecord.id).toHaveLength(10);
 
       for (const question of questions) {
         expect(question['question']).toBeTruthy();
         expect(question['answer']).toBeTruthy();
-        expect(question['bookRow']).toBe(catalogRecord.row);
+        expect(question['bookRow']).toBe(bookRecord.row);
         expect(supportedTypes.has(String(question['type']))).toBe(true);
 
         const sourceRows = domainData[String(question['sourceDomain'])];
         expect(
           sourceRows.some((row) => row['id'] === question['sourceRowId']),
-          `${catalogRecord.id} ${String(question['id'])} source`,
+          `${bookRecord.id} ${String(question['id'])} source`,
         ).toBe(true);
 
         if (question['type'] === 'multiple-choice' || question['type'] === 'true-false') {
@@ -131,21 +131,21 @@ describe('LocalSampleData fixtures', () => {
     }
   });
 
-  it('returns empty domain data for unknown catalog IDs', async () => {
+  it('returns empty domain data for unknown book IDs', async () => {
     const domainData = await getLocalSampleDomainData('unknown-book');
 
     expect(Object.values(domainData).every((rows) => rows.length === 0)).toBe(true);
   });
 
-  it('loads the sample catalog entries from the bundled JSON file', () => {
-    expect(LOCAL_SAMPLE_CATALOG[0]).toMatchObject({
+  it('loads the sample book entries from the bundled JSON file', () => {
+    expect(LOCAL_SAMPLE_BOOKS[0]).toMatchObject({
       id: 'book-001',
       name: 'Ulysses',
       row: 1,
       syncStatus: 'synced',
     });
-    expect(new Set(LOCAL_SAMPLE_CATALOG.map((item) => item.row)).size).toBe(
-      LOCAL_SAMPLE_CATALOG.length,
+    expect(new Set(LOCAL_SAMPLE_BOOKS.map((item) => item.row)).size).toBe(
+      LOCAL_SAMPLE_BOOKS.length,
     );
   });
 
@@ -154,7 +154,7 @@ describe('LocalSampleData fixtures', () => {
     const book001Data = await getLocalSampleDomainData('book-001');
     const domainTables = database.tables
       .map((table) => table.name)
-      .filter((name) => !['catalogs', 'domainSheets', 'bookTags', 'questionAttempts'].includes(name));
+      .filter((name) => !['books', 'domainSheets', 'bookTags', 'questionAttempts'].includes(name));
 
     expect(Object.keys(LOCAL_SAMPLE_DOMAIN_TABLES).sort()).toEqual(Object.keys(book001Data).sort());
     expect(Object.values(LOCAL_SAMPLE_DOMAIN_TABLES).sort()).toEqual(domainTables.sort());

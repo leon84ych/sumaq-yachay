@@ -124,7 +124,7 @@
       <app-tag-picker
         [ariaLabel]="'DOMAINS.RELATIONS.TAGS' | transloco"
         inputId="relation-tags"
-        [bookRow]="form().currentSheet().row"
+        [bookId]="form().currentSheet().id"
         [value]="form().newTags()"
         (valueChange)="form().newTags.set($event)"
       />

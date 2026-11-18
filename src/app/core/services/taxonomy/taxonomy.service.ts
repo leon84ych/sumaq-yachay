@@ -1,6 +1,6 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { AppDbService } from '../../services/storage/app-db.service';
-import { parseTagsFromArray } from '../../../shared/utils/tag-utils';
+import { parseTagsFromArray } from '../../../shared/tag-picker/tag-picker.mapper';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class TaxonomyService {
 
   /**
    * Scans the INDEX domain local cache to build the master list of authorized hashtags.
-   * This must be run whenever the catalog changes or when the INDEX domain completes a sync.
+   * This must be run whenever the book changes or when the INDEX domain completes a sync.
    */
   async refreshGlobalTaxonomy(row: number): Promise<void> {
     // Read raw data directly from the indexTopics table

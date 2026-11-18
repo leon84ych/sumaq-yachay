@@ -35,19 +35,22 @@ export interface Domain extends Record<string, unknown> {
     row: number;            //row number of this domain sheet in the source data
 }
 
-
-export interface BookTagRecord {
-    id: string;
-    scope?: 'book' | 'catalog';
-    row?: number;
-    book?: string;
-    author?: string;
-    subject?: string;
-    topic?: string;
-    name: string;
-    domain?: string;
-    usageCount?: number;
+export interface Learnable {
+    interval: number; // indicates the interval for the learnable item in days
+    easeFactor: number; // indicates the ease factor of growth of the interval
+    complexity: number; // indicates the complexity level of the learnable item between 1 and 10
+    repetitions: number; // indicates the number of successfull repetitions
+    lastReview: Date; // indicates the date of the last review of the learnable item
+    history: LearnableHistory[]; // indicates the history of reviews for the learnable item
 }
+
+export interface LearnableHistory {
+    id: string;
+    learnableId: string; // references the associated learnable item
+    reviewDate: Date; // indicates the date of this review in the learnable history
+    outcome: 'success' | 'failure'; // indicates the outcome of this review in the learnable history    
+}
+
 
 /**
  * Response wrapper to all request to the server

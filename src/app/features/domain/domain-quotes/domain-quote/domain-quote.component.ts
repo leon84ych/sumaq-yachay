@@ -15,13 +15,13 @@ import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
 import { downloadJpeg } from '../../../../shared/utils/image-export';
-import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
-import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
+import { DomainDataService } from '../../../book-detail/services/domain-data.service';
+import { DomainSheet } from '../../../book-detail/models/domain-sheet.model';
 import type { QuoteRow } from '../model/domain-quote-row.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { QuoteEntryCardComponent } from '../components/quote-entry-card/quote-entry-card.component';
-import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray, parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
@@ -207,7 +207,7 @@ export class DomainQuoteComponent {
     const book = this.newBook().trim();
     const author = this.newAuthor().trim();
     const page = this.newPage().trim();
-    const tags = serializeTagsToArray(this.newTags());
+    const tags = normalizeTagsFromArray(this.newTags());
     const editingId = this.editingId();
 
     try {

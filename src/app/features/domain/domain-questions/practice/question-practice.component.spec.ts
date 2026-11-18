@@ -22,7 +22,7 @@ describe('QuestionPracticeComponent', () => {
         {
           provide: QuestionPracticeService,
           useValue: {
-            loadCatalogs: vi.fn().mockResolvedValue([]),
+            loadBooks: vi.fn().mockResolvedValue([]),
             loadAvailableTags: vi.fn().mockResolvedValue([]),
             loadRandomBatch: vi.fn().mockResolvedValue([]),
             optionsFor: (question: QuestionPracticeItem) => question.options,

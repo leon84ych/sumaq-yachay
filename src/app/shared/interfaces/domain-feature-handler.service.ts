@@ -1,4 +1,4 @@
-import { DomainSheet } from "../../features/catalog-detail/models/domain-sheet.model";
+import { DomainSheet } from "../../features/book-detail/models/domain-sheet.model";
 
 
 export interface DomainFeatureHandler<T = unknown> {

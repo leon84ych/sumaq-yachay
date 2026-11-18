@@ -1,17 +1,17 @@
 
 import { Response, PaginatedResponse } from "../../features/domain-1/shared/model/domain-shared-model";
 
-export interface CatalogRepositoryInterface<TRow> {
+export interface BookRepositoryInterface<TRow> {
 
     /**
-     * Get the health status of the catalog service
+     * Get the health status of the book service
      */
     getHealth(): Promise<string>;
 
     /**
-     * Get the list of catalogs avaiable
+     * Get the list of books avaiable
      */
-    getCatalogs(page: number, pageSize: number): Promise<Response<PaginatedResponse<TRow>>>;
+    getBooks(page: number, pageSize: number): Promise<Response<PaginatedResponse<TRow>>>;
 
 
     createItem(item: TRow): Promise<Response<TRow>>;
@@ -24,9 +24,9 @@ export interface CatalogRepositoryInterface<TRow> {
 
 
     /**
-     * Clone a whole catalog from a public sheet into the user's catalog
+     * Clone a whole book from a public sheet into the user's book
      */
-    cloneCatalog(sheetUrl: string): Promise<Response<unknown>>;
+    cloneBook(sheetUrl: string): Promise<Response<unknown>>;
 
 
 }

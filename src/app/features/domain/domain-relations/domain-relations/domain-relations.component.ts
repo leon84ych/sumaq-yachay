@@ -14,16 +14,16 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
-import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
-import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
-import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
+import { DomainSheet } from '../../../book-detail/models/domain-sheet.model';
+import { DomainDataService } from '../../../book-detail/services/domain-data.service';
 import { CharacterRow } from '../../domain-character/models/domain-character-row.model';
 import { BookRelation, getRelationTypeSuggestions } from '../model/book-relation.model';
 import { RelationEntryCardComponent } from '../components/relation-entry-card/relation-entry-card.component';
 
 import { RelationFormComponent } from '../components/relation-form/relation-form.component';
+import { mapTagsToString, parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 
 @Component({
   selector: 'app-domain-relations',
@@ -96,7 +96,7 @@ export class DomainRelationsComponent {
   });
 
   readonly invalidTagsDetected = computed(() =>
-    this.splitTags(this.newTags()).filter((tag) => !this.taxonomyService.isTagAllowed(tag)),
+    parseTagsFromArray(this.newTags()).filter((tag) => !this.taxonomyService.isTagAllowed(tag)),
   );
   readonly relationTypeSuggestions = computed(() => getRelationTypeSuggestions(this.rows()));
 
@@ -139,9 +139,7 @@ export class DomainRelationsComponent {
     );
   });
 
-  splitTags(value: string[]): string[] {
-    return parseTagsFromArray(value);
-  }
+
 
   characterName(id: string): string {
     return this.characters().find((character) => character.id === id)?.name ?? id;
@@ -187,7 +185,7 @@ export class DomainRelationsComponent {
     const book = this.bookName().trim();
     const author = this.bookAuthor().trim();
     const page = this.newPage().trim();
-    const tags = serializeTagsToArray(this.newTags());
+    const tags = this.newTags();
     const editingId = this.editingId();
     const originalRow = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
 

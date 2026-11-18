@@ -1,7 +1,7 @@
 import { Directive, computed, inject, input } from '@angular/core';
 import { StudySearchService } from '../../core/services/search/study-search.service';
 import { parseStudySearch } from '../utils/study-search';
-import { normalizeTagsFromArray } from '../utils/tag-utils';
+import { normalizeTagsFromArray } from '../tag-picker/tag-picker.mapper';
 
 @Directive({
   selector: 'button[appStudyTag]',

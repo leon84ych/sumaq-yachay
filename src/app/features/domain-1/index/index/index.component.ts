@@ -75,9 +75,9 @@ export class IndexComponent implements OnInit {
     // Initialization logic if needed
     //1. Retrieve the book info from service 
     if (this.bookId() != null) {
-      const catalogRecord = await this.indexDataService.getCatalogRecord(this.bookId());
-      this.bookName.set(catalogRecord?.name ?? '');
-      this.bookAuthor.set(catalogRecord?.author ?? '');
+      const bookRecord = await this.indexDataService.getBookRecord(this.bookId());
+      this.bookName.set(bookRecord?.name ?? '');
+      this.bookAuthor.set(bookRecord?.author ?? '');
       // 2. Retrieve the index records for the specified book, row, and count
       this.filteredRows.set(await this.indexDataService.getRecords(this.bookId()));
     }

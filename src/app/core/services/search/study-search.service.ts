@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { normalizeTagsFromArray } from '../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray } from '../../../shared/tag-picker/tag-picker.mapper';
 import { parseStudySearch, StudySearchField } from '../../../shared/utils/study-search';
 
 @Injectable({ providedIn: 'root' })

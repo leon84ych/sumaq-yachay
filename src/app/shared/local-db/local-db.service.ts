@@ -1,22 +1,25 @@
 import { Injectable } from "@angular/core";
 import Dexie, { Table } from "dexie";
 import { IndexRecord } from "../../features/domain-1/index/model/index-model";
-import { CatalogRecord } from "../../features/catalog/models/catalog-item.model";
+import { BookRecord } from "../../features/book/models/book-item.model";
+import { TagRecord } from "../tag-picker/tag-picker.model";
 
 
 
 const VERSION_ONE_STORES = {
-  catalogs:
-    'id, subject, topic, name, author, description, source, active, syncStatus, updatedAt',
+  books:
+    'id, row, subject, topic, name, author, description, source, active, syncStatus, updatedAt',
   //domainSheets: 'row, count',
   //bookTags: 'id, [row+name], row, name, scope, subject, topic, book, author',
   indexes: '[bookId+id], bookId, id, row, book, author, *tags',
+  tags: '[bookId+id], bookId, id, row, name, scope, subject, topic, book, author',
 } as const;
 
 
 export class IndexedDB extends Dexie {
-  catalogs!: Table<CatalogRecord, string>;
+  books!: Table<BookRecord, string>;
   indexes!: Table<IndexRecord, string>;
+  tags!: Table<TagRecord, string>;
 
   constructor(databaseName = 'LocalDB') {
     super(databaseName);
@@ -29,8 +32,8 @@ export class LocalDBService {
 
     readonly indexedDB = new IndexedDB();
 
-    async getCatalog(): Promise<CatalogRecord[]> {
-        return this.indexedDB.catalogs.toArray();
+    async getBooks(): Promise<BookRecord[]> {
+        return this.indexedDB.books.toArray();
     }
     
     async clearAllTables(): Promise<void> {

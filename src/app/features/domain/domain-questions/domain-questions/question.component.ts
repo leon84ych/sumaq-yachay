@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
-import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
-import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
+import { DomainDataService } from '../../../book-detail/services/domain-data.service';
+import { DomainSheet } from '../../../book-detail/models/domain-sheet.model';
 import {
   QuestionDifficulty,
   QuestionOption,
@@ -13,7 +13,7 @@ import {
 } from '../model/domain-question-row.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
-import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray, parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import { DomainContributorComponent } from '../../shared/domain-contributor/domain-contributor.component';
@@ -172,7 +172,7 @@ export class QuestionsComponent {
     const question = this.newQuestion().trim();
     const answer = this.newAnswer().trim();
     const sourceDomain = this.newSourceDomain().trim();
-    const tags = serializeTagsToArray(this.newTags());
+    const tags = normalizeTagsFromArray(this.newTags());
     const editingId = this.editingId();
 
     this.isSaving.set(true);

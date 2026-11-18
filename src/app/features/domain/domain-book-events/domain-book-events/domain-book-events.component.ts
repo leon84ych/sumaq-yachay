@@ -5,11 +5,11 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
-import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray, parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
-import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
-import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
+import { DomainSheet } from '../../../book-detail/models/domain-sheet.model';
+import { DomainDataService } from '../../../book-detail/services/domain-data.service';
 import { CharacterRow } from '../../domain-character/models/domain-character-row.model';
 import { PlaceRow } from '../../domain-places/model/domain-place-row.model';
 import { BookEventEntryCardComponent } from '../components/book-event-entry-card/book-event-entry-card.component';
@@ -201,7 +201,7 @@ export class DomainBookEventsComponent {
     const book = this.bookName().trim();
     const author = this.bookAuthor().trim();
     const page = this.newPage().trim();
-    const tags = serializeTagsToArray(
+    const tags = normalizeTagsFromArray(
       this.splitTags(this.newTags()).filter((tag) => this.taxonomyService.isTagAllowed(tag)),
     );
     const editingId = this.editingId();

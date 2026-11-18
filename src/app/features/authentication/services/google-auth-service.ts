@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { PermissionService } from '../../../core/services/permission/permission.service';
-import { GASCatalogAPI } from '../../../core/infrastructure/gas/gas-catalog-api.service';
+import { GASBookAPI } from '../../../core/infrastructure/gas/gas-book-api.service';
 import { TOKEN_KEY } from '../../../core/infrastructure/gas/gas-constants.constants';
 
 declare const google: any;
@@ -19,7 +19,7 @@ export class GoogleAuthService {
 
   private readonly router = inject(Router);
   private readonly permissionService = inject(PermissionService);
-  private readonly googleAppScriptApi = inject(GASCatalogAPI);
+  private readonly googleAppScriptApi = inject(GASBookAPI);
 
   private readonly storedToken = this.getStoredToken();
   private googleInitialized = false;
@@ -81,7 +81,7 @@ export class GoogleAuthService {
     this.currentUser.set(user);
     //Takes care of refreshing the role based on Health response
     this.googleAppScriptApi.getHealth().catch((err) => console.warn('Failed to load user role:', err));
-    this.router.navigateByUrl('/catalog');
+    this.router.navigateByUrl('/book');
   }
 
 

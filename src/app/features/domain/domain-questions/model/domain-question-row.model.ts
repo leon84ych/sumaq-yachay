@@ -1,4 +1,4 @@
-import { DomainSheetRow } from '../../../catalog-detail/models/domain-sheet.model';
+import { DomainSheetRow } from '../../../book-detail/models/domain-sheet.model';
 
 export type QuestionType = 'flashcard' | 'multiple-choice' | 'true-false' | 'open';
 export type QuestionDifficulty = 'easy' | 'medium' | 'hard';

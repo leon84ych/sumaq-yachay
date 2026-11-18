@@ -1,0 +1,133 @@
+<div class="book-page">
+  <!-- Top Navigation / Hero Header -->
+  <header class="book-header">
+    <div class="header-main">
+      <div class="brand">
+        <div class="brand-badge">{{ 'BOOK.HEADER.BADGE' | transloco }}</div>
+        <h1 class="brand-title">{{ 'BOOK.HEADER.TITLE' | transloco }}</h1>
+        <p class="brand-subtitle">{{ 'BOOK.HEADER.SUBTITLE' | transloco }}</p>
+      </div>
+
+      <div class="header-actions">
+        @if (canAddBook()) {
+          <button
+            type="button"
+            class="btn btn-add-book"
+            [disabled]="!authService.idToken() || bookService.isLoading()"
+            (click)="openAddBookModal()"
+          >
+            <span>{{ 'BOOK.HEADER.ADD_BOOK' | transloco }}</span>
+          </button>
+        }
+
+        <!-- Sync Remote Button (HTTP GET) -->
+        <button
+          type="button"
+          class="btn btn-sync"
+          [disabled]="!authService.idToken() || bookService.isLoading()"
+          (click)="handleSync()"
+          [title]="'BOOK.HEADER.SYNC_WARNING' | transloco"
+        >
+          <svg class="icon" [class.spinning]="bookService.isLoading()" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+          </svg>
+          <span>{{ bookService.isLoading() ? ('BOOK.HEADER.SYNCING' | transloco) : ('BOOK.HEADER.SYNC_REMOTE' | transloco) }}</span>
+        </button>
+
+        <!-- Register New Source Button (HTTP POST) -->
+        @if (permissionService.validatePermission(role(), 'CREATE_CATALOG_ITEM')) {
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="openCreateModal()"
+            [title]="'BOOK.HEADER.REGISTER_SOURCE' | transloco"
+          >
+            <svg class="icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+            </svg>
+            <span>{{ 'BOOK.HEADER.REGISTER_SOURCE' | transloco }}</span>
+          </button>
+        }
+      </div>
+    </div>
+  </header>
+
+  <!-- Error Notification Alert -->
+  @if (bookService.errorMessage()) {
+    <div class="alert-banner">
+      <div class="alert-content">
+        <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+        <span>{{ bookService.errorMessage() | transloco }}</span>
+      </div>
+      <button class="alert-close" (click)="bookService.errorMessage.set(null)">✕</button>
+    </div>
+  }
+
+  <!-- Main Content Area -->
+  <main class="book-main">
+    <!-- Filter Bar -->
+    <app-book-filter
+      [selectedSubject]="bookService.selectedSubject()"
+      [searchQuery]="bookService.searchQuery()"
+      [showActiveOnly]="bookService.showActiveOnly()"
+      [totalCount]="bookService.stats().total"
+      [subjectCounts]="bookService.stats().subjects"
+      (subjectChange)="bookService.setSubject($event)"
+      (searchChange)="bookService.setSearchQuery($event)"
+      (activeOnlyChange)="bookService.setShowActiveOnly($event)"
+    />
+
+    <!-- Book Items Grid -->
+    @if (bookService.isLoading()) {
+      <div class="state-message" role="status" aria-live="polite">
+        {{ 'BOOK.HEADER.SYNCING' | transloco }}
+      </div>
+    } @else if (bookService.filteredItems().length > 0) {
+      <div class="book-grid">
+        @for (item of bookService.filteredItems(); track item.id) {
+          <app-book-card
+            [item]="item"
+            [highlighted]="item.id === bookService.recentlyAddedId()"
+            (toggleActive)="handleToggleActive($event)"
+            (edit)="openEditModal($event)"
+            (delete)="handleDeleteItem($event)"
+          />
+        }
+      </div>
+    } @else {
+      <!-- Empty State -->
+      <div class="empty-state">
+        <div class="empty-icon">📚</div>
+        <h3>{{ 'BOOK.EMPTY.TITLE' | transloco }}</h3>
+        <p>{{ 'BOOK.EMPTY.DESC' | transloco }}</p>
+        @if (permissionService.validatePermission(role(), 'CREATE_CATALOG_ITEM')) {
+          <button type="button" class="btn btn-primary mt-2" (click)="openCreateModal()">
+            {{ 'BOOK.EMPTY.ACTION' | transloco }}
+          </button>
+        }
+      </div>
+    }
+  </main>
+
+  <!-- Form Modal for Create & Edit -->
+  @if (isModalOpen()) {
+    <app-book-form-modal
+      [editItem]="selectedItemForEdit()"
+      [isLoading]="bookService.isLoading()"
+      [error]="bookService.errorMessage()"
+      (save)="handleSaveItem($event)"
+      (clone)="handleCloneSource($event)"
+      (close)="closeModal()"
+    />
+  }
+  @if (isAddBookModalOpen()) {
+    <app-add-book-modal
+      [isLoading]="bookService.isLoading()"
+      [error]="bookService.errorMessage()"
+      (add)="handleAddBook($event)"
+      (close)="isAddBookModalOpen.set(false)"
+    />
+  }
+</div>

@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { IndexRepository } from './index-repository';
 import { IndexRecord } from '../model/index-model';
 import { IndexQueryService } from './index-query.service';
-import { CatalogQueryService } from './catalog-query.service';
+import { BookQueryService } from './book-query.service';
 
 
 @Injectable({
@@ -12,7 +12,7 @@ import { CatalogQueryService } from './catalog-query.service';
 export class IndexDataService {
 
     private indexGasRepository = inject(IndexRepository);
-    private catalogQueryService = inject(CatalogQueryService);
+    private bookQueryService = inject(BookQueryService);
     private indexQueryService = inject(IndexQueryService);
 
     /**
@@ -25,16 +25,16 @@ export class IndexDataService {
         if (indexes.length > 0) {
             return indexes;
         } else {
-            const catalog = await this.catalogQueryService.getCatalogRecord(bookId);
-            if (!catalog?.row) {
-                throw new Error('Catalog record is missing row.');
+            const book = await this.bookQueryService.getBookRecord(bookId);
+            if (!book?.row) {
+                throw new Error('Book record is missing row.');
             }
-            return this.indexGasRepository.getDomain(catalog?.row);
+            return this.indexGasRepository.getDomain(book?.row);
         }
     }
 
-    async getCatalogRecord(bookId: string) {
-        return this.catalogQueryService.getCatalogRecord(bookId);
+    async getBookRecord(bookId: string) {
+        return this.bookQueryService.getBookRecord(bookId);
     }
 
 

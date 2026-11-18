@@ -1,10 +1,10 @@
 import { Injectable, inject } from "@angular/core";
 import { AppDbService } from "../../../../core/services/storage/app-db.service";
 import { QuoteRecord } from '../model/domain-quote-row.model';
-import { DomainSheet } from "../../../catalog-detail/models/domain-sheet.model";
+import { DomainSheet } from "../../../book-detail/models/domain-sheet.model";
 import { DomainFeatureHandler } from "../../../../shared/interfaces/domain-feature-handler.service";
 import { TaxonomyService } from "../../../../core/services/taxonomy/taxonomy.service";
-import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray, parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 
 @Injectable({
     providedIn: 'root',
@@ -25,7 +25,7 @@ export class DomainQuotesService implements DomainFeatureHandler<QuoteRecord> {
             return null;
         }
 
-        const cleanRows = records.map(({ row: _catalogRow, ...businessProperties }) => businessProperties);
+        const cleanRows = records.map(({ row: _bookRow, ...businessProperties }) => businessProperties);
 
         return {
             row,
@@ -50,7 +50,7 @@ export class DomainQuotesService implements DomainFeatureHandler<QuoteRecord> {
 
                 // 2. Execute the validation guard to clear unlisted values
                 const authorizedTags = this.validateAndSanitizeTags(parsedTags);
-                const tags = serializeTagsToArray(authorizedTags);
+                const tags = normalizeTagsFromArray(authorizedTags);
 
                 return {
                     ...sourceRow,

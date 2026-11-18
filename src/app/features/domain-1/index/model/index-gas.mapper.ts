@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 
 import { IndexRaw, IndexRawValues, IndexRecord } from "./index-model";
-import { mapTagsToArray, mapTagsToString, parseSyncStatus } from "../../../../core/infrastructure/gas/gas-utils-mappers.mapper";
+import { parseSyncStatus } from "../../../../core/infrastructure/gas/gas-utils-mappers.mapper";
 import { GASMapperInterface } from "../../../../core/infrastructure/gas/gas-mapper-interface";
+import { mapTagsToArray, mapTagsToString } from "../../../../shared/tag-picker/tag-picker.mapper";
 
 
 @Injectable({

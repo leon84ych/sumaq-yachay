@@ -25,12 +25,12 @@ export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
     const domainRecords = domain.map(item => this.mapper.toRecord(item));
 
     //Save index records to the local database
-    // Omit saving the catalog record as it is already managed elsewhere
+    // Omit saving the book record as it is already managed elsewhere
     const database = this.localDBService.indexedDB;
     await database.transaction('rw', database.indexes, async () => {
       await database.indexes.bulkPut(domainRecords);
     });
-
+    
     return domainRecords;
   }
 

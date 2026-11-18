@@ -1,11 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
-import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
+import { DomainDataService } from '../../book-detail/services/domain-data.service';
 import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../core/services/config/config.service';
-import { DomainName } from '../../catalog-detail/models/domain-sheet-config';
-import { parseTagsFromArray } from '../../../shared/utils/tag-utils';
+import { DomainName } from '../../book-detail/models/domain-sheet-config';
 import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
+import { parseTagsFromArray } from '../../../shared/tag-picker/tag-picker.mapper';
 
 export interface LearnFeedEntry {
   id: string;
@@ -87,21 +87,21 @@ export class LearnFeedService {
       return batch;
     }
 
-    const catalogs = await this.appDbService.db.catalogs.toArray();
+    const books = await this.appDbService.db.books.toArray();
     const sheets = Object.keys(DOMAIN_SEARCH_TERMS) as DomainName[];
-    for (const catalog of catalogs) {
+    for (const book of books) {
       for (const sheet of sheets) {
         while (batch.length < batchSize) {
-          const key = `${catalog.row}:${sheet}`;
+          const key = `${book.row}:${sheet}`;
           const page =
             this.remoteCursors.get(key) ??
-            Math.floor((await this.domainDataService.countLocalRows(catalog.row, sheet)) / 50) + 1;
+            Math.floor((await this.domainDataService.countLocalRows(book.row, sheet)) / 50) + 1;
           if (page === Infinity) {
             break;
           }
           try {
             const result = await this.domainDataService.fetchRemotePageToLocal(
-              catalog.row,
+              book.row,
               sheet,
               page,
             );
@@ -133,8 +133,8 @@ export class LearnFeedService {
       this.sampleDataSeeded = true;
     }
 
-    const [catalogItems, domainRows] = await Promise.all([
-      this.appDbService.db.catalogs.toArray(),
+    const [bookItems, domainRows] = await Promise.all([
+      this.appDbService.db.books.toArray(),
       Promise.all([
         this.appDbService.db.indexTopics.toArray().then((rows) => ['INDEX', rows] as const),
         this.appDbService.db.bookEvents.toArray().then((rows) => ['BOOK_EVENTS', rows] as const),
@@ -154,7 +154,7 @@ export class LearnFeedService {
       ]),
     ]);
 
-    const catalogByRow = new Map(catalogItems.map((item) => [item.row, item]));
+    const bookByRow = new Map(bookItems.map((item) => [item.row, item]));
     const characterNames = new Map<string, string>();
     const conceptNames = new Map<string, string>();
     for (const [domain, rows] of domainRows) {
@@ -173,16 +173,16 @@ export class LearnFeedService {
 
     for (const [domain, rows] of domainRows) {
       for (const sourceRow of rows as unknown as Record<string, unknown>[]) {
-        const catalogRecord = catalogByRow.get(Number(sourceRow['row']));
-        if (!catalogRecord) {
+        const bookRecord = bookByRow.get(Number(sourceRow['row']));
+        if (!bookRecord) {
           continue;
         }
 
         const entry = this.toLearnFeedEntry(
           domain,
           sourceRow,
-          catalogRecord.name,
-          catalogRecord.author,
+          bookRecord.name,
+          bookRecord.author,
           characterNames,
           conceptNames,
         );

@@ -3,10 +3,11 @@ import { Component, computed, inject, input, output, signal } from '@angular/cor
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
-import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
-import { DomainDataService } from '../../../catalog-detail/services/domain-data.service';
+import { DomainSheet } from '../../../book-detail/models/domain-sheet.model';
+import { DomainDataService } from '../../../book-detail/services/domain-data.service';
 import { IndexDto, IndexRow } from '../model/index-view-row';
-import { serializeTagsToArray, serializeTagsToBE } from '../../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
+import { serializeTagsToBE } from '../../../../shared/utils/tag-utils';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { IndexEntryCardComponent } from '../components/index-entry-card/index-entry-card.component';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
@@ -115,7 +116,7 @@ export class DomainIndexComponent {
     this.newChapter.set(row.chapter);
     this.newTheme.set(row.theme);
     this.newSubtheme.set(row.subtheme);
-    this.newTags.set(serializeTagsToArray(row.tags));
+    this.newTags.set(normalizeTagsFromArray(row.tags));
   }
 
   resetForm(): void {

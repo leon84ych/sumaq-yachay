@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import Dexie, { Table } from 'dexie';
-import { CatalogRecord } from '../../../features/catalog/models/catalog-item.model';
+import { BookRecord } from '../../../features/book/models/book-item.model';
 import { BookEventRecord } from '../../../features/domain/domain-book-events/model/book-event-row.model';
 import { CharacterRecord } from '../../../features/domain/domain-character/models/domain-character-row.model';
 import { ConceptRecord } from '../../../features/domain/domain-concepts/model/domain-concept-row.model';
@@ -14,7 +14,7 @@ import { QuoteRecord } from '../../../features/domain/domain-quotes/model/domain
 import { BookRelationRecord } from '../../../features/domain/domain-relations/model/book-relation.model';
 import { BookAssociationRecord } from '../../../features/domain/domain-association/model/book-association.model';
 import {
-  LOCAL_SAMPLE_CATALOG,
+  LOCAL_SAMPLE_BOOKS,
   LOCAL_SAMPLE_DOMAIN_TABLES,
   getLocalSampleDomainData,
   normalizeSampleDomainRow,
@@ -39,6 +39,12 @@ const VERSION_ONE_STORES = {
   questionAttempts: '++id, questionId, bookRow, timestamp, type',
 } as const;
 
+const VERSION_TWO_STORES = {
+  ...VERSION_ONE_STORES,
+  books: VERSION_ONE_STORES.catalogs,
+  catalogs: null,
+} as const;
+
 export interface DomainSheetCount {
   row: number;
   count: number;
@@ -52,7 +58,7 @@ export interface DomainSheetCount {
 
 export interface BookTag {
   id: string;
-  scope?: 'book' | 'catalog';
+  scope?: 'book';
   row?: number;
   book?: string;
   author?: string;
@@ -64,7 +70,7 @@ export interface BookTag {
 }
 
 export class AppDatabase extends Dexie {
-  catalogs!: Table<CatalogRecord, string>;
+  books!: Table<BookRecord, string>;
   domainSheets!: Table<DomainSheetCount, number>;
   bookTags!: Table<BookTag, string>;
   indexTopics!: Table<IndexTopicRecord, string>;
@@ -83,6 +89,20 @@ export class AppDatabase extends Dexie {
   constructor(databaseName = 'SumaqYachayDB') {
     super(databaseName);
     this.version(1).stores(VERSION_ONE_STORES);
+    this.version(2)
+      .stores(VERSION_TWO_STORES)
+      .upgrade(async (transaction) => {
+        const oldBooks = transaction.table('catalogs');
+        const books = transaction.table('books');
+        await books.bulkPut(await oldBooks.toArray());
+        await oldBooks.clear();
+        await transaction.table('bookTags').toCollection().modify((tag) => {
+          const legacyTag = tag as { scope?: string };
+          if (legacyTag.scope === 'catalog') {
+            legacyTag.scope = 'book';
+          }
+        });
+      });
   }
 }
 
@@ -93,32 +113,32 @@ export class AppDbService {
   async seedLocalSampleData(): Promise<void> {
     const sampleDomainDataByBookId = new Map<string, Record<string, Record<string, unknown>[]>>();
     await Promise.all(
-      LOCAL_SAMPLE_CATALOG.map(async (catalogItem) => {
+      LOCAL_SAMPLE_BOOKS.map(async (bookItem) => {
         sampleDomainDataByBookId.set(
-          catalogItem.id,
-          await getLocalSampleDomainData(catalogItem.id),
+          bookItem.id,
+          await getLocalSampleDomainData(bookItem.id),
         );
       }),
     );
 
     await this.db.transaction('rw', this.db.tables, async () => {
-      for (const catalogRecord of LOCAL_SAMPLE_CATALOG) {
-        const existingItem = await this.db.catalogs.get(catalogRecord.id);
+      for (const bookRecord of LOCAL_SAMPLE_BOOKS) {
+        const existingItem = await this.db.books.get(bookRecord.id);
         if (!existingItem) {
-          await this.db.catalogs.put(catalogRecord);
-        } else if (existingItem.row !== catalogRecord.row) {
-          await this.db.catalogs.put({ ...existingItem, row: catalogRecord.row });
+          await this.db.books.put(bookRecord);
+        } else if (existingItem.row !== bookRecord.row) {
+          await this.db.books.put({ ...existingItem, row: bookRecord.row });
         }
       }
 
-      for (const catalogRecord of LOCAL_SAMPLE_CATALOG) {
-        const domainData = sampleDomainDataByBookId.get(catalogRecord.id)!;
+      for (const bookRecord of LOCAL_SAMPLE_BOOKS) {
+        const domainData = sampleDomainDataByBookId.get(bookRecord.id)!;
         for (const [domainName, rows] of Object.entries(domainData)) {
           const tableName = LOCAL_SAMPLE_DOMAIN_TABLES[domainName];
           const table = this.db.table(tableName) as Table<Record<string, unknown>, string>;
-          const sampleIdPrefix = `${catalogRecord.id}-sample-`;
+          const sampleIdPrefix = `${bookRecord.id}-sample-`;
           const expectedSampleIds = new Set(
-            rows.map((sampleRow) => `${catalogRecord.id}-${String(sampleRow['id'])}`),
+            rows.map((sampleRow) => `${bookRecord.id}-${String(sampleRow['id'])}`),
           );
           const obsoleteSampleRows = await table
             .filter((record) => {
@@ -136,22 +156,22 @@ export class AppDbService {
 
           const missingRows: Record<string, unknown>[] = [];
           for (const sampleRow of rows) {
-            const id = `${catalogRecord.id}-${String(sampleRow['id'])}`;
+            const id = `${bookRecord.id}-${String(sampleRow['id'])}`;
             const existingRow = await table.get(id);
             if (!existingRow) {
               missingRows.push({
                 ...normalizeSampleDomainRow(sampleRow),
                 id,
-                row: catalogRecord.row,
-                ...(Object.hasOwn(sampleRow, 'book') ? { book: catalogRecord.name } : {}),
+                row: bookRecord.row,
+                ...(Object.hasOwn(sampleRow, 'book') ? { book: bookRecord.name } : {}),
                 ...(Object.hasOwn(sampleRow, 'author') && domainName !== 'QUOTES'
-                  ? { author: catalogRecord.author }
+                  ? { author: bookRecord.author }
                   : {}),
               });
             } else {
               const normalizedExisting = normalizeSampleDomainRow({
                 ...existingRow,
-                row: catalogRecord.row,
+                row: bookRecord.row,
               });
               if (JSON.stringify(normalizedExisting) !== JSON.stringify(existingRow)) {
                 await table.put(normalizedExisting);
@@ -164,9 +184,9 @@ export class AppDbService {
           }
         }
 
-        const storedSheets = await this.db.domainSheets.get(catalogRecord.row);
+        const storedSheets = await this.db.domainSheets.get(bookRecord.row);
         await this.db.domainSheets.put({
-          row: catalogRecord.row,
+          row: bookRecord.row,
           count:
             Object.values(domainData).filter((rows) => rows.length > 0).length +
             (storedSheets?.customSheets?.length ?? 0),

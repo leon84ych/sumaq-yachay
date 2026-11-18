@@ -3,9 +3,10 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { DomainEntryCardComponent } from '../../../shared/domain-entry-card/domain-entry-card.component';
 import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
-import { parseTagsFromArray } from '../../../../../shared/utils/tag-utils';
+
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { BookRelation } from '../../model/book-relation.model';
+import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
 
 @Component({
   selector: 'app-relation-entry-card',

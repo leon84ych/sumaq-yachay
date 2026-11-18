@@ -1,0 +1,54 @@
+<div class="modal-overlay" (click)="onBackdropClick($event)">
+  <section
+    class="modal-dialog"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'BOOK.ADD_BOOK.TITLE' | transloco"
+    aria-describedby="clone-book-notice"
+  >
+    <header class="modal-header">
+      <h2>{{ 'BOOK.ADD_BOOK.TITLE' | transloco }}</h2>
+      <button type="button" class="btn-close" (click)="close.emit()" [disabled]="isLoading()">
+        <span class="visually-hidden">{{ 'BOOK.ADD_BOOK.CANCEL' | transloco }}</span>
+        <span aria-hidden="true">&#10005;</span>
+      </button>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="modal-form">
+      @if (error()) {
+        <p class="request-error" role="alert">{{ error() }}</p>
+      }
+
+      <div class="form-group">
+        <label for="public-sheet-url">{{ 'BOOK.ADD_BOOK.URL_LABEL' | transloco }}</label>
+        <input
+          id="public-sheet-url"
+          type="url"
+          formControlName="sheetUrl"
+          [placeholder]="'BOOK.ADD_BOOK.URL_PLACEHOLDER' | transloco"
+          autocomplete="url"
+        />
+        @if (form.controls.sheetUrl.touched && form.controls.sheetUrl.invalid) {
+          <span class="field-error">{{ 'BOOK.ADD_BOOK.URL_ERROR' | transloco }}</span>
+        }
+      </div>
+
+      <p id="clone-book-notice" class="clone-notice" role="note">
+        {{ 'BOOK.ADD_BOOK.CLONE_DESCRIPTION' | transloco }}
+      </p>
+
+      <footer class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="close.emit()" [disabled]="isLoading()">
+          {{ 'BOOK.ADD_BOOK.CANCEL' | transloco }}
+        </button>
+        <button type="submit" class="btn-submit" [disabled]="form.invalid || isLoading()">
+          @if (isLoading()) {
+            {{ 'BOOK.ADD_BOOK.SUBMITTING' | transloco }}
+          } @else {
+            {{ 'BOOK.ADD_BOOK.SUBMIT' | transloco }}
+          }
+        </button>
+      </footer>
+    </form>
+  </section>
+</div>

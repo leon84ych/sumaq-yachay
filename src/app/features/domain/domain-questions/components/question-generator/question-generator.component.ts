@@ -2,7 +2,7 @@ import { Component, inject, input, signal } from '@angular/core';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { BrowserAiService } from '../../../../../core/services/ia/BrowserIA.service';
 import { GlobalErrorService } from '../../../../../core/services/error/global-error.service';
-import { DomainDataService } from '../../../../catalog-detail/services/domain-data.service';
+import { DomainDataService } from '../../../../book-detail/services/domain-data.service';
 import { QuestionRow, QuestionType } from '../../model/domain-question-row.model';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 

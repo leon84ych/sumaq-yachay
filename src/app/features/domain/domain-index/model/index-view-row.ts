@@ -1,4 +1,4 @@
-import { DomainLearnableRecord, DomainSheetRow } from "../../../catalog-detail/models/domain-sheet.model";
+import { DomainLearnableRecord, DomainSheetRow } from "../../../book-detail/models/domain-sheet.model";
 
 export interface IndexRow extends Record<string, unknown> , DomainSheetRow {
   id: string;

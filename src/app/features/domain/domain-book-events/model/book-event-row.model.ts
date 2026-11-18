@@ -1,5 +1,5 @@
-import { SyncState } from '../../../catalog/models/catalog-item.model';
-import { DomainSheetRow } from '../../../catalog-detail/models/domain-sheet.model';
+import { SyncState } from '../../../book/models/book-item.model';
+import { DomainSheetRow } from '../../../book-detail/models/domain-sheet.model';
 
 export interface BookEvent extends DomainSheetRow {
   id: string;

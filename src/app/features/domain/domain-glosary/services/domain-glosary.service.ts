@@ -1,10 +1,10 @@
 import { Injectable, inject } from "@angular/core";
 import { AppDbService } from "../../../../core/services/storage/app-db.service";
 import { GlossaryEntryRecord } from '../model/domain-glosary-row.model';
-import { DomainSheet } from "../../../catalog-detail/models/domain-sheet.model";
+import { DomainSheet } from "../../../book-detail/models/domain-sheet.model";
 import { DomainFeatureHandler } from "../../../../shared/interfaces/domain-feature-handler.service";
 import { TaxonomyService } from "../../../../core/services/taxonomy/taxonomy.service";
-import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray, parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 
 @Injectable({
     providedIn: 'root',
@@ -25,7 +25,7 @@ export class DomainGlosaryService implements DomainFeatureHandler<GlossaryEntryR
             return null;
         }
 
-        const cleanRows = records.map(({ row: _catalogRow, ...businessProperties }) => businessProperties);
+        const cleanRows = records.map(({ row: _bookRow, ...businessProperties }) => businessProperties);
 
         return {
             row,
@@ -50,7 +50,7 @@ export class DomainGlosaryService implements DomainFeatureHandler<GlossaryEntryR
 
                 // 2. Validate and filter tags using the live INDEX domain whitelist via the service helper
                 const authorizedTags = this.validateAndSanitizeTags(parsedTags);
-                const tags = serializeTagsToArray(authorizedTags);
+                const tags = normalizeTagsFromArray(authorizedTags);
 
                 return {
                     ...sourceRow,

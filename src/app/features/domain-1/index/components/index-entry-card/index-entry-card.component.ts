@@ -2,7 +2,7 @@ import { Component, inject, input, output } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 
-import { parseTagsFromArray } from '../../../../../shared/utils/tag-utils';
+import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { IndexRecord } from '../../model/index-model';
 import { DomainEntryHeaderComponent } from '../../../../domain/shared/domain-entry-header/domain-entry-header.component';

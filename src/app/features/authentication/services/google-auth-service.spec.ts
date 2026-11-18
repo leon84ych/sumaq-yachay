@@ -9,7 +9,7 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { GoogleAuthService } from './google-auth-service';
 
 @Component({ template: '' })
-class CatalogPageComponent {}
+class BookPageComponent {}
 
 function createToken(expirationSeconds: number): string {
   const encode = (value: unknown): string =>
@@ -36,7 +36,7 @@ describe('GoogleAuthService', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([
-          { path: 'catalog', component: CatalogPageComponent },
+          { path: 'book', component: BookPageComponent },
         ]),
       ],
     });
@@ -66,7 +66,7 @@ describe('GoogleAuthService', () => {
     expect(localStorage.getItem('g_id_token')).toBeNull();
   });
 
-  it('redirects to the catalog after a valid credential is accepted', async () => {
+  it('redirects to the book after a valid credential is accepted', async () => {
     const token = createToken(Math.floor(Date.now() / 1000) + 60);
     const service = TestBed.inject(GoogleAuthService);
     const router = TestBed.inject(Router);
@@ -74,6 +74,6 @@ describe('GoogleAuthService', () => {
     service['handleCredentialResponse'](token);
 
     expect(service.isSignedIn()).toBe(true);
-    await vi.waitFor(() => expect(router.url).toBe('/catalog'));
+    await vi.waitFor(() => expect(router.url).toBe('/book'));
   });
 });

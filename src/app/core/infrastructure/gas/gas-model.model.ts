@@ -5,7 +5,7 @@
  * Use Raw sufix as it is returned without processing from GAS
  */
 
-import { CatalogRaw } from "../../../features/catalog/models/catalog-item.model";
+import { BookRaw } from "../../../features/book/models/book-item.model";
 
 
 /**
@@ -31,9 +31,9 @@ export interface GASPaginatedResponseRaw<T> extends Record<string, any> {
 
 
 /**
- * Payload structure for creating or updating a catalog item in GAS
+ * Payload structure for creating or updating a book item in GAS
  */
-export interface CatalogPostPayload<TRowValues> {
+export interface BookPostPayload<TRowValues> {
   action: 'UPDATE_CATALOG_ITEM' | 'CREATE_CATALOG_ITEM';
   id: string;
   row: number;
@@ -42,18 +42,18 @@ export interface CatalogPostPayload<TRowValues> {
 
 
 /**
- * Payload structure for cloning a whole catalog from a public sheet in GAS
+ * Payload structure for cloning a whole book from a public sheet in GAS
  */
-export interface CloneCatalogPayload {
+export interface CloneBookPayload {
   action: 'CLONE_CATALOG';
   SheetId: string;
 }
 
-export interface CloneCatalogItemPayload {
+export interface CloneBookItemPayload {
   action: 'CLONE_CATALOG_ITEM';
   SheetId: string;
 }
-export interface DeleteCatalogItemPayload {
+export interface DeleteBookItemPayload {
   action: 'DELETE_CATALOG_ITEM';
   row: number;
   id: string;
@@ -63,7 +63,7 @@ export interface DeleteCatalogItemPayload {
 //-----------------------------------------------------------------
 
 /**
- * Tabs of the Domain Data spreadsheet owned by a Catalog row
+ * Tabs of the Domain Data spreadsheet owned by a Book row
  */
 export interface SheetNamesRaw {
   sheets: Array<{
@@ -74,7 +74,7 @@ export interface SheetNamesRaw {
 }
 
 export interface DomainSheetRaw {
-  row: number; // Owning Catalog entry row (local cache key, not sent to Sheets)
+  row: number; // Owning Book entry row (local cache key, not sent to Sheets)
   id: string; // Tab name lowercased; second half of the [row+id] primary key
   name: string; // Raw tab name as returned by Apps Script (e.g. "Definitions")
   index: number; // Tab index as returned by Apps Script
@@ -103,6 +103,6 @@ export interface SheetInfoRaw {
 }
 
 export interface BookInfoRaw {
-  id: CatalogRaw, 
+  id: BookRaw, 
   sheets: SheetInfoRaw[];
 }

@@ -52,7 +52,7 @@ describe('QuestionPracticeService', () => {
           provide: AppDbService,
           useValue: {
             db: {
-              catalogs: {
+              books: {
                 toArray: vi.fn().mockResolvedValue([
                   { id: 'book-1', row: 1, name: 'Book One', author: 'Author One' },
                   { id: 'book-2', row: 2, name: 'Book Two', author: 'Author Two' },

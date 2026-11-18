@@ -1,8 +1,8 @@
-import { CatalogRecord } from '../../../features/catalog/models/catalog-item.model';
-import catalogItems from '../../../../../public/sample/Catalog.json';
-import { serializeTagsToArray } from '../../../shared/utils/tag-utils';
+import { BookRecord } from '../../../features/book/models/book-item.model';
+import bookItems from '../../../../../public/sample/Books.json';
+import { normalizeTagsFromArray } from '../../../shared/tag-picker/tag-picker.mapper';
 
-export const LOCAL_SAMPLE_CATALOG: CatalogRecord[] = catalogItems.map((item, index) => ({
+export const LOCAL_SAMPLE_BOOKS: BookRecord[] = bookItems.map((item, index) => ({
   ...item,
   row: index + 1,
   syncStatus: 'synced',
@@ -69,7 +69,7 @@ export async function getLocalSampleDomainData(bookId: string): Promise<LocalSam
 
 export function normalizeSampleDomainRow(row: Record<string, unknown>): Record<string, unknown> {
   const normalized = { ...row };
-  normalized['tags'] = serializeTagsToArray(normalized['tags']);
+  normalized['tags'] = normalizeTagsFromArray(normalized['tags']);
   if (!normalized['contributor'] || normalized['contributor'] === 'Local Sample Data') {
     normalized['contributor'] = 'leon84ych';
   }

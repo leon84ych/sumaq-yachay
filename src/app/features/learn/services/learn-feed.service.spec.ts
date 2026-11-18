@@ -45,7 +45,7 @@ describe('LearnFeedService', () => {
           useValue: {
             seedLocalSampleData,
             db: {
-              catalogs: {
+              books: {
                 toArray: vi
                   .fn()
                   .mockResolvedValue([

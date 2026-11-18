@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { AppDbService } from '../../../../core/services/storage/app-db.service';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
-import { DomainSheet } from '../../../catalog-detail/models/domain-sheet.model';
+import { DomainSheet } from '../../../book-detail/models/domain-sheet.model';
 import { DomainFeatureHandler } from '../../../../shared/interfaces/domain-feature-handler.service';
-import { parseTagsFromArray, serializeTagsToArray } from '../../../../shared/utils/tag-utils';
+import { normalizeTagsFromArray, parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 import { BookAssociationRecord } from '../model/book-association.model';
 
 @Injectable({ providedIn: 'root' })
@@ -16,10 +16,10 @@ export class DomainAssociationService implements DomainFeatureHandler<BookAssoci
     const records = await this.dbService.db.relationsConcepts.where('row').equals(row).toArray();
     const rows = records
       .sort((left, right) => left.displayRow - right.displayRow)
-      .map(({ row: _catalogRow, displayRow, ...record }) => ({
+      .map(({ row: _bookRow, displayRow, ...record }) => ({
         ...record,
         row: displayRow,
-        tags: serializeTagsToArray(record['tags']),
+        tags: normalizeTagsFromArray(record['tags']),
       }));
 
     return {
@@ -38,7 +38,7 @@ export class DomainAssociationService implements DomainFeatureHandler<BookAssoci
     const table = this.dbService.db.relationsConcepts;
     await this.dbService.db.transaction('rw', table, async () => {
       const records: BookAssociationRecord[] = syncedRows.map((sourceRow, index) => {
-        const tags = serializeTagsToArray(
+        const tags = normalizeTagsFromArray(
           this.validateAndSanitizeTags(parseTagsFromArray(sourceRow['tags'])),
         );
         const displayRowValue = Number(sourceRow['displayRow'] ?? sourceRow['row']);

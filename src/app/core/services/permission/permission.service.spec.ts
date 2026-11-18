@@ -12,7 +12,7 @@ describe('PermissionService', () => {
     expect(service.validatePermission(service.role(), 'CLONE_CATALOG_ITEM')).toBe(false);
   });
 
-  it('allows admin to perform catalog, sheet, and row writes', () => {
+  it('allows admin to perform book, sheet, and row writes', () => {
     const service = new PermissionService();
     service.setRole('admin');
 

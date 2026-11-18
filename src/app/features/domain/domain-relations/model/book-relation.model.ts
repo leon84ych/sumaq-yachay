@@ -1,5 +1,5 @@
-import { SyncState } from '../../../catalog/models/catalog-item.model';
-import { DomainSheetRow } from '../../../catalog-detail/models/domain-sheet.model';
+import { SyncState } from '../../../book/models/book-item.model';
+import { DomainSheetRow } from '../../../book-detail/models/domain-sheet.model';
 
 export interface BookRelation extends DomainSheetRow {
   /** Stable unique identifier for the character relation. Used as the primary key for local storage, updates, deletion, and synchronization. */
