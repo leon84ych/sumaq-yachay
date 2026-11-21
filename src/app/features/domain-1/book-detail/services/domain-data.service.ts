@@ -7,6 +7,8 @@ import { BookRecord } from '../../../book/models/book-item.model';
 import { IndexRecord } from '../../index/model/index-model';
 import { IndexRepository } from '../../index/services/index-repository';
 import { TagPickerService } from '../../../../shared/tag-picker/tag-picker.service';
+import { GASDomainAPI } from '../../../../core/infrastructure/gas/gas-domain-api.service';
+import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 
 
 
@@ -26,16 +28,15 @@ export class DomainDataService {
   private bookGASRepository = inject(BookGASRepository);
   private globalErrorService = inject(GlobalErrorService);
   private tagPickerService = inject(TagPickerService);
-
+  private indexGasRepository = inject(IndexRepository);
+  private gasDomainAPI = inject(GASDomainAPI<Record<string, unknown>, unknown>);
+  private globalLoadingService = inject(GlobalLoadingService);
 
   readonly domainsInfo = signal<DomainInfo[]>([]);
   readonly domainsNames = computed(() => this.domainsInfo().filter(domain => domain.id != 'ID').map((domain) => domain.id));
 
-
   readonly bookInfo = signal<BookRecord | null>(null);
 
-
-  private indexGasRepository = inject(IndexRepository);
 
   /**
    * Loads the sheet (tab) names of the Domain Data owned by a Book row
@@ -43,8 +44,9 @@ export class DomainDataService {
   async loadForCatalog(row: number): Promise<void> {
     this.sheets.set([]);
     this.isLoading.set(true);
+    const operation = this.globalLoadingService.begin();
     try {
-      const response = await this.bookGASRepository.getSource(row);
+      const response = await this.bookGASRepository.getBookInfo(row);
       if (response.status !== 'success' || !Array.isArray(response.data?.domains)) {
         throw new Error(response.message || 'Failed to load domain sheets.');
       }
@@ -65,12 +67,39 @@ export class DomainDataService {
       );
     } finally {
       this.isLoading.set(false);
+      this.globalLoadingService.end(operation);
     }
   }
 
-  createDomainSheet(domainName: string, headers: string[]): Promise<void> {
+  async createDomain(row: number, domainName: string, headers: string[]): Promise<void> {
+    console.log('Creating domain for row:', row);
+    if(row  < 4 ){
+      throw new Error('Invalid row number.');
+    }
     this.isLoading.set(true);
-    throw new Error('Not implemented yet');
+    try {
+      const response = await this.gasDomainAPI.createDomain(row, domainName, headers);
+      if (response.status !== 'success') {
+        throw new Error(response.message || 'Failed to create domain sheet.');
+      }
+
+      const createdSheet = response.data?.createdSheet?.trim();
+      if (!createdSheet) {
+        throw new Error('The server did not return the created domain sheet name.');
+      }
+
+      this.domainsInfo.update((domains) => {
+        if (domains.some((domain) => domain.id === createdSheet)) {
+          return domains;
+        }
+
+        const index = Math.max(-1, ...domains.map((domain) => domain.index)) + 1;
+        return [...domains, { id: createdSheet, index, count: 0 }];
+      });
+    } finally {
+      this.isLoading.set(false);
+    }
+
   }
 
   async retrieveDomains(row: number): Promise<void> {

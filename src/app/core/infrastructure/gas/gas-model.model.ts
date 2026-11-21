@@ -34,7 +34,7 @@ export interface GASPaginatedResponseRaw<T> extends Record<string, any> {
  * Payload structure for creating or updating a book item in GAS
  */
 export interface BookPostPayload<TRowValues> {
-  action: 'UPDATE_CATALOG_ITEM' | 'CREATE_CATALOG_ITEM';
+  action: 'UPDATE_BOOK' | 'CREATE_BOOK';
   id: string;
   row: number;
   rowValues: TRowValues;
@@ -45,16 +45,16 @@ export interface BookPostPayload<TRowValues> {
  * Payload structure for cloning a whole book from a public sheet in GAS
  */
 export interface CloneBookPayload {
-  action: 'CLONE_CATALOG';
+  action: 'CLONE_BOOK';
   SheetId: string;
 }
 
 export interface CloneBookItemPayload {
-  action: 'CLONE_CATALOG_ITEM';
+  action: 'CLONE_BOOK';
   SheetId: string;
 }
 export interface DeleteBookItemPayload {
-  action: 'DELETE_CATALOG_ITEM';
+  action: 'DELETE_BOOK';
   row: number;
   id: string;
 }
@@ -105,4 +105,11 @@ export interface SheetInfoRaw {
 export interface BookInfoRaw {
   id: BookRaw, 
   sheets: SheetInfoRaw[];
+}
+
+
+export interface CreateDomainResponseRaw {
+  row: number;
+  createdSheet: string;
+  status: string;
 }

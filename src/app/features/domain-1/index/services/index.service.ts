@@ -37,5 +37,9 @@ export class IndexDataService {
         return this.bookQueryService.getBookRecord(bookId);
     }
 
+    async addDomainItem(record: IndexRecord): Promise<IndexRecord> {
+        return this.indexGasRepository.addDomainItem(record);
+    }
+
 
 }

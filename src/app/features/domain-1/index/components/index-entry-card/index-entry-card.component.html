@@ -31,7 +31,7 @@
     <app-domain-contributor [contributor]="row().contributor" />
     <div class="domain-card-footer__actions">
       @if (showActions()) {
-        @if (permissions.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+        @if (permissions.validatePermission(role(), 'CREATE_ROW')) {
           <button
             type="button"
             class="domain-edit-button"

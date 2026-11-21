@@ -61,7 +61,9 @@ export class IndexComponent implements OnInit {
   readonly searchTerm = inject(StudySearchService).query;
 
   private readonly indexDataService = inject(IndexDataService);
+  
   private readonly globalErrorService = inject(GlobalErrorService);
+
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
   private readonly transloco = inject(TranslocoService);
@@ -151,14 +153,32 @@ export class IndexComponent implements OnInit {
     if (this.isFormInvalid()) {
       return;
     }
-    throw new Error("Method not implemented.");
-    // const chapter = this.newChapter().trim();
-    // const theme = this.newTheme().trim();
-    // const subtheme = this.newSubtheme().trim();
-    // console.log('Tags before:', this.newTags());
-    // const tags = serializeTagsToBE(this.newTags());
-    // console.log('Tags after serialization:', tags);
-    // const editingId = this.editingId();
+
+    const book = await this.indexDataService.getBookRecord(this.bookId());
+    if (!book?.row) {
+      throw new Error('Book record is missing row.');
+    }
+    const indexEntry: IndexRecord = {
+      id: this.editingId() ?? `idx_${Date.now()}`,
+      feed: 0,
+      bookId: this.bookId(),
+      contributor: '',
+      row: book?.row, 
+      chapter: this.newChapter(),
+      theme: this.newTheme(),
+      subtheme: this.newSubtheme(),
+      tags: this.newTags(),
+      syncStatus: 'pending'
+    };
+
+    try{
+      await this.indexDataService.addDomainItem(indexEntry);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to add index entry.';
+      this.globalErrorService.show(message);
+    }
+    this.resetForm();
+
 
     // try {
     //   const localRows = editingId

@@ -1,6 +1,6 @@
-import { effect, Injectable, computed, inject, signal } from '@angular/core';
+
+import { PAGE_SIZE } from "../../../core/infrastructure/gas/gas-domain-api.service";
 import { BookRecord } from '../models/book-item.model';
-import { AppDbService } from '../../../core/services/storage/app-db.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { ConfigService } from '../../../core/services/config/config.service';
 import { GlobalLoadingService } from '../../../core/services/loading/global-loading.service';
@@ -10,6 +10,7 @@ import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/stud
 import { BookGASRepository } from './book-gas-repository';
 import { LocalDBService } from '../../../shared/local-db/local-db.service';
 import { Status } from '../../domain-1/shared/model/domain-shared-model';
+import { computed, effect, inject, Injectable, signal } from "@angular/core";
 
 
 const CONTENT_SEARCH_TERMS: Record<string, string[]> = {
@@ -206,7 +207,6 @@ export class BookService {
     this.isLoading.set(true);
     this.errorMessage.set(null);
     try {
-      const pageSize = 2;
       let page = 1;
       let totalPages = 1;
       //clear local data
@@ -214,7 +214,7 @@ export class BookService {
       this.items.set([]);
 
       while (page <= totalPages) {
-        const response = await this.bookGASRepository.getBooks(page, pageSize);
+        const response = await this.bookGASRepository.getBooks(page, PAGE_SIZE);
         const message = typeof response.message === 'string' ? response.message : '';
         if (
           response.status === Status.ERROR &&

@@ -36,7 +36,7 @@ Cloning remains unavailable in Local Sample Data mode or while catalog items alr
 
 **Register Source** supports **New data source** (the existing fields-based create operation) and
 **URL** (clone one existing Google Sheet). URL mode submits
-`{ action: 'CLONE_CATALOG_ITEM', SheetId: url }`; the HTTP client adds only `idToken`.
+`{ action: 'CLONE_BOOK', SheetId: url }`; the HTTP client adds only `idToken`.
 It does not send catalog metadata or mode options and can add to a non-empty catalog.
 The clone operation requires administrator permissions and remote mode, retains the one-minute
 timeout, and refreshes the catalog after success. Editing remains fields-only.

@@ -273,7 +273,7 @@ export class DomainDataApiService {
     });
 
     const payload = {
-      action: 'UPDATE_SHEET_ROWS',
+      action: 'CREATE_ROW',
       row: row,
       id: bookId,
       sheetName: sheetName,

@@ -30,7 +30,6 @@ export class IndexGASMapper implements GASMapperInterface<IndexRecord, IndexRaw,
 
 
     toRowValues(item: IndexRecord): IndexRawValues {
-        // Genera el arreglo posicional exacto para las columnas de Google Sheets
         return [
             item.id,
             item.chapter,

@@ -53,7 +53,7 @@
       <div class="form-group">
         <label for="id">{{ 'BOOK.MODAL.ID_LABEL' | transloco }} <span class="required">*</span></label>
         <input id="id" type="text" formControlName="id" [placeholder]="'BOOK.MODAL.ID_PLACEHOLDER' | transloco"
-          class="form-control" [disabled]="!!editItem()" />
+          class="form-control" />
         @if (form.get('id')?.touched && form.get('id')?.invalid) {
         <span class="field-error">{{ 'BOOK.MODAL.ID_ERROR' | transloco }}</span>
         }
@@ -144,10 +144,10 @@
         permissionService.validatePermission(
         role(),
         editItem()
-        ? 'UPDATE_CATALOG_ITEM'
+        ? 'UPDATE_BOOK'
         : isUrlMode()
-        ? 'CLONE_CATALOG_ITEM'
-        : 'CREATE_CATALOG_ITEM'
+        ? 'CLONE_BOOK'
+        : 'CREATE_BOOK'
         )
         ) {
         <button type="submit" class="btn btn-primary"

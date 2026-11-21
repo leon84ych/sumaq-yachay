@@ -36,8 +36,8 @@ export class BookDetail {
   readonly configService = inject(ConfigService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
+  
   private readonly globalErrorService = inject(GlobalErrorService);
-
   private readonly paramMap = toSignal(this.route.paramMap);
 
   readonly itemId = computed(() => this.paramMap()?.get('id') ?? null);
@@ -97,7 +97,7 @@ export class BookDetail {
 
     this.isCreatingDomain.set(true);
     try {
-      await this.domainDataService.createDomainSheet(domainName, [
+      await this.domainDataService.createDomain(this.item()?.row ?? 0, domainName, [
         ...getDefaultHeadersForDomain(domainName),
       ]);
       this.activeDomainName.set(domainName);

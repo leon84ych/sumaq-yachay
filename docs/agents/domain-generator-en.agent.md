@@ -129,8 +129,8 @@ Your sole objective is to receive a JSON specification of an academic/literary d
 
 6. **Role-Based Actions and Card Footers:**
   - Inject the shared `PermissionService` into components whose templates contain write actions, and expose `readonly permissionService` plus `readonly role = this.permissionService.role` to the template. The role comes from backend API responses; it defaults to `guest`. Never infer it from the email or client token.
-  - Use `@if (permissionService.validatePermission(role(), 'OPERATION'))` around each action. Use `UPDATE_SHEET_ROWS` for domain create/edit submits and edit icons, `DELETE_ROW` for domain delete icons, `CREATE_SHEET` for adding a domain sheet, `CREATE_CATALOG_ITEM` for catalog creation, `UPDATE_CATALOG_ITEM` for catalog edits/toggles, and `DELETE_CATALOG_ITEM` for catalog deletion. Keep read/view controls available according to their GET operation permissions.
-  - The shared operation map grants reads (`GET_CATALOG`, `GET_SHEETS_NAMES`, `GET_PAGINATED_ROWS`, `GET_CATALOG_HEALTH`) to `guest`, `user`, and `admin`; write operations are admin-only. Unknown roles/operations must be denied by default. UI guards supplement, but never replace, backend authorization.
+  - Use `@if (permissionService.validatePermission(role(), 'OPERATION'))` around each action. Use `CREATE_ROW` for domain create/edit submits and edit icons, `DELETE_ROW` for domain delete icons, `CREATE_SHEET` for adding a domain sheet, `CREATE_BOOK` for catalog creation, `UPDATE_BOOK` for catalog edits/toggles, and `DELETE_BOOK` for catalog deletion. Keep read/view controls available according to their GET operation permissions.
+  - The shared operation map grants reads (`GET_CATALOG`, `GET_SHEETS_NAMES`, `GET_PAGINATED_ROWS`, `GET_HEALTH`) to `guest`, `user`, and `admin`; write operations are admin-only. Unknown roles/operations must be denied by default. UI guards supplement, but never replace, backend authorization.
   - Every domain, including INDEX, uses the globally styled `domain-card-footer`. Place `<app-domain-contributor [contributor]="row().contributor" />` first on the left, before existing management actions such as delete/edit. Keep existing card actions in `domain-card-footer__actions` on the right, with their own visibility and permission guards. The edit/delete buttons use shared icon styles and Transloco labels; contributor filtering is a read action, not an admin-only operation.
   - Keep the contributor footer visible on read-only cards in Learn and when `showActions()` is false. Use a footer condition such as `showActions() || row().contributor`, including existing read/export flags when applicable. Guard write buttons separately with `showActions()` and permissions; do not expose writes just because a contributor exists.
   - INDEX keeps its compact content and role guards, but also has a contributor footer and participates in shared search. Preserve `contributor` when normalizing Index rows. INDEX uses the same `tags: string[]` property as every other domain; preserve incoming hierarchy order.
@@ -386,7 +386,7 @@ Wrap the existing `.add-entry-form` markup in `<app-domain-entry-form-overlay>`.
   <div class="add-entry-form">
     <!-- Existing domain fields, bound through form() -->
     <div class="form-actions">
-      @if (form().permissionService.validatePermission(form().role(), 'UPDATE_SHEET_ROWS')) {
+      @if (form().permissionService.validatePermission(form().role(), 'CREATE_ROW')) {
       <button
         type="button"
         class="btn-submit"
@@ -540,7 +540,7 @@ Reference example (glossary):
 
 1. Build the complete local list. For an edit, replace only the row matching `editingId`; for a create, append the new local row. Pass that list to `updateDomainSheetRows(sheetName, allLocalRows, true, editedId, createdLocalId)`. It is used for IndexedDB and local state only.
 2. The service rebuilds aggregate tags and persists the complete local sheet, but the remote request must contain exactly one changed record.
-3. For edits, send `rows: [editedRow]` with its existing row ID. For creates, send `rows: [newRowWithoutId]`; omit the temporary ID from the row object. Keep the parent `CatalogItem.id` in the top-level `id` field. The request uses `action: 'UPDATE_SHEET_ROWS'`, `row`, `sheetName`, `rows`, `idToken`, and `Content-Type: text/plain;charset=utf-8`.
+3. For edits, send `rows: [editedRow]` with its existing row ID. For creates, send `rows: [newRowWithoutId]`; omit the temporary ID from the row object. Keep the parent `CatalogItem.id` in the top-level `id` field. The request uses `action: 'CREATE_ROW'`, `row`, `sheetName`, `rows`, `idToken`, and `Content-Type: text/plain;charset=utf-8`.
 4. GAS assigns a canonical ID for creates and returns it (for example `data.id`). Reconcile it with the temporary local ID before marking the complete local sheet synced. If the generated ID is missing, treat the create as failed.
 5. Await the remote response before resetting the form. A non-OK response, malformed payload, or `data.status !== 'success'` must throw to the component.
 

@@ -4,7 +4,7 @@ import { GASPaginatedResponseRaw } from "./gas/gas-model.model";
 /**
  * Different backend implementations for domain items
  */
-export interface DomainRepositoryInterface<TRow> {
+export interface DomainRepositoryInterface<TRow, TAddRecord = TRow> {
 
     /**
      * Get the list of domain items avaiable
@@ -17,14 +17,14 @@ export interface DomainRepositoryInterface<TRow> {
      * @param page The page number to retrieve
      * @param pageSize The number of items per page
      */
-    getDomainPaginated(row: number, page: number, pageSize: number): Promise<GASPaginatedResponseRaw<TRow>>;
+    getDomainPaginated(row: number, page: number, pageSize: number|null): Promise<GASPaginatedResponseRaw<TRow>>;
 
 
     /**
-     * Add a new domain item by its ID
-     * @param id 
+     * Add a new domain item.
+     * @param item The domain record to add.
      */
-    addDomainItem(id: string): Promise<TRow>;
+    addDomainItem(item: TAddRecord): Promise<TAddRecord>;
 
 
     /**

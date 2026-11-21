@@ -18,7 +18,7 @@
         </select>
       </label>
       }
-      @if (activeDomainName() && permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+      @if (activeDomainName() && permissionService.validatePermission(role(), 'CREATE_ROW')) {
       <button type="button" class="btn-primary" (click)="toggleAddingEntry()">
         + {{ 'DOMAINS.INDEX.ADD_ENTRY' | transloco }}
       </button>

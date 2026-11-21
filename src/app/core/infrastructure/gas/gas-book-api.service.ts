@@ -27,7 +27,7 @@ export class GASBookAPI<TRaw, TRowValues> extends GASAPI {
         }
 
         const idToken = localStorage.getItem(TOKEN_KEY);
-        let endpoint = `${webAppUrl}?action=GET_CATALOG_HEALTH`;
+        let endpoint = `${webAppUrl}?action=GET_HEALTH`;
 
         if (idToken) {
             endpoint += `&idToken=${encodeURIComponent(idToken)}`;
@@ -96,7 +96,7 @@ export class GASBookAPI<TRaw, TRowValues> extends GASAPI {
         }
 
         const idToken = localStorage.getItem(TOKEN_KEY);
-        let endpoint = `${webAppUrl}?action=GET_CATALOG_ITEM&row=${row}&id=${id}`;
+        let endpoint = `${webAppUrl}?action=GET_BOOK&row=${row}&id=${id}`;
 
         if (idToken) {
             endpoint += `&idToken=${encodeURIComponent(idToken)}`;
@@ -123,9 +123,8 @@ export class GASBookAPI<TRaw, TRowValues> extends GASAPI {
         rowValues: TRowValues,
     ): Promise<GASResponseRaw<TRaw>> {
 
-        //1. Build the payload 
         const payload: BookPostPayload<TRowValues> = {
-            action: row ? 'UPDATE_CATALOG_ITEM' : 'CREATE_CATALOG_ITEM',
+            action: row ? 'UPDATE_BOOK' : 'CREATE_BOOK',
             id: id,
             row: row,
             rowValues: rowValues,
@@ -134,17 +133,17 @@ export class GASBookAPI<TRaw, TRowValues> extends GASAPI {
     }
 
     async cloneBook(sheetUrl: string): Promise<GASResponseRaw<unknown>> {
-        const payload: CloneBookPayload = { action: 'CLONE_CATALOG', SheetId: sheetUrl };
+        const payload: CloneBookPayload = { action: 'CLONE_BOOK', SheetId: sheetUrl };
         return this.postBookPayload<unknown>(payload);
     }
 
     async cloneBookItem(sheetUrl: string): Promise<GASResponseRaw<TRaw>> {
-        const payload: CloneBookItemPayload = { action: 'CLONE_CATALOG_ITEM', SheetId: sheetUrl };
+        const payload: CloneBookItemPayload = { action: 'CLONE_BOOK', SheetId: sheetUrl };
         return this.postBookPayload<TRaw>(payload);
     }
 
     async deleteBookItem(row: number, id: string): Promise<GASResponseRaw<string>> {
-        const payload: DeleteBookItemPayload = { action: 'DELETE_CATALOG_ITEM', row, id };
+        const payload: DeleteBookItemPayload = { action: 'DELETE_BOOK', row, id };
         return this.postBookPayload<string>(payload);
     }
 

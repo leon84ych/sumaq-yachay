@@ -106,7 +106,7 @@ export interface GetCatalogResponse {
 
 // POST Payload to GAS
 export interface CatalogPostPayload {
-  action: 'CREATE_CATALOG_ITEM' | 'UPDATE_CATALOG_ITEM';
+  action: 'CREATE_BOOK' | 'UPDATE_BOOK';
   id: string;
   row: number;  // Row number in Master Index (1-based, for update targeting)
   rowValues: [
@@ -130,7 +130,7 @@ export interface CatalogPostResponse {
 }
 ```
 
-> **Auto-Provisioning on First Create:** `CREATE_CATALOG_ITEM` no longer assumes the Master Index (or, for the first entry that references one, its Domain Data Spreadsheet) already exists. If Apps Script finds no file yet for the verified identity, it creates it as part of the same request before writing the row — replacing the old "copy the template sheet first" onboarding step.
+> **Auto-Provisioning on First Create:** `CREATE_BOOK` no longer assumes the Master Index (or, for the first entry that references one, its Domain Data Spreadsheet) already exists. If Apps Script finds no file yet for the verified identity, it creates it as part of the same request before writing the row — replacing the old "copy the template sheet first" onboarding step.
 
 ---
 

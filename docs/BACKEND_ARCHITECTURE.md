@@ -76,7 +76,7 @@ This document details the backend architecture, sequence flows, component respon
 #### 2. Google Apps Script Proxy (`doGet(e)` / `doPost(e)`)
 * **Responsibility:** Verifies the caller's Google ID token (`idToken` request parameter), resolves the Master Index Spreadsheet **for that authenticated identity** — creating it automatically on first use if none exists — reads the reserved Domain Data Spreadsheet ID from it (never from request parameters), opens the spreadsheet(s) via `SpreadsheetApp.openById()` **within the script's own execution context**, and serves/persists rows over `HTTP GET`/`POST`.
 * **Security & Execution Boundary:** Requests without a valid, unexpired `idToken` are rejected with an error response before any Sheets access occurs. The Domain Data Spreadsheet ID is resolved entirely server-side and is **never accepted as an input parameter nor included in the JSON output**, preventing callers from supplying or discovering arbitrary Sheet IDs.
-* **Auto-Provisioning:** `CREATE_CATALOG_ITEM` no longer assumes a pre-existing Domain Data Spreadsheet — if the entry's linked file doesn't exist yet, GAS creates it as part of the same request and stores the initial row(s).
+* **Auto-Provisioning:** `CREATE_BOOK` no longer assumes a pre-existing Domain Data Spreadsheet — if the entry's linked file doesn't exist yet, GAS creates it as part of the same request and stores the initial row(s).
 
 #### 3. Angular Sync Engine (`DataSyncService`)
 * **Responsibility:** Manages the endpoint lifecycle, attaches the signed-in user's ID token to every request, issues CORS-compliant `HTTP GET`/`POST` calls (with a user-configurable timeout, see [Configuration & Deployment Guidelines](#%EF%B8%8F-configuration--deployment-guidelines)), normalizes raw GAS payloads, and performs atomic local upserts/clears in IndexedDB.
@@ -100,7 +100,7 @@ This document details the backend architecture, sequence flows, component respon
 
 ### Auto-Provisioning (Create-on-First-Use)
 * **Master Index:** On the first `GET_CATALOG` call for a given identity, if no Master Index Spreadsheet is associated with that user yet, GAS creates one automatically (with the standard Catalog columns) instead of requiring the user to manually copy a template sheet.
-* **Domain Data Spreadsheet:** When a user creates their **first Catalog item** (`CREATE_CATALOG_ITEM`), and the entry's linked Domain Data Spreadsheet doesn't exist, GAS creates that file as part of the same request and writes the initial data — subsequent items reuse the same file (see [SheetID Security Model](#-sheetid-security-model), which still applies unchanged: the resulting Spreadsheet ID never leaves the server).
+* **Domain Data Spreadsheet:** When a user creates their **first Catalog item** (`CREATE_BOOK`), and the entry's linked Domain Data Spreadsheet doesn't exist, GAS creates that file as part of the same request and writes the initial data — subsequent items reuse the same file (see [SheetID Security Model](#-sheetid-security-model), which still applies unchanged: the resulting Spreadsheet ID never leaves the server).
 * **Rationale:** Removes the manual "Make a Copy" + "Deploy Web App yourself" onboarding steps for individual users; identity and file lifecycle are now both handled by the authenticated backend.
 
 ---
@@ -232,5 +232,5 @@ To verify that the proxy layer and client integration function reliably, run the
 | **M-5: SheetID Isolation** | `doGet(e)` reads `SheetID` server-side only | Response payload never includes `SheetID`; client cannot read/write it. | ✅ Done |
 | **M-6: Domain Data Sheet Dispatch** | Name-driven tab parsing (`Words`, `Concepts`, `Relations`, ...) | Apps Script returns rows keyed by tab name; Angular renders the matching view component per name. | ⬜ Pending |
 | **M-7: Google Sign-In** | `GoogleAuthService` + `LoginComponent` (GIS) | User can sign in/out with a Google account; ID token is attached to every GET/POST; unauthenticated calls are blocked client-side. | ✅ Done |
-| **M-8: Auto-Provisioning** | Create-on-first-use for Master Index & Domain Data files | First `GET_CATALOG`/`CREATE_CATALOG_ITEM` for a new identity/entry auto-creates the backing spreadsheet without manual template copying. | ✅ Done |
+| **M-8: Auto-Provisioning** | Create-on-first-use for Master Index & Domain Data files | First `GET_CATALOG`/`CREATE_BOOK` for a new identity/entry auto-creates the backing spreadsheet without manual template copying. | ✅ Done |
 | **M-9: Configurable Timeout** | `ConfigService` GAS timeout (30s/1m/3m/6m) | Slow auto-provisioning calls (first-time file creation) don't prematurely fall back to sample data; user can tune the timeout. | ✅ Done |

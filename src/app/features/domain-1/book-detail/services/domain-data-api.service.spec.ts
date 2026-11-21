@@ -62,7 +62,7 @@ describe('DomainDataApiService.deleteRow', () => {
     });
   });
 
-  it('sends the contributor email in the UPDATE_SHEET_ROWS payload', async () => {
+  it('sends the contributor email in the CREATE_ROW payload', async () => {
     const service = TestBed.inject(DomainDataApiService);
     const rows = [{ id: 'concept-row-9', term: 'Context', contributor: 'admin' }];
 
@@ -72,7 +72,7 @@ describe('DomainDataApiService.deleteRow', () => {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
-        action: 'UPDATE_SHEET_ROWS',
+        action: 'CREATE_ROW',
         row: 3,
         id: 'book-item-3',
         sheetName: 'CONCEPTS',
@@ -106,7 +106,7 @@ describe('DomainDataApiService.deleteRow', () => {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
-        action: 'UPDATE_SHEET_ROWS',
+        action: 'CREATE_ROW',
         row: 3,
         id: 'book-item-3',
         sheetName: 'CONCEPTS',
@@ -117,7 +117,7 @@ describe('DomainDataApiService.deleteRow', () => {
     expect(response.createdRowId).toBe('gas-row-9');
   });
 
-  it('rejects UPDATE_SHEET_ROWS when GAS reports an error', async () => {
+  it('rejects CREATE_ROW when GAS reports an error', async () => {
     fetchSpy.mockResolvedValue({
       ok: true,
       json: vi.fn().mockResolvedValue({ status: 'error', message: 'Write rejected.' }),

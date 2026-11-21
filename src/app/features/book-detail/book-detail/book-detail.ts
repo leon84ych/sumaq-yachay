@@ -14,7 +14,7 @@ import { ALL_AVAILABLE_DOMAINS, getDefaultHeadersForDomain } from '../models/dom
 import { PermissionService } from '../../../core/services/permission/permission.service';
 
 @Component({
-  selector: 'app-book-detail',
+  selector: 'app-book-detail-deprecated',
   standalone: true,
   imports: [
     CommonModule,
@@ -28,11 +28,14 @@ import { PermissionService } from '../../../core/services/permission/permission.
 })
 export class BookDetail {
   private route = inject(ActivatedRoute);
+
   readonly bookService = inject(BookService);
   readonly domainDataService = inject(DomainDataService);
   readonly configService = inject(ConfigService);
   readonly permissionService = inject(PermissionService);
+  
   readonly role = this.permissionService.role;
+  
   private readonly globalErrorService = inject(GlobalErrorService);
 
   private readonly paramMap = toSignal(this.route.paramMap);
@@ -91,7 +94,7 @@ export class BookDetail {
     if (!domainName || this.isCreatingDomain()) {
       return;
     }
-
+    console.log('Selected domain for creation:', domainName);
     this.isCreatingDomain.set(true);
     try {
       await this.domainDataService.createDomainSheet(domainName, [

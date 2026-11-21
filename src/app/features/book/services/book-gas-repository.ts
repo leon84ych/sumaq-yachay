@@ -55,8 +55,8 @@ export class BookGASRepository implements BookRepositoryInterface<BookRecord> {
 
     async createItem(item: BookRecord): Promise<Response<BookRecord>> {
         try {
-            const createResponse = await this.api.saveBook(item.id,item.row, this.mapper.toRaw(item));
-
+            //Must always sent a valid row and id for the book item 
+            const createResponse = await this.api.saveBook(item.id, item.row, this.mapper.toRowValues(item));
             const response: Response<BookRecord> = {
                 ...createResponse,
                 status: mapStatus(createResponse.status),
@@ -133,7 +133,7 @@ export class BookGASRepository implements BookRepositoryInterface<BookRecord> {
      * @param row The row number of the book info to retrieve
      * @returns A promise that resolves to the book info response containing the book info data for the specified row
      */
-    async getSource(row: number): Promise<Response<BookInfo>> {
+    async getBookInfo(row: number): Promise<Response<BookInfo>> {
 
         const bookInfoResponse = await this.api.getBookInfo(row);
 

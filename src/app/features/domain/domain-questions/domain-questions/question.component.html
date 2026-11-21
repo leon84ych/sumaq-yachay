@@ -65,7 +65,7 @@
                     </svg>
                   </button>
                 }
-                @if (permissionService.validatePermission(role(), 'UPDATE_SHEET_ROWS')) {
+                @if (permissionService.validatePermission(role(), 'CREATE_ROW')) {
                   <button
                     type="button"
                     class="domain-edit-button"

@@ -141,8 +141,8 @@ Tu único objetivo es recibir la especificación JSON de un dominio académico/l
 6. **Acciones por rol y footer de tarjetas:**
 
 - Inyecta el `PermissionService` compartido en los componentes con acciones de escritura y expón `readonly permissionService` y `readonly role = this.permissionService.role` a la plantilla. El rol viene de las respuestas del backend y empieza como `guest`; nunca lo infieras del email ni del token del cliente.
-- Usa `@if (permissionService.validatePermission(role(), 'OPERACION'))` alrededor de cada acción. Usa `UPDATE_SHEET_ROWS` para guardar/editar filas de dominio, `DELETE_ROW` para borrarlas, `CREATE_SHEET` para crear pestañas, `CREATE_CATALOG_ITEM` para crear elementos del catálogo, `UPDATE_CATALOG_ITEM` para editarlos/cambiar su estado y `DELETE_CATALOG_ITEM` para borrarlos. Mantén visibles las acciones de lectura según sus operaciones GET.
-- El mapa compartido permite las lecturas (`GET_CATALOG`, `GET_SHEETS_NAMES`, `GET_PAGINATED_ROWS`, `GET_CATALOG_HEALTH`) a `guest`, `user` y `admin`; las escrituras son solo para `admin`. Los roles u operaciones desconocidos se deniegan por defecto. Los guards de interfaz no sustituyen la autorización del backend.
+- Usa `@if (permissionService.validatePermission(role(), 'OPERACION'))` alrededor de cada acción. Usa `CREATE_ROW` para guardar/editar filas de dominio, `DELETE_ROW` para borrarlas, `CREATE_SHEET` para crear pestañas, `CREATE_BOOK` para crear elementos del catálogo, `UPDATE_BOOK` para editarlos/cambiar su estado y `DELETE_BOOK` para borrarlos. Mantén visibles las acciones de lectura según sus operaciones GET.
+- El mapa compartido permite las lecturas (`GET_CATALOG`, `GET_SHEETS_NAMES`, `GET_PAGINATED_ROWS`, `GET_HEALTH`) a `guest`, `user` y `admin`; las escrituras son solo para `admin`. Los roles u operaciones desconocidos se deniegan por defecto. Los guards de interfaz no sustituyen la autorización del backend.
 - Todos los dominios, incluido INDEX, usan `domain-card-footer`. Coloca primero a la izquierda `<app-domain-contributor [contributor]="row().contributor" />`, antes de las acciones existentes como borrar/editar. Conserva las demás acciones en `domain-card-footer__actions` a la derecha, con sus propios guards de visibilidad y permisos. Los botones de edición/borrado usan estilos compartidos y etiquetas Transloco; filtrar por colaborador es una lectura, no una operación exclusiva de administradores.
 - Mantén visible el colaborador en tarjetas de solo lectura de Learn y cuando `showActions()` sea falso. Usa una condición como `showActions() || row().contributor`, añadiendo los flags de lectura/exportación existentes si corresponde. Protege las escrituras por separado con `showActions()` y permisos; mostrar un colaborador no autoriza escrituras.
 - INDEX conserva el contenido compacto y los guards por rol, pero también tiene footer de colaborador y búsqueda compartida. Conserva `contributor` al normalizar sus filas. Usa la misma propiedad `tags: string[]` y respeta el orden recibido de la jerarquía.
@@ -403,7 +403,7 @@ Envuelve el markup existente de `.add-entry-form` con `<app-domain-entry-form-ov
   <div class="add-entry-form">
     <!-- Campos existentes del dominio, enlazados mediante form() -->
     <div class="form-actions">
-      @if (form().permissionService.validatePermission(form().role(), 'UPDATE_SHEET_ROWS')) {
+      @if (form().permissionService.validatePermission(form().role(), 'CREATE_ROW')) {
       <button
         type="button"
         class="btn-submit"
@@ -557,7 +557,7 @@ async addEntry(): Promise<void> {
 
 1. Construye `allLocalRows`: al editar, reemplaza solo la fila que coincide con `editingId`; al crear, agrega la nueva fila local. Esta lista completa es únicamente para Dexie y el estado local.
 2. Llama `updateDomainSheetRows(sheetName, allLocalRows, true, editedId, createdLocalId)`. El servicio persiste la hoja local completa y reconstruye sus etiquetas agregadas, pero la petición remota contiene solo el registro modificado.
-3. Al editar, envía `rows: [editedRow]` con su ID existente. Al crear, envía `rows: [newRowWithoutId]`: omite el ID local temporal del objeto. Conserva el `CatalogItem.id` padre en el `id` de nivel superior. La petición usa `action: 'UPDATE_SHEET_ROWS'`, `row`, `sheetName`, `rows`, `idToken` y `Content-Type: text/plain;charset=utf-8`.
+3. Al editar, envía `rows: [editedRow]` con su ID existente. Al crear, envía `rows: [newRowWithoutId]`: omite el ID local temporal del objeto. Conserva el `CatalogItem.id` padre en el `id` de nivel superior. La petición usa `action: 'CREATE_ROW'`, `row`, `sheetName`, `rows`, `idToken` y `Content-Type: text/plain;charset=utf-8`.
 4. GAS asigna el ID canónico al crear y lo devuelve (por ejemplo, en `data.id`). Reconcilia ese ID con el temporal local antes de marcar la hoja completa como sincronizada. Si GAS no devuelve el ID, trata la creación como fallida.
 5. Espera la respuesta remota antes de limpiar el formulario. Una respuesta HTTP no OK, malformada o con `data.status !== 'success'` debe propagarse al componente como error.
 

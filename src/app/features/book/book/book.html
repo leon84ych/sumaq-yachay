@@ -35,7 +35,7 @@
         </button>
 
         <!-- Register New Source Button (HTTP POST) -->
-        @if (permissionService.validatePermission(role(), 'CREATE_CATALOG_ITEM')) {
+        @if (permissionService.validatePermission(role(), 'CREATE_BOOK')) {
           <button
             type="button"
             class="btn btn-primary"
@@ -102,7 +102,7 @@
         <div class="empty-icon">📚</div>
         <h3>{{ 'BOOK.EMPTY.TITLE' | transloco }}</h3>
         <p>{{ 'BOOK.EMPTY.DESC' | transloco }}</p>
-        @if (permissionService.validatePermission(role(), 'CREATE_CATALOG_ITEM')) {
+        @if (permissionService.validatePermission(role(), 'CREATE_BOOK')) {
           <button type="button" class="btn btn-primary mt-2" (click)="openCreateModal()">
             {{ 'BOOK.EMPTY.ACTION' | transloco }}
           </button>

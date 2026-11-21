@@ -45,9 +45,7 @@ export class TagPickerService {
 
 
     async upsertBookTags(tags: string[], book: BookRecord): Promise<void> {
-        console.log("Upserting tags for book:", book.id);
-        console.log("Tags to upsert:", tags);
-        const normalizedTags = this.extractAndNormalizeTags(tags);
+        const normalizedTags = [...new Set(this.extractAndNormalizeTags(tags))];
         if (normalizedTags.length === 0) {
             return;
         }
