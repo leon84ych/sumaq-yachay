@@ -1,0 +1,11 @@
+.passage-grid {
+  display: grid;
+  grid-template-columns: var(--domain-feed-columns);
+  gap: 1.25rem;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-secondary, #666);
+  padding: 2rem 0;
+}

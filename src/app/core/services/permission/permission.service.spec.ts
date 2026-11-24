@@ -19,7 +19,7 @@ describe('PermissionService', () => {
     expect(service.validatePermission(service.role(), 'CREATE_BOOK')).toBe(true);
     expect(service.validatePermission(service.role(), 'CLONE_BOOK')).toBe(true);
     expect(service.validatePermission(service.role(), 'UPDATE_BOOK')).toBe(true);
-    expect(service.validatePermission(service.role(), 'CREATE_SHEET')).toBe(true);
+    expect(service.validatePermission(service.role(), 'CREATE_DOMAIN')).toBe(true);
     expect(service.validatePermission(service.role(), 'CREATE_ROW')).toBe(true);
     expect(service.validatePermission(service.role(), 'DELETE_ROW')).toBe(true);
     expect(service.validatePermission(service.role(), 'DELETE_BOOK')).toBe(true);

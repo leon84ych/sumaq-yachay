@@ -29,10 +29,11 @@ export const Role = {
 export interface Domain extends Record<string, unknown> {
     id: string;             //unique identifier for the domain sheet
     bookId: string;         //stores the book ID associated with this domain sheet
+    bookRow: number;        //row number of this book in master index
     tags: string[];         //list of tags associated with this domain sheet
     contributor: string;    //stores the contributor of this domain sheet
     syncStatus: SyncStatus; //indicates the synchronization status of this domain sheet
-    row: number;            //row number of this domain sheet in the source data
+    itemRow: number;           //row number of this entry in domain sheet
 }
 
 export interface Learnable {

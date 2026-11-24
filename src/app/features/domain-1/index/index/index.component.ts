@@ -19,6 +19,7 @@ interface IndexHierarchyGroup {
 import { IndexEntryFormComponent } from '../components/index-entry-form/index-entry-form.component';
 import { IndexRecord } from '../model/index-model';
 import { IndexDataService } from '../services/index.service';
+import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
 
 @Component({
@@ -69,7 +70,17 @@ export class IndexComponent implements OnInit {
   private readonly transloco = inject(TranslocoService);
 
 
-  readonly filteredRows = signal<IndexRecord[]>([]);
+  readonly filteredRows = computed(() => {
+    const query = this.searchTerm();
+
+    return this.rows().filter((row) =>
+      matchesStudySearch(
+        query,
+        [row.chapter, row.theme, row.subtheme, row.contributor, ...row.tags],
+        row.tags,
+      ),
+    );
+  });
 
 
 
@@ -81,7 +92,7 @@ export class IndexComponent implements OnInit {
       this.bookName.set(bookRecord?.name ?? '');
       this.bookAuthor.set(bookRecord?.author ?? '');
       // 2. Retrieve the index records for the specified book, row, and count
-      this.filteredRows.set(await this.indexDataService.getRecords(this.bookId()));
+      this.rows.set(await this.indexDataService.getRecords(this.bookId()));
     }
 
   }
@@ -124,8 +135,14 @@ export class IndexComponent implements OnInit {
       return;
     }
 
+    const row = this.rows().find((item) => item.id === id);
+    if (!row) {
+      return;
+    }
+
     try {
-      // await this.indexDataService.deleteDomainRow(this.currentSheet().name, id);
+      await this.indexDataService.deleteDomainItem(row);
+      this.rows.update((rows) => rows.filter((item) => item.id !== id));
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to delete index entry.';
       this.globalErrorService.show(message);
@@ -158,12 +175,14 @@ export class IndexComponent implements OnInit {
     if (!book?.row) {
       throw new Error('Book record is missing row.');
     }
+
     const indexEntry: IndexRecord = {
       id: this.editingId() ?? `idx_${Date.now()}`,
+      bookRow: book.row,
       feed: 0,
       bookId: this.bookId(),
       contributor: '',
-      row: book?.row, 
+      itemRow: 0,
       chapter: this.newChapter(),
       theme: this.newTheme(),
       subtheme: this.newSubtheme(),
@@ -171,52 +190,22 @@ export class IndexComponent implements OnInit {
       syncStatus: 'pending'
     };
 
-    try{
-      await this.indexDataService.addDomainItem(indexEntry);
+    try {
+      const savedEntry = this.editingId()
+        ? await this.indexDataService.updateDomainItem(indexEntry)
+        : await this.indexDataService.addDomainItem(indexEntry);
+      this.rows.update((rows) => {
+        const existingIndex = rows.findIndex((row) => row.id === indexEntry.id);
+        if (existingIndex === -1) {
+          return [...rows, savedEntry];
+        }
+
+        return rows.map((row, index) => (index === existingIndex ? savedEntry : row));
+      });
+      this.resetForm();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to add index entry.';
       this.globalErrorService.show(message);
     }
-    this.resetForm();
-
-
-    // try {
-    //   const localRows = editingId
-    //     ? ((await this.domainDataService.getLocalDomainSheetRows(
-    //         this.currentSheet().name,
-    //       )) as IndexRecord[])
-    //     : this.rows();
-    //   const existingRows = localRows.length > 0 ? localRows : this.rows();
-    //   const originalRow = editingId ? existingRows.find((row) => row.id === editingId) : undefined;
-    //   if (editingId && !originalRow) {
-    //     throw new Error('The INDEX entry being edited is no longer available.');
-    //   }
-
-    //   const newRow: IndexRecord = {
-    //     ...(originalRow ?? {}),
-    //     id: editingId ?? `idx_${Date.now()}`,
-    //     chapter,
-    //     theme,
-    //     subtheme,
-    //     tags,
-    //     syncStatus: 'pending',
-    //     contributor: '',   //TODO add user email
-    //   };
-    //   const updatedRows = editingId
-    //     ? existingRows.map((row) => (row.id === editingId ? newRow : row))
-    //     : [...existingRows, newRow];
-
-    //   await this.domainDataService.updateDomainSheetRows(
-    //     this.currentSheet().name,
-    //     updatedRows,
-    //     true,
-    //     editingId ?? undefined,
-    //     editingId ? undefined : newRow.id,
-    //   );
-    //   this.resetForm();
-    // } catch (error) {
-    //   const message = error instanceof Error ? error.message : 'Failed to add index entry.';
-    //   this.globalErrorService.show(message);
-    // }
   }
 }

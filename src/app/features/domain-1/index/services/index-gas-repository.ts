@@ -14,6 +14,7 @@ export class IndexGASRepository extends GASDomainRepositoryAbstract<IndexRecord,
   override domain: string= "INDEX";
   override api = inject(GASDomainAPI<IndexRaw, IndexRawValues>);
   override mapper = inject(IndexGASMapper);
-  override rowValueKeys = ['id', 'chapter', 'theme', 'subtheme', 'tags', 'feed', 'contributor', 'syncStatus'] as const;
+
+
 
 }

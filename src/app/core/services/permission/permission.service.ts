@@ -11,8 +11,8 @@ const OPERATION_ROLE_MAP = new Map<string, readonly UserRole[]>([
   ['CLONE_BOOK', ['admin']],
   ['UPDATE_BOOK', ['admin']],
   ['DELETE_BOOK', ['admin']],
-  ['CREATE_SHEET', ['admin']],
-  ['CREATE_ROQ', ['admin']],
+  ['CREATE_DOMAIN', ['admin']],
+  ['CREATE_ROW', ['admin']], //TODO update, add UPDATE_ROW 
   ['DELETE_ROW', ['admin']],
 ]);
 

@@ -195,7 +195,7 @@ export class DomainDataApiService {
 
     // Construct the payload matching what doPost() and Router.routePost expect
     const payload = {
-      action: 'CREATE_SHEET',
+      action: 'CREATE_DOMAIN',
       row: row,
       sheetName: sheetName,
       headers: headers,

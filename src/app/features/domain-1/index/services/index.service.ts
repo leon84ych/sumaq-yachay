@@ -4,6 +4,7 @@ import { IndexRepository } from './index-repository';
 import { IndexRecord } from '../model/index-model';
 import { IndexQueryService } from './index-query.service';
 import { BookQueryService } from './book-query.service';
+import { TagPickerService } from '../../../../shared/tag-picker/tag-picker.service';
 
 
 @Injectable({
@@ -14,6 +15,7 @@ export class IndexDataService {
     private indexGasRepository = inject(IndexRepository);
     private bookQueryService = inject(BookQueryService);
     private indexQueryService = inject(IndexQueryService);
+    private tagPickerService = inject(TagPickerService);
 
     /**
      * Returns locally stored index records for a book, or fetches them from GAS if none are stored.
@@ -38,7 +40,26 @@ export class IndexDataService {
     }
 
     async addDomainItem(record: IndexRecord): Promise<IndexRecord> {
-        return this.indexGasRepository.addDomainItem(record);
+        const savedRecord = await this.indexGasRepository.addDomainItem(record);
+        await this.persistTags(savedRecord);
+        return savedRecord;
+    }
+
+    async updateDomainItem(record: IndexRecord): Promise<IndexRecord> {
+        const savedRecord = await this.indexGasRepository.updateDomainItem(record);
+        await this.persistTags(savedRecord);
+        return savedRecord;
+    }
+
+    async deleteDomainItem(record: IndexRecord): Promise<void> {
+        return this.indexGasRepository.deleteDomainItem(record);
+    }
+
+    private async persistTags(record: IndexRecord): Promise<void> {
+        const book = await this.bookQueryService.getBookRecord(record.bookId);
+        if (book) {
+            await this.tagPickerService.upsertBookTags(record.tags, book);
+        }
     }
 
 

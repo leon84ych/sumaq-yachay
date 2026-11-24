@@ -48,13 +48,21 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI {
     }
 
 
-    async getDomainPaginated(row: number, domain: string, page: number, pageSize: number | null): Promise<GASResponseRaw<GASPaginatedResponseRaw<TRaw>>> {
+    /**
+    *
+     * @param bookRow The row of the book in master catalog
+     * @param domain The name of the sheet tobe retrieved
+     * @param page The page number
+     * @param pageSize The number of items per page
+    * @returns
+     */
+    async getDomainPaginated(bookRow: number, domain: string, page: number, pageSize: number | null): Promise<GASResponseRaw<GASPaginatedResponseRaw<TRaw>>> {
         const webAppUrl = this.getWebAppUrl();
 
         const idToken = localStorage.getItem(TOKEN_KEY);
         const params = new URLSearchParams({
             action: 'GET_PAGINATED_ROWS',
-            row: String(row),
+            bookRow: String(bookRow),
             sheetName: domain,
             page: String(page),
             pageSize: String(pageSize ?? PAGE_SIZE),
@@ -140,8 +148,6 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI {
             throw new Error(this.transloco.translate('BOOK_DETAIL.ERRORS.AUTHENTICATION_REQUIRED_UPDATE'));
         }
 
-        const newRow = { ...rowData };
-        delete newRow['id'];
         const response = await fetch(webAppUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -150,7 +156,7 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI {
                 id: bookId,
                 row,
                 sheetName: domain,
-                rows: [newRow],
+                rows: [rowData],
                 idToken,
             }),
         });
@@ -179,6 +185,108 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI {
             throw new Error('GAS did not return the ID assigned to the created row.');
         }
         return createdRowId;
+    }
+
+    async updateDomainItem(
+        row: number,
+        bookId: string,
+        domain: string,
+        itemId: string,
+        rowData: Record<string, unknown>,
+    ): Promise<void> {
+        const webAppUrl = this.getWebAppUrl();
+        if (!webAppUrl) {
+            throw new Error(this.transloco.translate('BOOK_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'));
+        }
+
+        const idToken = localStorage.getItem(TOKEN_KEY);
+        if (!idToken) {
+            throw new Error(this.transloco.translate('BOOK_DETAIL.ERRORS.AUTHENTICATION_REQUIRED_UPDATE'));
+        }
+
+        const updateRow = {
+            ...rowData,
+            bookRow: row,
+            itemRow: rowData['itemRow'],
+            itemId,
+        };
+
+        const response = await fetch(webAppUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({
+                action: 'UPDATE_ROW',
+                id: bookId,
+                row,
+                sheetName: domain,
+                rows: [updateRow],
+                idToken,
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error(
+                this.transloco.translate('BOOK_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+                    status: response.status,
+                }),
+            );
+        }
+
+        const data: unknown = await response.json();
+        this.captureRole(data);
+        const responseRecord = this.asRecord(data);
+        if (responseRecord?.['status'] !== 'success') {
+            throw new Error(
+                typeof responseRecord?.['message'] === 'string'
+                    ? responseRecord['message']
+                    : this.transloco.translate('BOOK_DETAIL.ERRORS.UPDATE_ROWS_FAILED'),
+            );
+        }
+    }
+
+    async deleteDomainItem(bookRow: number, bookId: string, domain: string, itemId: string, itemRow: number): Promise<void> {
+        const webAppUrl = this.getWebAppUrl();
+        if (!webAppUrl) {
+            throw new Error(this.transloco.translate('BOOK_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'));
+        }
+
+        const idToken = localStorage.getItem(TOKEN_KEY);
+        if (!idToken) {
+            throw new Error(this.transloco.translate('BOOK_DETAIL.ERRORS.AUTHENTICATION_REQUIRED_DELETE'));
+        }
+
+            const response = await fetch(webAppUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({
+                    action: 'DELETE_ROW',
+                    idToken,
+                    bookId,
+                    row: bookRow,
+                    sheetName: domain,
+                    itemId: itemId,
+                    itemRow: itemRow
+                }),
+        });
+
+        if (!response.ok) {
+            throw new Error(
+                this.transloco.translate('BOOK_DETAIL.ERRORS.HTTP_REQUEST_FAILED', {
+                    status: response.status,
+                }),
+            );
+        }
+
+        const data: unknown = await response.json();
+        this.captureRole(data);
+        const responseRecord = this.asRecord(data);
+        if (responseRecord?.['status'] === 'error') {
+            throw new Error(
+                typeof responseRecord['message'] === 'string'
+                    ? responseRecord['message']
+                    : this.transloco.translate('BOOK_DETAIL.ERRORS.DELETE_ROW_FAILED'),
+            );
+        }
     }
 
     private asRecord(value: unknown): Record<string, unknown> | null {

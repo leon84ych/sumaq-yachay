@@ -8,7 +8,8 @@ import { Domain } from "../../shared/model/domain-shared-model";
 export interface IndexRaw {
   id: string;
   bookId: string;
-  row: number;
+  bookRow: number;
+  itemRow: number;
   chapter: string;
   theme: string;
   subtheme: string;
@@ -32,6 +33,7 @@ export interface IndexRecord extends Domain {
 
 export type IndexRawValues = [
   string,   //id
+  number,   //itemRow
   string,   //chapter
   string,   //theme
   string,   //subtheme

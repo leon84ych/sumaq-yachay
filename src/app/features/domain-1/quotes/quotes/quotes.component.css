@@ -1,0 +1,119 @@
+.quote-grid {
+  display: grid;
+  grid-template-columns: var(--domain-feed-columns);
+  width: 100%;
+  gap: 1.5rem;
+  margin-inline: auto;
+}
+
+blockquote {
+  margin: 0 0 0.6rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+figcaption {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #666);
+}
+
+.page {
+  margin-left: 0.4rem;
+}
+
+.analysis {
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.tags {
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary, #666);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-secondary, #666);
+  padding: 2rem 0;
+}
+
+.ghost-export-container {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 42px;
+  background: #1a1a1a;
+  color: #f4efe5;
+  -webkit-text-fill-color: currentColor;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.ghost-export-container * {
+  -webkit-text-fill-color: currentColor;
+}
+
+.ghost-quote-card {
+  border: 1px solid #65563a;
+}
+
+.ghost-analysis-card {
+  border-top: 5px solid #c7a66a;
+}
+
+.ghost-card-eyebrow {
+  color: #d3b67c;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ghost-quote-text {
+  margin: 0;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.ghost-analysis-title {
+  margin: 0;
+  color: #d3b67c;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.ghost-analysis-text {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.ghost-card-footer {
+  display: grid;
+  gap: 6px;
+  border-top: 1px solid #65563a;
+  padding-top: 16px;
+  font-size: 14px;
+}
+
+.ghost-card-footer span {
+  color: #c3b9a7;
+  font-size: 13px;
+}
+
+.ghost-card-origin {
+  color: #9f9688;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+}

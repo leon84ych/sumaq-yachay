@@ -32,6 +32,7 @@ export class IndexGASMapper implements GASMapperInterface<IndexRecord, IndexRaw,
     toRowValues(item: IndexRecord): IndexRawValues {
         return [
             item.id,
+            item.itemRow,
             item.chapter,
             item.theme,
             item.subtheme,

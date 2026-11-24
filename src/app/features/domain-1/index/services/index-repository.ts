@@ -18,9 +18,12 @@ export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
   private gasRepository = inject(IndexGASRepository);
   private localDBService = inject(LocalDBService);
 
-  async getDomain(row: number, total: number | null = null): Promise<IndexRecord[]> {
-    const domain: IndexRaw[] = await this.gasRepository.getDomain(row, total);
-    const domainRecords = domain.map(item => this.mapper.toRecord(item));
+  async getDomain(bookRow: number, total: number | null = null): Promise<IndexRecord[]> {
+    const domain: IndexRaw[] = await this.gasRepository.getDomain(bookRow, total);
+    const domainRecords = domain.map(item => ({
+      ...this.mapper.toRecord(item),
+      bookRow: bookRow,
+    }));
     //Save index records to the local database
     // Omit saving the book record as it is already managed elsewhere
     const database = this.localDBService.indexedDB;
@@ -60,12 +63,24 @@ export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
     }
   }
   
-  updateDomainItem(id: string): Promise<IndexRecord> {
-    throw new Error("Method not implemented.");
+  async updateDomainItem(record: IndexRecord): Promise<IndexRecord> {
+    const table = this.localDBService.indexedDB.indexes;
+    const pendingRecord: IndexRecord = { ...record, syncStatus: 'pending' };
+    await table.put(pendingRecord);
+
+    try {
+      const syncedRecord = await this.gasRepository.updateDomainItem(pendingRecord);
+      await table.put(syncedRecord);
+      return syncedRecord;
+    } catch (error) {
+      await table.put({ ...pendingRecord, syncStatus: 'error' });
+      throw error;
+    }
   }
 
-  deleteDomainItem(id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async deleteDomainItem(record: IndexRecord): Promise<void> {
+    await this.gasRepository.deleteDomainItem(record);
+    await this.localDBService.indexedDB.indexes.delete(record.id);
   }
 
 

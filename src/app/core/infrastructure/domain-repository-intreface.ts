@@ -9,7 +9,7 @@ export interface DomainRepositoryInterface<TRow, TAddRecord = TRow> {
     /**
      * Get the list of domain items avaiable
      */
-    getDomain(row:number,  total: number): Promise<TRow[]>;
+    getDomain(row: number, total: number): Promise<TRow[]>;
 
     /**
      * Get the domain items paginated
@@ -17,7 +17,7 @@ export interface DomainRepositoryInterface<TRow, TAddRecord = TRow> {
      * @param page The page number to retrieve
      * @param pageSize The number of items per page
      */
-    getDomainPaginated(row: number, page: number, pageSize: number|null): Promise<GASPaginatedResponseRaw<TRow>>;
+    getDomainPaginated(row: number, page: number, pageSize: number | null): Promise<GASPaginatedResponseRaw<TRow>>;
 
 
     /**
@@ -31,12 +31,12 @@ export interface DomainRepositoryInterface<TRow, TAddRecord = TRow> {
      * Update the specific domain item by its ID
      * @param id 
      */
-    updateDomainItem(id: string): Promise<TRow>;
+    updateDomainItem(item: TAddRecord): Promise<TAddRecord>;
 
     /**
      * Delete the specific domain item by its ID
      * @param id 
      */
-    deleteDomainItem(id: string): Promise<void>;
+    deleteDomainItem(item: TAddRecord): Promise<void>;
 
 }

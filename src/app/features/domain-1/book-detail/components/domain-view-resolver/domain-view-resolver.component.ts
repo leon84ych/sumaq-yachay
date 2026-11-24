@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { DomainInfo } from '../../models/domain-sheet.model';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { IndexComponent } from '../../../index/index/index.component';
+import { QuotesComponent } from '../../../quotes/quotes/quotes.component';
+import { ConceptsComponent } from '../../../concepts/concepts/concepts.component';
+import { PassagesComponent } from '../../../passages/passages/passages.component';
 
 
 @Component({
@@ -11,7 +14,10 @@ import { IndexComponent } from '../../../index/index/index.component';
   imports: [
     CommonModule,
     TranslocoPipe,
-    IndexComponent
+    IndexComponent,
+    QuotesComponent,
+    ConceptsComponent,
+    PassagesComponent,
 ],
   templateUrl: './domain-view-resolver.component.html',
 })
@@ -29,8 +35,6 @@ export class DomainViewResolverComponent {
   });
 
   // readonly conceptRows = computed(() => (this.sheet()?.rows ?? []) as unknown as ConceptRow[]);
-  // readonly quoteRows = computed(() => (this.sheet()?.rows ?? []) as unknown as QuoteRow[]);
-  // readonly passageRows = computed(() => (this.sheet()?.rows ?? []) as unknown as PassagesRow[]);
   // readonly characterRows = computed(() => (this.sheet()?.rows ?? []) as unknown as CharacterRow[]);
   // readonly glossaryRows = computed(() => (this.sheet()?.rows ?? []) as unknown as GlossaryRow[]);
 

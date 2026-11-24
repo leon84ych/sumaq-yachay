@@ -2,7 +2,7 @@
 
 
 // Generic interface for mapping between domain records and GAS raw data
-export interface GASMapperInterface<TRecord, TRaw, TRowValues = unknown[]> {
+export interface GASMapperInterface<TRecord, TRaw, TRowValues> {
   
     /**
      * Maps the raw data from GAS to a domain record

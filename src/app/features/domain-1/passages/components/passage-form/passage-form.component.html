@@ -1,0 +1,105 @@
+<app-domain-entry-form-overlay
+  [ariaLabel]="(form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.PASSAGE.NEW_ENTRY_TITLE') | transloco"
+  (closeRequested)="form().resetForm()"
+>
+  <div class="add-entry-form">
+    <h3 id="domain-entry-form-title">
+      {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.PASSAGE.NEW_ENTRY_TITLE') | transloco }}
+    </h3>
+    <div class="form-group">
+      <label for="passage-title">{{ 'DOMAINS.PASSAGE.TITLE' | transloco }}</label>
+      <input
+        id="passage-title"
+        type="text"
+        [ngModel]="form().newTitle()"
+        (ngModelChange)="form().newTitle.set($event)"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="passage-text">{{ 'DOMAINS.PASSAGE.PASSAGE_TEXT' | transloco }}</label>
+      <textarea
+        id="passage-text"
+        rows="6"
+        [attr.maxLength]="form().passageTextMaxLength"
+        [ngModel]="form().newPassageText()"
+        (ngModelChange)="form().newPassageText.set($event)"
+        aria-describedby="passage-text-count"
+        required
+      ></textarea>
+      <small id="passage-text-count" class="character-count">
+        {{
+          'DOMAINS.PASSAGE.CHARACTERS_LEFT'
+            | transloco: { count: form().passageTextCharactersRemaining() }
+        }}
+      </small>
+    </div>
+    <div class="form-group">
+      <label for="passage-book">{{ 'DOMAINS.PASSAGE.BOOK' | transloco }}</label>
+      <input
+        id="passage-book"
+        type="text"
+        [ngModel]="form().newBook()"
+        (ngModelChange)="form().newBook.set($event)"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="passage-author">{{ 'DOMAINS.PASSAGE.AUTHOR' | transloco }}</label>
+      <input
+        id="passage-author"
+        type="text"
+        [ngModel]="form().newAuthor()"
+        (ngModelChange)="form().newAuthor.set($event)"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="passage-page">{{ 'DOMAINS.PASSAGE.PAGE' | transloco }}</label>
+      <input
+        id="passage-page"
+        type="text"
+        [ngModel]="form().newPage()"
+        (ngModelChange)="form().newPage.set($event)"
+      />
+    </div>
+    <div class="form-group">
+      <label for="passage-tags">{{ 'DOMAINS.PASSAGE.TAGS' | transloco }}</label>
+      <app-tag-picker
+        [ariaLabel]="'DOMAINS.PASSAGE.TAGS' | transloco"
+        inputId="passage-tags"
+        [bookRow]="form().bookRow()"
+        [bookId]="form().bookId()"
+        [value]="form().newTags()"
+        (valueChange)="form().newTags.set($event)"
+      />
+      @if (form().invalidTagsDetected().length > 0) {
+        <div class="tag-validation-error" role="alert">
+          <p>
+            {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
+            <strong>{{ 'DOMAINS.DOMAINS.INDEX' | transloco }}</strong
+            >{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
+            @for (unlisted of form().invalidTagsDetected(); track unlisted) {
+              <span class="tag-validation-error__badge">{{ unlisted }}</span>
+            }
+          </p>
+        </div>
+      }
+    </div>
+    <div class="form-actions">
+      @if (form().permissionService.validatePermission(form().role(), 'CREATE_ROW')) {
+        <button
+          type="button"
+          class="btn-submit"
+          [disabled]="form().isFormInvalid() || form().isSaving()"
+          (click)="form().savePassage()"
+        >
+          {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+        </button>
+      }
+      <button type="button" class="btn-cancel" (click)="form().resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    </div>
+  </div>
+</app-domain-entry-form-overlay>

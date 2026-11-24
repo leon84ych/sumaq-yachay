@@ -22,7 +22,7 @@
             + {{ 'DOMAINS.INDEX.ADD_ENTRY' | transloco }}
           </button>
         }
-        @if (permissionService.validatePermission(role(), 'CREATE_SHEET')) {
+        @if (permissionService.validatePermission(role(), 'CREATE_DOMAIN')) {
           @if (isAddingDomain()) {
             <div class="detail-domain-selector">
               <select

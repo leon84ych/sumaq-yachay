@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.concept-entry-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.concept-entry-card__category {
+  max-width: 100%;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--quote-tag-border);
+  border-radius: var(--radius-full);
+  background: var(--quote-tag-surface);
+  color: var(--quote-tag-text);
+  font-size: var(--learn-content-font-size, 0.7rem);
+  font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.concept-entry-card__details {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.concept-entry-card__definition {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.concept-entry-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.concept-entry-card__tags .study-tag {
+  max-width: 100%;
+  padding: 0.15rem 0.55rem;
+  border: 1px solid var(--quote-tag-border);
+  border-radius: var(--radius-full);
+  background: var(--quote-tag-surface);
+  color: var(--quote-tag-text);
+  font-size: var(--learn-content-font-size, 0.75rem);
+  overflow-wrap: anywhere;
+}
+
+.concept-entry-card__footer {
+  margin-top: 0.2rem;
+}

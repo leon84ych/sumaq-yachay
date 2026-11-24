@@ -6,37 +6,28 @@
       (closeEntry)="closeEntry.emit()"
     />
   }
-  <!--
-  @case ('CONCEPTS') {
-    <app-domain-concept
-      [rows]="conceptRows()"
-      [currentSheet]="currentSheet()"
-      [bookName]="bookName()"
-      [bookAuthor]="bookAuthor()"
+  @case ('QUOTES') {
+    <app-domain-quotes-1
+      [bookId]="bookId()"
       [isAddingEntry]="isAddingEntry()"
       (closeEntry)="closeEntry.emit()"
     />
   }
-  @case ('QUOTES') {
-    <app-domain-quote
-      [rows]="quoteRows()"
-      [currentSheet]="currentSheet()"
-      [bookName]="bookName()"
-      [bookAuthor]="bookAuthor()"
+  @case ('CONCEPTS') {
+    <app-domain-concepts-1
+      [bookId]="bookId()"
       [isAddingEntry]="isAddingEntry()"
       (closeEntry)="closeEntry.emit()"
     />
   }
   @case ('PASSAGES') {
-    <app-domain-passage
-      [rows]="passageRows()"
-      [currentSheet]="currentSheet()"
-      [bookName]="bookName()"
-      [bookAuthor]="bookAuthor()"
+    <app-domain-passages-1
+      [bookId]="bookId()"
       [isAddingEntry]="isAddingEntry()"
       (closeEntry)="closeEntry.emit()"
     />
   }
+  <!--
   @case ('CHARACTER') {
     <app-domain-character
       [rows]="characterRows()"

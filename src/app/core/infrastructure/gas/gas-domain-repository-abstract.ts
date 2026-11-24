@@ -9,23 +9,22 @@ import { Domain } from "../../../features/domain-1/shared/model/domain-shared-mo
 @Injectable({
     providedIn: 'root',
 })
-export abstract class GASDomainRepositoryAbstract<TRecord extends Domain, TRaw, TRowValues> implements DomainRepositoryInterface<TRaw, TRecord>  {
-
+export abstract class GASDomainRepositoryAbstract<
+    TRecord extends Domain,
+    TRaw,
+    TRowValues,
+> implements DomainRepositoryInterface<TRaw, TRecord> {
 
     abstract api: GASDomainAPI<TRaw, TRowValues>;
-
     abstract domain: string;
-
     abstract mapper: GASMapperInterface<TRecord, TRaw, TRowValues>;
-
-    abstract rowValueKeys: readonly (keyof TRaw)[];
 
     /**
      * Retrieves the domain items in a paginated manner until the total number of items is reached.
-     * @param row The row number to start fetching from.
-     * @param total The total number of items to retrieve (optional). If not provided, all items will be fetched.
-     * @returns A promise that resolves to an array of domain items.
-     */
+    * @param row The row number to start fetching from.
+    * @param total The total number of items to retrieve (optional). If not provided, all items will be fetched.
+    * @returns A promise that resolves to an array of domain items.
+    */
     async getDomain(row: number, total: number | null = null): Promise<TRaw[]> {
         const domain: TRaw[] = [];
         const totalPages = total ? Math.ceil(total / PAGE_SIZE) : Infinity;
@@ -37,7 +36,7 @@ export abstract class GASDomainRepositoryAbstract<TRecord extends Domain, TRaw, 
         return domain;
     }
 
-    async getDomainPaginated(row: number, page: number, pageSize: number|null): Promise<GASPaginatedResponseRaw<TRaw>> {
+    async getDomainPaginated(row: number, page: number, pageSize: number | null): Promise<GASPaginatedResponseRaw<TRaw>> {
         const response = await this.api.getDomainPaginated(row, this.domain, page, pageSize);
         if (!response.data || !Array.isArray(response.data.rows)) {
             throw new Error(
@@ -48,16 +47,9 @@ export abstract class GASDomainRepositoryAbstract<TRecord extends Domain, TRaw, 
     }
 
     async addDomainItem(record: TRecord): Promise<TRecord> {
-        const rowValues = this.mapper.toRowValues(record) as readonly unknown[];
-        if (rowValues.length !== this.rowValueKeys.length) {
-            throw new Error(`The ${this.domain} row mapper returned an unexpected number of values.`);
-        }
-
-        const rowData = Object.fromEntries(
-            this.rowValueKeys.map((key, index) => [key, rowValues[index]]),
-        );
+        const rowData = this.mapper.toRaw(record) as Record<string, unknown>;
         const createdRowId = await this.api.addDomainItem(
-            record.row,
+            record.bookRow,
             record.bookId,
             this.domain,
             rowData,
@@ -71,12 +63,17 @@ export abstract class GASDomainRepositoryAbstract<TRecord extends Domain, TRaw, 
         return this.mapper.toRecord(rawRecord);
     }
 
-    updateDomainItem(id: string): Promise<TRaw> {
-        throw new Error("Method not implemented.");
+    async updateDomainItem(record: TRecord): Promise<TRecord> {
+        const rowData = this.mapper.toRaw(record) as unknown as Record<string, unknown>;
+        await this.api.updateDomainItem(record.bookRow, record.bookId, this.domain, record.id, rowData);
+        return this.mapper.toRecord({
+            ...this.mapper.toRaw(record),
+            syncStatus: 'synced',
+        });
     }
 
-    deleteDomainItem(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+    deleteDomainItem(record: TRecord): Promise<void> {
+        return this.api.deleteDomainItem(record.bookRow, record.bookId, this.domain, record.id, record.itemRow);
     }
 
 }
