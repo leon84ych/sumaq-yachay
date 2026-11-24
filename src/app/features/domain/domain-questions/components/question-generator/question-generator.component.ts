@@ -5,6 +5,9 @@ import { GlobalErrorService } from '../../../../../core/services/error/global-er
 import { DomainDataService } from '../../../../book-detail/services/domain-data.service';
 import { QuestionRow, QuestionType } from '../../model/domain-question-row.model';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
+import { normalizeTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
+import { QuestionDataService } from '../../../../domain-1/questions/services/questions.service';
+import { QuestionRecord as V2QuestionRecord } from '../../../../domain-1/questions/model/questions-model';
 
 const QUESTION_TYPES: QuestionType[] = ['flashcard', 'multiple-choice', 'true-false', 'open'];
 
@@ -21,6 +24,7 @@ export class QuestionGeneratorComponent {
   readonly sourceDomain = input.required<string>();
   readonly sourceRowId = input.required<string>();
   readonly bookRow = input.required<number>();
+  readonly bookId = input('');
   readonly bookName = input('');
   readonly page = input('');
   readonly tags = input<string[]>([]);
@@ -33,6 +37,7 @@ export class QuestionGeneratorComponent {
   private readonly browserAi = inject(BrowserAiService);
   private readonly transloco = inject(TranslocoService);
   private readonly domainDataService = inject(DomainDataService);
+  private readonly questionDataService = inject(QuestionDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
@@ -67,35 +72,61 @@ export class QuestionGeneratorComponent {
         throw new Error('La IA no generó una pregunta. Inténtalo de nuevo.');
       }
 
-      const questionsSheet = this.domainDataService
-        .sheets()
-        .find((sheet) => sheet.name.toUpperCase() === 'QUESTIONS');
-      const localRows = await this.domainDataService.getLocalDomainSheetRows('QUESTIONS');
-      const existingRows = localRows.length > 0 ? localRows : (questionsSheet?.rows ?? []);
-      const newQuestion: QuestionRow = {
-        id: `question_${Date.now()}`,
-        question: question.slice(0, 500),
-        answer: this.sourceText().slice(0, 500),
-        type: this.selectedType(),
-        sourceDomain: this.sourceDomain(),
-        sourceRowId: this.sourceRowId(),
-        sourceTerm: this.sourceTerm(),
-        bookRow: this.bookRow(),
-        bookName: this.bookName(),
-        ...(this.page() ? { page: this.page() } : {}),
-        ...(this.tags().length > 0 ? { tags: this.tags() } : {}),
-        feed: 5,
-        contributor: 'browser-ai',
-        aiGenerated: true,
-        syncStatus: 'pending',
-        tags: this.tags()
-      };
-      //TODO validate that tags are properly formatted before saving
+      const newQuestionId = `question_${Date.now()}`;
+      if (this.bookId()) {
+        const newQuestion: V2QuestionRecord = {
+          id: newQuestionId,
+          bookId: this.bookId(),
+          bookRow: this.bookRow(),
+          itemRow: 0,
+          question: question.slice(0, 500),
+          answer: this.sourceText().slice(0, 500),
+          type: this.selectedType(),
+          options: [],
+          sourceDomain: this.sourceDomain(),
+          sourceRowId: this.sourceRowId(),
+          sourceTerm: this.sourceTerm(),
+          bookName: this.bookName(),
+          page: this.page() || undefined,
+          aiGenerated: true,
+          tags: normalizeTagsFromArray(this.tags()),
+          feed: 5,
+          contributor: 'browser-ai',
+          syncStatus: 'pending',
+        };
+        await this.questionDataService.addDomainItem(newQuestion);
+      } else {
+        const questionsSheet = this.domainDataService
+          .sheets()
+          .find((sheet) => sheet.name.toUpperCase() === 'QUESTIONS');
+        const localRows = await this.domainDataService.getLocalDomainSheetRows('QUESTIONS');
+        const existingRows = localRows.length > 0 ? localRows : (questionsSheet?.rows ?? []);
+        const newQuestion: QuestionRow = {
+          id: newQuestionId,
+          question: question.slice(0, 500),
+          answer: this.sourceText().slice(0, 500),
+          type: this.selectedType(),
+          sourceDomain: this.sourceDomain(),
+          sourceRowId: this.sourceRowId(),
+          sourceTerm: this.sourceTerm(),
+          bookRow: this.bookRow(),
+          bookName: this.bookName(),
+          ...(this.page() ? { page: this.page() } : {}),
+          tags: normalizeTagsFromArray(this.tags()),
+          feed: 5,
+          contributor: 'browser-ai',
+          aiGenerated: true,
+          syncStatus: 'pending',
+        };
 
-      await this.domainDataService.updateDomainSheetRows('QUESTIONS', [
-        ...existingRows,
-        newQuestion,
-      ], true, undefined, newQuestion.id);
+        await this.domainDataService.updateDomainSheetRows(
+          'QUESTIONS',
+          [...existingRows, newQuestion],
+          true,
+          undefined,
+          newQuestion.id,
+        );
+      }
       this.isOpen.set(false);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to generate question.';

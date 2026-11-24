@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/features/domain/domain-questions/components/question-generator/question-generator.component.spec.ts",
+    "src/app/features/domain-1/questions/model/questions-gas.mapper.spec.ts",
+    "src/app/features/domain-1/questions/services/questions-gas-repository.spec.ts",
+    "src/app/features/domain-1/questions/services/questions-repository.spec.ts",
+    "src/app/features/domain-1/questions/questions/questions.component.spec.ts",
+    "src/app/features/domain/domain-questions/services/question-practice.service.spec.ts"
+  ]
+}

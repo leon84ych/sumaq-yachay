@@ -1,0 +1,46 @@
+import { inject, Injectable } from '@angular/core';
+import { BookRecord } from '../../../book/models/book-item.model';
+import { BookQueryService } from '../../index/services/book-query.service';
+import { GlossaryRecord } from '../model/glossary-model';
+import { GlossaryQueryService } from './glossary-query.service';
+import { GlossaryRepository } from './glossary-repository';
+
+@Injectable({ providedIn: 'root' })
+export class GlossaryDataService {
+  private readonly glossaryRepository = inject(GlossaryRepository);
+  private readonly bookQueryService = inject(BookQueryService);
+  private readonly glossaryQueryService = inject(GlossaryQueryService);
+
+  async getRecords(bookId: string): Promise<GlossaryRecord[]> {
+    const entries = await this.glossaryQueryService.getGlossaryByBookId(bookId);
+    if (entries.length > 0) {
+      return entries;
+    }
+
+    const book = await this.bookQueryService.getBookRecord(bookId);
+    if (!book?.row) {
+      throw new Error('Book record is missing row.');
+    }
+    return this.glossaryRepository.getDomain(book.row);
+  }
+
+  getBookRecord(bookId: string): Promise<BookRecord | undefined> {
+    return this.bookQueryService.getBookRecord(bookId);
+  }
+
+  getAllowedTags(bookId: string): Promise<string[]> {
+    return this.glossaryQueryService.getAllowedTags(bookId);
+  }
+
+  addDomainItem(record: GlossaryRecord): Promise<GlossaryRecord> {
+    return this.glossaryRepository.addDomainItem(record);
+  }
+
+  updateDomainItem(record: GlossaryRecord): Promise<GlossaryRecord> {
+    return this.glossaryRepository.updateDomainItem(record);
+  }
+
+  deleteDomainItem(record: GlossaryRecord): Promise<void> {
+    return this.glossaryRepository.deleteDomainItem(record);
+  }
+}

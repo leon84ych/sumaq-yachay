@@ -1,0 +1,78 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.place-card {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--primary);
+  border-radius: 8px;
+  padding: 1rem;
+  background: var(--surface);
+}
+
+.place-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.place-header h4 {
+  min-width: 0;
+  margin: 0;
+  color: var(--text);
+  font-size: var(--learn-content-font-size, 1.1rem);
+  overflow-wrap: anywhere;
+}
+
+.place-meta,
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.place-meta {
+  font-size: var(--learn-content-font-size, 0.85rem);
+}
+
+.badge {
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  background: var(--border);
+  color: var(--text);
+}
+
+.coords,
+.place-desc {
+  color: var(--text-muted, #666);
+  font-size: var(--learn-content-font-size, 0.9rem);
+  overflow-wrap: anywhere;
+}
+
+.place-desc {
+  margin: 0.25rem 0;
+  color: var(--text);
+}
+
+.tags-container {
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+}
+
+.concept-tag {
+  max-width: 100%;
+  border: 1px solid var(--quote-tag-border);
+  border-radius: var(--radius-full);
+  padding: 0.1rem 0.5rem;
+  background: var(--quote-tag-surface);
+  color: var(--quote-tag-text);
+  font-size: var(--learn-content-font-size, 0.75rem);
+  overflow-wrap: anywhere;
+}

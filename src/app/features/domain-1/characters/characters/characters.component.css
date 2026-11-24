@@ -1,0 +1,10 @@
+.characters-view {
+  display: grid;
+  gap: 1rem;
+}
+
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  gap: 1rem;
+}

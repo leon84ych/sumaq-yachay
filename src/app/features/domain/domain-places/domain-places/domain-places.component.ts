@@ -9,8 +9,11 @@ import { PlaceRow } from '../model/domain-place-row.model';
 import { TaxonomyService } from '../../../../core/services/taxonomy/taxonomy.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { PlaceEntryCardComponent } from '../components/place-entry-card/place-entry-card.component';
-import { DomainMapComponent } from '../../domain-map/domain-map/domain-map.component';
-import { normalizeTagsFromArray, parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
+import { PlacesMapComponent } from '../../../domain-1/places/components/places-map/places-map.component';
+import {
+  normalizeTagsFromArray,
+  parseTagsFromArray,
+} from '../../../../shared/tag-picker/tag-picker.mapper';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 
@@ -25,7 +28,7 @@ import { PlaceFormComponent } from '../components/place-form/place-form.componen
     FormsModule,
     TranslocoPipe,
     PlaceEntryCardComponent,
-    DomainMapComponent,
+    PlacesMapComponent,
   ],
   templateUrl: './domain-places.component.html',
   styleUrls: ['./domain-places.component.css'],
@@ -87,9 +90,13 @@ export class DomainPlacesComponent {
     const query = this.searchTerm().trim().toLocaleLowerCase();
     if (!query) return this.rows();
 
-    return this.rows().filter((row) => matchesStudySearch(query,
-      [this.bookName(), this.bookAuthor(), 'places', 'lugares', ...Object.values(row)], row.tags,
-      { book: this.bookName(), author: this.bookAuthor(), contributor: row.contributor }),
+    return this.rows().filter((row) =>
+      matchesStudySearch(
+        query,
+        [this.bookName(), this.bookAuthor(), 'places', 'lugares', ...Object.values(row)],
+        row.tags,
+        { book: this.bookName(), author: this.bookAuthor(), contributor: row.contributor },
+      ),
     );
   });
 

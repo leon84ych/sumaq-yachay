@@ -1,19 +1,17 @@
 // @vitest-environment jsdom
 
 import { TestBed } from '@angular/core/testing';
-import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
-import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppDbService } from '../../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../../core/services/config/config.service';
+import { LocalDBService } from '../../../../shared/local-db/local-db.service';
 import { QuestionRecord } from '../model/domain-question-row.model';
+import { QuestionRecord as V2QuestionRecord } from '../../../domain-1/questions/model/questions-model';
 import { QuestionPracticeService } from './question-practice.service';
 
 describe('QuestionPracticeService', () => {
   let questions: QuestionRecord[];
-
-  beforeAll(() => {
-    TestBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
-  });
+  let v2Questions: V2QuestionRecord[];
 
   beforeEach(() => {
     TestBed.resetTestingModule();
@@ -44,6 +42,7 @@ describe('QuestionPracticeService', () => {
         syncStatus: 'synced',
       },
     ];
+    v2Questions = [];
 
     TestBed.configureTestingModule({
       providers: [
@@ -64,6 +63,15 @@ describe('QuestionPracticeService', () => {
           } as unknown as AppDbService,
         },
         { provide: ConfigService, useValue: { isLocalSampleDataEnabled: () => false } },
+        {
+          provide: LocalDBService,
+          useValue: {
+            indexedDB: {
+              books: { toArray: vi.fn().mockResolvedValue([]) },
+              questions: { toArray: vi.fn(async () => v2Questions) },
+            },
+          },
+        },
       ],
     });
   });
@@ -93,6 +101,7 @@ describe('QuestionPracticeService', () => {
       answer: `Answer ${index}`,
       type: 'open' as const,
       sourceDomain: 'MANUAL',
+      tags: [],
       feed: 5,
       contributor: 'author',
       syncStatus: 'synced' as const,
@@ -102,5 +111,40 @@ describe('QuestionPracticeService', () => {
     const result = await service.loadRandomBatch({ limit: 50 });
 
     expect(result).toHaveLength(10);
+  });
+
+  it('includes v2 questions in practice using bookRow for attempt attribution', async () => {
+    v2Questions = [
+      {
+        id: 'v2-question',
+        bookId: 'book-1',
+        bookRow: 1,
+        itemRow: 14,
+        question: 'A v2 question about entropy',
+        answer: 'A measure of disorder',
+        type: 'open',
+        options: [],
+        sourceDomain: 'CONCEPTS',
+        sourceTerm: 'Entropy',
+        tags: ['#physics'],
+        feed: 5,
+        contributor: 'reader@example.com',
+        syncStatus: 'synced',
+        aiGenerated: false,
+      },
+    ];
+
+    const result = await TestBed.inject(QuestionPracticeService).loadRandomBatch({
+      query: 'v2 question',
+    });
+
+    expect(result).toHaveLength(1);
+    expect(result[0]).toMatchObject({
+      id: 'v2-question',
+      row: 1,
+      bookRow: 1,
+      bookName: 'Book One',
+      bookAuthor: 'Author One',
+    });
   });
 });

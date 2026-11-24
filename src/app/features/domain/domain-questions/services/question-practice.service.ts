@@ -1,13 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { AppDbService } from '../../../../core/services/storage/app-db.service';
 import { ConfigService } from '../../../../core/services/config/config.service';
+import { LocalDBService } from '../../../../shared/local-db/local-db.service';
 import { parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 import { matchesStudySearch, parseStudySearch } from '../../../../shared/utils/study-search';
-import {
-  QuestionOption,
-  QuestionRecord,
-  QuestionType,
-} from '../model/domain-question-row.model';
+import { QuestionRecord as V2QuestionRecord } from '../../../domain-1/questions/model/questions-model';
+import { QuestionOption, QuestionRecord, QuestionType } from '../model/domain-question-row.model';
 
 export interface QuestionPracticeFilters {
   query?: string;
@@ -40,15 +38,49 @@ function normalizeText(value: unknown): string {
 export class QuestionPracticeService {
   private readonly dbService = inject(AppDbService);
   private readonly configService = inject(ConfigService);
+  private readonly localDBService = inject(LocalDBService);
   private sampleDataSeeded = false;
 
   async loadRandomBatch(filters: QuestionPracticeFilters = {}): Promise<QuestionPracticeItem[]> {
     await this.ensureSampleData();
-    const [books, questions] = await Promise.all([
+    const [books, legacyQuestions, v2Books, v2Questions] = await Promise.all([
       this.dbService.db.books.toArray(),
       this.dbService.db.questions.toArray(),
+      this.localDBService.indexedDB.books.toArray(),
+      this.localDBService.indexedDB.questions.toArray(),
     ]);
-    const bookByRow = new Map(books.map((book) => [book.row, book]));
+    const bookByRow = new Map([...books, ...v2Books].map((book) => [book.row, book]));
+    const questionsByBookAndId = new Map<string, QuestionRecord>();
+    for (const question of legacyQuestions) {
+      questionsByBookAndId.set(`${question.row}:${question.id}`, question);
+    }
+    for (const question of v2Questions) {
+      const v2Question = question as V2QuestionRecord;
+      const book = bookByRow.get(v2Question.bookRow);
+      questionsByBookAndId.set(`${v2Question.bookRow}:${v2Question.id}`, {
+        id: v2Question.id,
+        row: v2Question.bookRow,
+        bookRow: v2Question.bookRow,
+        question: v2Question.question,
+        answer: v2Question.answer,
+        type: v2Question.type,
+        options: v2Question.options,
+        sourceDomain: v2Question.sourceDomain,
+        sourceRowId: v2Question.sourceRowId,
+        sourceTerm: v2Question.sourceTerm,
+        bookName: v2Question.bookName,
+        page: v2Question.page,
+        difficulty: v2Question.difficulty,
+        aiGenerated: v2Question.aiGenerated,
+        tags: v2Question.tags,
+        feed: v2Question.feed,
+        contributor: v2Question.contributor,
+        syncStatus: v2Question.syncStatus,
+        book: v2Question.bookName ?? book?.name,
+        author: book?.author,
+      });
+    }
+    const questions = [...questionsByBookAndId.values()];
     const query = parseStudySearch(filters.query ?? '');
     const matching: QuestionPracticeItem[] = [];
 
@@ -72,9 +104,14 @@ export class QuestionPracticeService {
         'preguntas',
         ...tags,
       ];
-      if (!matchesStudySearch(query, searchFields, tags, {
-        book: bookName, author: bookAuthor, contributor: question.contributor,
-      })) continue;
+      if (
+        !matchesStudySearch(query, searchFields, tags, {
+          book: bookName,
+          author: bookAuthor,
+          contributor: question.contributor,
+        })
+      )
+        continue;
       if (!QUESTION_TYPES.has(question.type)) continue;
 
       matching.push({

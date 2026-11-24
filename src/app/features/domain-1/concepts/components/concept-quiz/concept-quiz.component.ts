@@ -12,6 +12,7 @@ import { ConceptRecord } from '../../model/concepts-model';
       [sourceDomain]="sourceDomain()"
       [sourceRowId]="concept().id"
       [bookRow]="concept().bookRow"
+      [bookId]="concept().bookId"
       [bookName]="bookName()"
       [tags]="concept().tags"
     />

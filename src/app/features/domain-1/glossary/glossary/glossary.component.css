@@ -1,0 +1,10 @@
+.glossary-view {
+  display: grid;
+  gap: 1rem;
+}
+
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  gap: 1rem;
+}

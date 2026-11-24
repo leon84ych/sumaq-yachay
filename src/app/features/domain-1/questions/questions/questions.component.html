@@ -1,0 +1,37 @@
+<div class="questions-view">
+  @if (isAddingEntry() || editingId() !== null) {
+    <app-question-entry-form-1 [form]="this" />
+  }
+  @if (rows().length === 0) {
+    <p class="empty-state" role="status">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+    <label class="domain-search question-search">
+      <span class="visually-hidden">{{ 'DOMAINS.QUESTIONS.SEARCH' | transloco }}</span>
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="8.75" cy="8.75" r="5.75" />
+        <path d="m13 13 4 4" />
+      </svg>
+      <input
+        type="search"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        [placeholder]="'DOMAINS.QUESTIONS.SEARCH' | transloco"
+      />
+    </label>
+    @if (filteredRows().length === 0) {
+      <p class="empty-state" role="status">{{ 'DOMAINS.QUESTIONS.NO_MATCHES' | transloco }}</p>
+    } @else {
+      <div class="questions-grid">
+        @for (row of filteredRows(); track row.id) {
+          <app-question-entry-card-1
+            [row]="row"
+            [bookName]="bookName()"
+            [bookAuthor]="bookAuthor()"
+            (editRequested)="editEntry($event)"
+            (deleteRequested)="deleteEntry($event)"
+          />
+        }
+      </div>
+    }
+  }
+</div>

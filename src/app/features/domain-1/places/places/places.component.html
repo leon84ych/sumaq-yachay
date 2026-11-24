@@ -1,0 +1,50 @@
+<div class="places-view">
+  @if (isAddingEntry() || editingId() !== null) {
+    <app-place-entry-form-1 [form]="this" />
+  }
+  @if (rows().length === 0) {
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+    <div class="places-toolbar">
+      <label class="domain-search">
+        <span class="visually-hidden">{{ 'DOMAINS.PLACES.SEARCH' | transloco }}</span>
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="8.75" cy="8.75" r="5.75" />
+          <path d="m13 13 4 4" />
+        </svg>
+        <input
+          type="search"
+          [ngModel]="searchTerm()"
+          (ngModelChange)="searchTerm.set($event)"
+          [placeholder]="'DOMAINS.PLACES.SEARCH' | transloco"
+        />
+      </label>
+      <button
+        type="button"
+        class="places-map-toggle"
+        [attr.aria-pressed]="showMap()"
+        (click)="showMap.update((visible) => !visible)"
+      >
+        {{ (showMap() ? 'DOMAINS.PLACES.VIEW_LIST' : 'DOMAINS.PLACES.VIEW_MAP') | transloco }}
+      </button>
+    </div>
+
+    @if (filteredRows().length === 0) {
+      <p class="empty-state">{{ 'DOMAINS.PLACES.NO_MATCHES' | transloco }}</p>
+    } @else if (showMap()) {
+      <app-domain-map [places]="filteredRows()" />
+    } @else {
+      <div class="places-grid">
+        @for (row of filteredRows(); track row.id) {
+          <app-place-entry-card-1
+            [row]="row"
+            [bookName]="bookName()"
+            [bookAuthor]="bookAuthor()"
+            (deleteRequested)="deleteEntry($event)"
+            (editRequested)="editEntry($event)"
+          />
+        }
+      </div>
+    }
+  }
+</div>

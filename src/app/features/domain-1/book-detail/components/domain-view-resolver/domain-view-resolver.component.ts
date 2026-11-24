@@ -6,7 +6,12 @@ import { IndexComponent } from '../../../index/index/index.component';
 import { QuotesComponent } from '../../../quotes/quotes/quotes.component';
 import { ConceptsComponent } from '../../../concepts/concepts/concepts.component';
 import { PassagesComponent } from '../../../passages/passages/passages.component';
-
+import { CharactersComponent } from '../../../characters/characters/characters.component';
+import { GlossaryComponent } from '../../../glossary/glossary/glossary.component';
+import { PlacesComponent } from '../../../places/places/places.component';
+import { RelationsComponent } from '../../../relations/relations/relations.component';
+import { AssociationsComponent } from '../../../associations/associations/associations.component';
+import { QuestionsComponent } from '../../../questions/questions/questions.component';
 
 @Component({
   selector: 'app-domain-view-resolver',
@@ -18,11 +23,16 @@ import { PassagesComponent } from '../../../passages/passages/passages.component
     QuotesComponent,
     ConceptsComponent,
     PassagesComponent,
-],
+    CharactersComponent,
+    GlossaryComponent,
+    PlacesComponent,
+    RelationsComponent,
+    AssociationsComponent,
+    QuestionsComponent,
+  ],
   templateUrl: './domain-view-resolver.component.html',
 })
 export class DomainViewResolverComponent {
-  
   readonly domain = input<DomainInfo | null>(null);
   readonly bookId = input<string>('');
 
@@ -37,9 +47,6 @@ export class DomainViewResolverComponent {
   // readonly conceptRows = computed(() => (this.sheet()?.rows ?? []) as unknown as ConceptRow[]);
   // readonly characterRows = computed(() => (this.sheet()?.rows ?? []) as unknown as CharacterRow[]);
   // readonly glossaryRows = computed(() => (this.sheet()?.rows ?? []) as unknown as GlossaryRow[]);
-
-
-  
 
   // readonly questionRows = computed(() => (this.sheet()?.rows ?? []) as unknown as QuestionRow[]);
   // readonly placeRows = computed(() => (this.sheet()?.rows ?? []) as unknown as PlaceRow[]);
