@@ -33,10 +33,12 @@ export class BookFormModalComponent {
   // 1. Updated FormControls to match the new schema properties
   form = this.fb.group({
     id: ['', [Validators.required, Validators.maxLength(100)]],
+    isbn: ['', Validators.maxLength(32)],
     name: ['', [Validators.required, Validators.maxLength(100)]],
     subject: ['', Validators.required],
     topic: ['', Validators.required],
     author: ['', Validators.required],
+    language: ['', Validators.required],
     page: [0],
     pages: [0],
     description: [''],
@@ -66,10 +68,12 @@ export class BookFormModalComponent {
         // 2. Map existing payload keys to the reactive controls
         this.form.patchValue({
           id: item.id,
+          isbn: item.isbn,
           name: item.name,
           subject: item.subject,
           topic: item.topic,
           author: item.author,
+          language: item.language,
           page: item.page ?? 0,
           pages: item.pages ?? 0,
           description: item.description || '',
@@ -81,10 +85,12 @@ export class BookFormModalComponent {
         // Reset defaults when adding a brand new item
         this.form.reset({
           id: '',
+          isbn: '',
           name: '',
           subject: '',
           topic: '',
           author: '',
+          language: '',
           page: 0,
           pages: 0,
           description: '',
@@ -112,10 +118,12 @@ export class BookFormModalComponent {
     // 3. Construct payload aligning perfectly with the updated Omit contract
     const payload: Omit<BookRecord, 'updatedAt' | 'syncStatus'> = {
       id: nextId || (existing ? existing.id : 'cat-' + Date.now().toString(36)),
+      isbn: formValue.isbn?.trim() ?? '',
       name: formValue.name!,
       subject: formValue.subject!,
       topic: formValue.topic!,
       author: formValue.author!,
+      language: formValue.language!.trim(),
       description: formValue.description || '',
       source: formValue.source || '',
       active: !!formValue.active,

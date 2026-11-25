@@ -20,6 +20,7 @@ import { IndexEntryFormComponent } from '../components/index-entry-form/index-en
 import { IndexRecord } from '../model/index-model';
 import { IndexDataService } from '../services/index.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
+import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 
 
 @Component({
@@ -59,9 +60,11 @@ export class IndexComponent implements OnInit {
   readonly newSubtheme = signal<string>('');
   readonly newTags = signal<string[]>([]);
   readonly editingId = signal<string | null>(null);
+  readonly submitted = signal(false);
   readonly searchTerm = inject(StudySearchService).query;
 
   private readonly indexDataService = inject(IndexDataService);
+  private readonly globalLoadingService = inject(GlobalLoadingService);
   
   private readonly globalErrorService = inject(GlobalErrorService);
 
@@ -150,6 +153,7 @@ export class IndexComponent implements OnInit {
   }
 
   editEntry(row: IndexRecord): void {
+    this.submitted.set(false);
     this.editingId.set(row.id);
     this.newChapter.set(row.chapter);
     this.newTheme.set(row.theme);
@@ -158,6 +162,7 @@ export class IndexComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.submitted.set(false);
     this.editingId.set(null);
     this.newChapter.set('');
     this.newTheme.set('');
@@ -167,6 +172,7 @@ export class IndexComponent implements OnInit {
   }
 
   async addIndexEntry(): Promise<void> {
+    this.submitted.set(true);
     if (this.isFormInvalid()) {
       return;
     }
@@ -190,6 +196,8 @@ export class IndexComponent implements OnInit {
       syncStatus: 'pending'
     };
 
+    const operation = this.globalLoadingService.begin();
+    this.closeEntry.emit();
     try {
       const savedEntry = this.editingId()
         ? await this.indexDataService.updateDomainItem(indexEntry)
@@ -206,6 +214,8 @@ export class IndexComponent implements OnInit {
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to add index entry.';
       this.globalErrorService.show(message);
+    } finally {
+      this.globalLoadingService.end(operation);
     }
   }
 }

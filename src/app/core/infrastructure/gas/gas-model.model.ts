@@ -33,11 +33,11 @@ export interface GASPaginatedResponseRaw<T> extends Record<string, any> {
 /**
  * Payload structure for creating or updating a book item in GAS
  */
-export interface BookPostPayload<TRowValues> {
+export interface BookPostPayload {
   action: 'UPDATE_BOOK' | 'CREATE_BOOK';
   id: string;
   row: number;
-  rowValues: TRowValues;
+  rows: Record<string, unknown>[];
 }
 
 

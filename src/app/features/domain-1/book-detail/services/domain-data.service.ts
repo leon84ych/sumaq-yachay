@@ -73,7 +73,7 @@ export class DomainDataService {
 
   async createDomain(row: number, domainName: string, headers: string[]): Promise<void> {
     console.log('Creating domain for row:', row);
-    if(row  < 4 ){
+    if(row  < 2 ){
       throw new Error('Invalid row number.');
     }
     this.isLoading.set(true);

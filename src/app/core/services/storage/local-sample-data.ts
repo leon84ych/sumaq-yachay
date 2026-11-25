@@ -2,8 +2,23 @@ import { BookRecord } from '../../../features/book/models/book-item.model';
 import bookItems from '../../../../../public/sample/Books.json';
 import { normalizeTagsFromArray } from '../../../shared/tag-picker/tag-picker.mapper';
 
-export const LOCAL_SAMPLE_BOOKS: BookRecord[] = bookItems.map((item, index) => ({
-  ...item,
+const sampleBookItems = bookItems as Array<Partial<BookRecord>>;
+
+export const LOCAL_SAMPLE_BOOKS: BookRecord[] = sampleBookItems.map((item, index) => ({
+  id: item.id ?? `book-${index + 1}`,
+  isbn: item.isbn?.trim() || '',
+  subject: item.subject ?? '',
+  topic: item.topic ?? '',
+  name: item.name ?? '',
+  author: item.author ?? '',
+  language: item.language?.trim() || 'English',
+  description: item.description,
+  source: item.source,
+  active: item.active ?? true,
+  page: item.page ?? 0,
+  pages: item.pages ?? 0,
+  updatedAt: item.updatedAt ?? new Date().toISOString(),
+  count: item.count ?? 0,
   row: index + 1,
   syncStatus: 'synced',
 }));

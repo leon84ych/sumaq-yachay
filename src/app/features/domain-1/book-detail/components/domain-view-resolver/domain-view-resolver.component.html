@@ -69,6 +69,13 @@
       (closeEntry)="closeEntry.emit()"
     />
   }
+  @case ('BOOK_EVENTS') {
+    <app-domain-book-events-1
+      [bookId]="bookId()"
+      [isAddingEntry]="isAddingEntry()"
+      (closeEntry)="closeEntry.emit()"
+    />
+  }
   <!--
   @case ('CHARACTER') {
     <app-domain-character

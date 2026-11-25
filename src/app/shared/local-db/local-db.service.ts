@@ -10,6 +10,7 @@ import { PlaceRecord } from '../../features/domain-1/places/model/places-model';
 import { RelationRecord } from '../../features/domain-1/relations/model/relations-model';
 import { QuestionRecord } from '../../features/domain-1/questions/model/questions-model';
 import { AssociationRecord } from '../../features/domain-1/associations/model/associations-model';
+import { BookEventRecord } from '../../features/domain-1/book-events/model/book-events-model';
 import { BookRecord } from '../../features/book/models/book-item.model';
 import { TagRecord } from '../tag-picker/tag-picker.model';
 
@@ -21,37 +22,15 @@ const VERSION_ONE_STORES = {
   quotes: '[bookId+id], bookId, id, bookRow, itemRow, author, *tags',
   concepts: '[bookId+id], bookId, id, bookRow, itemRow, category, *tags',
   passages: '[bookId+id], bookId, id, bookRow, itemRow, author, *tags',
-} as const;
-
-const VERSION_TWO_STORES = {
-  ...VERSION_ONE_STORES,
   characters: '[bookId+id], bookId, id, bookRow, itemRow, role, nature, *tags',
-} as const;
-
-const VERSION_THREE_STORES = {
-  ...VERSION_TWO_STORES,
   glossary: '[bookId+id], bookId, id, bookRow, itemRow, term, partOfSpeech, *tags',
-} as const;
-
-const VERSION_FOUR_STORES = {
-  ...VERSION_THREE_STORES,
   places: '[bookId+id], bookId, id, bookRow, itemRow, name, type, nature, *tags',
-} as const;
-
-const VERSION_FIVE_STORES = {
-  ...VERSION_FOUR_STORES,
   relations:
     '[bookId+id], bookId, id, bookRow, itemRow, sourceCharacterId, targetCharacterId, *tags',
-} as const;
-
-const VERSION_SIX_STORES = {
-  ...VERSION_FIVE_STORES,
   associations:
     '[bookId+id], bookId, id, bookRow, itemRow, sourceConceptId, targetConceptId, *tags',
-} as const;
-
-const VERSION_SEVEN_STORES = {
-  ...VERSION_SIX_STORES,
+  bookEvents:
+    '[bookId+id], bookId, id, bookRow, itemRow, eventOrder, mainCharacterId, placeId, *tags',
   questions: '[bookId+id], bookId, id, bookRow, itemRow, type, sourceDomain, *tags',
 } as const;
 
@@ -66,18 +45,13 @@ export class IndexedDB extends Dexie {
   places!: Table<PlaceRecord, [string, string]>;
   relations!: Table<RelationRecord, [string, string]>;
   associations!: Table<AssociationRecord, [string, string]>;
+  bookEvents!: Table<BookEventRecord, [string, string]>;
   questions!: Table<QuestionRecord, [string, string]>;
   tags!: Table<TagRecord, string>;
 
   constructor(databaseName = 'LocalDB') {
     super(databaseName);
     this.version(1).stores(VERSION_ONE_STORES);
-    this.version(2).stores(VERSION_TWO_STORES);
-    this.version(3).stores(VERSION_THREE_STORES);
-    this.version(4).stores(VERSION_FOUR_STORES);
-    this.version(5).stores(VERSION_FIVE_STORES);
-    this.version(6).stores(VERSION_SIX_STORES);
-    this.version(7).stores(VERSION_SEVEN_STORES);
   }
 }
 

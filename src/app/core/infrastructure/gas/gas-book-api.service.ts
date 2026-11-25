@@ -119,15 +119,15 @@ export class GASBookAPI<TRaw, TRowValues> extends GASAPI {
     }
 
 
-    async saveBook(id: string, row:number,
-        rowValues: TRowValues,
+    async saveBook(id: string, row: number,
+        rowData: Record<string, unknown>,
     ): Promise<GASResponseRaw<TRaw>> {
 
-        const payload: BookPostPayload<TRowValues> = {
+        const payload: BookPostPayload = {
             action: row ? 'UPDATE_BOOK' : 'CREATE_BOOK',
             id: id,
             row: row,
-            rowValues: rowValues,
+            rows: [rowData],
         };
         return this.postBookPayload<TRaw>(payload);
     }
@@ -149,7 +149,7 @@ export class GASBookAPI<TRaw, TRowValues> extends GASAPI {
 
 
     private async postBookPayload<T>(
-        payload: BookPostPayload<TRowValues> | CloneBookPayload | CloneBookItemPayload | DeleteBookItemPayload,
+        payload: BookPostPayload | CloneBookPayload | CloneBookItemPayload | DeleteBookItemPayload,
     ): Promise<GASResponseRaw<T>> {
 
         const webAppUrl = this.getWebAppUrl();
@@ -186,11 +186,18 @@ export class GASBookAPI<TRaw, TRowValues> extends GASAPI {
         const webAppUrl = this.getWebAppUrl();
 
         const idToken = localStorage.getItem(TOKEN_KEY);
-        let endpoint = `${webAppUrl}?action=GET_BOOK_INFO&row=${encodeURIComponent(row)}`;
-
-        if (idToken) {
-            endpoint += `&idToken=${encodeURIComponent(idToken)}`;
+        if (!idToken) {
+            throw new Error(
+                this.transloco.translate('BOOK_DETAIL.ERRORS.AUTHENTICATION_REQUIRED_READ'),
+            );
         }
+
+        const params = new URLSearchParams({
+            action: 'GET_BOOK_INFO',
+            row: String(row),
+            idToken,
+        });
+        const endpoint = `${webAppUrl}?${params.toString()}`;
 
         const response = await fetch(endpoint);
         if (!response.ok) {
@@ -202,6 +209,17 @@ export class GASBookAPI<TRaw, TRowValues> extends GASAPI {
         }
         const data: unknown = await response.json();
         this.captureRole(data);
+
+        if (!this.isRecord(data)) {
+            throw new Error('Malformed GET_BOOK_INFO response: expected a JSON object.');
+        }
+        if (data['status'] !== 'success') {
+            throw new Error(
+                typeof data['message'] === 'string'
+                    ? data['message']
+                    : 'Failed to load book info.',
+            );
+        }
 
         return data as GASResponseRaw<BookInfoRaw>;
     }

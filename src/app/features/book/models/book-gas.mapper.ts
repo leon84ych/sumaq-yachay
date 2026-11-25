@@ -23,10 +23,12 @@ export class BookGASMapper implements GASMapperInterface<BookRecord, BookRaw, Bo
         // Genera el arreglo posicional exacto para las columnas de Google Sheets
         return [
             item.id,
+            item.isbn || '',
             item.subject || '',
             item.topic || '',
             item.name || '',
             item.author || '',
+            item.language || '',
             item.description || '',
             item.source || 'PDF',
             item.active ?? true,

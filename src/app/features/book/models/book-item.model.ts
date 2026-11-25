@@ -10,10 +10,12 @@ export type SyncState = 'synced' | 'pending' | 'error';
 
 export interface BookRaw extends Record<string, unknown> {
   id: string;               // Unique ID
+  isbn: string;              // ISBN of the book
   subject: string;          // Entity schema subject
   topic: string;            // Entity schema topic
   name: string;             // Human-readable title
   author: string;           // Entity schema author
+  language: string;          // Language of the book
   description?: string;     // Optional context
   source?: string;          // Optional source URL
   active: boolean;          // Active flag in Master Index
@@ -30,10 +32,12 @@ export interface BookRaw extends Record<string, unknown> {
  */
 export type BookRawValues = [
   string,   //id
+  string,   //isbn
   string,   //subject
   string,   //topic
   string,   //name
   string,   //author     
+  string,   //language
   string,   //description
   string,   //source
   boolean,  //active
@@ -51,10 +55,12 @@ export type BookRawValues = [
  */
 export interface BookRecord {
   id: string;               // Unique ID
+  isbn: string;              // ISBN of the book
   subject: string;          // Entity schema subject
   topic: string;            // Entity schema topic
   name: string;             // Human-readable title
   author: string;           // Entity schema author
+  language: string;          // Language of the book
   description?: string;     // Optional context
   source?: string;          // Optional source URL
   active: boolean;          // Active flag in Master Index

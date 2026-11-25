@@ -56,7 +56,8 @@ export class BookGASRepository implements BookRepositoryInterface<BookRecord> {
     async createItem(item: BookRecord): Promise<Response<BookRecord>> {
         try {
             //Must always sent a valid row and id for the book item 
-            const createResponse = await this.api.saveBook(item.id, item.row, this.mapper.toRowValues(item));
+            const row = this.mapper.toRaw(item);
+            const createResponse = await this.api.saveBook(item.id, item.row, row);
             const response: Response<BookRecord> = {
                 ...createResponse,
                 status: mapStatus(createResponse.status),
@@ -137,15 +138,23 @@ export class BookGASRepository implements BookRepositoryInterface<BookRecord> {
 
         const bookInfoResponse = await this.api.getBookInfo(row);
 
+        if (
+            !bookInfoResponse.data
+            || !bookInfoResponse.data.id
+            || !Array.isArray(bookInfoResponse.data.sheets)
+        ) {
+            throw new Error('Malformed GET_BOOK_INFO response: missing book or domain data.');
+        }
+
         const bookInfo: Response<BookInfo> = {
             ...bookInfoResponse,
             status: parseResponseStatus(bookInfoResponse.status),
             role: parseResponseRole(bookInfoResponse.role),
             data: {
                 id: this.mapper.toRecord(bookInfoResponse.data.id),
-                domains: bookInfoResponse.data.sheets
-            }
-        }
+                domains: bookInfoResponse.data.sheets,
+            },
+        };
         return bookInfo;
     }
 

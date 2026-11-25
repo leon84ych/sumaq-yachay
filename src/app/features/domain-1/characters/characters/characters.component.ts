@@ -30,6 +30,7 @@ import {
   CharacterRole,
 } from '../model/characters-model';
 import { CharacterDataService } from '../services/characters.service';
+import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 
 @Component({
   selector: 'app-domain-characters-1',
@@ -59,6 +60,7 @@ export class CharactersComponent implements OnInit {
   readonly newColor = signal('#3b82f6');
   readonly newTags = signal<string[]>([]);
   readonly editingId = signal<string | null>(null);
+  readonly submitted = signal(false);
   readonly isSaving = signal(false);
   readonly searchTerm = inject(StudySearchService).query;
   readonly descriptionMaxLength = 400;
@@ -68,6 +70,7 @@ export class CharactersComponent implements OnInit {
 
   readonly source = computed(() => this.newSource().trim() || this.bookName().trim());
   private readonly characterDataService = inject(CharacterDataService);
+  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly globalErrorService = inject(GlobalErrorService);
   private readonly transloco = inject(TranslocoService);
   readonly permissionService = inject(PermissionService);
@@ -164,6 +167,7 @@ export class CharactersComponent implements OnInit {
   }
 
   editEntry(record: CharacterRecord): void {
+    this.submitted.set(false);
     this.editingId.set(record.id);
     this.newName.set(record.name);
     this.newRole.set(record.role);
@@ -177,6 +181,7 @@ export class CharactersComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.submitted.set(false);
     this.editingId.set(null);
     this.newName.set('');
     this.newRole.set('protagonist');
@@ -190,11 +195,8 @@ export class CharactersComponent implements OnInit {
   }
 
   async saveCharacter(): Promise<void> {
-    if (this.isSaving()) {
-      return;
-    }
-    if (this.isFormInvalid()) {
-      this.globalErrorService.show('Cannot save entry: Please remove unauthorized tags.');
+    this.submitted.set(true);
+    if (this.isSaving() || this.isFormInvalid()) {
       return;
     }
 
@@ -210,6 +212,8 @@ export class CharactersComponent implements OnInit {
       this.globalErrorService.show('Book record is missing row.');
       return;
     }
+
+    const operation = this.globalLoadingService.begin();
 
     const record: CharacterRecord = {
       id: editingId ?? `character_${Date.now()}`,
@@ -245,6 +249,7 @@ export class CharactersComponent implements OnInit {
       this.showError(error, 'Failed to save character.');
     } finally {
       this.isSaving.set(false);
+      this.globalLoadingService.end(operation);
     }
   }
 

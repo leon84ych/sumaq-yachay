@@ -171,7 +171,11 @@ describe('BookService', () => {
         topic: 'Local',
         name: 'Local entry',
         author: 'Local user',
+        isbn: '',
+        language: 'English',
         active: true,
+        page: 0,
+        pages: 0,
         count: 0,
         row: 0,
       },
@@ -204,8 +208,8 @@ describe('BookService', () => {
     await service.loadFromLocal();
     idToken.set('valid-token');
     const existing = {
-      id: 'existing', row: 1, name: 'Existing Book', author: 'Owner', subject: 'Literature',
-      topic: 'Memory', active: true, count: 0, updatedAt: '',
+      id: 'existing', row: 1, isbn: '', name: 'Existing Book', author: 'Owner', language: 'English', subject: 'Literature',
+      topic: 'Memory', active: true, page: 0, pages: 100, count: 0, updatedAt: '',
     };
     const cloned = { ...existing, id: 'cloned', row: 2, name: 'Cloned Book' };
     service.items.set([existing]);
@@ -300,7 +304,11 @@ describe('BookService', () => {
         topic: 'Existing',
         name: 'Existing book',
         author: 'Owner',
+        isbn: '',
+        language: 'English',
         active: true,
+        page: 0,
+        pages: 100,
         count: 0,
         row: 1,
         updatedAt: '2026-01-01T00:00:00.000Z',

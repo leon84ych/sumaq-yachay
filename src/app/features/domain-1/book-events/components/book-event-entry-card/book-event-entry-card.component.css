@@ -1,0 +1,21 @@
+.book-event-entry-card__meta,
+.book-event-entry-card__participants {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.book-event-entry-card__meta {
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.book-event-entry-card__participants p {
+  margin: 0;
+}
+
+.book-event-entry-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}

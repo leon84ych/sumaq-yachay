@@ -1,0 +1,15 @@
+.form-group {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.tag-validation-error {
+  color: var(--danger);
+}

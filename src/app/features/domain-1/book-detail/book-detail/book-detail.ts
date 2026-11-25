@@ -27,9 +27,8 @@ import { GlobalErrorService } from '../../../../core/services/error/global-error
   styleUrl: './book-detail.css',
 })
 export class BookDetail {
+
   private route = inject(ActivatedRoute);
-
-
   readonly bookService = inject(BookService);
   readonly domainDataService = inject(DomainDataService);
   
@@ -95,9 +94,15 @@ export class BookDetail {
       return;
     }
 
+    const bookRow = this.domainDataService.bookInfo()?.row;
+    if (!bookRow || bookRow < 2) {
+      this.globalErrorService.show('No active book row is available for domain creation.');
+      return;
+    }
+
     this.isCreatingDomain.set(true);
     try {
-      await this.domainDataService.createDomain(this.item()?.row ?? 0, domainName, [
+      await this.domainDataService.createDomain(bookRow, domainName, [
         ...getDefaultHeadersForDomain(domainName),
       ]);
       this.activeDomainName.set(domainName);

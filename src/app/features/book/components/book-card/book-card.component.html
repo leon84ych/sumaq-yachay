@@ -19,11 +19,21 @@
 
   <!-- Card Body -->
   <div class="card-body">
-    <h3 class="card-title">{{ item().name }}</h3>
-    
+    <h3 class="card-title">
+      <span>{{ item().name }}</span>
+      @if (item().author) {
+        <span class="card-author-separator" aria-hidden="true">-</span>
+        <span class="card-author">{{ item().author }}</span>
+      }
+    </h3>
     <!-- Author Row -->
     <div class="author-meta">
-      <small>By: <strong>{{ item().author }}</strong></small>
+      @if (item().isbn) {
+        <small>{{ 'BOOK.MODAL.ISBN_LABEL' | transloco }}: <strong>{{ item().isbn }}</strong></small>
+      }
+      @if (item().language) {
+        <small>{{ 'BOOK.MODAL.LANGUAGE_LABEL' | transloco }}: <strong>{{ item().language }}</strong></small>
+      }
     </div>
 
     <p class="card-desc">{{ item().description || ('BOOK.CARD.NO_DESCRIPTION' | transloco) }}</p>

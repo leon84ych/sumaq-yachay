@@ -12,6 +12,7 @@ import { PlacesComponent } from '../../../places/places/places.component';
 import { RelationsComponent } from '../../../relations/relations/relations.component';
 import { AssociationsComponent } from '../../../associations/associations/associations.component';
 import { QuestionsComponent } from '../../../questions/questions/questions.component';
+import { BookEventsComponent } from '../../../book-events/book-events/book-events.component';
 
 @Component({
   selector: 'app-domain-view-resolver',
@@ -29,6 +30,7 @@ import { QuestionsComponent } from '../../../questions/questions/questions.compo
     RelationsComponent,
     AssociationsComponent,
     QuestionsComponent,
+    BookEventsComponent,
   ],
   templateUrl: './domain-view-resolver.component.html',
 })
