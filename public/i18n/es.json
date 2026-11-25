@@ -228,6 +228,7 @@
       "TAGS_REQUIRED": "Se requiere al menos una etiqueta.",
       "TAGS_FIRST_HINT": "Las etiquetas que se usarán en otros dominios deben insertarse aquí primero.",
       "REFRESHING": "Actualizando el índice desde el servidor...",
+      "LOCAL_ONLY": "Mostrando los datos del índice disponibles localmente. Inicia sesión para actualizarlos desde el servidor.",
       "REFRESHED": "Datos del índice cargados desde el servidor.",
       "UPDATED": "Índice actualizado con los datos más recientes del servidor.",
       "UP_TO_DATE": "El índice está actualizado.",

@@ -7,6 +7,7 @@ import { BookQueryService } from './book-query.service';
 import { TagPickerService } from '../../../../shared/tag-picker/tag-picker.service';
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
 import { TranslocoService } from '@jsverse/transloco';
+import { GoogleAuthService } from '../../../authentication/services/google-auth-service';
 
 
 @Injectable({
@@ -20,6 +21,7 @@ export class IndexDataService {
     private tagPickerService = inject(TagPickerService);
     private globalMessageService = inject(GlobalMessageService);
     private transloco = inject(TranslocoService);
+    private googleAuthService = inject(GoogleAuthService);
 
     /**
      * Returns locally stored index records for a book, or fetches them from GAS if none are stored.
@@ -32,6 +34,10 @@ export class IndexDataService {
     ): Promise<IndexRecord[]> {
         const indexes = await this.indexQueryService.getIndicesByBookRow(bookId);
         const book = await this.bookQueryService.getBookRecord(bookId);
+        if (!this.googleAuthService.idToken()) {
+            this.globalMessageService.showInfo(this.transloco.translate('DOMAINS.INDEX.LOCAL_ONLY'));
+            return indexes;
+        }
         if (!book?.row) {
             if (indexes.length > 0) return indexes;
             throw new Error('Book record is missing row.');

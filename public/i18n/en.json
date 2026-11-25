@@ -255,6 +255,7 @@
       "TAGS_REQUIRED": "At least one tag is required.",
       "TAGS_FIRST_HINT": "Tags to be used in other domains must be defined here first.",
       "REFRESHING": "Refreshing Index data from the server...",
+      "LOCAL_ONLY": "Showing locally available Index data. Sign in to refresh from the server.",
       "REFRESHED": "Index data loaded from the server.",
       "UPDATED": "Index updated with the latest server data.",
       "UP_TO_DATE": "Index is up to date.",
