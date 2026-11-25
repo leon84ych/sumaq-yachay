@@ -1,8 +1,8 @@
 import { ErrorHandler, inject } from '@angular/core';
-import { GlobalErrorService } from '../services/error/global-error.service';
+import { GlobalMessageService } from '../services/global-message.service';
 
 export class GlobalErrorHandler extends ErrorHandler {
-  private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalMessageService = inject(GlobalMessageService);
 
   override handleError(error: unknown): void {
     const message =
@@ -10,7 +10,7 @@ export class GlobalErrorHandler extends ErrorHandler {
         ? error.message.trim()
         : 'An unexpected error occurred.';
 
-    this.globalErrorService.show(message);
+    this.globalMessageService.showError(message);
     super.handleError(error);
   }
 }

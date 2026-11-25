@@ -38,7 +38,7 @@ const VERSION_ONE_STORES = {
 
 export class IndexedDB extends Dexie {
   books!: Table<BookRecord, string>;
-  indexes!: Table<IndexRecord, string>;
+  indexes!: Table<IndexRecord, [string, string]>;
   quotes!: Table<QuoteRecord, [string, string]>;
   concepts!: Table<ConceptRecord, [string, string]>;
   passages!: Table<PassageRecord, [string, string]>;

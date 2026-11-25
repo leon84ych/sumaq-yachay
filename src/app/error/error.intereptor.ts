@@ -1,10 +1,10 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { GlobalErrorService } from '../core/services/error/global-error.service';
+import { GlobalMessageService } from '../core/services/global-message.service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  const globalErrorService = inject(GlobalErrorService);
+  const globalMessageService = inject(GlobalMessageService);
 
   return next(req).pipe(
     catchError((error: unknown) => {
@@ -12,7 +12,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         error instanceof HttpErrorResponse ? error : new HttpErrorResponse({ error });
       const errorMessage = getErrorMessage(httpError);
 
-      globalErrorService.show(errorMessage);
+      globalMessageService.showError(errorMessage);
       console.error('HTTP interceptor caught error:', errorMessage);
 
       return throwError(() => new Error(errorMessage));

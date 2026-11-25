@@ -60,6 +60,14 @@
     "BOOK": "Catalog",
     "LEARN": "Learn",
     "QUIZ": "Quiz",
+    "MESSAGE": {
+      "SAVED": "Changes saved successfully.",
+      "UPDATED": "Changes updated successfully."
+    },
+    "SYNC": {
+      "PENDING": "{{count}} changes need synchronization",
+      "UP_TO_DATE": "All changes are synchronized"
+    },
     "SETTINGS": {
       "TITLE": "Settings",
       "LOGIN": "Login",
@@ -246,6 +254,10 @@
       "TAGS": "Tags",
       "TAGS_REQUIRED": "At least one tag is required.",
       "TAGS_FIRST_HINT": "Tags to be used in other domains must be defined here first.",
+      "REFRESHING": "Refreshing Index data from the server...",
+      "REFRESHED": "Index data loaded from the server.",
+      "UPDATED": "Index updated with the latest server data.",
+      "UP_TO_DATE": "Index is up to date.",
       "STATUS": "Status",
       "ADD_ENTRY": "Entry",
       "NEW_ENTRY_TITLE": "Add New Entry"

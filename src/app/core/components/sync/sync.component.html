@@ -1,0 +1,16 @@
+<span
+  class="sync-indicator"
+  [class.sync-indicator--pending]="unsyncedCount() > 0"
+  [attr.aria-label]="
+    (unsyncedCount() > 0 ? 'NAV.SYNC.PENDING' : 'NAV.SYNC.UP_TO_DATE')
+      | transloco: { count: unsyncedCount() }
+  "
+  [title]="
+    (unsyncedCount() > 0 ? 'NAV.SYNC.PENDING' : 'NAV.SYNC.UP_TO_DATE')
+      | transloco: { count: unsyncedCount() }
+  "
+  role="status"
+  aria-live="polite"
+>
+  <span class="sync-indicator__ball" aria-hidden="true">{{ unsyncedCount() > 0 ? badgeText() : '✓' }}</span>
+</span>

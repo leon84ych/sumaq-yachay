@@ -14,6 +14,10 @@
     "src/app/features/learn/services/learn-feed.service.spec.ts",
     "src/app/shared/local-db/local-db.service.spec.ts",
     "src/app/core/components/settings-panel/settings-panel.component.spec.ts",
-    "src/app/features/domain/book-detail/services/domain-data.service.spec.ts"
+    "src/app/core/services/global-message.service.spec.ts",
+    "src/app/core/components/sync/sync.component.spec.ts",
+    "src/app/features/domain/book-detail/services/domain-data.service.spec.ts",
+    "src/app/features/domain/index/services/index.service.spec.ts",
+    "src/app/features/domain/index/services/index-repository.spec.ts"
   ]
 }

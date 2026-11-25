@@ -5,7 +5,7 @@
       "chapter": "Introduction",
       "theme": "Identity",
       "subtheme": "Possibility and the absence of fixed qualities",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#identity"],
       "contributor": "leon84ych"
     },
@@ -14,7 +14,7 @@
       "chapter": "The Parallel Campaign",
       "theme": "Politics",
       "subtheme": "Symbolic action and political idealism",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#politics"],
       "contributor": "leon84ych"
     },
@@ -23,7 +23,7 @@
       "chapter": "The Parallel Campaign",
       "theme": "Society",
       "subtheme": "Institutions, prestige, and social performance",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#society"],
       "contributor": "leon84ych"
     },
@@ -32,7 +32,7 @@
       "chapter": "Ulrich",
       "theme": "Possibility",
       "subtheme": "Alternative ways of understanding reality",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#possibility"],
       "contributor": "leon84ych"
     },
@@ -41,7 +41,7 @@
       "chapter": "Diotima",
       "theme": "Idealism",
       "subtheme": "Intellectual ambition and social contradiction",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#idealism"],
       "contributor": "leon84ych"
     },
@@ -50,7 +50,7 @@
       "chapter": "Moosbrugger",
       "theme": "Reason",
       "subtheme": "Psychology, judgment, and social interpretation",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#reason"],
       "contributor": "leon84ych"
     },
@@ -59,7 +59,7 @@
       "chapter": "Walter and Clarisse",
       "theme": "Art",
       "subtheme": "Creativity, ambition, and instability",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#art"],
       "contributor": "leon84ych"
     },
@@ -68,7 +68,7 @@
       "chapter": "Agathe",
       "theme": "Relationship",
       "subtheme": "Intimacy and alternative forms of existence",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#relationship"],
       "contributor": "leon84ych"
     },
@@ -77,7 +77,7 @@
       "chapter": "Analytical Overview",
       "theme": "Modernity",
       "subtheme": "Rationalization, specialization, and uncertainty",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#modernity"],
       "contributor": "leon84ych"
     },
@@ -86,7 +86,7 @@
       "chapter": "Analytical Overview",
       "theme": "Philosophy",
       "subtheme": "The tension between reality and possibility",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#philosophy"],
       "contributor": "leon84ych"
     }
@@ -103,7 +103,7 @@
       "tags": ["#ulrich", "#identity", "#possibility"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#735D78"
     },
     {
@@ -117,7 +117,7 @@
       "tags": ["#agathe", "#ulrich", "#relationship"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#3A7D44"
     },
     {
@@ -131,7 +131,7 @@
       "tags": ["#diotima", "#idealism", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#C49A3A"
     },
     {
@@ -145,7 +145,7 @@
       "tags": ["#arnheim", "#power", "#politics"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#6A994E"
     },
     {
@@ -159,7 +159,7 @@
       "tags": ["#walter", "#art", "#modernity"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#D17B49"
     },
     {
@@ -173,7 +173,7 @@
       "tags": ["#clarisse", "#psychology", "#art"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#A44A3F"
     },
     {
@@ -187,7 +187,7 @@
       "tags": ["#moosbrugger", "#justice", "#psychology"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#B56576"
     },
     {
@@ -201,7 +201,7 @@
       "tags": ["#stumm", "#military", "#ideas"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#4F6D7A"
     },
     {
@@ -215,7 +215,7 @@
       "tags": ["#leinsdorf", "#politics", "#parallel-campaign"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#2F6690"
     },
     {
@@ -229,7 +229,7 @@
       "tags": ["#bonadea", "#ulrich", "#relationships"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#5C4D7D"
     }
   ],
@@ -241,7 +241,7 @@
       "category": "Philosophical concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#philosophy", "#ulrich", "#possibility"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -251,7 +251,7 @@
       "category": "Philosophical concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#reality", "#possibility"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -261,7 +261,7 @@
       "category": "Theme",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#identity", "#modernity", "#modern-identity"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -271,7 +271,7 @@
       "category": "Social concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#reason", "#modernity", "#rationalization"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -281,7 +281,7 @@
       "category": "Political concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#politics", "#society", "#political-symbolism"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -291,7 +291,7 @@
       "category": "Social theme",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#society", "#identity", "#social-performance"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -301,7 +301,7 @@
       "category": "Philosophical concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#ideas", "#philosophy", "#intellectual-pluralism"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -311,7 +311,7 @@
       "category": "Ethical concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#ethics", "#judgment", "#moral-ambiguity"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -321,7 +321,7 @@
       "category": "Literary concept",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#society", "#politics", "#social-critique"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -331,7 +331,7 @@
       "category": "Narrative technique",
       "source": "Study context for The Man Without Qualities",
       "tags": ["#modernism", "#philosophy", "#essayistic-fiction"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -348,7 +348,7 @@
       "tags": ["#possibility", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-02",
@@ -362,7 +362,7 @@
       "tags": ["#reason", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-03",
@@ -376,7 +376,7 @@
       "tags": ["#idealism", "#politics"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-04",
@@ -390,7 +390,7 @@
       "tags": ["#ambivalence", "#psychology"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-05",
@@ -404,7 +404,7 @@
       "tags": ["#modernity", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-06",
@@ -418,7 +418,7 @@
       "tags": ["#bureaucracy", "#politics"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-07",
@@ -432,7 +432,7 @@
       "tags": ["#irony", "#social-critique"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-08",
@@ -446,7 +446,7 @@
       "tags": ["#identity", "#self"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-09",
@@ -460,7 +460,7 @@
       "tags": ["#idealism", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-10",
@@ -474,7 +474,7 @@
       "tags": ["#introspection", "#psychology"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PASSAGES": [
@@ -488,7 +488,7 @@
       "tags": ["#sample", "#possibility", "#identity"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-02",
@@ -500,7 +500,7 @@
       "tags": ["#sample", "#politics", "#irony"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-03",
@@ -512,7 +512,7 @@
       "tags": ["#sample", "#reason", "#values"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-04",
@@ -524,7 +524,7 @@
       "tags": ["#sample", "#society", "#ideas"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-05",
@@ -536,7 +536,7 @@
       "tags": ["#sample", "#identity", "#possibility"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-06",
@@ -548,7 +548,7 @@
       "tags": ["#sample", "#idealism", "#politics"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-07",
@@ -560,7 +560,7 @@
       "tags": ["#sample", "#psychology", "#judgment"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-08",
@@ -572,7 +572,7 @@
       "tags": ["#sample", "#modernity", "#knowledge"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-09",
@@ -584,7 +584,7 @@
       "tags": ["#sample", "#possibility", "#relationship"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-10",
@@ -596,7 +596,7 @@
       "tags": ["#sample", "#reason", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PLACES": [
@@ -612,7 +612,7 @@
       "tags": ["#vienna", "#city", "#modernity"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-02",
@@ -626,7 +626,7 @@
       "tags": ["#austria-hungary", "#empire", "#politics"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-03",
@@ -640,7 +640,7 @@
       "tags": ["#kakania", "#empire", "#satire"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-04",
@@ -654,7 +654,7 @@
       "tags": ["#analytical-sample", "#diotima", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-05",
@@ -668,7 +668,7 @@
       "tags": ["#analytical-sample", "#ulrich", "#reflection"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-06",
@@ -682,7 +682,7 @@
       "tags": ["#analytical-sample", "#parallel-campaign", "#bureaucracy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-07",
@@ -696,7 +696,7 @@
       "tags": ["#analytical-sample", "#administration", "#politics"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-08",
@@ -710,7 +710,7 @@
       "tags": ["#analytical-sample", "#vienna", "#intellectual-life"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-09",
@@ -724,7 +724,7 @@
       "tags": ["#analytical-sample", "#walter", "#clarisse"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-10",
@@ -738,7 +738,7 @@
       "tags": ["#analytical-sample", "#modernity", "#city"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "QUOTES": [
@@ -749,7 +749,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#possibility", "#reality"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -759,7 +759,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#identity", "#self"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -769,7 +769,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#politics", "#idealism"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -779,7 +779,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#reason", "#values"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -789,7 +789,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#modernity", "#knowledge"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -799,7 +799,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#irony", "#society"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -809,7 +809,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#possibility", "#freedom"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -819,7 +819,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#intelligence", "#uncertainty"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -829,7 +829,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#institutions", "#psychology"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -839,7 +839,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#philosophy", "#uncertainty"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -863,7 +863,7 @@
       "tags": ["#identity"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-02",
@@ -886,7 +886,7 @@
       "tags": ["#philosophy", "#ulrich", "#possibility"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-03",
@@ -909,7 +909,7 @@
       "tags": ["#ulrich", "#identity", "#possibility"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-04",
@@ -932,7 +932,7 @@
       "tags": ["#vienna", "#city", "#modernity"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-05",
@@ -950,7 +950,7 @@
       "tags": ["#sample", "#possibility", "#reality"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-06",
@@ -968,7 +968,7 @@
       "tags": ["#sample", "#possibility", "#identity"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-07",
@@ -993,7 +993,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-08",
@@ -1009,7 +1009,7 @@
       "tags": ["#ulrich", "#identity", "#possibility", "#agathe", "#relationship"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-09",
@@ -1025,7 +1025,7 @@
       "tags": ["#possibility", "#philosophy", "#ulrich", "#reality", "#identity"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-10",
@@ -1043,7 +1043,7 @@
       "tags": ["#possibility", "#philosophy"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "BOOK_EVENTS": [
@@ -1072,7 +1072,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-02",
@@ -1101,7 +1101,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-03",
@@ -1130,7 +1130,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-04",
@@ -1160,7 +1160,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "RELATIONS": [
@@ -1179,7 +1179,7 @@
       "tags": ["#ulrich", "#identity", "#possibility", "#agathe", "#relationship"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-02",
@@ -1196,7 +1196,7 @@
       "tags": ["#diotima", "#idealism", "#society", "#arnheim", "#power", "#politics"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-03",
@@ -1213,7 +1213,7 @@
       "tags": ["#walter", "#art", "#modernity", "#clarisse", "#psychology", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-04",
@@ -1238,7 +1238,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "ASSOCIATIONS": [
@@ -1257,7 +1257,7 @@
       "tags": ["#possibility", "#philosophy", "#ulrich", "#reality", "#identity"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-02",
@@ -1281,7 +1281,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-03",
@@ -1298,7 +1298,7 @@
       "tags": ["#political-symbolism", "#politics", "#society", "#social-performance", "#identity"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-04",
@@ -1323,7 +1323,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ]
 }

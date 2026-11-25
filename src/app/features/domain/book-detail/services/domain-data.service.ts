@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { DomainInfo, DomainSheet } from '../models/domain-sheet.model';
 import { LocalDBService } from '../../../../shared/local-db/local-db.service';
-import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalMessageService } from '../../../../core/services/global-message.service';
 import { BookGASRepository } from '../../../book/services/book-gas-repository';
 import { BookRecord } from '../../../book/models/book-item.model';
 import { IndexRecord } from '../../index/model/index-model';
@@ -28,7 +28,7 @@ export class DomainDataService {
   readonly sheetNames = computed(() => this.sheets().filter(sheet => sheet.name != 'ID').map((sheet) => sheet.name));
 
   private bookGASRepository = inject(BookGASRepository);
-  private globalErrorService = inject(GlobalErrorService);
+  private globalMessageService = inject(GlobalMessageService);
   private tagPickerService = inject(TagPickerService);
   private indexGasRepository = inject(IndexRepository);
   private gasDomainAPI = inject(GASDomainAPI<Record<string, unknown>, unknown>);
@@ -81,7 +81,7 @@ export class DomainDataService {
       await this.retrieveDomains(row);
 
     } catch (error: unknown) {
-      this.globalErrorService.show(
+      this.globalMessageService.showError(
         error instanceof Error ? error.message : 'Failed to load domain sheets.',
       );
     } finally {

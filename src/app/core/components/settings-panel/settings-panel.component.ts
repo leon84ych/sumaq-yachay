@@ -1,6 +1,7 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { Router } from '@angular/router';
 import { ConfigService } from '../../services/config/config.service';
 import { LocalDBService } from '../../../shared/local-db/local-db.service';
 import { PermissionService } from '../../services/permission/permission.service';
@@ -23,6 +24,8 @@ export class SettingsPanelComponent {
     private readonly configService = inject(ConfigService);
     private readonly localDBService = inject(LocalDBService);
     private readonly permissionService = inject(PermissionService);
+    private readonly router = inject(Router);
+    private readonly hostElement = inject(ElementRef<HTMLElement>);
 
     readonly showSettings = signal(false);
     readonly apiUrlInput = signal(this.configService.getWebAppUrl());
@@ -35,6 +38,16 @@ export class SettingsPanelComponent {
     readonly fontScale = computed(() => FONT_SCALE_STEPS[this.fontScaleIndex()]);
     readonly isMinFontScale = computed(() => this.fontScaleIndex() === 0);
     readonly isMaxFontScale = computed(() => this.fontScaleIndex() === FONT_SCALE_STEPS.length - 1);
+
+    @HostListener('document:click', ['$event'])
+    closeSettingsOnOutsideClick(event: MouseEvent): void {
+        if (
+            this.showSettings() &&
+            !this.hostElement.nativeElement.contains(event.target as Node)
+        ) {
+            this.showSettings.set(false);
+        }
+    }
 
     constructor() {
         const savedLang = localStorage.getItem('sumaq_yachay_lang');
@@ -102,7 +115,10 @@ export class SettingsPanelComponent {
         this.clearStatus.set(null);
         try {
             await this.localDBService.clearAllTables();
+            this.configService.setLocalSampleDataEnabled(false);
+            this.permissionService.setRole('guest');
             this.clearStatus.set('NAV.SETTINGS.CLEAR_SUCCESS');
+            await this.router.navigateByUrl('/catalog');
         } catch {
             this.clearStatus.set('NAV.SETTINGS.CLEAR_ERROR');
         } finally {

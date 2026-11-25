@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalMessageService } from '../../../../core/services/global-message.service';
 import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
@@ -67,7 +67,7 @@ export class ConceptsComponent implements OnInit {
 
   private readonly conceptDataService = inject(ConceptDataService);
   private readonly globalLoadingService = inject(GlobalLoadingService);
-  private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalMessageService = inject(GlobalMessageService);
   private readonly transloco = inject(TranslocoService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
@@ -136,7 +136,7 @@ export class ConceptsComponent implements OnInit {
       this.rows.set(await this.conceptDataService.getRecords(this.bookId()));
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to load concepts.';
-      this.globalErrorService.show(message);
+      this.globalMessageService.showError(message);
     }
   }
 
@@ -146,7 +146,7 @@ export class ConceptsComponent implements OnInit {
       this.allowedTags.set(new Set(normalizeTagsFromArray(tags)));
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to load book tags.';
-      this.globalErrorService.show(message);
+      this.globalMessageService.showError(message);
     }
   }
 
@@ -165,7 +165,7 @@ export class ConceptsComponent implements OnInit {
       this.rows.update((rows) => rows.filter((item) => item.id !== id));
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to delete concept.';
-      this.globalErrorService.show(message);
+      this.globalMessageService.showError(message);
     }
   }
 
@@ -208,13 +208,13 @@ export class ConceptsComponent implements OnInit {
     const editingId = this.editingId();
     const original = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
     if (editingId && !original) {
-      this.globalErrorService.show('The concept being edited is no longer available.');
+      this.globalMessageService.showError('The concept being edited is no longer available.');
       return;
     }
 
     const bookRow = this.bookRow() ?? original?.bookRow;
     if (!bookRow) {
-      this.globalErrorService.show('Book record is missing row.');
+      this.globalMessageService.showError('Book record is missing row.');
       return;
     }
 
@@ -250,7 +250,7 @@ export class ConceptsComponent implements OnInit {
       this.resetForm();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to save concept.';
-      this.globalErrorService.show(message);
+      this.globalMessageService.showError(message);
     } finally {
       this.isSaving.set(false);
       this.globalLoadingService.end(operation);

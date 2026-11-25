@@ -33,6 +33,14 @@
     "BOOK": "Catálogo",
     "LEARN": "Aprender",
     "QUIZ": "Cuestionario",
+    "MESSAGE": {
+      "SAVED": "Los cambios se guardaron correctamente.",
+      "UPDATED": "Los cambios se actualizaron correctamente."
+    },
+    "SYNC": {
+      "PENDING": "{{count}} cambios requieren sincronización",
+      "UP_TO_DATE": "Todos los cambios están sincronizados"
+    },
     "SETTINGS": {
       "TITLE": "Configuración",
       "LOGIN": "Entrar",
@@ -219,6 +227,10 @@
       "TAGS": "Etiquetas",
       "TAGS_REQUIRED": "Se requiere al menos una etiqueta.",
       "TAGS_FIRST_HINT": "Las etiquetas que se usarán en otros dominios deben insertarse aquí primero.",
+      "REFRESHING": "Actualizando el índice desde el servidor...",
+      "REFRESHED": "Datos del índice cargados desde el servidor.",
+      "UPDATED": "Índice actualizado con los datos más recientes del servidor.",
+      "UP_TO_DATE": "El índice está actualizado.",
       "STATUS": "Estado",
       "ADD_ENTRY": "Entrada",
       "NEW_ENTRY_TITLE": "Agregar Nueva Entrada"

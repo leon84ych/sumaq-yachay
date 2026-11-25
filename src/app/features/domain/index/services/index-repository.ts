@@ -20,18 +20,34 @@ export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
 
   async getDomain(bookRow: number, total: number | null = null): Promise<IndexRecord[]> {
     const domain: IndexRaw[] = await this.gasRepository.getDomain(bookRow, total);
-    const domainRecords = domain.map(item => ({
-      ...this.mapper.toRecord(item),
-      bookRow: bookRow,
-    }));
-    //Save index records to the local database
-    // Omit saving the book record as it is already managed elsewhere
     const database = this.localDBService.indexedDB;
+    const book = await database.books.where('row').equals(bookRow).first();
+    const domainRecords = domain.map((item) => ({
+      ...this.mapper.toRecord({ ...item, bookId: item.bookId || book?.id || '' }),
+      bookRow,
+    })).filter((record) => record.bookId);
+    const bookId = book?.id ?? domainRecords[0]?.bookId;
+    if (!bookId) return domainRecords;
+
+    let mergedRecords: IndexRecord[] = [];
     await database.transaction('rw', database.indexes, async () => {
-      await database.indexes.bulkPut(domainRecords);
+      const localRecords = await database.indexes.where('bookId').equals(bookId).toArray();
+      const unsyncedRecords = localRecords.filter(
+        (record) => record.syncStatus === 'pending' || record.syncStatus === 'error',
+      );
+      const unsyncedIds = new Set(unsyncedRecords.map((record) => record.id));
+      const remoteRecords = domainRecords.filter((record) => !unsyncedIds.has(record.id));
+      const remoteIds = new Set(remoteRecords.map((record) => record.id));
+      const removedIds = localRecords
+        .filter((record) => record.syncStatus === 'synced' && !remoteIds.has(record.id))
+        .map((record) => [record.bookId, record.id] as [string, string]);
+
+      await Promise.all(removedIds.map((key) => database.indexes.delete(key)));
+      if (remoteRecords.length > 0) await database.indexes.bulkPut(remoteRecords);
+      mergedRecords = [...remoteRecords, ...unsyncedRecords].sort((left, right) => left.itemRow - right.itemRow);
     });
-    
-    return domainRecords;
+
+    return mergedRecords;
   }
 
   getDomainPaginated(row: number, page: number, pageSize: number|null): Promise<GASPaginatedResponseRaw<IndexRecord>> {
@@ -51,7 +67,7 @@ export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
 
       await this.localDBService.indexedDB.transaction('rw', table, async () => {
         if (syncedRecord.id !== pendingRecord.id) {
-          await table.delete(pendingRecord.id);
+          await table.delete([pendingRecord.bookId, pendingRecord.id]);
         }
         await table.put(syncedRecord);
       });
@@ -80,7 +96,7 @@ export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
 
   async deleteDomainItem(record: IndexRecord): Promise<void> {
     await this.gasRepository.deleteDomainItem(record);
-    await this.localDBService.indexedDB.indexes.delete(record.id);
+    await this.localDBService.indexedDB.indexes.delete([record.bookId, record.id]);
   }
 
 

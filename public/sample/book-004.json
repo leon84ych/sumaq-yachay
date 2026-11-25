@@ -5,7 +5,7 @@
       "chapter": "The Arrest",
       "theme": "Authority",
       "subtheme": "Power without explanation",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#authority"],
       "contributor": "leon84ych"
     },
@@ -14,7 +14,7 @@
       "chapter": "The Arrest",
       "theme": "Guilt",
       "subtheme": "Accusation without a known offense",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#guilt"],
       "contributor": "leon84ych"
     },
@@ -23,7 +23,7 @@
       "chapter": "First Interrogation",
       "theme": "Bureaucracy",
       "subtheme": "Procedure and institutional confusion",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#bureaucracy"],
       "contributor": "leon84ych"
     },
@@ -32,7 +32,7 @@
       "chapter": "In the Empty Courtroom",
       "theme": "Alienation",
       "subtheme": "Isolation within institutional systems",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#alienation"],
       "contributor": "leon84ych"
     },
@@ -41,7 +41,7 @@
       "chapter": "The Lawyer",
       "theme": "Dependence",
       "subtheme": "Reliance on uncertain intermediaries",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#dependence"],
       "contributor": "leon84ych"
     },
@@ -50,7 +50,7 @@
       "chapter": "The Manufacturer",
       "theme": "Influence",
       "subtheme": "Informal networks surrounding authority",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#influence"],
       "contributor": "leon84ych"
     },
@@ -59,7 +59,7 @@
       "chapter": "The Painter",
       "theme": "Justice",
       "subtheme": "Ambiguous possibilities of acquittal",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#justice"],
       "contributor": "leon84ych"
     },
@@ -68,7 +68,7 @@
       "chapter": "In the Cathedral",
       "theme": "Judgment",
       "subtheme": "Law, interpretation, and inaccessible authority",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#judgment"],
       "contributor": "leon84ych"
     },
@@ -77,7 +77,7 @@
       "chapter": "Analytical Overview",
       "theme": "Absurdity",
       "subtheme": "Conflict between reason and incomprehensible systems",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#absurdity"],
       "contributor": "leon84ych"
     },
@@ -86,7 +86,7 @@
       "chapter": "Analytical Overview",
       "theme": "Existential Anxiety",
       "subtheme": "Uncertainty, responsibility, and meaning",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#existentialism"],
       "contributor": "leon84ych"
     }
@@ -103,7 +103,7 @@
       "tags": ["#josef-k", "#guilt", "#alienation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#B56576"
     },
     {
@@ -117,7 +117,7 @@
       "tags": ["#buerstner", "#boarding-house", "#josef-k"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#5C4D7D"
     },
     {
@@ -131,7 +131,7 @@
       "tags": ["#huld", "#law", "#bureaucracy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#4F6D7A"
     },
     {
@@ -145,7 +145,7 @@
       "tags": ["#leni", "#huld", "#court"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#6A994E"
     },
     {
@@ -159,7 +159,7 @@
       "tags": ["#titorelli", "#court", "#justice"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#C49A3A"
     },
     {
@@ -173,7 +173,7 @@
       "tags": ["#uncle-karl", "#family", "#law"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#3A7D44"
     },
     {
@@ -187,7 +187,7 @@
       "tags": ["#priest", "#law", "#interpretation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#D17B49"
     },
     {
@@ -201,7 +201,7 @@
       "tags": ["#block", "#trial", "#dependence"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#2F6690"
     },
     {
@@ -215,7 +215,7 @@
       "tags": ["#inspector", "#authority", "#arrest"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#A44A3F"
     },
     {
@@ -229,7 +229,7 @@
       "tags": ["#magistrate", "#court", "#authority"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#735D78"
     }
   ],
@@ -241,7 +241,7 @@
       "category": "Theme",
       "source": "Study context for The Trial",
       "tags": ["#authority", "#institution", "#bureaucracy"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -251,7 +251,7 @@
       "category": "Theme",
       "source": "Study context for The Trial",
       "tags": ["#isolation", "#existentialism", "#alienation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -261,7 +261,7 @@
       "category": "Theme",
       "source": "Study context for The Trial",
       "tags": ["#judgment", "#law", "#guilt"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -271,7 +271,7 @@
       "category": "Philosophical theme",
       "source": "Study context for The Trial",
       "tags": ["#reason", "#existentialism", "#absurdity"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -281,7 +281,7 @@
       "category": "Political theme",
       "source": "Study context for The Trial",
       "tags": ["#power", "#bureaucracy", "#opaque-authority"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -291,7 +291,7 @@
       "category": "Institutional theme",
       "source": "Study context for The Trial",
       "tags": ["#law", "#bureaucracy", "#procedural-uncertainty"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -301,7 +301,7 @@
       "category": "Theme",
       "source": "Study context for The Trial",
       "tags": ["#guilt", "#justice", "#judgment"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -311,7 +311,7 @@
       "category": "Analytical concept",
       "source": "Study context for The Trial",
       "tags": ["#bureaucracy", "#confusion", "#institutional-labyrinth"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -321,7 +321,7 @@
       "category": "Theme",
       "source": "Study context for The Trial",
       "tags": ["#authority", "#alienation", "#powerlessness"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -331,7 +331,7 @@
       "category": "Philosophical theme",
       "source": "Study context for The Trial",
       "tags": ["#existentialism", "#identity", "#existential-uncertainty"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -348,7 +348,7 @@
       "tags": ["#bureaucracy", "#authority"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-02",
@@ -362,7 +362,7 @@
       "tags": ["#alienation", "#existentialism"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-03",
@@ -376,7 +376,7 @@
       "tags": ["#court", "#law"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-04",
@@ -390,7 +390,7 @@
       "tags": ["#justice", "#trial"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-05",
@@ -404,7 +404,7 @@
       "tags": ["#guilt", "#law"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-06",
@@ -418,7 +418,7 @@
       "tags": ["#authority", "#power"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-07",
@@ -432,7 +432,7 @@
       "tags": ["#procedure", "#bureaucracy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-08",
@@ -446,7 +446,7 @@
       "tags": ["#authority", "#uncertainty"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-09",
@@ -460,7 +460,7 @@
       "tags": ["#absurdity", "#reason"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-10",
@@ -474,7 +474,7 @@
       "tags": ["#judgment", "#justice"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PASSAGES": [
@@ -488,7 +488,7 @@
       "tags": ["#sample", "#authority", "#uncertainty"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-02",
@@ -500,7 +500,7 @@
       "tags": ["#sample", "#bureaucracy", "#procedure"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-03",
@@ -512,7 +512,7 @@
       "tags": ["#sample", "#guilt", "#law"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-04",
@@ -524,7 +524,7 @@
       "tags": ["#sample", "#alienation", "#ordinary-life"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-05",
@@ -536,7 +536,7 @@
       "tags": ["#sample", "#dependence", "#uncertainty"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-06",
@@ -548,7 +548,7 @@
       "tags": ["#sample", "#rules", "#authority"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-07",
@@ -560,7 +560,7 @@
       "tags": ["#sample", "#bureaucracy", "#waiting"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-08",
@@ -572,7 +572,7 @@
       "tags": ["#sample", "#institution", "#power"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-09",
@@ -584,7 +584,7 @@
       "tags": ["#sample", "#interpretation", "#law"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-10",
@@ -596,7 +596,7 @@
       "tags": ["#sample", "#judgment", "#identity"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PLACES": [
@@ -612,7 +612,7 @@
       "tags": ["#boarding-house", "#arrest", "#josef-k"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-02",
@@ -626,7 +626,7 @@
       "tags": ["#bank", "#work", "#josef-k"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-03",
@@ -640,7 +640,7 @@
       "tags": ["#court", "#bureaucracy", "#law"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-04",
@@ -654,7 +654,7 @@
       "tags": ["#courtroom", "#trial", "#authority"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-05",
@@ -668,7 +668,7 @@
       "tags": ["#huld", "#lawyer", "#law"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-06",
@@ -682,7 +682,7 @@
       "tags": ["#titorelli", "#studio", "#court"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-07",
@@ -696,7 +696,7 @@
       "tags": ["#cathedral", "#priest", "#law"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-08",
@@ -710,7 +710,7 @@
       "tags": ["#analytical-sample", "#court", "#labyrinth"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-09",
@@ -724,7 +724,7 @@
       "tags": ["#analytical-sample", "#city", "#alienation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-10",
@@ -738,7 +738,7 @@
       "tags": ["#analytical-sample", "#bureaucracy", "#authority"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "QUOTES": [
@@ -749,7 +749,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#bureaucracy", "#authority"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -759,7 +759,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#guilt", "#uncertainty"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -769,7 +769,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#procedure", "#bureaucracy"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -779,7 +779,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#authority", "#power"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -789,7 +789,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#labyrinth", "#uncertainty"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -799,7 +799,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#judgment", "#guilt"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -809,7 +809,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#rules", "#powerlessness"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -819,7 +819,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#absurdity", "#meaning"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -829,7 +829,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#freedom", "#alienation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -839,7 +839,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#existentialism", "#uncertainty"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -863,7 +863,7 @@
       "tags": ["#authority"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-02",
@@ -886,7 +886,7 @@
       "tags": ["#authority", "#institution", "#bureaucracy"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-03",
@@ -909,7 +909,7 @@
       "tags": ["#josef-k", "#guilt", "#alienation"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-04",
@@ -932,7 +932,7 @@
       "tags": ["#boarding-house", "#arrest", "#josef-k"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-05",
@@ -950,7 +950,7 @@
       "tags": ["#sample", "#bureaucracy", "#authority"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-06",
@@ -968,7 +968,7 @@
       "tags": ["#sample", "#authority", "#uncertainty"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-07",
@@ -994,7 +994,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-08",
@@ -1010,7 +1010,7 @@
       "tags": ["#josef-k", "#guilt", "#alienation", "#buerstner", "#boarding-house", "#authority"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-09",
@@ -1033,7 +1033,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-10",
@@ -1051,7 +1051,7 @@
       "tags": ["#bureaucracy", "#authority"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "BOOK_EVENTS": [
@@ -1081,7 +1081,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-02",
@@ -1109,7 +1109,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-03",
@@ -1136,7 +1136,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-04",
@@ -1166,7 +1166,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "RELATIONS": [
@@ -1185,7 +1185,7 @@
       "tags": ["#josef-k", "#guilt", "#alienation", "#buerstner", "#boarding-house", "#authority"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-02",
@@ -1202,7 +1202,7 @@
       "tags": ["#huld", "#law", "#bureaucracy", "#leni", "#court", "#guilt"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-03",
@@ -1227,7 +1227,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-04",
@@ -1252,7 +1252,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "ASSOCIATIONS": [
@@ -1278,7 +1278,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-02",
@@ -1295,7 +1295,7 @@
       "tags": ["#guilt", "#judgment", "#law", "#absurdity", "#reason", "#existentialism"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-03",
@@ -1312,7 +1312,7 @@
       "tags": ["#opaque-authority", "#power", "#bureaucracy", "#procedural-uncertainty", "#law"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-04",
@@ -1337,7 +1337,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ]
 }

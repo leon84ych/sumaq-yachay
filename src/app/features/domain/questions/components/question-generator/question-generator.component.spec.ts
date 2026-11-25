@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BrowserAiService } from '../../../../../core/services/ia/BrowserIA.service';
-import { GlobalErrorService } from '../../../../../core/services/error/global-error.service';
+import { GlobalMessageService } from '../../../../../core/services/global-message.service';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { QuestionDataService } from '../../../../domain/questions/services/questions.service';
 import { QuestionGeneratorComponent } from './question-generator.component';
@@ -33,7 +33,7 @@ describe('QuestionGeneratorComponent', () => {
           useValue: { isAiAvailable: signal(true), generateQuestionFromEntry: generatedQuestion },
         },
         { provide: QuestionDataService, useValue: { addDomainItem } },
-        { provide: GlobalErrorService, useValue: { show: showError } },
+        { provide: GlobalMessageService, useValue: { showError } },
       ],
     });
     TestBed.inject(PermissionService).setRole('admin');

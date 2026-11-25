@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalMessageService } from '../../../../core/services/global-message.service';
 import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
@@ -75,7 +75,7 @@ export class PlacesComponent implements OnInit {
   readonly newSource = signal('');
 
   private readonly placeDataService = inject(PlaceDataService);
-  private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalMessageService = inject(GlobalMessageService);
   private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
   readonly permissionService = inject(PermissionService);
@@ -211,13 +211,13 @@ export class PlacesComponent implements OnInit {
     const editingId = this.editingId();
     const original = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
     if (editingId && !original) {
-      this.globalErrorService.show('The place being edited is no longer available.');
+      this.globalMessageService.showError('The place being edited is no longer available.');
       return;
     }
 
     const bookRow = this.bookRow() ?? original?.bookRow;
     if (!bookRow) {
-      this.globalErrorService.show('Book record is missing row.');
+      this.globalMessageService.showError('Book record is missing row.');
       return;
     }
 
@@ -261,6 +261,6 @@ export class PlacesComponent implements OnInit {
   }
 
   private showError(error: unknown, fallback: string): void {
-    this.globalErrorService.show(error instanceof Error ? error.message : fallback);
+    this.globalMessageService.showError(error instanceof Error ? error.message : fallback);
   }
 }

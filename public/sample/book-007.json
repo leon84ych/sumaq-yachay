@@ -5,7 +5,7 @@
       "chapter": "Arrival",
       "theme": "Time",
       "subtheme": "Separation from ordinary temporal rhythms",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#time"],
       "contributor": "leon84ych"
     },
@@ -14,7 +14,7 @@
       "chapter": "The Berghof",
       "theme": "Illness",
       "subtheme": "Disease as physical and cultural condition",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#illness"],
       "contributor": "leon84ych"
     },
@@ -23,7 +23,7 @@
       "chapter": "Hans Castorp",
       "theme": "Transformation",
       "subtheme": "Education through experience and intellectual encounter",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#transformation"],
       "contributor": "leon84ych"
     },
@@ -32,7 +32,7 @@
       "chapter": "Settembrini",
       "theme": "Humanism",
       "subtheme": "Reason, progress, liberty, and education",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#humanism"],
       "contributor": "leon84ych"
     },
@@ -41,7 +41,7 @@
       "chapter": "Naphta",
       "theme": "Ideology",
       "subtheme": "Authority, revolution, faith, and intellectual extremity",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#ideology"],
       "contributor": "leon84ych"
     },
@@ -50,7 +50,7 @@
       "chapter": "Clavdia Chauchat",
       "theme": "Desire",
       "subtheme": "Attraction, fascination, and transience",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#desire"],
       "contributor": "leon84ych"
     },
@@ -59,7 +59,7 @@
       "chapter": "Snow",
       "theme": "Mortality",
       "subtheme": "Human vulnerability and reflection on life",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#mortality"],
       "contributor": "leon84ych"
     },
@@ -68,7 +68,7 @@
       "chapter": "The Sanatorium",
       "theme": "Isolation",
       "subtheme": "A suspended community separated from ordinary society",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#isolation"],
       "contributor": "leon84ych"
     },
@@ -77,7 +77,7 @@
       "chapter": "Intellectual Debates",
       "theme": "Politics",
       "subtheme": "Competing visions of European civilization",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#politics"],
       "contributor": "leon84ych"
     },
@@ -86,7 +86,7 @@
       "chapter": "Departure",
       "theme": "History",
       "subtheme": "Individual experience confronted by European catastrophe",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#history"],
       "contributor": "leon84ych"
     }
@@ -103,7 +103,7 @@
       "tags": ["#hans-castorp", "#education", "#time"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#C49A3A"
     },
     {
@@ -117,7 +117,7 @@
       "tags": ["#joachim", "#discipline", "#illness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#D17B49"
     },
     {
@@ -131,7 +131,7 @@
       "tags": ["#settembrini", "#humanism", "#reason"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#B56576"
     },
     {
@@ -145,7 +145,7 @@
       "tags": ["#naphta", "#ideology", "#authority"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#2F6690"
     },
     {
@@ -159,7 +159,7 @@
       "tags": ["#clavdia", "#desire", "#hans-castorp"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#6A994E"
     },
     {
@@ -173,7 +173,7 @@
       "tags": ["#behrens", "#medicine", "#authority"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#A44A3F"
     },
     {
@@ -187,7 +187,7 @@
       "tags": ["#krokowski", "#psychology", "#illness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#4F6D7A"
     },
     {
@@ -201,7 +201,7 @@
       "tags": ["#peeperkorn", "#charisma", "#vitality"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#3A7D44"
     },
     {
@@ -215,7 +215,7 @@
       "tags": ["#sanatorium", "#society", "#patients"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#735D78"
     },
     {
@@ -229,7 +229,7 @@
       "tags": ["#tienappel", "#family", "#ordinary-life"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#5C4D7D"
     }
   ],
@@ -241,7 +241,7 @@
       "category": "Philosophical theme",
       "source": "Study context for The Magic Mountain",
       "tags": ["#time", "#consciousness", "#subjective-time"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -251,7 +251,7 @@
       "category": "Theme",
       "source": "Study context for The Magic Mountain",
       "tags": ["#body", "#mortality", "#illness"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -261,7 +261,7 @@
       "category": "Literary form",
       "source": "Study context for The Magic Mountain",
       "tags": ["#education", "#development", "#bildungsroman"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -271,7 +271,7 @@
       "category": "Philosophical concept",
       "source": "Study context for The Magic Mountain",
       "tags": ["#reason", "#settembrini", "#humanism"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -281,7 +281,7 @@
       "category": "Political concept",
       "source": "Study context for The Magic Mountain",
       "tags": ["#politics", "#ideas", "#ideological-conflict"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -291,7 +291,7 @@
       "category": "Philosophical theme",
       "source": "Study context for The Magic Mountain",
       "tags": ["#death", "#illness", "#mortality"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -301,7 +301,7 @@
       "category": "Theme",
       "source": "Study context for The Magic Mountain",
       "tags": ["#sanatorium", "#society", "#isolation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -311,7 +311,7 @@
       "category": "Historical concept",
       "source": "Study context for The Magic Mountain",
       "tags": ["#europe", "#politics", "#european-modernity"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -321,7 +321,7 @@
       "category": "Theme",
       "source": "Study context for The Magic Mountain",
       "tags": ["#education", "#philosophy", "#intellectual-education"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -331,7 +331,7 @@
       "category": "Analytical concept",
       "source": "Study context for The Magic Mountain",
       "tags": ["#time", "#isolation", "#suspended-life"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -348,7 +348,7 @@
       "tags": ["#sanatorium", "#illness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-02",
@@ -362,7 +362,7 @@
       "tags": ["#medicine", "#illness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-03",
@@ -376,7 +376,7 @@
       "tags": ["#humanism", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-04",
@@ -390,7 +390,7 @@
       "tags": ["#mortality", "#death"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-05",
@@ -404,7 +404,7 @@
       "tags": ["#time", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-06",
@@ -418,7 +418,7 @@
       "tags": ["#ideology", "#politics"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-07",
@@ -432,7 +432,7 @@
       "tags": ["#debate", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-08",
@@ -446,7 +446,7 @@
       "tags": ["#mortality", "#existence"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-09",
@@ -460,7 +460,7 @@
       "tags": ["#health", "#sanatorium"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-10",
@@ -474,7 +474,7 @@
       "tags": ["#bildungsroman", "#education"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PASSAGES": [
@@ -488,7 +488,7 @@
       "tags": ["#sample", "#mountain", "#time"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-02",
@@ -500,7 +500,7 @@
       "tags": ["#sample", "#time", "#routine"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-03",
@@ -512,7 +512,7 @@
       "tags": ["#sample", "#illness", "#medicine"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-04",
@@ -524,7 +524,7 @@
       "tags": ["#sample", "#philosophy", "#ideology"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-05",
@@ -536,7 +536,7 @@
       "tags": ["#sample", "#desire", "#perception"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-06",
@@ -548,7 +548,7 @@
       "tags": ["#sample", "#snow", "#mortality"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-07",
@@ -560,7 +560,7 @@
       "tags": ["#sample", "#isolation", "#time"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-08",
@@ -572,7 +572,7 @@
       "tags": ["#sample", "#europe", "#politics"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-09",
@@ -584,7 +584,7 @@
       "tags": ["#sample", "#education", "#time"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-10",
@@ -596,7 +596,7 @@
       "tags": ["#sample", "#history", "#europe"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PLACES": [
@@ -612,7 +612,7 @@
       "tags": ["#davos", "#switzerland", "#mountains"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-02",
@@ -626,7 +626,7 @@
       "tags": ["#switzerland", "#alps", "#setting"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-03",
@@ -640,7 +640,7 @@
       "tags": ["#berghof", "#sanatorium", "#illness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-04",
@@ -654,7 +654,7 @@
       "tags": ["#hamburg", "#hans-castorp", "#ordinary-life"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-05",
@@ -668,7 +668,7 @@
       "tags": ["#alps", "#mountain", "#isolation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-06",
@@ -682,7 +682,7 @@
       "tags": ["#analytical-sample", "#berghof", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-07",
@@ -696,7 +696,7 @@
       "tags": ["#analytical-sample", "#rest", "#time"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-08",
@@ -710,7 +710,7 @@
       "tags": ["#analytical-sample", "#snow", "#mortality"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-09",
@@ -724,7 +724,7 @@
       "tags": ["#analytical-sample", "#settembrini", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-10",
@@ -738,7 +738,7 @@
       "tags": ["#analytical-sample", "#isolation", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "QUOTES": [
@@ -749,7 +749,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#time", "#routine"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -759,7 +759,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#illness", "#identity"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -769,7 +769,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#education", "#philosophy"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -779,7 +779,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#reason", "#ideology"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -789,7 +789,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#isolation", "#ordinary-life"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -799,7 +799,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#mortality", "#philosophy"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -809,7 +809,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#routine", "#isolation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -819,7 +819,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#ideas", "#human-nature"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -829,7 +829,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#history", "#europe"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -839,7 +839,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#education", "#ideas"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -863,7 +863,7 @@
       "tags": ["#time"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-02",
@@ -886,7 +886,7 @@
       "tags": ["#time", "#consciousness", "#subjective-time"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-03",
@@ -909,7 +909,7 @@
       "tags": ["#hans-castorp", "#education", "#time"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-04",
@@ -932,7 +932,7 @@
       "tags": ["#davos", "#switzerland", "#mountains"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-05",
@@ -950,7 +950,7 @@
       "tags": ["#sample", "#time", "#routine"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-06",
@@ -968,7 +968,7 @@
       "tags": ["#sample", "#mountain", "#time"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-07",
@@ -994,7 +994,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-08",
@@ -1010,7 +1010,7 @@
       "tags": ["#hans-castorp", "#education", "#time", "#joachim", "#discipline", "#illness"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-09",
@@ -1026,7 +1026,7 @@
       "tags": ["#subjective-time", "#time", "#consciousness", "#illness", "#body", "#mortality"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-10",
@@ -1044,7 +1044,7 @@
       "tags": ["#sanatorium", "#illness"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "BOOK_EVENTS": [
@@ -1074,7 +1074,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-02",
@@ -1104,7 +1104,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-03",
@@ -1134,7 +1134,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-04",
@@ -1164,7 +1164,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "RELATIONS": [
@@ -1183,7 +1183,7 @@
       "tags": ["#hans-castorp", "#education", "#time", "#joachim", "#discipline", "#illness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-02",
@@ -1208,7 +1208,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-03",
@@ -1233,7 +1233,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-04",
@@ -1258,7 +1258,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "ASSOCIATIONS": [
@@ -1277,7 +1277,7 @@
       "tags": ["#subjective-time", "#time", "#consciousness", "#illness", "#body", "#mortality"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-02",
@@ -1302,7 +1302,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-03",
@@ -1327,7 +1327,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-04",
@@ -1352,7 +1352,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ]
 }

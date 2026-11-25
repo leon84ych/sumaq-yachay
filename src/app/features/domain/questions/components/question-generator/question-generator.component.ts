@@ -1,7 +1,7 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { BrowserAiService } from '../../../../../core/services/ia/BrowserIA.service';
-import { GlobalErrorService } from '../../../../../core/services/error/global-error.service';
+import { GlobalMessageService } from '../../../../../core/services/global-message.service';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { normalizeTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
 import { QuestionDataService } from '../../../../domain/questions/services/questions.service';
@@ -35,7 +35,7 @@ export class QuestionGeneratorComponent {
   private readonly browserAi = inject(BrowserAiService);
   private readonly transloco = inject(TranslocoService);
   private readonly questionDataService = inject(QuestionDataService);
-  private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalMessageService = inject(GlobalMessageService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
 
@@ -54,11 +54,11 @@ export class QuestionGeneratorComponent {
       return;
     }
     if (!this.bookId()) {
-      this.globalErrorService.show('No active book is available for this question.');
+      this.globalMessageService.showError('No active book is available for this question.');
       return;
     }
     if (!this.browserAi.isAiAvailable()) {
-      this.globalErrorService.show(this.transloco.translate('DOMAINS.QUESTIONS.AI_UNAVAILABLE'));
+      this.globalMessageService.showError(this.transloco.translate('DOMAINS.QUESTIONS.AI_UNAVAILABLE'));
       return;
     }
 
@@ -98,7 +98,7 @@ export class QuestionGeneratorComponent {
       this.isOpen.set(false);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to generate question.';
-      this.globalErrorService.show(message);
+      this.globalMessageService.showError(message);
     } finally {
       this.isGenerating.set(false);
     }

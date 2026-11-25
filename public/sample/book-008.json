@@ -5,7 +5,7 @@
       "chapter": "From the Other Side",
       "theme": "Search",
       "subtheme": "The pursuit of meaning beyond ordinary reality",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#search"],
       "contributor": "leon84ych"
     },
@@ -14,7 +14,7 @@
       "chapter": "From the Other Side",
       "theme": "Love",
       "subtheme": "Intimacy, distance, and emotional uncertainty",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#love"],
       "contributor": "leon84ych"
     },
@@ -23,7 +23,7 @@
       "chapter": "From the Other Side",
       "theme": "Paris",
       "subtheme": "Urban wandering and intellectual experience",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#paris"],
       "contributor": "leon84ych"
     },
@@ -32,7 +32,7 @@
       "chapter": "From This Side",
       "theme": "Return",
       "subtheme": "Displacement and readjustment in Buenos Aires",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#return"],
       "contributor": "leon84ych"
     },
@@ -41,7 +41,7 @@
       "chapter": "From This Side",
       "theme": "Identity",
       "subtheme": "Doubling, recognition, and unstable perception",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#identity"],
       "contributor": "leon84ych"
     },
@@ -50,7 +50,7 @@
       "chapter": "From Diverse Sides",
       "theme": "Experimentation",
       "subtheme": "Alternative reading orders and fragmented structure",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#experimentation"],
       "contributor": "leon84ych"
     },
@@ -59,7 +59,7 @@
       "chapter": "The Serpent Club",
       "theme": "Art",
       "subtheme": "Jazz, literature, philosophy, and conversation",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#art"],
       "contributor": "leon84ych"
     },
@@ -68,7 +68,7 @@
       "chapter": "Horacio Oliveira",
       "theme": "Alienation",
       "subtheme": "Intellectual distance from experience",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#alienation"],
       "contributor": "leon84ych"
     },
@@ -77,7 +77,7 @@
       "chapter": "La Maga",
       "theme": "Intuition",
       "subtheme": "Experience contrasted with intellectual abstraction",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#intuition"],
       "contributor": "leon84ych"
     },
@@ -86,7 +86,7 @@
       "chapter": "Analytical Overview",
       "theme": "Reading",
       "subtheme": "Reader participation and nonlinear interpretation",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#reading"],
       "contributor": "leon84ych"
     }
@@ -103,7 +103,7 @@
       "tags": ["#oliveira", "#search", "#alienation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#5C4D7D"
     },
     {
@@ -117,7 +117,7 @@
       "tags": ["#la-maga", "#intuition", "#love"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#4F6D7A"
     },
     {
@@ -131,7 +131,7 @@
       "tags": ["#traveler", "#friendship", "#identity"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#B56576"
     },
     {
@@ -145,7 +145,7 @@
       "tags": ["#talita", "#traveler", "#perception"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#6A994E"
     },
     {
@@ -159,7 +159,7 @@
       "tags": ["#morelli", "#literature", "#experimentation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#2F6690"
     },
     {
@@ -173,7 +173,7 @@
       "tags": ["#etienne", "#serpent-club", "#art"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#3A7D44"
     },
     {
@@ -187,7 +187,7 @@
       "tags": ["#ronald", "#serpent-club", "#jazz"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#C49A3A"
     },
     {
@@ -201,7 +201,7 @@
       "tags": ["#babs", "#serpent-club", "#paris"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#A44A3F"
     },
     {
@@ -215,7 +215,7 @@
       "tags": ["#gregorovius", "#serpent-club", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#735D78"
     },
     {
@@ -229,7 +229,7 @@
       "tags": ["#rocamadour", "#la-maga", "#vulnerability"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#D17B49"
     }
   ],
@@ -241,7 +241,7 @@
       "category": "Narrative technique",
       "source": "Study context for Hopscotch",
       "tags": ["#structure", "#experimentation", "#nonlinear-reading"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -251,7 +251,7 @@
       "category": "Literary concept",
       "source": "Study context for Hopscotch",
       "tags": ["#reading", "#interpretation", "#reader-participation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -261,7 +261,7 @@
       "category": "Philosophical theme",
       "source": "Study context for Hopscotch",
       "tags": ["#meaning", "#identity", "#existential-search"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -271,7 +271,7 @@
       "category": "Theme",
       "source": "Study context for Hopscotch",
       "tags": ["#isolation", "#identity", "#alienation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -281,7 +281,7 @@
       "category": "Philosophical theme",
       "source": "Study context for Hopscotch",
       "tags": ["#intuition", "#reason", "#intuition-intellect"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -291,7 +291,7 @@
       "category": "Narrative technique",
       "source": "Study context for Hopscotch",
       "tags": ["#literature", "#experimentation", "#metafiction"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -301,7 +301,7 @@
       "category": "Narrative structure",
       "source": "Study context for Hopscotch",
       "tags": ["#structure", "#modern-fiction", "#fragmentation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -311,7 +311,7 @@
       "category": "Literary concept",
       "source": "Study context for Hopscotch",
       "tags": ["#language", "#experimentation", "#play"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -321,7 +321,7 @@
       "category": "Analytical concept",
       "source": "Study context for Hopscotch",
       "tags": ["#jazz", "#art", "#jazz-improvisation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -331,7 +331,7 @@
       "category": "Philosophical concept",
       "source": "Study context for Hopscotch",
       "tags": ["#search", "#meaning", "#other-side"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -348,7 +348,7 @@
       "tags": ["#structure", "#reading"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-02",
@@ -362,7 +362,7 @@
       "tags": ["#metafiction", "#literature"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-03",
@@ -376,7 +376,7 @@
       "tags": ["#fragmentation", "#structure"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-04",
@@ -390,7 +390,7 @@
       "tags": ["#alienation", "#identity"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-05",
@@ -404,7 +404,7 @@
       "tags": ["#intuition", "#perception"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-06",
@@ -418,7 +418,7 @@
       "tags": ["#jazz", "#experimentation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-07",
@@ -432,7 +432,7 @@
       "tags": ["#paris", "#art"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-08",
@@ -446,7 +446,7 @@
       "tags": ["#references", "#literature"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-09",
@@ -460,7 +460,7 @@
       "tags": ["#absurdity", "#meaning"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-glosary-10",
@@ -474,7 +474,7 @@
       "tags": ["#experimental", "#literature"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PASSAGES": [
@@ -488,7 +488,7 @@
       "tags": ["#sample", "#paris", "#search"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-02",
@@ -500,7 +500,7 @@
       "tags": ["#sample", "#intellect", "#alienation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-03",
@@ -512,7 +512,7 @@
       "tags": ["#sample", "#jazz", "#improvisation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-04",
@@ -524,7 +524,7 @@
       "tags": ["#sample", "#intuition", "#reason"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-05",
@@ -536,7 +536,7 @@
       "tags": ["#sample", "#structure", "#reading"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-06",
@@ -548,7 +548,7 @@
       "tags": ["#sample", "#buenos-aires", "#alienation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-07",
@@ -560,7 +560,7 @@
       "tags": ["#sample", "#identity", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-08",
@@ -572,7 +572,7 @@
       "tags": ["#sample", "#serpent-club", "#ideas"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-09",
@@ -584,7 +584,7 @@
       "tags": ["#sample", "#reading", "#choice"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-10",
@@ -596,7 +596,7 @@
       "tags": ["#sample", "#search", "#meaning"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PLACES": [
@@ -612,7 +612,7 @@
       "tags": ["#paris", "#france", "#oliveira"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-02",
@@ -626,7 +626,7 @@
       "tags": ["#buenos-aires", "#argentina", "#return"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-03",
@@ -640,7 +640,7 @@
       "tags": ["#france", "#paris", "#europe"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-04",
@@ -654,7 +654,7 @@
       "tags": ["#argentina", "#buenos-aires", "#return"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-05",
@@ -668,7 +668,7 @@
       "tags": ["#seine", "#paris", "#river"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-06",
@@ -682,7 +682,7 @@
       "tags": ["#analytical-sample", "#serpent-club", "#jazz"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-07",
@@ -696,7 +696,7 @@
       "tags": ["#analytical-sample", "#paris", "#wandering"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-08",
@@ -710,7 +710,7 @@
       "tags": ["#analytical-sample", "#circus", "#buenos-aires"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-09",
@@ -724,7 +724,7 @@
       "tags": ["#analytical-sample", "#clinic", "#buenos-aires"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-10",
@@ -738,7 +738,7 @@
       "tags": ["#analytical-sample", "#hopscotch", "#structure"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "QUOTES": [
@@ -749,7 +749,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#reading", "#structure"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -759,7 +759,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#meaning", "#alienation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -769,7 +769,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#journey", "#possibility"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -779,7 +779,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#intuition", "#intellect"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -789,7 +789,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#jazz", "#improvisation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -799,7 +799,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#return", "#identity"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -809,7 +809,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#conversation", "#ideas"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -819,7 +819,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#reader", "#experimentation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -829,7 +829,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#identity", "#doubling"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -839,7 +839,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#search", "#meaning"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -863,7 +863,7 @@
       "tags": ["#search"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-02",
@@ -886,7 +886,7 @@
       "tags": ["#structure", "#experimentation", "#nonlinear-reading"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-03",
@@ -909,7 +909,7 @@
       "tags": ["#oliveira", "#search", "#alienation"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-04",
@@ -932,7 +932,7 @@
       "tags": ["#paris", "#france", "#oliveira"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-05",
@@ -950,7 +950,7 @@
       "tags": ["#sample", "#reading", "#structure"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-06",
@@ -968,7 +968,7 @@
       "tags": ["#sample", "#paris", "#search"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-07",
@@ -994,7 +994,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-08",
@@ -1010,7 +1010,7 @@
       "tags": ["#oliveira", "#search", "#alienation", "#la-maga", "#intuition", "#love"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-09",
@@ -1034,7 +1034,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-10",
@@ -1052,7 +1052,7 @@
       "tags": ["#structure", "#reading"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "BOOK_EVENTS": [
@@ -1082,7 +1082,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-02",
@@ -1111,7 +1111,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-03",
@@ -1140,7 +1140,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-04",
@@ -1169,7 +1169,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "RELATIONS": [
@@ -1188,7 +1188,7 @@
       "tags": ["#oliveira", "#search", "#alienation", "#la-maga", "#intuition", "#love"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-02",
@@ -1205,7 +1205,7 @@
       "tags": ["#traveler", "#friendship", "#identity", "#talita", "#perception", "#love"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-03",
@@ -1230,7 +1230,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-04",
@@ -1247,7 +1247,7 @@
       "tags": ["#ronald", "#serpent-club", "#jazz", "#babs", "#paris", "#return"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "ASSOCIATIONS": [
@@ -1274,7 +1274,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-02",
@@ -1298,7 +1298,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-03",
@@ -1323,7 +1323,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-04",
@@ -1348,7 +1348,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ]
 }

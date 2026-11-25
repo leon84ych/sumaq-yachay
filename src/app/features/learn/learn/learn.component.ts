@@ -12,7 +12,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { GlobalErrorService } from '../../../core/services/error/global-error.service';
+import { GlobalMessageService } from '../../../core/services/global-message.service';
 import { StudySearchService } from '../../../core/services/search/study-search.service';
 import { downloadJpeg } from '../../../shared/utils/image-export';
 import { PlaceEntryCardComponent } from '../../domain/places/components/place-entry-card/place-entry-card.component';
@@ -38,7 +38,7 @@ export class Learn {
   private readonly destroyRef = inject(DestroyRef);
   private readonly learnFeedService = inject(LearnFeedService);
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
-  private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalMessageService = inject(GlobalMessageService);
   private readonly transloco = inject(TranslocoService);
   private readonly seenEntryIds = new Set<string>();
 
@@ -162,7 +162,7 @@ export class Learn {
         backgroundColor: this.exportTheme() === 'light' ? '#ffffff' : '#1a1a1a',
       });
     } catch {
-      this.globalErrorService.show(this.transloco.translate('LEARN.EXPORT_ERROR'));
+      this.globalMessageService.showError(this.transloco.translate('LEARN.EXPORT_ERROR'));
     } finally {
       this.entryBeingExported.set(null);
       this.isExporting.set(false);

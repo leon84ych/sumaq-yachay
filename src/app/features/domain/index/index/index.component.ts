@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, inject, input, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalMessageService } from '../../../../core/services/global-message.service';
 
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { IndexEntryCardComponent } from '../components/index-entry-card/index-entry-card.component';
@@ -66,7 +66,7 @@ export class IndexComponent implements OnInit {
   private readonly indexDataService = inject(IndexDataService);
   private readonly globalLoadingService = inject(GlobalLoadingService);
   
-  private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalMessageService = inject(GlobalMessageService);
 
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
@@ -96,7 +96,10 @@ export class IndexComponent implements OnInit {
       this.bookName.set(bookRecord?.name ?? '');
       this.bookAuthor.set(bookRecord?.author ?? '');
       // 2. Retrieve the index records for the specified book, row, and count
-      this.rows.set(await this.indexDataService.getRecords(this.bookId()));
+      const bookId = this.bookId();
+      this.rows.set(await this.indexDataService.getRecords(bookId, (records) => {
+        if (this.bookId() === bookId) this.rows.set(records);
+      }));
     }
 
   }
@@ -149,7 +152,7 @@ export class IndexComponent implements OnInit {
       this.rows.update((rows) => rows.filter((item) => item.id !== id));
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to delete index entry.';
-      this.globalErrorService.show(message);
+      this.globalMessageService.showError(message);
     }
   }
 
@@ -203,6 +206,7 @@ export class IndexComponent implements OnInit {
       const savedEntry = this.editingId()
         ? await this.indexDataService.updateDomainItem(indexEntry)
         : await this.indexDataService.addDomainItem(indexEntry);
+      const wasEditing = this.editingId() !== null;
       this.rows.update((rows) => {
         const existingIndex = rows.findIndex((row) => row.id === indexEntry.id);
         if (existingIndex === -1) {
@@ -212,9 +216,12 @@ export class IndexComponent implements OnInit {
         return rows.map((row, index) => (index === existingIndex ? savedEntry : row));
       });
       this.resetForm();
+      this.globalMessageService.showSuccess(
+        this.transloco.translate(wasEditing ? 'NAV.MESSAGE.UPDATED' : 'NAV.MESSAGE.SAVED'),
+      );
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to add index entry.';
-      this.globalErrorService.show(message);
+      this.globalMessageService.showError(message);
     } finally {
       this.globalLoadingService.end(operation);
     }

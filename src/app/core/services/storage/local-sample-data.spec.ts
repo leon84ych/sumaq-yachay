@@ -55,6 +55,7 @@ describe('LocalSampleData fixtures', () => {
         for (const row of rows) {
           expect(Array.isArray(row['tags']), `${bookRecord.id} ${domain} tags`).toBe(true);
           expect(row['contributor'], `${bookRecord.id} ${domain} contributor`).toBe('leon84ych');
+          expect(row['syncStatus'], `${bookRecord.id} ${domain} sync status`).toBe('pending');
           expect(row, `${bookRecord.id} ${domain}`).not.toHaveProperty('tag');
         }
       }
@@ -142,11 +143,26 @@ describe('LocalSampleData fixtures', () => {
       id: 'book-001',
       name: 'Ulysses',
       row: 1,
-      syncStatus: 'synced',
+      syncStatus: 'pending',
     });
+    expect(LOCAL_SAMPLE_BOOKS.every((book) => book.syncStatus === 'pending')).toBe(true);
     expect(new Set(LOCAL_SAMPLE_BOOKS.map((item) => item.row)).size).toBe(
       LOCAL_SAMPLE_BOOKS.length,
     );
+    const isValidIsbn13 = (isbn: string): boolean => {
+      if (!/^\d{13}$/.test(isbn)) return false;
+      const checksum = [...isbn.slice(0, 12)].reduce(
+        (sum, digit, index) => sum + Number(digit) * (index % 2 === 0 ? 1 : 3),
+        0,
+      );
+      return (10 - (checksum % 10)) % 10 === Number(isbn[12]);
+    };
+
+    expect(new Set(LOCAL_SAMPLE_BOOKS.map((item) => item.isbn)).size).toBe(LOCAL_SAMPLE_BOOKS.length);
+    for (const book of LOCAL_SAMPLE_BOOKS) {
+      expect(isValidIsbn13(book.isbn), book.id).toBe(true);
+      expect(book.language, book.id).toBe(book.id.includes('-es-') ? 'Spanish' : 'English');
+    }
   });
 
   it('maps every sample domain to an existing IndexedDB table', async () => {

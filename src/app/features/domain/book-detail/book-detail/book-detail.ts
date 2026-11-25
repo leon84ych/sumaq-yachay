@@ -11,7 +11,7 @@ import { ALL_AVAILABLE_DOMAINS, getDefaultHeadersForDomain } from '../models/dom
 import { BookService } from '../../../book/services/book.service';
 import { ConfigService } from '../../../../core/services/config/config.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
-import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalMessageService } from '../../../../core/services/global-message.service';
 
 
 @Component({
@@ -36,7 +36,7 @@ export class BookDetail {
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
   
-  private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalMessageService = inject(GlobalMessageService);
   private readonly paramMap = toSignal(this.route.paramMap);
 
   readonly itemId = computed(() => this.paramMap()?.get('id') ?? null);
@@ -96,7 +96,7 @@ export class BookDetail {
 
     const bookRow = this.domainDataService.bookInfo()?.row;
     if (!bookRow || bookRow < 2) {
-      this.globalErrorService.show('No active book row is available for domain creation.');
+      this.globalMessageService.showError('No active book row is available for domain creation.');
       return;
     }
 
@@ -108,7 +108,7 @@ export class BookDetail {
       this.activeDomainName.set(domainName);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to create domain sheet.';
-      this.globalErrorService.show(message);
+      this.globalMessageService.showError(message);
     } finally {
       this.isCreatingDomain.set(false);
       this.isAddingDomain.set(false);

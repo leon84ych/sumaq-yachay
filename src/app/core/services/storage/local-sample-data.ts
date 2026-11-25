@@ -20,7 +20,7 @@ export const LOCAL_SAMPLE_BOOKS: BookRecord[] = sampleBookItems.map((item, index
   updatedAt: item.updatedAt ?? new Date().toISOString(),
   count: item.count ?? 0,
   row: index + 1,
-  syncStatus: 'synced',
+  syncStatus: 'pending',
 }));
 
 export const LOCAL_SAMPLE_DOMAIN_TABLES: Record<string, string> = {

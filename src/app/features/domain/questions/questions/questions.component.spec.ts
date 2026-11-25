@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalMessageService } from '../../../../core/services/global-message.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { LocalDBService } from '../../../../shared/local-db/local-db.service';
@@ -72,7 +72,7 @@ describe('QuestionsComponent', () => {
       ],
       providers: [
         { provide: QuestionDataService, useValue: dataService },
-        { provide: GlobalErrorService, useValue: { show: showError } },
+        { provide: GlobalMessageService, useValue: { showError } },
         {
           provide: LocalDBService,
           useValue: {
