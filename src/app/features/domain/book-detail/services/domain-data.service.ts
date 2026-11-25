@@ -11,6 +11,7 @@ import { GASDomainAPI } from '../../../../core/infrastructure/gas/gas-domain-api
 import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { ConfigService } from '../../../../core/services/config/config.service';
 import { LOCAL_SAMPLE_DOMAIN_TABLES } from '../../../../core/services/storage/local-sample-data';
+import { TranslocoService } from '@jsverse/transloco';
 
 
 
@@ -35,6 +36,8 @@ export class DomainDataService {
   private globalLoadingService = inject(GlobalLoadingService);
   private localDBService = inject(LocalDBService);
   private configService = inject(ConfigService);
+  private transloco = inject(TranslocoService);
+  private loadRequestId = 0;
 
   readonly domainsInfo = signal<DomainInfo[]>([]);
   readonly domainsNames = computed(() => this.domainsInfo().filter(domain => domain.id != 'ID').map((domain) => domain.id));
@@ -46,47 +49,66 @@ export class DomainDataService {
    * Loads the sheet (tab) names of the Domain Data owned by a Book row
    */
   async loadForCatalog(row: number): Promise<void> {
+    const requestId = ++this.loadRequestId;
     this.sheets.set([]);
     this.isLoading.set(true);
     const operation = this.globalLoadingService.begin();
+    let localBook: BookRecord | undefined;
     try {
-      if (this.configService.isLocalSampleDataEnabled()) {
-        const database = this.localDBService.indexedDB;
-        const book = await database.books.where('row').equals(row).first();
-        this.bookInfo.set(book ?? null);
-        const domains = book ? await Promise.all(
-          Object.entries(LOCAL_SAMPLE_DOMAIN_TABLES).map(async ([id, tableName], index) => ({
-            id, index, count: await database.table(tableName).where('bookId').equals(book.id).count(),
-          })),
-        ) : [];
-        this.domainsInfo.set(domains.filter((domain) => domain.count > 0));
-        if (book && domains.some((domain) => domain.id === 'INDEX' && domain.count > 0)) {
-          await this.tagPickerService.loadBookTagsByRow(row);
-        }
-        return;
+      const database = this.localDBService.indexedDB;
+      localBook = await database.books.where('row').equals(row).first();
+      this.bookInfo.set(localBook ?? null);
+      const domains = localBook ? await Promise.all(
+        Object.entries(LOCAL_SAMPLE_DOMAIN_TABLES).map(async ([id, tableName], index) => ({
+          id,
+          index,
+          count: await database.table(tableName).where('bookId').equals(localBook!.id).count(),
+        })),
+      ) : [];
+      this.domainsInfo.set(domains.filter((domain) => domain.count > 0));
+      if (localBook && domains.some((domain) => domain.id === 'INDEX' && domain.count > 0)) {
+        await this.tagPickerService.loadBookTagsByRow(row);
       }
+    } catch (error: unknown) {
+      this.globalMessageService.showError(
+        error instanceof Error ? error.message : 'Failed to load local book data.',
+      );
+    } finally {
+      this.isLoading.set(false);
+      this.globalLoadingService.end(operation);
+    }
+
+    if (this.configService.isLocalSampleDataEnabled() || requestId !== this.loadRequestId) return;
+    void this.refreshRemoteDomains(row, localBook, requestId);
+  }
+
+  private async refreshRemoteDomains(
+    row: number,
+    localBook: BookRecord | undefined,
+    requestId: number,
+  ): Promise<void> {
+    try {
       const response = await this.bookGASRepository.getBookInfo(row);
       if (response.status !== 'success' || !Array.isArray(response.data?.domains)) {
         throw new Error(response.message || 'Failed to load domain sheets.');
       }
+      if (requestId !== this.loadRequestId) return;
 
-      this.bookInfo.set(response.data.id || null);
-
-      // Store each domain 
-      this.domainsInfo.set(response.data.domains.map(sheet => ({
+      this.bookInfo.set(response.data.id || localBook || null);
+      this.domainsInfo.set(response.data.domains.map((sheet) => ({
         id: sheet.id,
         index: sheet.index,
         count: sheet.count,
       })));
       await this.retrieveDomains(row);
-
     } catch (error: unknown) {
-      this.globalMessageService.showError(
-        error instanceof Error ? error.message : 'Failed to load domain sheets.',
-      );
-    } finally {
-      this.isLoading.set(false);
-      this.globalLoadingService.end(operation);
+      if (requestId !== this.loadRequestId) return;
+      const message = error instanceof Error ? error.message : 'Failed to refresh book data.';
+      if (localBook?.syncStatus === 'synced') {
+        this.globalMessageService.showInfo(this.transloco.translate('BOOK_DETAIL.SESSION_EXPIRED'));
+      } else {
+        this.globalMessageService.showError(message);
+      }
     }
   }
 

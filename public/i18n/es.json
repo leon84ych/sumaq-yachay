@@ -190,6 +190,7 @@
   },
   "BOOK_DETAIL": {
     "LOADING": "Cargando entrada del libro...",
+    "SESSION_EXPIRED": "Mostrando los datos locales guardados. Es posible que tu sesión haya caducado; inicia sesión para actualizar desde el servidor.",
     "NO_DEFINITIONS": "No se encontraron definiciones en esta hoja.",
     "SYNONYMS": "Sinonimos:",
     "UNSUPPORTED_SHEET": "Este tipo de hoja no está soportado para visualización aún.",

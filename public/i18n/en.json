@@ -217,6 +217,7 @@
   },
   "BOOK_DETAIL": {
     "LOADING": "Loading book entry...",
+    "SESSION_EXPIRED": "Showing saved local data. Your session may have expired; sign in to refresh from the server.",
     "NO_DEFINITIONS": "No definitions found in this sheet.",
     "SYNONYMS": "Synonyms:",
     "UNSUPPORTED_SHEET": "This sheet type isn't supported for viewing yet.",
