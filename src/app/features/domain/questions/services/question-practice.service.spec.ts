@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { LocalDBService } from '../../../../shared/local-db/local-db.service';
 import { ConfigService } from '../../../../core/services/config/config.service';
-import { QuestionRecord as V2QuestionRecord } from '../../../domain-1/questions/model/questions-model';
+import { QuestionRecord as V2QuestionRecord } from '../../../domain/questions/model/questions-model';
 import { QuestionPracticeService } from './question-practice.service';
 
 describe('QuestionPracticeService', () => {

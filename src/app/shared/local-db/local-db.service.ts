@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import Dexie, { Table } from 'dexie';
-import { IndexRecord } from '../../features/domain-1/index/model/index-model';
-import { QuoteRecord } from '../../features/domain-1/quotes/model/quotes-model';
-import { ConceptRecord } from '../../features/domain-1/concepts/model/concepts-model';
-import { PassageRecord } from '../../features/domain-1/passages/model/passages-model';
-import { CharacterRecord } from '../../features/domain-1/characters/model/characters-model';
-import { GlossaryRecord } from '../../features/domain-1/glossary/model/glossary-model';
-import { PlaceRecord } from '../../features/domain-1/places/model/places-model';
-import { RelationRecord } from '../../features/domain-1/relations/model/relations-model';
-import { QuestionRecord } from '../../features/domain-1/questions/model/questions-model';
-import { AssociationRecord } from '../../features/domain-1/associations/model/associations-model';
-import { BookEventRecord } from '../../features/domain-1/book-events/model/book-events-model';
+import { IndexRecord } from '../../features/domain/index/model/index-model';
+import { QuoteRecord } from '../../features/domain/quotes/model/quotes-model';
+import { ConceptRecord } from '../../features/domain/concepts/model/concepts-model';
+import { PassageRecord } from '../../features/domain/passages/model/passages-model';
+import { CharacterRecord } from '../../features/domain/characters/model/characters-model';
+import { GlossaryRecord } from '../../features/domain/glossary/model/glossary-model';
+import { PlaceRecord } from '../../features/domain/places/model/places-model';
+import { RelationRecord } from '../../features/domain/relations/model/relations-model';
+import { QuestionRecord } from '../../features/domain/questions/model/questions-model';
+import { AssociationRecord } from '../../features/domain/associations/model/associations-model';
+import { BookEventRecord } from '../../features/domain/book-events/model/book-events-model';
 import { BookRecord } from '../../features/book/models/book-item.model';
 import { TagRecord } from '../tag-picker/tag-picker.model';
-import { QuestionAttempt } from '../../features/domain-1/questions/model/question-attempt.model';
+import { QuestionAttempt } from '../../features/domain/questions/model/question-attempt.model';
 import { getLocalSampleDomainData, LOCAL_SAMPLE_BOOKS, LOCAL_SAMPLE_DOMAIN_TABLES, normalizeSampleDomainRow } from '../../core/services/storage/local-sample-data';
 
 const VERSION_ONE_STORES = {

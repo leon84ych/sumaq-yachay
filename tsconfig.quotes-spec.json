@@ -2,6 +2,6 @@
   "extends": "./tsconfig.spec.json",
   "include": [
     "src/**/*.d.ts",
-    "src/app/features/domain-1/quotes/quotes/quotes.component.spec.ts"
+    "src/app/features/domain/quotes/quotes/quotes.component.spec.ts"
   ]
 }

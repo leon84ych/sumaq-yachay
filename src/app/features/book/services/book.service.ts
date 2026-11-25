@@ -9,7 +9,7 @@ import { StudySearchService } from '../../../core/services/search/study-search.s
 import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
 import { BookGASRepository } from './book-gas-repository';
 import { LocalDBService } from '../../../shared/local-db/local-db.service';
-import { Status } from '../../domain-1/shared/model/domain-shared-model';
+import { Status } from '../../domain/shared/model/domain-shared-model';
 import { computed, effect, inject, Injectable, signal } from "@angular/core";
 
 

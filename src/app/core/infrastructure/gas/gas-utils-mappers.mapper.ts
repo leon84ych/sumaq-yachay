@@ -1,4 +1,4 @@
-import { Response, Role, Status, SyncStatus } from "../../../features/domain-1/shared/model/domain-shared-model";
+import { Response, Role, Status, SyncStatus } from "../../../features/domain/shared/model/domain-shared-model";
 import { GASResponseRaw } from "./gas-model.model";
 
 

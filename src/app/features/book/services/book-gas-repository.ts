@@ -3,10 +3,10 @@ import { BookRepositoryInterface } from "../../../core/infrastructure/book-repos
 import { GASBookAPI } from "../../../core/infrastructure/gas/gas-book-api.service";
 import { mapRole, mapStatus, parseResponseRole, parseResponseStatus, parseSyncStatus } from "../../../core/infrastructure/gas/gas-utils-mappers.mapper";
 
-import { Response, PaginatedResponse } from "../../domain-1/shared/model/domain-shared-model";
+import { Response, PaginatedResponse } from "../../domain/shared/model/domain-shared-model";
 
 import { BookRaw, BookRawValues, BookRecord } from "../models/book-item.model";
-import { BookInfo } from "../../domain-1/book-detail/models/domain-sheet.model";
+import { BookInfo } from "../../domain/book-detail/models/domain-sheet.model";
 import { BookGASMapper } from "../models/book-gas.mapper";
 
 

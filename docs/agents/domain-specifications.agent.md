@@ -3,14 +3,14 @@
 ## Purpose
 
 Use this specification when migrating a legacy domain under `src/app/features/domain/` to the
-typed GAS-backed architecture under `src/app/features/domain-1/`.
+typed GAS-backed architecture under `src/app/features/domain/`.
 
 The reference implementation is the INDEX domain:
 
-- Target feature: `src/app/features/domain-1/index/`
+- Target feature: `src/app/features/domain/index/`
 - Legacy feature: `src/app/features/domain/domain-index/`
 - Shared GAS infrastructure: `src/app/core/infrastructure/gas/`
-- Shared domain contract: `src/app/features/domain-1/shared/model/domain-shared-model.ts`
+- Shared domain contract: `src/app/features/domain/shared/model/domain-shared-model.ts`
 - Shared IndexedDB service: `src/app/shared/local-db/local-db.service.ts`
 
 The goal is not to copy INDEX literally. The goal is to preserve each domain's business fields
@@ -38,7 +38,7 @@ request mapping.
 For a domain named `CONCEPTS`, use the INDEX layout as a template:
 
 ```text
-src/app/features/domain-1/concepts/
+src/app/features/domain/concepts/
 ├── components/
 │   ├── concepts-entry-card/
 │   └── concepts-entry-form/
@@ -409,7 +409,7 @@ The legacy feature:
 - sends generic object rows through the older domain-data API;
 - updates the whole local row collection during edit/create operations.
 
-### GAS-backed `domain-1/index`
+### GAS-backed `domain/index`
 
 The target feature:
 
@@ -547,7 +547,7 @@ Add focused tests for:
 When asked to migrate a domain:
 
 1. Read the legacy domain end to end before editing.
-2. Use `domain-1/index` as the architectural reference, not as a blind copy.
+2. Use `domain/index` as the architectural reference, not as a blind copy.
 3. Confirm the GAS backend field names and action names from existing API code or tests.
 4. Preserve user changes in dirty files.
 5. Make the smallest coherent migration slice: model/mapper, transport, repository, service,

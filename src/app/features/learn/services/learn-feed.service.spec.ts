@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { LocalDBService } from '../../../shared/local-db/local-db.service';
 import { ConfigService } from '../../../core/services/config/config.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
-import { IndexRepository } from '../../domain-1/index/services/index-repository';
+import { IndexRepository } from '../../domain/index/services/index-repository';
 import { LearnFeedService } from './learn-feed.service';
 
 describe('LearnFeedService', () => {

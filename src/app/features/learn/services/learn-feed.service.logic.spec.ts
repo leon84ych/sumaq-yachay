@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DomainName } from '../../domain-1/book-detail/models/domain-sheet-config';
+import { DomainName } from '../../domain/book-detail/models/domain-sheet-config';
 import { LearnFeedEntry, selectLearnFeedBatch } from './learn-feed.service';
 
 function createEntry(id: string, domain: DomainName): LearnFeedEntry {

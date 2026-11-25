@@ -3,16 +3,17 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'books',
+    redirectTo: 'catalog',
     pathMatch: 'full',
   },
   {
-    path: 'books',
+    path: 'catalog',
     loadComponent: () => import('./features/book/book/book').then((m) => m.BookList),
   },
   {
-    path: 'catalog',
-    redirectTo: 'books',
+    path: 'books',
+    redirectTo: 'catalog',
+    pathMatch: 'full',
   },
   {
     path: 'learn',
@@ -21,22 +22,22 @@ export const routes: Routes = [
   {
     path: 'quiz',
     loadComponent: () =>
-      import('./features/domain-1/questions/practice/question-practice.component').then(
+      import('./features/domain/questions/practice/question-practice.component').then(
         (m) => m.QuestionPracticeComponent,
       ),
   },
   {
-    path: 'books/:id',
+    path: 'catalog/:id',
     loadComponent: () =>
-      import('./features/domain-1/book-detail/book-detail/book-detail').then((m) => m.BookDetail),
+      import('./features/domain/book-detail/book-detail/book-detail').then((m) => m.BookDetail),
   },
   {
-    path: 'catalog/:id',
-    redirectTo: 'books/:id',
+    path: 'books/:id',
+    redirectTo: 'catalog/:id',
   },
   {
     path: 'book/:id',
-    redirectTo: 'books/:id',
+    redirectTo: 'catalog/:id',
   },
   {
     path: 'documentation',
@@ -50,6 +51,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'books',
+    redirectTo: 'catalog',
   },
 ];

@@ -1,5 +1,5 @@
 
-import { Response, PaginatedResponse } from "../../features/domain-1/shared/model/domain-shared-model";
+import { Response, PaginatedResponse } from "../../features/domain/shared/model/domain-shared-model";
 
 export interface BookRepositoryInterface<TRow> {
 

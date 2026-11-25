@@ -2,9 +2,9 @@
   "extends": "./tsconfig.spec.json",
   "include": [
     "src/**/*.d.ts",
-    "src/app/features/domain-1/relations/model/relations-gas.mapper.spec.ts",
-    "src/app/features/domain-1/relations/services/relations-gas-repository.spec.ts",
-    "src/app/features/domain-1/relations/services/relations-repository.spec.ts",
-    "src/app/features/domain-1/relations/relations/relations.component.spec.ts"
+    "src/app/features/domain/relations/model/relations-gas.mapper.spec.ts",
+    "src/app/features/domain/relations/services/relations-gas-repository.spec.ts",
+    "src/app/features/domain/relations/services/relations-repository.spec.ts",
+    "src/app/features/domain/relations/relations/relations.component.spec.ts"
   ]
 }

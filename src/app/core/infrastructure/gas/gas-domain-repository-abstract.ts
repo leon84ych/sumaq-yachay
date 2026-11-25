@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { GASDomainAPI, PAGE_SIZE } from "./gas-domain-api.service";
 import { GASPaginatedResponseRaw } from "./gas-model.model";
 import { GASMapperInterface } from "./gas-mapper-interface";
-import { Domain } from "../../../features/domain-1/shared/model/domain-shared-model";
+import { Domain } from "../../../features/domain/shared/model/domain-shared-model";
 
 
 @Injectable({

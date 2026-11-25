@@ -2,9 +2,9 @@
   "extends": "./tsconfig.spec.json",
   "include": [
     "src/**/*.d.ts",
-    "src/app/features/domain-1/associations/model/associations-gas.mapper.spec.ts",
-    "src/app/features/domain-1/associations/services/associations-gas-repository.spec.ts",
-    "src/app/features/domain-1/associations/services/associations-repository.spec.ts",
-    "src/app/features/domain-1/associations/associations/associations.component.spec.ts"
+    "src/app/features/domain/associations/model/associations-gas.mapper.spec.ts",
+    "src/app/features/domain/associations/services/associations-gas-repository.spec.ts",
+    "src/app/features/domain/associations/services/associations-repository.spec.ts",
+    "src/app/features/domain/associations/associations/associations.component.spec.ts"
   ]
 }

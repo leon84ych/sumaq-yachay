@@ -1,4 +1,4 @@
-import { SyncStatus } from "../../domain-1/shared/model/domain-shared-model";
+import { SyncStatus } from "../../domain/shared/model/domain-shared-model";
 
 
 export type SyncState = 'synced' | 'pending' | 'error';

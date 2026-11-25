@@ -1,4 +1,4 @@
-import { QuestionType } from '../../../domain-1/questions/model/questions-model';
+import { QuestionType } from '../../../domain/questions/model/questions-model';
 
 export interface QuestionAttempt {
   id?: number;

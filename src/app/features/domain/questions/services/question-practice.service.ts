@@ -3,7 +3,7 @@ import { LocalDBService } from '../../../../shared/local-db/local-db.service';
 import { ConfigService } from '../../../../core/services/config/config.service';
 import { parseTagsFromArray } from '../../../../shared/tag-picker/tag-picker.mapper';
 import { matchesStudySearch, parseStudySearch } from '../../../../shared/utils/study-search';
-import { QuestionOption, QuestionRecord, QuestionType } from '../../../domain-1/questions/model/questions-model';
+import { QuestionOption, QuestionRecord, QuestionType } from '../../../domain/questions/model/questions-model';
 
 export interface QuestionPracticeFilters {
   query?: string;

@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
-import { DomainEntryCardComponent } from '../../../domain-1/shared/domain-entry-card/domain-entry-card.component';
-import { DomainContributorComponent } from '../../../domain-1/shared/domain-contributor/domain-contributor.component';
+import { DomainEntryCardComponent } from '../../../domain/shared/domain-entry-card/domain-entry-card.component';
+import { DomainContributorComponent } from '../../../domain/shared/domain-contributor/domain-contributor.component';
 import { StudyTagDirective } from '../../../../shared/directives/study-tag.directive';
 import { LearnFeedEntry } from '../../services/learn-feed.service';
 

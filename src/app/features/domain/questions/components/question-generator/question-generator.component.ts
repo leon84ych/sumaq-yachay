@@ -4,8 +4,8 @@ import { BrowserAiService } from '../../../../../core/services/ia/BrowserIA.serv
 import { GlobalErrorService } from '../../../../../core/services/error/global-error.service';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { normalizeTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
-import { QuestionDataService } from '../../../../domain-1/questions/services/questions.service';
-import { QuestionRecord, QuestionType } from '../../../../domain-1/questions/model/questions-model';
+import { QuestionDataService } from '../../../../domain/questions/services/questions.service';
+import { QuestionRecord, QuestionType } from '../../../../domain/questions/model/questions-model';
 
 const QUESTION_TYPES: QuestionType[] = ['flashcard', 'multiple-choice', 'true-false', 'open'];
 

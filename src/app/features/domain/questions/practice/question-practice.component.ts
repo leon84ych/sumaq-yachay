@@ -7,7 +7,7 @@ import {
   QuestionPracticeItem,
   QuestionPracticeService,
 } from '../services/question-practice.service';
-import { QuestionOption } from '../../../domain-1/questions/model/questions-model';
+import { QuestionOption } from '../../../domain/questions/model/questions-model';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { DomainContributorComponent } from '../../shared/domain-contributor/domain-contributor.component';
 
