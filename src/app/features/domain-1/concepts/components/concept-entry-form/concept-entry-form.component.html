@@ -9,17 +9,29 @@
       {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.CONCEPTS.NEW_ENTRY_TITLE') | transloco }}
     </h3>
     <div class="form-group">
-      <label for="concept-term">{{ 'DOMAINS.CONCEPTS.TERM' | transloco }}</label>
+      <label for="concept-term">
+        {{ 'DOMAINS.CONCEPTS.TERM' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <input
         id="concept-term"
         type="text"
         [ngModel]="form().newTerm()"
         (ngModelChange)="form().newTerm.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && !form().newTerm().trim() ? 'true' : null"
       />
+      @if (form().submitted() && !form().newTerm().trim()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.CONCEPTS.TERM_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
-      <label for="concept-definition">{{ 'DOMAINS.CONCEPTS.DEFINITION' | transloco }}</label>
+      <label for="concept-definition">
+        {{ 'DOMAINS.CONCEPTS.DEFINITION' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <textarea
         id="concept-definition"
         rows="4"
@@ -27,7 +39,13 @@
         [ngModel]="form().newDefinition()"
         (ngModelChange)="form().newDefinition.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && !form().newDefinition().trim() ? 'true' : null"
       ></textarea>
+      @if (form().submitted() && !form().newDefinition().trim()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.CONCEPTS.DEFINITION_REQUIRED' | transloco
+        }}</span>
+      }
       <small class="character-count">
         {{
           'DOMAINS.CONCEPTS.CHARACTERS_LEFT'
@@ -97,7 +115,7 @@
         <button
           type="button"
           class="btn-submit"
-          [disabled]="form().isFormInvalid() || form().isSaving()"
+          [disabled]="form().isSaving()"
           (click)="form().saveConcept()"
         >
           {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}

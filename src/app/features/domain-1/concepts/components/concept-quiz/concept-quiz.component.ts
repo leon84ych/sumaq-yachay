@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { QuestionGeneratorComponent } from '../../../../domain/domain-questions/components/question-generator/question-generator.component';
+import { QuestionGeneratorComponent } from '../../../questions/components/question-generator/question-generator.component';
 import { ConceptRecord } from '../../model/concepts-model';
 
 @Component({

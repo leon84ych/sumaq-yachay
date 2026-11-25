@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, input, model, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { BookTag } from '../../core/services/storage/app-db.service';
+import { TagRecord } from './tag-picker.model';
 import { LocalDBService } from '../local-db/local-db.service';
 import { normalizeTagsFromArray } from './tag-picker.mapper';
 
@@ -22,7 +22,7 @@ export class TagPickerComponent {
 
   readonly inputValue = signal('');
   readonly isFocused = signal(false);
-  readonly suggestions = signal<BookTag[]>([]);
+  readonly suggestions = signal<TagRecord[]>([]);
   readonly selectedTags = computed(() => normalizeTagsFromArray(this.value()));
 
   readonly matchingSuggestions = computed(() => {

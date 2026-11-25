@@ -2,11 +2,17 @@
   "extends": "./tsconfig.spec.json",
   "include": [
     "src/**/*.d.ts",
-    "src/app/features/domain/domain-questions/components/question-generator/question-generator.component.spec.ts",
+    "src/app/features/domain-1/questions/components/question-generator/question-generator.component.spec.ts",
     "src/app/features/domain-1/questions/model/questions-gas.mapper.spec.ts",
     "src/app/features/domain-1/questions/services/questions-gas-repository.spec.ts",
     "src/app/features/domain-1/questions/services/questions-repository.spec.ts",
     "src/app/features/domain-1/questions/questions/questions.component.spec.ts",
-    "src/app/features/domain/domain-questions/services/question-practice.service.spec.ts"
+    "src/app/features/domain-1/questions/services/question-practice.service.spec.ts",
+    "src/app/features/domain-1/questions/services/question-attempt.service.spec.ts",
+    "src/app/features/domain-1/questions/practice/question-practice.component.spec.ts",
+    "src/app/features/learn/services/learn-feed.service.spec.ts",
+    "src/app/shared/local-db/local-db.service.spec.ts",
+    "src/app/core/components/settings-panel/settings-panel.component.spec.ts",
+    "src/app/features/domain-1/book-detail/services/domain-data.service.spec.ts"
   ]
 }

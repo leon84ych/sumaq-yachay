@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideTransloco } from '@jsverse/transloco';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { AppDbService } from '../../services/storage/app-db.service';
+import { LocalDBService } from '../../../shared/local-db/local-db.service';
 import { ConfigService } from '../../services/config/config.service';
 import { PermissionService } from '../../services/permission/permission.service';
 import { TranslocoHttpLoader } from '../../i18n/transloco-loader';
@@ -28,7 +28,7 @@ describe('SettingsPanelComponent', () => {
           },
           loader: TranslocoHttpLoader,
         }),
-        { provide: AppDbService, useValue: { clearAllTables } },
+        { provide: LocalDBService, useValue: { clearAllTables } },
       ],
     }).compileComponents();
   });

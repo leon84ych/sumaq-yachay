@@ -12,6 +12,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -59,12 +60,14 @@ export class RelationsComponent implements OnInit {
   readonly newPage = signal('');
   readonly newTags = signal<string[]>([]);
   readonly optionsLoadState = signal<'idle' | 'loading' | 'ready' | 'error'>('idle');
+  readonly submitted = signal(false);
   readonly isSaving = signal(false);
 
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
   private readonly relationDataService = inject(RelationDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
 
   readonly invalidTagsDetected = computed(() => {
@@ -75,20 +78,31 @@ export class RelationsComponent implements OnInit {
   });
 
   readonly relationTypeSuggestions = computed(() => getRelationTypeSuggestions(this.rows()));
+  readonly isSourceCharacterInvalid = computed(
+    () => !this.characters().some((character) => character.id === this.newSourceCharacterId()),
+  );
+  readonly isTargetCharacterInvalid = computed(
+    () => !this.characters().some((character) => character.id === this.newTargetCharacterId()),
+  );
+  readonly isSameCharacterInvalid = computed(
+    () =>
+      !!this.newSourceCharacterId() && this.newSourceCharacterId() === this.newTargetCharacterId(),
+  );
+  readonly isRelationTypeInvalid = computed(() => !this.newRelationType().trim());
+  readonly isDescriptionInvalid = computed(() => !this.newDescription().trim());
+  readonly isBookInvalid = computed(() => !this.bookName().trim());
+  readonly isAuthorInvalid = computed(() => !this.bookAuthor().trim());
 
   readonly isFormInvalid = computed(() => {
-    const characterIds = new Set(this.characters().map((character) => character.id));
-    const sourceId = this.newSourceCharacterId();
-    const targetId = this.newTargetCharacterId();
     return (
-      !characterIds.has(sourceId) ||
-      !characterIds.has(targetId) ||
-      sourceId === targetId ||
-      !this.newRelationType().trim() ||
-      !this.newDescription().trim() ||
+      this.isSourceCharacterInvalid() ||
+      this.isTargetCharacterInvalid() ||
+      this.isSameCharacterInvalid() ||
+      this.isRelationTypeInvalid() ||
+      this.isDescriptionInvalid() ||
       this.newDescription().length > 1000 ||
-      !this.bookName().trim() ||
-      !this.bookAuthor().trim() ||
+      this.isBookInvalid() ||
+      this.isAuthorInvalid() ||
       this.invalidTagsDetected().length > 0
     );
   });
@@ -196,6 +210,7 @@ export class RelationsComponent implements OnInit {
   }
 
   editEntry(record: RelationRecord): void {
+    this.submitted.set(false);
     this.editingId.set(record.id);
     this.newSourceCharacterId.set(record.sourceCharacterId);
     this.newTargetCharacterId.set(record.targetCharacterId);
@@ -209,6 +224,7 @@ export class RelationsComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.submitted.set(false);
     this.editingId.set(null);
     this.newSourceCharacterId.set('');
     this.newTargetCharacterId.set('');
@@ -225,8 +241,8 @@ export class RelationsComponent implements OnInit {
     if (this.isSaving()) {
       return;
     }
+    this.submitted.set(true);
     if (this.isFormInvalid()) {
-      this.globalErrorService.show('Cannot save relation: Check the fields and book tags.');
       return;
     }
 
@@ -263,6 +279,7 @@ export class RelationsComponent implements OnInit {
       syncStatus: 'pending',
     };
 
+    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
       const saved = editingId
@@ -279,6 +296,7 @@ export class RelationsComponent implements OnInit {
       this.showError(error, 'Failed to save relation.');
     } finally {
       this.isSaving.set(false);
+      this.globalLoadingService.end(operation);
     }
   }
 

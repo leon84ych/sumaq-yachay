@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ConfigService } from '../../services/config/config.service';
-import { AppDbService } from '../../services/storage/app-db.service';
+import { LocalDBService } from '../../../shared/local-db/local-db.service';
 import { PermissionService } from '../../services/permission/permission.service';
 
 const THEME_KEY = 'sumaq_yachay_theme';
@@ -21,7 +21,7 @@ const DEFAULT_FONT_SCALE_INDEX = 1;
 export class SettingsPanelComponent {
     readonly translocoService = inject(TranslocoService);
     private readonly configService = inject(ConfigService);
-    private readonly appDbService = inject(AppDbService);
+    private readonly localDBService = inject(LocalDBService);
     private readonly permissionService = inject(PermissionService);
 
     readonly showSettings = signal(false);
@@ -101,7 +101,7 @@ export class SettingsPanelComponent {
         this.isClearing.set(true);
         this.clearStatus.set(null);
         try {
-            await this.appDbService.clearAllTables();
+            await this.localDBService.clearAllTables();
             this.clearStatus.set('NAV.SETTINGS.CLEAR_SUCCESS');
         } catch {
             this.clearStatus.set('NAV.SETTINGS.CLEAR_ERROR');

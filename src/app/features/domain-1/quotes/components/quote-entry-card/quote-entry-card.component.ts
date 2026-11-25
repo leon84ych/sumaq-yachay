@@ -3,8 +3,8 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
-import { DomainContributorComponent } from '../../../../domain/shared/domain-contributor/domain-contributor.component';
-import { DomainEntryHeaderComponent } from '../../../../domain/shared/domain-entry-header/domain-entry-header.component';
+import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
+import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
 import { QuoteRecord } from '../../model/quotes-model';
 
 export interface QuoteImageExportRequest {

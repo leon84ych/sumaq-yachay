@@ -14,7 +14,18 @@ import { computed, effect, inject, Injectable, signal } from "@angular/core";
 
 
 const CONTENT_SEARCH_TERMS: Record<string, string[]> = {
-  indexTopics: ['index', 'índice'],
+  indexes: ['index', 'índice'],
+  concepts: ['concepts', 'conceptos'],
+  quotes: ['quotes', 'citas'],
+  passages: ['passages', 'pasajes'],
+  characters: ['character', 'characters', 'personaje', 'personajes'],
+  places: ['places', 'lugar', 'lugares'],
+  bookEvents: ['book events', 'events', 'eventos'],
+  relations: ['relations', 'relationships', 'relaciones'],
+  associations: ['associations', 'asociaciones'],
+  glossary: ['glossary', 'glosario'],
+  questions: ['questions', 'preguntas'],
+  tags: ['tags', 'etiquetas'],
 };
 
 @Injectable({
@@ -128,18 +139,20 @@ export class BookService {
     const matches = new Set<number>();
     const search = parseStudySearch(query);
     const bookByRow = new Map(this.items().map((item) => [item.row, item]));
+    const bookById = new Map(this.items().map((item) => [item.id, item]));
     const tables = (this.localDBService.indexedDB.tables ?? [])
       .filter((table) => Object.hasOwn(CONTENT_SEARCH_TERMS, table.name));
     await Promise.all(tables.map(async (table) => {
       const rows = await table.toArray() as Record<string, unknown>[];
       for (const row of rows) {
-        const bookRow = Number(row['row']);
-        const book = bookByRow.get(bookRow);
+        const storedRow = Number(row['bookRow'] ?? row['row']);
+        const book = bookById.get(String(row['bookId'] ?? '')) ?? bookByRow.get(storedRow);
+        const bookRow = book?.row ?? storedRow;
         const fields = Object.values(row).flatMap((value) =>
           typeof value === 'string' ? [value] : Array.isArray(value)
             ? value.filter((entry): entry is string => typeof entry === 'string') : [],
         );
-        const tags = table.name === 'bookTags' ? [row['name']] : row['tags'];
+        const tags = table.name === 'tags' ? [row['name']] : row['tags'];
         if (matchesStudySearch(search, [
           ...fields, ...CONTENT_SEARCH_TERMS[table.name],
           book?.name, book?.author, book?.subject, book?.topic,
@@ -162,8 +175,7 @@ export class BookService {
   private async loadLocalSampleData(): Promise<void> {
     this.isLoading.set(true);
     try {
-      // Seed local sample data
-      //await this.localDBService.seedLocalSampleData();
+      await this.localDBService.seedLocalSampleData();
       await this.loadFromLocal();
     } catch (err) {
       this.errorMessage.set('BOOK.ERRORS.syncFailed');

@@ -79,8 +79,9 @@ export class IndexComponent implements OnInit {
     return this.rows().filter((row) =>
       matchesStudySearch(
         query,
-        [row.chapter, row.theme, row.subtheme, row.contributor, ...row.tags],
+        [this.bookName(), this.bookAuthor(), 'index', 'índice', row.chapter, row.theme, row.subtheme, row.contributor, ...row.tags],
         row.tags,
+        { book: this.bookName(), author: this.bookAuthor(), contributor: row.contributor },
       ),
     );
   });

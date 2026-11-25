@@ -9,7 +9,10 @@
       {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.CHARACTERS.NEW_ENTRY_TITLE') | transloco }}
     </h3>
     <div class="form-group">
-      <label for="character-name">{{ 'DOMAINS.CHARACTERS.NAME' | transloco }} <span class="required" aria-hidden="true">*</span></label>
+      <label for="character-name"
+        >{{ 'DOMAINS.CHARACTERS.NAME' | transloco }}
+        <span class="required" aria-hidden="true">*</span></label
+      >
       <input
         id="character-name"
         type="text"
@@ -18,16 +21,20 @@
         required
       />
       @if (form().submitted() && !form().newName().trim()) {
-        <span class="field-error">{{ 'DOMAINS.CHARACTERS.NAME_REQUIRED' | transloco }}</span>
+        <span class="field-error" role="alert">{{ 'DOMAINS.CHARACTERS.NAME_REQUIRED' | transloco }}</span>
       }
     </div>
     <div class="form-group">
-      <label for="character-role">{{ 'DOMAINS.CHARACTERS.ROLE' | transloco }}</label>
+      <label for="character-role">
+        {{ 'DOMAINS.CHARACTERS.ROLE' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <select
         id="character-role"
         [ngModel]="form().newRole()"
         (ngModelChange)="form().newRole.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && !form().newRole() ? 'true' : null"
       >
         @for (role of form().characterRoles; track role) {
           <option [value]="role">
@@ -35,14 +42,23 @@
           </option>
         }
       </select>
+      @if (form().submitted() && !form().newRole()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.CHARACTERS.ROLE_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
-      <label for="character-nature">{{ 'DOMAINS.CHARACTERS.NATURE' | transloco }}</label>
+      <label for="character-nature">
+        {{ 'DOMAINS.CHARACTERS.NATURE' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <select
         id="character-nature"
         [ngModel]="form().newNature()"
         (ngModelChange)="form().newNature.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && !form().newNature() ? 'true' : null"
       >
         @for (nature of form().characterNatures; track nature) {
           <option [value]="nature">
@@ -50,6 +66,11 @@
           </option>
         }
       </select>
+      @if (form().submitted() && !form().newNature()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.CHARACTERS.NATURE_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
       <label for="character-description">{{ 'DOMAINS.CHARACTERS.DESCRIPTION' | transloco }}</label>

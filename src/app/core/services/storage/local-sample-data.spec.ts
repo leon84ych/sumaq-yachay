@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 
 import { describe, expect, it } from 'vitest';
-import { ALL_AVAILABLE_DOMAINS } from '../../../features/book-detail/models/domain-sheet-config';
-import { AppDatabase } from './app-db.service';
+import { ALL_AVAILABLE_DOMAINS } from '../../../features/domain-1/book-detail/models/domain-sheet-config';
+import { IndexedDB } from '../../../shared/local-db/local-db.service';
 import {
   LOCAL_SAMPLE_BOOKS,
   LOCAL_SAMPLE_DOMAIN_TABLES,
@@ -150,11 +150,11 @@ describe('LocalSampleData fixtures', () => {
   });
 
   it('maps every sample domain to an existing IndexedDB table', async () => {
-    const database = new AppDatabase();
+    const database = new IndexedDB();
     const book001Data = await getLocalSampleDomainData('book-001');
     const domainTables = database.tables
       .map((table) => table.name)
-      .filter((name) => !['books', 'domainSheets', 'bookTags', 'questionAttempts'].includes(name));
+      .filter((name) => !['books', 'tags', 'questionAttempts'].includes(name));
 
     expect(Object.keys(LOCAL_SAMPLE_DOMAIN_TABLES).sort()).toEqual(Object.keys(book001Data).sort());
     expect(Object.values(LOCAL_SAMPLE_DOMAIN_TABLES).sort()).toEqual(domainTables.sort());
@@ -162,7 +162,7 @@ describe('LocalSampleData fixtures', () => {
   });
 
   it('adds the attempts store without removing the v1 questions store', () => {
-    const database = new AppDatabase('SumaqYachayDB-schema-test');
+    const database = new IndexedDB('LocalDB-schema-test');
     const tableNames = database.tables.map((table) => table.name);
 
     expect(database.verno).toBe(2);

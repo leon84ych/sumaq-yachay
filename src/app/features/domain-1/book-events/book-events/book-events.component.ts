@@ -12,6 +12,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -32,12 +33,7 @@ import { BookEventDataService } from '../services/book-events.service';
 
 @Component({
   selector: 'app-domain-book-events-1',
-  imports: [
-    FormsModule,
-    TranslocoPipe,
-    BookEventEntryFormComponent,
-    BookEventEntryCardComponent,
-  ],
+  imports: [FormsModule, TranslocoPipe, BookEventEntryFormComponent, BookEventEntryCardComponent],
   templateUrl: './book-events.component.html',
   styleUrl: './book-events.component.css',
 })
@@ -69,12 +65,14 @@ export class BookEventsComponent implements OnInit {
   readonly newPage = signal('');
   readonly newTags = signal<string[]>([]);
   readonly optionsLoadState = signal<'idle' | 'loading' | 'ready' | 'error'>('idle');
+  readonly submitted = signal(false);
   readonly isSaving = signal(false);
 
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
   private readonly dataService = inject(BookEventDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
 
   readonly invalidTagsDetected = computed(() => {
@@ -84,21 +82,29 @@ export class BookEventsComponent implements OnInit {
     );
   });
 
+  readonly isMainCharacterInvalid = computed(
+    () => !this.characters().some((character) => character.id === this.newMainCharacterId()),
+  );
+  readonly isEventInvalid = computed(() => !this.newEvent().trim());
+  readonly isDescriptionInvalid = computed(() => !this.newDescription().trim());
   readonly isFormInvalid = computed(() => {
-    const characterIds = new Set(this.characters().map((character) => character.id));
     return (
-      !characterIds.has(this.newMainCharacterId()) ||
-      !this.newEvent().trim() ||
-      !this.newDescription().trim() ||
+      this.isMainCharacterInvalid() ||
+      this.isEventInvalid() ||
+      this.isDescriptionInvalid() ||
       this.newDescription().length > 1000 ||
-      !Number.isFinite(this.newEventOrder()) ||
+      this.isEventOrderInvalid() ||
       this.invalidTagsDetected().length > 0
     );
   });
+  readonly isEventOrderInvalid = computed(
+    () => !Number.isFinite(this.newEventOrder()) || this.newEventOrder() < 1,
+  );
 
   readonly orderedRows = computed(() => {
     const rows = [...this.rows()];
-    const hasCompleteDates = rows.length > 0 && rows.every((row) => this.parseDate(row.dateTimeStart) !== null);
+    const hasCompleteDates =
+      rows.length > 0 && rows.every((row) => this.parseDate(row.dateTimeStart) !== null);
     return rows.sort((left, right) =>
       hasCompleteDates
         ? this.parseDate(left.dateTimeStart)! - this.parseDate(right.dateTimeStart)!
@@ -247,6 +253,7 @@ export class BookEventsComponent implements OnInit {
   }
 
   editEntry(record: BookEventRecord): void {
+    this.submitted.set(false);
     this.editingId.set(record.id);
     this.newMainCharacterId.set(record.mainCharacterId);
     this.newSecondaryCharacterIds.set([...record.secondaryCharacterIds]);
@@ -263,6 +270,7 @@ export class BookEventsComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.submitted.set(false);
     this.editingId.set(null);
     this.newMainCharacterId.set('');
     this.newSecondaryCharacterIds.set([]);
@@ -282,8 +290,8 @@ export class BookEventsComponent implements OnInit {
     if (this.isSaving()) {
       return;
     }
+    this.submitted.set(true);
     if (this.isFormInvalid()) {
-      this.globalErrorService.show('Cannot save book event: Check the fields and book tags.');
       return;
     }
 
@@ -324,6 +332,7 @@ export class BookEventsComponent implements OnInit {
       syncStatus: 'pending',
     };
 
+    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
       const saved = editingId
@@ -331,13 +340,16 @@ export class BookEventsComponent implements OnInit {
         : await this.dataService.addDomainItem(record);
       this.rows.update((rows) => {
         const index = rows.findIndex((row) => row.id === record.id);
-        return index === -1 ? [...rows, saved] : rows.map((row) => (row.id === record.id ? saved : row));
+        return index === -1
+          ? [...rows, saved]
+          : rows.map((row) => (row.id === record.id ? saved : row));
       });
       this.resetForm();
     } catch (error) {
       this.showError(error, 'Failed to save book event.');
     } finally {
       this.isSaving.set(false);
+      this.globalLoadingService.end(operation);
     }
   }
 

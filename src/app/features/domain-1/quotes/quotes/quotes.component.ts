@@ -15,6 +15,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { downloadJpeg } from '../../../../shared/utils/image-export';
@@ -60,6 +61,7 @@ export class QuotesComponent implements OnInit {
   readonly newPage = signal('');
   readonly newTags = signal<string[]>([]);
   readonly editingId = signal<string | null>(null);
+  readonly submitted = signal(false);
   readonly isSaving = signal(false);
   readonly exportRow = signal<QuoteRecord | null>(null);
   readonly isExporting = signal(false);
@@ -69,6 +71,7 @@ export class QuotesComponent implements OnInit {
 
   private readonly quoteDataService = inject(QuoteDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   readonly permissionService = inject(PermissionService);
@@ -182,6 +185,7 @@ export class QuotesComponent implements OnInit {
   }
 
   editEntry(row: QuoteRecord): void {
+    this.submitted.set(false);
     this.editingId.set(row.id);
     this.newQuote.set(row.quote);
     this.newAnalysis.set(row.analysis);
@@ -193,6 +197,7 @@ export class QuotesComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.submitted.set(false);
     this.editingId.set(null);
     this.newQuote.set('');
     this.newAnalysis.set('');
@@ -207,8 +212,8 @@ export class QuotesComponent implements OnInit {
     if (this.isSaving()) {
       return;
     }
+    this.submitted.set(true);
     if (this.isFormInvalid()) {
-      this.globalErrorService.show('Cannot add entry: Please remove unauthorized tags.');
       return;
     }
 
@@ -241,6 +246,7 @@ export class QuotesComponent implements OnInit {
       syncStatus: 'pending',
     };
 
+    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
       const saved = editingId
@@ -259,6 +265,7 @@ export class QuotesComponent implements OnInit {
       this.globalErrorService.show(message);
     } finally {
       this.isSaving.set(false);
+      this.globalLoadingService.end(operation);
     }
   }
 

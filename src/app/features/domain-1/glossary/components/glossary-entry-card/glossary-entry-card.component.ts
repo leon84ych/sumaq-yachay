@@ -3,8 +3,8 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
-import { DomainContributorComponent } from '../../../../domain/shared/domain-contributor/domain-contributor.component';
-import { DomainEntryCardComponent } from '../../../../domain/shared/domain-entry-card/domain-entry-card.component';
+import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
+import { DomainEntryCardComponent } from '../../../shared/domain-entry-card/domain-entry-card.component';
 import { GlossaryRecord } from '../../model/glossary-model';
 
 @Component({
@@ -18,6 +18,7 @@ export class GlossaryEntryCardComponent {
   readonly row = input.required<GlossaryRecord>();
   readonly bookName = input('');
   readonly bookAuthor = input('');
+  readonly showActions = input(true);
   readonly deleteRequested = output<string>();
   readonly editRequested = output<GlossaryRecord>();
   readonly role = this.permissionService.role;

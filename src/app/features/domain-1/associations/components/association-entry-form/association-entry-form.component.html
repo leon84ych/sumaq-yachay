@@ -16,37 +16,57 @@
     <div class="form-group">
       <label for="association-source-concept">{{
         'DOMAINS.ASSOCIATIONS.SOURCE_CONCEPT' | transloco
-      }}</label>
+      }} <span class="required" aria-hidden="true">*</span></label>
       <select
         id="association-source-concept"
         [ngModel]="form().newSourceConceptId()"
         (ngModelChange)="form().newSourceConceptId.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && form().isSourceConceptInvalid() ? 'true' : null"
       >
         <option value="">{{ 'DOMAINS.ASSOCIATIONS.SELECT_CONCEPT' | transloco }}</option>
         @for (concept of form().concepts(); track concept.id) {
           <option [value]="concept.id">{{ concept.term }}</option>
         }
       </select>
+      @if (form().submitted() && form().isSourceConceptInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.SOURCE_CONCEPT_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
       <label for="association-target-concept">{{
         'DOMAINS.ASSOCIATIONS.TARGET_CONCEPT' | transloco
-      }}</label>
+      }} <span class="required" aria-hidden="true">*</span></label>
       <select
         id="association-target-concept"
         [ngModel]="form().newTargetConceptId()"
         (ngModelChange)="form().newTargetConceptId.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && form().isTargetConceptInvalid() ? 'true' : null"
       >
         <option value="">{{ 'DOMAINS.ASSOCIATIONS.SELECT_CONCEPT' | transloco }}</option>
         @for (concept of form().concepts(); track concept.id) {
           <option [value]="concept.id">{{ concept.term }}</option>
         }
       </select>
+      @if (form().submitted() && form().isTargetConceptInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.TARGET_CONCEPT_REQUIRED' | transloco
+        }}</span>
+      }
+      @if (form().submitted() && form().isSameConceptInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.DISTINCT_CONCEPTS_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
-      <label for="association-type">{{ 'DOMAINS.ASSOCIATIONS.TYPE' | transloco }}</label>
+      <label for="association-type">
+        {{ 'DOMAINS.ASSOCIATIONS.TYPE' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <input
         id="association-type"
         type="text"
@@ -54,12 +74,18 @@
         [ngModel]="form().newRelationType()"
         (ngModelChange)="form().newRelationType.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && form().isRelationTypeInvalid() ? 'true' : null"
       />
       <datalist id="association-type-suggestions">
         @for (relationType of form().relationTypeSuggestions(); track relationType) {
           <option [value]="relationType"></option>
         }
       </datalist>
+      @if (form().submitted() && form().isRelationTypeInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.TYPE_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <label class="concept-relation-directed-control">
       <input
@@ -70,9 +96,10 @@
       <span>{{ 'DOMAINS.ASSOCIATIONS.DIRECTED' | transloco }}</span>
     </label>
     <div class="form-group">
-      <label for="association-description">{{
-        'DOMAINS.ASSOCIATIONS.DESCRIPTION' | transloco
-      }}</label>
+      <label for="association-description"
+        >{{ 'DOMAINS.ASSOCIATIONS.DESCRIPTION' | transloco }}
+        <span class="required" aria-hidden="true">*</span></label
+      >
       <textarea
         id="association-description"
         rows="4"
@@ -80,7 +107,13 @@
         [ngModel]="form().newDescription()"
         (ngModelChange)="form().newDescription.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && form().isDescriptionInvalid() ? 'true' : null"
       ></textarea>
+      @if (form().submitted() && form().isDescriptionInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.DESCRIPTION_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
       <label for="association-color">{{ 'DOMAINS.ASSOCIATIONS.COLOR' | transloco }}</label>
@@ -92,12 +125,40 @@
       />
     </div>
     <div class="form-group">
-      <label for="association-book">{{ 'DOMAINS.ASSOCIATIONS.BOOK' | transloco }}</label>
-      <input id="association-book" type="text" [value]="form().bookName()" readonly />
+      <label for="association-book">
+        {{ 'DOMAINS.ASSOCIATIONS.BOOK' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
+      <input
+        id="association-book"
+        type="text"
+        [value]="form().bookName()"
+        readonly
+        [attr.aria-invalid]="form().submitted() && form().isBookInvalid() ? 'true' : null"
+      />
+      @if (form().submitted() && form().isBookInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.BOOK_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
-      <label for="association-author">{{ 'DOMAINS.ASSOCIATIONS.AUTHOR' | transloco }}</label>
-      <input id="association-author" type="text" [value]="form().bookAuthor()" readonly />
+      <label for="association-author">
+        {{ 'DOMAINS.ASSOCIATIONS.AUTHOR' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
+      <input
+        id="association-author"
+        type="text"
+        [value]="form().bookAuthor()"
+        readonly
+        [attr.aria-invalid]="form().submitted() && form().isAuthorInvalid() ? 'true' : null"
+      />
+      @if (form().submitted() && form().isAuthorInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.AUTHOR_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
       <label for="association-page">{{ 'DOMAINS.ASSOCIATIONS.PAGE' | transloco }}</label>
@@ -136,7 +197,7 @@
         <button
           type="button"
           class="btn-submit"
-          [disabled]="form().isFormInvalid() || form().isSaving()"
+          [disabled]="form().isSaving()"
           (click)="form().saveAssociation()"
         >
           {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}

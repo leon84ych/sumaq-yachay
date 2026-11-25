@@ -24,16 +24,16 @@ export const LOCAL_SAMPLE_BOOKS: BookRecord[] = sampleBookItems.map((item, index
 }));
 
 export const LOCAL_SAMPLE_DOMAIN_TABLES: Record<string, string> = {
-  INDEX: 'indexTopics',
+  INDEX: 'indexes',
   CONCEPTS: 'concepts',
   QUOTES: 'quotes',
   PASSAGES: 'passages',
   CHARACTER: 'characters',
   PLACES: 'places',
   BOOK_EVENTS: 'bookEvents',
-  RELATIONS: 'relationsCharacters',
-  ASSOCIATIONS: 'relationsConcepts',
-  GLOSARY: 'glosary',
+  RELATIONS: 'relations',
+  ASSOCIATIONS: 'associations',
+  GLOSARY: 'glossary',
   QUESTIONS: 'questions',
 };
 

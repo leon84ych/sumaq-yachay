@@ -4,12 +4,15 @@
   "
   (closeRequested)="form().resetForm()"
 >
-  <form class="add-entry-form" (submit)="$event.preventDefault(); form().saveQuestion()">
+  <form class="add-entry-form" novalidate (submit)="$event.preventDefault(); form().saveQuestion()">
     <h3 id="domain-entry-form-title">
       {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.QUESTIONS.NEW_ENTRY_TITLE') | transloco }}
     </h3>
     <div class="form-group">
-      <label for="question-text">{{ 'DOMAINS.QUESTIONS.QUESTION' | transloco }}</label>
+      <label for="question-text">
+        {{ 'DOMAINS.QUESTIONS.QUESTION' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <textarea
         id="question-text"
         rows="3"
@@ -18,10 +21,19 @@
         (ngModelChange)="form().newQuestion.set($event)"
         name="question"
         required
+        [attr.aria-invalid]="form().submitted() && form().isQuestionInvalid() ? 'true' : null"
       ></textarea>
+      @if (form().submitted() && form().isQuestionInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.QUESTIONS.QUESTION_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
-      <label for="question-answer">{{ 'DOMAINS.QUESTIONS.ANSWER' | transloco }}</label>
+      <label for="question-answer">
+        {{ 'DOMAINS.QUESTIONS.ANSWER' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <textarea
         id="question-answer"
         rows="3"
@@ -30,25 +42,48 @@
         (ngModelChange)="form().newAnswer.set($event)"
         name="answer"
         required
+        [attr.aria-invalid]="form().submitted() && form().isAnswerInvalid() ? 'true' : null"
       ></textarea>
+      @if (form().submitted() && form().isAnswerInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.QUESTIONS.ANSWER_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
-      <label for="question-type">{{ 'DOMAINS.QUESTIONS.TYPE' | transloco }}</label>
+      <label for="question-type">
+        {{ 'DOMAINS.QUESTIONS.TYPE' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <select
         id="question-type"
         [ngModel]="form().newType()"
         (ngModelChange)="form().newType.set($event)"
         name="type"
         required
+        [attr.aria-invalid]="form().submitted() && form().isTypeInvalid() ? 'true' : null"
       >
         @for (type of form().questionTypes; track type) {
           <option [value]="type">{{ 'DOMAINS.QUESTIONS.TYPE_OPTIONS.' + type | transloco }}</option>
         }
       </select>
+      @if (form().submitted() && form().isTypeInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.QUESTIONS.TYPE_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     @if (form().newType() === 'multiple-choice') {
-      <fieldset class="question-options">
-        <legend>{{ 'DOMAINS.QUESTIONS.OPTIONS' | transloco }}</legend>
+      <fieldset
+        class="question-options"
+        [attr.aria-invalid]="
+          form().submitted() && form().multipleChoiceOptionsInvalid() ? 'true' : null
+        "
+      >
+        <legend>
+          {{ 'DOMAINS.QUESTIONS.OPTIONS' | transloco }}
+          <span class="required" aria-hidden="true">*</span>
+        </legend>
         @for (option of form().optionDrafts(); track $index) {
           <div class="question-option-row">
             <label class="question-option-text">
@@ -82,12 +117,8 @@
             }
           </div>
         }
-        @if (
-          form()
-            .optionDrafts()
-            .filter((option) => option.trim()).length < 2
-        ) {
-          <span class="tag-validation-error">{{
+        @if (form().submitted() && form().multipleChoiceOptionsInvalid()) {
+          <span class="field-error" role="alert">{{
             'DOMAINS.QUESTIONS.OPTIONS_REQUIRED' | transloco
           }}</span>
         }
@@ -97,9 +128,10 @@
       </fieldset>
     }
     <div class="form-group">
-      <label for="question-source-domain">{{
-        'DOMAINS.QUESTIONS.SOURCE_DOMAIN' | transloco
-      }}</label>
+      <label for="question-source-domain">
+        {{ 'DOMAINS.QUESTIONS.SOURCE_DOMAIN' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <input
         id="question-source-domain"
         type="text"
@@ -107,7 +139,13 @@
         (ngModelChange)="form().newSourceDomain.set($event)"
         name="sourceDomain"
         required
+        [attr.aria-invalid]="form().submitted() && form().isSourceDomainInvalid() ? 'true' : null"
       />
+      @if (form().submitted() && form().isSourceDomainInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.QUESTIONS.SOURCE_DOMAIN_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
       <label for="question-source-term">{{ 'DOMAINS.QUESTIONS.SOURCE_TERM' | transloco }}</label>
@@ -172,11 +210,7 @@
     </div>
     <div class="form-actions">
       @if (form().permissionService.validatePermission(form().role(), 'CREATE_ROW')) {
-        <button
-          type="submit"
-          class="btn-submit"
-          [disabled]="form().isFormInvalid() || form().isSaving()"
-        >
+        <button type="submit" class="btn-submit" [disabled]="form().isSaving()">
           {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
         </button>
       }

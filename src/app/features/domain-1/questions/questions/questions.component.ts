@@ -12,6 +12,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -63,12 +64,14 @@ export class QuestionsComponent implements OnInit {
   readonly newTags = signal<string[]>([]);
   readonly isSaving = signal(false);
   readonly editingId = signal<string | null>(null);
+  readonly submitted = signal(false);
   readonly searchTerm = inject(StudySearchService).query;
 
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
   private readonly questionDataService = inject(QuestionDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
 
   readonly invalidTagsDetected = computed(() => {
@@ -78,15 +81,27 @@ export class QuestionsComponent implements OnInit {
     );
   });
 
+  readonly isQuestionInvalid = computed(() => !this.newQuestion().trim());
+  readonly isAnswerInvalid = computed(() => !this.newAnswer().trim());
+  readonly isTypeInvalid = computed(() => !this.newType());
+  readonly isSourceDomainInvalid = computed(() => !this.newSourceDomain().trim());
+  readonly multipleChoiceOptionsInvalid = computed(() => {
+    const options = this.optionDrafts();
+    return (
+      this.newType() === 'multiple-choice' &&
+      (options.filter((option) => option.trim()).length < 2 ||
+        !options[this.correctOptionIndex()]?.trim())
+    );
+  });
+
   readonly isFormInvalid = computed(() => {
     const options = this.optionDrafts();
     return (
-      !this.newQuestion().trim() ||
-      !this.newAnswer().trim() ||
-      !this.newSourceDomain().trim() ||
-      (this.newType() === 'multiple-choice' &&
-        (options.filter((option) => option.trim()).length < 2 ||
-          !options[this.correctOptionIndex()]?.trim())) ||
+      this.isQuestionInvalid() ||
+      this.isAnswerInvalid() ||
+      this.isSourceDomainInvalid() ||
+      this.isTypeInvalid() ||
+      this.multipleChoiceOptionsInvalid() ||
       this.invalidTagsDetected().length > 0
     );
   });
@@ -191,6 +206,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   editEntry(record: QuestionRecord): void {
+    this.submitted.set(false);
     this.editingId.set(record.id);
     this.newQuestion.set(record.question);
     this.newAnswer.set(record.answer);
@@ -213,8 +229,11 @@ export class QuestionsComponent implements OnInit {
   }
 
   async saveQuestion(): Promise<void> {
-    if (this.isFormInvalid() || this.isSaving()) {
-      this.globalErrorService.show('Cannot save question: Check the fields and book tags.');
+    if (this.isSaving()) {
+      return;
+    }
+    this.submitted.set(true);
+    if (this.isFormInvalid()) {
       return;
     }
 
@@ -263,6 +282,7 @@ export class QuestionsComponent implements OnInit {
       syncStatus: 'pending',
     };
 
+    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
       const saved = editingId
@@ -279,10 +299,12 @@ export class QuestionsComponent implements OnInit {
       this.showError(error, 'Failed to save question.');
     } finally {
       this.isSaving.set(false);
+      this.globalLoadingService.end(operation);
     }
   }
 
   resetForm(): void {
+    this.submitted.set(false);
     this.editingId.set(null);
     this.newQuestion.set('');
     this.newAnswer.set('');

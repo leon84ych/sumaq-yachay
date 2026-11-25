@@ -7,17 +7,29 @@
       {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.PASSAGE.NEW_ENTRY_TITLE') | transloco }}
     </h3>
     <div class="form-group">
-      <label for="passage-title">{{ 'DOMAINS.PASSAGE.TITLE' | transloco }}</label>
+      <label for="passage-title">
+        {{ 'DOMAINS.PASSAGE.TITLE' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <input
         id="passage-title"
         type="text"
         [ngModel]="form().newTitle()"
         (ngModelChange)="form().newTitle.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && !form().newTitle().trim() ? 'true' : null"
       />
+      @if (form().submitted() && !form().newTitle().trim()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.PASSAGE.TITLE_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
-      <label for="passage-text">{{ 'DOMAINS.PASSAGE.PASSAGE_TEXT' | transloco }}</label>
+      <label for="passage-text">
+        {{ 'DOMAINS.PASSAGE.PASSAGE_TEXT' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <textarea
         id="passage-text"
         rows="6"
@@ -26,7 +38,13 @@
         (ngModelChange)="form().newPassageText.set($event)"
         aria-describedby="passage-text-count"
         required
+        [attr.aria-invalid]="form().submitted() && !form().newPassageText().trim() ? 'true' : null"
       ></textarea>
+      @if (form().submitted() && !form().newPassageText().trim()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.PASSAGE.PASSAGE_TEXT_REQUIRED' | transloco
+        }}</span>
+      }
       <small id="passage-text-count" class="character-count">
         {{
           'DOMAINS.PASSAGE.CHARACTERS_LEFT'
@@ -35,24 +53,42 @@
       </small>
     </div>
     <div class="form-group">
-      <label for="passage-book">{{ 'DOMAINS.PASSAGE.BOOK' | transloco }}</label>
+      <label for="passage-book">
+        {{ 'DOMAINS.PASSAGE.BOOK' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <input
         id="passage-book"
         type="text"
         [ngModel]="form().newBook()"
         (ngModelChange)="form().newBook.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && !form().newBook().trim() ? 'true' : null"
       />
+      @if (form().submitted() && !form().newBook().trim()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.PASSAGE.BOOK_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
-      <label for="passage-author">{{ 'DOMAINS.PASSAGE.AUTHOR' | transloco }}</label>
+      <label for="passage-author">
+        {{ 'DOMAINS.PASSAGE.AUTHOR' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <input
         id="passage-author"
         type="text"
         [ngModel]="form().newAuthor()"
         (ngModelChange)="form().newAuthor.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && !form().newAuthor().trim() ? 'true' : null"
       />
+      @if (form().submitted() && !form().newAuthor().trim()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.PASSAGE.AUTHOR_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
       <label for="passage-page">{{ 'DOMAINS.PASSAGE.PAGE' | transloco }}</label>
@@ -91,7 +127,7 @@
         <button
           type="button"
           class="btn-submit"
-          [disabled]="form().isFormInvalid() || form().isSaving()"
+          [disabled]="form().isSaving()"
           (click)="form().savePassage()"
         >
           {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}

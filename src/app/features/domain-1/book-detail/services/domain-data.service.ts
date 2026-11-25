@@ -9,6 +9,8 @@ import { IndexRepository } from '../../index/services/index-repository';
 import { TagPickerService } from '../../../../shared/tag-picker/tag-picker.service';
 import { GASDomainAPI } from '../../../../core/infrastructure/gas/gas-domain-api.service';
 import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
+import { ConfigService } from '../../../../core/services/config/config.service';
+import { LOCAL_SAMPLE_DOMAIN_TABLES } from '../../../../core/services/storage/local-sample-data';
 
 
 
@@ -31,6 +33,8 @@ export class DomainDataService {
   private indexGasRepository = inject(IndexRepository);
   private gasDomainAPI = inject(GASDomainAPI<Record<string, unknown>, unknown>);
   private globalLoadingService = inject(GlobalLoadingService);
+  private localDBService = inject(LocalDBService);
+  private configService = inject(ConfigService);
 
   readonly domainsInfo = signal<DomainInfo[]>([]);
   readonly domainsNames = computed(() => this.domainsInfo().filter(domain => domain.id != 'ID').map((domain) => domain.id));
@@ -46,6 +50,21 @@ export class DomainDataService {
     this.isLoading.set(true);
     const operation = this.globalLoadingService.begin();
     try {
+      if (this.configService.isLocalSampleDataEnabled()) {
+        const database = this.localDBService.indexedDB;
+        const book = await database.books.where('row').equals(row).first();
+        this.bookInfo.set(book ?? null);
+        const domains = book ? await Promise.all(
+          Object.entries(LOCAL_SAMPLE_DOMAIN_TABLES).map(async ([id, tableName], index) => ({
+            id, index, count: await database.table(tableName).where('bookId').equals(book.id).count(),
+          })),
+        ) : [];
+        this.domainsInfo.set(domains.filter((domain) => domain.count > 0));
+        if (book && domains.some((domain) => domain.id === 'INDEX' && domain.count > 0)) {
+          await this.tagPickerService.loadBookTagsByRow(row);
+        }
+        return;
+      }
       const response = await this.bookGASRepository.getBookInfo(row);
       if (response.status !== 'success' || !Array.isArray(response.data?.domains)) {
         throw new Error(response.message || 'Failed to load domain sheets.');

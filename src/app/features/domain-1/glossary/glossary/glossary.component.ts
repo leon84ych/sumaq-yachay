@@ -12,6 +12,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -57,6 +58,7 @@ export class GlossaryComponent implements OnInit {
   readonly newPage = signal('');
   readonly newTags = signal<string[]>([]);
   readonly editingId = signal<string | null>(null);
+  readonly submitted = signal(false);
   readonly isSaving = signal(false);
   readonly searchTerm = inject(StudySearchService).query;
   readonly definitionMaxLength = 400;
@@ -67,6 +69,7 @@ export class GlossaryComponent implements OnInit {
   readonly source = computed(() => this.newSource().trim() || this.bookName().trim());
   private readonly glossaryDataService = inject(GlossaryDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
@@ -167,6 +170,7 @@ export class GlossaryComponent implements OnInit {
   }
 
   editEntry(record: GlossaryRecord): void {
+    this.submitted.set(false);
     this.editingId.set(record.id);
     this.newTerm.set(record.term);
     this.newDefinition.set(record.definition);
@@ -181,6 +185,7 @@ export class GlossaryComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.submitted.set(false);
     this.editingId.set(null);
     this.newTerm.set('');
     this.newDefinition.set('');
@@ -198,8 +203,8 @@ export class GlossaryComponent implements OnInit {
     if (this.isSaving()) {
       return;
     }
+    this.submitted.set(true);
     if (this.isFormInvalid()) {
-      this.globalErrorService.show('Cannot save entry: Please remove unauthorized tags.');
       return;
     }
 
@@ -235,6 +240,7 @@ export class GlossaryComponent implements OnInit {
       syncStatus: 'pending',
     };
 
+    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
       const saved = editingId
@@ -251,6 +257,7 @@ export class GlossaryComponent implements OnInit {
       this.showError(error, 'Failed to save glossary entry.');
     } finally {
       this.isSaving.set(false);
+      this.globalLoadingService.end(operation);
     }
   }
 

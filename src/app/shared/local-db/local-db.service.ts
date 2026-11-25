@@ -13,6 +13,8 @@ import { AssociationRecord } from '../../features/domain-1/associations/model/as
 import { BookEventRecord } from '../../features/domain-1/book-events/model/book-events-model';
 import { BookRecord } from '../../features/book/models/book-item.model';
 import { TagRecord } from '../tag-picker/tag-picker.model';
+import { QuestionAttempt } from '../../features/domain-1/questions/model/question-attempt.model';
+import { getLocalSampleDomainData, LOCAL_SAMPLE_BOOKS, LOCAL_SAMPLE_DOMAIN_TABLES, normalizeSampleDomainRow } from '../../core/services/storage/local-sample-data';
 
 const VERSION_ONE_STORES = {
   books:
@@ -47,17 +49,57 @@ export class IndexedDB extends Dexie {
   associations!: Table<AssociationRecord, [string, string]>;
   bookEvents!: Table<BookEventRecord, [string, string]>;
   questions!: Table<QuestionRecord, [string, string]>;
+  questionAttempts!: Table<QuestionAttempt, number>;
   tags!: Table<TagRecord, string>;
 
   constructor(databaseName = 'LocalDB') {
     super(databaseName);
     this.version(1).stores(VERSION_ONE_STORES);
+    this.version(2).stores({ questionAttempts: '++id, questionId, bookId, bookRow, timestamp, type' });
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class LocalDBService {
   readonly indexedDB = new IndexedDB();
+  private sampleSeedPromise: Promise<void> | null = null;
+  private samplesSeeded = false;
+
+  seedLocalSampleData(): Promise<void> {
+    if (this.samplesSeeded) return Promise.resolve();
+    if (!this.sampleSeedPromise) {
+      this.sampleSeedPromise = this.seedSamples()
+        .then(() => { this.samplesSeeded = true; })
+        .finally(() => { this.sampleSeedPromise = null; });
+    }
+    return this.sampleSeedPromise;
+  }
+
+  private async seedSamples(): Promise<void> {
+    const data = await Promise.all(LOCAL_SAMPLE_BOOKS.map((book) => getLocalSampleDomainData(book.id)));
+    const db = this.indexedDB;
+    await db.transaction('rw', db.tables, async () => {
+      for (const [bookIndex, book] of LOCAL_SAMPLE_BOOKS.entries()) {
+        if (!(await db.books.get(book.id))) await db.books.add(book);
+        for (const [domain, rows] of Object.entries(data[bookIndex])) {
+          const tableName = LOCAL_SAMPLE_DOMAIN_TABLES[domain];
+          if (!tableName || rows.length === 0) continue;
+          const table = db.table<Record<string, unknown>, [string, string]>(tableName);
+          const records = rows.map((row, index) => ({
+            ...normalizeSampleDomainRow(row),
+            id: `${book.id}-${String(row['id'])}`,
+            bookId: book.id,
+            bookRow: book.row,
+            itemRow: index + 2,
+            feed: row['feed'] ?? 5,
+            ...(domain === 'QUESTIONS' ? { options: row['options'] ?? [], aiGenerated: row['aiGenerated'] ?? false } : {}),
+          }));
+          const existing = await table.bulkGet(records.map((record) => [book.id, record.id]));
+          await table.bulkAdd(records.filter((_, index) => !existing[index]));
+        }
+      }
+    });
+  }
 
   async getBooks(): Promise<BookRecord[]> {
     return this.indexedDB.books.toArray();
@@ -70,5 +112,6 @@ export class LocalDBService {
         await table.clear();
       }
     });
+    this.samplesSeeded = false;
   }
 }

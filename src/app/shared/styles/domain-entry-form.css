@@ -22,6 +22,22 @@
   gap: 0.25rem;
 }
 
+.required {
+  color: var(--error);
+  font-weight: 700;
+}
+
+.field-error {
+  display: block;
+  color: var(--error);
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+.add-entry-form [aria-invalid='true'] {
+  border-color: var(--error) !important;
+}
+
 .add-entry-form .form-group input,
 .add-entry-form .form-group textarea,
 .add-entry-form .form-group select,
@@ -289,4 +305,3 @@
   opacity: 1;
   transform: translateY(0);
 }
-

@@ -47,6 +47,7 @@ describe('BookService', () => {
         {
           provide: LocalDBService,
           useValue: {
+            seedLocalSampleData: seedLocalSampleDataSpy,
             indexedDB: {
               tables: [],
               transaction: async (_mode: string, _table: unknown, operation: () => Promise<void>) => operation(),

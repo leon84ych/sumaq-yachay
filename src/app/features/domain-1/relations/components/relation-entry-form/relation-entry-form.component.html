@@ -14,37 +14,61 @@
     <div class="form-group">
       <label for="relation-source-character">{{
         'DOMAINS.RELATIONS.SOURCE_CHARACTER' | transloco
-      }}</label>
+      }} <span class="required" aria-hidden="true">*</span></label>
       <select
         id="relation-source-character"
         [ngModel]="form().newSourceCharacterId()"
         (ngModelChange)="form().newSourceCharacterId.set($event)"
         required
+        [attr.aria-invalid]="
+          form().submitted() && form().isSourceCharacterInvalid() ? 'true' : null
+        "
       >
         <option value="">{{ 'DOMAINS.RELATIONS.SELECT_CHARACTER' | transloco }}</option>
         @for (character of form().characters(); track character.id) {
           <option [value]="character.id">{{ character.name }}</option>
         }
       </select>
+      @if (form().submitted() && form().isSourceCharacterInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.RELATIONS.SOURCE_CHARACTER_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
       <label for="relation-target-character">{{
         'DOMAINS.RELATIONS.TARGET_CHARACTER' | transloco
-      }}</label>
+      }} <span class="required" aria-hidden="true">*</span></label>
       <select
         id="relation-target-character"
         [ngModel]="form().newTargetCharacterId()"
         (ngModelChange)="form().newTargetCharacterId.set($event)"
         required
+        [attr.aria-invalid]="
+          form().submitted() && form().isTargetCharacterInvalid() ? 'true' : null
+        "
       >
         <option value="">{{ 'DOMAINS.RELATIONS.SELECT_CHARACTER' | transloco }}</option>
         @for (character of form().characters(); track character.id) {
           <option [value]="character.id">{{ character.name }}</option>
         }
       </select>
+      @if (form().submitted() && form().isTargetCharacterInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.RELATIONS.TARGET_CHARACTER_REQUIRED' | transloco
+        }}</span>
+      }
+      @if (form().submitted() && form().isSameCharacterInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.RELATIONS.DISTINCT_CHARACTERS_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
-      <label for="relation-type">{{ 'DOMAINS.RELATIONS.TYPE' | transloco }}</label>
+      <label for="relation-type">
+        {{ 'DOMAINS.RELATIONS.TYPE' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <input
         id="relation-type"
         type="text"
@@ -52,7 +76,13 @@
         [ngModel]="form().newRelationType()"
         (ngModelChange)="form().newRelationType.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && form().isRelationTypeInvalid() ? 'true' : null"
       />
+      @if (form().submitted() && form().isRelationTypeInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.RELATIONS.TYPE_REQUIRED' | transloco
+        }}</span>
+      }
       <datalist id="relation-type-suggestions">
         @for (relationType of form().relationTypeSuggestions(); track relationType) {
           <option [value]="relationType"></option>
@@ -68,7 +98,10 @@
       <span>{{ 'DOMAINS.RELATIONS.DIRECTED' | transloco }}</span>
     </label>
     <div class="form-group">
-      <label for="relation-description">{{ 'DOMAINS.RELATIONS.DESCRIPTION' | transloco }}</label>
+      <label for="relation-description">
+        {{ 'DOMAINS.RELATIONS.DESCRIPTION' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <textarea
         id="relation-description"
         rows="4"
@@ -76,7 +109,13 @@
         [ngModel]="form().newDescription()"
         (ngModelChange)="form().newDescription.set($event)"
         required
+        [attr.aria-invalid]="form().submitted() && form().isDescriptionInvalid() ? 'true' : null"
       ></textarea>
+      @if (form().submitted() && form().isDescriptionInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.RELATIONS.DESCRIPTION_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
       <label for="relation-color">{{ 'DOMAINS.RELATIONS.COLOR' | transloco }}</label>
@@ -88,12 +127,40 @@
       />
     </div>
     <div class="form-group">
-      <label for="relation-book">{{ 'DOMAINS.RELATIONS.BOOK' | transloco }}</label>
-      <input id="relation-book" type="text" [value]="form().bookName()" readonly />
+      <label for="relation-book">
+        {{ 'DOMAINS.RELATIONS.BOOK' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
+      <input
+        id="relation-book"
+        type="text"
+        [value]="form().bookName()"
+        readonly
+        [attr.aria-invalid]="form().submitted() && form().isBookInvalid() ? 'true' : null"
+      />
+      @if (form().submitted() && form().isBookInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.RELATIONS.BOOK_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
-      <label for="relation-author">{{ 'DOMAINS.RELATIONS.AUTHOR' | transloco }}</label>
-      <input id="relation-author" type="text" [value]="form().bookAuthor()" readonly />
+      <label for="relation-author">
+        {{ 'DOMAINS.RELATIONS.AUTHOR' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
+      <input
+        id="relation-author"
+        type="text"
+        [value]="form().bookAuthor()"
+        readonly
+        [attr.aria-invalid]="form().submitted() && form().isAuthorInvalid() ? 'true' : null"
+      />
+      @if (form().submitted() && form().isAuthorInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.RELATIONS.AUTHOR_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
       <label for="relation-page">{{ 'DOMAINS.RELATIONS.PAGE' | transloco }}</label>
@@ -132,7 +199,7 @@
         <button
           type="button"
           class="btn-submit"
-          [disabled]="form().isFormInvalid() || form().isSaving()"
+          [disabled]="form().isSaving()"
           (click)="form().saveRelation()"
         >
           {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}

@@ -7,7 +7,10 @@
       {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.PLACES.NEW_ENTRY_TITLE') | transloco }}
     </h3>
     <div class="form-group">
-      <label for="place-name">{{ 'DOMAINS.PLACES.NAME' | transloco }} *</label>
+      <label for="place-name">
+        {{ 'DOMAINS.PLACES.NAME' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <input
         id="place-name"
         type="text"
@@ -16,14 +19,25 @@
         [placeholder]="'DOMAINS.PLACES.NAME_PLACEHOLDER' | transloco"
         maxlength="100"
         required
+        [attr.aria-invalid]="form().submitted() && !form().newName().trim() ? 'true' : null"
       />
+      @if (form().submitted() && !form().newName().trim()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.PLACES.NAME_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
-      <label for="place-type">{{ 'DOMAINS.PLACES.TYPE' | transloco }} *</label>
+      <label for="place-type">
+        {{ 'DOMAINS.PLACES.TYPE' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <select
         id="place-type"
         [ngModel]="form().newType()"
         (ngModelChange)="form().newType.set($event)"
+        required
+        [attr.aria-invalid]="form().submitted() && !form().newType() ? 'true' : null"
       >
         @for (type of form().placeTypes; track type) {
           <option [value]="type">
@@ -31,13 +45,23 @@
           </option>
         }
       </select>
+      @if (form().submitted() && !form().newType()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.PLACES.TYPE_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
-      <label for="place-nature">{{ 'DOMAINS.PLACES.NATURE' | transloco }} *</label>
+      <label for="place-nature">
+        {{ 'DOMAINS.PLACES.NATURE' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <select
         id="place-nature"
         [ngModel]="form().newNature()"
         (ngModelChange)="form().newNature.set($event)"
+        required
+        [attr.aria-invalid]="form().submitted() && !form().newNature() ? 'true' : null"
       >
         @for (nature of form().placeNatures; track nature) {
           <option [value]="nature">
@@ -45,6 +69,11 @@
           </option>
         }
       </select>
+      @if (form().submitted() && !form().newNature()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.PLACES.NATURE_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
       <label for="place-coordinates">{{ 'DOMAINS.PLACES.COORDINATES' | transloco }}</label>
@@ -64,13 +93,23 @@
       }
     </div>
     <div class="form-group color-picker-group">
-      <label for="place-color">{{ 'DOMAINS.PLACES.COLOR' | transloco }} *</label>
+      <label for="place-color">
+        {{ 'DOMAINS.PLACES.COLOR' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
       <input
         id="place-color"
         type="color"
         [ngModel]="form().newColor()"
         (ngModelChange)="form().newColor.set($event)"
+        required
+        [attr.aria-invalid]="form().submitted() && !form().newColor() ? 'true' : null"
       />
+      @if (form().submitted() && !form().newColor()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.PLACES.COLOR_REQUIRED' | transloco
+        }}</span>
+      }
     </div>
     <div class="form-group">
       <label for="place-description">{{ 'DOMAINS.PLACES.DESCRIPTION' | transloco }}</label>
@@ -119,7 +158,7 @@
         <button
           type="button"
           class="btn-submit"
-          [disabled]="form().isFormInvalid() || form().isSaving()"
+          [disabled]="form().isSaving()"
           (click)="form().saveEntry()"
         >
           {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}

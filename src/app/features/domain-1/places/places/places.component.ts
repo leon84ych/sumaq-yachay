@@ -12,6 +12,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -62,6 +63,7 @@ export class PlacesComponent implements OnInit {
   readonly showMap = signal(false);
   readonly newTags = signal<string[]>([]);
   readonly editingId = signal<string | null>(null);
+  readonly submitted = signal(false);
   readonly isSaving = signal(false);
 
   readonly newName = signal('');
@@ -74,6 +76,7 @@ export class PlacesComponent implements OnInit {
 
   private readonly placeDataService = inject(PlaceDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
@@ -169,6 +172,7 @@ export class PlacesComponent implements OnInit {
   }
 
   editEntry(record: PlaceRecord): void {
+    this.submitted.set(false);
     this.editingId.set(record.id);
     this.newName.set(record.name);
     this.newType.set(record.type);
@@ -182,6 +186,7 @@ export class PlacesComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.submitted.set(false);
     this.editingId.set(null);
     this.newName.set('');
     this.newType.set('city');
@@ -198,8 +203,8 @@ export class PlacesComponent implements OnInit {
     if (this.isSaving()) {
       return;
     }
+    this.submitted.set(true);
     if (this.isFormInvalid()) {
-      this.globalErrorService.show('Cannot save place: Please remove unauthorized tags.');
       return;
     }
 
@@ -234,6 +239,7 @@ export class PlacesComponent implements OnInit {
       syncStatus: 'pending',
     };
 
+    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
       const saved = editingId
@@ -250,6 +256,7 @@ export class PlacesComponent implements OnInit {
       this.showError(error, 'Failed to save place.');
     } finally {
       this.isSaving.set(false);
+      this.globalLoadingService.end(operation);
     }
   }
 

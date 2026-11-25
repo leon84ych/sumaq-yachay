@@ -1,29 +1,28 @@
 import { Injector, Signal, Type, WritableSignal, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { TranslocoService } from '@jsverse/transloco';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { BookGASRepository } from '../../../features/book/services/book-gas-repository';
 import { BookService } from '../../../features/book/services/book.service';
 import { GoogleAuthService } from '../../../features/authentication/services/google-auth-service';
-import { DomainDataService } from '../../../features/book-detail/services/domain-data.service';
-import { DomainAssociationComponent } from '../../../features/domain/domain-association/domain-association/domain-association.component';
-import { DomainBookEventsComponent } from '../../../features/domain/domain-book-events/domain-book-events/domain-book-events.component';
-import { DomainCharacterComponent } from '../../../features/domain/domain-character/domain-character/domain-character.component';
-import { DomainConceptsComponent } from '../../../features/domain/domain-concepts/domain-concept/domain-concept.component';
-import { DomainGlossaryComponent } from '../../../features/domain/domain-glosary/domain-glosary/domain-glossary.component';
-import { DomainPassageComponent } from '../../../features/domain/domain-passages/domain-passage/domain-passage.component';
-import { DomainPlacesComponent } from '../../../features/domain/domain-places/domain-places/domain-places.component';
-import { QuestionsComponent } from '../../../features/domain/domain-questions/domain-questions/question.component';
-import { QuestionPracticeComponent } from '../../../features/domain/domain-questions/practice/question-practice.component';
-import { QuestionAttemptService } from '../../../features/domain/domain-questions/services/question-attempt.service';
-import { QuestionPracticeService } from '../../../features/domain/domain-questions/services/question-practice.service';
-import { DomainQuoteComponent } from '../../../features/domain/domain-quotes/domain-quote/domain-quote.component';
-import { DomainRelationsComponent } from '../../../features/domain/domain-relations/domain-relations/domain-relations.component';
-import { DomainIndexComponent } from '../../../features/domain/domain-index/domain-index/domain-index.component';
+import { AssociationsComponent } from '../../../features/domain-1/associations/associations/associations.component';
+import { BookEventsComponent } from '../../../features/domain-1/book-events/book-events/book-events.component';
+import { CharactersComponent } from '../../../features/domain-1/characters/characters/characters.component';
+import { ConceptsComponent } from '../../../features/domain-1/concepts/concepts/concepts.component';
+import { GlossaryComponent } from '../../../features/domain-1/glossary/glossary/glossary.component';
+import { PassagesComponent } from '../../../features/domain-1/passages/passages/passages.component';
+import { PlacesComponent } from '../../../features/domain-1/places/places/places.component';
+import { QuestionsComponent } from '../../../features/domain-1/questions/questions/questions.component';
+import { QuestionPracticeComponent } from '../../../features/domain-1/questions/practice/question-practice.component';
+import { QuestionAttemptService } from '../../../features/domain-1/questions/services/question-attempt.service';
+import { QuestionPracticeService } from '../../../features/domain-1/questions/services/question-practice.service';
+import { QuotesComponent } from '../../../features/domain-1/quotes/quotes/quotes.component';
+import { RelationsComponent } from '../../../features/domain-1/relations/relations/relations.component';
+import { IndexComponent } from '../../../features/domain-1/index/index/index.component';
 import { Learn } from '../../../features/learn/learn/learn.component';
 import { LearnFeedService } from '../../../features/learn/services/learn-feed.service';
-import { AppDbService } from '../storage/app-db.service';
-import { TaxonomyService } from '../taxonomy/taxonomy.service';
+import { LocalDBService } from '../../../shared/local-db/local-db.service';
 import { ConfigService } from '../config/config.service';
 import { PermissionService } from '../permission/permission.service';
 import { StudySearchService } from './study-search.service';
@@ -32,20 +31,23 @@ import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/stud
 interface DomainSearchView {
   searchTerm: WritableSignal<string>;
   filteredRows: Signal<unknown[]>;
+  rows: WritableSignal<never[]>;
+  bookName: WritableSignal<string>;
+  bookAuthor: WritableSignal<string>;
 }
 
 const domainViews: { component: Type<DomainSearchView>; domain: string }[] = [
-  { component: DomainIndexComponent, domain: 'index' },
-  { component: QuestionsComponent, domain: 'questions' },
-  { component: DomainConceptsComponent, domain: 'concepts' },
-  { component: DomainCharacterComponent, domain: 'characters' },
-  { component: DomainGlossaryComponent, domain: 'glossary' },
-  { component: DomainPassageComponent, domain: 'passages' },
-  { component: DomainPlacesComponent, domain: 'places' },
-  { component: DomainQuoteComponent, domain: 'quotes' },
-  { component: DomainBookEventsComponent, domain: 'book events' },
-  { component: DomainAssociationComponent, domain: 'associations' },
-  { component: DomainRelationsComponent, domain: 'relations' },
+  { component: IndexComponent as unknown as Type<DomainSearchView>, domain: 'index' },
+  { component: QuestionsComponent as unknown as Type<DomainSearchView>, domain: 'questions' },
+  { component: ConceptsComponent as unknown as Type<DomainSearchView>, domain: 'concepts' },
+  { component: CharactersComponent as unknown as Type<DomainSearchView>, domain: 'characters' },
+  { component: GlossaryComponent as unknown as Type<DomainSearchView>, domain: 'glossary' },
+  { component: PassagesComponent as unknown as Type<DomainSearchView>, domain: 'passages' },
+  { component: PlacesComponent as unknown as Type<DomainSearchView>, domain: 'places' },
+  { component: QuotesComponent as unknown as Type<DomainSearchView>, domain: 'quotes' },
+  { component: BookEventsComponent as unknown as Type<DomainSearchView>, domain: 'book events' },
+  { component: AssociationsComponent as unknown as Type<DomainSearchView>, domain: 'associations' },
+  { component: RelationsComponent as unknown as Type<DomainSearchView>, domain: 'relations' },
 ];
 
 describe('StudySearchService', () => {
@@ -59,22 +61,21 @@ describe('StudySearchService', () => {
     loadQuestionBatch.mockReset().mockResolvedValue([]);
     TestBed.configureTestingModule({
       providers: [
+        provideHttpClient(),
         { provide: LearnFeedService, useValue: { loadRandomBatch: loadLearnBatch, canFetchRemote: () => false } },
         { provide: QuestionPracticeService, useValue: {
           loadRandomBatch: loadQuestionBatch, optionsFor: () => [],
         } },
         { provide: QuestionAttemptService, useValue: {} },
         { provide: TranslocoService, useValue: { translate: (key: string) => key } },
-        { provide: DomainDataService, useValue: { sheets: signal([]) } },
-        { provide: TaxonomyService, useValue: { isTagAllowed: () => true } },
         { provide: PermissionService, useValue: {
           role: signal('admin'), validatePermission: () => true,
         } },
         { provide: ConfigService, useValue: {
           isLocalSampleDataEnabled: () => false, localSampleDataEnabled: signal(false),
         } },
-        { provide: AppDbService, useValue: {
-          db: {
+        { provide: LocalDBService, useValue: {
+          indexedDB: {
             books: { toArray: async () => [] },
             tables: [{ name: 'concepts', toArray: async () => relatedRows }],
           },
@@ -112,7 +113,7 @@ describe('StudySearchService', () => {
     await book.loadFromLocal();
     const entry = {
       id: 'book-1', row: 1, name: 'Book One', author: 'Author One', subject: 'Science',
-      topic: 'Physics', active: true, count: 1, updatedAt: '',
+      topic: 'Physics', active: true, count: 1, updatedAt: '', isbn: '', language: 'en', page: 0, pages: 0,
     };
     book.items.set([entry]);
     const search = TestBed.inject(StudySearchService);
@@ -220,24 +221,25 @@ describe('StudySearchService', () => {
       { id: 'two', row: 2, name: 'Book Two', author: 'Author Two' },
     ];
     const concepts = [
-      { id: 'matching', row: 1, term: 'Memory', tags: ['#memory', '#identity'] },
-      { id: 'prefix-only', row: 1, term: 'Memory loss', tags: ['#memory-loss', '#identity'] },
-      { id: 'other-author', row: 2, term: 'Memory', tags: ['#memory', '#identity'] },
+      { id: 'matching', bookId: 'one', bookRow: 1, term: 'Memory', tags: ['#memory', '#identity'] },
+      { id: 'prefix-only', bookId: 'one', bookRow: 1, term: 'Memory loss', tags: ['#memory-loss', '#identity'] },
+      { id: 'other-author', bookId: 'two', bookRow: 2, term: 'Memory', tags: ['#memory', '#identity'] },
     ].map((row) => ({ ...row, contributor: 'leon84ych@gmail.com' }));
     concepts.push({
-      id: 'other-contributor', row: 1, term: 'Memory', tags: ['#memory', '#identity'],
+      id: 'other-contributor', bookId: 'one', bookRow: 1, term: 'Memory', tags: ['#memory', '#identity'],
       contributor: 'other@gmail.com',
     });
     const questions = concepts.map((row) => ({
       ...row, question: row.term, answer: 'Answer', sourceDomain: 'CONCEPTS', type: 'open',
     }));
     const emptyTable = { toArray: async () => [] };
-    Object.assign(TestBed.inject(AppDbService).db, {
+    Object.assign(TestBed.inject(LocalDBService).indexedDB, {
       books: { toArray: async () => books },
       concepts: { toArray: async () => concepts },
       questions: { toArray: async () => questions },
       quotes: emptyTable, passages: emptyTable, characters: emptyTable, places: emptyTable,
-      relationsCharacters: emptyTable, relationsConcepts: emptyTable, glosary: emptyTable,
+      indexes: emptyTable, bookEvents: emptyTable, relations: emptyTable,
+      associations: emptyTable, glossary: emptyTable,
     });
     const feed = TestBed.runInInjectionContext(() => new LearnFeedService());
     const practice = TestBed.runInInjectionContext(() => new QuestionPracticeService());
@@ -255,14 +257,16 @@ describe('StudySearchService', () => {
   it('finds book books through tags and domains in locally stored learning content', async () => {
     vi.useFakeTimers();
     const book = TestBed.inject(BookService);
+    TestBed.tick();
+    await Promise.resolve();
     await book.loadFromLocal();
     book.items.set([
       { id: 'one', row: 1, name: 'Book One', author: 'Author', subject: 'Science',
-        topic: 'Physics', active: true, count: 1, updatedAt: '' },
+        topic: 'Physics', active: true, count: 1, updatedAt: '', isbn: '', language: 'en', page: 0, pages: 0 },
       { id: 'two', row: 2, name: 'Book Two', author: 'Author', subject: 'Science',
-        topic: 'Biology', active: true, count: 1, updatedAt: '' },
+        topic: 'Biology', active: true, count: 1, updatedAt: '', isbn: '', language: 'en', page: 0, pages: 0 },
     ]);
-    relatedRows = [{ id: 'concept', row: 1, term: 'Entropy', tags: ['#study-tag'], contributor: 'leon84ych@gmail.com' }];
+    relatedRows = [{ id: 'concept', bookId: 'one', bookRow: 1, term: 'Entropy', tags: ['#study-tag'], contributor: 'leon84ych@gmail.com' }];
     const search = TestBed.inject(StudySearchService);
     for (const query of ['study-tag', 'concepts', 'Author #study-tag', 'Book One #study-tag',
       'book:"Book One" author:"Author" #study-tag',
@@ -272,7 +276,7 @@ describe('StudySearchService', () => {
       await vi.advanceTimersByTimeAsync(250);
       expect(book.filteredItems().map((entry) => entry.id)).toEqual(['one']);
     }
-    relatedRows.push({ id: 'other-concept', row: 2, term: 'Entropy', tags: ['#study-tag'],
+    relatedRows.push({ id: 'other-concept', bookId: 'two', bookRow: 2, term: 'Entropy', tags: ['#study-tag'],
       contributor: 'other@gmail.com' });
     for (const [contributor, expectedId] of [['leon84ych@gmail.com', 'one'], ['other@gmail.com', 'two']]) {
       search.query.set(`contributor:${JSON.stringify(contributor)}`);
@@ -300,9 +304,9 @@ describe('StudySearchService', () => {
         targetCharacterId: 'target', relationType: 'related',
         contributor: 'leon84ych@gmail.com',
       };
-      fixture.componentRef.setInput('rows', [row]);
-      fixture.componentRef.setInput('bookName', 'Book One');
-      fixture.componentRef.setInput('bookAuthor', 'Author One');
+      fixture.componentInstance.rows.set([row] as never[]);
+      fixture.componentInstance.bookName.set('Book One');
+      fixture.componentInstance.bookAuthor.set('Author One');
       const search = TestBed.inject(StudySearchService);
       for (const query of ['Book One', 'Author One', domain, 'study-tag', '#study-tag',
         'Book One #study-tag', 'Author One #study-tag',
@@ -313,12 +317,12 @@ describe('StudySearchService', () => {
         expect(fixture.componentInstance.filteredRows()).toEqual([row]);
       }
       const other = { ...row, id: 'entry-2', contributor: 'other@gmail.com' };
-      fixture.componentRef.setInput('rows', [row, other]);
+      fixture.componentInstance.rows.set([row, other] as never[]);
       search.query.set('contributor:"leon84ych@gmail.com"');
       expect(fixture.componentInstance.filteredRows()).toEqual([row]);
       search.query.set('contributor:"other@gmail.com"');
       expect(fixture.componentInstance.filteredRows()).toEqual([other]);
-      fixture.componentRef.setInput('rows', [row]);
+      fixture.componentInstance.rows.set([row] as never[]);
       search.query.set('Author One #study-tag #missing');
       expect(fixture.componentInstance.filteredRows()).toEqual([]);
       search.query.set('book:"Other Book" author:"Author One" #study-tag');

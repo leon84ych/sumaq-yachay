@@ -60,7 +60,7 @@
   <footer class="domain-card-footer glossary-entry-card__footer">
     <div class="domain-card-footer__management">
       <app-domain-contributor [contributor]="row().contributor" />
-      @if (permissions.validatePermission(role(), 'DELETE_ROW')) {
+      @if (showActions() && permissions.validatePermission(role(), 'DELETE_ROW')) {
         <button
           type="button"
           class="domain-delete-button"
@@ -73,7 +73,7 @@
           </svg>
         </button>
       }
-      @if (permissions.validatePermission(role(), 'CREATE_ROW')) {
+      @if (showActions() && permissions.validatePermission(role(), 'CREATE_ROW')) {
         <button
           type="button"
           class="domain-edit-button"

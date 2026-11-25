@@ -1,7 +1,18 @@
-import { Component, OnInit, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  computed,
+  effect,
+  inject,
+  input,
+  output,
+  signal,
+  untracked,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -52,6 +63,7 @@ export class PassagesComponent implements OnInit {
   readonly newPage = signal('');
   readonly newTags = signal<string[]>([]);
   readonly editingId = signal<string | null>(null);
+  readonly submitted = signal(false);
   readonly isSaving = signal(false);
   readonly searchTerm = inject(StudySearchService).query;
   readonly passageTextMaxLength = PASSAGE_TEXT_MAX_LENGTH;
@@ -61,6 +73,7 @@ export class PassagesComponent implements OnInit {
 
   private readonly passageDataService = inject(PassageDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
@@ -179,6 +192,7 @@ export class PassagesComponent implements OnInit {
   }
 
   editEntry(row: PassageRecord): void {
+    this.submitted.set(false);
     this.editingId.set(row.id);
     this.newTitle.set(row.title);
     this.newPassageText.set(row.passageText);
@@ -190,6 +204,7 @@ export class PassagesComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.submitted.set(false);
     this.editingId.set(null);
     this.newTitle.set('');
     this.newPassageText.set('');
@@ -204,8 +219,8 @@ export class PassagesComponent implements OnInit {
     if (this.isSaving()) {
       return;
     }
+    this.submitted.set(true);
     if (this.isFormInvalid()) {
-      this.globalErrorService.show('Cannot add entry: Please remove unauthorized tags.');
       return;
     }
 
@@ -238,6 +253,7 @@ export class PassagesComponent implements OnInit {
       syncStatus: 'pending',
     };
 
+    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
       const saved = editingId
@@ -260,6 +276,7 @@ export class PassagesComponent implements OnInit {
       this.globalErrorService.show(message);
     } finally {
       this.isSaving.set(false);
+      this.globalLoadingService.end(operation);
     }
   }
 }

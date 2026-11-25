@@ -3,7 +3,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
-import { DomainContributorComponent } from '../../../../domain/shared/domain-contributor/domain-contributor.component';
+import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
 import { QuestionRecord } from '../../model/questions-model';
 
 @Component({

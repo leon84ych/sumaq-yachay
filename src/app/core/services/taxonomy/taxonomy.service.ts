@@ -1,12 +1,12 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
-import { AppDbService } from '../../services/storage/app-db.service';
+import { LocalDBService } from '../../../shared/local-db/local-db.service';
 import { parseTagsFromArray } from '../../../shared/tag-picker/tag-picker.mapper';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaxonomyService {
-  private readonly dbService = inject(AppDbService);
+  private readonly dbService = inject(LocalDBService);
 
   // 1. Reactive memory state for valid system tags
   readonly verifiedTags = signal<Set<string>>(new Set());
@@ -16,11 +16,11 @@ export class TaxonomyService {
    * This must be run whenever the book changes or when the INDEX domain completes a sync.
    */
   async refreshGlobalTaxonomy(row: number): Promise<void> {
-    // Read raw data directly from the indexTopics table
-    const indexRecords = await this.dbService.db.indexTopics
-      .where('row')
-      .equals(row)
-      .toArray();
+    const database = this.dbService.indexedDB;
+    const book = await database.books.where('row').equals(row).first();
+    const indexRecords = book
+      ? await database.indexes.where('bookId').equals(book.id).toArray()
+      : [];
 
     const masterTags = new Set<string>();
 

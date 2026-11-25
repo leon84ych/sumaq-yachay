@@ -12,6 +12,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalErrorService } from '../../../../core/services/error/global-error.service';
+import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -64,12 +65,14 @@ export class AssociationsComponent implements OnInit {
   readonly newPage = signal('');
   readonly newTags = signal<string[]>([]);
   readonly optionsLoadState = signal<'idle' | 'loading' | 'ready' | 'error'>('idle');
+  readonly submitted = signal(false);
   readonly isSaving = signal(false);
 
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
   private readonly associationDataService = inject(AssociationDataService);
   private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
 
   readonly invalidTagsDetected = computed(() => {
@@ -80,20 +83,30 @@ export class AssociationsComponent implements OnInit {
   });
 
   readonly relationTypeSuggestions = computed(() => getAssociationTypeSuggestions(this.rows()));
+  readonly isSourceConceptInvalid = computed(
+    () => !this.concepts().some((concept) => concept.id === this.newSourceConceptId()),
+  );
+  readonly isTargetConceptInvalid = computed(
+    () => !this.concepts().some((concept) => concept.id === this.newTargetConceptId()),
+  );
+  readonly isSameConceptInvalid = computed(
+    () => !!this.newSourceConceptId() && this.newSourceConceptId() === this.newTargetConceptId(),
+  );
+  readonly isRelationTypeInvalid = computed(() => !this.newRelationType().trim());
+  readonly isDescriptionInvalid = computed(() => !this.newDescription().trim());
+  readonly isBookInvalid = computed(() => !this.bookName().trim());
+  readonly isAuthorInvalid = computed(() => !this.bookAuthor().trim());
 
   readonly isFormInvalid = computed(() => {
-    const conceptIds = new Set(this.concepts().map((concept) => concept.id));
-    const sourceId = this.newSourceConceptId();
-    const targetId = this.newTargetConceptId();
     return (
-      !conceptIds.has(sourceId) ||
-      !conceptIds.has(targetId) ||
-      sourceId === targetId ||
-      !this.newRelationType().trim() ||
-      !this.newDescription().trim() ||
+      this.isSourceConceptInvalid() ||
+      this.isTargetConceptInvalid() ||
+      this.isSameConceptInvalid() ||
+      this.isRelationTypeInvalid() ||
+      this.isDescriptionInvalid() ||
       this.newDescription().length > 1000 ||
-      !this.bookName().trim() ||
-      !this.bookAuthor().trim() ||
+      this.isBookInvalid() ||
+      this.isAuthorInvalid() ||
       this.invalidTagsDetected().length > 0
     );
   });
@@ -197,6 +210,7 @@ export class AssociationsComponent implements OnInit {
   }
 
   editEntry(record: AssociationRecord): void {
+    this.submitted.set(false);
     this.editingId.set(record.id);
     this.newSourceConceptId.set(record.sourceConceptId);
     this.newTargetConceptId.set(record.targetConceptId);
@@ -210,6 +224,7 @@ export class AssociationsComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.submitted.set(false);
     this.editingId.set(null);
     this.newSourceConceptId.set('');
     this.newTargetConceptId.set('');
@@ -226,8 +241,8 @@ export class AssociationsComponent implements OnInit {
     if (this.isSaving()) {
       return;
     }
+    this.submitted.set(true);
     if (this.isFormInvalid()) {
-      this.globalErrorService.show('Cannot save association: Check the fields and book tags.');
       return;
     }
 
@@ -264,6 +279,7 @@ export class AssociationsComponent implements OnInit {
       syncStatus: 'pending',
     };
 
+    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
       const saved = editingId
@@ -280,6 +296,7 @@ export class AssociationsComponent implements OnInit {
       this.showError(error, 'Failed to save association.');
     } finally {
       this.isSaving.set(false);
+      this.globalLoadingService.end(operation);
     }
   }
 

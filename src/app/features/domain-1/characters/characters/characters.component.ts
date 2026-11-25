@@ -84,7 +84,11 @@ export class CharactersComponent implements OnInit {
   });
 
   readonly isFormInvalid = computed(
-    () => !this.newName().trim() || this.invalidTagsDetected().length > 0,
+    () =>
+      !this.newName().trim() ||
+      !this.newRole() ||
+      !this.newNature() ||
+      this.invalidTagsDetected().length > 0,
   );
 
   readonly filteredRows = computed(() => {

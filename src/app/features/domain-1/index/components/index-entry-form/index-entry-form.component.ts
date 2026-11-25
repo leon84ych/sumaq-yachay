@@ -3,7 +3,7 @@ import { Component, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { TagPickerComponent } from '../../../../../shared/tag-picker/tag-picker.component';
-import { DomainEntryFormOverlayComponent } from '../../../../domain/shared/domain-entry-form-overlay/domain-entry-form-overlay.component'; 
+import { DomainEntryFormOverlayComponent } from '../../../shared/domain-entry-form-overlay/domain-entry-form-overlay.component';
 import { IndexComponent } from '../../index/index.component';
 
 @Component({

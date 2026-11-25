@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
-import { QuestionGeneratorComponent } from '../../../../domain/domain-questions/components/question-generator/question-generator.component';
+import { QuestionGeneratorComponent } from '../../../questions/components/question-generator/question-generator.component';
 import { ConceptRecord } from '../../model/concepts-model';
 import { ConceptQuizGeneratorComponent } from '../concept-quiz/concept-quiz.component';
 import { ConceptEntryCardComponent } from './concept-entry-card.component';
