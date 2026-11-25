@@ -19,6 +19,9 @@ export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
   private localDBService = inject(LocalDBService);
 
   async getDomain(bookRow: number, total: number | null = null): Promise<IndexRecord[]> {
+    // Reset database to delete ALL old data
+    await this.localDBService.resetDatabase();
+
     const domain: IndexRaw[] = await this.gasRepository.getDomain(bookRow, total);
     const database = this.localDBService.indexedDB;
     const book = await database.books.where('row').equals(bookRow).first();
@@ -26,14 +29,13 @@ export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
       ...this.mapper.toRecord({ ...item, bookId: item.bookId || book?.id || '' }),
       bookRow,
     })).filter((record) => record.bookId);
-    const bookId = book?.id ?? domainRecords[0]?.bookId;
-    if (!bookId) return domainRecords;
+
+    if (domainRecords.length === 0) {
+      return [];
+    }
 
     await database.transaction('rw', database.indexes, async () => {
-      const localRecords = await database.indexes.where('bookId').equals(bookId).toArray();
-      const recordsToDelete = localRecords.map((record) => [record.bookId, record.id] as [string, string]);
-      await Promise.all(recordsToDelete.map((key) => database.indexes.delete(key)));
-      if (domainRecords.length > 0) await database.indexes.bulkPut(domainRecords);
+      await database.indexes.bulkPut(domainRecords);
     });
 
     return domainRecords.sort((left, right) => left.itemRow - right.itemRow);
