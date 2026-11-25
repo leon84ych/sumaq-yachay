@@ -19,9 +19,6 @@ export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
   private localDBService = inject(LocalDBService);
 
   async getDomain(bookRow: number, total: number | null = null): Promise<IndexRecord[]> {
-    // Clear ALL local data before fetching from remote
-    await this.localDBService.clearAllTables();
-
     const domain: IndexRaw[] = await this.gasRepository.getDomain(bookRow, total);
     const database = this.localDBService.indexedDB;
     const book = await database.books.where('row').equals(bookRow).first();
