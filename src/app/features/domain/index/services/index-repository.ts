@@ -29,25 +29,14 @@ export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
     const bookId = book?.id ?? domainRecords[0]?.bookId;
     if (!bookId) return domainRecords;
 
-    let mergedRecords: IndexRecord[] = [];
     await database.transaction('rw', database.indexes, async () => {
       const localRecords = await database.indexes.where('bookId').equals(bookId).toArray();
-      const unsyncedRecords = localRecords.filter(
-        (record) => record.syncStatus === 'pending' || record.syncStatus === 'error',
-      );
-      const unsyncedIds = new Set(unsyncedRecords.map((record) => record.id));
-      const remoteRecords = domainRecords.filter((record) => !unsyncedIds.has(record.id));
-      const remoteIds = new Set(remoteRecords.map((record) => record.id));
-      const removedIds = localRecords
-        .filter((record) => record.syncStatus === 'synced' && !remoteIds.has(record.id))
-        .map((record) => [record.bookId, record.id] as [string, string]);
-
-      await Promise.all(removedIds.map((key) => database.indexes.delete(key)));
-      if (remoteRecords.length > 0) await database.indexes.bulkPut(remoteRecords);
-      mergedRecords = [...remoteRecords, ...unsyncedRecords].sort((left, right) => left.itemRow - right.itemRow);
+      const recordsToDelete = localRecords.map((record) => [record.bookId, record.id] as [string, string]);
+      await Promise.all(recordsToDelete.map((key) => database.indexes.delete(key)));
+      if (domainRecords.length > 0) await database.indexes.bulkPut(domainRecords);
     });
 
-    return mergedRecords;
+    return domainRecords.sort((left, right) => left.itemRow - right.itemRow);
   }
 
   getDomainPaginated(row: number, page: number, pageSize: number|null): Promise<GASPaginatedResponseRaw<IndexRecord>> {
