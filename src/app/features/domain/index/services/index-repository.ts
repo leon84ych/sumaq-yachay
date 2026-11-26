@@ -35,6 +35,7 @@ export class IndexRepository extends LocalDomainRepositoryAbstract<IndexRecord> 
       ...this.mapper.toRecord({ ...item, bookId: item.bookId || book?.id || '' }),
       bookRow,
     })).filter((record) => record.bookId);
+
     const bookId = book?.id ?? domainRecords[0]?.bookId;
     if (!bookId) return domainRecords;
 
@@ -61,7 +62,7 @@ export class IndexRepository extends LocalDomainRepositoryAbstract<IndexRecord> 
       mergedRecords = [...remoteRecords, ...protectedRecords].sort((left, right) => left.itemRow - right.itemRow);
     });
 
-    return mergedRecords;
+        return mergedRecords;
   }
 
 

@@ -54,6 +54,16 @@ describe('IndexRepository remote refresh', () => {
     expect(refreshed.map((record) => record.id).sort()).toEqual(['local-error', 'local-pending', 'remote-1']);
   });
 
+  it('keeps pending rows visible when the remote Index is empty', async () => {
+    await database.books.add({ id: 'book-1', row: 7, name: 'Book', author: 'Author', isbn: '', language: 'English', subject: '', topic: '', active: true, page: 0, pages: 0, count: 0, updatedAt: '' });
+    const pending = { id: 'local-pending', bookId: 'book-1', bookRow: 7, itemRow: 3, chapter: 'My edit', theme: 'Keep', subtheme: '', tags: [], contributor: '', feed: 0, syncStatus: 'pending' as const };
+    await database.indexes.put(pending);
+    TestBed.inject(IndexGASRepository).getDomain = vi.fn().mockResolvedValue([]);
+
+    expect(await TestBed.inject(IndexRepository).getDomain(7)).toEqual([pending]);
+    expect(await database.indexes.get(['book-1', 'local-pending'])).toEqual(pending);
+  });
+
   it('does not erase or overwrite a write that completes during an older remote refresh', async () => {
     await database.books.add({ id: 'book-1', row: 7, name: 'Book', author: 'Author', isbn: '', language: 'English', subject: '', topic: '', active: true, page: 0, pages: 0, count: 0, updatedAt: '' });
     const existing = { id: 'edited', bookId: 'book-1', bookRow: 7, itemRow: 2, chapter: 'Before', theme: 'Original', subtheme: '', tags: [], contributor: '', feed: 0, syncStatus: 'synced' as const };

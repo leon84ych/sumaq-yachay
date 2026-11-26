@@ -143,6 +143,5 @@ export class LocalDBService {
         await table.clear();
       }
     });
-    this.samplesSeeded = false;
   }
 }

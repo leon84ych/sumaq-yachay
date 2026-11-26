@@ -221,11 +221,12 @@ export class BookService {
     this.isLoading.set(true);
     this.errorMessage.set(null);
     try {
+      // Clear ALL local data before syncing from remote
+      await this.localDBService.clearAllTables();
+      this.items.set([]);
+
       let page = 1;
       let totalPages = 1;
-      //clear local data
-      await this.localDBService.indexedDB.books.clear();
-      this.items.set([]);
 
       while (page <= totalPages) {
         const response = await this.bookGASRepository.getBooks(page, PAGE_SIZE);
@@ -254,7 +255,6 @@ export class BookService {
 
       //save all items in IndexedDB
       await this.localDBService.indexedDB.transaction('rw', this.localDBService.indexedDB.books, async () => {
-        await this.localDBService.indexedDB.books.clear();
         await this.localDBService.indexedDB.books.bulkPut(this.items());
       });
 
