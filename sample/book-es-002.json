@@ -5,7 +5,7 @@
       "chapter": "Del lado de allá",
       "theme": "Búsqueda",
       "subtheme": "La búsqueda de sentido más allá de la realidad cotidiana",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#búsqueda"],
       "contributor": "leon84ych"
     },
@@ -14,7 +14,7 @@
       "chapter": "Del lado de allá",
       "theme": "Amor",
       "subtheme": "Intimidad, distancia e incertidumbre emocional",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#amor"],
       "contributor": "leon84ych"
     },
@@ -23,7 +23,7 @@
       "chapter": "Del lado de allá",
       "theme": "París",
       "subtheme": "Recorrido urbano y experiencia intelectual",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#parís"],
       "contributor": "leon84ych"
     },
@@ -32,7 +32,7 @@
       "chapter": "Del lado de acá",
       "theme": "Regreso",
       "subtheme": "Desplazamiento y readaptación en Buenos Aires",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#regreso"],
       "contributor": "leon84ych"
     },
@@ -41,7 +41,7 @@
       "chapter": "Del lado de acá",
       "theme": "Identidad",
       "subtheme": "Duplicidad, reconocimiento y percepción inestable",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#identidad"],
       "contributor": "leon84ych"
     },
@@ -50,7 +50,7 @@
       "chapter": "De otros lados",
       "theme": "Experimentación",
       "subtheme": "Órdenes alternativos de lectura y estructura fragmentaria",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#experimentación"],
       "contributor": "leon84ych"
     },
@@ -59,7 +59,7 @@
       "chapter": "El Club de la Serpiente",
       "theme": "Arte",
       "subtheme": "Jazz, literatura, filosofía y conversación",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#arte"],
       "contributor": "leon84ych"
     },
@@ -68,7 +68,7 @@
       "chapter": "Horacio Oliveira",
       "theme": "Alienación",
       "subtheme": "Distancia intelectual frente a la experiencia",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#alienación"],
       "contributor": "leon84ych"
     },
@@ -77,7 +77,7 @@
       "chapter": "La Maga",
       "theme": "Intuición",
       "subtheme": "La experiencia frente a la abstracción intelectual",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#intuición"],
       "contributor": "leon84ych"
     },
@@ -86,7 +86,7 @@
       "chapter": "Panorama analítico",
       "theme": "Lectura",
       "subtheme": "Participación del lector e interpretación no lineal",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#lectura"],
       "contributor": "leon84ych"
     }
@@ -103,7 +103,7 @@
       "tags": ["#oliveira", "#búsqueda", "#alienación"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#3A7D44"
     },
     {
@@ -117,7 +117,7 @@
       "tags": ["#la-maga", "#intuición", "#amor"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#B56576"
     },
     {
@@ -131,7 +131,7 @@
       "tags": ["#traveler", "#amistad", "#identidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#6A994E"
     },
     {
@@ -145,7 +145,7 @@
       "tags": ["#talita", "#traveler", "#percepción"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#2F6690"
     },
     {
@@ -159,7 +159,7 @@
       "tags": ["#morelli", "#literatura", "#experimentación"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#D17B49"
     },
     {
@@ -173,7 +173,7 @@
       "tags": ["#étienne", "#club-de-la-serpiente", "#arte"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#4F6D7A"
     },
     {
@@ -187,7 +187,7 @@
       "tags": ["#ronald", "#club-de-la-serpiente", "#jazz"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#A44A3F"
     },
     {
@@ -201,7 +201,7 @@
       "tags": ["#babs", "#club-de-la-serpiente", "#parís"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#5C4D7D"
     },
     {
@@ -215,7 +215,7 @@
       "tags": ["#gregorovius", "#club-de-la-serpiente", "#filosofía"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#735D78"
     },
     {
@@ -229,7 +229,7 @@
       "tags": ["#rocamadour", "#la-maga", "#vulnerabilidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#C49A3A"
     }
   ],
@@ -241,7 +241,7 @@
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#estructura", "#experimentación", "#lectura-no-lineal"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -251,7 +251,7 @@
       "category": "Concepto literario",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#lectura", "#interpretación", "#participación-del-lector"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -261,7 +261,7 @@
       "category": "Tema filosófico",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#sentido", "#identidad", "#búsqueda-existencial"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -271,7 +271,7 @@
       "category": "Tema",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#aislamiento", "#identidad", "#alienación"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -281,7 +281,7 @@
       "category": "Tema filosófico",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#intuición", "#razón", "#intuición-intelecto"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -291,7 +291,7 @@
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#literatura", "#experimentación", "#metaficción"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -301,7 +301,7 @@
       "category": "Estructura narrativa",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#estructura", "#narrativa", "#fragmentación"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -311,7 +311,7 @@
       "category": "Concepto literario",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#lenguaje", "#experimentación", "#juego"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -321,7 +321,7 @@
       "category": "Concepto analítico",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#jazz", "#arte", "#improvisación-jazzística"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -331,7 +331,7 @@
       "category": "Concepto filosófico",
       "source": "Contexto de estudio para Rayuela",
       "tags": ["#búsqueda", "#sentido", "#otro-lado"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -348,7 +348,8 @@
       "tags": ["#estructura", "#lectura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-02",
@@ -362,7 +363,8 @@
       "tags": ["#metaficción", "#literatura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-03",
@@ -376,7 +378,8 @@
       "tags": ["#fragmentación", "#estructura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-04",
@@ -390,7 +393,8 @@
       "tags": ["#alienación", "#identidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-05",
@@ -404,7 +408,8 @@
       "tags": ["#intuición", "#percepción"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-06",
@@ -418,7 +423,8 @@
       "tags": ["#jazz", "#experimentación"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-07",
@@ -432,7 +438,8 @@
       "tags": ["#parís", "#arte"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-08",
@@ -446,7 +453,8 @@
       "tags": ["#referencias", "#literatura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-09",
@@ -460,7 +468,8 @@
       "tags": ["#absurdo", "#sentido"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-10",
@@ -474,7 +483,8 @@
       "tags": ["#experimental", "#literatura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     }
   ],
   "PASSAGES": [
@@ -488,7 +498,7 @@
       "tags": ["#muestra", "#parís", "#búsqueda"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-02",
@@ -500,7 +510,7 @@
       "tags": ["#muestra", "#intelecto", "#alienación"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-03",
@@ -512,7 +522,7 @@
       "tags": ["#muestra", "#jazz", "#improvisación"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-04",
@@ -524,7 +534,7 @@
       "tags": ["#muestra", "#intuición", "#razón"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-05",
@@ -536,7 +546,7 @@
       "tags": ["#muestra", "#estructura", "#lectura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-06",
@@ -548,7 +558,7 @@
       "tags": ["#muestra", "#buenos-aires", "#alienación"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-07",
@@ -560,7 +570,7 @@
       "tags": ["#muestra", "#identidad", "#memoria"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-08",
@@ -572,7 +582,7 @@
       "tags": ["#muestra", "#club-de-la-serpiente", "#ideas"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-09",
@@ -584,7 +594,7 @@
       "tags": ["#muestra", "#lectura", "#elección"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-10",
@@ -596,7 +606,7 @@
       "tags": ["#muestra", "#búsqueda", "#sentido"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PLACES": [
@@ -612,7 +622,7 @@
       "tags": ["#parís", "#francia", "#oliveira"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-02",
@@ -626,7 +636,7 @@
       "tags": ["#buenos-aires", "#argentina", "#regreso"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-03",
@@ -640,7 +650,7 @@
       "tags": ["#francia", "#parís", "#europa"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-04",
@@ -654,7 +664,7 @@
       "tags": ["#argentina", "#buenos-aires", "#regreso"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-05",
@@ -668,7 +678,7 @@
       "tags": ["#sena", "#parís", "#río"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-06",
@@ -682,7 +692,7 @@
       "tags": ["#muestra-analítica", "#club-de-la-serpiente", "#jazz"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-07",
@@ -696,7 +706,7 @@
       "tags": ["#muestra-analítica", "#parís", "#recorrido"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-08",
@@ -710,7 +720,7 @@
       "tags": ["#muestra-analítica", "#circo", "#buenos-aires"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-09",
@@ -724,7 +734,7 @@
       "tags": ["#muestra-analítica", "#clínica", "#buenos-aires"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-10",
@@ -738,7 +748,7 @@
       "tags": ["#muestra-analítica", "#rayuela", "#estructura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "QUOTES": [
@@ -749,7 +759,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#lectura", "#estructura"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -759,7 +769,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#sentido", "#alienación"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -769,7 +779,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#viaje", "#posibilidad"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -779,7 +789,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#intuición", "#intelecto"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -789,7 +799,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#jazz", "#improvisación"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -799,7 +809,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#regreso", "#identidad"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -809,7 +819,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#conversación", "#ideas"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -819,7 +829,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#lector", "#experimentación"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -829,7 +839,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#identidad", "#duplicidad"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -839,7 +849,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#búsqueda", "#sentido"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -863,7 +873,7 @@
       "tags": ["#búsqueda"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-02",
@@ -886,7 +896,7 @@
       "tags": ["#estructura", "#experimentación", "#lectura-no-lineal"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-03",
@@ -909,7 +919,7 @@
       "tags": ["#oliveira", "#búsqueda", "#alienación"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-04",
@@ -932,7 +942,7 @@
       "tags": ["#parís", "#francia", "#oliveira"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-05",
@@ -950,7 +960,7 @@
       "tags": ["#muestra", "#lectura", "#estructura"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-06",
@@ -968,7 +978,7 @@
       "tags": ["#muestra", "#parís", "#búsqueda"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-07",
@@ -994,7 +1004,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-08",
@@ -1010,7 +1020,7 @@
       "tags": ["#oliveira", "#búsqueda", "#alienación", "#la-maga", "#intuición", "#amor"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-09",
@@ -1034,7 +1044,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-10",
@@ -1052,7 +1062,7 @@
       "tags": ["#estructura", "#lectura"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "BOOK_EVENTS": [
@@ -1085,7 +1095,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-02",
@@ -1117,7 +1127,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-03",
@@ -1149,7 +1159,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-04",
@@ -1181,7 +1191,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "RELATIONS": [
@@ -1200,7 +1210,7 @@
       "tags": ["#oliveira", "#búsqueda", "#alienación", "#la-maga", "#intuición", "#amor"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-02",
@@ -1217,7 +1227,7 @@
       "tags": ["#traveler", "#amistad", "#identidad", "#talita", "#percepción", "#amor"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-03",
@@ -1242,7 +1252,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-04",
@@ -1259,7 +1269,7 @@
       "tags": ["#ronald", "#club-de-la-serpiente", "#jazz", "#babs", "#parís", "#regreso"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "ASSOCIATIONS": [
@@ -1286,7 +1296,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-02",
@@ -1310,7 +1320,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-03",
@@ -1335,7 +1345,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-04",
@@ -1360,7 +1370,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ]
 }

@@ -5,7 +5,7 @@
       "chapter": "Benjy",
       "theme": "Time",
       "subtheme": "Fragmented memory and nonlinear perception",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#time"],
       "contributor": "leon84ych"
     },
@@ -14,7 +14,7 @@
       "chapter": "Benjy",
       "theme": "Memory",
       "subtheme": "Sensory triggers and involuntary recollection",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#memory"],
       "contributor": "leon84ych"
     },
@@ -23,7 +23,7 @@
       "chapter": "Quentin",
       "theme": "Family",
       "subtheme": "Identity and inherited expectations",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#family"],
       "contributor": "leon84ych"
     },
@@ -32,7 +32,7 @@
       "chapter": "Quentin",
       "theme": "Time",
       "subtheme": "Obsession with time and the past",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#time"],
       "contributor": "leon84ych"
     },
@@ -41,7 +41,7 @@
       "chapter": "Jason",
       "theme": "Resentment",
       "subtheme": "Anger, control, and frustration",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#resentment"],
       "contributor": "leon84ych"
     },
@@ -50,7 +50,7 @@
       "chapter": "Jason",
       "theme": "Decline",
       "subtheme": "Family deterioration and personal bitterness",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#decline"],
       "contributor": "leon84ych"
     },
@@ -59,7 +59,7 @@
       "chapter": "Dilsey",
       "theme": "Endurance",
       "subtheme": "Continuity amid family instability",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#endurance"],
       "contributor": "leon84ych"
     },
@@ -68,7 +68,7 @@
       "chapter": "Dilsey",
       "theme": "Community",
       "subtheme": "Family life viewed through social relationships",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#community"],
       "contributor": "leon84ych"
     },
@@ -77,7 +77,7 @@
       "chapter": "Analytical Overview",
       "theme": "Perspective",
       "subtheme": "Multiple narrators and subjective experience",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#perspective"],
       "contributor": "leon84ych"
     },
@@ -86,7 +86,7 @@
       "chapter": "Analytical Overview",
       "theme": "Modernism",
       "subtheme": "Fragmentation and experimental narrative form",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#modernism"],
       "contributor": "leon84ych"
     }
@@ -103,7 +103,7 @@
       "tags": ["#benjy", "#memory", "#perception"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#D17B49"
     },
     {
@@ -117,7 +117,7 @@
       "tags": ["#quentin", "#time", "#family"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#735D78"
     },
     {
@@ -131,7 +131,7 @@
       "tags": ["#jason", "#resentment", "#control"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#C49A3A"
     },
     {
@@ -145,7 +145,7 @@
       "tags": ["#caddy", "#family", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#3A7D44"
     },
     {
@@ -159,7 +159,7 @@
       "tags": ["#dilsey", "#endurance", "#family"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#A44A3F"
     },
     {
@@ -173,7 +173,7 @@
       "tags": ["#caroline", "#family", "#compson"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#4F6D7A"
     },
     {
@@ -187,7 +187,7 @@
       "tags": ["#father", "#compson", "#family"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#5C4D7D"
     },
     {
@@ -201,7 +201,7 @@
       "tags": ["#miss-quentin", "#family", "#conflict"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#6A994E"
     },
     {
@@ -215,7 +215,7 @@
       "tags": ["#luster", "#benjy", "#gibson-family"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#B56576"
     },
     {
@@ -229,7 +229,7 @@
       "tags": ["#tp", "#gibson-family", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#2F6690"
     }
   ],
@@ -241,7 +241,7 @@
       "category": "Narrative technique",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#time", "#structure", "#nonlinear-chronology"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -251,7 +251,7 @@
       "category": "Narrative technique",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#modernism", "#consciousness", "#stream-of-consciousness"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -261,7 +261,7 @@
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#time", "#memory", "#subjective-time"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -271,7 +271,7 @@
       "category": "Narrative structure",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#modernism", "#structure", "#fragmentation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -281,7 +281,7 @@
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#family", "#decline", "#family-decline"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -291,7 +291,7 @@
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#past", "#consciousness", "#memory"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -301,7 +301,7 @@
       "category": "Narrative technique",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#narrator", "#interpretation", "#multiple-perspective"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -311,7 +311,7 @@
       "category": "Literary movement",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#literature", "#experimentation", "#modernism"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -321,7 +321,7 @@
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#self", "#family", "#identity"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -331,7 +331,7 @@
       "category": "Theme",
       "source": "Study context for The Sound and the Fury",
       "tags": ["#dilsey", "#family", "#endurance"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -348,7 +348,8 @@
       "tags": ["#time", "#structure"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-02",
@@ -362,7 +363,8 @@
       "tags": ["#modernism", "#narrative"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-03",
@@ -376,7 +378,8 @@
       "tags": ["#perspective", "#narrator"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-04",
@@ -390,7 +393,8 @@
       "tags": ["#memory", "#past"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-05",
@@ -404,7 +408,8 @@
       "tags": ["#consciousness", "#narrative"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-06",
@@ -418,7 +423,8 @@
       "tags": ["#perspective", "#consciousness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-07",
@@ -432,7 +438,8 @@
       "tags": ["#decline", "#family"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-08",
@@ -446,7 +453,8 @@
       "tags": ["#analysis", "#theme"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-09",
@@ -460,7 +468,8 @@
       "tags": ["#reading", "#fragmentation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-10",
@@ -474,7 +483,8 @@
       "tags": ["#endurance", "#theme"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     }
   ],
   "PASSAGES": [
@@ -488,7 +498,7 @@
       "tags": ["#sample", "#memory", "#time"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-02",
@@ -500,7 +510,7 @@
       "tags": ["#sample", "#time", "#consciousness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-03",
@@ -512,7 +522,7 @@
       "tags": ["#sample", "#family", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-04",
@@ -524,7 +534,7 @@
       "tags": ["#sample", "#perspective", "#subjectivity"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-05",
@@ -536,7 +546,7 @@
       "tags": ["#sample", "#family", "#identity"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-06",
@@ -548,7 +558,7 @@
       "tags": ["#sample", "#resentment", "#anger"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-07",
@@ -560,7 +570,7 @@
       "tags": ["#sample", "#endurance", "#family"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-08",
@@ -572,7 +582,7 @@
       "tags": ["#sample", "#fragmentation", "#reading"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-09",
@@ -584,7 +594,7 @@
       "tags": ["#sample", "#decline", "#family"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-10",
@@ -596,7 +606,7 @@
       "tags": ["#sample", "#perspective", "#interpretation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PLACES": [
@@ -612,7 +622,7 @@
       "tags": ["#jefferson", "#mississippi", "#setting"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-02",
@@ -626,7 +636,7 @@
       "tags": ["#yoknapatawpha", "#region", "#faulkner"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-03",
@@ -640,7 +650,7 @@
       "tags": ["#compson", "#home", "#family"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-04",
@@ -654,7 +664,7 @@
       "tags": ["#harvard", "#quentin", "#university"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-05",
@@ -668,7 +678,7 @@
       "tags": ["#cambridge", "#quentin", "#massachusetts"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-06",
@@ -682,7 +692,7 @@
       "tags": ["#mississippi", "#south", "#setting"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-07",
@@ -696,7 +706,7 @@
       "tags": ["#compson", "#pasture", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-08",
@@ -710,7 +720,7 @@
       "tags": ["#analytical-sample", "#home", "#family"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-09",
@@ -724,7 +734,7 @@
       "tags": ["#analytical-sample", "#jefferson", "#community"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-10",
@@ -738,7 +748,7 @@
       "tags": ["#analytical-sample", "#landscape", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "QUOTES": [
@@ -749,7 +759,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#memory", "#time"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -759,7 +769,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#family", "#perspective"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -769,7 +779,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#chronology", "#modernism"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -779,7 +789,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#past", "#memory"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -789,7 +799,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#decline", "#family"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -799,7 +809,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#narrator", "#perspective"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -809,7 +819,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#fragmentation", "#reading"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -819,7 +829,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#home", "#family"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -829,7 +839,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#resentment", "#perspective"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -839,7 +849,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#endurance", "#change"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -863,7 +873,7 @@
       "tags": ["#time"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-02",
@@ -886,7 +896,7 @@
       "tags": ["#time", "#structure", "#nonlinear-chronology"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-03",
@@ -909,7 +919,7 @@
       "tags": ["#benjy", "#memory", "#perception"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-04",
@@ -932,7 +942,7 @@
       "tags": ["#jefferson", "#mississippi", "#setting"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-05",
@@ -950,7 +960,7 @@
       "tags": ["#sample", "#memory", "#time"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-06",
@@ -968,7 +978,7 @@
       "tags": ["#sample", "#memory", "#time"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-07",
@@ -995,7 +1005,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-08",
@@ -1011,7 +1021,7 @@
       "tags": ["#benjy", "#memory", "#perception", "#quentin", "#time", "#family"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-09",
@@ -1034,7 +1044,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-10",
@@ -1052,7 +1062,7 @@
       "tags": ["#time", "#structure"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "BOOK_EVENTS": [
@@ -1083,7 +1093,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-02",
@@ -1112,7 +1122,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-03",
@@ -1139,7 +1149,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-04",
@@ -1169,7 +1179,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "RELATIONS": [
@@ -1188,7 +1198,7 @@
       "tags": ["#benjy", "#memory", "#perception", "#quentin", "#time", "#family"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-02",
@@ -1205,7 +1215,7 @@
       "tags": ["#jason", "#resentment", "#control", "#caddy", "#family", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-03",
@@ -1222,7 +1232,7 @@
       "tags": ["#dilsey", "#endurance", "#family", "#caroline", "#compson"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-04",
@@ -1239,7 +1249,7 @@
       "tags": ["#father", "#compson", "#family", "#miss-quentin", "#conflict", "#time"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "ASSOCIATIONS": [
@@ -1265,7 +1275,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-02",
@@ -1289,7 +1299,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-03",
@@ -1306,7 +1316,7 @@
       "tags": ["#family-decline", "#family", "#decline", "#memory", "#past", "#consciousness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-04",
@@ -1331,7 +1341,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ]
 }
