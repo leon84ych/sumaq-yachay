@@ -1,0 +1,53 @@
+<section class="relations-view">
+  @if (isAddingEntry() || editingId() !== null) {
+    @if (optionsLoadState() === 'ready') {
+      <app-relation-entry-form-1 [form]="this" />
+    } @else if (optionsLoadState() === 'error') {
+      <p class="empty-state" role="alert">
+        {{ 'DOMAINS.RELATIONS.LOADING_OPTIONS_ERROR' | transloco }}
+      </p>
+      <button type="button" class="btn-cancel" (click)="resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    } @else {
+      <p class="empty-state" role="status" aria-live="polite">
+        {{ 'DOMAINS.RELATIONS.LOADING_OPTIONS' | transloco }}
+      </p>
+    }
+  }
+  @if (rows().length === 0) {
+    <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+    <label class="domain-search">
+      <span class="visually-hidden">{{ 'DOMAINS.RELATIONS.SEARCH' | transloco }}</span>
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="8.75" cy="8.75" r="5.75" />
+        <path d="m13 13 4 4" />
+      </svg>
+      <input
+        type="search"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        [placeholder]="'DOMAINS.RELATIONS.SEARCH' | transloco"
+      />
+    </label>
+
+    @if (filteredRows().length === 0) {
+      <p class="empty-state">{{ 'DOMAINS.RELATIONS.NO_MATCHES' | transloco }}</p>
+    } @else {
+      <div class="relations-grid">
+        @for (relation of filteredRows(); track relation.id) {
+          <app-relation-entry-card-1
+            [row]="relation"
+            [sourceCharacterName]="characterName(relation.sourceCharacterId)"
+            [targetCharacterName]="characterName(relation.targetCharacterId)"
+            [bookName]="bookName()"
+            [bookAuthor]="bookAuthor()"
+            (editRequested)="editEntry($event)"
+            (deleteRequested)="deleteEntry($event)"
+          />
+        }
+      </div>
+    }
+  }
+</section>

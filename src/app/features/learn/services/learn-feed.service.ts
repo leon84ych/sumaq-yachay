@@ -1,15 +1,25 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, Injector, inject } from '@angular/core';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
-import { DomainDataService } from '../../catalog-detail/services/domain-data.service';
-import { AppDbService } from '../../../core/services/storage/app-db.service';
-import { ConfigService } from '../../../core/services/config.service';
-import { DomainName } from '../../catalog-detail/models/domain-sheet-config';
-import { parseTagsFromArray } from '../../../shared/utils/tag-utils';
+import { LocalDBService } from '../../../shared/local-db/local-db.service';
+import { ConfigService } from '../../../core/services/config/config.service';
+import { DomainName } from '../../domain/book-detail/models/domain-sheet-config';
 import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
+import { parseTagsFromArray } from '../../../shared/tag-picker/tag-picker.mapper';
+import { ConceptRepository } from '../../domain/concepts/services/concepts-repository';
+import { QuoteRepository } from '../../domain/quotes/services/quotes-repository';
+import { PassageRepository } from '../../domain/passages/services/passages-repository';
+import { CharacterRepository } from '../../domain/characters/services/characters-repository';
+import { PlaceRepository } from '../../domain/places/services/places-repository';
+import { BookEventRepository } from '../../domain/book-events/services/book-events-repository';
+import { RelationRepository } from '../../domain/relations/services/relations-repository';
+import { AssociationRepository } from '../../domain/associations/services/associations-repository';
+import { GlossaryRepository } from '../../domain/glossary/services/glossary-repository';
+
+export type LearnFeedDomain = Exclude<DomainName, 'INDEX' | 'QUESTIONS'>;
 
 export interface LearnFeedEntry {
   id: string;
-  domain: DomainName;
+  domain: LearnFeedDomain;
   bookName: string;
   bookAuthor: string;
   title: string;
@@ -21,8 +31,12 @@ export interface LearnFeedEntry {
 }
 
 const BATCH_SIZE = 20;
-const DOMAIN_SEARCH_TERMS: Record<DomainName, string[]> = {
-  INDEX: ['index', 'índice'],
+const DOMAIN_REPOSITORIES = [ConceptRepository, QuoteRepository,
+  PassageRepository, CharacterRepository, PlaceRepository, BookEventRepository,
+  RelationRepository, AssociationRepository, GlossaryRepository] as const;
+const DOMAIN_TABLES = ['concepts', 'quotes', 'passages', 'characters', 'places',
+  'bookEvents', 'relations', 'associations', 'glossary'] as const;
+const DOMAIN_SEARCH_TERMS: Record<LearnFeedDomain, string[]> = {
   CONCEPTS: ['concepts', 'conceptos'],
   QUOTES: ['quotes', 'citas'],
   PASSAGES: ['passages', 'pasajes'],
@@ -32,14 +46,13 @@ const DOMAIN_SEARCH_TERMS: Record<DomainName, string[]> = {
   RELATIONS: ['relations', 'relationships', 'relaciones'],
   ASSOCIATIONS: ['associations', 'concept relationships', 'asociaciones'],
   GLOSARY: ['glossary', 'glosario'],
-  QUESTIONS: ['questions', 'preguntas'],
 };
 
 export function selectLearnFeedBatch(
   entries: readonly LearnFeedEntry[],
   batchSize: number,
 ): LearnFeedEntry[] {
-  const firstEntryByDomain = new Map<DomainName, LearnFeedEntry>();
+  const firstEntryByDomain = new Map<LearnFeedDomain, LearnFeedEntry>();
   const remainingEntries: LearnFeedEntry[] = [];
   for (const entry of entries) {
     if (firstEntryByDomain.has(entry.domain)) {
@@ -57,13 +70,12 @@ export function selectLearnFeedBatch(
 
 @Injectable({ providedIn: 'root' })
 export class LearnFeedService {
-  private readonly appDbService = inject(AppDbService);
+  private readonly localDBService = inject(LocalDBService);
   private readonly configService = inject(ConfigService);
-  private readonly domainDataService = inject(DomainDataService);
+  private readonly injector = inject(Injector);
   private readonly authService = inject(GoogleAuthService);
-  private sampleDataSeeded = false;
   private remoteExhausted = false;
-  private readonly remoteCursors = new Map<string, number>();
+  private readonly remoteFetched = new Set<string>();
 
   canFetchRemote(): boolean {
     return (
@@ -73,10 +85,6 @@ export class LearnFeedService {
     );
   }
 
-  /**
-   * Requests the next unseen server pages (book by book, domain by domain) and stores them in
-   * IndexedDB until the local feed can fill a batch or the server has nothing left.
-   */
   async loadRemoteBatch(
     excludedIds: ReadonlySet<string>,
     batchSize = BATCH_SIZE,
@@ -87,32 +95,24 @@ export class LearnFeedService {
       return batch;
     }
 
-    const catalogs = await this.appDbService.db.catalogs.toArray();
-    const sheets = Object.keys(DOMAIN_SEARCH_TERMS) as DomainName[];
-    for (const catalog of catalogs) {
-      for (const sheet of sheets) {
-        while (batch.length < batchSize) {
-          const key = `${catalog.row}:${sheet}`;
-          const page =
-            this.remoteCursors.get(key) ??
-            Math.floor((await this.domainDataService.countLocalRows(catalog.row, sheet)) / 50) + 1;
-          if (page === Infinity) {
-            break;
-          }
-          try {
-            const result = await this.domainDataService.fetchRemotePageToLocal(
-              catalog.row,
-              sheet,
-              page,
-            );
-            this.remoteCursors.set(key, page < result.totalPages ? page + 1 : Infinity);
-            if (result.added > 0) {
-              batch = await this.loadRandomBatch(excludedIds, batchSize, query);
-            }
-          } catch {
-            this.remoteCursors.set(key, Infinity);
-            break;
-          }
+    const books = await this.localDBService.indexedDB.books.toArray();
+    for (const book of books) {
+      for (const [domainIndex, repositoryType] of DOMAIN_REPOSITORIES.entries()) {
+        if (batch.length >= batchSize) break;
+        const key = JSON.stringify([book.id, domainIndex]);
+        if (this.remoteFetched.has(key)) continue;
+        this.remoteFetched.add(key);
+        try {
+          const table = this.localDBService.indexedDB.table(DOMAIN_TABLES[domainIndex]);
+          const hasUnsynced = await table.where('bookId').equals(book.id)
+            .filter((record: { syncStatus?: string }) => record.syncStatus === 'pending' || record.syncStatus === 'error')
+            .count();
+          if (hasUnsynced) continue;
+          const repository = this.injector.get(repositoryType as typeof ConceptRepository);
+          await repository.getDomain(book.row);
+          batch = await this.loadRandomBatch(excludedIds, batchSize, query);
+        } catch {
+          continue;
         }
       }
     }
@@ -128,43 +128,38 @@ export class LearnFeedService {
     batchSize = BATCH_SIZE,
     query = '',
   ): Promise<LearnFeedEntry[]> {
-    if (this.configService.isLocalSampleDataEnabled() && !this.sampleDataSeeded) {
-      await this.appDbService.seedLocalSampleData();
-      this.sampleDataSeeded = true;
-    }
-
-    const [catalogItems, domainRows] = await Promise.all([
-      this.appDbService.db.catalogs.toArray(),
+    if (this.configService.isLocalSampleDataEnabled()) await this.localDBService.seedLocalSampleData();
+    const db = this.localDBService.indexedDB;
+    const [bookItems, domainRows] = await Promise.all([
+      db.books.toArray(),
       Promise.all([
-        this.appDbService.db.indexTopics.toArray().then((rows) => ['INDEX', rows] as const),
-        this.appDbService.db.bookEvents.toArray().then((rows) => ['BOOK_EVENTS', rows] as const),
-        this.appDbService.db.concepts.toArray().then((rows) => ['CONCEPTS', rows] as const),
-        this.appDbService.db.quotes.toArray().then((rows) => ['QUOTES', rows] as const),
-        this.appDbService.db.passages.toArray().then((rows) => ['PASSAGES', rows] as const),
-        this.appDbService.db.characters.toArray().then((rows) => ['CHARACTER', rows] as const),
-        this.appDbService.db.places.toArray().then((rows) => ['PLACES', rows] as const),
-        this.appDbService.db.relationsCharacters
+        db.bookEvents.toArray().then((rows) => ['BOOK_EVENTS', rows] as const),
+        db.concepts.toArray().then((rows) => ['CONCEPTS', rows] as const),
+        db.quotes.toArray().then((rows) => ['QUOTES', rows] as const),
+        db.passages.toArray().then((rows) => ['PASSAGES', rows] as const),
+        db.characters.toArray().then((rows) => ['CHARACTER', rows] as const),
+        db.places.toArray().then((rows) => ['PLACES', rows] as const),
+        db.relations
           .toArray()
           .then((rows) => ['RELATIONS', rows] as const),
-        this.appDbService.db.relationsConcepts
+        db.associations
           .toArray()
           .then((rows) => ['ASSOCIATIONS', rows] as const),
-        this.appDbService.db.glosary.toArray().then((rows) => ['GLOSARY', rows] as const),
-        this.appDbService.db.questions.toArray().then((rows) => ['QUESTIONS', rows] as const),
+        db.glossary.toArray().then((rows) => ['GLOSARY', rows] as const),
       ]),
     ]);
 
-    const catalogByRow = new Map(catalogItems.map((item) => [item.row, item]));
+    const bookById = new Map(bookItems.map((item) => [item.id, item]));
     const characterNames = new Map<string, string>();
     const conceptNames = new Map<string, string>();
     for (const [domain, rows] of domainRows) {
       if (domain === 'CHARACTER') {
         for (const row of rows as unknown as Record<string, unknown>[]) {
-          characterNames.set(String(row['id']), String(row['name'] ?? row['id']));
+          characterNames.set(JSON.stringify([row['bookId'], row['id']]), String(row['name'] ?? row['id']));
         }
       } else if (domain === 'CONCEPTS') {
         for (const row of rows as unknown as Record<string, unknown>[]) {
-          conceptNames.set(String(row['id']), String(row['term'] ?? row['id']));
+          conceptNames.set(JSON.stringify([row['bookId'], row['id']]), String(row['term'] ?? row['id']));
         }
       }
     }
@@ -173,16 +168,16 @@ export class LearnFeedService {
 
     for (const [domain, rows] of domainRows) {
       for (const sourceRow of rows as unknown as Record<string, unknown>[]) {
-        const catalogItem = catalogByRow.get(Number(sourceRow['row']));
-        if (!catalogItem) {
+        const bookRecord = bookById.get(String(sourceRow['bookId']));
+        if (!bookRecord) {
           continue;
         }
 
         const entry = this.toLearnFeedEntry(
           domain,
           sourceRow,
-          catalogItem.name,
-          catalogItem.author,
+          bookRecord.name,
+          bookRecord.author,
           characterNames,
           conceptNames,
         );
@@ -213,7 +208,7 @@ export class LearnFeedService {
   }
 
   private toLearnFeedEntry(
-    domain: DomainName,
+    domain: LearnFeedDomain,
     row: Record<string, unknown>,
     bookName: string,
     bookAuthor: string,
@@ -230,11 +225,6 @@ export class LearnFeedService {
     let note = '';
 
     switch (domain) {
-      case 'INDEX':
-        title = getText('theme') || getText('chapter');
-        body = getText('subtheme');
-        note = getText('chapter');
-        break;
       case 'CONCEPTS':
         title = getText('term');
         body = getText('definition');
@@ -267,14 +257,14 @@ export class LearnFeedService {
         break;
       case 'RELATIONS':
         title = [getText('sourceCharacterId'), getText('targetCharacterId')]
-          .map((id) => characterNames.get(id) ?? id)
+          .map((id) => characterNames.get(JSON.stringify([row['bookId'], id])) ?? id)
           .filter(Boolean)
           .join(' -> ');
         body = [getText('relationType'), getText('description')].filter(Boolean).join('\n\n');
         break;
       case 'ASSOCIATIONS':
         title = [getText('sourceConceptId'), getText('targetConceptId')]
-          .map((id) => conceptNames.get(id) ?? id)
+          .map((id) => conceptNames.get(JSON.stringify([row['bookId'], id])) ?? id)
           .filter(Boolean)
           .join(' -> ');
         body = [getText('relationType'), getText('description')].filter(Boolean).join('\n\n');
@@ -283,11 +273,6 @@ export class LearnFeedService {
         title = getText('term');
         body = getText('definition');
         note = [getText('partOfSpeech'), getText('contextSentence')].filter(Boolean).join(' · ');
-        break;
-      case 'QUESTIONS':
-        title = getText('question');
-        body = getText('answer');
-        note = getText('difficulty');
         break;
     }
 
@@ -299,7 +284,7 @@ export class LearnFeedService {
     const accentColor = typeof row['color'] === 'string' ? row['color'] : undefined;
 
     return {
-      id: `${domain}:${String(row['row'])}:${String(row['id'])}`,
+      id: JSON.stringify([domain, row['bookId'], row['id']]),
       domain,
       bookName,
       bookAuthor,

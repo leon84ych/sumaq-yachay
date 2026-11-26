@@ -12,23 +12,15 @@ import {
   ViewChild,
 } from '@angular/core';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { GlobalErrorService } from '../../../core/services/global-error.service';
-import { StudySearchService } from '../../../core/services/study-search.service';
+import { GlobalMessageService } from '../../../core/services/global-message.service';
+import { StudySearchService } from '../../../core/services/search/study-search.service';
 import { downloadJpeg } from '../../../shared/utils/image-export';
-import { PlaceEntryCardComponent } from '../../domain/domain-places/components/place-entry-card/place-entry-card.component';
-import { GlossaryEntryCardComponent } from '../../domain/domain-glosary/components/glossary-entry-card/glossary-entry-card.component';
-import { IndexEntryCardComponent } from '../../domain/domain-index/components/index-entry-card/index-entry-card.component';
-import { PassageEntryCardComponent } from '../../domain/domain-passages/components/passage-entry-card/passage-entry-card.component';
-import { QuoteEntryCardComponent } from '../../domain/domain-quotes/components/quote-entry-card/quote-entry-card.component';
-import { CharacterEntryCardComponent } from '../../domain/domain-character/components/character-entry-card/character-entry-card.component';
-import { CharacterRow } from '../../domain/domain-character/models/domain-character-row.model';
-import { ConceptEntryCardComponent } from '../../domain/domain-concepts/components/concept-entry-card/concept-entry-card.component';
-import { ConceptRow } from '../../domain/domain-concepts/model/domain-concept-row.model';
-import { GlossaryRow } from '../../domain/domain-glosary/model/domain-glosary-row.model';
-import { PlaceRow } from '../../domain/domain-places/model/domain-place-row.model';
-import { PassagesRow } from '../../domain/domain-passages/model/domain-passage-row.model';
-import { QuoteRow } from '../../domain/domain-quotes/model/domain-quote-row.model';
-import { IndexRow } from '../../domain/domain-index/model/index-view-row';
+import { PlaceEntryCardComponent } from '../../domain/places/components/place-entry-card/place-entry-card.component';
+import { GlossaryEntryCardComponent } from '../../domain/glossary/components/glossary-entry-card/glossary-entry-card.component';
+import { PassageEntryCardComponent } from '../../domain/passages/components/passage-entry-card/passage-entry-card.component';
+import { QuoteEntryCardComponent } from '../../domain/quotes/components/quote-entry-card/quote-entry-card.component';
+import { CharacterEntryCardComponent } from '../../domain/characters/components/character-entry-card/character-entry-card.component';
+import { ConceptEntryCardComponent } from '../../domain/concepts/components/concept-entry-card/concept-entry-card.component';
 import { LearnFeedEntryCardComponent } from '../components/learn-feed-entry-card/learn-feed-entry-card.component';
 import { LearnFeedEntry, LearnFeedService } from '../services/learn-feed.service';
 
@@ -45,7 +37,7 @@ export class Learn {
   private readonly destroyRef = inject(DestroyRef);
   private readonly learnFeedService = inject(LearnFeedService);
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
-  private readonly globalErrorService = inject(GlobalErrorService);
+  private readonly globalMessageService = inject(GlobalMessageService);
   private readonly transloco = inject(TranslocoService);
   private readonly seenEntryIds = new Set<string>();
 
@@ -62,12 +54,6 @@ export class Learn {
   private searchDebounceTimer: ReturnType<typeof setTimeout> | null = null;
   private requestVersion = 0;
 
-  bookRow(entry: LearnFeedEntry): number {
-    const row = entry.sourceRow['row'];
-    return typeof row === 'number' ? row : 0;
-  }
-
-
   componentFor(entry: LearnFeedEntry): Type<unknown> {
     switch (entry.domain) {
       case 'CHARACTER':
@@ -76,8 +62,6 @@ export class Learn {
         return ConceptEntryCardComponent;
       case 'GLOSARY':
         return GlossaryEntryCardComponent;
-      case 'INDEX':
-        return IndexEntryCardComponent;
       case 'PASSAGES':
         return PassageEntryCardComponent;
       case 'PLACES':
@@ -99,15 +83,13 @@ export class Learn {
       case 'CHARACTER':
         return {
           ...context,
-          row: entry.sourceRow as unknown as CharacterRow,
+          row: entry.sourceRow,
           showActions: false,
-          showContext: true,
         };
       case 'CONCEPTS':
         return {
           ...context,
-          row: entry.sourceRow as unknown as ConceptRow,
-          bookRow: this.bookRow(entry),
+          row: entry.sourceRow,
           sourceDomain: entry.domain,
           showActions: false,
           showContext: true,
@@ -115,22 +97,13 @@ export class Learn {
       case 'GLOSARY':
         return {
           ...context,
-          row: entry.sourceRow as unknown as GlossaryRow,
+          row: entry.sourceRow,
           showActions: false,
-          showContext: true,
-        };
-      case 'INDEX':
-        return {
-          ...context,
-          row: entry.sourceRow as unknown as IndexRow,
-          showActions: false,
-          showContext: true,
-          showHierarchy: true,
         };
       case 'PASSAGES':
         return {
           ...context,
-          row: entry.sourceRow as unknown as PassagesRow,
+          row: entry.sourceRow,
           showActions: false,
           showReadAction: true,
           showContext: true,
@@ -139,14 +112,14 @@ export class Learn {
       case 'PLACES':
         return {
           ...context,
-          row: entry.sourceRow as unknown as PlaceRow,
+          row: entry.sourceRow,
           showActions: false,
           showContext: true,
         };
       case 'QUOTES':
         return {
           ...context,
-          row: entry.sourceRow as unknown as QuoteRow,
+          row: entry.sourceRow,
           showActions: false,
         };
       default:
@@ -178,7 +151,7 @@ export class Learn {
         backgroundColor: this.exportTheme() === 'light' ? '#ffffff' : '#1a1a1a',
       });
     } catch {
-      this.globalErrorService.show(this.transloco.translate('LEARN.EXPORT_ERROR'));
+      this.globalMessageService.showError(this.transloco.translate('LEARN.EXPORT_ERROR'));
     } finally {
       this.entryBeingExported.set(null);
       this.isExporting.set(false);

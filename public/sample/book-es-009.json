@@ -5,7 +5,7 @@
       "chapter": "Formación",
       "theme": "Infancia",
       "subtheme": "Familia, sensibilidad y construcción de la conciencia",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#infancia"],
       "contributor": "leon84ych"
     },
@@ -14,7 +14,7 @@
       "chapter": "José Cemí",
       "theme": "Identidad",
       "subtheme": "Formación intelectual, afectiva y poética",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#identidad"],
       "contributor": "leon84ych"
     },
@@ -23,7 +23,7 @@
       "chapter": "La familia",
       "theme": "Memoria",
       "subtheme": "Herencia familiar y reconstrucción del pasado",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#memoria"],
       "contributor": "leon84ych"
     },
@@ -32,7 +32,7 @@
       "chapter": "La enfermedad",
       "theme": "Cuerpo",
       "subtheme": "Fragilidad física y experiencia interior",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#cuerpo"],
       "contributor": "leon84ych"
     },
@@ -41,7 +41,7 @@
       "chapter": "La amistad",
       "theme": "Conocimiento",
       "subtheme": "Conversación, aprendizaje y descubrimiento intelectual",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#conocimiento"],
       "contributor": "leon84ych"
     },
@@ -50,7 +50,7 @@
       "chapter": "Universidad",
       "theme": "Formación",
       "subtheme": "Ideas, literatura y desarrollo intelectual",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#formación"],
       "contributor": "leon84ych"
     },
@@ -59,7 +59,7 @@
       "chapter": "Lenguaje",
       "theme": "Poesía",
       "subtheme": "Metáfora, imagen y conocimiento poético",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#poesía"],
       "contributor": "leon84ych"
     },
@@ -68,7 +68,7 @@
       "chapter": "La Habana",
       "theme": "Ciudad",
       "subtheme": "Experiencia urbana, cultura y memoria",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#la-habana"],
       "contributor": "leon84ych"
     },
@@ -77,7 +77,7 @@
       "chapter": "Imaginación",
       "theme": "Imagen",
       "subtheme": "Relaciones inesperadas entre objetos, ideas y tradiciones",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#imagen"],
       "contributor": "leon84ych"
     },
@@ -86,7 +86,7 @@
       "chapter": "Panorama analítico",
       "theme": "Barroco",
       "subtheme": "Densidad verbal, referencias culturales y expansión metafórica",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#barroco"],
       "contributor": "leon84ych"
     }
@@ -103,7 +103,7 @@
       "tags": ["#josé-cemí", "#poesía", "#formación"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#5C4D7D"
     },
     {
@@ -117,7 +117,7 @@
       "tags": ["#oppiano-licario", "#poesía", "#conocimiento"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#A44A3F"
     },
     {
@@ -131,7 +131,7 @@
       "tags": ["#fronesis", "#amistad", "#universidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#D17B49"
     },
     {
@@ -145,7 +145,7 @@
       "tags": ["#foción", "#amistad", "#ideas"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#735D78"
     },
     {
@@ -159,7 +159,7 @@
       "tags": ["#familia-cemí", "#padre", "#memoria"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#C49A3A"
     },
     {
@@ -173,7 +173,7 @@
       "tags": ["#rialta", "#familia", "#memoria"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#B56576"
     },
     {
@@ -187,7 +187,7 @@
       "tags": ["#baldovina", "#infancia", "#casa"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#6A994E"
     },
     {
@@ -201,7 +201,7 @@
       "tags": ["#alberto-olaya", "#familia", "#pasado"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#2F6690"
     },
     {
@@ -215,7 +215,7 @@
       "tags": ["#muestra-analítica", "#imagen", "#poesía"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#3A7D44"
     },
     {
@@ -229,7 +229,7 @@
       "tags": ["#muestra-analítica", "#barroco", "#lectura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#4F6D7A"
     }
   ],
@@ -241,7 +241,7 @@
       "category": "Estética",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#lenguaje", "#estilo", "#barroco"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -251,7 +251,7 @@
       "category": "Poética",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#poesía", "#metáfora", "#imagen-poética"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -261,7 +261,7 @@
       "category": "Recurso literario",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#lenguaje", "#imagen", "#metáfora"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -271,7 +271,7 @@
       "category": "Tema",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#identidad", "#conocimiento", "#formación"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -281,7 +281,7 @@
       "category": "Tema",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#familia", "#pasado", "#memoria-familiar"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -291,7 +291,7 @@
       "category": "Técnica literaria",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#referencias", "#literatura", "#intertextualidad"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -301,7 +301,7 @@
       "category": "Concepto filosófico",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#poesía", "#conocimiento", "#conocimiento-poético"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -311,7 +311,7 @@
       "category": "Tema",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#cuerpo", "#experiencia", "#cuerpo-enfermedad"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -321,7 +321,7 @@
       "category": "Tema",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#familia", "#memoria", "#genealogía"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -331,7 +331,7 @@
       "category": "Técnica narrativa",
       "source": "Contexto de estudio para Paradiso",
       "tags": ["#experimentación", "#lenguaje", "#prosa-experimental"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -348,7 +348,8 @@
       "tags": ["#barroco", "#estilo"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-02",
@@ -362,7 +363,8 @@
       "tags": ["#metáfora", "#imagen"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-03",
@@ -376,7 +378,8 @@
       "tags": ["#erudición", "#cultura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-04",
@@ -390,7 +393,8 @@
       "tags": ["#intertextualidad", "#literatura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-05",
@@ -404,7 +408,8 @@
       "tags": ["#genealogía", "#familia"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-06",
@@ -418,7 +423,8 @@
       "tags": ["#cosmogonía", "#mitología"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-07",
@@ -432,7 +438,8 @@
       "tags": ["#analogía", "#imagen"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-08",
@@ -446,7 +453,8 @@
       "tags": ["#hermetismo", "#lectura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-09",
@@ -460,7 +468,8 @@
       "tags": ["#poética", "#literatura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-10",
@@ -474,7 +483,8 @@
       "tags": ["#imagen", "#poesía"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     }
   ],
   "PASSAGES": [
@@ -488,7 +498,7 @@
       "tags": ["#muestra", "#cuerpo", "#infancia"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-02",
@@ -500,7 +510,7 @@
       "tags": ["#muestra", "#familia", "#memoria"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-03",
@@ -512,7 +522,7 @@
       "tags": ["#muestra", "#imagen", "#imaginación"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-04",
@@ -524,7 +534,7 @@
       "tags": ["#muestra", "#amistad", "#conocimiento"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-05",
@@ -536,7 +546,7 @@
       "tags": ["#muestra", "#la-habana", "#memoria"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-06",
@@ -548,7 +558,7 @@
       "tags": ["#muestra", "#formación", "#conocimiento"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-07",
@@ -560,7 +570,7 @@
       "tags": ["#muestra", "#metáfora", "#poesía"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-08",
@@ -572,7 +582,7 @@
       "tags": ["#muestra", "#intertextualidad", "#lectura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-09",
@@ -584,7 +594,7 @@
       "tags": ["#muestra", "#genealogía", "#familia"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-10",
@@ -596,7 +606,7 @@
       "tags": ["#muestra", "#barroco", "#lectura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PLACES": [
@@ -612,7 +622,7 @@
       "tags": ["#la-habana", "#cuba", "#ciudad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-02",
@@ -626,7 +636,7 @@
       "tags": ["#cuba", "#cultura", "#identidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-03",
@@ -640,7 +650,7 @@
       "tags": ["#muestra-analítica", "#familia-cemí", "#memoria"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-04",
@@ -654,7 +664,7 @@
       "tags": ["#universidad", "#la-habana", "#formación"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-05",
@@ -668,7 +678,7 @@
       "tags": ["#muestra-analítica", "#la-habana", "#familia"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-06",
@@ -682,7 +692,7 @@
       "tags": ["#muestra-analítica", "#la-habana", "#conocimiento"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-07",
@@ -696,7 +706,7 @@
       "tags": ["#muestra-analítica", "#literatura", "#intertextualidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-08",
@@ -710,7 +720,7 @@
       "tags": ["#muestra-analítica", "#imagen", "#poesía"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-09",
@@ -724,7 +734,7 @@
       "tags": ["#muestra-analítica", "#genealogía", "#memoria"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-10",
@@ -738,7 +748,7 @@
       "tags": ["#muestra-analítica", "#barroco", "#lectura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "QUOTES": [
@@ -749,7 +759,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#imagen", "#poesía"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -759,7 +769,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#familia", "#memoria"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -769,7 +779,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#lectura", "#barroco"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -779,7 +789,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#conocimiento", "#poesía"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -789,7 +799,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#intertextualidad", "#imaginación"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -799,7 +809,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#cuerpo", "#formación"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -809,7 +819,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#amistad", "#conocimiento"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -819,7 +829,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#erudición", "#experiencia"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -829,7 +839,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#formación", "#genealogía"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -839,7 +849,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#barroco", "#interpretación"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -863,7 +873,7 @@
       "tags": ["#infancia"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-02",
@@ -886,7 +896,7 @@
       "tags": ["#lenguaje", "#estilo", "#barroco"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-03",
@@ -909,7 +919,7 @@
       "tags": ["#josé-cemí", "#poesía", "#formación"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-04",
@@ -932,7 +942,7 @@
       "tags": ["#la-habana", "#cuba", "#ciudad"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-05",
@@ -950,7 +960,7 @@
       "tags": ["#muestra", "#imagen", "#poesía"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-06",
@@ -968,7 +978,7 @@
       "tags": ["#muestra", "#cuerpo", "#infancia"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-07",
@@ -996,7 +1006,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-08",
@@ -1019,7 +1029,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-09",
@@ -1043,7 +1053,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-10",
@@ -1061,7 +1071,7 @@
       "tags": ["#barroco", "#estilo"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "BOOK_EVENTS": [
@@ -1096,7 +1106,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-02",
@@ -1128,7 +1138,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-03",
@@ -1158,7 +1168,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-04",
@@ -1191,7 +1201,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "RELATIONS": [
@@ -1217,7 +1227,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-02",
@@ -1234,7 +1244,7 @@
       "tags": ["#fronesis", "#amistad", "#universidad", "#foción", "#ideas", "#identidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-03",
@@ -1251,7 +1261,7 @@
       "tags": ["#familia-cemí", "#padre", "#memoria", "#rialta", "#familia"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-04",
@@ -1276,7 +1286,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "ASSOCIATIONS": [
@@ -1303,7 +1313,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-02",
@@ -1320,7 +1330,7 @@
       "tags": ["#metáfora", "#lenguaje", "#imagen", "#formación", "#identidad", "#conocimiento"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-03",
@@ -1345,7 +1355,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-04",
@@ -1369,7 +1379,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ]
 }

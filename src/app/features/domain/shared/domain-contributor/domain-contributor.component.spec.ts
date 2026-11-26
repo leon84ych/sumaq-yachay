@@ -2,19 +2,19 @@ import { Type, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { PermissionService } from '../../../../core/services/permission.service';
-import { AssociationEntryCardComponent } from '../../domain-association/components/association-entry-card/association-entry-card.component';
-import { BookEventEntryCardComponent } from '../../domain-book-events/components/book-event-entry-card/book-event-entry-card.component';
-import { CharacterEntryCardComponent } from '../../domain-character/components/character-entry-card/character-entry-card.component';
-import { ConceptEntryCardComponent } from '../../domain-concepts/components/concept-entry-card/concept-entry-card.component';
-import { GlossaryEntryCardComponent } from '../../domain-glosary/components/glossary-entry-card/glossary-entry-card.component';
-import { IndexEntryCardComponent } from '../../domain-index/components/index-entry-card/index-entry-card.component';
-import { PassageEntryCardComponent } from '../../domain-passages/components/passage-entry-card/passage-entry-card.component';
-import { PlaceEntryCardComponent } from '../../domain-places/components/place-entry-card/place-entry-card.component';
-import { QuoteEntryCardComponent } from '../../domain-quotes/components/quote-entry-card/quote-entry-card.component';
-import { RelationEntryCardComponent } from '../../domain-relations/components/relation-entry-card/relation-entry-card.component';
+import { PermissionService } from '../../../../core/services/permission/permission.service';
+import { AssociationEntryCardComponent } from '../../associations/components/association-entry-card/association-entry-card.component';
+import { BookEventEntryCardComponent } from '../../book-events/components/book-event-entry-card/book-event-entry-card.component';
+import { CharacterEntryCardComponent } from '../../characters/components/character-entry-card/character-entry-card.component';
+import { ConceptEntryCardComponent } from '../../concepts/components/concept-entry-card/concept-entry-card.component';
+import { GlossaryEntryCardComponent } from '../../glossary/components/glossary-entry-card/glossary-entry-card.component';
+import { IndexEntryCardComponent } from '../../index/components/index-entry-card/index-entry-card.component';
+import { PassageEntryCardComponent } from '../../passages/components/passage-entry-card/passage-entry-card.component';
+import { PlaceEntryCardComponent } from '../../places/components/place-entry-card/place-entry-card.component';
+import { QuoteEntryCardComponent } from '../../quotes/components/quote-entry-card/quote-entry-card.component';
+import { RelationEntryCardComponent } from '../../relations/components/relation-entry-card/relation-entry-card.component';
 import { DomainContributorComponent } from './domain-contributor.component';
-import { StudySearchService } from '../../../../core/services/study-search.service';
+import { StudySearchService } from '../../../../core/services/search/study-search.service';
 
 describe('DomainContributorComponent', () => {
   it.each([
@@ -81,7 +81,7 @@ describe('Contributor card footers', () => {
     },
     { component: BookEventEntryCardComponent },
     { component: CharacterEntryCardComponent },
-    { component: ConceptEntryCardComponent, inputs: { bookRow: 1 } },
+    { component: ConceptEntryCardComponent },
     { component: GlossaryEntryCardComponent },
     { component: IndexEntryCardComponent },
     { component: PassageEntryCardComponent },

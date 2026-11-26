@@ -1,0 +1,192 @@
+<div class="modal-overlay" (click)="onBackdropClick($event)">
+  <div class="modal-dialog" role="dialog" aria-modal="true" [attr.aria-busy]="isLoading()" [attr.aria-label]="
+      (editItem() ? 'BOOK.MODAL.TITLE_EDIT' : 'BOOK.MODAL.TITLE_CREATE') | transloco
+    ">
+    <div class="modal-header">
+      <h2>
+        {{ (editItem() ? 'BOOK.MODAL.TITLE_EDIT' : 'BOOK.MODAL.TITLE_CREATE') | transloco }}
+        {{ editItem() ? ' #' + editItem()!.row : '' }}
+      </h2>
+      <button type="button" class="btn-close" [disabled]="isLoading()" [attr.aria-label]="'COMMON.CLOSE' | transloco"
+        (click)="close.emit()">
+        ✕
+      </button>
+    </div>
+
+    <form [formGroup]="isUrlMode() ? urlForm : form" (ngSubmit)="onSubmit()" class="modal-form">
+      @if (!editItem() && !configService.localSampleDataEnabled()) {
+      <fieldset class="source-mode" [disabled]="isLoading()">
+        <legend>{{ 'BOOK.MODAL.SOURCE_MODE' | transloco }}</legend>
+        <label [class.selected]="!isUrlMode()">
+          <input type="radio" name="registration-mode" value="manual" [checked]="!isUrlMode()"
+            (change)="setRegistrationMode('manual')" />
+          <span>{{ 'BOOK.MODAL.MODE_MANUAL' | transloco }}</span>
+        </label>
+        <label [class.selected]="isUrlMode()">
+          <input type="radio" name="registration-mode" value="url" [checked]="isUrlMode()"
+            (change)="setRegistrationMode('url')" />
+          <span>{{ 'BOOK.MODAL.MODE_URL' | transloco }}</span>
+        </label>
+      </fieldset>
+      }
+
+      @if (error()) {
+      <p class="request-error" role="alert">{{ error()! | transloco }}</p>
+      }
+
+      @if (isUrlMode()) {
+      <div class="form-group">
+        <label for="book-source-url">{{ 'BOOK.MODAL.URL_LABEL' | transloco }} <span
+            class="required">*</span></label>
+        <input id="book-source-url" type="url" formControlName="sheetUrl" class="form-control"
+          [readOnly]="isLoading()" [placeholder]="'BOOK.MODAL.URL_PLACEHOLDER' | transloco"
+          aria-describedby="book-source-clone-notice" autocomplete="url" />
+        @if (urlForm.controls.sheetUrl.touched && urlForm.controls.sheetUrl.invalid) {
+        <span class="field-error">{{ 'BOOK.MODAL.URL_ERROR' | transloco }}</span>
+        }
+      </div>
+      <p id="book-source-clone-notice" class="clone-notice" role="note">
+        {{ 'BOOK.MODAL.CLONE_DESCRIPTION' | transloco }}
+      </p>
+      } @else {
+      <!-- ID Field -->
+      <div class="form-group">
+        <label for="id">{{ 'BOOK.MODAL.ID_LABEL' | transloco }} <span class="required">*</span></label>
+        <input id="id" type="text" formControlName="id" [placeholder]="'BOOK.MODAL.ID_PLACEHOLDER' | transloco"
+          class="form-control" />
+        @if (form.get('id')?.touched && form.get('id')?.invalid) {
+        <span class="field-error">{{ 'BOOK.MODAL.ID_ERROR' | transloco }}</span>
+        }
+      </div>
+
+      <!-- ISBN Field -->
+      <div class="form-group">
+        <label for="isbn">{{ 'BOOK.MODAL.ISBN_LABEL' | transloco }}</label>
+        <input id="isbn" type="text" formControlName="isbn"
+          [placeholder]="'BOOK.MODAL.ISBN_PLACEHOLDER' | transloco" class="form-control" />
+        @if (form.get('isbn')?.touched && form.get('isbn')?.invalid) {
+        <span class="field-error">{{ 'BOOK.MODAL.ISBN_ERROR' | transloco }}</span>
+        }
+      </div>
+
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name">{{ 'BOOK.MODAL.NAME_LABEL' | transloco }} <span class="required">*</span></label>
+        <input id="name" type="text" formControlName="name" [placeholder]="'BOOK.MODAL.NAME_PLACEHOLDER' | transloco"
+          class="form-control" />
+        @if (form.get('name')?.touched && form.get('name')?.invalid) {
+        <span class="field-error">{{ 'BOOK.MODAL.NAME_ERROR' | transloco }}</span>
+        }
+      </div>
+
+      <!-- Subject & Topic Row -->
+      <div class="form-group">
+        <label for="subject">{{ 'BOOK.MODAL.SUBJECT_LABEL' | transloco }}
+          <span class="required">*</span></label>
+        <input id="subject" type="text" formControlName="subject"
+          [placeholder]="'BOOK.MODAL.SUBJECT_PLACEHOLDER' | transloco" class="form-control" />
+        @if (form.get('subject')?.touched && form.get('subject')?.invalid) {
+        <span class="field-error">{{ 'BOOK.MODAL.SUBJECT_ERROR' | transloco }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="topic">{{ 'BOOK.MODAL.TOPIC_LABEL' | transloco }} <span class="required">*</span></label>
+        <input id="topic" type="text" formControlName="topic"
+          [placeholder]="'BOOK.MODAL.TOPIC_PLACEHOLDER' | transloco" class="form-control" />
+        @if (form.get('topic')?.touched && form.get('topic')?.invalid) {
+        <span class="field-error">{{ 'BOOK.MODAL.TOPIC_ERROR' | transloco }}</span>
+        }
+      </div>
+
+      <!-- Author & Source Row -->
+
+      <div class="form-group">
+        <label for="author">{{ 'BOOK.MODAL.AUTHOR_LABEL' | transloco }} <span class="required">*</span></label>
+        <input id="author" type="text" formControlName="author"
+          [placeholder]="'BOOK.MODAL.AUTHOR_PLACEHOLDER' | transloco" class="form-control" />
+        @if (form.get('author')?.touched && form.get('author')?.invalid) {
+        <span class="field-error">{{ 'BOOK.MODAL.AUTHOR_ERROR' | transloco }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="language">{{ 'BOOK.MODAL.LANGUAGE_LABEL' | transloco }} <span class="required">*</span></label>
+        <app-language-selector inputId="language" [value]="form.controls.language.value ?? ''"
+          [placeholder]="'BOOK.MODAL.LANGUAGE_PLACEHOLDER' | transloco" [required]="true"
+          [invalid]="form.controls.language.touched && form.controls.language.invalid"
+          (valueChange)="form.controls.language.setValue($event)"
+          (blurred)="form.controls.language.markAsTouched()" />
+        @if (form.get('language')?.touched && form.get('language')?.invalid) {
+        <span class="field-error">{{ 'BOOK.MODAL.LANGUAGE_ERROR' | transloco }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="source">{{ 'BOOK.MODAL.SOURCE_LABEL' | transloco }}</label>
+        <input id="source" type="text" formControlName="source"
+          [placeholder]="'BOOK.MODAL.SOURCE_PLACEHOLDER' | transloco" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="pages">{{ 'BOOK.MODAL.PAGES_LABEL' | transloco }} </label>
+        <input id="pages" type="text" formControlName="pages"
+          [placeholder]="'BOOK.MODAL.PAGES_PLACEHOLDER' | transloco" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="page">{{ 'BOOK.MODAL.PAGE_LABEL' | transloco }}</label>
+        <input id="page" type="text" formControlName="page" [placeholder]="'BOOK.MODAL.PAGE_PLACEHOLDER' | transloco"
+          class="form-control" />
+      </div>
+
+
+      <!-- Description Field -->
+      <div class="form-group">
+        <label for="description">{{ 'BOOK.MODAL.DESCRIPTION_LABEL' | transloco }}</label>
+        <textarea id="description" formControlName="description" rows="3"
+          [placeholder]="'BOOK.MODAL.DESCRIPTION_PLACEHOLDER' | transloco" class="form-control"></textarea>
+      </div>
+
+      <!-- Active Checkbox -->
+      <div class="form-group-checkbox">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="active" />
+          <span>{{ 'BOOK.MODAL.ACTIVE_LABEL' | transloco }}</span>
+        </label>
+      </div>
+      }
+
+      <!-- Modal Actions -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" [disabled]="isLoading()" (click)="close.emit()">
+          {{ 'BOOK.MODAL.CANCEL' | transloco }}
+        </button>
+        @if (
+        permissionService.validatePermission(
+        role(),
+        editItem()
+        ? 'UPDATE_BOOK'
+        : isUrlMode()
+        ? 'CLONE_BOOK'
+        : 'CREATE_BOOK'
+        )
+        ) {
+        <button type="submit" class="btn btn-primary"
+          [disabled]="isLoading() || (isUrlMode() ? urlForm.invalid : form.invalid)">
+          {{
+          (isUrlMode()
+          ? isLoading()
+          ? 'BOOK.MODAL.CLONING'
+          : 'BOOK.MODAL.CLONE_SHEET'
+          : editItem()
+          ? 'BOOK.MODAL.SUBMIT_EDIT'
+          : 'BOOK.MODAL.SUBMIT_CREATE'
+          ) | transloco
+          }}
+        </button>
+        }
+      </div>
+    </form>
+  </div>
+</div>

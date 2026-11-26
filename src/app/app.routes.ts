@@ -8,8 +8,12 @@ export const routes: Routes = [
   },
   {
     path: 'catalog',
-    loadComponent: () =>
-      import('./features/catalog/catalog/catalog').then((m) => m.Catalog),
+    loadComponent: () => import('./features/book/book/book').then((m) => m.BookList),
+  },
+  {
+    path: 'books',
+    redirectTo: 'catalog',
+    pathMatch: 'full',
   },
   {
     path: 'learn',
@@ -18,16 +22,22 @@ export const routes: Routes = [
   {
     path: 'quiz',
     loadComponent: () =>
-      import('./features/domain/domain-questions/practice/question-practice.component').then(
+      import('./features/quiz/question-practice/question-practice.component').then(
         (m) => m.QuestionPracticeComponent,
       ),
   },
   {
     path: 'catalog/:id',
     loadComponent: () =>
-      import('./features/catalog-detail/catalog-detail/catalog-detail').then(
-        (m) => m.CatalogDetail
-      ),
+      import('./features/domain/book-detail/book-detail/book-detail').then((m) => m.BookDetail),
+  },
+  {
+    path: 'books/:id',
+    redirectTo: 'catalog/:id',
+  },
+  {
+    path: 'book/:id',
+    redirectTo: 'catalog/:id',
   },
   {
     path: 'documentation',

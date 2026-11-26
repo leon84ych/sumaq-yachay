@@ -1,0 +1,132 @@
+import { afterNextRender, Component, computed, DestroyRef, effect, ElementRef, inject, signal } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslocoPipe } from '@jsverse/transloco';
+
+import { BookSheetTabsComponent } from '../components/book-sheet-tabs/book-sheet-tabs.component';
+import { DomainViewResolverComponent } from '../components/domain-view-resolver/domain-view-resolver.component';
+import { DomainDataService } from '../services/domain-data.service';
+import { ALL_AVAILABLE_DOMAINS, getDefaultHeadersForDomain } from '../models/domain-sheet-config';
+import { BookService } from '../../../book/services/book.service';
+import { ConfigService } from '../../../../core/services/config/config.service';
+import { PermissionService } from '../../../../core/services/permission/permission.service';
+import { GlobalMessageService } from '../../../../core/services/global-message.service';
+
+
+@Component({
+  selector: 'app-book-detail',
+  standalone: true,
+  imports: [
+    CommonModule,
+    TranslocoPipe,
+    BookSheetTabsComponent,
+    DomainViewResolverComponent,
+  ],
+  templateUrl: './book-detail.html',
+  styleUrl: './book-detail.css',
+})
+export class BookDetail {
+
+  private route = inject(ActivatedRoute);
+  private readonly document = inject(DOCUMENT);
+  private readonly host = inject(ElementRef<HTMLElement>);
+  private readonly destroyRef = inject(DestroyRef);
+  readonly bookService = inject(BookService);
+  readonly domainDataService = inject(DomainDataService);
+  
+  readonly configService = inject(ConfigService);
+  readonly permissionService = inject(PermissionService);
+  readonly role = this.permissionService.role;
+  
+  private readonly globalMessageService = inject(GlobalMessageService);
+  private readonly paramMap = toSignal(this.route.paramMap);
+
+  readonly itemId = computed(() => this.paramMap()?.get('id') ?? null);
+
+  readonly item = computed(
+    () => this.bookService.items().find((i) => i.id === this.itemId()) ?? null,
+  );
+
+  readonly activeDomainName = signal<string | null>(null);
+
+  readonly activeDomain = computed(
+    () => this.domainDataService.domainsInfo().find((s) => s.id === this.activeDomainName()) ?? null,
+  );
+
+  readonly isAddingEntry = signal<boolean>(false);
+  readonly isAddingDomain = signal(false);
+  readonly isCreatingDomain = signal(false);
+  readonly availableDomains = computed(() => {
+     const existingDomains = new Set(
+       this.domainDataService.domainsInfo().map((domain) => domain.id.toUpperCase()),
+     );
+    return ALL_AVAILABLE_DOMAINS.filter((domain) => !existingDomains.has(domain));
+  });
+
+  constructor() {
+    afterNextRender(() => {
+      const navbar = this.document.querySelector('.app-navbar');
+      if (!navbar) return;
+      const updateOffset = () => {
+        this.host.nativeElement.style.setProperty('--domain-nav-height', `${navbar.getBoundingClientRect().height}px`);
+      };
+      updateOffset();
+      if (typeof ResizeObserver === 'undefined') return;
+      const observer = new ResizeObserver(updateOffset);
+      observer.observe(navbar);
+      this.destroyRef.onDestroy(() => observer.disconnect());
+    });
+    // Load the entry's Domain Data Sheets whenever the routed id changes.
+    effect(() => {
+      const row = this.item()?.row;
+      if (row !== undefined && row !== null) {
+        this.activeDomainName.set(null);
+        void this.domainDataService.loadForCatalog(row);
+      }
+    });
+
+    // Default to the first available sheet tab once sheets arrive.
+    effect(() => {
+      const names = this.domainDataService.domainsNames();
+      if (names.length > 0 && !this.activeDomainName()) {
+        this.activeDomainName.set(names[0]);
+      }
+    });
+  }
+
+  selectTab(name: string): void {
+    this.activeDomainName.set(name);
+  }
+
+
+  toggleAddingEntry(): void {
+    this.isAddingEntry.update((isAddingEntry) => !isAddingEntry);
+  }
+
+  async onDomainSelected(domainName: string): Promise<void> {
+    if (!domainName || this.isCreatingDomain()) {
+      return;
+    }
+
+    const bookRow = this.domainDataService.bookInfo()?.row;
+    if (!bookRow || bookRow < 2) {
+      this.globalMessageService.showError('No active book row is available for domain creation.');
+      return;
+    }
+
+    this.isCreatingDomain.set(true);
+    try {
+      await this.domainDataService.createDomain(bookRow, domainName, [
+        ...getDefaultHeadersForDomain(domainName),
+      ]);
+      this.activeDomainName.set(domainName);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to create domain sheet.';
+      this.globalMessageService.showError(message);
+    } finally {
+      this.isCreatingDomain.set(false);
+      this.isAddingDomain.set(false);
+    }
+  }
+}

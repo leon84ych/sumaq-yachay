@@ -1,6 +1,8 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { PermissionService } from '../../../core/services/permission.service';
+import { PermissionService } from '../../../core/services/permission/permission.service';
+import { GASBookAPI } from '../../../core/infrastructure/gas/gas-book-api.service';
+import { TOKEN_KEY } from '../../../core/infrastructure/gas/gas-constants.constants';
 
 declare const google: any;
 
@@ -14,15 +16,21 @@ export interface UserProfile {
   providedIn: 'root',
 })
 export class GoogleAuthService {
+
   private readonly router = inject(Router);
   private readonly permissionService = inject(PermissionService);
-  private readonly TOKEN_KEY = 'g_id_token';
+  private readonly googleAppScriptApi = inject(GASBookAPI);
+
   private readonly storedToken = this.getStoredToken();
   private googleInitialized = false;
 
   // State Signals
   readonly idToken = signal<string | null>(this.storedToken);
   readonly currentUser = signal<UserProfile | null>(this.decodeUserFromToken(this.storedToken));
+
+  constructor() {
+    this.googleAppScriptApi.getHealth().catch((err) => console.warn('Failed to load user role:', err));
+  }
 
   initializeGoogleIdentity(clientId: string): void {
     if (this.googleInitialized || typeof google === 'undefined' || !google.accounts?.id) {
@@ -51,7 +59,7 @@ export class GoogleAuthService {
   }
 
   clearSession(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(TOKEN_KEY);
     this.idToken.set(null);
     this.currentUser.set(null);
     this.permissionService.setRole('guest');
@@ -68,19 +76,22 @@ export class GoogleAuthService {
       return;
     }
 
-    localStorage.setItem(this.TOKEN_KEY, token);
+    localStorage.setItem(TOKEN_KEY, token);
     this.idToken.set(token);
     this.currentUser.set(user);
-    this.permissionService.setRole('guest');
-    this.router.navigateByUrl('/catalog');
+    //Takes care of refreshing the role based on Health response
+    this.googleAppScriptApi.getHealth().catch((err) => console.warn('Failed to load user role:', err));
+    this.router.navigateByUrl('/book');
   }
 
+
+
   private getStoredToken(): string | null {
-    const token = localStorage.getItem(this.TOKEN_KEY);
+    const token = localStorage.getItem(TOKEN_KEY);
     const user = this.decodeUserFromToken(token);
 
     if (!user || this.isTokenExpired(token)) {
-      localStorage.removeItem(this.TOKEN_KEY);
+      localStorage.removeItem(TOKEN_KEY);
       return null;
     }
 

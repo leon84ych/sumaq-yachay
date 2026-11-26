@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, input, model, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { AppDbService, BookTag } from '../../core/services/storage/app-db.service';
-import { normalizeTagsFromArray } from '../utils/tag-utils';
+import { TagRecord } from './tag-picker.model';
+import { LocalDBService } from '../local-db/local-db.service';
+import { normalizeTagsFromArray } from './tag-picker.mapper';
 
 @Component({
   selector: 'app-tag-picker',
@@ -12,15 +13,18 @@ import { normalizeTagsFromArray } from '../utils/tag-utils';
   styleUrl: './tag-picker.component.css',
 })
 export class TagPickerComponent {
-  readonly value = model<string[]>([]);
+  
   readonly bookRow = input<number | null>(null);
+  readonly value = model<string[]>([]);
+  readonly bookId = input<string | null>(null);
   readonly ariaLabel = input.required<string>();
   readonly inputId = input('');
 
   readonly inputValue = signal('');
   readonly isFocused = signal(false);
-  readonly suggestions = signal<BookTag[]>([]);
+  readonly suggestions = signal<TagRecord[]>([]);
   readonly selectedTags = computed(() => normalizeTagsFromArray(this.value()));
+
   readonly matchingSuggestions = computed(() => {
     const query = this.inputValue().trim().toLocaleLowerCase();
     const selected = new Set(this.selectedTags().map((tag) => tag.toLocaleLowerCase()));
@@ -33,21 +37,21 @@ export class TagPickerComponent {
       .slice(0, 8);
   });
 
-  private readonly dbService = inject(AppDbService);
+  private readonly dbService = inject(LocalDBService);
 
   constructor() {
     effect((onCleanup) => {
-      const row = this.bookRow();
+      const bookId = this.bookId();
       let active = true;
 
-      if (row === null) {
+      if (bookId === null) {
         this.suggestions.set([]);
         return;
       }
 
-      void this.dbService.db.bookTags
-        .where('row')
-        .equals(row)
+      void this.dbService.indexedDB.tags
+        .where('bookId')
+        .equals(bookId)
         .toArray()
         .then((tags) => {
           if (active) {

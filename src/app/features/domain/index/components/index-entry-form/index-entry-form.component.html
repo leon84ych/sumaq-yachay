@@ -1,0 +1,82 @@
+<app-domain-entry-form-overlay
+  [ariaLabel]="(form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.INDEX.NEW_ENTRY_TITLE') | transloco"
+  (closeRequested)="form().resetForm()"
+>
+  <div class="add-entry-form">
+    <h3 id="domain-entry-form-title">
+      {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.INDEX.NEW_ENTRY_TITLE') | transloco }}
+    </h3>
+
+    <div class="form-group">
+      <label for="index-chapter">{{ 'DOMAINS.INDEX.CHAPTER' | transloco }} <span class="required" aria-hidden="true">*</span></label>
+      <input
+        id="index-chapter"
+        type="text"
+        [ngModel]="form().newChapter()"
+        (ngModelChange)="form().newChapter.set($event)"
+        placeholder="e.g. Chapter 1"
+        required
+      />
+      @if (form().submitted() && !form().newChapter().trim()) {
+        <span class="field-error">{{ 'DOMAINS.INDEX.CHAPTER_REQUIRED' | transloco }}</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="index-theme">{{ 'DOMAINS.INDEX.THEME' | transloco }} <span class="required" aria-hidden="true">*</span></label>
+      <input
+        id="index-theme"
+        type="text"
+        [ngModel]="form().newTheme()"
+        (ngModelChange)="form().newTheme.set($event)"
+        placeholder="e.g. Core Concepts"
+        required
+      />
+      @if (form().submitted() && !form().newTheme().trim()) {
+        <span class="field-error">{{ 'DOMAINS.INDEX.THEME_REQUIRED' | transloco }}</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="index-subtheme">{{ 'DOMAINS.INDEX.SUBTHEME' | transloco }}</label>
+      <input
+        id="index-subtheme"
+        type="text"
+        [ngModel]="form().newSubtheme()"
+        (ngModelChange)="form().newSubtheme.set($event)"
+        placeholder="e.g. Definitions"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="index-tags">{{ 'DOMAINS.INDEX.TAGS' | transloco }} <span class="required" aria-hidden="true">*</span></label>
+      <span class="form-hint">{{ 'DOMAINS.INDEX.TAGS_FIRST_HINT' | transloco }}</span>
+      <app-tag-picker
+        [ariaLabel]="'DOMAINS.INDEX.TAGS' | transloco"
+        inputId="index-tags"
+        [bookRow]="null"
+        [value]="form().newTags()"
+        (valueChange)="form().newTags.set($event)"
+      />
+      @if (form().submitted() && form().newTags().length === 0) {
+        <span class="field-error">{{ 'DOMAINS.INDEX.TAGS_REQUIRED' | transloco }}</span>
+      }
+    </div>
+
+    <div class="form-actions">
+      @if (form().permissionService.validatePermission(form().role(), 'CREATE_ROW')) {
+        <button
+          type="button"
+          class="btn-submit"
+          [disabled]="form().isSavingLocal()"
+          (click)="form().addIndexEntry()"
+        >
+          {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+        </button>
+      }
+      <button type="button" class="btn-cancel" (click)="form().resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    </div>
+  </div>
+</app-domain-entry-form-overlay>

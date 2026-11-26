@@ -1,0 +1,49 @@
+<section class="index-view-container">
+  @if (isAddingEntry() || editingId() !== null) {
+  
+    <app-index-entry-form-1 [form]="this" />
+  
+  }
+  @if (filteredRows().length === 0) {
+  <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+  <label class="domain-search">
+    <span class="visually-hidden">{{ 'LEARN.SEARCH' | transloco }}</span>
+    <input type="search" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)"
+      [placeholder]="'LEARN.SEARCH' | transloco" />
+  </label>
+  @if (hierarchy().length === 0) {
+  <p class="empty-state" role="status">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  }
+  <div class="hierarchy-list">
+    @for (chapterGroup of hierarchy(); track chapterGroup.chapter) {
+    <section class="chapter-group">
+      <h3>{{ chapterGroup.chapter }}</h3>
+
+      @for (themeGroup of chapterGroup.themes; track themeGroup.theme) {
+      <section class="theme-group">
+        <h4>{{ themeGroup.theme }}</h4>
+
+        <div class="entry-list">
+          @for (row of themeGroup.rows; track row.id) {
+          <app-index-entry-card-1 
+            [row]="row" 
+            [bookName]="bookName()" 
+            [bookAuthor]="bookAuthor()" 
+            [showContext]="true"
+            [showHierarchy]="false" 
+            [canRetry]="retryableIds().has(row.id)"
+            [pendingDeletion]="pendingDeletionIds().has(row.id)"
+            (editRequested)="editEntry($event)" 
+            (deleteRequested)="deleteEntry($event)" 
+            (retryRequested)="retryEntry($event)"
+            />
+          }
+        </div>
+      </section>
+      }
+    </section>
+    }
+  </div>
+  }
+</section>

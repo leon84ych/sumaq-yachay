@@ -1,0 +1,211 @@
+<app-domain-entry-form-overlay
+  [ariaLabel]="
+    (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.ASSOCIATIONS.NEW_ENTRY_TITLE') | transloco
+  "
+  (closeRequested)="form().resetForm()"
+>
+  <div class="add-entry-form">
+    <h3 id="domain-entry-form-title">
+      {{
+        (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.ASSOCIATIONS.NEW_ENTRY_TITLE') | transloco
+      }}
+    </h3>
+    @if (form().concepts().length === 0) {
+      <p class="empty-state">{{ 'DOMAINS.ASSOCIATIONS.NO_CONCEPTS' | transloco }}</p>
+    }
+    <div class="form-group">
+      <label for="association-source-concept">{{
+        'DOMAINS.ASSOCIATIONS.SOURCE_CONCEPT' | transloco
+      }} <span class="required" aria-hidden="true">*</span></label>
+      <select
+        id="association-source-concept"
+        [ngModel]="form().newSourceConceptId()"
+        (ngModelChange)="form().newSourceConceptId.set($event)"
+        required
+        [attr.aria-invalid]="form().submitted() && form().isSourceConceptInvalid() ? 'true' : null"
+      >
+        <option value="">{{ 'DOMAINS.ASSOCIATIONS.SELECT_CONCEPT' | transloco }}</option>
+        @for (concept of form().concepts(); track concept.id) {
+          <option [value]="concept.id">{{ concept.term }}</option>
+        }
+      </select>
+      @if (form().submitted() && form().isSourceConceptInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.SOURCE_CONCEPT_REQUIRED' | transloco
+        }}</span>
+      }
+    </div>
+    <div class="form-group">
+      <label for="association-target-concept">{{
+        'DOMAINS.ASSOCIATIONS.TARGET_CONCEPT' | transloco
+      }} <span class="required" aria-hidden="true">*</span></label>
+      <select
+        id="association-target-concept"
+        [ngModel]="form().newTargetConceptId()"
+        (ngModelChange)="form().newTargetConceptId.set($event)"
+        required
+        [attr.aria-invalid]="form().submitted() && form().isTargetConceptInvalid() ? 'true' : null"
+      >
+        <option value="">{{ 'DOMAINS.ASSOCIATIONS.SELECT_CONCEPT' | transloco }}</option>
+        @for (concept of form().concepts(); track concept.id) {
+          <option [value]="concept.id">{{ concept.term }}</option>
+        }
+      </select>
+      @if (form().submitted() && form().isTargetConceptInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.TARGET_CONCEPT_REQUIRED' | transloco
+        }}</span>
+      }
+      @if (form().submitted() && form().isSameConceptInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.DISTINCT_CONCEPTS_REQUIRED' | transloco
+        }}</span>
+      }
+    </div>
+    <div class="form-group">
+      <label for="association-type">
+        {{ 'DOMAINS.ASSOCIATIONS.TYPE' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
+      <input
+        id="association-type"
+        type="text"
+        list="association-type-suggestions"
+        [ngModel]="form().newRelationType()"
+        (ngModelChange)="form().newRelationType.set($event)"
+        required
+        [attr.aria-invalid]="form().submitted() && form().isRelationTypeInvalid() ? 'true' : null"
+      />
+      <datalist id="association-type-suggestions">
+        @for (relationType of form().relationTypeSuggestions(); track relationType) {
+          <option [value]="relationType"></option>
+        }
+      </datalist>
+      @if (form().submitted() && form().isRelationTypeInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.TYPE_REQUIRED' | transloco
+        }}</span>
+      }
+    </div>
+    <label class="concept-relation-directed-control">
+      <input
+        type="checkbox"
+        [ngModel]="form().newDirected()"
+        (ngModelChange)="form().newDirected.set($event)"
+      />
+      <span>{{ 'DOMAINS.ASSOCIATIONS.DIRECTED' | transloco }}</span>
+    </label>
+    <div class="form-group">
+      <label for="association-description"
+        >{{ 'DOMAINS.ASSOCIATIONS.DESCRIPTION' | transloco }}
+        <span class="required" aria-hidden="true">*</span></label
+      >
+      <textarea
+        id="association-description"
+        rows="4"
+        maxlength="1000"
+        [ngModel]="form().newDescription()"
+        (ngModelChange)="form().newDescription.set($event)"
+        required
+        [attr.aria-invalid]="form().submitted() && form().isDescriptionInvalid() ? 'true' : null"
+      ></textarea>
+      @if (form().submitted() && form().isDescriptionInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.DESCRIPTION_REQUIRED' | transloco
+        }}</span>
+      }
+    </div>
+    <div class="form-group">
+      <label for="association-color">{{ 'DOMAINS.ASSOCIATIONS.COLOR' | transloco }}</label>
+      <input
+        id="association-color"
+        type="color"
+        [ngModel]="form().newColor()"
+        (ngModelChange)="form().newColor.set($event)"
+      />
+    </div>
+    <div class="form-group">
+      <label for="association-book">
+        {{ 'DOMAINS.ASSOCIATIONS.BOOK' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
+      <input
+        id="association-book"
+        type="text"
+        [value]="form().bookName()"
+        readonly
+        [attr.aria-invalid]="form().submitted() && form().isBookInvalid() ? 'true' : null"
+      />
+      @if (form().submitted() && form().isBookInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.BOOK_REQUIRED' | transloco
+        }}</span>
+      }
+    </div>
+    <div class="form-group">
+      <label for="association-author">
+        {{ 'DOMAINS.ASSOCIATIONS.AUTHOR' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
+      <input
+        id="association-author"
+        type="text"
+        [value]="form().bookAuthor()"
+        readonly
+        [attr.aria-invalid]="form().submitted() && form().isAuthorInvalid() ? 'true' : null"
+      />
+      @if (form().submitted() && form().isAuthorInvalid()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.ASSOCIATIONS.AUTHOR_REQUIRED' | transloco
+        }}</span>
+      }
+    </div>
+    <div class="form-group">
+      <label for="association-page">{{ 'DOMAINS.ASSOCIATIONS.PAGE' | transloco }}</label>
+      <input
+        id="association-page"
+        type="text"
+        [ngModel]="form().newPage()"
+        (ngModelChange)="form().newPage.set($event)"
+      />
+    </div>
+    <div class="form-group">
+      <label for="association-tags">{{ 'DOMAINS.ASSOCIATIONS.TAGS' | transloco }}</label>
+      <app-tag-picker
+        [ariaLabel]="'DOMAINS.ASSOCIATIONS.TAGS' | transloco"
+        inputId="association-tags"
+        [bookRow]="form().bookRow()"
+        [bookId]="form().bookId()"
+        [value]="form().newTags()"
+        (valueChange)="form().newTags.set($event)"
+      />
+      @if (form().invalidTagsDetected().length > 0) {
+        <div class="tag-validation-error" role="alert">
+          <p>
+            {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
+            <strong>{{ 'DOMAINS.DOMAINS.INDEX' | transloco }}</strong>
+            {{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
+            @for (tag of form().invalidTagsDetected(); track tag) {
+              <span class="tag-validation-error__badge">{{ tag }}</span>
+            }
+          </p>
+        </div>
+      }
+    </div>
+    <div class="form-actions">
+      @if (form().permissionService.validatePermission(form().role(), 'CREATE_ROW')) {
+        <button
+          type="button"
+          class="btn-submit"
+          [disabled]="form().isSaving()"
+          (click)="form().saveAssociation()"
+        >
+          {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+        </button>
+      }
+      <button type="button" class="btn-cancel" (click)="form().resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    </div>
+  </div>
+</app-domain-entry-form-overlay>

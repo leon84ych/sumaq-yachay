@@ -1,0 +1,8 @@
+.add-entry-form textarea {
+  min-height: 2.75rem;
+  resize: vertical;
+}
+
+.add-entry-form #passage-text {
+  min-height: 7rem;
+}

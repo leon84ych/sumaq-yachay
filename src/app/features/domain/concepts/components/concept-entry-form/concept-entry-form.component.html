@@ -1,0 +1,129 @@
+<app-domain-entry-form-overlay
+  [ariaLabel]="
+    (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.CONCEPTS.NEW_ENTRY_TITLE') | transloco
+  "
+  (closeRequested)="form().resetForm()"
+>
+  <div class="add-entry-form">
+    <h3 id="domain-entry-form-title">
+      {{ (form().editingId() ? 'COMMON.EDIT' : 'DOMAINS.CONCEPTS.NEW_ENTRY_TITLE') | transloco }}
+    </h3>
+    <div class="form-group">
+      <label for="concept-term">
+        {{ 'DOMAINS.CONCEPTS.TERM' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
+      <input
+        id="concept-term"
+        type="text"
+        [ngModel]="form().newTerm()"
+        (ngModelChange)="form().newTerm.set($event)"
+        required
+        [attr.aria-invalid]="form().submitted() && !form().newTerm().trim() ? 'true' : null"
+      />
+      @if (form().submitted() && !form().newTerm().trim()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.CONCEPTS.TERM_REQUIRED' | transloco
+        }}</span>
+      }
+    </div>
+    <div class="form-group">
+      <label for="concept-definition">
+        {{ 'DOMAINS.CONCEPTS.DEFINITION' | transloco }}
+        <span class="required" aria-hidden="true">*</span>
+      </label>
+      <textarea
+        id="concept-definition"
+        rows="4"
+        [attr.maxLength]="form().definitionMaxLength"
+        [ngModel]="form().newDefinition()"
+        (ngModelChange)="form().newDefinition.set($event)"
+        required
+        [attr.aria-invalid]="form().submitted() && !form().newDefinition().trim() ? 'true' : null"
+      ></textarea>
+      @if (form().submitted() && !form().newDefinition().trim()) {
+        <span class="field-error" role="alert">{{
+          'DOMAINS.CONCEPTS.DEFINITION_REQUIRED' | transloco
+        }}</span>
+      }
+      <small class="character-count">
+        {{
+          'DOMAINS.CONCEPTS.CHARACTERS_LEFT'
+            | transloco: { count: form().definitionCharactersRemaining() }
+        }}
+      </small>
+    </div>
+    <div class="form-group">
+      <label for="concept-category">{{ 'DOMAINS.CONCEPTS.CATEGORY' | transloco }}</label>
+      <select
+        id="concept-category"
+        [ngModel]="form().newCategory()"
+        (ngModelChange)="form().newCategory.set($event)"
+      >
+        <option value="">{{ 'DOMAINS.CONCEPTS.SELECT_CATEGORY' | transloco }}</option>
+        @for (category of form().nodeCategories; track category) {
+          <option [value]="category">
+            {{ 'DOMAINS.CONCEPTS.CATEGORY_OPTIONS.' + category | transloco }}
+          </option>
+        }
+      </select>
+      @if (form().newCategory() === 'other') {
+        <input
+          id="concept-custom-category"
+          type="text"
+          [attr.aria-label]="'DOMAINS.CONCEPTS.CUSTOM_CATEGORY' | transloco"
+          [ngModel]="form().customCategory()"
+          (ngModelChange)="form().customCategory.set($event)"
+          [placeholder]="'DOMAINS.CONCEPTS.CUSTOM_CATEGORY' | transloco"
+        />
+      }
+    </div>
+    <div class="form-group">
+      <label for="concept-source">{{ 'DOMAINS.CONCEPTS.SOURCE' | transloco }}</label>
+      <input
+        id="concept-source"
+        type="text"
+        [ngModel]="form().newSource()"
+        (ngModelChange)="form().newSource.set($event)"
+      />
+    </div>
+    <div class="form-group">
+      <label for="concept-tags">{{ 'DOMAINS.CONCEPTS.TAGS' | transloco }}</label>
+      <app-tag-picker
+        [ariaLabel]="'DOMAINS.CONCEPTS.TAGS' | transloco"
+        inputId="concept-tags"
+        [bookRow]="form().bookRow()"
+        [bookId]="form().bookId()"
+        [value]="form().newTags()"
+        (valueChange)="form().newTags.set($event)"
+      />
+      @if (form().invalidTagsDetected().length > 0) {
+        <div class="tag-validation-error" role="alert">
+          <p>
+            {{ 'DOMAINS.TAG_VALIDATION.REJECTED_PREFIX' | transloco }}
+            <strong>{{ 'DOMAINS.DOMAINS.INDEX' | transloco }}</strong
+            >{{ 'DOMAINS.TAG_VALIDATION.REJECTED_SUFFIX' | transloco }}
+            @for (unlisted of form().invalidTagsDetected(); track unlisted) {
+              <span class="tag-validation-error__badge">{{ unlisted }}</span>
+            }
+          </p>
+        </div>
+      }
+    </div>
+    <div class="form-actions">
+      @if (form().permissionService.validatePermission(form().role(), 'CREATE_ROW')) {
+        <button
+          type="button"
+          class="btn-submit"
+          [disabled]="form().isSaving()"
+          (click)="form().saveConcept()"
+        >
+          {{ (form().editingId() ? 'COMMON.UPDATE' : 'COMMON.SAVE') | transloco }}
+        </button>
+      }
+      <button type="button" class="btn-cancel" (click)="form().resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
+    </div>
+  </div>
+</app-domain-entry-form-overlay>

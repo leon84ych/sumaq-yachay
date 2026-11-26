@@ -1,0 +1,108 @@
+.detail-page {
+  width: var(--content-width);
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.detail-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.detail-header app-book-sheet-tabs {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.detail-actions,
+.detail-domain-selector {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.detail-actions .btn-primary {
+  white-space: nowrap;
+}
+
+.detail-domain-selector .domain-select {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.65rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.detail-domain-selector .domain-select:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.detail-domain-selector .cancel-btn {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+}
+
+.state-message,
+.not-found {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-secondary, #666);
+}
+
+.overview {
+  padding: 0 0 1rem;
+}
+
+.overview-title {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+@media (max-width: 640px) {
+  .detail-page {
+    padding: 1rem;
+  }
+
+  .detail-header {
+    grid-template-columns: minmax(0, max-content) minmax(7rem, 1fr);
+    align-items: end;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .overview {
+    grid-column: 1 / -1;
+  }
+
+  .detail-header app-book-sheet-tabs {
+    grid-column: 2;
+  }
+
+  .detail-actions {
+    min-width: 0;
+    justify-content: flex-start;
+    margin: 0;
+  }
+
+  .detail-domain-selector {
+    flex-wrap: nowrap;
+    min-width: 0;
+  }
+
+  .detail-domain-selector .domain-select {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .detail-actions .btn-primary {
+    box-sizing: border-box;
+    height: 2rem;
+  }
+}

@@ -1,0 +1,37 @@
+import { Component, inject, input, output } from '@angular/core';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { PermissionService } from '../../../../../core/services/permission/permission.service';
+
+import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
+import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
+import { IndexRecord } from '../../model/index-model';
+import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
+import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
+
+@Component({
+  selector: 'app-index-entry-card-1',
+  imports: [TranslocoPipe, DomainEntryHeaderComponent, DomainContributorComponent, StudyTagDirective],
+  templateUrl: './index-entry-card.component.html',
+  styleUrl: './index-entry-card.component.css',
+})
+export class IndexEntryCardComponent {
+  private readonly permissionService = inject(PermissionService);
+
+  readonly row = input.required<IndexRecord>();
+  readonly bookName = input('');
+  readonly bookAuthor = input('');
+  readonly showActions = input(true);
+  readonly showContext = input(false);
+  readonly showHierarchy = input(true);
+  readonly canRetry = input(false);
+  readonly pendingDeletion = input(false);
+  readonly editRequested = output<IndexRecord>();
+  readonly deleteRequested = output<string>();
+  readonly retryRequested = output<IndexRecord>();
+  readonly role = this.permissionService.role;
+  readonly permissions = this.permissionService;
+
+  splitTags(value: string[]): string[] {
+    return parseTagsFromArray(value);
+  }
+}

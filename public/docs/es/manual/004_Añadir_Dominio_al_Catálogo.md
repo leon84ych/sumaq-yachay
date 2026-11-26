@@ -45,6 +45,18 @@ El selector utiliza los tipos de dominio predefinidos de la aplicación y sus ca
 4. Para los dominios que usan etiquetas, define primero las necesarias en **Índice**; los demás formularios las validan contra esa taxonomía.
 5. Guarda y revisa el indicador de sincronización de la entrada. Crear el dominio no lo llena automáticamente de contenido ni genera preguntas.
 
+### Sincronización del índice
+
+Las entradas nuevas y editadas del índice se guardan primero en este dispositivo. El formulario se cierra mientras la sincronización continúa en segundo plano. Si falla la conexión o la solicitud, la entrada queda pendiente y un mensaje identifica el libro y la entrada. Las actualizaciones pendientes y las creaciones que no se enviaron se reintentan automáticamente cuando la aplicación está conectada y has iniciado sesión con la cuenta que las guardó; selecciona el indicador de estado pendiente para reintentar una entrada manualmente.
+
+Una solicitud de creación puede llegar al servidor aunque se pierda la respuesta. En ese caso, la aplicación no la repite automáticamente. Comprueba el servidor antes de reintentar y confirma la advertencia, ya que el reintento podría crear un duplicado. Este proceso en segundo plano solo se aplica por ahora a las entradas del índice. Los cambios en datos de ejemplo locales permanecen en este dispositivo.
+
+Si una entrada se guardó sin una cuenta identificable, selecciona su indicador de estado pendiente y confirma la cuenta con la que has iniciado sesión antes de enviarla.
+
+Al eliminar una entrada del índice en modo remoto, permanece visible como **Eliminación pendiente de sincronización** hasta que el servidor confirme la eliminación. El indicador de estado pendiente permite revisarla o reintentarla. Antes de enviar una eliminación, la aplicación busca la fila actual de la entrada en el servidor. Si se pierde la respuesta o no se encuentra la entrada, comprueba el servidor antes de usar el indicador: confirma si la entrada ya no existe o verifica su identidad antes de reintentar. La aplicación no repite automáticamente una eliminación de resultado incierto.
+
+Si se elimina una creación local que no se había enviado, se borra localmente sin solicitar nada al servidor. Si su solicitud de creación podría haber llegado al servidor, se elimina la entrada local y se advierte que podría quedar una copia en el servidor. En el modo de datos de ejemplo locales, las eliminaciones son solo locales.
+
 ## Si falta algo
 
 - **No aparece Dominio:** comprueba el inicio de sesión y los permisos.

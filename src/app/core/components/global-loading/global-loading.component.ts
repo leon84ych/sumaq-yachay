@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, effect, inject, viewChild } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { GlobalLoadingService } from '../../services/global-loading.service';
+import { GlobalLoadingService } from '../../services/loading/global-loading.service';
 
 @Component({
   selector: 'app-global-loading',
@@ -11,4 +11,21 @@ import { GlobalLoadingService } from '../../services/global-loading.service';
 })
 export class GlobalLoadingComponent {
   readonly loadingService = inject(GlobalLoadingService);
+  readonly loadingDialog = viewChild<ElementRef<HTMLDialogElement>>('loadingDialog');
+
+  constructor() {
+    effect(() => {
+      const isLoading = this.loadingService.isLoading();
+      const dialog = this.loadingDialog()?.nativeElement;
+      if (!dialog) {
+        return;
+      }
+
+      if (isLoading && !dialog.open) {
+        dialog.showModal();
+      } else if (!isLoading && dialog.open) {
+        dialog.close();
+      }
+    });
+  }
 }

@@ -1,24 +1,39 @@
-import { CatalogItem } from '../../../features/catalog/models/catalog-item.model';
-import catalogItems from '../../../../../public/sample/Catalog.json';
-import { serializeTagsToArray } from '../../../shared/utils/tag-utils';
+import { BookRecord } from '../../../features/book/models/book-item.model';
+import bookItems from '../../../../../public/sample/Books.json';
+import { normalizeTagsFromArray } from '../../../shared/tag-picker/tag-picker.mapper';
 
-export const LOCAL_SAMPLE_CATALOG: CatalogItem[] = catalogItems.map((item, index) => ({
-  ...item,
+const sampleBookItems = bookItems as Array<Partial<BookRecord>>;
+
+export const LOCAL_SAMPLE_BOOKS: BookRecord[] = sampleBookItems.map((item, index) => ({
+  id: item.id ?? `book-${index + 1}`,
+  isbn: item.isbn?.trim() || '',
+  subject: item.subject ?? '',
+  topic: item.topic ?? '',
+  name: item.name ?? '',
+  author: item.author ?? '',
+  language: item.language?.trim() || 'English',
+  description: item.description,
+  source: item.source,
+  active: item.active ?? true,
+  page: item.page ?? 0,
+  pages: item.pages ?? 0,
+  updatedAt: item.updatedAt ?? new Date().toISOString(),
+  count: item.count ?? 0,
   row: index + 1,
-  syncStatus: 'synced',
+  syncStatus: 'pending',
 }));
 
 export const LOCAL_SAMPLE_DOMAIN_TABLES: Record<string, string> = {
-  INDEX: 'indexTopics',
+  INDEX: 'indexes',
   CONCEPTS: 'concepts',
   QUOTES: 'quotes',
   PASSAGES: 'passages',
   CHARACTER: 'characters',
   PLACES: 'places',
   BOOK_EVENTS: 'bookEvents',
-  RELATIONS: 'relationsCharacters',
-  ASSOCIATIONS: 'relationsConcepts',
-  GLOSARY: 'glosary',
+  RELATIONS: 'relations',
+  ASSOCIATIONS: 'associations',
+  GLOSARY: 'glossary',
   QUESTIONS: 'questions',
 };
 
@@ -69,7 +84,7 @@ export async function getLocalSampleDomainData(bookId: string): Promise<LocalSam
 
 export function normalizeSampleDomainRow(row: Record<string, unknown>): Record<string, unknown> {
   const normalized = { ...row };
-  normalized['tags'] = serializeTagsToArray(normalized['tags']);
+  normalized['tags'] = normalizeTagsFromArray(normalized['tags']);
   if (!normalized['contributor'] || normalized['contributor'] === 'Local Sample Data') {
     normalized['contributor'] = 'leon84ych';
   }

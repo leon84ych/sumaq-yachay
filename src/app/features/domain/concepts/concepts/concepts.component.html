@@ -1,0 +1,39 @@
+<div class="definitions-view">
+  @if (isAddingEntry() || editingId() !== null) {
+    <app-concept-entry-form-1 [form]="this" />
+  }
+  @if (rows().length === 0) {
+    <p class="empty-state" role="status">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
+  } @else {
+      <label class="concept-search domain-search">
+        <span class="visually-hidden">{{ 'DOMAINS.CONCEPTS.SEARCH' | transloco }}</span>
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="8.75" cy="8.75" r="5.75" />
+          <path d="m13 13 4 4" />
+        </svg>
+        <input
+          type="search"
+          [ngModel]="searchTerm()"
+          (ngModelChange)="searchTerm.set($event)"
+          [placeholder]="'DOMAINS.CONCEPTS.SEARCH' | transloco"
+        />
+      </label>
+    @if (filteredRows().length === 0) {
+      <p class="empty-state" role="status">{{ 'DOMAINS.CONCEPTS.NO_MATCHES' | transloco }}</p>
+    } @else {
+      <div class="definitions-grid">
+        @for (row of filteredRows(); track row.id) {
+          <app-concept-entry-card-1
+            [row]="row"
+            [bookName]="bookName()"
+            [bookAuthor]="bookAuthor()"
+            [showActions]="true"
+            [showContext]="true"
+            (deleteRequested)="deleteEntry($event)"
+            (editRequested)="editEntry($event)"
+          />
+        }
+      </div>
+    }
+  }
+</div>

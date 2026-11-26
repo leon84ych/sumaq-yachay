@@ -40,7 +40,14 @@
             </button>
           }
         </span>
-        @if (status()) {
+        @if ((status() === 'pending' || status() === 'error') && retryable()) {
+          <button type="button" class="status-indicator status-indicator--retry"
+            [class.error]="status() === 'error'" [attr.aria-label]="retryLabelKey() | transloco"
+            [attr.title]="retryLabelKey() | transloco"
+            (click)="retry($event)" (keydown)="onFilterKeydown($event)">
+            <span class="status-label">{{ retryLabelKey() | transloco }}</span>
+          </button>
+        } @else if (status()) {
           <span
             class="status-indicator"
             [class.synced]="status() === 'synced'"
@@ -54,6 +61,13 @@
           </span>
         }
       </div>
+    } @else if ((status() === 'pending' || status() === 'error') && retryable()) {
+      <button type="button" class="status-indicator status-indicator--retry"
+        [class.error]="status() === 'error'" [attr.aria-label]="retryLabelKey() | transloco"
+        [attr.title]="retryLabelKey() | transloco"
+        (click)="retry($event)" (keydown)="onFilterKeydown($event)">
+        <span class="status-label">{{ retryLabelKey() | transloco }}</span>
+      </button>
     } @else if (status()) {
       <span
         class="status-indicator"

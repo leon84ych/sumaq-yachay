@@ -1,0 +1,19 @@
+<div class="sheet-tabs-container" role="region" aria-label="Book Sheets Navigation">
+  <div class="sheet-tabs" role="tablist">
+    @for (name of domainNames(); track name) {
+    <button type="button" class="tab-button" role="tab" [class.active]="name === activeDomainName()"
+      [attr.aria-selected]="name === activeDomainName()" (click)="selectTab.emit(name)">
+      {{ 'DOMAINS.DOMAINS.' + name | transloco }}
+    </button>
+    }
+  </div>
+</div>
+@if (domainNames().length > 0) {
+<select class="mobile-sheet-selector" [value]="activeDomainName() ?? ''"
+  [attr.aria-label]="'BOOK_DETAIL.SELECT_VIEW' | transloco"
+  (change)="selectTab.emit($any($event.target).value)">
+  @for (name of domainNames(); track name) {
+  <option [value]="name">{{ 'DOMAINS.DOMAINS.' + name | transloco }}</option>
+  }
+</select>
+}

@@ -1,7 +1,7 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { DomainName } from '../../../catalog-detail/models/domain-sheet-config';
-import { StudySearchService } from '../../../../core/services/study-search.service';
+import { DomainName } from '../../book-detail/models/domain-sheet-config';
+import { StudySearchService } from '../../../../core/services/search/study-search.service';
 
 @Component({
   selector: 'app-domain-entry-header',
@@ -15,6 +15,9 @@ export class DomainEntryHeaderComponent {
   readonly bookName = input('');
   readonly bookAuthor = input('');
   readonly status = input<string | null>(null);
+  readonly retryable = input(false);
+  readonly retryLabelKey = input('COMMON.RETRY_SYNC');
+  readonly retryRequested = output<void>();
   readonly showContext = input(true);
   readonly compact = input(false);
   readonly useProjectedLabel = input(false);
@@ -28,5 +31,10 @@ export class DomainEntryHeaderComponent {
 
   onFilterKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter' || event.key === ' ') event.stopPropagation();
+  }
+
+  retry(event: Event): void {
+    event.stopPropagation();
+    this.retryRequested.emit();
   }
 }

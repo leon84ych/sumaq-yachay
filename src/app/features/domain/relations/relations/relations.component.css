@@ -1,0 +1,10 @@
+.relations-view {
+  display: grid;
+  gap: 1rem;
+}
+
+.relations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  gap: 1rem;
+}

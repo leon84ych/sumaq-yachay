@@ -1,0 +1,548 @@
+
+import { PAGE_SIZE } from "../../../core/infrastructure/gas/gas-domain-api.service";
+import { BookRecord } from '../models/book-item.model';
+import { GoogleAuthService } from '../../authentication/services/google-auth-service';
+import { ConfigService } from '../../../core/services/config/config.service';
+import { GlobalLoadingService } from '../../../core/services/loading/global-loading.service';
+import { PermissionService } from '../../../core/services/permission/permission.service';
+import { StudySearchService } from '../../../core/services/search/study-search.service';
+import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
+import { BookGASRepository } from './book-gas-repository';
+import { LocalDBService } from '../../../shared/local-db/local-db.service';
+import { LanguageService } from '../../../shared/language/language.service';
+import { Status } from '../../domain/shared/model/domain-shared-model';
+import { computed, effect, inject, Injectable, signal } from "@angular/core";
+
+
+const CONTENT_SEARCH_TERMS: Record<string, string[]> = {
+  indexes: ['index', 'índice'],
+  concepts: ['concepts', 'conceptos'],
+  quotes: ['quotes', 'citas'],
+  passages: ['passages', 'pasajes'],
+  characters: ['character', 'characters', 'personaje', 'personajes'],
+  places: ['places', 'lugar', 'lugares'],
+  bookEvents: ['book events', 'events', 'eventos'],
+  relations: ['relations', 'relationships', 'relaciones'],
+  associations: ['associations', 'asociaciones'],
+  glossary: ['glossary', 'glosario'],
+  questions: ['questions', 'preguntas'],
+  tags: ['tags', 'etiquetas'],
+};
+
+@Injectable({
+  providedIn: 'root',
+})
+export class BookService {
+
+  private authService = inject(GoogleAuthService);
+  private configService = inject(ConfigService);
+  private globalLoadingService = inject(GlobalLoadingService);
+  private permissionService = inject(PermissionService);
+
+
+  private bookGASRepository = inject(BookGASRepository);
+  private localDBService = inject(LocalDBService);
+  private languageService = inject(LanguageService);
+
+  // State Signals
+  readonly items = signal<BookRecord[]>([]);
+  readonly selectedSubject = signal<string>('ALL');
+  readonly searchQuery = inject(StudySearchService).query;
+  readonly showActiveOnly = signal<boolean>(false);
+  readonly isLoading = signal<boolean>(false);
+  readonly errorMessage = signal<string | null>(null);
+  readonly lastSyncedAt = signal<string | null>(null);
+  readonly recentlyAddedId = signal<string | null>(null);
+  private readonly relatedMatches = signal({ query: '', rows: new Set<number>() });
+
+  // Computed Derived State
+  readonly filteredItems = computed(() => {
+    const list = this.items();
+    const subject = this.selectedSubject();
+    const query = this.searchQuery().toLowerCase().trim();
+    const activeOnly = this.showActiveOnly();
+    const related = this.relatedMatches();
+
+    return list.filter((item) => {
+      const matchesSubject = subject === 'ALL' || item.subject === subject;
+      const matchesActive = !activeOnly || item.active;
+      const matchesQuery =
+        !query ||
+        (related.query === query && related.rows.has(item.row)) ||
+        matchesStudySearch(query,
+          [item.name, item.subject, item.topic, item.author, item.description ?? '', item.source ?? ''],
+          [], { book: item.name, author: item.author },
+        );
+
+      return matchesSubject && matchesActive && matchesQuery;
+    });
+  });
+
+  readonly stats = computed(() => {
+    const all = this.items();
+
+    let total = 0;
+    let active = 0;
+    let pendingSync = 0;
+
+    const subjects: Record<string, number> = {};
+
+    for (const item of all) {
+      total++;
+      if (item.active) active++;
+      if (item.syncStatus === 'pending' || item.syncStatus === 'error') pendingSync++;
+      const subjectKey = item.subject?.trim() || 'Unknown';
+      subjects[subjectKey] = (subjects[subjectKey] || 0) + 1;
+    }
+
+    return {
+      total,
+      active,
+      pendingSync,
+      subjects // This contains your dynamic counts per subject
+    };
+  });
+
+  constructor() {
+    effect((onCleanup) => {
+      const query = this.searchQuery().toLowerCase().trim();
+      const items = this.items();
+      if (!query || items.length === 0) return;
+
+      let active = true;
+      const timer = setTimeout(() => {
+        void this.loadRelatedMatches(query).then(
+          (rows) => { if (active) this.relatedMatches.set({ query, rows }); },
+          () => { if (active) this.relatedMatches.set({ query, rows: new Set<number>() }); },
+        );
+      }, 250);
+      onCleanup(() => {
+        active = false;
+        clearTimeout(timer);
+      });
+    });
+
+    effect(() => {
+      const localSampleDataEnabled = this.configService.localSampleDataEnabled();
+      if (localSampleDataEnabled) {
+        this.permissionService.setRole('admin');
+        void this.loadLocalSampleData();
+        return;
+      }
+      void this.loadFromLocal();
+    });
+
+    if (!this.configService.isLocalSampleDataEnabled()) {
+      void this.init();
+    }
+  }
+
+  private async loadRelatedMatches(query: string): Promise<Set<number>> {
+    const matches = new Set<number>();
+    const search = parseStudySearch(query);
+    const bookByRow = new Map(this.items().map((item) => [item.row, item]));
+    const bookById = new Map(this.items().map((item) => [item.id, item]));
+    const tables = (this.localDBService.indexedDB.tables ?? [])
+      .filter((table) => Object.hasOwn(CONTENT_SEARCH_TERMS, table.name));
+    await Promise.all(tables.map(async (table) => {
+      const rows = await table.toArray() as Record<string, unknown>[];
+      for (const row of rows) {
+        const storedRow = Number(row['bookRow'] ?? row['row']);
+        const book = bookById.get(String(row['bookId'] ?? '')) ?? bookByRow.get(storedRow);
+        const bookRow = book?.row ?? storedRow;
+        const fields = Object.values(row).flatMap((value) =>
+          typeof value === 'string' ? [value] : Array.isArray(value)
+            ? value.filter((entry): entry is string => typeof entry === 'string') : [],
+        );
+        const tags = table.name === 'tags' ? [row['name']] : row['tags'];
+        if (matchesStudySearch(search, [
+          ...fields, ...CONTENT_SEARCH_TERMS[table.name],
+          book?.name, book?.author, book?.subject, book?.topic,
+        ], tags, { book: book?.name, author: book?.author, contributor: row['contributor'] })) {
+          if (Number.isFinite(bookRow)) matches.add(bookRow);
+        }
+      }
+    }));
+    return matches;
+  }
+
+  async init(): Promise<void> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      await this.loadLocalSampleData();
+    } else {
+      await this.loadFromLocal();
+    }
+  }
+
+  private async loadLocalSampleData(): Promise<void> {
+    this.isLoading.set(true);
+    try {
+      await this.localDBService.seedLocalSampleData();
+      await this.loadFromLocal();
+    } catch (err) {
+      this.errorMessage.set('BOOK.ERRORS.syncFailed');
+      console.error('Failed to load LocalSampleData:', err);
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
+
+
+  /**
+   * Load stored items from IndexedDB
+   */
+  async loadFromLocal(): Promise<void> {
+    this.isLoading.set(true);
+    try {
+      const localItems = await this.localDBService.indexedDB.books.toArray();
+      this.items.set(localItems);
+    } catch (err) {
+      console.error('Failed to load books from IndexedDB:', err);
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
+
+  /**
+   * HTTP GET: Syncs the book from Google Apps Script Web App
+   */
+  async syncFromRemote(): Promise<void> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      return;
+    }
+
+    if (!this.authService.idToken()) {
+      this.errorMessage.set('BOOK.ERRORS.authRequired');
+      console.warn('Sync aborted: User is not authenticated with Google.');
+      return;
+    }
+
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+    try {
+      // Clear ALL local data before syncing from remote
+      await this.localDBService.clearAllTables();
+      this.items.set([]);
+
+      let page = 1;
+      let totalPages = 1;
+
+      while (page <= totalPages) {
+        const response = await this.bookGASRepository.getBooks(page, PAGE_SIZE);
+        const message = typeof response.message === 'string' ? response.message : '';
+        if (
+          response.status === Status.ERROR &&
+          message.includes('Invalid or expired Google token')
+        ) {
+          console.warn('Google token expired; logging the user out.');
+          this.authService.logout();
+        }
+
+        if (response.status !== 'success' || !Array.isArray(response.data.rows)) {
+          throw new Error(message || 'BOOK.ERRORS.malformedBook');
+        }
+        //progressively update the items signal with each page of data
+        this.items.update(items => [...items, ...response.data.rows]);
+        //remove loading after first page successfuly retrieved
+        this.globalLoadingService.end(operation);
+        this.isLoading.set(false);
+        totalPages = response.data.totalPages;
+        page++;
+      }
+
+      this.lastSyncedAt.set(new Date().toLocaleTimeString());
+
+      //save all items in IndexedDB
+      await this.localDBService.indexedDB.transaction('rw', this.localDBService.indexedDB.books, async () => {
+        await this.localDBService.indexedDB.books.bulkPut(this.items());
+      });
+
+
+    } catch (err: unknown) {
+      this.errorMessage.set('BOOK.ERRORS.syncFailed');
+      console.warn('Sync from remote failed; maintaining local cache:', err);
+    } finally {
+      this.globalLoadingService.end(operation);
+      this.isLoading.set(false);
+    }
+  }
+
+
+
+  /**
+ * HTTP POST: Optimistically save or update an item locally and push to Google Sheets
+ */
+  async saveItem(
+    itemInput: Omit<BookRecord, 'updatedAt'>,
+    isEdit: boolean,
+    originalId?: string // Pass original ID to handle primary key renames during edits
+  ): Promise<void> {
+
+    const now = new Date().toISOString();
+    const item: BookRecord = {
+      ...itemInput,
+      updatedAt: now,
+      syncStatus: 'pending',
+    };
+
+    const operation = this.globalLoadingService.begin();
+
+    try {
+      if (this.configService.isLocalSampleDataEnabled()) {
+        const database = this.localDBService.indexedDB;
+        const table = database.books;
+        const localItem = await database.transaction('rw', [table, database.metadata], async () => {
+          const localItems = await table.toArray();
+          if ((!isEdit || (originalId && originalId !== item.id)) && localItems.some(book => book.id === item.id)) {
+            throw new Error('BOOK.ERRORS.duplicateBookId');
+          }
+          const existing = localItems.find(book => book.id === (originalId ?? item.id));
+          const metadata = await database.metadata.get('sample-data-seeded');
+          const lastRow = Math.max(metadata?.lastBookRow ?? 0, ...localItems.map(book => book.row));
+          const savedItem: BookRecord = {
+            ...item,
+            row: existing?.row ?? lastRow + 1,
+            syncStatus: 'synced',
+          };
+          if (isEdit && originalId && originalId !== savedItem.id) {
+            await table.delete(originalId);
+          }
+          await table.put(savedItem);
+          if (!existing) {
+            await database.metadata.put({ key: 'sample-data-seeded', lastBookRow: savedItem.row });
+          }
+          return savedItem;
+        });
+        this.items.update(items => [
+          ...items.filter(book => book.id !== localItem.id && book.id !== originalId),
+          localItem,
+        ]);
+        await this.languageService.remember(localItem.language);
+        return;
+      }
+      // Delete item in update local 
+      if (isEdit && originalId) {
+        await this.deleteItem(originalId);
+      }
+      // Save or update the item locally
+      await this.localDBService.indexedDB.books.put(item);
+      // Push the item to server
+      const createResponse = await this.bookGASRepository.createItem(item);
+      // Merge server response with local item to create a synced item
+      const syncedItem: BookRecord = {
+        ...item,
+        id: createResponse.data?.id ?? item.id,
+        row: createResponse.data?.row ?? item.row,
+        syncStatus: createResponse.data?.syncStatus ?? item.syncStatus,
+        updatedAt: createResponse.data?.updatedAt ?? item.updatedAt,
+      };
+      // Update local record with server response
+      await this.localDBService.indexedDB.books.put(syncedItem);
+      await this.languageService.remember(syncedItem.language);
+
+      // Return a new array: mutating in place would not notify the signal
+      this.items.update(items =>
+        items.some(i => i.id === syncedItem.id)
+          ? items.map(i => (i.id === syncedItem.id ? syncedItem : i))
+          : [...items, syncedItem],
+      );
+    } finally {
+      this.globalLoadingService.end(operation);
+    }
+  }
+
+  async cloneBookRecordFromSheet(sheetUrl: string): Promise<boolean> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      this.errorMessage.set('BOOK.ERRORS.cloneItemUnavailable');
+      return false;
+    }
+    if (!this.authService.idToken()) {
+      this.errorMessage.set('BOOK.ERRORS.authRequired');
+      return false;
+    }
+    if (this.isLoading()) return false;
+
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      // Clone the item on the server
+      const cloneResponse = await this.bookGASRepository.cloneBookItem(sheetUrl);
+      if (cloneResponse.status !== Status.SUCCESS || !cloneResponse.data) {
+        throw new Error(cloneResponse.message || 'BOOK.ERRORS.cloneItemFailed');
+      }
+      const clonedItem: BookRecord = { ...cloneResponse.data };
+      // Save the cloned record locally
+      await this.localDBService.indexedDB.books.put(clonedItem);
+
+      // Show the new item first; a new array is needed so the signal notifies
+      this.items.update(items => [clonedItem, ...items.filter(i => i.id !== clonedItem.id)]);
+      // Clear filters that could hide the new item
+      this.selectedSubject.set('ALL');
+      this.searchQuery.set('');
+      this.showActiveOnly.set(false);
+      this.recentlyAddedId.set(clonedItem.id);
+      return true;
+    } catch (error: unknown) {
+      this.errorMessage.set(error instanceof Error && error.message
+        ? error.message : 'BOOK.ERRORS.cloneItemFailed');
+      return false;
+    } finally {
+      this.isLoading.set(false);
+      this.globalLoadingService.end(operation);
+    }
+  }
+
+  async addBookFromSheet(sheetUrl: string): Promise<boolean> {
+    if (this.configService.isLocalSampleDataEnabled() || this.items().length > 0) {
+      this.errorMessage.set('BOOK.ERRORS.copyBookUnavailable');
+      return false;
+    }
+    if (!this.authService.idToken()) {
+      this.errorMessage.set('BOOK.ERRORS.authRequired');
+      return false;
+    }
+
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      // Clone the whole book on the server
+      const response = await this.bookGASRepository.cloneBook(sheetUrl);
+      if (response.status !== Status.SUCCESS) {
+        throw new Error(response.message || 'BOOK.ERRORS.copyBookFailed');
+      }
+      // Reload the cloned rows into IndexedDB and the items signal
+      await this.syncFromRemote();
+      return !this.errorMessage();
+    } catch (error: unknown) {
+      console.error('Google Sheet book request failed:', error);
+      this.errorMessage.set(
+        error instanceof Error && error.message
+          ? error.message
+          : 'BOOK.ERRORS.copyBookFailed',
+      );
+      return false;
+    } finally {
+      this.isLoading.set(false);
+      this.globalLoadingService.end(operation);
+    }
+  }
+
+
+  /**
+   * 
+   * @param sheetUrl Pending validation TODO 
+   * @returns 
+   */
+  async cloneBookItemFromSheet(sheetUrl: string): Promise<boolean> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      this.errorMessage.set('BOOK.ERRORS.cloneItemUnavailable');
+      return false;
+    }
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      const response = await this.bookGASRepository.cloneBookItem(sheetUrl);
+      if (response.status !== Status.SUCCESS) {
+        throw new Error(response.message || 'BOOK.ERRORS.cloneItemFailed');
+      }
+      await this.syncFromRemote();
+      return !this.errorMessage();
+    } catch (error: unknown) {
+      console.error('Google Sheet book item request failed:', error);
+      this.errorMessage.set(
+        error instanceof Error && error.message
+          ? error.message
+          : 'BOOK.ERRORS.cloneItemFailed',
+      );
+      return false;
+    } finally {
+      this.isLoading.set(false);
+      this.globalLoadingService.end(operation);
+    }
+  }
+
+  /**
+   * Toggle the active status of a book item
+   */
+  async toggleActive(item: BookRecord): Promise<void> {
+    const updated: BookRecord = {
+      ...item,
+      active: !item.active,
+    };
+    await this.saveItem(updated, true);
+  }
+
+  /**
+   * HTTP POST: Delete the item on the server, then remove it locally only if that succeeded
+   */
+  async deleteBookRecord(item: BookRecord): Promise<boolean> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      await this.deleteItem(item.id);
+      return true;
+    }
+    if (!this.authService.idToken()) {
+      this.errorMessage.set('BOOK.ERRORS.authRequired');
+      return false;
+    }
+    if (this.isLoading()) return false;
+
+    const operation = this.globalLoadingService.begin();
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      const response = await this.bookGASRepository.deleteItem(item);
+      if (response.status !== Status.SUCCESS) {
+        throw new Error(response.message || 'BOOK.ERRORS.deleteItemFailed');
+      }
+      await this.deleteItem(item.id);
+      return true;
+    } catch (error: unknown) {
+      console.error('Delete book item request failed:', error);
+      this.errorMessage.set(
+        error instanceof Error && error.message
+          ? error.message
+          : 'BOOK.ERRORS.deleteItemFailed',
+      );
+      return false;
+    } finally {
+      this.isLoading.set(false);
+      this.globalLoadingService.end(operation);
+    }
+  }
+
+  /**
+   * Delete item locally from IndexedDB
+   */
+  async deleteItem(id: string): Promise<void> {
+    await this.localDBService.indexedDB.books.delete(id);
+    this.items.update((list) => list.filter((i) => i.id !== id));
+  }
+
+  // Filter modifiers
+  setSubject(subject: string): void {
+    this.selectedSubject.set(subject);
+  }
+
+  setSearchQuery(query: string): void {
+    this.searchQuery.set(query);
+  }
+
+  setShowActiveOnly(show: boolean): void {
+    this.showActiveOnly.set(show);
+  }
+
+  /**
+ * Removes an item from the local reactive state array by its ID
+ */
+  private removeLocalItemInState(idToRemove: string): void {
+    this.items.update(currentItems => currentItems.filter(item => item.id !== idToRemove));
+  }
+}

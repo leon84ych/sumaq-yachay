@@ -5,7 +5,7 @@
       "chapter": "Combray",
       "theme": "Memory",
       "subtheme": "Involuntary memory and sensory experience",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#memory"],
       "contributor": "leon84ych"
     },
@@ -14,7 +14,7 @@
       "chapter": "Combray",
       "theme": "Childhood",
       "subtheme": "Family, longing, and early perception",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#childhood"],
       "contributor": "leon84ych"
     },
@@ -23,7 +23,7 @@
       "chapter": "Swann in Love",
       "theme": "Love",
       "subtheme": "Desire, jealousy, and obsession",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#love"],
       "contributor": "leon84ych"
     },
@@ -32,7 +32,7 @@
       "chapter": "Place-Names: The Name",
       "theme": "Imagination",
       "subtheme": "Anticipation and imagined places",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#imagination"],
       "contributor": "leon84ych"
     },
@@ -41,7 +41,7 @@
       "chapter": "Within a Budding Grove",
       "theme": "Identity",
       "subtheme": "Youth, attraction, and self-discovery",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#identity"],
       "contributor": "leon84ych"
     },
@@ -50,7 +50,7 @@
       "chapter": "The Guermantes Way",
       "theme": "Society",
       "subtheme": "Status, prestige, and social observation",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#society"],
       "contributor": "leon84ych"
     },
@@ -59,7 +59,7 @@
       "chapter": "Sodom and Gomorrah",
       "theme": "Perception",
       "subtheme": "Observation, interpretation, and uncertainty",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#perception"],
       "contributor": "leon84ych"
     },
@@ -68,7 +68,7 @@
       "chapter": "The Prisoner",
       "theme": "Jealousy",
       "subtheme": "Possession, uncertainty, and emotional confinement",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#jealousy"],
       "contributor": "leon84ych"
     },
@@ -77,7 +77,7 @@
       "chapter": "The Fugitive",
       "theme": "Loss",
       "subtheme": "Absence, grief, and transformation of memory",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#loss"],
       "contributor": "leon84ych"
     },
@@ -86,7 +86,7 @@
       "chapter": "Time Regained",
       "theme": "Art",
       "subtheme": "Memory, time, and artistic creation",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#art"],
       "contributor": "leon84ych"
     }
@@ -103,7 +103,7 @@
       "tags": ["#marcel", "#memory", "#identity"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#2F6690"
     },
     {
@@ -117,7 +117,7 @@
       "tags": ["#swann", "#love", "#jealousy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#A44A3F"
     },
     {
@@ -131,7 +131,7 @@
       "tags": ["#odette", "#swann", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#C49A3A"
     },
     {
@@ -145,7 +145,7 @@
       "tags": ["#albertine", "#love", "#jealousy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#3A7D44"
     },
     {
@@ -159,7 +159,7 @@
       "tags": ["#gilberte", "#youth", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#B56576"
     },
     {
@@ -173,7 +173,7 @@
       "tags": ["#charlus", "#aristocracy", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#735D78"
     },
     {
@@ -187,7 +187,7 @@
       "tags": ["#saint-loup", "#friendship", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#D17B49"
     },
     {
@@ -201,7 +201,7 @@
       "tags": ["#guermantes", "#aristocracy", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#5C4D7D"
     },
     {
@@ -215,7 +215,7 @@
       "tags": ["#francoise", "#family", "#domestic-life"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#6A994E"
     },
     {
@@ -229,7 +229,7 @@
       "tags": ["#bergotte", "#art", "#literature"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#4F6D7A"
     }
   ],
@@ -241,7 +241,7 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#memory", "#time", "#involuntary-memory"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -251,7 +251,7 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#time", "#consciousness", "#subjective-time"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -261,7 +261,7 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#past", "#identity", "#memory"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -271,7 +271,7 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#love", "#desire", "#jealousy"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -281,7 +281,7 @@
       "category": "Social theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#society", "#identity", "#social-performance"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -291,7 +291,7 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#art", "#literature", "#artistic-vocation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -301,7 +301,7 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#consciousness", "#interpretation", "#perception"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -311,7 +311,7 @@
       "category": "Social theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#society", "#aristocracy", "#social-class"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -321,7 +321,7 @@
       "category": "Theme",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#self", "#memory", "#identity"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -331,7 +331,7 @@
       "category": "Narrative technique",
       "source": "Study context for In Search of Lost Time",
       "tags": ["#modernism", "#consciousness", "#modernist-introspection"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -348,7 +348,8 @@
       "tags": ["#memory", "#time"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-02",
@@ -362,7 +363,8 @@
       "tags": ["#consciousness", "#modernism"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-03",
@@ -376,7 +378,8 @@
       "tags": ["#time", "#narrative"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-04",
@@ -390,7 +393,8 @@
       "tags": ["#memory", "#sensation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-05",
@@ -404,7 +408,8 @@
       "tags": ["#society", "#social-class"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-06",
@@ -418,7 +423,8 @@
       "tags": ["#aristocracy", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-07",
@@ -432,7 +438,8 @@
       "tags": ["#perception", "#consciousness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-08",
@@ -446,7 +453,8 @@
       "tags": ["#imagination", "#desire"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-09",
@@ -460,7 +468,8 @@
       "tags": ["#insight", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-10",
@@ -474,7 +483,8 @@
       "tags": ["#art", "#perception"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "English"
     }
   ],
   "PASSAGES": [
@@ -488,7 +498,7 @@
       "tags": ["#sample", "#memory", "#sensation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-02",
@@ -500,7 +510,7 @@
       "tags": ["#sample", "#time", "#anticipation"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-03",
@@ -512,7 +522,7 @@
       "tags": ["#sample", "#imagination", "#places"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-04",
@@ -524,7 +534,7 @@
       "tags": ["#sample", "#society", "#perception"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-05",
@@ -536,7 +546,7 @@
       "tags": ["#sample", "#jealousy", "#imagination"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-06",
@@ -548,7 +558,7 @@
       "tags": ["#sample", "#love", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-07",
@@ -560,7 +570,7 @@
       "tags": ["#sample", "#society", "#status"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-08",
@@ -572,7 +582,7 @@
       "tags": ["#sample", "#loss", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-09",
@@ -584,7 +594,7 @@
       "tags": ["#sample", "#art", "#experience"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-10",
@@ -596,7 +606,7 @@
       "tags": ["#sample", "#time", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PLACES": [
@@ -612,7 +622,7 @@
       "tags": ["#combray", "#childhood", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-02",
@@ -626,7 +636,7 @@
       "tags": ["#paris", "#society", "#art"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-03",
@@ -640,7 +650,7 @@
       "tags": ["#balbec", "#travel", "#youth"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-04",
@@ -654,7 +664,7 @@
       "tags": ["#guermantes", "#aristocracy", "#imagination"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-05",
@@ -668,7 +678,7 @@
       "tags": ["#meseglise", "#combray", "#landscape"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-06",
@@ -682,7 +692,7 @@
       "tags": ["#venice", "#travel", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-07",
@@ -696,7 +706,7 @@
       "tags": ["#analytical-sample", "#combray", "#family"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-08",
@@ -710,7 +720,7 @@
       "tags": ["#analytical-sample", "#balbec", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-09",
@@ -724,7 +734,7 @@
       "tags": ["#analytical-sample", "#salon", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-10",
@@ -738,7 +748,7 @@
       "tags": ["#analytical-sample", "#landscape", "#memory"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "QUOTES": [
@@ -749,7 +759,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#memory", "#sensation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -759,7 +769,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#time", "#identity"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -769,7 +779,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#imagination", "#places"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -779,7 +789,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#jealousy", "#love"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -789,7 +799,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#society", "#perception"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -799,7 +809,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#memory", "#transformation"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -809,7 +819,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#desire", "#imagination"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -819,7 +829,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#society", "#social-class"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -829,7 +839,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#art", "#experience"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -839,7 +849,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#sample", "#time", "#memory"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -863,7 +873,7 @@
       "tags": ["#memory"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-02",
@@ -886,7 +896,7 @@
       "tags": ["#memory", "#time", "#involuntary-memory"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-03",
@@ -909,7 +919,7 @@
       "tags": ["#marcel", "#memory", "#identity"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-04",
@@ -932,7 +942,7 @@
       "tags": ["#combray", "#childhood", "#memory"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-05",
@@ -950,7 +960,7 @@
       "tags": ["#sample", "#memory", "#sensation"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-06",
@@ -968,7 +978,7 @@
       "tags": ["#sample", "#memory", "#sensation"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-07",
@@ -993,7 +1003,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-08",
@@ -1009,7 +1019,7 @@
       "tags": ["#marcel", "#memory", "#identity", "#swann", "#love", "#jealousy"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-09",
@@ -1025,7 +1035,7 @@
       "tags": ["#involuntary-memory", "#memory", "#time", "#subjective-time", "#consciousness"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-10",
@@ -1043,7 +1053,7 @@
       "tags": ["#memory", "#time"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "BOOK_EVENTS": [
@@ -1072,7 +1082,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-02",
@@ -1101,7 +1111,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-03",
@@ -1130,7 +1140,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-04",
@@ -1159,7 +1169,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "RELATIONS": [
@@ -1178,7 +1188,7 @@
       "tags": ["#marcel", "#memory", "#identity", "#swann", "#love", "#jealousy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-02",
@@ -1195,7 +1205,7 @@
       "tags": ["#odette", "#swann", "#society", "#albertine", "#love", "#jealousy", "#childhood"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-03",
@@ -1212,7 +1222,7 @@
       "tags": ["#gilberte", "#youth", "#memory", "#charlus", "#aristocracy", "#society", "#love"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-04",
@@ -1236,7 +1246,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "ASSOCIATIONS": [
@@ -1255,7 +1265,7 @@
       "tags": ["#involuntary-memory", "#memory", "#time", "#subjective-time", "#consciousness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-02",
@@ -1272,7 +1282,7 @@
       "tags": ["#memory", "#past", "#identity", "#jealousy", "#love", "#desire", "#childhood"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-03",
@@ -1297,7 +1307,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-04",
@@ -1322,7 +1332,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ]
 }

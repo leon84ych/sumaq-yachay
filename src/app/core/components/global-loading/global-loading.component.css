@@ -1,14 +1,25 @@
 .global-loading-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  display: flex;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  overflow: hidden;
+}
+
+.global-loading-overlay[open] {
+  display: flex;
+}
+
+.global-loading-overlay::backdrop {
   background: color-mix(in srgb, var(--background) 38%, transparent);
   backdrop-filter: blur(4px);
-  pointer-events: all;
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .global-loading-panel {

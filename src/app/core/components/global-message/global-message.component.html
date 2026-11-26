@@ -1,0 +1,35 @@
+@if (message(); as currentMessage) {
+  <div
+    class="global-message-banner"
+    [class.global-message-banner--error]="currentMessage.type === 'error'"
+    [class.global-message-banner--success]="currentMessage.type === 'success'"
+    [class.global-message-banner--info]="currentMessage.type === 'info'"
+    [attr.role]="currentMessage.type === 'error' ? 'alert' : 'status'"
+    [attr.aria-live]="currentMessage.type === 'error' ? 'assertive' : 'polite'"
+    aria-atomic="true"
+  >
+    <div class="global-message-content">
+      @switch (currentMessage.type) {
+        @case ('success') {
+          <svg class="global-message-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M16.704 5.29a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3.25-3.25a1 1 0 011.414-1.414l2.543 2.543 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+        }
+        @case ('info') {
+          <svg class="global-message-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-9-1a1 1 0 112 0v5a1 1 0 11-2 0V9zm1-2a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+          </svg>
+        }
+        @default {
+          <svg class="global-message-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+          </svg>
+        }
+      }
+      <span class="global-message-text">{{ currentMessage.text }}</span>
+    </div>
+    <button type="button" class="global-message-close" aria-label="Dismiss message" (click)="globalMessageService.clear()">
+      ✕
+    </button>
+  </div>
+}

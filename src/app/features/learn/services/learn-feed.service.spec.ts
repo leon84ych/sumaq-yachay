@@ -1,32 +1,33 @@
 // @vitest-environment jsdom
 
 import { TestBed } from '@angular/core/testing';
-import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
-import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { AppDbService } from '../../../core/services/storage/app-db.service';
-import { ConfigService } from '../../../core/services/config.service';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { LocalDBService } from '../../../shared/local-db/local-db.service';
+import { ConfigService } from '../../../core/services/config/config.service';
+import { GoogleAuthService } from '../../authentication/services/google-auth-service';
+import { IndexRepository } from '../../domain/index/services/index-repository';
+import { ConceptRepository } from '../../domain/concepts/services/concepts-repository';
+import { QuestionRepository } from '../../domain/questions/services/questions-repository';
 import { LearnFeedService } from './learn-feed.service';
 
 describe('LearnFeedService', () => {
-  let localSampleDataEnabled: boolean;
-  let seedLocalSampleData: ReturnType<typeof vi.fn>;
   let quoteRows: Record<string, unknown>[];
   let conceptRows: Record<string, unknown>[];
   let characterRows: Record<string, unknown>[];
   let characterRelationRows: Record<string, unknown>[];
   let conceptRelationRows: Record<string, unknown>[];
-
-  beforeAll(() => {
-    TestBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting());
-  });
+  let indexRows: Record<string, unknown>[];
+  let questionRows: Record<string, unknown>[];
+  let remoteEnabled: boolean;
+  let fetchIndex: ReturnType<typeof vi.fn>;
+  let fetchConcept: ReturnType<typeof vi.fn>;
+  let fetchQuestion: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     TestBed.resetTestingModule();
-    localSampleDataEnabled = false;
-    seedLocalSampleData = vi.fn().mockResolvedValue(undefined);
     quoteRows = Array.from({ length: 21 }, (_, index) => ({
       id: `quote-${index + 1}`,
-      row: 1,
+      bookId: 'book-001', bookRow: 1, itemRow: index + 2,
       quote: `Quote ${index + 1}`,
       analysis: `Analysis ${index + 1}`,
       tags: ['#sample'],
@@ -35,44 +36,67 @@ describe('LearnFeedService', () => {
     characterRows = [];
     characterRelationRows = [];
     conceptRelationRows = [];
+    indexRows = [];
+    questionRows = [];
+    remoteEnabled = false;
+    fetchIndex = vi.fn(async () => {
+      indexRows.push({ id: 'remote', bookId: 'book-001', theme: 'Remote entry', tags: [] });
+      return [];
+    });
+    fetchQuestion = vi.fn();
+    fetchConcept = vi.fn(async () => {
+      conceptRows.push({ id: 'remote', bookId: 'book-001', term: 'Remote entry', tags: [] });
+      return [];
+    });
 
     const emptyTable = { toArray: vi.fn().mockResolvedValue([]) };
     TestBed.configureTestingModule({
       providers: [
         LearnFeedService,
         {
-          provide: AppDbService,
+          provide: LocalDBService,
           useValue: {
-            seedLocalSampleData,
-            db: {
-              catalogs: {
+            indexedDB: {
+              books: {
                 toArray: vi
                   .fn()
                   .mockResolvedValue([
                     { id: 'book-001', row: 1, name: 'Book One', author: 'Author One' },
                   ]),
               },
-              indexTopics: emptyTable,
+              indexes: { toArray: vi.fn(async () => indexRows) },
+              table: (name: string) => ({
+                where: () => ({ equals: () => ({
+                  filter: (predicate: (row: Record<string, unknown>) => boolean) => ({
+                    count: async () => name === 'concepts' ? conceptRows.filter(predicate).length : 0,
+                  }),
+                }) }),
+              }),
+              bookEvents: emptyTable,
               concepts: { toArray: vi.fn().mockImplementation(async () => conceptRows) },
               quotes: { toArray: vi.fn().mockImplementation(async () => quoteRows) },
               passages: emptyTable,
               characters: { toArray: vi.fn().mockImplementation(async () => characterRows) },
               places: emptyTable,
-              relationsCharacters: {
+              relations: {
                 toArray: vi.fn().mockImplementation(async () => characterRelationRows),
               },
-              relationsConcepts: {
+              associations: {
                 toArray: vi.fn().mockImplementation(async () => conceptRelationRows),
               },
-              glosary: emptyTable,
-              questions: emptyTable,
+              glossary: emptyTable,
+              questions: { toArray: vi.fn(async () => questionRows) },
             },
-          } as unknown as AppDbService,
+          },
         },
         {
           provide: ConfigService,
-          useValue: { isLocalSampleDataEnabled: () => localSampleDataEnabled },
+          useValue: { isLocalSampleDataEnabled: () => false },
         },
+        { provide: GoogleAuthService, useValue: { idToken: () => remoteEnabled ? 'token' : null } },
+        { provide: IndexRepository, useValue: { getDomain: fetchIndex } },
+        { provide: QuestionRepository, useValue: { getDomain: fetchQuestion } },
+        { provide: ConceptRepository, useValue: { getDomain: fetchConcept } },
       ],
     });
   });
@@ -108,17 +132,19 @@ describe('LearnFeedService', () => {
 
   it('includes available relation domains in a batch and searches their full text', async () => {
     conceptRows = [
-      { id: 'concept-1', row: 1, term: 'Memory' },
-      { id: 'concept-2', row: 1, term: 'Identity' },
+      { id: 'concept-1', bookId: 'book-001', term: 'Memory' },
+      { id: 'concept-2', bookId: 'book-001', term: 'Identity' },
+      { id: 'concept-1', bookId: 'another-book', term: 'Wrong name' },
     ];
     characterRows = [
-      { id: 'character-1', row: 1, name: 'Mara' },
-      { id: 'character-2', row: 1, name: 'Ilan' },
+      { id: 'character-1', bookId: 'book-001', name: 'Mara' },
+      { id: 'character-2', bookId: 'book-001', name: 'Ilan' },
+      { id: 'character-1', bookId: 'another-book', name: 'Wrong name' },
     ];
     characterRelationRows = [
       {
         id: 'character-relation-1',
-        row: 1,
+        bookId: 'book-001',
         sourceCharacterId: 'character-1',
         targetCharacterId: 'character-2',
         relationType: 'childhood friends',
@@ -128,7 +154,7 @@ describe('LearnFeedService', () => {
     conceptRelationRows = [
       {
         id: 'concept-relation-1',
-        row: 1,
+        bookId: 'book-001',
         sourceConceptId: 'concept-1',
         targetConceptId: 'concept-2',
         relationType: 'memory shapes identity',
@@ -153,11 +179,30 @@ describe('LearnFeedService', () => {
     expect(byRelationType.map((entry) => entry.domain)).toContain('ASSOCIATIONS');
   });
 
-  it('seeds local sample fixtures before reading when LocalSampleData is enabled', async () => {
-    localSampleDataEnabled = true;
-
-    await TestBed.inject(LearnFeedService).loadRandomBatch(new Set());
-
-    expect(seedLocalSampleData).toHaveBeenCalledOnce();
+  it('excludes index and question entries from local batches and searches', async () => {
+    indexRows = [{ id: 'index-1', bookId: 'book-001', theme: 'Excluded item' }];
+    questionRows = [{ id: 'question-1', bookId: 'book-001', question: 'Excluded item' }];
+    const service = TestBed.inject(LearnFeedService);
+    expect(await service.loadRandomBatch(new Set(), 100, 'Excluded item')).toEqual([]);
+    expect(await service.loadRandomBatch(new Set(), 100)).toHaveLength(21);
   });
+
+  it('loads eligible remote domains without fetching indexes or questions', async () => {
+    quoteRows = [];
+    remoteEnabled = true;
+    const batch = await TestBed.inject(LearnFeedService).loadRemoteBatch(new Set(), 1);
+    expect(fetchConcept).toHaveBeenCalledWith(1);
+    expect(fetchIndex).not.toHaveBeenCalled();
+    expect(fetchQuestion).not.toHaveBeenCalled();
+    expect(batch[0]).toMatchObject({ domain: 'CONCEPTS', title: 'Remote entry' });
+  });
+
+  it('does not refresh a domain with pending local changes', async () => {
+    quoteRows = [];
+    conceptRows = [{ id: 'pending', bookId: 'book-001', term: 'Local edit', syncStatus: 'pending' }];
+    remoteEnabled = true;
+    await TestBed.inject(LearnFeedService).loadRemoteBatch(new Set(), 1, 'not found');
+    expect(fetchConcept).not.toHaveBeenCalled();
+  });
+
 });

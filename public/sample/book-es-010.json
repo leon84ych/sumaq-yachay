@@ -5,7 +5,7 @@
       "chapter": "El viejo",
       "theme": "Identidad",
       "subtheme": "Origen, pertenencia y memoria cultural",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#identidad"],
       "contributor": "leon84ych"
     },
@@ -14,7 +14,7 @@
       "chapter": "Los viajes",
       "theme": "Formación",
       "subtheme": "Paisaje andino, aprendizaje y desplazamiento",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#formación"],
       "contributor": "leon84ych"
     },
@@ -23,7 +23,7 @@
       "chapter": "El internado",
       "theme": "Aislamiento",
       "subtheme": "Disciplina, jerarquía y experiencia adolescente",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#internado"],
       "contributor": "leon84ych"
     },
@@ -32,7 +32,7 @@
       "chapter": "Ernesto",
       "theme": "Identidad cultural",
       "subtheme": "Convivencia de distintas tradiciones culturales y lingüísticas",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#identidad-cultural"],
       "contributor": "leon84ych"
     },
@@ -41,7 +41,7 @@
       "chapter": "El zumbayllu",
       "theme": "Comunicación",
       "subtheme": "Sonido, memoria y conexión afectiva",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#zumbayllu"],
       "contributor": "leon84ych"
     },
@@ -50,7 +50,7 @@
       "chapter": "Abancay",
       "theme": "Sociedad",
       "subtheme": "Desigualdad, conflicto y relaciones de poder",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#sociedad"],
       "contributor": "leon84ych"
     },
@@ -59,7 +59,7 @@
       "chapter": "Las chicheras",
       "theme": "Resistencia",
       "subtheme": "Acción colectiva frente a la desigualdad",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#resistencia"],
       "contributor": "leon84ych"
     },
@@ -68,7 +68,7 @@
       "chapter": "Los ríos",
       "theme": "Naturaleza",
       "subtheme": "Paisaje, movimiento y experiencia espiritual",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#naturaleza"],
       "contributor": "leon84ych"
     },
@@ -77,7 +77,7 @@
       "chapter": "Lengua y cultura",
       "theme": "Quechua",
       "subtheme": "Lenguaje, sensibilidad y formas de comprender el mundo",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#quechua"],
       "contributor": "leon84ych"
     },
@@ -86,7 +86,7 @@
       "chapter": "Panorama analítico",
       "theme": "Mundo andino",
       "subtheme": "Identidad, memoria, conflicto cultural y comunidad",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "tags": ["#mundo-andino"],
       "contributor": "leon84ych"
     }
@@ -103,7 +103,7 @@
       "tags": ["#ernesto", "#identidad", "#mundo-andino"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#A44A3F"
     },
     {
@@ -117,7 +117,7 @@
       "tags": ["#padre", "#viaje", "#ernesto"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#4F6D7A"
     },
     {
@@ -131,7 +131,7 @@
       "tags": ["#el-viejo", "#poder", "#familia"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#5C4D7D"
     },
     {
@@ -145,7 +145,7 @@
       "tags": ["#antero", "#zumbayllu", "#internado"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#2F6690"
     },
     {
@@ -159,7 +159,7 @@
       "tags": ["#muestra-analítica", "#juventud", "#amistad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#C49A3A"
     },
     {
@@ -173,7 +173,7 @@
       "tags": ["#padre-linares", "#religión", "#autoridad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#3A7D44"
     },
     {
@@ -187,7 +187,7 @@
       "tags": ["#doña-felipa", "#resistencia", "#chicheras"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#735D78"
     },
     {
@@ -201,7 +201,7 @@
       "tags": ["#palacitos", "#internado", "#identidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#B56576"
     },
     {
@@ -215,7 +215,7 @@
       "tags": ["#muestra-analítica", "#migración", "#identidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#D17B49"
     },
     {
@@ -229,7 +229,7 @@
       "tags": ["#muestra-analítica", "#comunidad", "#memoria"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "color": "#6A994E"
     }
   ],
@@ -241,7 +241,7 @@
       "category": "Concepto cultural",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#cultura", "#identidad", "#transculturación"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -251,7 +251,7 @@
       "category": "Tema",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#identidad", "#cultura", "#identidad-cultural"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -261,7 +261,7 @@
       "category": "Concepto lingüístico",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#quechua", "#español", "#bilingüismo-cultural"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -271,7 +271,7 @@
       "category": "Concepto cultural",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#andes", "#naturaleza", "#cosmovisión-andina"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -281,7 +281,7 @@
       "category": "Tema social",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#sociedad", "#poder", "#desigualdad-social"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -291,7 +291,7 @@
       "category": "Símbolo",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#comunicación", "#memoria", "#zumbayllu"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -301,7 +301,7 @@
       "category": "Concepto literario",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#naturaleza", "#paisaje", "#naturaleza-animada"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -311,7 +311,7 @@
       "category": "Tema",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#memoria", "#comunidad", "#memoria-comunitaria"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -321,7 +321,7 @@
       "category": "Tema social",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#poder", "#desigualdad", "#jerarquía-social"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -331,7 +331,7 @@
       "category": "Tema social",
       "source": "Contexto de estudio para Los ríos profundos",
       "tags": ["#comunidad", "#resistencia", "#resistencia-colectiva"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -348,7 +348,8 @@
       "tags": ["#zumbayllu", "#quechua"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-02",
@@ -362,7 +363,8 @@
       "tags": ["#quechua", "#lengua"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-03",
@@ -376,7 +378,8 @@
       "tags": ["#chicheras", "#comunidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-04",
@@ -390,7 +393,8 @@
       "tags": ["#ayllu", "#comunidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-05",
@@ -404,7 +408,8 @@
       "tags": ["#huayno", "#música"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-06",
@@ -418,7 +423,8 @@
       "tags": ["#hacienda", "#sociedad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-07",
@@ -432,7 +438,8 @@
       "tags": ["#misti", "#sociedad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-08",
@@ -446,7 +453,8 @@
       "tags": ["#internado", "#educación"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-09",
@@ -460,7 +468,8 @@
       "tags": ["#cosmovisión", "#cultura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-10",
@@ -474,7 +483,8 @@
       "tags": ["#transculturación", "#identidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending",
+      "language": "Spanish"
     }
   ],
   "PASSAGES": [
@@ -488,7 +498,7 @@
       "tags": ["#muestra", "#río", "#memoria"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-02",
@@ -500,7 +510,7 @@
       "tags": ["#muestra", "#quechua", "#lengua"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-03",
@@ -512,7 +522,7 @@
       "tags": ["#muestra", "#internado", "#sociedad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-04",
@@ -524,7 +534,7 @@
       "tags": ["#muestra", "#zumbayllu", "#comunicación"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-05",
@@ -536,7 +546,7 @@
       "tags": ["#muestra", "#naturaleza", "#andes"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-06",
@@ -548,7 +558,7 @@
       "tags": ["#muestra", "#resistencia", "#comunidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-07",
@@ -560,7 +570,7 @@
       "tags": ["#muestra", "#territorio", "#memoria"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-08",
@@ -572,7 +582,7 @@
       "tags": ["#muestra", "#identidad", "#cultura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-09",
@@ -584,7 +594,7 @@
       "tags": ["#muestra", "#desigualdad", "#poder"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-passage-10",
@@ -596,7 +606,7 @@
       "tags": ["#muestra", "#ríos", "#memoria"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "PLACES": [
@@ -612,7 +622,7 @@
       "tags": ["#abancay", "#perú", "#andes"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-02",
@@ -626,7 +636,7 @@
       "tags": ["#cusco", "#andes", "#historia"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-03",
@@ -640,7 +650,7 @@
       "tags": ["#perú", "#identidad", "#sociedad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-04",
@@ -654,7 +664,7 @@
       "tags": ["#internado", "#abancay", "#ernesto"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-05",
@@ -668,7 +678,7 @@
       "tags": ["#andes", "#perú", "#naturaleza"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-06",
@@ -682,7 +692,7 @@
       "tags": ["#muestra-analítica", "#ríos", "#naturaleza"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-07",
@@ -696,7 +706,7 @@
       "tags": ["#muestra-analítica", "#comunidad", "#quechua"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-08",
@@ -710,7 +720,7 @@
       "tags": ["#muestra-analítica", "#chicheras", "#comunidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-09",
@@ -724,7 +734,7 @@
       "tags": ["#muestra-analítica", "#viaje", "#andes"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-place-10",
@@ -738,7 +748,7 @@
       "tags": ["#muestra-analítica", "#memoria", "#paisaje"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "QUOTES": [
@@ -749,7 +759,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#lengua", "#cultura"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -759,7 +769,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#paisaje", "#identidad"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -769,7 +779,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#identidad-cultural", "#transculturación"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -779,7 +789,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#zumbayllu", "#memoria"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -789,7 +799,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#comunidad", "#resistencia"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -799,7 +809,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#viaje", "#formación"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -809,7 +819,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#desigualdad", "#poder"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -819,7 +829,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#memoria", "#comunidad"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -829,7 +839,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#río", "#territorio"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     },
     {
@@ -839,7 +849,7 @@
       "author": "Sumaq Yachay Sample",
       "page": 0,
       "tags": ["#muestra", "#identidad", "#cultura"],
-      "syncStatus": "synced",
+      "syncStatus": "pending",
       "contributor": "leon84ych"
     }
   ],
@@ -863,7 +873,7 @@
       "tags": ["#identidad"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-02",
@@ -886,7 +896,7 @@
       "tags": ["#cultura", "#identidad", "#transculturación"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-03",
@@ -909,7 +919,7 @@
       "tags": ["#ernesto", "#identidad", "#mundo-andino"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-04",
@@ -932,7 +942,7 @@
       "tags": ["#abancay", "#perú", "#andes"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-05",
@@ -950,7 +960,7 @@
       "tags": ["#muestra", "#lengua", "#cultura"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-06",
@@ -968,7 +978,7 @@
       "tags": ["#muestra", "#río", "#memoria"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-07",
@@ -994,7 +1004,7 @@
       ],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-08",
@@ -1010,7 +1020,7 @@
       "tags": ["#ernesto", "#identidad", "#mundo-andino", "#padre", "#viaje"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-09",
@@ -1026,7 +1036,7 @@
       "tags": ["#transculturación", "#cultura", "#identidad", "#identidad-cultural"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-question-10",
@@ -1044,7 +1054,7 @@
       "tags": ["#zumbayllu", "#quechua"],
       "feed": 5,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "BOOK_EVENTS": [
@@ -1077,7 +1087,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-02",
@@ -1110,7 +1120,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-03",
@@ -1142,7 +1152,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-book-event-04",
@@ -1175,7 +1185,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "RELATIONS": [
@@ -1194,7 +1204,7 @@
       "tags": ["#ernesto", "#identidad", "#mundo-andino", "#padre", "#viaje"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-02",
@@ -1219,7 +1229,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-03",
@@ -1244,7 +1254,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-character-relation-04",
@@ -1269,7 +1279,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ],
   "ASSOCIATIONS": [
@@ -1288,7 +1298,7 @@
       "tags": ["#transculturación", "#cultura", "#identidad", "#identidad-cultural"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-02",
@@ -1313,7 +1323,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-03",
@@ -1338,7 +1348,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     },
     {
       "id": "sample-concept-relation-04",
@@ -1363,7 +1373,7 @@
       ],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "synced"
+      "syncStatus": "pending"
     }
   ]
 }

@@ -1,9 +1,10 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ConfigService } from '../../services/config.service';
-import { AppDbService } from '../../services/storage/app-db.service';
-import { PermissionService } from '../../services/permission.service';
+import { Router } from '@angular/router';
+import { ConfigService } from '../../services/config/config.service';
+import { LocalDBService } from '../../../shared/local-db/local-db.service';
+import { PermissionService } from '../../services/permission/permission.service';
 
 const THEME_KEY = 'sumaq_yachay_theme';
 const FONT_SCALE_KEY = 'sumaq_yachay_font_scale';
@@ -21,8 +22,10 @@ const DEFAULT_FONT_SCALE_INDEX = 1;
 export class SettingsPanelComponent {
     readonly translocoService = inject(TranslocoService);
     private readonly configService = inject(ConfigService);
-    private readonly appDbService = inject(AppDbService);
+    private readonly localDBService = inject(LocalDBService);
     private readonly permissionService = inject(PermissionService);
+    private readonly router = inject(Router);
+    private readonly hostElement = inject(ElementRef<HTMLElement>);
 
     readonly showSettings = signal(false);
     readonly apiUrlInput = signal(this.configService.getWebAppUrl());
@@ -36,10 +39,24 @@ export class SettingsPanelComponent {
     readonly isMinFontScale = computed(() => this.fontScaleIndex() === 0);
     readonly isMaxFontScale = computed(() => this.fontScaleIndex() === FONT_SCALE_STEPS.length - 1);
 
+    @HostListener('document:click', ['$event'])
+    closeSettingsOnOutsideClick(event: MouseEvent): void {
+        if (
+            this.showSettings() &&
+            !this.hostElement.nativeElement.contains(event.target as Node)
+        ) {
+            this.showSettings.set(false);
+        }
+    }
+
     constructor() {
         const savedLang = localStorage.getItem('sumaq_yachay_lang');
         if (savedLang === 'en' || savedLang === 'es') {
             this.translocoService.setActiveLang(savedLang);
+        }
+
+        if (this.localSampleDataEnabled()) {
+            this.permissionService.setRole('admin');
         }
 
         this.applyTheme(this.theme());
@@ -101,8 +118,11 @@ export class SettingsPanelComponent {
         this.isClearing.set(true);
         this.clearStatus.set(null);
         try {
-            await this.appDbService.clearAllTables();
+            await this.localDBService.clearAllTables();
+            this.configService.setLocalSampleDataEnabled(false);
+            this.permissionService.setRole('guest');
             this.clearStatus.set('NAV.SETTINGS.CLEAR_SUCCESS');
+            await this.router.navigateByUrl('/catalog');
         } catch {
             this.clearStatus.set('NAV.SETTINGS.CLEAR_ERROR');
         } finally {
