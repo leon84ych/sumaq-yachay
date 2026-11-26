@@ -6,7 +6,7 @@ import { DomainEntryFormOverlayComponent } from '../../../shared/domain-entry-fo
 import type { AssociationsComponent } from '../../associations/associations.component';
 
 @Component({
-  selector: 'app-association-entry-form-1',
+  selector: 'app-association-entry-form',
   imports: [FormsModule, TranslocoPipe, TagPickerComponent, DomainEntryFormOverlayComponent],
   templateUrl: './association-entry-form.component.html',
 })

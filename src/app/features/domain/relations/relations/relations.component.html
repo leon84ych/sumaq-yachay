@@ -1,7 +1,7 @@
 <section class="relations-view">
   @if (isAddingEntry() || editingId() !== null) {
     @if (optionsLoadState() === 'ready') {
-      <app-relation-entry-form-1 [form]="this" />
+      <app-relation-entry-form [form]="this" />
     } @else if (optionsLoadState() === 'error') {
       <p class="empty-state" role="alert">
         {{ 'DOMAINS.RELATIONS.LOADING_OPTIONS_ERROR' | transloco }}
@@ -37,7 +37,7 @@
     } @else {
       <div class="relations-grid">
         @for (relation of filteredRows(); track relation.id) {
-          <app-relation-entry-card-1
+          <app-relation-entry-card
             [row]="relation"
             [sourceCharacterName]="characterName(relation.sourceCharacterId)"
             [targetCharacterName]="characterName(relation.targetCharacterId)"

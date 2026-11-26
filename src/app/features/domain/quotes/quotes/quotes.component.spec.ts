@@ -84,7 +84,7 @@ describe('QuotesComponent', () => {
 
     expect(component.bookName()).toBe('Book One');
     expect(component.bookRow()).toBe(7);
-    expect(fixture.nativeElement.querySelectorAll('app-quote-entry-card-1')).toHaveLength(2);
+    expect(fixture.nativeElement.querySelectorAll('app-quote-entry-card')).toHaveLength(2);
 
     TestBed.inject(StudySearchService).query.set('something');
     expect(component.filteredRows().map((row) => row.id)).toEqual(['q2']);
@@ -97,7 +97,7 @@ describe('QuotesComponent', () => {
 
     TestBed.inject(StudySearchService).query.set('nothing matches');
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelectorAll('app-quote-entry-card-1')).toHaveLength(0);
+    expect(fixture.nativeElement.querySelectorAll('app-quote-entry-card')).toHaveLength(0);
     expect(fixture.nativeElement.querySelector('.domain-search')).not.toBeNull();
   });
 

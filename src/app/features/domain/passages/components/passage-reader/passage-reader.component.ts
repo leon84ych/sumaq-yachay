@@ -6,7 +6,7 @@ import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 
 @Component({
-  selector: 'app-passage-reader-1',
+  selector: 'app-passage-reader',
   imports: [TranslocoPipe, StudyTagDirective],
   templateUrl: './passage-reader.component.html',
   styleUrl: './passage-reader.component.css',

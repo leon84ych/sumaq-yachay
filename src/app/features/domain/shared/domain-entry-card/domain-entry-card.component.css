@@ -40,7 +40,10 @@
 }
 
 .domain-entry-card__content {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
+  gap: var(--domain-entry-section-gap);
   margin-top: 0.7rem;
 }
 
@@ -48,5 +51,4 @@
   .domain-entry-card {
     padding: 0.9rem;
   }
-
 }

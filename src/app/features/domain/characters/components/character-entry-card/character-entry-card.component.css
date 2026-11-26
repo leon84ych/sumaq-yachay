@@ -23,7 +23,7 @@
 
 .character-entry-card__details {
   display: grid;
-  gap: 0.65rem;
+  gap: var(--domain-entry-section-gap);
   color: var(--quote-card-text);
   font-size: var(--learn-content-font-size, 1rem);
   line-height: 1.5;

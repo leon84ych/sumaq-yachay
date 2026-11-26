@@ -1,7 +1,7 @@
 <section class="index-view-container">
   @if (isAddingEntry() || editingId() !== null) {
   
-    <app-index-entry-form-1 [form]="this" />
+    <app-index-entry-form [form]="this" />
   
   }
   @if (filteredRows().length === 0) {
@@ -26,7 +26,7 @@
 
         <div class="entry-list">
           @for (row of themeGroup.rows; track row.id) {
-          <app-index-entry-card-1 
+          <app-index-entry-card
             [row]="row" 
             [bookName]="bookName()" 
             [bookAuthor]="bookAuthor()" 

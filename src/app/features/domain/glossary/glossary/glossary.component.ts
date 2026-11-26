@@ -31,7 +31,7 @@ import {
 import { GlossaryDataService } from '../services/glossary.service';
 
 @Component({
-  selector: 'app-domain-glossary-1',
+  selector: 'app-domain-glossary',
   imports: [FormsModule, TranslocoPipe, GlossaryEntryFormComponent, GlossaryEntryCardComponent],
   templateUrl: './glossary.component.html',
   styleUrl: './glossary.component.css',

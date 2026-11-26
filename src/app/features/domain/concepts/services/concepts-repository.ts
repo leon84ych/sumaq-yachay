@@ -34,6 +34,7 @@ export class ConceptRepository extends LocalDomainRepositoryAbstract<ConceptReco
     const persistable = records.filter((record) => record.bookId);
 
     await database.transaction('rw', database.concepts, async () => {
+      await this.preserveLocalFeedState(persistable);
       await database.concepts.bulkPut(persistable);
     });
 

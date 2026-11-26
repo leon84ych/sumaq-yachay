@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { DomainName } from '../../book-detail/models/domain-sheet-config';
+import { DomainName } from '../../../catalog/book-detail/models/domain-sheet-config';
 import { DomainEntryHeaderComponent } from '../domain-entry-header/domain-entry-header.component';
 
 @Component({

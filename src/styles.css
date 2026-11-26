@@ -1,4 +1,3 @@
-
 @import 'leaflet/dist/leaflet.css';
 
 /* Global Color Palette & Design Tokens — Sumaq Yachay */
@@ -23,6 +22,7 @@
   --border-focus: #1f5563;
   --content-width: 96%;
   --content-section-gap: 1.25rem;
+  --domain-entry-section-gap: 0.75rem;
   --domain-view-width: 800px;
   --domain-feed-columns: minmax(0, 1fr);
 

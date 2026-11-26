@@ -1,6 +1,6 @@
 <div class="questions-view">
   @if (isAddingEntry() || editingId() !== null) {
-    <app-question-entry-form-1 [form]="this" />
+    <app-question-entry-form [form]="this" />
   }
   @if (rows().length === 0) {
     <p class="empty-state" role="status">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
@@ -23,7 +23,7 @@
     } @else {
       <div class="questions-grid">
         @for (row of filteredRows(); track row.id) {
-          <app-question-entry-card-1
+          <app-question-entry-card
             [row]="row"
             [bookName]="bookName()"
             [bookAuthor]="bookAuthor()"

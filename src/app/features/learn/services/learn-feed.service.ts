@@ -1,8 +1,17 @@
 import { Injectable, Injector, inject } from '@angular/core';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { LocalDBService } from '../../../shared/local-db/local-db.service';
-import { ConfigService } from '../../../core/services/config/config.service';
-import { DomainName } from '../../domain/book-detail/models/domain-sheet-config';
+import {
+  ConfigService,
+  DEFAULT_FEED_MAX_INTERVAL_DAYS,
+} from '../../../core/services/config/config.service';
+import { DomainName } from '../../catalog/book-detail/models/domain-sheet-config';
+import {
+  isFeedIntervalDue,
+  isPowerOfTwoInterval,
+  normalizeFeedInterval,
+  toFeedDate,
+} from '../../domain/shared/model/feed-interval';
 import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
 import { parseTagsFromArray } from '../../../shared/tag-picker/tag-picker.mapper';
 import { ConceptRepository } from '../../domain/concepts/services/concepts-repository';
@@ -10,7 +19,7 @@ import { QuoteRepository } from '../../domain/quotes/services/quotes-repository'
 import { PassageRepository } from '../../domain/passages/services/passages-repository';
 import { CharacterRepository } from '../../domain/characters/services/characters-repository';
 import { PlaceRepository } from '../../domain/places/services/places-repository';
-import { BookEventRepository } from '../../domain/book-events/services/book-events-repository';
+import { BookEventRepository } from '../../domain/events/services/book-events-repository';
 import { RelationRepository } from '../../domain/relations/services/relations-repository';
 import { AssociationRepository } from '../../domain/associations/services/associations-repository';
 import { GlossaryRepository } from '../../domain/glossary/services/glossary-repository';
@@ -36,6 +45,17 @@ const DOMAIN_REPOSITORIES = [ConceptRepository, QuoteRepository,
   RelationRepository, AssociationRepository, GlossaryRepository] as const;
 const DOMAIN_TABLES = ['concepts', 'quotes', 'passages', 'characters', 'places',
   'bookEvents', 'relations', 'associations', 'glossary'] as const;
+const DOMAIN_TABLE_BY_DOMAIN: Record<LearnFeedDomain, string> = {
+  CONCEPTS: 'concepts',
+  QUOTES: 'quotes',
+  PASSAGES: 'passages',
+  CHARACTER: 'characters',
+  PLACES: 'places',
+  BOOK_EVENTS: 'bookEvents',
+  RELATIONS: 'relations',
+  ASSOCIATIONS: 'associations',
+  GLOSARY: 'glossary',
+};
 const DOMAIN_SEARCH_TERMS: Record<LearnFeedDomain, string[]> = {
   CONCEPTS: ['concepts', 'conceptos'],
   QUOTES: ['quotes', 'citas'],
@@ -49,6 +69,26 @@ const DOMAIN_SEARCH_TERMS: Record<LearnFeedDomain, string[]> = {
 };
 
 export function selectLearnFeedBatch(
+  entries: readonly LearnFeedEntry[],
+  batchSize: number,
+  now = new Date(),
+  maximumIntervalDays = DEFAULT_FEED_MAX_INTERVAL_DAYS,
+): LearnFeedEntry[] {
+  const dueEntries: LearnFeedEntry[] = [];
+  const notDueEntries: LearnFeedEntry[] = [];
+  for (const entry of entries) {
+    const lastSeen = toFeedDate(entry.sourceRow['lastSeen']);
+    const interval = normalizeFeedInterval(entry.sourceRow['interval'], maximumIntervalDays);
+    (isFeedIntervalDue(lastSeen, interval, now) ? dueEntries : notDueEntries).push(entry);
+  }
+  const dueBatch = selectDistinctDomainBatch(dueEntries, batchSize);
+  return [
+    ...dueBatch,
+    ...selectDistinctDomainBatch(notDueEntries, batchSize - dueBatch.length),
+  ];
+}
+
+function selectDistinctDomainBatch(
   entries: readonly LearnFeedEntry[],
   batchSize: number,
 ): LearnFeedEntry[] {
@@ -83,6 +123,63 @@ export class LearnFeedService {
       !!this.authService.idToken() &&
       !this.remoteExhausted
     );
+  }
+
+  async markAsShown(entries: readonly LearnFeedEntry[]): Promise<void> {
+    const updates = entries.map((entry) => {
+      const bookId = entry.sourceRow['bookId'];
+      const recordId = entry.sourceRow['id'];
+      if (typeof bookId !== 'string' || typeof recordId !== 'string') {
+        throw new Error(`Cannot record last seen for feed entry ${entry.id}: record keys are missing.`);
+      }
+      const key: [string, string] = [bookId, recordId];
+      return {
+        entry,
+        key,
+        tableName: DOMAIN_TABLE_BY_DOMAIN[entry.domain],
+      };
+    });
+    const shownAt = new Date();
+    const maximumIntervalDays = this.configService.getFeedMaxIntervalDays();
+    const updatesWithSchedule = updates.map(({ entry, key, tableName }) => {
+      const previousLastSeen = toFeedDate(entry.sourceRow['lastSeen']);
+      const previousInterval = entry.sourceRow['interval'];
+      const interval = normalizeFeedInterval(previousInterval, maximumIntervalDays);
+      const lastReview = toFeedDate(entry.sourceRow['lastReview']);
+      const hasReviewSinceLastSeen =
+        previousLastSeen !== null &&
+        lastReview !== null &&
+        lastReview.getTime() >= previousLastSeen.getTime();
+      const intervalWasDue = isFeedIntervalDue(previousLastSeen, interval, shownAt);
+      const nextInterval =
+        previousLastSeen &&
+        isPowerOfTwoInterval(previousInterval) &&
+        intervalWasDue &&
+        !hasReviewSinceLastSeen
+          ? Math.min(interval * 2, maximumIntervalDays)
+          : interval;
+
+      return {
+        entry,
+        key,
+        tableName,
+        changes: { lastSeen: shownAt, interval: nextInterval },
+      };
+    });
+
+    await Promise.all(
+      updatesWithSchedule.map(async ({ entry, key, tableName, changes }) => {
+        const updated = await this.localDBService.indexedDB
+          .table(tableName)
+          .update(key, changes);
+        if (!updated) {
+          throw new Error(`Could not record last seen for feed entry ${entry.id}.`);
+        }
+      }),
+    );
+    for (const { entry, changes } of updatesWithSchedule) {
+      Object.assign(entry.sourceRow, changes);
+    }
   }
 
   async loadRemoteBatch(
@@ -204,7 +301,12 @@ export class LearnFeedService {
     }
 
     this.shuffle(candidates);
-    return selectLearnFeedBatch(candidates, batchSize);
+    return selectLearnFeedBatch(
+      candidates,
+      batchSize,
+      new Date(),
+      this.configService.getFeedMaxIntervalDays(),
+    );
   }
 
   private toLearnFeedEntry(

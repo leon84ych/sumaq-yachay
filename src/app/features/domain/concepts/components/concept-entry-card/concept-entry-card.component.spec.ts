@@ -15,6 +15,7 @@ class QuestionGeneratorStubComponent {
   readonly sourceDomain = input.required<string>();
   readonly sourceRowId = input.required<string>();
   readonly bookRow = input.required<number>();
+  readonly bookId = input('');
   readonly bookName = input('');
   readonly tags = input<string[]>([]);
 }
@@ -86,11 +87,11 @@ describe('ConceptEntryCardComponent', () => {
 
   it('keeps the quiz generator hidden unless enabled', () => {
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('app-concept-quiz-generator-1')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-concept-quiz-generator')).toBeNull();
 
     fixture.componentRef.setInput('showQuiz', true);
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('app-concept-quiz-generator-1')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('app-concept-quiz-generator')).not.toBeNull();
   });
 });
 

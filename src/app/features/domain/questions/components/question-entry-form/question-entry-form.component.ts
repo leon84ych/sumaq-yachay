@@ -7,7 +7,7 @@ import { DomainEntryFormOverlayComponent } from '../../../shared/domain-entry-fo
 import type { QuestionsComponent } from '../../questions/questions.component';
 
 @Component({
-  selector: 'app-question-entry-form-1',
+  selector: 'app-question-entry-form',
   imports: [
     CommonModule,
     FormsModule,

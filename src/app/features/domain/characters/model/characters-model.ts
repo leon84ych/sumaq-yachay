@@ -1,4 +1,4 @@
-import { Domain } from '../../shared/model/domain-shared-model';
+import { Feed } from '../../shared/model/domain-shared-model';
 
 export const CHARACTER_ROLES = [
   'protagonist',
@@ -31,7 +31,7 @@ export interface CharacterRaw {
   syncStatus: string;
 }
 
-export interface CharacterRecord extends Domain {
+export interface CharacterRecord extends Feed {
   name: string;
   role: CharacterRole;
   nature?: CharacterNature;

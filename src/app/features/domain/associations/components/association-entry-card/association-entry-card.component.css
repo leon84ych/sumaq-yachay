@@ -1,7 +1,7 @@
 .association-entry-card__content {
   display: grid;
   justify-items: start;
-  gap: 0.65rem;
+  gap: var(--domain-entry-section-gap);
   color: var(--text);
 }
 

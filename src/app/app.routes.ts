@@ -8,7 +8,7 @@ export const routes: Routes = [
   },
   {
     path: 'catalog',
-    loadComponent: () => import('./features/book/book/book').then((m) => m.BookList),
+    loadComponent: () => import('./features/catalog/book/book/book').then((m) => m.BookList),
   },
   {
     path: 'books',
@@ -29,7 +29,7 @@ export const routes: Routes = [
   {
     path: 'catalog/:id',
     loadComponent: () =>
-      import('./features/domain/book-detail/book-detail/book-detail').then((m) => m.BookDetail),
+      import('./features/catalog/book-detail/book-detail/book-detail').then((m) => m.BookDetail),
   },
   {
     path: 'books/:id',

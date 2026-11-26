@@ -6,11 +6,16 @@ import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { IndexRecord } from '../../model/index-model';
 import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
-import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
+import { DomainEntryFooterComponent } from '../../../shared/domain-entry-footer/domain-entry-footer.component';
 
 @Component({
-  selector: 'app-index-entry-card-1',
-  imports: [TranslocoPipe, DomainEntryHeaderComponent, DomainContributorComponent, StudyTagDirective],
+  selector: 'app-index-entry-card',
+  imports: [
+    TranslocoPipe,
+    DomainEntryHeaderComponent,
+    DomainEntryFooterComponent,
+    StudyTagDirective,
+  ],
   templateUrl: './index-entry-card.component.html',
   styleUrl: './index-entry-card.component.css',
 })

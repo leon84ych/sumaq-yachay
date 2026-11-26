@@ -1,4 +1,4 @@
-import { Domain } from '../../shared/model/domain-shared-model';
+import { Feed } from '../../shared/model/domain-shared-model';
 
 /**
  * Raw representation of a quote as returned by the GAS backend
@@ -22,7 +22,7 @@ export interface QuoteRaw {
 /**
  * Specific record model for domain quotes
  */
-export interface QuoteRecord extends Domain {
+export interface QuoteRecord extends Feed {
   quote: string;
   analysis: string;
   book: string;

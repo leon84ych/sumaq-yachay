@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, output } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { DomainName } from '../../book-detail/models/domain-sheet-config';
+import { DomainName } from '../../../catalog/book-detail/models/domain-sheet-config';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 
 @Component({

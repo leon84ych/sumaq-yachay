@@ -31,6 +31,7 @@ export class AssociationRepository extends LocalDomainRepositoryAbstract<Associa
     const persistable = records.filter((record) => record.bookId);
 
     await database.transaction('rw', database.associations, async () => {
+      await this.preserveLocalFeedState(persistable);
       await database.associations.bulkPut(persistable);
     });
 

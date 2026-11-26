@@ -26,4 +26,16 @@ describe('ConfigService LocalSampleData mode', () => {
     expect(service.isLocalSampleDataEnabled()).toBe(true);
     expect(localStorage.getItem('sumaq_yachay_local_sample_data_enabled')).toBe('true');
   });
+
+  it('uses a configurable power-of-two maximum feed interval', () => {
+    const service = new ConfigService();
+
+    expect(service.getFeedMaxIntervalDays()).toBe(256);
+    service.setFeedMaxIntervalDays(64);
+
+    expect(service.getFeedMaxIntervalDays()).toBe(64);
+    expect(service.feedMaxIntervalDays()).toBe(64);
+    expect(localStorage.getItem('sumaq_yachay_feed_max_interval_days')).toBe('64');
+    expect(() => service.setFeedMaxIntervalDays(30)).toThrow(RangeError);
+  });
 });

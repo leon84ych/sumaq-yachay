@@ -1,4 +1,4 @@
-import { Domain } from '../../shared/model/domain-shared-model';
+import { Feed } from '../../shared/model/domain-shared-model';
 
 /**
  * Raw representation of a concept as returned by the GAS backend
@@ -21,7 +21,7 @@ export interface ConceptRaw {
 /**
  * Specific record model for domain concepts
  */
-export interface ConceptRecord extends Domain {
+export interface ConceptRecord extends Feed {
   term: string;
   definition: string;
   category: string;

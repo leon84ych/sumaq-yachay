@@ -32,7 +32,7 @@ import {
 import { RelationDataService } from '../services/relations.service';
 
 @Component({
-  selector: 'app-domain-relations-1',
+  selector: 'app-domain-relations',
   imports: [FormsModule, TranslocoPipe, RelationEntryFormComponent, RelationEntryCardComponent],
   templateUrl: './relations.component.html',
   styleUrl: './relations.component.css',

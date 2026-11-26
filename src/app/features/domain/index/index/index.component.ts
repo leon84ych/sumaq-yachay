@@ -24,7 +24,7 @@ import { DomainWriteSyncService } from '../../shared/domain-repository/domain-wr
 
 
 @Component({
-  selector: 'app-domain-index-1',
+  selector: 'app-domain-index',
   standalone: true,
   imports: [
     IndexEntryFormComponent,

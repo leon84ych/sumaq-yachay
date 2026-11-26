@@ -1,5 +1,5 @@
 
-import { BookRaw, BookRecord } from "../../../features/book/models/book-item.model";
+import { BookRaw, BookRecord } from "../../../features/catalog/book/models/book-item.model";
 import { Response, PaginatedResponse } from "../../../features/domain/shared/model/domain-shared-model";
 import { BookRepositoryInterface } from "../book-repository-interface";
 

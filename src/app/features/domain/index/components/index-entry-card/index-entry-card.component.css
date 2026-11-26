@@ -8,7 +8,7 @@
   flex-direction: column;
   min-width: 0;
   align-items: stretch;
-  gap: 1rem;
+  gap: var(--domain-entry-section-gap);
   padding: 0.6rem 0.85rem;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
@@ -43,7 +43,8 @@
   min-width: 0;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.6rem;
+  column-gap: 0.6rem;
+  row-gap: var(--domain-entry-section-gap);
 }
 
 .entry-tags {
@@ -82,7 +83,7 @@
 
 @media (max-width: 720px) {
   .index-entry {
-    gap: 0.5rem;
+    gap: var(--domain-entry-section-gap);
     padding: 0.6rem;
   }
 
@@ -91,7 +92,8 @@
   }
 
   .entry-heading {
-    gap: 0.4rem;
+    column-gap: 0.4rem;
+    row-gap: var(--domain-entry-section-gap);
   }
 }
 

@@ -1,0 +1,127 @@
+@if (hasFooterContent()) {
+  <footer class="domain-card-footer">
+    @if (showDelete()) {
+      <button
+        type="button"
+        class="domain-delete-button"
+        [attr.aria-label]="'COMMON.DELETE' | transloco"
+        [title]="'COMMON.DELETE' | transloco"
+        (click)="deleteRequested.emit()"
+      >
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M4 6h12M8 6V4h4v2m-6 0 .7 10h6.6L14 6M8.5 9v4m3-4v4" />
+        </svg>
+      </button>
+    }
+    @if (showEdit()) {
+      <button
+        type="button"
+        class="domain-edit-button"
+        [attr.aria-label]="'COMMON.EDIT' | transloco"
+        [title]="'COMMON.EDIT' | transloco"
+        (click)="editRequested.emit()"
+      >
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <path d="m13.5 4.5 2 2M4 16l3.5-.8 8.7-8.7a1.4 1.4 0 0 0-2-2l-8.7 8.7L4 16Z" />
+        </svg>
+      </button>
+    }
+    @if (hasContributor()) {
+      <app-domain-contributor [contributor]="contributor()" />
+    }
+    @if (reviewData()) {
+      <div class="domain-card-footer__review-actions">
+        <button
+          type="button"
+          class="domain-card-footer__review"
+          [class.domain-card-footer__review--selected]="forgottenSelected()"
+          [disabled]="isReviewing() || hasReviewSelection()"
+          [attr.aria-pressed]="forgottenSelected()"
+          [attr.aria-label]="'LEARN.MARK_FORGOTTEN' | transloco"
+          [title]="'LEARN.MARK_FORGOTTEN' | transloco"
+          (click)="recordReview('forgotten')"
+        >
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="8.5" />
+            <path d="M12 7v5l3 2" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="domain-card-footer__review"
+          [class.domain-card-footer__review--selected]="recalledSelected()"
+          [disabled]="isReviewing() || hasReviewSelection()"
+          [attr.aria-pressed]="recalledSelected()"
+          [attr.aria-label]="'LEARN.MARK_RECALLED' | transloco"
+          [title]="'LEARN.MARK_RECALLED' | transloco"
+          (click)="recordReview('recalled')"
+        >
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m5 12.5 4.5 4.5L19 7.5" />
+          </svg>
+        </button>
+      </div>
+    }
+    @if (normalizedExportData(); as entry) {
+      <button
+        type="button"
+        class="domain-card-footer__export"
+        [disabled]="isExporting()"
+        [attr.aria-label]="'LEARN.EXPORT_IMAGE' | transloco"
+        [title]="'LEARN.EXPORT_IMAGE' | transloco"
+        (click)="exportEntryImage(entry)"
+      >
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
+        </svg>
+      </button>
+    }
+  </footer>
+}
+
+@if (entryBeingExported(); as entry) {
+  <article
+    #ghostExportCard
+    class="learn-ghost-export"
+    [class.learn-ghost-export--light]="exportTheme() === 'light'"
+    [style.border-top-color]="entry.accentColor || 'var(--accent)'"
+    aria-hidden="true"
+    inert
+  >
+    <span class="learn-ghost-export__eyebrow">
+      {{ 'NAV.BRAND_NAME' | transloco }} · {{ 'DOMAINS.DOMAINS.' + entry.domain | transloco }}
+    </span>
+
+    @if (entry.domain === 'QUOTES') {
+      <blockquote class="learn-ghost-export__quote">&ldquo;{{ entry.title }}&rdquo;</blockquote>
+    } @else {
+      <h1>{{ entry.title }}</h1>
+    }
+
+    @if (entry.body) {
+      <p class="learn-ghost-export__body">{{ entry.body }}</p>
+    }
+
+    @if (entry.note) {
+      <p class="learn-ghost-export__note">{{ entry.note }}</p>
+    }
+
+    @if (entry.tags.length > 0) {
+      <div class="learn-ghost-export__tags">
+        @for (tag of entry.tags; track tag) {
+          <span>{{ tag }}</span>
+        }
+      </div>
+    }
+
+    <footer class="learn-ghost-export__footer">
+      <div class="learn-ghost-export__source">
+        <strong>{{ entry.bookName }}</strong>
+        @if (entry.bookAuthor) {
+          <span>{{ entry.bookAuthor }}</span>
+        }
+      </div>
+      <small class="learn-ghost-export__url">{{ exportUrl() }}</small>
+    </footer>
+  </article>
+}

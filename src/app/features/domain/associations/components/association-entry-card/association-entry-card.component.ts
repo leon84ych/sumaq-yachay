@@ -3,13 +3,13 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
-import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
 import { DomainEntryCardComponent } from '../../../shared/domain-entry-card/domain-entry-card.component';
+import { DomainEntryFooterComponent } from '../../../shared/domain-entry-footer/domain-entry-footer.component';
 import { AssociationRecord } from '../../model/associations-model';
 
 @Component({
-  selector: 'app-association-entry-card-1',
-  imports: [TranslocoPipe, DomainEntryCardComponent, DomainContributorComponent, StudyTagDirective],
+  selector: 'app-association-entry-card',
+  imports: [TranslocoPipe, DomainEntryCardComponent, DomainEntryFooterComponent, StudyTagDirective],
   templateUrl: './association-entry-card.component.html',
   styleUrl: './association-entry-card.component.css',
 })

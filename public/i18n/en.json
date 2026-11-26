@@ -54,7 +54,10 @@
     "END_OF_FEED": "You have reached the end of this feed.",
     "ERROR": "Could not load learning entries. Try again.",
     "EXPORT_IMAGE": "Download entry image",
-    "EXPORT_ERROR": "Could not export this learning entry."
+    "EXPORT_ERROR": "Could not export this learning entry.",
+    "MARK_FORGOTTEN": "Remember later",
+    "MARK_RECALLED": "I knew!",
+    "REVIEW_ERROR": "Could not update this learning entry."
   },
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",

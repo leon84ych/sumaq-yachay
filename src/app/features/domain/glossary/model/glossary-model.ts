@@ -1,4 +1,4 @@
-import { Domain } from '../../shared/model/domain-shared-model';
+import { Feed } from '../../shared/model/domain-shared-model';
 
 export const GLOSSARY_PARTS_OF_SPEECH = [
   'Noun',
@@ -31,7 +31,7 @@ export interface GlossaryRaw {
   syncStatus: string;
 }
 
-export interface GlossaryRecord extends Domain {
+export interface GlossaryRecord extends Feed {
   term: string;
   language: string;
   definition: string;

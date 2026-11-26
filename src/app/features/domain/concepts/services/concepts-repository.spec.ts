@@ -12,6 +12,10 @@ const storageKey = (bookId: string, id: string): string => `${bookId}|${id}`;
 class FakeConceptsTable {
   readonly rows = new Map<string, ConceptRecord>();
 
+  async bulkGet(keys: [string, string][]): Promise<(ConceptRecord | undefined)[]> {
+    return keys.map(([bookId, id]) => this.rows.get(storageKey(bookId, id)));
+  }
+
   async put(record: ConceptRecord): Promise<void> {
     this.rows.set(storageKey(record.bookId, record.id), { ...record });
   }
@@ -101,6 +105,40 @@ describe('ConceptRepository', () => {
     expect(result[0]).toMatchObject({ id: 'c-1', bookId: 'book-1', bookRow: 7, itemRow: 15 });
     expect(await query.getConceptsByBookId('book-1')).toHaveLength(1);
     expect(await query.getConceptsByBookId('other-book')).toHaveLength(0);
+  });
+
+  it('preserves feed state when refreshing a locally shown row', async () => {
+    const lastSeen = new Date('2026-01-02T03:04:05.000Z');
+    const lastReview = new Date('2026-01-03T03:04:05.000Z');
+    await concepts.put({
+      ...record,
+      id: 'c-1',
+      lastSeen,
+      lastReview,
+      interval: 8,
+      forgotten: 2,
+      recalled: 3,
+    });
+    const raw = new ConceptGASMapper().toRaw({ ...record, id: 'c-1' });
+    gasRepository.getDomain.mockResolvedValue([raw]);
+
+    const [refreshed] = await repository.getDomain(7);
+
+    expect(refreshed.lastSeen).toEqual(lastSeen);
+    expect(refreshed).toMatchObject({
+      lastSeen,
+      lastReview,
+      interval: 8,
+      forgotten: 2,
+      recalled: 3,
+    });
+    expect(concepts.rows.get(storageKey('book-1', 'c-1'))).toMatchObject({
+      lastSeen,
+      lastReview,
+      interval: 8,
+      forgotten: 2,
+      recalled: 3,
+    });
   });
 
   it('writes pending first, then replaces the temporary id with the GAS id on create', async () => {

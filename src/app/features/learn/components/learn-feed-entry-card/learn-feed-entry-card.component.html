@@ -19,13 +19,15 @@
   @if (entry().tags.length > 0) {
     <ul class="learn-tags" aria-label="Tags">
       @for (tag of entry().tags; track tag) {
-        <li><button type="button" [appStudyTag]="tag">{{ tag }}</button></li>
+        <li>
+          <button type="button" [appStudyTag]="tag">{{ tag }}</button>
+        </li>
       }
     </ul>
   }
-  @if (entry().sourceRow['contributor']) {
-    <footer class="domain-card-footer">
-      <app-domain-contributor [contributor]="entry().sourceRow['contributor']" />
-    </footer>
-  }
+  <app-domain-entry-footer
+    [contributor]="entry().sourceRow['contributor']"
+    [exportData]="entry()"
+    [reviewData]="{ domain: entry().domain, record: entry().sourceRow }"
+  />
 </app-domain-entry-card>

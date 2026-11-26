@@ -36,13 +36,24 @@ export interface Domain extends Record<string, unknown> {
     itemRow: number;           //row number of this entry in domain sheet
 }
 
-export interface Learnable {
-    interval: number; // indicates the interval for the learnable item in days
-    easeFactor: number; // indicates the ease factor of growth of the interval
-    complexity: number; // indicates the complexity level of the learnable item between 1 and 10
-    repetitions: number; // indicates the number of successfull repetitions
-    lastReview: Date; // indicates the date of the last review of the learnable item
-    history: LearnableHistory[]; // indicates the history of reviews for the learnable item
+export interface Feed extends Domain {
+    affinity?: number; // indicates the interest for the item by the user
+    forgotten?: number; // indicates the number of times the feed item was forgotten
+    recalled?: number; // indicates the number of times the feed item was recalled
+    interval?: number; // indicates the interval for the feed item in days
+    easeFactor?: number; // indicates the ease factor of growth of the interval
+    complexity?: number; // indicates the complexity level of the learnable item between 1 and 10
+    lastSeen?: Date; // indicates the last seen date of the feed item
+    lastReview?: Date; // indicates the last interaction date for the feed item
+}
+
+export interface Learnable extends Domain {
+    interval?: number; // indicates the interval for the learnable item in days
+    easeFactor?: number; // indicates the ease factor of growth of the interval
+    complexity?: number; // indicates the complexity level of the learnable item between 1 and 10
+    repetitions?: number; // indicates the number of successfull repetitions
+    lastReview?: Date; // indicates the date of the last review of the learnable item
+    history?: LearnableHistory[]; // indicates the history of reviews for the learnable item
 }
 
 export interface LearnableHistory {

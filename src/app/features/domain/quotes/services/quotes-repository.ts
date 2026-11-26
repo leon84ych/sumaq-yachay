@@ -34,6 +34,7 @@ export class QuoteRepository extends LocalDomainRepositoryAbstract<QuoteRecord> 
     const persistable = records.filter((record) => record.bookId);
 
     await database.transaction('rw', database.quotes, async () => {
+      await this.preserveLocalFeedState(persistable);
       await database.quotes.bulkPut(persistable);
     });
 

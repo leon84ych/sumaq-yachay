@@ -83,7 +83,7 @@ describe('ConceptsComponent', () => {
 
     expect(component.bookName()).toBe('Book One');
     expect(component.bookRow()).toBe(7);
-    expect(fixture.nativeElement.querySelectorAll('app-concept-entry-card-1')).toHaveLength(2);
+    expect(fixture.nativeElement.querySelectorAll('app-concept-entry-card')).toHaveLength(2);
 
     const search = TestBed.inject(StudySearchService).query;
     search.set('something');
@@ -97,7 +97,7 @@ describe('ConceptsComponent', () => {
 
     search.set('nothing matches');
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelectorAll('app-concept-entry-card-1')).toHaveLength(0);
+    expect(fixture.nativeElement.querySelectorAll('app-concept-entry-card')).toHaveLength(0);
     expect(fixture.nativeElement.querySelector('.concept-search')).not.toBeNull();
   });
 

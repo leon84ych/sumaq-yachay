@@ -1,14 +1,14 @@
 // @vitest-environment jsdom
 
 import { TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi, type Mock } from 'vitest';
 import { LocalDBService } from '../../../shared/local-db/local-db.service';
 import { ConfigService } from '../../../core/services/config/config.service';
 import { GoogleAuthService } from '../../authentication/services/google-auth-service';
 import { IndexRepository } from '../../domain/index/services/index-repository';
 import { ConceptRepository } from '../../domain/concepts/services/concepts-repository';
 import { QuestionRepository } from '../../domain/questions/services/questions-repository';
-import { LearnFeedService } from './learn-feed.service';
+import { LearnFeedService, type LearnFeedEntry } from './learn-feed.service';
 
 describe('LearnFeedService', () => {
   let quoteRows: Record<string, unknown>[];
@@ -22,6 +22,13 @@ describe('LearnFeedService', () => {
   let fetchIndex: ReturnType<typeof vi.fn>;
   let fetchConcept: ReturnType<typeof vi.fn>;
   let fetchQuestion: ReturnType<typeof vi.fn>;
+  let updateDomainRow: Mock<
+    (
+      name: string,
+      key: [string, string],
+      changes: { lastSeen: Date; interval: number },
+    ) => Promise<number>
+  >;
 
   beforeEach(() => {
     TestBed.resetTestingModule();
@@ -48,6 +55,7 @@ describe('LearnFeedService', () => {
       conceptRows.push({ id: 'remote', bookId: 'book-001', term: 'Remote entry', tags: [] });
       return [];
     });
+    updateDomainRow = vi.fn(async (_name, _key, _changes) => 1);
 
     const emptyTable = { toArray: vi.fn().mockResolvedValue([]) };
     TestBed.configureTestingModule({
@@ -66,6 +74,11 @@ describe('LearnFeedService', () => {
               },
               indexes: { toArray: vi.fn(async () => indexRows) },
               table: (name: string) => ({
+                update: (
+                  key: [string, string],
+                  changes: { lastSeen: Date; interval: number },
+                ) =>
+                  updateDomainRow(name, key, changes),
                 where: () => ({ equals: () => ({
                   filter: (predicate: (row: Record<string, unknown>) => boolean) => ({
                     count: async () => name === 'concepts' ? conceptRows.filter(predicate).length : 0,
@@ -91,7 +104,10 @@ describe('LearnFeedService', () => {
         },
         {
           provide: ConfigService,
-          useValue: { isLocalSampleDataEnabled: () => false },
+          useValue: {
+            isLocalSampleDataEnabled: () => false,
+            getFeedMaxIntervalDays: () => 32,
+          },
         },
         { provide: GoogleAuthService, useValue: { idToken: () => remoteEnabled ? 'token' : null } },
         { provide: IndexRepository, useValue: { getDomain: fetchIndex } },
@@ -110,6 +126,85 @@ describe('LearnFeedService', () => {
     expect(secondBatch).toHaveLength(1);
     expect(firstBatch[0]).toMatchObject({ bookName: 'Book One', bookAuthor: 'Author One' });
     expect(new Set([...firstBatch, ...secondBatch].map((entry) => entry.id)).size).toBe(21);
+  });
+
+  it('records lastSeen for feed entries when they are shown', async () => {
+    const entry: LearnFeedEntry = {
+      id: 'quote-entry',
+      domain: 'QUOTES' as const,
+      bookName: 'Book One',
+      bookAuthor: 'Author One',
+      title: 'Quote',
+      body: 'Analysis',
+      tags: [],
+      sourceRow: { id: 'quote-1', bookId: 'book-001' },
+    };
+
+    await TestBed.inject(LearnFeedService).markAsShown([entry]);
+
+    const lastSeen = entry.sourceRow['lastSeen'];
+    expect(lastSeen).toBeInstanceOf(Date);
+    expect(entry.sourceRow['interval']).toBe(1);
+    expect(updateDomainRow).toHaveBeenCalledWith('quotes', ['book-001', 'quote-1'], {
+      lastSeen,
+      interval: 1,
+    });
+  });
+
+  it('doubles an overdue interval when the item was not reviewed since it was last shown', async () => {
+    const entry: LearnFeedEntry = {
+      id: 'quote-entry',
+      domain: 'QUOTES',
+      bookName: 'Book One',
+      bookAuthor: 'Author One',
+      title: 'Quote',
+      body: 'Analysis',
+      tags: [],
+      sourceRow: {
+        id: 'quote-1',
+        bookId: 'book-001',
+        interval: 4,
+        lastSeen: new Date('2026-01-01T00:00:00.000Z'),
+      },
+    };
+
+    await TestBed.inject(LearnFeedService).markAsShown([entry]);
+
+    expect(entry.sourceRow['interval']).toBe(8);
+    expect(updateDomainRow).toHaveBeenCalledWith(
+      'quotes',
+      ['book-001', 'quote-1'],
+      expect.objectContaining({ interval: 8, lastSeen: expect.any(Date) }),
+    );
+  });
+
+  it('does not auto-double an overdue interval after the item was reviewed', async () => {
+    const lastSeen = new Date('2026-01-01T00:00:00.000Z');
+    const entry: LearnFeedEntry = {
+      id: 'quote-entry',
+      domain: 'QUOTES',
+      bookName: 'Book One',
+      bookAuthor: 'Author One',
+      title: 'Quote',
+      body: 'Analysis',
+      tags: [],
+      sourceRow: {
+        id: 'quote-1',
+        bookId: 'book-001',
+        interval: 4,
+        lastSeen,
+        lastReview: new Date('2026-01-02T00:00:00.000Z'),
+      },
+    };
+
+    await TestBed.inject(LearnFeedService).markAsShown([entry]);
+
+    expect(entry.sourceRow['interval']).toBe(4);
+    expect(updateDomainRow).toHaveBeenCalledWith(
+      'quotes',
+      ['book-001', 'quote-1'],
+      expect.objectContaining({ interval: 4, lastSeen: expect.any(Date) }),
+    );
   });
 
   it('filters entries by book, domain, and tags before slicing the batch', async () => {

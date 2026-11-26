@@ -1,4 +1,4 @@
-import { Domain } from '../../shared/model/domain-shared-model';
+import { Feed } from '../../shared/model/domain-shared-model';
 
 export const PLACE_TYPES = ['city', 'country', 'building', 'region', 'institution'] as const;
 export const PLACE_NATURES = ['real', 'fictional', 'inspired'] as const;
@@ -24,7 +24,7 @@ export interface PlaceRaw {
   syncStatus: string;
 }
 
-export interface PlaceRecord extends Domain {
+export interface PlaceRecord extends Feed {
   name: string;
   type: PlaceType;
   nature: PlaceNature;

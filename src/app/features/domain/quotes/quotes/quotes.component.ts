@@ -1,6 +1,5 @@
 import {
   Component,
-  ElementRef,
   computed,
   effect,
   inject,
@@ -8,8 +7,6 @@ import {
   output,
   signal,
   untracked,
-  viewChild,
-  ChangeDetectorRef,
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -18,30 +15,23 @@ import { GlobalMessageService } from '../../../../core/services/global-message.s
 import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
-import { downloadJpeg } from '../../../../shared/utils/image-export';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import {
   normalizeTagsFromArray,
   parseTagsFromArray,
 } from '../../../../shared/tag-picker/tag-picker.mapper';
-import {
-  QuoteEntryCardComponent,
-  QuoteImageExportRequest,
-} from '../components/quote-entry-card/quote-entry-card.component';
+import { QuoteEntryCardComponent } from '../components/quote-entry-card/quote-entry-card.component';
 import { QuoteEntryFormComponent } from '../components/quote-entry-form/quote-entry-form.component';
 import { QUOTE_DEFAULT_FEED, QuoteRecord } from '../model/quotes-model';
 import { QuoteDataService } from '../services/quotes.service';
 
 @Component({
-  selector: 'app-domain-quotes-1',
+  selector: 'app-domain-quotes',
   imports: [FormsModule, TranslocoPipe, QuoteEntryFormComponent, QuoteEntryCardComponent],
   templateUrl: './quotes.component.html',
   styleUrls: ['./quotes.component.css'],
 })
 export class QuotesComponent implements OnInit {
-  readonly applicationName = document.title || 'sumaq-yachay';
-  readonly baseDomain = window.location.hostname;
-
   /** Domain components only receive the book ID and manage their own entries. */
   readonly bookId = input.required<string>();
   readonly isAddingEntry = input<boolean>(false);
@@ -63,8 +53,6 @@ export class QuotesComponent implements OnInit {
   readonly editingId = signal<string | null>(null);
   readonly submitted = signal(false);
   readonly isSaving = signal(false);
-  readonly exportRow = signal<QuoteRecord | null>(null);
-  readonly isExporting = signal(false);
   readonly searchTerm = inject(StudySearchService).query;
   readonly quoteMaxLength = 600;
   readonly quoteCharactersRemaining = computed(() => this.quoteMaxLength - this.newQuote().length);
@@ -73,12 +61,8 @@ export class QuotesComponent implements OnInit {
   private readonly globalMessageService = inject(GlobalMessageService);
   private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
-
-  private readonly ghostQuoteCard = viewChild<ElementRef<HTMLElement>>('ghostQuoteCard');
-  private readonly ghostAnalysisCard = viewChild<ElementRef<HTMLElement>>('ghostAnalysisCard');
 
   /** Tags typed in the form that are not part of the book's INDEX taxonomy. */
   readonly invalidTagsDetected = computed<string[]>(() => {
@@ -266,43 +250,6 @@ export class QuotesComponent implements OnInit {
     } finally {
       this.isSaving.set(false);
       this.globalLoadingService.end(operation);
-    }
-  }
-
-  async downloadImage({ event, row, side }: QuoteImageExportRequest): Promise<void> {
-    event.stopPropagation();
-
-    if (this.isExporting()) {
-      return;
-    }
-    if (side === 'analysis' && !row.analysis) {
-      return;
-    }
-
-    this.isExporting.set(true);
-    this.exportRow.set(row);
-    // The ghost cards are rendered conditionally and must exist before capture.
-    this.changeDetectorRef.detectChanges();
-
-    try {
-      const exportCard =
-        side === 'quote'
-          ? this.ghostQuoteCard()?.nativeElement
-          : this.ghostAnalysisCard()?.nativeElement;
-
-      if (!exportCard) {
-        throw new Error('Quote image templates are unavailable.');
-      }
-
-      const filename = side === 'quote' ? `quote-${row.id}.jpg` : `analysis-${row.id}.jpg`;
-      await downloadJpeg(exportCard, filename);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to export quote images.';
-      this.globalMessageService.showError(message);
-    } finally {
-      this.exportRow.set(null);
-      this.isExporting.set(false);
-      this.changeDetectorRef.detectChanges();
     }
   }
 }

@@ -1,4 +1,4 @@
-import { BookRecord } from '../../../features/book/models/book-item.model';
+import { BookRecord } from '../../../features/catalog/book/models/book-item.model';
 import bookItems from '../../../../../public/sample/Books.json';
 import { normalizeTagsFromArray } from '../../../shared/tag-picker/tag-picker.mapper';
 

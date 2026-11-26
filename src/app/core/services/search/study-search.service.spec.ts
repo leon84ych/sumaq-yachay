@@ -3,11 +3,11 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { TranslocoService } from '@jsverse/transloco';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { BookGASRepository } from '../../../features/book/services/book-gas-repository';
-import { BookService } from '../../../features/book/services/book.service';
+import { BookGASRepository } from '../../../features/catalog/book/services/book-gas-repository';
+import { BookService } from '../../../features/catalog/book/services/book.service';
 import { GoogleAuthService } from '../../../features/authentication/services/google-auth-service';
 import { AssociationsComponent } from '../../../features/domain/associations/associations/associations.component';
-import { BookEventsComponent } from '../../../features/domain/book-events/book-events/book-events.component';
+import { BookEventsComponent } from '../../../features/domain/events/events/book-events.component';
 import { CharactersComponent } from '../../../features/domain/characters/characters/characters.component';
 import { ConceptsComponent } from '../../../features/domain/concepts/concepts/concepts.component';
 import { GlossaryComponent } from '../../../features/domain/glossary/glossary/glossary.component';
@@ -73,6 +73,7 @@ describe('StudySearchService', () => {
         } },
         { provide: ConfigService, useValue: {
           isLocalSampleDataEnabled: () => false, localSampleDataEnabled: signal(false),
+          getFeedMaxIntervalDays: () => 32,
         } },
         { provide: LocalDBService, useValue: {
           indexedDB: {

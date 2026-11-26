@@ -31,6 +31,7 @@ export class RelationRepository extends LocalDomainRepositoryAbstract<RelationRe
     const persistable = records.filter((record) => record.bookId);
 
     await database.transaction('rw', database.relations, async () => {
+      await this.preserveLocalFeedState(persistable);
       await database.relations.bulkPut(persistable);
     });
 

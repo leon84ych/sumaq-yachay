@@ -2,6 +2,8 @@
   "extends": "./tsconfig.spec.json",
   "include": [
     "src/**/*.d.ts",
+    "src/app/features/domain/shared/model/feed-interval.spec.ts",
+    "src/app/features/learn/learn/learn.component.spec.ts",
     "src/app/features/learn/services/learn-feed.service*.spec.ts",
     "src/app/features/domain/book-detail/components/book-sheet-tabs/book-sheet-tabs.component.spec.ts",
     "src/app/features/book/services/book-sample.spec.ts",
@@ -14,6 +16,7 @@
     "src/app/core/services/search/study-search.service.spec.ts",
     "src/app/core/infrastructure/gas/gas-abort.spec.ts",
     "src/app/features/domain/shared/domain-contributor/**/*.spec.ts",
+    "src/app/features/domain/shared/domain-entry-footer/**/*.spec.ts",
     "src/app/features/domain/shared/domain-entry-card/**/*.spec.ts",
     "src/app/features/domain/shared/domain-repository/domain-write-sync.service.spec.ts",
     "src/app/features/domain/shared/domain-entry-header/domain-entry-header.component.spec.ts",
