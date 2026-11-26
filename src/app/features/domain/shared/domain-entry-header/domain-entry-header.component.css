@@ -32,6 +32,16 @@
   bottom: auto;
 }
 
+.status-indicator--retry {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex-basis: 1.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
 .domain-entry-header--status-only {
   justify-content: flex-end;
 }

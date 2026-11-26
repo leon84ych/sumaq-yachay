@@ -17,7 +17,6 @@ import { StudySearchService } from '../../../core/services/search/study-search.s
 import { downloadJpeg } from '../../../shared/utils/image-export';
 import { PlaceEntryCardComponent } from '../../domain/places/components/place-entry-card/place-entry-card.component';
 import { GlossaryEntryCardComponent } from '../../domain/glossary/components/glossary-entry-card/glossary-entry-card.component';
-import { IndexEntryCardComponent } from '../../domain/index/components/index-entry-card/index-entry-card.component';
 import { PassageEntryCardComponent } from '../../domain/passages/components/passage-entry-card/passage-entry-card.component';
 import { QuoteEntryCardComponent } from '../../domain/quotes/components/quote-entry-card/quote-entry-card.component';
 import { CharacterEntryCardComponent } from '../../domain/characters/components/character-entry-card/character-entry-card.component';
@@ -63,8 +62,6 @@ export class Learn {
         return ConceptEntryCardComponent;
       case 'GLOSARY':
         return GlossaryEntryCardComponent;
-      case 'INDEX':
-        return IndexEntryCardComponent;
       case 'PASSAGES':
         return PassageEntryCardComponent;
       case 'PLACES':
@@ -102,14 +99,6 @@ export class Learn {
           ...context,
           row: entry.sourceRow,
           showActions: false,
-        };
-      case 'INDEX':
-        return {
-          ...context,
-          row: entry.sourceRow,
-          showActions: false,
-          showContext: true,
-          showHierarchy: true,
         };
       case 'PASSAGES':
         return {

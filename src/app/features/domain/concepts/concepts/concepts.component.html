@@ -5,8 +5,7 @@
   @if (rows().length === 0) {
     <p class="empty-state" role="status">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
   } @else {
-    <div class="concept-toolbar">
-      <label class="concept-search">
+      <label class="concept-search domain-search">
         <span class="visually-hidden">{{ 'DOMAINS.CONCEPTS.SEARCH' | transloco }}</span>
         <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
           <circle cx="8.75" cy="8.75" r="5.75" />
@@ -19,7 +18,6 @@
           [placeholder]="'DOMAINS.CONCEPTS.SEARCH' | transloco"
         />
       </label>
-    </div>
     @if (filteredRows().length === 0) {
       <p class="empty-state" role="status">{{ 'DOMAINS.CONCEPTS.NO_MATCHES' | transloco }}</p>
     } @else {

@@ -68,8 +68,17 @@ export class BookList {
   async handleSaveItem(
     event: { item: Omit<BookRecord, 'updatedAt' | 'syncStatus'>; isEdit: boolean },
   ): Promise<void> {
-    await this.bookService.saveItem(event.item, event.isEdit);
-    this.closeModal();
+    this.bookService.errorMessage.set(null);
+    try {
+      await this.bookService.saveItem(event.item, event.isEdit);
+      this.closeModal();
+    } catch (error: unknown) {
+      this.bookService.errorMessage.set(
+        error instanceof Error && error.message === 'BOOK.ERRORS.duplicateBookId'
+          ? error.message
+          : 'BOOK.ERRORS.saveItemFailed',
+      );
+    }
   }
 
   openAddBookModal(): void {

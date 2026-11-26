@@ -5,7 +5,6 @@ import { ConfigService } from '../../../core/services/config/config.service';
 import { DomainName } from '../../domain/book-detail/models/domain-sheet-config';
 import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
 import { parseTagsFromArray } from '../../../shared/tag-picker/tag-picker.mapper';
-import { IndexRepository } from '../../domain/index/services/index-repository';
 import { ConceptRepository } from '../../domain/concepts/services/concepts-repository';
 import { QuoteRepository } from '../../domain/quotes/services/quotes-repository';
 import { PassageRepository } from '../../domain/passages/services/passages-repository';
@@ -15,11 +14,12 @@ import { BookEventRepository } from '../../domain/book-events/services/book-even
 import { RelationRepository } from '../../domain/relations/services/relations-repository';
 import { AssociationRepository } from '../../domain/associations/services/associations-repository';
 import { GlossaryRepository } from '../../domain/glossary/services/glossary-repository';
-import { QuestionRepository } from '../../domain/questions/services/questions-repository';
+
+export type LearnFeedDomain = Exclude<DomainName, 'INDEX' | 'QUESTIONS'>;
 
 export interface LearnFeedEntry {
   id: string;
-  domain: DomainName;
+  domain: LearnFeedDomain;
   bookName: string;
   bookAuthor: string;
   title: string;
@@ -31,13 +31,12 @@ export interface LearnFeedEntry {
 }
 
 const BATCH_SIZE = 20;
-const DOMAIN_REPOSITORIES = [IndexRepository, ConceptRepository, QuoteRepository,
+const DOMAIN_REPOSITORIES = [ConceptRepository, QuoteRepository,
   PassageRepository, CharacterRepository, PlaceRepository, BookEventRepository,
-  RelationRepository, AssociationRepository, GlossaryRepository, QuestionRepository] as const;
-const DOMAIN_TABLES = ['indexes', 'concepts', 'quotes', 'passages', 'characters', 'places',
-  'bookEvents', 'relations', 'associations', 'glossary', 'questions'] as const;
-const DOMAIN_SEARCH_TERMS: Record<DomainName, string[]> = {
-  INDEX: ['index', 'índice'],
+  RelationRepository, AssociationRepository, GlossaryRepository] as const;
+const DOMAIN_TABLES = ['concepts', 'quotes', 'passages', 'characters', 'places',
+  'bookEvents', 'relations', 'associations', 'glossary'] as const;
+const DOMAIN_SEARCH_TERMS: Record<LearnFeedDomain, string[]> = {
   CONCEPTS: ['concepts', 'conceptos'],
   QUOTES: ['quotes', 'citas'],
   PASSAGES: ['passages', 'pasajes'],
@@ -47,14 +46,13 @@ const DOMAIN_SEARCH_TERMS: Record<DomainName, string[]> = {
   RELATIONS: ['relations', 'relationships', 'relaciones'],
   ASSOCIATIONS: ['associations', 'concept relationships', 'asociaciones'],
   GLOSARY: ['glossary', 'glosario'],
-  QUESTIONS: ['questions', 'preguntas'],
 };
 
 export function selectLearnFeedBatch(
   entries: readonly LearnFeedEntry[],
   batchSize: number,
 ): LearnFeedEntry[] {
-  const firstEntryByDomain = new Map<DomainName, LearnFeedEntry>();
+  const firstEntryByDomain = new Map<LearnFeedDomain, LearnFeedEntry>();
   const remainingEntries: LearnFeedEntry[] = [];
   for (const entry of entries) {
     if (firstEntryByDomain.has(entry.domain)) {
@@ -110,7 +108,7 @@ export class LearnFeedService {
             .filter((record: { syncStatus?: string }) => record.syncStatus === 'pending' || record.syncStatus === 'error')
             .count();
           if (hasUnsynced) continue;
-          const repository = this.injector.get(repositoryType as typeof IndexRepository);
+          const repository = this.injector.get(repositoryType as typeof ConceptRepository);
           await repository.getDomain(book.row);
           batch = await this.loadRandomBatch(excludedIds, batchSize, query);
         } catch {
@@ -135,7 +133,6 @@ export class LearnFeedService {
     const [bookItems, domainRows] = await Promise.all([
       db.books.toArray(),
       Promise.all([
-        db.indexes.toArray().then((rows) => ['INDEX', rows] as const),
         db.bookEvents.toArray().then((rows) => ['BOOK_EVENTS', rows] as const),
         db.concepts.toArray().then((rows) => ['CONCEPTS', rows] as const),
         db.quotes.toArray().then((rows) => ['QUOTES', rows] as const),
@@ -149,7 +146,6 @@ export class LearnFeedService {
           .toArray()
           .then((rows) => ['ASSOCIATIONS', rows] as const),
         db.glossary.toArray().then((rows) => ['GLOSARY', rows] as const),
-        db.questions.toArray().then((rows) => ['QUESTIONS', rows] as const),
       ]),
     ]);
 
@@ -212,7 +208,7 @@ export class LearnFeedService {
   }
 
   private toLearnFeedEntry(
-    domain: DomainName,
+    domain: LearnFeedDomain,
     row: Record<string, unknown>,
     bookName: string,
     bookAuthor: string,
@@ -229,11 +225,6 @@ export class LearnFeedService {
     let note = '';
 
     switch (domain) {
-      case 'INDEX':
-        title = getText('theme') || getText('chapter');
-        body = getText('subtheme');
-        note = getText('chapter');
-        break;
       case 'CONCEPTS':
         title = getText('term');
         body = getText('definition');
@@ -282,11 +273,6 @@ export class LearnFeedService {
         title = getText('term');
         body = getText('definition');
         note = [getText('partOfSpeech'), getText('contextSentence')].filter(Boolean).join(' · ');
-        break;
-      case 'QUESTIONS':
-        title = getText('question');
-        body = getText('answer');
-        note = getText('difficulty');
         break;
     }
 

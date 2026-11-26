@@ -1,16 +1,21 @@
 import { inject, Injectable } from '@angular/core';
-import { DomainRepositoryInterface } from '../../../../core/infrastructure/domain-repository-intreface';
-import { GASPaginatedResponseRaw } from '../../../../core/infrastructure/gas/gas-model.model';
-import { LocalDBService } from '../../../../shared/local-db/local-db.service';
+import { LocalDomainRepositoryAbstract } from '../../shared/domain-repository/local-domain-repository-abstract';
 import { AssociationGASMapper } from '../model/associations-gas.mapper';
 import { AssociationRaw, AssociationRecord } from '../model/associations-model';
 import { AssociationGASRepository } from './associations-gas-repository';
 
 @Injectable({ providedIn: 'root' })
-export class AssociationRepository implements DomainRepositoryInterface<AssociationRecord> {
+export class AssociationRepository extends LocalDomainRepositoryAbstract<AssociationRecord> {
   private readonly mapper = inject(AssociationGASMapper);
   private readonly gasRepository = inject(AssociationGASRepository);
-  private readonly localDBService = inject(LocalDBService);
+
+  protected get localTable() {
+    return this.localDBService.indexedDB.associations;
+  }
+
+  protected get writeGateway() {
+    return this.gasRepository;
+  }
 
   async getDomain(bookRow: number, total: number | null = null): Promise<AssociationRecord[]> {
     const raws: AssociationRaw[] = await this.gasRepository.getDomain(bookRow, total);
@@ -32,51 +37,5 @@ export class AssociationRepository implements DomainRepositoryInterface<Associat
     return persistable;
   }
 
-  getDomainPaginated(
-    _row: number,
-    _page: number,
-    _pageSize: number | null,
-  ): Promise<GASPaginatedResponseRaw<AssociationRecord>> {
-    throw new Error('Method not implemented.');
-  }
 
-  async addDomainItem(record: AssociationRecord): Promise<AssociationRecord> {
-    const table = this.localDBService.indexedDB.associations;
-    const pendingRecord: AssociationRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.addDomainItem(pendingRecord);
-      await this.localDBService.indexedDB.transaction('rw', table, async () => {
-        if (syncedRecord.id !== pendingRecord.id) {
-          await table.delete([pendingRecord.bookId, pendingRecord.id]);
-        }
-        await table.put(syncedRecord);
-      });
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async updateDomainItem(record: AssociationRecord): Promise<AssociationRecord> {
-    const table = this.localDBService.indexedDB.associations;
-    const pendingRecord: AssociationRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.updateDomainItem(pendingRecord);
-      await table.put(syncedRecord);
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async deleteDomainItem(record: AssociationRecord): Promise<void> {
-    await this.gasRepository.deleteDomainItem(record);
-    await this.localDBService.indexedDB.associations.delete([record.bookId, record.id]);
-  }
 }

@@ -1,16 +1,21 @@
 import { inject, Injectable } from '@angular/core';
-import { DomainRepositoryInterface } from '../../../../core/infrastructure/domain-repository-intreface';
-import { GASPaginatedResponseRaw } from '../../../../core/infrastructure/gas/gas-model.model';
-import { LocalDBService } from '../../../../shared/local-db/local-db.service';
+import { LocalDomainRepositoryAbstract } from '../../shared/domain-repository/local-domain-repository-abstract';
 import { PlaceGASMapper } from '../model/places-gas.mapper';
 import { PlaceRaw, PlaceRecord } from '../model/places-model';
 import { PlaceGASRepository } from './places-gas-repository';
 
 @Injectable({ providedIn: 'root' })
-export class PlaceRepository implements DomainRepositoryInterface<PlaceRecord> {
+export class PlaceRepository extends LocalDomainRepositoryAbstract<PlaceRecord> {
   private readonly mapper = inject(PlaceGASMapper);
   private readonly gasRepository = inject(PlaceGASRepository);
-  private readonly localDBService = inject(LocalDBService);
+
+  protected get localTable() {
+    return this.localDBService.indexedDB.places;
+  }
+
+  protected get writeGateway() {
+    return this.gasRepository;
+  }
 
   async getDomain(bookRow: number, total: number | null = null): Promise<PlaceRecord[]> {
     const raws: PlaceRaw[] = await this.gasRepository.getDomain(bookRow, total);
@@ -32,51 +37,5 @@ export class PlaceRepository implements DomainRepositoryInterface<PlaceRecord> {
     return persistable;
   }
 
-  getDomainPaginated(
-    _row: number,
-    _page: number,
-    _pageSize: number | null,
-  ): Promise<GASPaginatedResponseRaw<PlaceRecord>> {
-    throw new Error('Method not implemented.');
-  }
 
-  async addDomainItem(record: PlaceRecord): Promise<PlaceRecord> {
-    const table = this.localDBService.indexedDB.places;
-    const pendingRecord: PlaceRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.addDomainItem(pendingRecord);
-      await this.localDBService.indexedDB.transaction('rw', table, async () => {
-        if (syncedRecord.id !== pendingRecord.id) {
-          await table.delete([pendingRecord.bookId, pendingRecord.id]);
-        }
-        await table.put(syncedRecord);
-      });
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async updateDomainItem(record: PlaceRecord): Promise<PlaceRecord> {
-    const table = this.localDBService.indexedDB.places;
-    const pendingRecord: PlaceRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.updateDomainItem(pendingRecord);
-      await table.put(syncedRecord);
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async deleteDomainItem(record: PlaceRecord): Promise<void> {
-    await this.gasRepository.deleteDomainItem(record);
-    await this.localDBService.indexedDB.places.delete([record.bookId, record.id]);
-  }
 }

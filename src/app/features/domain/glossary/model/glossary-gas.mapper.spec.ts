@@ -18,6 +18,7 @@ describe('GlossaryGASMapper', () => {
       bookRow: 8,
       itemRow: 19,
       term: 'Logos',
+      language: 'Ancient Greek',
       definition: 'A principle of reason.',
       partOfSpeech: 'Noun',
       page: 42,
@@ -34,6 +35,7 @@ describe('GlossaryGASMapper', () => {
       itemRow: 19,
       page: '42',
       tags: ['#reason', '#language'],
+      language: 'Ancient Greek',
       syncStatus: 'synced',
     });
   });
@@ -45,6 +47,7 @@ describe('GlossaryGASMapper', () => {
       bookRow: 8,
       itemRow: 19,
       term: 'Logos',
+      language: 'Ancient Greek',
       definition: 'A principle of reason.',
       partOfSpeech: 'Noun',
       etymology: 'Greek',
@@ -64,6 +67,7 @@ describe('GlossaryGASMapper', () => {
       bookRow: 8,
       itemRow: 19,
       term: 'Logos',
+      language: 'Ancient Greek',
       definition: 'A principle of reason.',
       partOfSpeech: 'Noun',
       etymology: 'Greek',
@@ -76,5 +80,26 @@ describe('GlossaryGASMapper', () => {
       contributor: 'reader@example.com',
       syncStatus: 'pending',
     });
+  });
+
+  it('serializes language in the GLOSARY sheet column order', () => {
+    const record: GlossaryRecord = {
+      id: 'term-1',
+      bookId: 'book-1',
+      bookRow: 8,
+      itemRow: 19,
+      term: 'Logos',
+      language: 'Ancient Greek',
+      definition: 'A principle of reason.',
+      tags: [],
+      feed: 3,
+      contributor: 'reader@example.com',
+      syncStatus: 'pending',
+    };
+
+    expect(mapper.toRowValues(record)).toEqual([
+      'term-1', 19, 'Logos', 'Ancient Greek', 'A principle of reason.',
+      '', '', '', '', '', '', '', 3, 'reader@example.com', 'pending',
+    ]);
   });
 });

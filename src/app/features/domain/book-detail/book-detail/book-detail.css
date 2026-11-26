@@ -5,20 +5,15 @@
 }
 
 .detail-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 1.25rem;
 }
 
-app-sheet-view-resolver {
-  width: min(100%, var(--domain-view-width));
-  margin-inline: auto;
-}
-
-.detail-header app-book-overview {
+.detail-header app-book-sheet-tabs {
+  grid-column: 1 / -1;
   min-width: 0;
-  flex: 1 1 auto;
 }
 
 .detail-actions,
@@ -28,21 +23,6 @@ app-sheet-view-resolver {
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 0.5rem;
-}
-
-.mobile-sheet-selector {
-  display: none;
-}
-
-.mobile-sheet-selector select {
-  width: 100%;
-  min-width: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 0.55rem 0.65rem;
-  background: var(--surface);
-  color: var(--text);
-  font: inherit;
 }
 
 .detail-actions .btn-primary {
@@ -91,31 +71,38 @@ app-sheet-view-resolver {
   }
 
   .detail-header {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.75rem;
+    grid-template-columns: minmax(0, max-content) minmax(7rem, 1fr);
+    align-items: end;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .overview {
+    grid-column: 1 / -1;
+  }
+
+  .detail-header app-book-sheet-tabs {
+    grid-column: 2;
   }
 
   .detail-actions {
-    width: 100%;
+    min-width: 0;
     justify-content: flex-start;
-    margin: 0 auto var(--content-section-gap);
+    margin: 0;
   }
 
-  .mobile-sheet-selector {
-    display: block;
-    flex: 1 1 9rem;
-    min-width: 8rem;
+  .detail-domain-selector {
+    flex-wrap: nowrap;
+    min-width: 0;
   }
 
-  .mobile-sheet-selector select,
+  .detail-domain-selector .domain-select {
+    min-width: 0;
+    max-width: 100%;
+  }
+
   .detail-actions .btn-primary {
     box-sizing: border-box;
     height: 2rem;
-  }
-
-  .mobile-sheet-selector select {
-    padding: 0.4rem 0.65rem;
-    font-size: 0.85rem;
   }
 }

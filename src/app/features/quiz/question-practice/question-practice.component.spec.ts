@@ -2,8 +2,8 @@
 
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { QuestionAttemptService } from '../services/question-attempt.service';
-import { QuestionPracticeItem, QuestionPracticeService } from '../services/question-practice.service';
+import { QuestionAttemptService } from '../../domain/questions/services/question-attempt.service';
+import { QuestionPracticeItem, QuestionPracticeService } from '../../domain/questions/services/question-practice.service';
 import { QuestionPracticeComponent } from './question-practice.component';
 
 describe('QuestionPracticeComponent', () => {

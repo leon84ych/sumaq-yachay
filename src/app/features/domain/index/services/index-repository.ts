@@ -1,10 +1,8 @@
 import { inject, Injectable } from "@angular/core";
 import { IndexRaw, IndexRecord } from "../model/index-model";
 import { IndexGASMapper } from "../model/index-gas.mapper";
-import { DomainRepositoryInterface } from "../../../../core/infrastructure/domain-repository-intreface";
 import { IndexGASRepository } from "./index-gas-repository";
-import { LocalDBService } from "../../../../shared/local-db/local-db.service";
-import { GASPaginatedResponseRaw } from "../../../../core/infrastructure/gas/gas-model.model";
+import { LocalDomainRepositoryAbstract } from "../../shared/domain-repository/local-domain-repository-abstract";
 
 
 
@@ -12,16 +10,27 @@ import { GASPaginatedResponseRaw } from "../../../../core/infrastructure/gas/gas
 @Injectable({
   providedIn: 'root',
 })
-export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
+export class IndexRepository extends LocalDomainRepositoryAbstract<IndexRecord> {
 
   private mapper = inject(IndexGASMapper);
   private gasRepository = inject(IndexGASRepository);
-  private localDBService = inject(LocalDBService);
+
+  protected get localTable() {
+    return this.localDBService.indexedDB.indexes;
+  }
+
+  protected get writeGateway() {
+    return this.gasRepository;
+  }
 
   async getDomain(bookRow: number, total: number | null = null): Promise<IndexRecord[]> {
-    const domain: IndexRaw[] = await this.gasRepository.getDomain(bookRow, total);
     const database = this.localDBService.indexedDB;
     const book = await database.books.where('row').equals(bookRow).first();
+    const initialRecords = book
+      ? await database.indexes.where('bookId').equals(book.id).toArray()
+      : [];
+    const initialById = new Map(initialRecords.map((record) => [record.id, JSON.stringify(record)]));
+    const domain: IndexRaw[] = await this.gasRepository.getDomain(bookRow, total);
     const domainRecords = domain.map((item) => ({
       ...this.mapper.toRecord({ ...item, bookId: item.bookId || book?.id || '' }),
       bookRow,
@@ -32,77 +41,28 @@ export class IndexRepository implements DomainRepositoryInterface<IndexRecord> {
     let mergedRecords: IndexRecord[] = [];
     await database.transaction('rw', database.indexes, async () => {
       const localRecords = await database.indexes.where('bookId').equals(bookId).toArray();
-      const unsyncedRecords = localRecords.filter(
-        (record) => record.syncStatus === 'pending' || record.syncStatus === 'error',
+      const protectedRecords = localRecords.filter(
+        (record) => record.syncStatus === 'pending' || record.syncStatus === 'error' ||
+          initialById.get(record.id) !== JSON.stringify(record),
       );
-      const unsyncedIds = new Set(unsyncedRecords.map((record) => record.id));
-      const remoteRecords = domainRecords.filter((record) => !unsyncedIds.has(record.id));
+      const protectedIds = new Set(protectedRecords.map((record) => record.id));
+      const currentIds = new Set(localRecords.map((record) => record.id));
+      const deletedDuringRefresh = new Set([...initialById.keys()].filter((id) => !currentIds.has(id)));
+      const remoteRecords = domainRecords.filter((record) =>
+        !protectedIds.has(record.id) && !deletedDuringRefresh.has(record.id),
+      );
       const remoteIds = new Set(remoteRecords.map((record) => record.id));
       const removedIds = localRecords
-        .filter((record) => record.syncStatus === 'synced' && !remoteIds.has(record.id))
+        .filter((record) => record.syncStatus === 'synced' && !protectedIds.has(record.id) && !remoteIds.has(record.id))
         .map((record) => [record.bookId, record.id] as [string, string]);
 
       await Promise.all(removedIds.map((key) => database.indexes.delete(key)));
       if (remoteRecords.length > 0) await database.indexes.bulkPut(remoteRecords);
-      mergedRecords = [...remoteRecords, ...unsyncedRecords].sort((left, right) => left.itemRow - right.itemRow);
+      mergedRecords = [...remoteRecords, ...protectedRecords].sort((left, right) => left.itemRow - right.itemRow);
     });
 
     return mergedRecords;
   }
-
-  getDomainPaginated(row: number, page: number, pageSize: number|null): Promise<GASPaginatedResponseRaw<IndexRecord>> {
-    throw new Error("Method not implemented.");
-  }
-
-  async addDomainItem(record: IndexRecord): Promise<IndexRecord> {
-    const table = this.localDBService.indexedDB.indexes;
-    const pendingRecord: IndexRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const addedRecord = await this.gasRepository.addDomainItem(pendingRecord);
-      const syncedRecord: IndexRecord = {
-        ...addedRecord
-      };
-
-      await this.localDBService.indexedDB.transaction('rw', table, async () => {
-        if (syncedRecord.id !== pendingRecord.id) {
-          await table.delete([pendingRecord.bookId, pendingRecord.id]);
-        }
-        await table.put(syncedRecord);
-      });
-
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-  
-  async updateDomainItem(record: IndexRecord): Promise<IndexRecord> {
-    const table = this.localDBService.indexedDB.indexes;
-    const pendingRecord: IndexRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.updateDomainItem(pendingRecord);
-      await table.put(syncedRecord);
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async deleteDomainItem(record: IndexRecord): Promise<void> {
-    await this.gasRepository.deleteDomainItem(record);
-    await this.localDBService.indexedDB.indexes.delete([record.bookId, record.id]);
-  }
-
-
-
-
-
 
 
 

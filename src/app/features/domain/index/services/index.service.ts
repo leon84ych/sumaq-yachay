@@ -1,5 +1,6 @@
 
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector } from '@angular/core';
+import { liveQuery } from 'dexie';
 import { IndexRepository } from './index-repository';
 import { IndexRecord } from '../model/index-model';
 import { IndexQueryService } from './index-query.service';
@@ -8,6 +9,7 @@ import { TagPickerService } from '../../../../shared/tag-picker/tag-picker.servi
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
 import { TranslocoService } from '@jsverse/transloco';
 import { GoogleAuthService } from '../../../authentication/services/google-auth-service';
+import { DomainWriteSyncService } from '../../shared/domain-repository/domain-write-sync.service';
 
 
 @Injectable({
@@ -22,6 +24,7 @@ export class IndexDataService {
     private globalMessageService = inject(GlobalMessageService);
     private transloco = inject(TranslocoService);
     private googleAuthService = inject(GoogleAuthService);
+    private injector = inject(Injector);
 
     /**
      * Returns locally stored index records for a book, or fetches them from GAS if none are stored.
@@ -62,6 +65,19 @@ export class IndexDataService {
 
     async getBookRecord(bookId: string) {
         return this.bookQueryService.getBookRecord(bookId);
+    }
+
+    watchRecords(bookId: string, update: (records: IndexRecord[]) => void) {
+        return liveQuery(() => this.indexQueryService.getIndicesByBookRow(bookId)).subscribe({
+            next: update,
+            error: error => this.globalMessageService.showError(this.errorMessage(error)),
+        });
+    }
+
+    async saveLocally(record: IndexRecord, isEdit: boolean): Promise<IndexRecord> {
+        const saved = await this.injector.get(DomainWriteSyncService).saveIndex(record, isEdit);
+        void this.persistTags(saved).catch(error => this.globalMessageService.showError(this.errorMessage(error)));
+        return saved;
     }
 
     async addDomainItem(record: IndexRecord): Promise<IndexRecord> {

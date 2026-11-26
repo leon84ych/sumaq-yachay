@@ -22,7 +22,7 @@ export const routes: Routes = [
   {
     path: 'quiz',
     loadComponent: () =>
-      import('./features/domain/questions/practice/question-practice.component').then(
+      import('./features/quiz/question-practice/question-practice.component').then(
         (m) => m.QuestionPracticeComponent,
       ),
   },

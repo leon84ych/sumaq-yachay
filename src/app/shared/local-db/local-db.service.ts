@@ -15,6 +15,24 @@ import { BookRecord } from '../../features/book/models/book-item.model';
 import { TagRecord } from '../tag-picker/tag-picker.model';
 import { QuestionAttempt } from '../../features/domain/questions/model/question-attempt.model';
 import { getLocalSampleDomainData, LOCAL_SAMPLE_BOOKS, LOCAL_SAMPLE_DOMAIN_TABLES, normalizeSampleDomainRow } from '../../core/services/storage/local-sample-data';
+import { Domain } from '../../features/domain/shared/model/domain-shared-model';
+
+export interface PendingDomainWrite {
+  domain: string;
+  bookId: string;
+  id: string;
+  operation: 'create' | 'update' | 'delete';
+  state: 'queued' | 'sending' | 'uncertain';
+  revision: number;
+  record: Domain;
+  lastError?: string;
+  retryAt?: number;
+  attempts?: number;
+  needsItemRow?: boolean;
+  ownerEmail?: string;
+  createMayExist?: boolean;
+  deleteAfterCreate?: boolean;
+}
 
 const VERSION_ONE_STORES = {
   books:
@@ -51,11 +69,17 @@ export class IndexedDB extends Dexie {
   questions!: Table<QuestionRecord, [string, string]>;
   questionAttempts!: Table<QuestionAttempt, number>;
   tags!: Table<TagRecord, string>;
+  metadata!: Table<{ key: string; lastBookRow?: number; targetId?: string; leaseOwner?: string; leaseExpiresAt?: number }, string>;
+  languages!: Table<{ key: string; name: string }, string>;
+  pendingDomainWrites!: Table<PendingDomainWrite, [string, string, string]>;
 
   constructor(databaseName = 'LocalDB') {
     super(databaseName);
     this.version(1).stores(VERSION_ONE_STORES);
     this.version(2).stores({ questionAttempts: '++id, questionId, bookId, bookRow, timestamp, type' });
+    this.version(3).stores({ metadata: 'key' });
+    this.version(4).stores({ languages: 'key' });
+    this.version(5).stores({ pendingDomainWrites: '[domain+bookId+id], [domain+state], bookId' });
   }
 }
 
@@ -76,9 +100,11 @@ export class LocalDBService {
   }
 
   private async seedSamples(): Promise<void> {
-    const data = await Promise.all(LOCAL_SAMPLE_BOOKS.map((book) => getLocalSampleDomainData(book.id)));
     const db = this.indexedDB;
+    if (await db.metadata.get('sample-data-seeded')) return;
+    const data = await Promise.all(LOCAL_SAMPLE_BOOKS.map((book) => getLocalSampleDomainData(book.id)));
     await db.transaction('rw', db.tables, async () => {
+      if (await db.metadata.get('sample-data-seeded')) return;
       for (const [bookIndex, book] of LOCAL_SAMPLE_BOOKS.entries()) {
         if (!(await db.books.get(book.id))) await db.books.add(book);
         for (const [domain, rows] of Object.entries(data[bookIndex])) {
@@ -98,6 +124,11 @@ export class LocalDBService {
           await table.bulkAdd(records.filter((_, index) => !existing[index]));
         }
       }
+      const books = await db.books.toArray();
+      await db.metadata.put({
+        key: 'sample-data-seeded',
+        lastBookRow: Math.max(0, ...books.map(book => book.row)),
+      });
     });
   }
 

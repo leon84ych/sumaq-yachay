@@ -348,7 +348,8 @@
       "tags": ["#possibility", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-02",
@@ -362,7 +363,8 @@
       "tags": ["#reason", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-03",
@@ -376,7 +378,8 @@
       "tags": ["#idealism", "#politics"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-04",
@@ -390,7 +393,8 @@
       "tags": ["#ambivalence", "#psychology"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-05",
@@ -404,7 +408,8 @@
       "tags": ["#modernity", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-06",
@@ -418,7 +423,8 @@
       "tags": ["#bureaucracy", "#politics"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-07",
@@ -432,7 +438,8 @@
       "tags": ["#irony", "#social-critique"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-08",
@@ -446,7 +453,8 @@
       "tags": ["#identity", "#self"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-09",
@@ -460,7 +468,8 @@
       "tags": ["#idealism", "#society"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-10",
@@ -474,7 +483,8 @@
       "tags": ["#introspection", "#psychology"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     }
   ],
   "PASSAGES": [

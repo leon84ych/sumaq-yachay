@@ -1,7 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { DomainRepositoryInterface } from '../../../../core/infrastructure/domain-repository-intreface';
-import { GASPaginatedResponseRaw } from '../../../../core/infrastructure/gas/gas-model.model';
-import { LocalDBService } from '../../../../shared/local-db/local-db.service';
+import { LocalDomainRepositoryAbstract } from '../../shared/domain-repository/local-domain-repository-abstract';
 import { QuoteGASMapper } from '../model/quotes-gas.mapper';
 import { QuoteRaw, QuoteRecord } from '../model/quotes-model';
 import { QuoteGASRepository } from './quotes-gas-repository';
@@ -9,10 +7,17 @@ import { QuoteGASRepository } from './quotes-gas-repository';
 @Injectable({
   providedIn: 'root',
 })
-export class QuoteRepository implements DomainRepositoryInterface<QuoteRecord> {
+export class QuoteRepository extends LocalDomainRepositoryAbstract<QuoteRecord> {
   private readonly mapper = inject(QuoteGASMapper);
   private readonly gasRepository = inject(QuoteGASRepository);
-  private readonly localDBService = inject(LocalDBService);
+
+  protected get localTable() {
+    return this.localDBService.indexedDB.quotes;
+  }
+
+  protected get writeGateway() {
+    return this.gasRepository;
+  }
 
   async getDomain(bookRow: number, total: number | null = null): Promise<QuoteRecord[]> {
     const raws: QuoteRaw[] = await this.gasRepository.getDomain(bookRow, total);
@@ -35,54 +40,5 @@ export class QuoteRepository implements DomainRepositoryInterface<QuoteRecord> {
     return persistable;
   }
 
-  getDomainPaginated(
-    _row: number,
-    _page: number,
-    _pageSize: number | null,
-  ): Promise<GASPaginatedResponseRaw<QuoteRecord>> {
-    throw new Error('Method not implemented.');
-  }
 
-  async addDomainItem(record: QuoteRecord): Promise<QuoteRecord> {
-    const table = this.localDBService.indexedDB.quotes;
-    const pendingRecord: QuoteRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.addDomainItem(pendingRecord);
-
-      await this.localDBService.indexedDB.transaction('rw', table, async () => {
-        if (syncedRecord.id !== pendingRecord.id) {
-          await table.delete([pendingRecord.bookId, pendingRecord.id]);
-        }
-        await table.put(syncedRecord);
-      });
-
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async updateDomainItem(record: QuoteRecord): Promise<QuoteRecord> {
-    const table = this.localDBService.indexedDB.quotes;
-    const pendingRecord: QuoteRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.updateDomainItem(pendingRecord);
-      await table.put(syncedRecord);
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async deleteDomainItem(record: QuoteRecord): Promise<void> {
-    // Local data is removed only after GAS confirms the delete.
-    await this.gasRepository.deleteDomainItem(record);
-    await this.localDBService.indexedDB.quotes.delete([record.bookId, record.id]);
-  }
 }

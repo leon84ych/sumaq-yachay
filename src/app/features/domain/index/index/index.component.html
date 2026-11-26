@@ -32,8 +32,11 @@
             [bookAuthor]="bookAuthor()" 
             [showContext]="true"
             [showHierarchy]="false" 
+            [canRetry]="retryableIds().has(row.id)"
+            [pendingDeletion]="pendingDeletionIds().has(row.id)"
             (editRequested)="editEntry($event)" 
             (deleteRequested)="deleteEntry($event)" 
+            (retryRequested)="retryEntry($event)"
             />
           }
         </div>

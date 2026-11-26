@@ -14,7 +14,7 @@
     </div>
 
     <form [formGroup]="isUrlMode() ? urlForm : form" (ngSubmit)="onSubmit()" class="modal-form">
-      @if (!editItem()) {
+      @if (!editItem() && !configService.localSampleDataEnabled()) {
       <fieldset class="source-mode" [disabled]="isLoading()">
         <legend>{{ 'BOOK.MODAL.SOURCE_MODE' | transloco }}</legend>
         <label [class.selected]="!isUrlMode()">
@@ -112,8 +112,11 @@
 
       <div class="form-group">
         <label for="language">{{ 'BOOK.MODAL.LANGUAGE_LABEL' | transloco }} <span class="required">*</span></label>
-        <input id="language" type="text" formControlName="language"
-          [placeholder]="'BOOK.MODAL.LANGUAGE_PLACEHOLDER' | transloco" class="form-control" />
+        <app-language-selector inputId="language" [value]="form.controls.language.value ?? ''"
+          [placeholder]="'BOOK.MODAL.LANGUAGE_PLACEHOLDER' | transloco" [required]="true"
+          [invalid]="form.controls.language.touched && form.controls.language.invalid"
+          (valueChange)="form.controls.language.setValue($event)"
+          (blurred)="form.controls.language.markAsTouched()" />
         @if (form.get('language')?.touched && form.get('language')?.invalid) {
         <span class="field-error">{{ 'BOOK.MODAL.LANGUAGE_ERROR' | transloco }}</span>
         }

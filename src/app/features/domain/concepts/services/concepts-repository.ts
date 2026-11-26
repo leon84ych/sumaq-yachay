@@ -1,7 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { DomainRepositoryInterface } from '../../../../core/infrastructure/domain-repository-intreface';
-import { GASPaginatedResponseRaw } from '../../../../core/infrastructure/gas/gas-model.model';
-import { LocalDBService } from '../../../../shared/local-db/local-db.service';
+import { LocalDomainRepositoryAbstract } from '../../shared/domain-repository/local-domain-repository-abstract';
 import { ConceptGASMapper } from '../model/concepts-gas.mapper';
 import { ConceptRaw, ConceptRecord } from '../model/concepts-model';
 import { ConceptGASRepository } from './concepts-gas-repository';
@@ -9,10 +7,17 @@ import { ConceptGASRepository } from './concepts-gas-repository';
 @Injectable({
   providedIn: 'root',
 })
-export class ConceptRepository implements DomainRepositoryInterface<ConceptRecord> {
+export class ConceptRepository extends LocalDomainRepositoryAbstract<ConceptRecord> {
   private readonly mapper = inject(ConceptGASMapper);
   private readonly gasRepository = inject(ConceptGASRepository);
-  private readonly localDBService = inject(LocalDBService);
+
+  protected get localTable() {
+    return this.localDBService.indexedDB.concepts;
+  }
+
+  protected get writeGateway() {
+    return this.gasRepository;
+  }
 
   async getDomain(bookRow: number, total: number | null = null): Promise<ConceptRecord[]> {
     const raws: ConceptRaw[] = await this.gasRepository.getDomain(bookRow, total);
@@ -35,54 +40,5 @@ export class ConceptRepository implements DomainRepositoryInterface<ConceptRecor
     return persistable;
   }
 
-  getDomainPaginated(
-    _row: number,
-    _page: number,
-    _pageSize: number | null,
-  ): Promise<GASPaginatedResponseRaw<ConceptRecord>> {
-    throw new Error('Method not implemented.');
-  }
 
-  async addDomainItem(record: ConceptRecord): Promise<ConceptRecord> {
-    const table = this.localDBService.indexedDB.concepts;
-    const pendingRecord: ConceptRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.addDomainItem(pendingRecord);
-
-      await this.localDBService.indexedDB.transaction('rw', table, async () => {
-        if (syncedRecord.id !== pendingRecord.id) {
-          await table.delete([pendingRecord.bookId, pendingRecord.id]);
-        }
-        await table.put(syncedRecord);
-      });
-
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async updateDomainItem(record: ConceptRecord): Promise<ConceptRecord> {
-    const table = this.localDBService.indexedDB.concepts;
-    const pendingRecord: ConceptRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.updateDomainItem(pendingRecord);
-      await table.put(syncedRecord);
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async deleteDomainItem(record: ConceptRecord): Promise<void> {
-    // Local data is removed only after GAS confirms the delete.
-    await this.gasRepository.deleteDomainItem(record);
-    await this.localDBService.indexedDB.concepts.delete([record.bookId, record.id]);
-  }
 }

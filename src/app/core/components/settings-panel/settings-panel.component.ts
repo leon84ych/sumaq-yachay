@@ -55,6 +55,10 @@ export class SettingsPanelComponent {
             this.translocoService.setActiveLang(savedLang);
         }
 
+        if (this.localSampleDataEnabled()) {
+            this.permissionService.setRole('admin');
+        }
+
         this.applyTheme(this.theme());
         this.applyFontScale(this.fontScale());
     }

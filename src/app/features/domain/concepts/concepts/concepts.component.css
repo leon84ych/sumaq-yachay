@@ -4,10 +4,6 @@
   gap: 1rem;
 }
 
-.concept-toolbar {
-  margin-bottom: 1rem;
-}
-
 .concept-search {
   display: flex;
   min-height: 2.75rem;

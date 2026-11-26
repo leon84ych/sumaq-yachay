@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { ConfigService } from '../../../../core/services/config/config.service';
 import { LocalDBService } from '../../../../shared/local-db/local-db.service';
 import { GlossaryGASMapper } from '../model/glossary-gas.mapper';
 import { GlossaryRaw, GlossaryRecord } from '../model/glossary-model';
@@ -44,6 +45,7 @@ const record: GlossaryRecord = {
   bookRow: 8,
   itemRow: 0,
   term: 'Logos',
+  language: 'Ancient Greek',
   definition: 'A principle of reason.',
   tags: ['#reason'],
   feed: 5,
@@ -64,12 +66,15 @@ describe('GlossaryRepository', () => {
   };
   let repository: GlossaryRepository;
   let query: GlossaryQueryService;
+  let localSampleDataEnabled: boolean;
 
   beforeEach(() => {
+    localSampleDataEnabled = false;
     glossary.rows.clear();
     vi.resetAllMocks();
     TestBed.configureTestingModule({
       providers: [
+        { provide: ConfigService, useValue: { isLocalSampleDataEnabled: () => localSampleDataEnabled } },
         { provide: GlossaryGASRepository, useValue: gasRepository },
         {
           provide: LocalDBService,
@@ -123,6 +128,23 @@ describe('GlossaryRepository', () => {
     await expect(repository.addDomainItem(record)).rejects.toThrow('boom');
 
     expect(glossary.rows.get(storageKey('book-1', 'temp-1'))?.syncStatus).toBe('error');
+  });
+
+  it('keeps sample data create, update, and delete operations local', async () => {
+    localSampleDataEnabled = true;
+
+    const created = await repository.addDomainItem({ ...record, id: 'sample-term' });
+    expect(created.syncStatus).toBe('pending');
+    expect(gasRepository.addDomainItem).not.toHaveBeenCalled();
+
+    const updated = await repository.updateDomainItem({ ...created, definition: 'Edited locally.' });
+    expect(updated.definition).toBe('Edited locally.');
+    expect(updated.syncStatus).toBe('pending');
+    expect(gasRepository.updateDomainItem).not.toHaveBeenCalled();
+
+    await repository.deleteDomainItem(updated);
+    expect(glossary.rows.has(storageKey('book-1', 'sample-term'))).toBe(false);
+    expect(gasRepository.deleteDomainItem).not.toHaveBeenCalled();
   });
 
   it('deletes locally only after the remote delete succeeds', async () => {

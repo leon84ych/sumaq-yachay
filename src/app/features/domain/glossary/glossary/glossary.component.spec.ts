@@ -5,6 +5,8 @@ import { GlobalMessageService } from '../../../../core/services/global-message.s
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { LocalDBService } from '../../../../shared/local-db/local-db.service';
+import { LanguageService } from '../../../../shared/language/language.service';
+import { signal } from '@angular/core';
 import { GlossaryRecord } from '../model/glossary-model';
 import { GlossaryDataService } from '../services/glossary.service';
 import { GlossaryComponent } from './glossary.component';
@@ -15,6 +17,7 @@ const entry = (id: string, overrides: Partial<GlossaryRecord> = {}): GlossaryRec
   bookRow: 8,
   itemRow: Number(id.replace(/\D/g, '')) + 1,
   term: `Term ${id}`,
+  language: 'English',
   definition: `Definition ${id}`,
   partOfSpeech: 'Noun',
   tags: ['#memory'],
@@ -53,6 +56,7 @@ describe('GlossaryComponent', () => {
       row: 8,
       name: 'Book One',
       author: 'Author One',
+      language: 'English',
     });
     dataService.getAllowedTags.mockResolvedValue(['#memory']);
 
@@ -66,6 +70,7 @@ describe('GlossaryComponent', () => {
       providers: [
         { provide: GlossaryDataService, useValue: dataService },
         { provide: GlobalMessageService, useValue: { showError } },
+        { provide: LanguageService, useValue: { languages: signal(['English', 'Japanese', 'Japonés', 'Quechua']) } },
         {
           provide: LocalDBService,
           useValue: {
@@ -97,6 +102,8 @@ describe('GlossaryComponent', () => {
     dataService.addDomainItem.mockResolvedValue(saved);
 
     component.newTerm.set('  Logos  ');
+    expect(component.newLanguage()).toBe('English');
+    component.newLanguage.set('  Ancient Greek  ');
     component.newDefinition.set('  A principle of reason.  ');
     component.newTags.set(['Memory']);
     await component.saveEntry();
@@ -108,6 +115,7 @@ describe('GlossaryComponent', () => {
         bookRow: 8,
         itemRow: 0,
         term: 'Logos',
+        language: 'Ancient Greek',
         definition: 'A principle of reason.',
         source: 'Book One',
         tags: ['#memory'],
@@ -116,6 +124,29 @@ describe('GlossaryComponent', () => {
     );
     expect(component.rows()).toEqual([saved]);
     expect(component.newTerm()).toBe('');
+    expect(component.newLanguage()).toBe('');
+  });
+
+  it('displays the entry language on the glossary card', async () => {
+    await create([entry('g1', { language: 'Ancient Greek' })]);
+
+    expect(fixture.nativeElement.textContent).toContain('Ancient Greek');
+  });
+
+  it('offers shared languages and accepts a new glossary language', async () => {
+    await create([]);
+    fixture.componentRef.setInput('isAddingEntry', true);
+    fixture.detectChanges();
+    const languageInput = fixture.nativeElement.querySelector('#glossary-language') as HTMLInputElement;
+    languageInput.dispatchEvent(new Event('focus'));
+    fixture.detectChanges();
+    const options = [...fixture.nativeElement.querySelectorAll('[role="option"]')] as HTMLButtonElement[];
+    expect(options.map(option => option.textContent?.trim())).toEqual(['English', 'Japanese', 'Japonés', 'Quechua']);
+    options[2].click();
+    expect(component.newLanguage()).toBe('Japonés');
+    languageInput.value = 'Aymara';
+    languageInput.dispatchEvent(new Event('input'));
+    expect(component.newLanguage()).toBe('Aymara');
   });
 
   it('updates the original entry while preserving its item row and contributor', async () => {

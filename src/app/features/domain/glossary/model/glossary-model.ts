@@ -17,6 +17,7 @@ export interface GlossaryRaw {
   bookRow: number;
   itemRow: number;
   term: string;
+  language: string;
   definition: string;
   partOfSpeech?: string;
   etymology?: string;
@@ -32,6 +33,7 @@ export interface GlossaryRaw {
 
 export interface GlossaryRecord extends Domain {
   term: string;
+  language: string;
   definition: string;
   partOfSpeech?: GlossaryPartOfSpeech;
   etymology?: string;
@@ -45,6 +47,7 @@ export interface GlossaryRecord extends Domain {
 export type GlossaryRawValues = [
   string,
   number,
+  string,
   string,
   string,
   string,

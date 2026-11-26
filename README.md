@@ -22,7 +22,7 @@ the server. Editing an existing Markdown file does not require regenerating the 
 Run the documentation tests independently with:
 
 ```bash
-npm test -- --watch=false --ts-config=tsconfig.documentation-spec.json --include=src/app/features/documentation/**/*.spec.ts
+npm test -- --watch=false --ts-config=tsconfig.focused-spec.json --include=src/app/features/documentation/**/*.spec.ts
 ```
 
 ## Master Catalog Cloning
@@ -62,7 +62,7 @@ contributor identity; entries from different accounts sharing a username remain 
 Run the shared-search integration tests with:
 
 ```bash
-npm test -- --watch=false --ts-config=tsconfig.study-search-spec.json --include=src/app/core/services/study-search.service.spec.ts
+npm test -- --watch=false --ts-config=tsconfig.focused-spec.json --include=src/app/core/services/search/study-search.service.spec.ts
 ```
 
 ---

@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.spec.json",
-  "include": [
-    "src/**/*.d.ts",
-    "src/app/features/domain/characters/model/characters-gas.mapper.spec.ts",
-    "src/app/features/domain/characters/services/characters-gas-repository.spec.ts",
-    "src/app/features/domain/characters/services/characters-repository.spec.ts"
-  ]
-}

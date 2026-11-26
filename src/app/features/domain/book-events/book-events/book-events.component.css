@@ -1,7 +1,7 @@
 .book-events-view {
-  max-width: var(--domain-view-width);
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
+  width: 100%;
+  min-width: 0;
+  padding: 1.5rem 0;
 }
 
 .domain-search {

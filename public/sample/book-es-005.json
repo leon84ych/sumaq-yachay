@@ -348,7 +348,8 @@
       "tags": ["#laberinto", "#símbolo"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-02",
@@ -362,7 +363,8 @@
       "tags": ["#infinito", "#biblioteca"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-03",
@@ -376,7 +378,8 @@
       "tags": ["#paradoja", "#filosofía"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-04",
@@ -390,7 +393,8 @@
       "tags": ["#erudición", "#literatura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-05",
@@ -404,7 +408,8 @@
       "tags": ["#bifurcación", "#tiempo"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-06",
@@ -418,7 +423,8 @@
       "tags": ["#metaficción", "#literatura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-07",
@@ -432,7 +438,8 @@
       "tags": ["#simetría", "#patrones"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-08",
@@ -446,7 +453,8 @@
       "tags": ["#conjetura", "#interpretación"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-09",
@@ -460,7 +468,8 @@
       "tags": ["#identidad", "#realidad"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "Spanish"
     },
     {
       "id": "sample-glosary-10",
@@ -474,7 +483,8 @@
       "tags": ["#interpretación", "#lectura"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "Spanish"
     }
   ],
   "PASSAGES": [

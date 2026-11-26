@@ -348,7 +348,8 @@
       "tags": ["#sanatorium", "#illness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-02",
@@ -362,7 +363,8 @@
       "tags": ["#medicine", "#illness"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-03",
@@ -376,7 +378,8 @@
       "tags": ["#humanism", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-04",
@@ -390,7 +393,8 @@
       "tags": ["#mortality", "#death"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-05",
@@ -404,7 +408,8 @@
       "tags": ["#time", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-06",
@@ -418,7 +423,8 @@
       "tags": ["#ideology", "#politics"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-07",
@@ -432,7 +438,8 @@
       "tags": ["#debate", "#philosophy"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-08",
@@ -446,7 +453,8 @@
       "tags": ["#mortality", "#existence"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-09",
@@ -460,7 +468,8 @@
       "tags": ["#health", "#sanatorium"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     },
     {
       "id": "sample-glosary-10",
@@ -474,7 +483,8 @@
       "tags": ["#bildungsroman", "#education"],
       "feed": 1,
       "contributor": "leon84ych",
-      "syncStatus": "pending"
+      "syncStatus": "pending",
+      "language": "English"
     }
   ],
   "PASSAGES": [

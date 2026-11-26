@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, DestroyRef, effect, inject, signal, untracked } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { QuestionAttemptService } from '../services/question-attempt.service';
+import { QuestionAttemptService } from '../../domain/questions/services/question-attempt.service';
 import {
   QuestionPracticeFilters,
   QuestionPracticeItem,
   QuestionPracticeService,
-} from '../services/question-practice.service';
-import { QuestionOption } from '../../../domain/questions/model/questions-model';
-import { StudySearchService } from '../../../../core/services/search/study-search.service';
-import { DomainContributorComponent } from '../../shared/domain-contributor/domain-contributor.component';
+} from '../../domain/questions/services/question-practice.service';
+import { QuestionOption } from '../../domain/questions/model/questions-model';
+import { StudySearchService } from '../../../core/services/search/study-search.service';
+import { DomainContributorComponent } from '../../domain/shared/domain-contributor/domain-contributor.component';
 
 @Component({
   selector: 'app-question-practice',

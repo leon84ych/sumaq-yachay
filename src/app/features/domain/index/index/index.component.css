@@ -1,7 +1,7 @@
 .index-view-container {
-  max-width: var(--domain-view-width);
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
+  width: 100%;
+  min-width: 0;
+  padding: 1.5rem 0;
   background: var(--background);
   color: var(--text);
 }
@@ -54,7 +54,7 @@
 
 @media (max-width: 720px) {
   .index-view-container {
-    padding: 1rem 0.75rem;
+    padding: 1rem 0;
   }
 
   .theme-group {

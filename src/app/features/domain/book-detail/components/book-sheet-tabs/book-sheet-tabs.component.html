@@ -8,3 +8,12 @@
     }
   </div>
 </div>
+@if (domainNames().length > 0) {
+<select class="mobile-sheet-selector" [value]="activeDomainName() ?? ''"
+  [attr.aria-label]="'BOOK_DETAIL.SELECT_VIEW' | transloco"
+  (change)="selectTab.emit($any($event.target).value)">
+  @for (name of domainNames(); track name) {
+  <option [value]="name">{{ 'DOMAINS.DOMAINS.' + name | transloco }}</option>
+  }
+</select>
+}

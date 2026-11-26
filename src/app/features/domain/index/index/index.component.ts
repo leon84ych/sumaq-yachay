@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, input, OnInit, output, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
@@ -20,7 +20,7 @@ import { IndexEntryFormComponent } from '../components/index-entry-form/index-en
 import { IndexRecord } from '../model/index-model';
 import { IndexDataService } from '../services/index.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
-import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
+import { DomainWriteSyncService } from '../../shared/domain-repository/domain-write-sync.service';
 
 
 @Component({
@@ -60,11 +60,16 @@ export class IndexComponent implements OnInit {
   readonly newSubtheme = signal<string>('');
   readonly newTags = signal<string[]>([]);
   readonly editingId = signal<string | null>(null);
+  private readonly editingOriginal = signal<IndexRecord | null>(null);
   readonly submitted = signal(false);
+  readonly isSavingLocal = signal(false);
+  readonly retryableIds = signal<ReadonlySet<string>>(new Set());
+  readonly pendingDeletionIds = signal<ReadonlySet<string>>(new Set());
   readonly searchTerm = inject(StudySearchService).query;
 
   private readonly indexDataService = inject(IndexDataService);
-  private readonly globalLoadingService = inject(GlobalLoadingService);
+  private readonly writeSync = inject(DomainWriteSyncService);
+  private readonly destroyRef = inject(DestroyRef);
   
   private readonly globalMessageService = inject(GlobalMessageService);
 
@@ -97,6 +102,17 @@ export class IndexComponent implements OnInit {
       this.bookAuthor.set(bookRecord?.author ?? '');
       // 2. Retrieve the index records for the specified book, row, and count
       const bookId = this.bookId();
+      const recordsSubscription = this.indexDataService.watchRecords(bookId, (records) => {
+        if (this.bookId() === bookId) this.rows.set(records);
+      });
+      const writesSubscription = this.writeSync.watchIndexWrites(bookId, (writes) => {
+        this.retryableIds.set(new Set(writes.filter(write => write.state !== 'sending').map(write => write.id)));
+        this.pendingDeletionIds.set(new Set(writes.filter(write => write.operation === 'delete' || write.deleteAfterCreate).map(write => write.id)));
+      });
+      this.destroyRef.onDestroy(() => {
+        recordsSubscription.unsubscribe();
+        writesSubscription.unsubscribe();
+      });
       this.rows.set(await this.indexDataService.getRecords(bookId, (records) => {
         if (this.bookId() === bookId) this.rows.set(records);
       }));
@@ -148,8 +164,13 @@ export class IndexComponent implements OnInit {
     }
 
     try {
-      await this.indexDataService.deleteDomainItem(row);
-      this.rows.update((rows) => rows.filter((item) => item.id !== id));
+      const result = await this.writeSync.deleteIndex(row);
+      if (result === 'pending') {
+        this.pendingDeletionIds.update(ids => new Set([...ids, id]));
+      }
+      this.rows.update((rows) => result === 'deleted'
+        ? rows.filter((item) => item.id !== id)
+        : rows.map((item) => item.id === id ? { ...item, syncStatus: 'pending' } : item));
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to delete index entry.';
       this.globalMessageService.showError(message);
@@ -157,8 +178,10 @@ export class IndexComponent implements OnInit {
   }
 
   editEntry(row: IndexRecord): void {
+    if (this.pendingDeletionIds().has(row.id)) return;
     this.submitted.set(false);
     this.editingId.set(row.id);
+    this.editingOriginal.set(row);
     this.newChapter.set(row.chapter);
     this.newTheme.set(row.theme);
     this.newSubtheme.set(row.subtheme);
@@ -168,6 +191,7 @@ export class IndexComponent implements OnInit {
   resetForm(): void {
     this.submitted.set(false);
     this.editingId.set(null);
+    this.editingOriginal.set(null);
     this.newChapter.set('');
     this.newTheme.set('');
     this.newSubtheme.set('');
@@ -176,54 +200,88 @@ export class IndexComponent implements OnInit {
   }
 
   async addIndexEntry(): Promise<void> {
+    if (this.isSavingLocal()) return;
     this.submitted.set(true);
     if (this.isFormInvalid()) {
       return;
     }
 
-    const book = await this.indexDataService.getBookRecord(this.bookId());
-    if (!book?.row) {
-      throw new Error('Book record is missing row.');
-    }
-
-    const indexEntry: IndexRecord = {
-      id: this.editingId() ?? `idx_${Date.now()}`,
-      bookRow: book.row,
-      feed: 0,
-      bookId: this.bookId(),
-      contributor: '',
-      itemRow: 0,
-      chapter: this.newChapter(),
-      theme: this.newTheme(),
-      subtheme: this.newSubtheme(),
-      tags: this.newTags(),
-      syncStatus: 'pending'
-    };
-
-    const operation = this.globalLoadingService.begin();
-    this.closeEntry.emit();
+    const editingId = this.editingId();
+    const chapter = this.newChapter().trim();
+    const theme = this.newTheme().trim();
+    const subtheme = this.newSubtheme().trim();
+    const tags = [...this.newTags()];
+    this.isSavingLocal.set(true);
     try {
-      const savedEntry = this.editingId()
-        ? await this.indexDataService.updateDomainItem(indexEntry)
-        : await this.indexDataService.addDomainItem(indexEntry);
-      const wasEditing = this.editingId() !== null;
+      const book = await this.indexDataService.getBookRecord(this.bookId());
+      if (!book?.row) throw new Error('Book record is missing row.');
+      const resolvedId = editingId ? this.writeSync.resolveIndexId(this.bookId(), editingId) : null;
+      const original = resolvedId
+        ? this.rows().find(row => row.id === resolvedId) ?? this.editingOriginal() ?? undefined
+        : undefined;
+      if (editingId && !original) throw new Error('The Index entry being edited is no longer available.');
+      const indexEntry: IndexRecord = {
+        id: resolvedId ?? `idx_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+        bookRow: book.row,
+        feed: original?.feed ?? 0,
+        bookId: this.bookId(),
+        contributor: original?.contributor ?? '',
+        itemRow: original?.itemRow ?? 0,
+        chapter, theme, subtheme, tags,
+        syncStatus: 'pending',
+      };
+      const savedEntry = await this.indexDataService.saveLocally(indexEntry, !!editingId);
       this.rows.update((rows) => {
-        const existingIndex = rows.findIndex((row) => row.id === indexEntry.id);
+        const existingIndex = rows.findIndex((row) => row.id === indexEntry.id || row.id === savedEntry.id);
         if (existingIndex === -1) {
           return [...rows, savedEntry];
         }
 
-        return rows.map((row, index) => (index === existingIndex ? savedEntry : row));
+        return rows.flatMap((row, index) =>
+          row.id === indexEntry.id || row.id === savedEntry.id
+            ? index === existingIndex ? [savedEntry] : []
+            : [row],
+        );
       });
       this.resetForm();
-      this.globalMessageService.showSuccess(
-        this.transloco.translate(wasEditing ? 'NAV.MESSAGE.UPDATED' : 'NAV.MESSAGE.SAVED'),
-      );
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to add index entry.';
       this.globalMessageService.showError(message);
     } finally {
-      this.globalLoadingService.end(operation);
+      this.isSavingLocal.set(false);
+    }
+  }
+
+  async retryEntry(record: IndexRecord): Promise<void> {
+    try {
+      const write = await this.writeSync.getIndexWrite(record);
+      if (!write) return;
+      const account = this.writeSync.getActiveAccount();
+      if (!account || (write.ownerEmail && write.ownerEmail !== account.toLowerCase())) {
+        await this.writeSync.retryIndex(record);
+        return;
+      }
+      let confirmedAccount = false;
+      if (!write.ownerEmail) {
+        if (!window.confirm(this.transloco.translate('DOMAINS.INDEX.CONFIRM_SYNC_ACCOUNT', { account }))) return;
+        confirmedAccount = true;
+      }
+      let confirmedUncertain = false;
+      if (write?.state === 'uncertain' && write.operation === 'create' &&
+          !window.confirm(this.transloco.translate('DOMAINS.INDEX.CONFIRM_UNCERTAIN_RETRY'))) return;
+      if (write?.state === 'uncertain' && write.operation === 'delete') {
+        if (window.confirm(this.transloco.translate('DOMAINS.INDEX.CONFIRM_DELETE_ALREADY_DONE'))) {
+          if (await this.writeSync.confirmIndexDeletion(record, confirmedAccount)) {
+            this.rows.update(rows => rows.filter(row => row.id !== record.id));
+          }
+          return;
+        }
+        if (!window.confirm(this.transloco.translate('DOMAINS.INDEX.CONFIRM_UNCERTAIN_DELETE_RETRY'))) return;
+      }
+      confirmedUncertain = write?.state === 'uncertain' && (write.operation === 'create' || write.operation === 'delete');
+      await this.writeSync.retryIndex(record, confirmedAccount, confirmedUncertain);
+    } catch (error) {
+      this.globalMessageService.showError(error instanceof Error ? error.message : 'Failed to retry synchronization.');
     }
   }
 }

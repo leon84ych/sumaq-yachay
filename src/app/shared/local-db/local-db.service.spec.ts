@@ -22,6 +22,9 @@ describe('LocalDBService', () => {
     const db = new IndexedDB(databaseName);
     expect(await db.books.get('book-1')).toMatchObject({ name: 'Existing book' });
     expect(await db.quotes.get(['book-1', 'quote-1'])).toMatchObject({ quote: 'Existing' });
+    expect(db.tables.map(table => table.name)).toContain('pendingDomainWrites');
+    await db.languages.put({ key: 'quechua', name: 'Quechua' });
+    expect(await db.languages.get('quechua')).toEqual({ key: 'quechua', name: 'Quechua' });
     await db.questionAttempts.add({ questionId: 'q-1', bookId: 'book-1', bookRow: 1, timestamp: '2026-01-01', userResponse: 'yes', isCorrect: true, type: 'open' });
     expect(await db.questionAttempts.where('bookId').equals('book-1').count()).toBe(1);
     db.close();
@@ -40,5 +43,24 @@ describe('LocalDBService', () => {
     expect(await db.characters.get(['book-001', relation!.sourceCharacterId])).toBeDefined();
     expect(await db.questions.where('bookId').equals('book-001').first()).toMatchObject({ bookId: 'book-001', options: expect.any(Array) });
     db.close();
+  });
+
+  it('does not restore deleted sample records after reopening', async () => {
+    const db = new IndexedDB(databaseName);
+    const first = new LocalDBService();
+    Object.defineProperty(first, 'indexedDB', { value: db });
+    await first.seedLocalSampleData();
+    await db.books.delete('book-001');
+    await db.characters.delete(['book-002', 'book-002-sample-character-01']);
+    db.close();
+
+    const reopened = new IndexedDB(databaseName);
+    const second = new LocalDBService();
+    Object.defineProperty(second, 'indexedDB', { value: reopened });
+    await second.seedLocalSampleData();
+    expect(await reopened.books.get('book-001')).toBeUndefined();
+    expect(await reopened.characters.get(['book-002', 'book-002-sample-character-01'])).toBeUndefined();
+    expect(await reopened.books.get('book-002')).toBeDefined();
+    reopened.close();
   });
 });

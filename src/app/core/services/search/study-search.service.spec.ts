@@ -14,7 +14,7 @@ import { GlossaryComponent } from '../../../features/domain/glossary/glossary/gl
 import { PassagesComponent } from '../../../features/domain/passages/passages/passages.component';
 import { PlacesComponent } from '../../../features/domain/places/places/places.component';
 import { QuestionsComponent } from '../../../features/domain/questions/questions/questions.component';
-import { QuestionPracticeComponent } from '../../../features/domain/questions/practice/question-practice.component';
+import { QuestionPracticeComponent } from '../../../features/quiz/question-practice/question-practice.component';
 import { QuestionAttemptService } from '../../../features/domain/questions/services/question-attempt.service';
 import { QuestionPracticeService } from '../../../features/domain/questions/services/question-practice.service';
 import { QuotesComponent } from '../../../features/domain/quotes/quotes/quotes.component';
@@ -246,7 +246,8 @@ describe('StudySearchService', () => {
     const query = 'book:"Book One" author:"Author One" #memory #identity contributor:"leon84ych@gmail.com"';
     const entries = await feed.loadRandomBatch(new Set(), 20, query);
     const batch = await practice.loadRandomBatch({ query });
-    expect(entries).toHaveLength(2);
+    expect(entries).toHaveLength(1);
+    expect(entries[0].domain).toBe('CONCEPTS');
     expect(entries.every((entry) => entry.bookAuthor === 'Author One')).toBe(true);
     expect(entries.every((entry) => entry.sourceRow['id'] === 'matching')).toBe(true);
     expect(batch.map((entry) => entry.id)).toEqual(['matching']);

@@ -137,6 +137,7 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI {
         bookId: string,
         domain: string,
         rowData: Record<string, unknown>,
+        signal?: AbortSignal,
     ): Promise<string> {
         const webAppUrl = this.getWebAppUrl();
         if (!webAppUrl) {
@@ -151,6 +152,7 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI {
         const response = await fetch(webAppUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            ...(signal ? { signal } : {}),
             body: JSON.stringify({
                 action: 'CREATE_ROW',
                 id: bookId,
@@ -193,6 +195,7 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI {
         domain: string,
         itemId: string,
         rowData: Record<string, unknown>,
+        signal?: AbortSignal,
     ): Promise<void> {
         const webAppUrl = this.getWebAppUrl();
         if (!webAppUrl) {
@@ -214,6 +217,7 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI {
         const response = await fetch(webAppUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            ...(signal ? { signal } : {}),
             body: JSON.stringify({
                 action: 'UPDATE_ROW',
                 id: bookId,
@@ -244,7 +248,7 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI {
         }
     }
 
-    async deleteDomainItem(bookRow: number, bookId: string, domain: string, itemId: string, itemRow: number): Promise<void> {
+    async deleteDomainItem(bookRow: number, bookId: string, domain: string, itemId: string, itemRow: number, signal?: AbortSignal): Promise<void> {
         const webAppUrl = this.getWebAppUrl();
         if (!webAppUrl) {
             throw new Error(this.transloco.translate('BOOK_DETAIL.ERRORS.WEB_APP_URL_NOT_CONFIGURED'));
@@ -258,6 +262,7 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI {
             const response = await fetch(webAppUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                ...(signal ? { signal } : {}),
                 body: JSON.stringify({
                     action: 'DELETE_ROW',
                     idToken,
@@ -280,9 +285,9 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI {
         const data: unknown = await response.json();
         this.captureRole(data);
         const responseRecord = this.asRecord(data);
-        if (responseRecord?.['status'] === 'error') {
+        if (responseRecord?.['status'] !== 'success') {
             throw new Error(
-                typeof responseRecord['message'] === 'string'
+            typeof responseRecord?.['message'] === 'string'
                     ? responseRecord['message']
                     : this.transloco.translate('BOOK_DETAIL.ERRORS.DELETE_ROW_FAILED'),
             );

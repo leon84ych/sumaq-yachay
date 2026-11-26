@@ -9,6 +9,7 @@ import { StudySearchService } from '../../../core/services/search/study-search.s
 import { matchesStudySearch, parseStudySearch } from '../../../shared/utils/study-search';
 import { BookGASRepository } from './book-gas-repository';
 import { LocalDBService } from '../../../shared/local-db/local-db.service';
+import { LanguageService } from '../../../shared/language/language.service';
 import { Status } from '../../domain/shared/model/domain-shared-model';
 import { computed, effect, inject, Injectable, signal } from "@angular/core";
 
@@ -41,6 +42,7 @@ export class BookService {
 
   private bookGASRepository = inject(BookGASRepository);
   private localDBService = inject(LocalDBService);
+  private languageService = inject(LanguageService);
 
   // State Signals
   readonly items = signal<BookRecord[]>([]);
@@ -287,6 +289,38 @@ export class BookService {
     const operation = this.globalLoadingService.begin();
 
     try {
+      if (this.configService.isLocalSampleDataEnabled()) {
+        const database = this.localDBService.indexedDB;
+        const table = database.books;
+        const localItem = await database.transaction('rw', [table, database.metadata], async () => {
+          const localItems = await table.toArray();
+          if ((!isEdit || (originalId && originalId !== item.id)) && localItems.some(book => book.id === item.id)) {
+            throw new Error('BOOK.ERRORS.duplicateBookId');
+          }
+          const existing = localItems.find(book => book.id === (originalId ?? item.id));
+          const metadata = await database.metadata.get('sample-data-seeded');
+          const lastRow = Math.max(metadata?.lastBookRow ?? 0, ...localItems.map(book => book.row));
+          const savedItem: BookRecord = {
+            ...item,
+            row: existing?.row ?? lastRow + 1,
+            syncStatus: 'synced',
+          };
+          if (isEdit && originalId && originalId !== savedItem.id) {
+            await table.delete(originalId);
+          }
+          await table.put(savedItem);
+          if (!existing) {
+            await database.metadata.put({ key: 'sample-data-seeded', lastBookRow: savedItem.row });
+          }
+          return savedItem;
+        });
+        this.items.update(items => [
+          ...items.filter(book => book.id !== localItem.id && book.id !== originalId),
+          localItem,
+        ]);
+        await this.languageService.remember(localItem.language);
+        return;
+      }
       // Delete item in update local 
       if (isEdit && originalId) {
         await this.deleteItem(originalId);
@@ -305,6 +339,7 @@ export class BookService {
       };
       // Update local record with server response
       await this.localDBService.indexedDB.books.put(syncedItem);
+      await this.languageService.remember(syncedItem.language);
 
       // Return a new array: mutating in place would not notify the signal
       this.items.update(items =>
@@ -318,6 +353,10 @@ export class BookService {
   }
 
   async cloneBookRecordFromSheet(sheetUrl: string): Promise<boolean> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      this.errorMessage.set('BOOK.ERRORS.cloneItemUnavailable');
+      return false;
+    }
     if (!this.authService.idToken()) {
       this.errorMessage.set('BOOK.ERRORS.authRequired');
       return false;
@@ -400,6 +439,10 @@ export class BookService {
    * @returns 
    */
   async cloneBookItemFromSheet(sheetUrl: string): Promise<boolean> {
+    if (this.configService.isLocalSampleDataEnabled()) {
+      this.errorMessage.set('BOOK.ERRORS.cloneItemUnavailable');
+      return false;
+    }
     const operation = this.globalLoadingService.begin();
     this.isLoading.set(true);
     this.errorMessage.set(null);

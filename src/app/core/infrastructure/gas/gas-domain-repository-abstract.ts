@@ -46,13 +46,14 @@ export abstract class GASDomainRepositoryAbstract<
         return response.data;
     }
 
-    async addDomainItem(record: TRecord): Promise<TRecord> {
+    async addDomainItem(record: TRecord, signal?: AbortSignal): Promise<TRecord> {
         const rowData = this.mapper.toRaw(record) as Record<string, unknown>;
         const createdRowId = await this.api.addDomainItem(
             record.bookRow,
             record.bookId,
             this.domain,
             rowData,
+            ...(signal ? [signal] : []),
         );
         const rawRecord = {
             ...this.mapper.toRaw(record),
@@ -63,17 +64,17 @@ export abstract class GASDomainRepositoryAbstract<
         return this.mapper.toRecord(rawRecord);
     }
 
-    async updateDomainItem(record: TRecord): Promise<TRecord> {
+    async updateDomainItem(record: TRecord, signal?: AbortSignal): Promise<TRecord> {
         const rowData = this.mapper.toRaw(record) as unknown as Record<string, unknown>;
-        await this.api.updateDomainItem(record.bookRow, record.bookId, this.domain, record.id, rowData);
+        await this.api.updateDomainItem(record.bookRow, record.bookId, this.domain, record.id, rowData, ...(signal ? [signal] : []));
         return this.mapper.toRecord({
             ...this.mapper.toRaw(record),
             syncStatus: 'synced',
         });
     }
 
-    deleteDomainItem(record: TRecord): Promise<void> {
-        return this.api.deleteDomainItem(record.bookRow, record.bookId, this.domain, record.id, record.itemRow);
+    deleteDomainItem(record: TRecord, signal?: AbortSignal): Promise<void> {
+        return this.api.deleteDomainItem(record.bookRow, record.bookId, this.domain, record.id, record.itemRow, ...(signal ? [signal] : []));
     }
 
 }

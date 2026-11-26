@@ -1,5 +1,5 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { afterNextRender, Component, computed, DestroyRef, effect, ElementRef, inject, signal } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslocoPipe } from '@jsverse/transloco';
@@ -29,6 +29,9 @@ import { GlobalMessageService } from '../../../../core/services/global-message.s
 export class BookDetail {
 
   private route = inject(ActivatedRoute);
+  private readonly document = inject(DOCUMENT);
+  private readonly host = inject(ElementRef<HTMLElement>);
+  private readonly destroyRef = inject(DestroyRef);
   readonly bookService = inject(BookService);
   readonly domainDataService = inject(DomainDataService);
   
@@ -62,6 +65,18 @@ export class BookDetail {
   });
 
   constructor() {
+    afterNextRender(() => {
+      const navbar = this.document.querySelector('.app-navbar');
+      if (!navbar) return;
+      const updateOffset = () => {
+        this.host.nativeElement.style.setProperty('--domain-nav-height', `${navbar.getBoundingClientRect().height}px`);
+      };
+      updateOffset();
+      if (typeof ResizeObserver === 'undefined') return;
+      const observer = new ResizeObserver(updateOffset);
+      observer.observe(navbar);
+      this.destroyRef.onDestroy(() => observer.disconnect());
+    });
     // Load the entry's Domain Data Sheets whenever the routed id changes.
     effect(() => {
       const row = this.item()?.row;

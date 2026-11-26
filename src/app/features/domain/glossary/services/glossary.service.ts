@@ -4,12 +4,14 @@ import { BookQueryService } from '../../index/services/book-query.service';
 import { GlossaryRecord } from '../model/glossary-model';
 import { GlossaryQueryService } from './glossary-query.service';
 import { GlossaryRepository } from './glossary-repository';
+import { LanguageService } from '../../../../shared/language/language.service';
 
 @Injectable({ providedIn: 'root' })
 export class GlossaryDataService {
   private readonly glossaryRepository = inject(GlossaryRepository);
   private readonly bookQueryService = inject(BookQueryService);
   private readonly glossaryQueryService = inject(GlossaryQueryService);
+  private readonly languageService = inject(LanguageService);
 
   async getRecords(bookId: string): Promise<GlossaryRecord[]> {
     const entries = await this.glossaryQueryService.getGlossaryByBookId(bookId);
@@ -32,12 +34,16 @@ export class GlossaryDataService {
     return this.glossaryQueryService.getAllowedTags(bookId);
   }
 
-  addDomainItem(record: GlossaryRecord): Promise<GlossaryRecord> {
-    return this.glossaryRepository.addDomainItem(record);
+  async addDomainItem(record: GlossaryRecord): Promise<GlossaryRecord> {
+    const saved = await this.glossaryRepository.addDomainItem(record);
+    await this.languageService.remember(saved.language);
+    return saved;
   }
 
-  updateDomainItem(record: GlossaryRecord): Promise<GlossaryRecord> {
-    return this.glossaryRepository.updateDomainItem(record);
+  async updateDomainItem(record: GlossaryRecord): Promise<GlossaryRecord> {
+    const saved = await this.glossaryRepository.updateDomainItem(record);
+    await this.languageService.remember(saved.language);
+    return saved;
   }
 
   deleteDomainItem(record: GlossaryRecord): Promise<void> {

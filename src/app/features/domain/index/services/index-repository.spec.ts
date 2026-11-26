@@ -53,4 +53,36 @@ describe('IndexRepository remote refresh', () => {
     expect(await database.indexes.get(['book-1', 'local-error'])).toMatchObject({ chapter: 'Retry me', syncStatus: 'error' });
     expect(refreshed.map((record) => record.id).sort()).toEqual(['local-error', 'local-pending', 'remote-1']);
   });
+
+  it('does not erase or overwrite a write that completes during an older remote refresh', async () => {
+    await database.books.add({ id: 'book-1', row: 7, name: 'Book', author: 'Author', isbn: '', language: 'English', subject: '', topic: '', active: true, page: 0, pages: 0, count: 0, updatedAt: '' });
+    const existing = { id: 'edited', bookId: 'book-1', bookRow: 7, itemRow: 2, chapter: 'Before', theme: 'Original', subtheme: '', tags: [], contributor: '', feed: 0, syncStatus: 'synced' as const };
+    await database.indexes.put(existing);
+    let resolveRemote!: (rows: unknown[]) => void;
+    const getDomain = vi.fn().mockReturnValue(new Promise(resolve => { resolveRemote = resolve; }));
+    TestBed.inject(IndexGASRepository).getDomain = getDomain;
+    const refresh = TestBed.inject(IndexRepository).getDomain(7);
+    await vi.waitFor(() => expect(getDomain).toHaveBeenCalledOnce());
+    await database.indexes.put({ ...existing, theme: 'Edited locally' });
+    await database.indexes.put({ ...existing, id: 'new-synced', theme: 'New local write' });
+    resolveRemote([{ ...existing, theme: 'Old server data', tags: '' }]);
+    await refresh;
+    expect(await database.indexes.get(['book-1', 'edited'])).toMatchObject({ theme: 'Edited locally' });
+    expect(await database.indexes.get(['book-1', 'new-synced'])).toMatchObject({ theme: 'New local write' });
+  });
+
+  it('does not restore an item deleted while an older remote refresh is in flight', async () => {
+    await database.books.add({ id: 'book-1', row: 7, name: 'Book', author: 'Author', isbn: '', language: 'English', subject: '', topic: '', active: true, page: 0, pages: 0, count: 0, updatedAt: '' });
+    const existing = { id: 'deleted', bookId: 'book-1', bookRow: 7, itemRow: 2, chapter: 'Chapter', theme: 'Theme', subtheme: '', tags: [], contributor: '', feed: 0, syncStatus: 'synced' as const };
+    await database.indexes.put(existing);
+    let resolveRemote!: (rows: unknown[]) => void;
+    const getDomain = vi.fn().mockReturnValue(new Promise(resolve => { resolveRemote = resolve; }));
+    TestBed.inject(IndexGASRepository).getDomain = getDomain;
+    const refresh = TestBed.inject(IndexRepository).getDomain(7);
+    await vi.waitFor(() => expect(getDomain).toHaveBeenCalledOnce());
+    await database.indexes.delete(['book-1', 'deleted']);
+    resolveRemote([{ ...existing, tags: '' }]);
+    expect(await refresh).toEqual([]);
+    expect(await database.indexes.get(['book-1', 'deleted'])).toBeUndefined();
+  });
 });

@@ -4,17 +4,20 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { BookRecord } from '../../models/book-item.model';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
+import { ConfigService } from '../../../../core/services/config/config.service';
+import { LanguageSelectorComponent } from '../../../../shared/language/language-selector.component';
 
 @Component({
   selector: 'app-book-form-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslocoPipe],
+  imports: [CommonModule, ReactiveFormsModule, TranslocoPipe, LanguageSelectorComponent],
   templateUrl: './book-form-modal.component.html', // Fixed to templateUrl path
   styleUrls: ['./book-form-modal.component.css'], // Fixed to styleUrls array path
 })
 export class BookFormModalComponent {
   private fb = inject(FormBuilder);
   readonly permissionService = inject(PermissionService);
+  readonly configService = inject(ConfigService);
   readonly role = this.permissionService.role;
 
   readonly editItem = input<BookRecord | null>(null);
@@ -130,7 +133,7 @@ export class BookFormModalComponent {
       row: existing ? existing.row : 0,
       page: formValue.page ?? 0,
       pages: formValue.pages ?? 0,
-      count: 0,
+      count: existing?.count ?? 0,
     };
 
     this.save.emit({

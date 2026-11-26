@@ -15,6 +15,9 @@
   </div>
 
   <div class="glossary-entry-card__details">
+    <p class="glossary-entry-card__language">
+      <strong>{{ 'DOMAINS.GLOSSARY.LANGUAGE' | transloco }}:</strong> {{ row().language }}
+    </p>
     <p class="glossary-entry-card__definition">{{ row().definition }}</p>
     @if (row().etymology) {
       <p>

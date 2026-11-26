@@ -23,8 +23,11 @@ export class IndexEntryCardComponent {
   readonly showActions = input(true);
   readonly showContext = input(false);
   readonly showHierarchy = input(true);
+  readonly canRetry = input(false);
+  readonly pendingDeletion = input(false);
   readonly editRequested = output<IndexRecord>();
   readonly deleteRequested = output<string>();
+  readonly retryRequested = output<IndexRecord>();
   readonly role = this.permissionService.role;
   readonly permissions = this.permissionService;
 

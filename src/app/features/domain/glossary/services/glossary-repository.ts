@@ -1,16 +1,21 @@
 import { inject, Injectable } from '@angular/core';
-import { DomainRepositoryInterface } from '../../../../core/infrastructure/domain-repository-intreface';
-import { GASPaginatedResponseRaw } from '../../../../core/infrastructure/gas/gas-model.model';
-import { LocalDBService } from '../../../../shared/local-db/local-db.service';
+import { LocalDomainRepositoryAbstract } from '../../shared/domain-repository/local-domain-repository-abstract';
 import { GlossaryGASMapper } from '../model/glossary-gas.mapper';
 import { GlossaryRaw, GlossaryRecord } from '../model/glossary-model';
 import { GlossaryGASRepository } from './glossary-gas-repository';
 
 @Injectable({ providedIn: 'root' })
-export class GlossaryRepository implements DomainRepositoryInterface<GlossaryRecord> {
+export class GlossaryRepository extends LocalDomainRepositoryAbstract<GlossaryRecord> {
   private readonly mapper = inject(GlossaryGASMapper);
   private readonly gasRepository = inject(GlossaryGASRepository);
-  private readonly localDBService = inject(LocalDBService);
+
+  protected get localTable() {
+    return this.localDBService.indexedDB.glossary;
+  }
+
+  protected get writeGateway() {
+    return this.gasRepository;
+  }
 
   async getDomain(bookRow: number, total: number | null = null): Promise<GlossaryRecord[]> {
     const raws: GlossaryRaw[] = await this.gasRepository.getDomain(bookRow, total);
@@ -32,51 +37,5 @@ export class GlossaryRepository implements DomainRepositoryInterface<GlossaryRec
     return persistable;
   }
 
-  getDomainPaginated(
-    _row: number,
-    _page: number,
-    _pageSize: number | null,
-  ): Promise<GASPaginatedResponseRaw<GlossaryRecord>> {
-    throw new Error('Method not implemented.');
-  }
 
-  async addDomainItem(record: GlossaryRecord): Promise<GlossaryRecord> {
-    const table = this.localDBService.indexedDB.glossary;
-    const pendingRecord: GlossaryRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.addDomainItem(pendingRecord);
-      await this.localDBService.indexedDB.transaction('rw', table, async () => {
-        if (syncedRecord.id !== pendingRecord.id) {
-          await table.delete([pendingRecord.bookId, pendingRecord.id]);
-        }
-        await table.put(syncedRecord);
-      });
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async updateDomainItem(record: GlossaryRecord): Promise<GlossaryRecord> {
-    const table = this.localDBService.indexedDB.glossary;
-    const pendingRecord: GlossaryRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.updateDomainItem(pendingRecord);
-      await table.put(syncedRecord);
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async deleteDomainItem(record: GlossaryRecord): Promise<void> {
-    await this.gasRepository.deleteDomainItem(record);
-    await this.localDBService.indexedDB.glossary.delete([record.bookId, record.id]);
-  }
 }

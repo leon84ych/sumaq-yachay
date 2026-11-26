@@ -28,6 +28,15 @@
       }
     </div>
     <div class="form-group">
+      <label for="glossary-language">{{ 'DOMAINS.GLOSSARY.LANGUAGE' | transloco }}</label>
+      <app-language-selector inputId="glossary-language" [value]="form().newLanguage()"
+        [required]="true" [invalid]="form().submitted() && !form().newLanguage().trim()"
+        (valueChange)="form().newLanguage.set($event)" />
+      @if (form().submitted() && !form().newLanguage().trim()) {
+        <span class="field-error" role="alert">{{ 'DOMAINS.GLOSSARY.LANGUAGE_REQUIRED' | transloco }}</span>
+      }
+    </div>
+    <div class="form-group">
       <label for="glossary-definition">
         {{ 'DOMAINS.GLOSSARY.DEFINITION' | transloco }}
         <span class="required" aria-hidden="true">*</span>

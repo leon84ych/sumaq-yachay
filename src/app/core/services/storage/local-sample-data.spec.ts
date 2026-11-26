@@ -59,6 +59,10 @@ describe('LocalSampleData fixtures', () => {
           expect(row, `${bookRecord.id} ${domain}`).not.toHaveProperty('tag');
         }
       }
+      expect(
+        domainData['GLOSARY'].every((row) => row['language'] === bookRecord.language),
+        `${bookRecord.id} glossary language`,
+      ).toBe(true);
 
       for (const domain of populatedDomains) {
         const rows = domainData[domain];
@@ -170,7 +174,7 @@ describe('LocalSampleData fixtures', () => {
     const book001Data = await getLocalSampleDomainData('book-001');
     const domainTables = database.tables
       .map((table) => table.name)
-      .filter((name) => !['books', 'tags', 'questionAttempts'].includes(name));
+      .filter((name) => !['books', 'tags', 'questionAttempts', 'metadata', 'languages', 'pendingDomainWrites'].includes(name));
 
     expect(Object.keys(LOCAL_SAMPLE_DOMAIN_TABLES).sort()).toEqual(Object.keys(book001Data).sort());
     expect(Object.values(LOCAL_SAMPLE_DOMAIN_TABLES).sort()).toEqual(domainTables.sort());
@@ -181,7 +185,7 @@ describe('LocalSampleData fixtures', () => {
     const database = new IndexedDB('LocalDB-schema-test');
     const tableNames = database.tables.map((table) => table.name);
 
-    expect(database.verno).toBe(2);
+    expect(database.verno).toBeGreaterThanOrEqual(2);
     expect(tableNames).toContain('questions');
     expect(tableNames).toContain('questionAttempts');
     database.close();

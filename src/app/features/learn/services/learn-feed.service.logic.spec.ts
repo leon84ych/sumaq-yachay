@@ -1,8 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { DomainName } from '../../domain/book-detail/models/domain-sheet-config';
-import { LearnFeedEntry, selectLearnFeedBatch } from './learn-feed.service';
+import { LearnFeedDomain, LearnFeedEntry, selectLearnFeedBatch } from './learn-feed.service';
 
-function createEntry(id: string, domain: DomainName): LearnFeedEntry {
+function createEntry(id: string, domain: LearnFeedDomain): LearnFeedEntry {
   return {
     id,
     domain,

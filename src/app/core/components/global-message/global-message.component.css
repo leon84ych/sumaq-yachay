@@ -1,0 +1,56 @@
+.global-message-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.global-message-banner--error {
+  background: #8b1e1e;
+}
+
+.global-message-banner--success {
+  background: #176b3a;
+}
+
+.global-message-banner--info {
+  background: #245c83;
+}
+
+.global-message-content {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.global-message-icon {
+  flex: 0 0 auto;
+  width: 19px;
+  height: 19px;
+}
+
+.global-message-text {
+  overflow-wrap: anywhere;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.global-message-close {
+  flex: 0 0 auto;
+  padding: 0.2rem 0.35rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: #ffffff;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.global-message-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+}

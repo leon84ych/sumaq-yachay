@@ -109,4 +109,12 @@ describe('SettingsPanelComponent', () => {
     expect(TestBed.inject(ConfigService).isLocalSampleDataEnabled()).toBe(true);
     expect(TestBed.inject(PermissionService).role()).toBe('admin');
   });
+
+  it('restores the admin role when LocalSampleData is already enabled', () => {
+    TestBed.inject(ConfigService).setLocalSampleDataEnabled(true);
+
+    TestBed.createComponent(SettingsPanelComponent);
+
+    expect(TestBed.inject(PermissionService).role()).toBe('admin');
+  });
 });

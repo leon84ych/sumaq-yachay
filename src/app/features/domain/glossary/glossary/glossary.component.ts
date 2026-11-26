@@ -49,6 +49,7 @@ export class GlossaryComponent implements OnInit {
 
   readonly partsOfSpeech = GLOSSARY_PARTS_OF_SPEECH;
   readonly newTerm = signal('');
+  readonly newLanguage = signal('');
   readonly newDefinition = signal('');
   readonly newPartOfSpeech = signal<GlossaryPartOfSpeech | ''>('');
   readonly newEtymology = signal('');
@@ -84,6 +85,7 @@ export class GlossaryComponent implements OnInit {
   readonly isFormInvalid = computed(
     () =>
       !this.newTerm().trim() ||
+      !this.newLanguage().trim() ||
       !this.newDefinition().trim() ||
       this.invalidTagsDetected().length > 0,
   );
@@ -105,6 +107,7 @@ export class GlossaryComponent implements OnInit {
             'glosary',
             'glosario',
             row.term,
+            row.language ?? '',
             row.definition,
             row.partOfSpeech ?? '',
             row.etymology ?? '',
@@ -135,6 +138,7 @@ export class GlossaryComponent implements OnInit {
       this.bookName.set(book?.name ?? '');
       this.bookAuthor.set(book?.author ?? '');
       this.bookRow.set(book?.row ?? null);
+      this.newLanguage.set(book?.language ?? '');
       await this.refreshAllowedTags();
       this.rows.set(await this.glossaryDataService.getRecords(this.bookId()));
     } catch (error) {
@@ -173,6 +177,7 @@ export class GlossaryComponent implements OnInit {
     this.submitted.set(false);
     this.editingId.set(record.id);
     this.newTerm.set(record.term);
+    this.newLanguage.set(record.language || this.newLanguage());
     this.newDefinition.set(record.definition);
     this.newPartOfSpeech.set(record.partOfSpeech ?? '');
     this.newEtymology.set(record.etymology ?? '');
@@ -188,6 +193,7 @@ export class GlossaryComponent implements OnInit {
     this.submitted.set(false);
     this.editingId.set(null);
     this.newTerm.set('');
+    this.newLanguage.set('');
     this.newDefinition.set('');
     this.newPartOfSpeech.set('');
     this.newEtymology.set('');
@@ -227,6 +233,7 @@ export class GlossaryComponent implements OnInit {
       bookRow,
       itemRow: original?.itemRow ?? 0,
       term: this.newTerm().trim(),
+      language: this.newLanguage().trim(),
       definition: this.newDefinition().trim().slice(0, this.definitionMaxLength),
       partOfSpeech: this.newPartOfSpeech() || undefined,
       etymology: this.newEtymology().trim() || undefined,

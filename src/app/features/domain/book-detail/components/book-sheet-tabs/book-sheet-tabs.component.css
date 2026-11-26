@@ -73,8 +73,27 @@
   color: #ef4444;
 }
 
+.mobile-sheet-selector {
+  display: none;
+}
+
 @media (max-width: 640px) {
   .sheet-tabs-container {
     display: none;
+  }
+
+  .mobile-sheet-selector {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    height: 2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 0.65rem;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.85rem;
   }
 }

@@ -5,8 +5,14 @@
     [bookAuthor]="bookAuthor()"
     [status]="row().syncStatus"
     [showContext]="showContext()"
+    [retryable]="canRetry() && showActions() && permissions.validatePermission(role(), pendingDeletion() ? 'DELETE_ROW' : 'CREATE_ROW')"
+    [retryLabelKey]="pendingDeletion() ? 'DOMAINS.INDEX.RETRY_DELETE' : 'COMMON.RETRY_SYNC'"
+    (retryRequested)="retryRequested.emit(row())"
   />
 
+  @if (pendingDeletion()) {
+    <p class="index-entry__pending-delete" role="status">{{ 'DOMAINS.INDEX.DELETE_PENDING' | transloco }}</p>
+  }
   <div class="index-entry__body">
     <div class="entry-heading">
       <strong>{{ row().subtheme || row().theme }}</strong>
@@ -30,7 +36,7 @@
   <footer class="domain-card-footer">
     <app-domain-contributor [contributor]="row().contributor" />
     <div class="domain-card-footer__actions">
-      @if (showActions()) {
+      @if (showActions() && !pendingDeletion()) {
         @if (permissions.validatePermission(role(), 'CREATE_ROW')) {
           <button
             type="button"

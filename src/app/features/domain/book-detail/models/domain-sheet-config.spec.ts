@@ -118,6 +118,7 @@ describe('domain sheet configuration', () => {
     expect(DOMAIN_DEFINITIONS.GLOSARY.headers).toEqual([
       'id',
       'term',
+      'language',
       'definition',
       'partOfSpeech',
       'etymology',

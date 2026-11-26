@@ -1,16 +1,21 @@
 import { inject, Injectable } from '@angular/core';
-import { DomainRepositoryInterface } from '../../../../core/infrastructure/domain-repository-intreface';
-import { GASPaginatedResponseRaw } from '../../../../core/infrastructure/gas/gas-model.model';
-import { LocalDBService } from '../../../../shared/local-db/local-db.service';
+import { LocalDomainRepositoryAbstract } from '../../shared/domain-repository/local-domain-repository-abstract';
 import { BookEventGASMapper } from '../model/book-events-gas.mapper';
 import { BookEventRaw, BookEventRecord } from '../model/book-events-model';
 import { BookEventGASRepository } from './book-events-gas-repository';
 
 @Injectable({ providedIn: 'root' })
-export class BookEventRepository implements DomainRepositoryInterface<BookEventRecord> {
+export class BookEventRepository extends LocalDomainRepositoryAbstract<BookEventRecord> {
   private readonly mapper = inject(BookEventGASMapper);
   private readonly gasRepository = inject(BookEventGASRepository);
-  private readonly localDBService = inject(LocalDBService);
+
+  protected get localTable() {
+    return this.localDBService.indexedDB.bookEvents;
+  }
+
+  protected get writeGateway() {
+    return this.gasRepository;
+  }
 
   async getDomain(bookRow: number, total: number | null = null): Promise<BookEventRecord[]> {
     const raws: BookEventRaw[] = await this.gasRepository.getDomain(bookRow, total);
@@ -36,51 +41,5 @@ export class BookEventRepository implements DomainRepositoryInterface<BookEventR
     return persistable;
   }
 
-  getDomainPaginated(
-    _row: number,
-    _page: number,
-    _pageSize: number | null,
-  ): Promise<GASPaginatedResponseRaw<BookEventRecord>> {
-    throw new Error('Method not implemented.');
-  }
 
-  async addDomainItem(record: BookEventRecord): Promise<BookEventRecord> {
-    const table = this.localDBService.indexedDB.bookEvents;
-    const pendingRecord: BookEventRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.addDomainItem(pendingRecord);
-      await this.localDBService.indexedDB.transaction('rw', table, async () => {
-        if (syncedRecord.id !== pendingRecord.id) {
-          await table.delete([pendingRecord.bookId, pendingRecord.id]);
-        }
-        await table.put(syncedRecord);
-      });
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async updateDomainItem(record: BookEventRecord): Promise<BookEventRecord> {
-    const table = this.localDBService.indexedDB.bookEvents;
-    const pendingRecord: BookEventRecord = { ...record, syncStatus: 'pending' };
-    await table.put(pendingRecord);
-
-    try {
-      const syncedRecord = await this.gasRepository.updateDomainItem(pendingRecord);
-      await table.put(syncedRecord);
-      return syncedRecord;
-    } catch (error) {
-      await table.put({ ...pendingRecord, syncStatus: 'error' });
-      throw error;
-    }
-  }
-
-  async deleteDomainItem(record: BookEventRecord): Promise<void> {
-    await this.gasRepository.deleteDomainItem(record);
-    await this.localDBService.indexedDB.bookEvents.delete([record.bookId, record.id]);
-  }
 }

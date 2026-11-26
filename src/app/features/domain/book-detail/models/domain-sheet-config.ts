@@ -133,6 +133,7 @@ export const DOMAIN_DEFINITIONS: Record<DomainName, DomainDefinition> = {
     headers: [
       'id',
       'term',
+      'language',
       'definition',
       'partOfSpeech',
       'etymology',
