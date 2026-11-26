@@ -25,7 +25,10 @@
     "END_OF_FEED": "Has llegado al final de este recorrido.",
     "ERROR": "No se pudieron cargar las entradas. Inténtalo de nuevo.",
     "EXPORT_IMAGE": "Descargar imagen de la entrada",
-    "EXPORT_ERROR": "No se pudo exportar esta entrada de aprendizaje."
+    "EXPORT_ERROR": "No se pudo exportar esta entrada de aprendizaje.",
+    "MARK_FORGOTTEN": "Repasar luego",
+    "MARK_RECALLED": "¡Lo sabía!",
+    "REVIEW_ERROR": "No se pudo actualizar esta entrada de aprendizaje."
   },
   "NAV": {
     "BRAND_NAME": "Sumaq Yachay",
