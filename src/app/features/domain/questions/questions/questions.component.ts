@@ -34,7 +34,7 @@ import {
 import { QuestionDataService } from '../services/questions.service';
 
 @Component({
-  selector: 'app-domain-questions-1',
+  selector: 'app-domain-questions',
   imports: [FormsModule, TranslocoPipe, QuestionEntryFormComponent, QuestionEntryCardComponent],
   templateUrl: './questions.component.html',
   styleUrl: './questions.component.css',

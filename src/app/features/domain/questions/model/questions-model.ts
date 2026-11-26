@@ -1,4 +1,4 @@
-import { Domain } from '../../shared/model/domain-shared-model';
+import { Learnable } from '../../shared/model/domain-shared-model';
 
 export const QUESTION_TYPES = ['flashcard', 'multiple-choice', 'true-false', 'open'] as const;
 export const QUESTION_DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
@@ -34,7 +34,7 @@ export interface QuestionRaw {
   syncStatus: string;
 }
 
-export interface QuestionRecord extends Domain {
+export interface QuestionRecord extends Learnable {
   question: string;
   answer: string;
   type: QuestionType;

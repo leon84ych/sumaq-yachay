@@ -137,7 +137,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 0.75rem;
   width: 100%;
   margin-top: auto;
@@ -145,7 +145,16 @@
   padding-top: 0.65rem;
 }
 
-.domain-card-footer__actions {
+.domain-card-actions {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.domain-card-actions__specific {
   display: flex;
   min-width: 0;
   flex-wrap: wrap;
@@ -153,16 +162,6 @@
   justify-content: flex-end;
   gap: 0.5rem;
   margin-inline-start: auto;
-}
-
-.domain-card-footer__management {
-  display: flex;
-  min-width: 0;
-  max-width: 100%;
-  flex: 0 1 auto;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .domain-edit-button,

@@ -7,7 +7,7 @@ import { DomainEntryFormOverlayComponent } from '../../../shared/domain-entry-fo
 import type { PlacesComponent } from '../../places/places.component';
 
 @Component({
-  selector: 'app-place-entry-form-1',
+  selector: 'app-place-entry-form',
   imports: [
     FormsModule,
     TranslocoPipe,

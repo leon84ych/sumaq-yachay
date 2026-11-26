@@ -40,4 +40,25 @@ describe('selectLearnFeedBatch', () => {
 
     expect(batch.map((entry) => entry.id)).toEqual(['quote-1']);
   });
+
+  it('prioritizes unseen and due entries before entries with remaining interval', () => {
+    const now = new Date('2026-11-26T12:00:00.000Z');
+    const due = createEntry('due', 'CONCEPTS');
+    due.sourceRow = {
+      lastSeen: new Date('2026-11-24T12:00:00.000Z'),
+      interval: 2,
+    };
+    const notDue = createEntry('not-due', 'QUOTES');
+    notDue.sourceRow = {
+      lastSeen: new Date('2026-11-26T00:00:00.000Z'),
+      interval: 2,
+    };
+    const unseen = createEntry('unseen', 'PLACES');
+
+    expect(selectLearnFeedBatch([notDue, due, unseen], 3, now).map((entry) => entry.id)).toEqual([
+      'due',
+      'unseen',
+      'not-due',
+    ]);
+  });
 });

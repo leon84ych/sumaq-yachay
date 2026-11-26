@@ -7,7 +7,7 @@ import { LanguageSelectorComponent } from '../../../../../shared/language/langua
 import type { GlossaryComponent } from '../../glossary/glossary.component';
 
 @Component({
-  selector: 'app-glossary-entry-form-1',
+  selector: 'app-glossary-entry-form',
   imports: [FormsModule, TranslocoPipe, TagPickerComponent, DomainEntryFormOverlayComponent, LanguageSelectorComponent],
   templateUrl: './glossary-entry-form.component.html',
 })

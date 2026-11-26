@@ -12,6 +12,10 @@ const storageKey = (bookId: string, id: string): string => `${bookId}|${id}`;
 class FakeCharactersTable {
   readonly rows = new Map<string, CharacterRecord>();
 
+  async bulkGet(keys: [string, string][]): Promise<(CharacterRecord | undefined)[]> {
+    return keys.map(([bookId, id]) => this.rows.get(storageKey(bookId, id)));
+  }
+
   async put(record: CharacterRecord): Promise<void> {
     this.rows.set(storageKey(record.bookId, record.id), { ...record });
   }

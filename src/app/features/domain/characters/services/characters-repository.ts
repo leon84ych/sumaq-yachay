@@ -31,6 +31,7 @@ export class CharacterRepository extends LocalDomainRepositoryAbstract<Character
     const persistable = records.filter((record) => record.bookId);
 
     await database.transaction('rw', database.characters, async () => {
+      await this.preserveLocalFeedState(persistable);
       await database.characters.bulkPut(persistable);
     });
 

@@ -206,39 +206,6 @@
     var(--shadow-sm);
 }
 
-.download-image-btn {
-  display: inline-flex;
-  width: 2.25rem;
-  height: 2.25rem;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--surface);
-  color: var(--text-muted);
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-.download-image-btn:hover:not(:disabled) {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-.download-image-btn:disabled {
-  cursor: progress;
-  opacity: 0.6;
-}
-
-.download-image-btn svg {
-  width: 1.15rem;
-  height: 1.15rem;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.8;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .quote-card-inner {
     transition-duration: 0.01ms;

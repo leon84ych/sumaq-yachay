@@ -12,6 +12,10 @@ const storageKey = (bookId: string, id: string): string => `${bookId}|${id}`;
 class FakePlacesTable {
   readonly rows = new Map<string, PlaceRecord>();
 
+  async bulkGet(keys: [string, string][]): Promise<(PlaceRecord | undefined)[]> {
+    return keys.map(([bookId, id]) => this.rows.get(storageKey(bookId, id)));
+  }
+
   async put(record: PlaceRecord): Promise<void> {
     this.rows.set(storageKey(record.bookId, record.id), { ...record });
   }

@@ -23,6 +23,35 @@ export abstract class LocalDomainRepositoryAbstract<TRecord extends Domain>
 
   abstract getDomain(bookRow: number, total: number | null): Promise<TRecord[]>;
 
+  protected async preserveLocalFeedState(
+    records: (TRecord & {
+      lastSeen?: Date;
+      lastReview?: Date;
+      interval?: number;
+      forgotten?: number;
+      recalled?: number;
+    })[],
+  ): Promise<void> {
+    const existingRecords = await this.localTable.bulkGet(
+      records.map((record) => [record.bookId, record.id]),
+    );
+    records.forEach((record, index) => {
+      const localRecord = existingRecords[index];
+      for (const dateField of ['lastSeen', 'lastReview'] as const) {
+        const value = localRecord?.[dateField];
+        if (value instanceof Date) {
+          record[dateField] = value;
+        }
+      }
+      for (const numericField of ['interval', 'forgotten', 'recalled'] as const) {
+        const value = localRecord?.[numericField];
+        if (typeof value === 'number' && Number.isFinite(value)) {
+          record[numericField] = value;
+        }
+      }
+    });
+  }
+
   getDomainPaginated(
     _row: number,
     _page: number,

@@ -31,6 +31,7 @@ export class PlaceRepository extends LocalDomainRepositoryAbstract<PlaceRecord> 
     const persistable = records.filter((record) => record.bookId);
 
     await database.transaction('rw', database.places, async () => {
+      await this.preserveLocalFeedState(persistable);
       await database.places.bulkPut(persistable);
     });
 

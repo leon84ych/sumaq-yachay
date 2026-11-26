@@ -13,6 +13,10 @@ const storageKey = (bookId: string, id: string): string => `${bookId}|${id}`;
 class FakeGlossaryTable {
   readonly rows = new Map<string, GlossaryRecord>();
 
+  async bulkGet(keys: [string, string][]): Promise<(GlossaryRecord | undefined)[]> {
+    return keys.map(([bookId, id]) => this.rows.get(storageKey(bookId, id)));
+  }
+
   async put(record: GlossaryRecord): Promise<void> {
     this.rows.set(storageKey(record.bookId, record.id), { ...record });
   }

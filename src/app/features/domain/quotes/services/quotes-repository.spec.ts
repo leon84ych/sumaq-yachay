@@ -12,6 +12,10 @@ const storageKey = (bookId: string, id: string): string => `${bookId}|${id}`;
 class FakeQuotesTable {
   readonly rows = new Map<string, QuoteRecord>();
 
+  async bulkGet(keys: [string, string][]): Promise<(QuoteRecord | undefined)[]> {
+    return keys.map(([bookId, id]) => this.rows.get(storageKey(bookId, id)));
+  }
+
   async put(record: QuoteRecord): Promise<void> {
     this.rows.set(storageKey(record.bookId, record.id), { ...record });
   }

@@ -5,7 +5,7 @@
  * Use Raw sufix as it is returned without processing from GAS
  */
 
-import { BookRaw } from "../../../features/book/models/book-item.model";
+import { BookRaw } from "../../../features/catalog/book/models/book-item.model";
 
 
 /**

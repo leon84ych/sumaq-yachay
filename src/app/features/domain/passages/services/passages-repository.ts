@@ -34,6 +34,7 @@ export class PassageRepository extends LocalDomainRepositoryAbstract<PassageReco
     const persistable = records.filter((record) => record.bookId);
 
     await database.transaction('rw', database.passages, async () => {
+      await this.preserveLocalFeedState(persistable);
       await database.passages.bulkPut(persistable);
     });
 

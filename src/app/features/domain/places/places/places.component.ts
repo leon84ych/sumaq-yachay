@@ -35,7 +35,7 @@ import {
 import { PlaceDataService } from '../services/places.service';
 
 @Component({
-  selector: 'app-domain-places-1',
+  selector: 'app-domain-places',
   imports: [
     FormsModule,
     TranslocoPipe,

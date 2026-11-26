@@ -4,15 +4,19 @@ import { TranslocoTestingModule } from '@jsverse/transloco';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { AssociationEntryCardComponent } from '../../associations/components/association-entry-card/association-entry-card.component';
-import { BookEventEntryCardComponent } from '../../book-events/components/book-event-entry-card/book-event-entry-card.component';
+import { BookEventEntryCardComponent } from '../../events/components/book-event-entry-card/book-event-entry-card.component';
 import { CharacterEntryCardComponent } from '../../characters/components/character-entry-card/character-entry-card.component';
 import { ConceptEntryCardComponent } from '../../concepts/components/concept-entry-card/concept-entry-card.component';
 import { GlossaryEntryCardComponent } from '../../glossary/components/glossary-entry-card/glossary-entry-card.component';
 import { IndexEntryCardComponent } from '../../index/components/index-entry-card/index-entry-card.component';
 import { PassageEntryCardComponent } from '../../passages/components/passage-entry-card/passage-entry-card.component';
 import { PlaceEntryCardComponent } from '../../places/components/place-entry-card/place-entry-card.component';
+import { QuestionEntryCardComponent } from '../../questions/components/question-entry-card/question-entry-card.component';
 import { QuoteEntryCardComponent } from '../../quotes/components/quote-entry-card/quote-entry-card.component';
 import { RelationEntryCardComponent } from '../../relations/components/relation-entry-card/relation-entry-card.component';
+import { DomainEntryFooterComponent } from '../domain-entry-footer/domain-entry-footer.component';
+import { DomainEntryExportService } from '../domain-entry-footer/domain-entry-export.service';
+import { DomainEntryReviewService } from '../domain-entry-footer/domain-entry-review.service';
 import { DomainContributorComponent } from './domain-contributor.component';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 
@@ -86,10 +90,12 @@ describe('Contributor card footers', () => {
     { component: IndexEntryCardComponent },
     { component: PassageEntryCardComponent },
     { component: PlaceEntryCardComponent },
+    { component: QuestionEntryCardComponent },
     { component: QuoteEntryCardComponent },
   ];
 
   beforeEach(() => {
+    vi.restoreAllMocks();
     TestBed.configureTestingModule({
       imports: [
         TranslocoTestingModule.forRoot({
@@ -171,22 +177,120 @@ describe('Contributor card footers', () => {
       expect(footer.querySelector('app-domain-contributor')?.textContent?.trim()).toBe('leon84ych');
       expect(footer.querySelector('.domain-edit-button, .domain-delete-button')).toBeNull();
       expect(footer.textContent).not.toContain('@gmail.com');
+      expect(footer.querySelector('.domain-card-footer__export') !== null).toBe(
+        component !== IndexEntryCardComponent,
+      );
       const contributor: HTMLButtonElement = footer.querySelector('app-domain-contributor button')!;
       contributor.click();
       expect(TestBed.inject(StudySearchService).query()).toBe('contributor:"leon84ych@gmail.com"');
     });
   }
 
-  for (const component of [QuoteEntryCardComponent, PassageEntryCardComponent]) {
-    it(`places attribution before existing left actions in ${component.name}`, () => {
-      const fixture = createCard(component, { showActions: true });
-      const management: HTMLElement = fixture.nativeElement.querySelector(
-        '.domain-card-footer__management',
+  for (const { component, inputs } of cards) {
+    it(`orders footer actions before attribution in ${component.name}`, () => {
+      const fixture = createCard(component, { ...inputs, showActions: true });
+      const footer: HTMLElement = fixture.nativeElement.querySelector('.domain-card-footer');
+      const deleteButton = footer.querySelector('.domain-delete-button');
+      const editButton = footer.querySelector('.domain-edit-button');
+      expect(footer.children[0]).toBe(deleteButton);
+      expect(footer.children[1]).toBe(editButton);
+      expect(footer.children[2]?.tagName).toBe('APP-DOMAIN-CONTRIBUTOR');
+      expect(footer.querySelector('.domain-card-footer__export') !== null).toBe(
+        component !== IndexEntryCardComponent,
       );
-      expect(management.firstElementChild?.tagName).toBe('APP-DOMAIN-CONTRIBUTOR');
-      expect(
-        management.querySelectorAll('.domain-edit-button, .domain-delete-button'),
-      ).toHaveLength(2);
     });
   }
+
+  it('exports the supplied domain entry image from the shared footer', async () => {
+    const exportService = TestBed.inject(DomainEntryExportService);
+    const download = vi.spyOn(exportService, 'download').mockResolvedValue();
+    const fixture = TestBed.createComponent(DomainEntryFooterComponent);
+    fixture.componentRef.setInput('exportData', {
+      id: 'entry-1',
+      domain: 'CONCEPTS',
+      bookName: 'Book',
+      bookAuthor: 'Author',
+      title: 'Term',
+      body: 'Definition',
+      tags: ['#memory'],
+    });
+    fixture.detectChanges();
+
+    const button: HTMLButtonElement = fixture.nativeElement.querySelector(
+      '.domain-card-footer__export',
+    );
+    button.click();
+
+    expect(download).toHaveBeenCalledWith(expect.any(HTMLElement), 'learn-concepts-entry-1.jpg', {
+      backgroundColor: '#1a1a1a',
+    });
+    await fixture.whenStable();
+    expect(TestBed.inject(DomainEntryExportService).isExporting()).toBe(false);
+  });
+
+  it('locks both review actions after selection and preserves the clicked color', async () => {
+    const reviewService = TestBed.inject(DomainEntryReviewService);
+    const incrementReviewCount = vi
+      .spyOn(reviewService, 'incrementReviewCount')
+      .mockImplementation(async (entry, outcome) => {
+        const nextCount = Number(entry.record[outcome] ?? 0) + 1;
+        entry.record[outcome] = nextCount;
+        return nextCount;
+      });
+    const fixture = TestBed.createComponent(DomainEntryFooterComponent);
+    fixture.componentRef.setInput('reviewData', {
+      domain: 'CONCEPTS',
+      record: { id: 'entry-1', bookId: 'book-1' },
+    });
+    fixture.componentRef.setInput('exportData', {
+      id: 'entry-1',
+      domain: 'CONCEPTS',
+      bookName: 'Book',
+      bookAuthor: 'Author',
+      title: 'Term',
+      body: 'Definition',
+      tags: [],
+    });
+    fixture.detectChanges();
+
+    const footer: HTMLElement = fixture.nativeElement.querySelector('.domain-card-footer');
+    const buttons: HTMLButtonElement[] = Array.from(footer.querySelectorAll('button'));
+    expect(buttons.map((button) => button.getAttribute('aria-label'))).toEqual([
+      'LEARN.MARK_FORGOTTEN',
+      'LEARN.MARK_RECALLED',
+      'LEARN.EXPORT_IMAGE',
+    ]);
+    expect(buttons[0].getAttribute('aria-pressed')).toBe('false');
+
+    buttons[0].click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(buttons[0].getAttribute('aria-pressed')).toBe('true');
+    expect(buttons[1].getAttribute('aria-pressed')).toBe('false');
+    expect(buttons[0].classList.contains('domain-card-footer__review--selected')).toBe(true);
+    expect(buttons[1].classList.contains('domain-card-footer__review--selected')).toBe(false);
+    expect(buttons[0].disabled).toBe(true);
+    expect(buttons[1].disabled).toBe(true);
+
+    buttons[1].click();
+    await fixture.whenStable();
+    expect(incrementReviewCount).toHaveBeenCalledTimes(1);
+
+    expect(incrementReviewCount).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({ domain: 'CONCEPTS' }),
+      'forgotten',
+    );
+  });
+
+  it('places the Read Passage action in the passage tag row', () => {
+    const fixture = createCard(PassageEntryCardComponent, {
+      showActions: false,
+      showReadAction: true,
+    });
+    const row: HTMLElement = fixture.nativeElement.querySelector('.passage-card__tag-actions');
+
+    expect(row.querySelector('.passage-tags')).not.toBeNull();
+    expect(row.querySelector('.read-passage-button')).not.toBeNull();
+  });
 });

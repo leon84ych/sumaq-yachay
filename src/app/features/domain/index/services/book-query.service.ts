@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { LocalDBService } from "../../../../shared/local-db/local-db.service";
-import { BookRecord } from "../../../book/models/book-item.model";
+import { BookRecord } from "../../../catalog/book/models/book-item.model";
 
 
 

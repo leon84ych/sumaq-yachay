@@ -12,6 +12,10 @@ const storageKey = (bookId: string, id: string): string => `${bookId}|${id}`;
 class FakeAssociationsTable {
   readonly rows = new Map<string, AssociationRecord>();
 
+  async bulkGet(keys: [string, string][]): Promise<(AssociationRecord | undefined)[]> {
+    return keys.map(([bookId, id]) => this.rows.get(storageKey(bookId, id)));
+  }
+
   async put(record: AssociationRecord): Promise<void> {
     this.rows.set(storageKey(record.bookId, record.id), { ...record });
   }

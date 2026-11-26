@@ -3,7 +3,7 @@ import { QuestionGeneratorComponent } from '../../../questions/components/questi
 import { ConceptRecord } from '../../model/concepts-model';
 
 @Component({
-  selector: 'app-concept-quiz-generator-1',
+  selector: 'app-concept-quiz-generator',
   imports: [QuestionGeneratorComponent],
   template: `
     <app-question-generator

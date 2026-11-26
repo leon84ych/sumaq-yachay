@@ -1,6 +1,6 @@
 <div class="quote-gallery-view">
   @if (isAddingEntry() || editingId() !== null) {
-    <app-quote-entry-form-1 [form]="this" />
+    <app-quote-entry-form [form]="this" />
   }
   @if (rows().length === 0) {
     <p class="empty-state" role="status">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
@@ -23,66 +23,15 @@
     } @else {
       <div class="quote-grid">
         @for (row of filteredRows(); track row.id) {
-          <app-quote-entry-card-1
+          <app-quote-entry-card
             [row]="row"
             [bookName]="bookName()"
             [bookAuthor]="bookAuthor()"
-            [isExporting]="isExporting()"
-            [showImageExport]="true"
             (deleteRequested)="deleteEntry($event)"
             (editRequested)="editEntry($event)"
-            (imageExportRequested)="downloadImage($event)"
           />
         }
       </div>
     }
-  }
-
-  @if (exportRow(); as quoteToExport) {
-    <article
-      #ghostQuoteCard
-      class="ghost-export-container ghost-quote-card"
-      aria-hidden="true"
-      inert
-    >
-      <span class="ghost-card-eyebrow"
-        >{{ 'NAV.BRAND_NAME' | transloco }} · {{ 'DOMAINS.QUOTE.QUOTE' | transloco }}</span
-      >
-      <blockquote class="ghost-quote-text">
-        &ldquo;{{
-          quoteToExport.quote ||
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat.'
-        }}&rdquo;
-      </blockquote>
-      <footer class="ghost-card-footer">
-        <strong>{{ quoteToExport.author }}</strong>
-        <span>{{ quoteToExport.book }}</span>
-        @if (quoteToExport.page) {
-          <span>p. {{ quoteToExport.page }}</span>
-        }
-        <small class="ghost-card-origin">{{ applicationName }} · {{ baseDomain }}</small>
-      </footer>
-    </article>
-
-    <article
-      #ghostAnalysisCard
-      class="ghost-export-container ghost-analysis-card"
-      aria-hidden="true"
-      inert
-    >
-      <span class="ghost-card-eyebrow"
-        >{{ 'NAV.BRAND_NAME' | transloco }} · {{ 'DOMAINS.QUOTE.ANALYSIS' | transloco }}</span
-      >
-      <h2 class="ghost-analysis-title">{{ 'DOMAINS.QUOTE.REFLECTION' | transloco }}</h2>
-      <p class="ghost-analysis-text">{{ quoteToExport.analysis }}</p>
-      <footer class="ghost-card-footer">
-        <strong>{{ quoteToExport.author }}</strong>
-        <span>{{ quoteToExport.book }}</span>
-        @if (quoteToExport.page) {
-          <span>p. {{ quoteToExport.page }}</span>
-        }
-        <small class="ghost-card-origin">{{ applicationName }} · {{ baseDomain }}</small>
-      </footer>
-    </article>
   }
 </div>

@@ -24,7 +24,7 @@
 
 .concept-entry-card__details {
   display: grid;
-  gap: 0.65rem;
+  gap: var(--domain-entry-section-gap);
 }
 
 .concept-entry-card__definition {

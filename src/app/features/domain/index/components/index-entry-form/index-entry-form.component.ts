@@ -7,7 +7,7 @@ import { DomainEntryFormOverlayComponent } from '../../../shared/domain-entry-fo
 import { IndexComponent } from '../../index/index.component';
 
 @Component({
-  selector: 'app-index-entry-form-1',
+  selector: 'app-index-entry-form',
   standalone: true,
   imports: [
     CommonModule,

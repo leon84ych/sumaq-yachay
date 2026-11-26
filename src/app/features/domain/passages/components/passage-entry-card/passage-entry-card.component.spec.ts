@@ -75,7 +75,7 @@ describe('PassageEntryCardComponent', () => {
     fixture.detectChanges();
 
     expect(read).not.toHaveBeenCalled();
-    expect(fixture.nativeElement.querySelector('app-passage-reader-1')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('app-passage-reader')).not.toBeNull();
   });
 
   it('hides edit and delete actions without permission', () => {

@@ -1,4 +1,4 @@
-import { Domain } from '../../shared/model/domain-shared-model';
+import { Feed } from '../../shared/model/domain-shared-model';
 
 /**
  * Raw representation of a passage as returned by the GAS backend
@@ -22,7 +22,7 @@ export interface PassageRaw {
 /**
  * Specific record model for domain passages
  */
-export interface PassageRecord extends Domain {
+export interface PassageRecord extends Feed {
   title: string;
   passageText: string;
   book: string;

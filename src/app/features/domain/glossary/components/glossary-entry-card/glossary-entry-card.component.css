@@ -29,7 +29,7 @@
 
 .glossary-entry-card__details {
   display: grid;
-  gap: 0.5rem;
+  gap: var(--domain-entry-section-gap);
   color: var(--text-muted);
   font-size: var(--learn-content-font-size, 0.85rem);
 }

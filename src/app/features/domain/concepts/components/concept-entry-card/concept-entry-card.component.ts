@@ -3,18 +3,18 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
-import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
 import { DomainEntryCardComponent } from '../../../shared/domain-entry-card/domain-entry-card.component';
+import { DomainEntryFooterComponent } from '../../../shared/domain-entry-footer/domain-entry-footer.component';
 import { ConceptRecord, isConceptNodeCategory } from '../../model/concepts-model';
 import { ConceptQuizGeneratorComponent } from '../concept-quiz/concept-quiz.component';
 
 @Component({
-  selector: 'app-concept-entry-card-1',
+  selector: 'app-concept-entry-card',
   imports: [
     TranslocoPipe,
     DomainEntryCardComponent,
     ConceptQuizGeneratorComponent,
-    DomainContributorComponent,
+    DomainEntryFooterComponent,
     StudyTagDirective,
   ],
   templateUrl: './concept-entry-card.component.html',
@@ -28,6 +28,7 @@ export class ConceptEntryCardComponent {
   readonly bookAuthor = input('');
   readonly sourceDomain = input('CONCEPTS');
   readonly showActions = input(true);
+  readonly showFeedReview = input(false);
   readonly showContext = input(false);
   // The quiz generator is disabled in the legacy view as well.
   readonly showQuiz = input(false);

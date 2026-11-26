@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { BookRecord } from '../../../book/models/book-item.model';
+import { BookRecord } from '../../../catalog/book/models/book-item.model';
 import { BookQueryService } from '../../index/services/book-query.service';
 import { PlaceRecord } from '../model/places-model';
 import { PlaceQueryService } from './places-query.service';

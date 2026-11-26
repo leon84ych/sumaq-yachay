@@ -1,6 +1,6 @@
 <div class="glossary-view">
   @if (isAddingEntry() || editingId() !== null) {
-    <app-glossary-entry-form-1 [form]="this" />
+    <app-glossary-entry-form [form]="this" />
   }
   @if (rows().length === 0) {
     <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
@@ -24,7 +24,7 @@
     } @else {
       <div class="glossary-grid">
         @for (row of filteredRows(); track row.id) {
-          <app-glossary-entry-card-1
+          <app-glossary-entry-card
             [row]="row"
             [bookName]="bookName()"
             [bookAuthor]="bookAuthor()"

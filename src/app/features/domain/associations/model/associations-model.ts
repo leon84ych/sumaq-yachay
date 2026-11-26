@@ -1,4 +1,4 @@
-import { Domain } from '../../shared/model/domain-shared-model';
+import { Feed } from '../../shared/model/domain-shared-model';
 
 export interface AssociationRaw {
   id: string;
@@ -20,7 +20,7 @@ export interface AssociationRaw {
   syncStatus: string;
 }
 
-export interface AssociationRecord extends Domain {
+export interface AssociationRecord extends Feed {
   sourceConceptId: string;
   targetConceptId: string;
   relationType: string;

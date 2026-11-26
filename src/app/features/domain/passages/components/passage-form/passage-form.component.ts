@@ -6,7 +6,7 @@ import { DomainEntryFormOverlayComponent } from '../../../shared/domain-entry-fo
 import type { PassagesComponent } from '../../passages/passages.component';
 
 @Component({
-  selector: 'app-passage-form-1',
+  selector: 'app-passage-form',
   imports: [FormsModule, TranslocoPipe, TagPickerComponent, DomainEntryFormOverlayComponent],
   templateUrl: './passage-form.component.html',
   styleUrl: './passage-form.component.css',

@@ -40,35 +40,23 @@
     }
   </div>
 
-  <footer class="domain-card-footer character-entry-card__footer">
-    <div class="domain-card-footer__management">
-      <app-domain-contributor [contributor]="row().contributor" />
-      @if (showActions() && permissions.validatePermission(role(), 'DELETE_ROW')) {
-        <button
-          type="button"
-          class="domain-delete-button"
-          [attr.aria-label]="'COMMON.DELETE' | transloco"
-          [title]="'COMMON.DELETE' | transloco"
-          (click)="deleteRequested.emit(row().id)"
-        >
-          <svg viewBox="0 0 20 20" aria-hidden="true">
-            <path d="M4 6h12M8 6V4h4v2m-6 0 .7 10h6.6L14 6M8.5 9v4m3-4v4" />
-          </svg>
-        </button>
-      }
-      @if (showActions() && permissions.validatePermission(role(), 'CREATE_ROW')) {
-        <button
-          type="button"
-          class="domain-edit-button"
-          [attr.aria-label]="'COMMON.EDIT' | transloco"
-          [title]="'COMMON.EDIT' | transloco"
-          (click)="editRequested.emit(row())"
-        >
-          <svg viewBox="0 0 20 20" aria-hidden="true">
-            <path d="m13.5 4.5 2 2M4 16l3.5-.8 8.7-8.7a1.4 1.4 0 0 0-2-2l-8.7 8.7L4 16Z" />
-          </svg>
-        </button>
-      }
-    </div>
-  </footer>
+  <app-domain-entry-footer
+    [contributor]="row().contributor"
+    [reviewData]="showFeedReview() ? { domain: 'CHARACTER', record: row() } : null"
+    [showDelete]="showActions() && permissions.validatePermission(role(), 'DELETE_ROW')"
+    [showEdit]="showActions() && permissions.validatePermission(role(), 'CREATE_ROW')"
+    [exportData]="{
+      id: row().id,
+      domain: 'CHARACTER',
+      bookName: bookName() || row()['book'],
+      bookAuthor: bookAuthor() || row()['author'],
+      title: row().name,
+      body: row().description,
+      note: row().role + (row().archetype ? ' · ' + row().archetype : ''),
+      tags: splitTags(row().tags),
+      accentColor: row()['color'],
+    }"
+    (deleteRequested)="deleteRequested.emit(row().id)"
+    (editRequested)="editRequested.emit(row())"
+  />
 </app-domain-entry-card>

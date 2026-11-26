@@ -6,7 +6,7 @@ import { DomainEntryFormOverlayComponent } from '../../../shared/domain-entry-fo
 import type { RelationsComponent } from '../../relations/relations.component';
 
 @Component({
-  selector: 'app-relation-entry-form-1',
+  selector: 'app-relation-entry-form',
   imports: [FormsModule, TranslocoPipe, TagPickerComponent, DomainEntryFormOverlayComponent],
   templateUrl: './relation-entry-form.component.html',
 })

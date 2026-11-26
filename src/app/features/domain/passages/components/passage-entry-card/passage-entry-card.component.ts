@@ -3,18 +3,18 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
-import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
 import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
+import { DomainEntryFooterComponent } from '../../../shared/domain-entry-footer/domain-entry-footer.component';
 import { PassageRecord } from '../../model/passages-model';
 import { PassageReaderComponent } from '../passage-reader/passage-reader.component';
 
 @Component({
-  selector: 'app-passage-entry-card-1',
+  selector: 'app-passage-entry-card',
   imports: [
     TranslocoPipe,
     DomainEntryHeaderComponent,
     PassageReaderComponent,
-    DomainContributorComponent,
+    DomainEntryFooterComponent,
     StudyTagDirective,
   ],
   templateUrl: './passage-entry-card.component.html',
@@ -27,6 +27,7 @@ export class PassageEntryCardComponent {
   readonly bookName = input('');
   readonly bookAuthor = input('');
   readonly showActions = input(true);
+  readonly showFeedReview = input(false);
   readonly showReadAction = input(true);
   readonly showContext = input(false);
   readonly readerMode = input<'external' | 'internal'>('external');

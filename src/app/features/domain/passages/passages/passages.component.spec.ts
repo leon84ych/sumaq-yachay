@@ -85,7 +85,7 @@ describe('PassagesComponent', () => {
 
     expect(component.bookName()).toBe('Book One');
     expect(component.bookRow()).toBe(7);
-    expect(fixture.nativeElement.querySelectorAll('app-passage-entry-card-1')).toHaveLength(2);
+    expect(fixture.nativeElement.querySelectorAll('app-passage-entry-card')).toHaveLength(2);
 
     TestBed.inject(StudySearchService).query.set('something');
     expect(component.filteredRows().map((row) => row.id)).toEqual(['p2']);
@@ -98,7 +98,7 @@ describe('PassagesComponent', () => {
 
     TestBed.inject(StudySearchService).query.set('nothing matches');
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelectorAll('app-passage-entry-card-1')).toHaveLength(0);
+    expect(fixture.nativeElement.querySelectorAll('app-passage-entry-card')).toHaveLength(0);
     expect(fixture.nativeElement.querySelector('.domain-search')).not.toBeNull();
   });
 
@@ -220,10 +220,10 @@ describe('PassagesComponent', () => {
 
     component.openReader(component.rows()[0]);
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('app-passage-reader-1')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('app-passage-reader')).not.toBeNull();
 
     component.closeReader();
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('app-passage-reader-1')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-passage-reader')).toBeNull();
   });
 });

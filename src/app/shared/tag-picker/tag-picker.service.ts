@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { LocalDBService } from "../local-db/local-db.service";
 import { normalizeTagsFromArray } from "./tag-picker.mapper";
-import { BookRecord } from "../../features/book/models/book-item.model";
+import { BookRecord } from "../../features/catalog/book/models/book-item.model";
 
 
 @Injectable({

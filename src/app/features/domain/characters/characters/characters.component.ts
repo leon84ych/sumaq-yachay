@@ -33,7 +33,7 @@ import { CharacterDataService } from '../services/characters.service';
 import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 
 @Component({
-  selector: 'app-domain-characters-1',
+  selector: 'app-domain-characters',
   imports: [FormsModule, TranslocoPipe, CharacterEntryFormComponent, CharacterEntryCardComponent],
   templateUrl: './characters.component.html',
   styleUrl: './characters.component.css',

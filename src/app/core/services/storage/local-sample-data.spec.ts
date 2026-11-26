@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
 import { describe, expect, it } from 'vitest';
-import { ALL_AVAILABLE_DOMAINS } from '../../../features/domain/book-detail/models/domain-sheet-config';
+import { ALL_AVAILABLE_DOMAINS } from '../../../features/catalog/book-detail/models/domain-sheet-config';
 import { IndexedDB } from '../../../shared/local-db/local-db.service';
 import {
   LOCAL_SAMPLE_BOOKS,

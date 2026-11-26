@@ -1,20 +1,17 @@
-import { DOCUMENT, NgComponentOutlet } from '@angular/common';
+import { NgComponentOutlet } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
   DestroyRef,
-  ElementRef,
   effect,
+  ElementRef,
   inject,
   signal,
   Type,
   untracked,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
-import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { GlobalMessageService } from '../../../core/services/global-message.service';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { StudySearchService } from '../../../core/services/search/study-search.service';
-import { downloadJpeg } from '../../../shared/utils/image-export';
 import { PlaceEntryCardComponent } from '../../domain/places/components/place-entry-card/place-entry-card.component';
 import { GlossaryEntryCardComponent } from '../../domain/glossary/components/glossary-entry-card/glossary-entry-card.component';
 import { PassageEntryCardComponent } from '../../domain/passages/components/passage-entry-card/passage-entry-card.component';
@@ -33,24 +30,18 @@ const BATCH_SIZE = 20;
   styleUrls: ['./learn.component.css'],
 })
 export class Learn {
-  private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
   private readonly learnFeedService = inject(LearnFeedService);
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
-  private readonly globalMessageService = inject(GlobalMessageService);
-  private readonly transloco = inject(TranslocoService);
   private readonly seenEntryIds = new Set<string>();
+  private readonly loadMoreTrigger = viewChild<ElementRef<HTMLElement>>('loadMoreTrigger');
+  private intersectionObserver: IntersectionObserver | null = null;
+  private observedLoadTrigger: HTMLElement | null = null;
 
   readonly entries = signal<LearnFeedEntry[]>([]);
   readonly searchQuery = inject(StudySearchService).query;
-  readonly entryBeingExported = signal<LearnFeedEntry | null>(null);
-  readonly exportTheme = signal<'dark' | 'light'>('dark');
-  readonly exportUrl = signal('');
-  readonly isExporting = signal(false);
   readonly isLoading = signal(false);
   readonly hasMore = signal(true);
   readonly errorMessage = signal<string | null>(null);
-  @ViewChild('ghostExportCard') private ghostExportCard?: ElementRef<HTMLElement>;
   private searchDebounceTimer: ReturnType<typeof setTimeout> | null = null;
   private requestVersion = 0;
 
@@ -85,6 +76,7 @@ export class Learn {
           ...context,
           row: entry.sourceRow,
           showActions: false,
+          showFeedReview: true,
         };
       case 'CONCEPTS':
         return {
@@ -92,6 +84,7 @@ export class Learn {
           row: entry.sourceRow,
           sourceDomain: entry.domain,
           showActions: false,
+          showFeedReview: true,
           showContext: true,
         };
       case 'GLOSARY':
@@ -99,12 +92,14 @@ export class Learn {
           ...context,
           row: entry.sourceRow,
           showActions: false,
+          showFeedReview: true,
         };
       case 'PASSAGES':
         return {
           ...context,
           row: entry.sourceRow,
           showActions: false,
+          showFeedReview: true,
           showReadAction: true,
           showContext: true,
           readerMode: 'internal',
@@ -114,6 +109,7 @@ export class Learn {
           ...context,
           row: entry.sourceRow,
           showActions: false,
+          showFeedReview: true,
           showContext: true,
         };
       case 'QUOTES':
@@ -121,50 +117,32 @@ export class Learn {
           ...context,
           row: entry.sourceRow,
           showActions: false,
+          showFeedReview: true,
         };
       default:
         return { entry };
     }
   }
 
-  async exportEntryImage(entry: LearnFeedEntry): Promise<void> {
-    if (this.isExporting()) {
-      return;
-    }
-
-    this.isExporting.set(true);
-    this.entryBeingExported.set(entry);
-    this.exportTheme.set(
-      this.document.documentElement.dataset['theme'] === 'light' ? 'light' : 'dark',
-    );
-    this.exportUrl.set(this.document.defaultView?.location.href ?? '');
-    this.changeDetectorRef.detectChanges();
-
-    try {
-      const exportCard = this.ghostExportCard?.nativeElement;
-      if (!exportCard) {
-        throw new Error('Learn image template is unavailable.');
-      }
-
-      const safeId = entry.id.replace(/[^a-z0-9_-]+/gi, '-');
-      await downloadJpeg(exportCard, `learn-${entry.domain.toLowerCase()}-${safeId}.jpg`, {
-        backgroundColor: this.exportTheme() === 'light' ? '#ffffff' : '#1a1a1a',
-      });
-    } catch {
-      this.globalMessageService.showError(this.transloco.translate('LEARN.EXPORT_ERROR'));
-    } finally {
-      this.entryBeingExported.set(null);
-      this.isExporting.set(false);
-      this.changeDetectorRef.detectChanges();
-    }
-  }
-
   constructor() {
+    if (typeof IntersectionObserver !== 'undefined') {
+      this.intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            void this.loadMore();
+          }
+        },
+        { rootMargin: '0px 0px 300px 0px' },
+      );
+      effect(() => this.observeLoadMoreTrigger());
+    }
+
     this.destroyRef.onDestroy(() => {
       ++this.requestVersion;
       if (this.searchDebounceTimer) {
         clearTimeout(this.searchDebounceTimer);
       }
+      this.intersectionObserver?.disconnect();
     });
     effect(() => {
       const query = this.searchQuery();
@@ -174,6 +152,25 @@ export class Learn {
 
   onSearchInput(query: string): void {
     this.searchQuery.set(query);
+  }
+
+  private observeLoadMoreTrigger(): void {
+    const observer = this.intersectionObserver;
+    if (!observer) {
+      return;
+    }
+
+    if (this.observedLoadTrigger) {
+      observer.unobserve(this.observedLoadTrigger);
+    }
+
+    const trigger = this.loadMoreTrigger()?.nativeElement ?? null;
+    this.observedLoadTrigger =
+      trigger && this.hasMore() && !this.isLoading() && !this.errorMessage() ? trigger : null;
+
+    if (this.observedLoadTrigger) {
+      observer.observe(this.observedLoadTrigger);
+    }
   }
 
   private scheduleSearch(query: string): void {
@@ -210,14 +207,14 @@ export class Learn {
     allowRemote: boolean,
   ): Promise<void> {
     try {
-      let batch = await this.learnFeedService.loadRandomBatch(
-        this.seenEntryIds,
-        BATCH_SIZE,
-        query,
-      );
+      let batch = await this.learnFeedService.loadRandomBatch(this.seenEntryIds, BATCH_SIZE, query);
       if (allowRemote && batch.length < BATCH_SIZE && this.learnFeedService.canFetchRemote()) {
         batch = await this.learnFeedService.loadRemoteBatch(this.seenEntryIds, BATCH_SIZE, query);
       }
+      if (requestVersion !== this.requestVersion) {
+        return;
+      }
+      await this.learnFeedService.markAsShown(batch);
       if (requestVersion !== this.requestVersion) {
         return;
       }

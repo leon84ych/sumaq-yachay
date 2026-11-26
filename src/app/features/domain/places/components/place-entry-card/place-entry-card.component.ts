@@ -3,16 +3,16 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PermissionService } from '../../../../../core/services/permission/permission.service';
 import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
-import { DomainContributorComponent } from '../../../shared/domain-contributor/domain-contributor.component';
 import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
+import { DomainEntryFooterComponent } from '../../../shared/domain-entry-footer/domain-entry-footer.component';
 import { PlaceRecord } from '../../model/places-model';
 
 @Component({
-  selector: 'app-place-entry-card-1',
+  selector: 'app-place-entry-card',
   imports: [
     TranslocoPipe,
     DomainEntryHeaderComponent,
-    DomainContributorComponent,
+    DomainEntryFooterComponent,
     StudyTagDirective,
   ],
   templateUrl: './place-entry-card.component.html',
@@ -23,6 +23,7 @@ export class PlaceEntryCardComponent {
   readonly bookName = input('');
   readonly bookAuthor = input('');
   readonly showActions = input(true);
+  readonly showFeedReview = input(false);
   readonly showContext = input(true);
   readonly deleteRequested = output<string>();
   readonly editRequested = output<PlaceRecord>();

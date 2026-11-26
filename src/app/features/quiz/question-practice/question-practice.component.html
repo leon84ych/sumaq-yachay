@@ -162,9 +162,8 @@
         }
       }
 
-      <footer class="domain-card-footer">
-        <app-domain-contributor [contributor]="question.contributor" />
-        @if (answerRevealed()) {
+      @if (answerRevealed()) {
+        <div class="domain-card-actions">
           <button type="button" class="practice-secondary next-button" (click)="advance()">
             {{
               (currentIndex() + 1 < questions().length
@@ -173,8 +172,21 @@
               ) | transloco
             }}
           </button>
-        }
-      </footer>
+        </div>
+      }
+      <app-domain-entry-footer
+        [contributor]="question.contributor"
+        [exportData]="{
+          id: question.id,
+          domain: 'QUESTIONS',
+          bookName: question.bookName,
+          bookAuthor: question.bookAuthor,
+          title: question.question,
+          body: question.answer,
+          note: question.sourceTerm || question.sourceDomain,
+          tags: question.tags,
+        }"
+      />
     </section>
   } @else {
     <section class="practice-empty" aria-live="polite">

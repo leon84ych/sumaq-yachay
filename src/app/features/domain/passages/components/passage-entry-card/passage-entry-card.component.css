@@ -7,7 +7,7 @@
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: var(--domain-entry-section-gap);
   border: 1px solid var(--quote-card-border);
   border-radius: 12px;
   padding: 1.25rem;
@@ -75,8 +75,17 @@
 
 .passage-tags {
   display: flex;
+  flex: 1 1 auto;
   flex-wrap: wrap;
   gap: 0.35rem;
+}
+
+.passage-card__tag-actions {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--domain-entry-section-gap);
 }
 
 .passage-tag {
@@ -91,8 +100,8 @@
 }
 
 .read-passage-button {
-  align-self: center;
-  margin-top: 0;
+  flex: 0 0 auto;
+  margin-inline-start: auto;
   border: 0;
   padding: 0.25rem 0;
   background: transparent;
@@ -111,5 +120,4 @@
   .passage-card {
     padding: 1rem;
   }
-
 }

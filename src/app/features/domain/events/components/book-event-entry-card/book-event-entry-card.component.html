@@ -1,0 +1,72 @@
+<app-domain-entry-card
+  domain="BOOK_EVENTS"
+  [title]="row().event"
+  [bookName]="bookName() || row().book"
+  [bookAuthor]="bookAuthor() || row().author"
+  [status]="row().syncStatus"
+  [accentColor]="row().color"
+  [showContext]="showContext()"
+>
+  <div class="book-event-entry-card__meta">
+    @if (row().dateLabel) {
+      <span>{{ row().dateLabel }}</span>
+    } @else if (row().dateTimeStart) {
+      <span>{{ row().dateTimeStart | date: 'medium' }}</span>
+    } @else {
+      <span>{{ 'DOMAINS.BOOK_EVENTS.EVENT_ORDER' | transloco }} {{ row().eventOrder }}</span>
+    }
+    @if (row().dateTimeEnd) {
+      <span>{{ row().dateTimeEnd | date: 'medium' }}</span>
+    }
+    @if (row().page) {
+      <span>{{ 'DOMAINS.BOOK_EVENTS.PAGE' | transloco }} {{ row().page }}</span>
+    }
+  </div>
+
+  <div class="book-event-entry-card__participants">
+    <p>
+      <strong>{{ 'DOMAINS.BOOK_EVENTS.MAIN_CHARACTER' | transloco }}:</strong>
+      {{ mainCharacterName() || row().mainCharacterId }}
+    </p>
+    @if (secondaryCharacterNames().length > 0) {
+      <p>
+        <strong>{{ 'DOMAINS.BOOK_EVENTS.SECONDARY_CHARACTERS' | transloco }}:</strong>
+        {{ secondaryCharacterNames().join(', ') }}
+      </p>
+    }
+    @if (placeName()) {
+      <p>
+        <strong>{{ 'DOMAINS.BOOK_EVENTS.PLACE' | transloco }}:</strong> {{ placeName() }}
+      </p>
+    }
+  </div>
+
+  <p>{{ row().description }}</p>
+
+  @if (splitTags(row().tags).length > 0) {
+    <div class="book-event-entry-card__tags">
+      @for (tag of splitTags(row().tags); track tag) {
+        <button type="button" [appStudyTag]="tag">{{ tag }}</button>
+      }
+    </div>
+  }
+
+  <app-domain-entry-footer
+    [contributor]="row().contributor"
+    [showDelete]="showActions() && permissionService.validatePermission(role(), 'DELETE_ROW')"
+    [showEdit]="showActions() && permissionService.validatePermission(role(), 'CREATE_ROW')"
+    [exportData]="{
+      id: row().id,
+      domain: 'BOOK_EVENTS',
+      bookName: bookName() || row()['book'],
+      bookAuthor: bookAuthor() || row()['author'],
+      title: row().event,
+      body: row().description,
+      note: row().dateLabel || row().dateTimeStart || row().eventOrder,
+      tags: splitTags(row().tags),
+      accentColor: row()['color'],
+    }"
+    (deleteRequested)="deleteRequested.emit(row().id)"
+    (editRequested)="editRequested.emit(row())"
+  />
+</app-domain-entry-card>

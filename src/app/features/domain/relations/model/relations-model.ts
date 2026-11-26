@@ -1,4 +1,4 @@
-import { Domain } from '../../shared/model/domain-shared-model';
+import { Feed } from '../../shared/model/domain-shared-model';
 
 export interface RelationRaw {
   id: string;
@@ -20,7 +20,7 @@ export interface RelationRaw {
   syncStatus: string;
 }
 
-export interface RelationRecord extends Domain {
+export interface RelationRecord extends Feed {
   sourceCharacterId: string;
   targetCharacterId: string;
   relationType: string;

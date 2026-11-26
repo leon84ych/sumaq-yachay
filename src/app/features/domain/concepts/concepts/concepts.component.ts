@@ -31,7 +31,7 @@ import {
 import { ConceptDataService } from '../services/concepts.service';
 
 @Component({
-  selector: 'app-domain-concepts-1',
+  selector: 'app-domain-concepts',
   imports: [FormsModule, TranslocoPipe, ConceptEntryFormComponent, ConceptEntryCardComponent],
   templateUrl: './concepts.component.html',
   styleUrls: ['./concepts.component.css'],

@@ -1,6 +1,6 @@
 <div class="places-view">
   @if (isAddingEntry() || editingId() !== null) {
-    <app-place-entry-form-1 [form]="this" />
+    <app-place-entry-form [form]="this" />
   }
   @if (rows().length === 0) {
     <p class="empty-state">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
@@ -36,7 +36,7 @@
     } @else {
       <div class="places-grid">
         @for (row of filteredRows(); track row.id) {
-          <app-place-entry-card-1
+          <app-place-entry-card
             [row]="row"
             [bookName]="bookName()"
             [bookAuthor]="bookAuthor()"

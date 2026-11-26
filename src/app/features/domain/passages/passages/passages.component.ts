@@ -31,7 +31,7 @@ import {
 import { PassageDataService } from '../services/passages.service';
 
 @Component({
-  selector: 'app-domain-passages-1',
+  selector: 'app-domain-passages',
   imports: [
     FormsModule,
     TranslocoPipe,

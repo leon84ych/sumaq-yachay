@@ -9,12 +9,12 @@ import {
 } from '../../domain/questions/services/question-practice.service';
 import { QuestionOption } from '../../domain/questions/model/questions-model';
 import { StudySearchService } from '../../../core/services/search/study-search.service';
-import { DomainContributorComponent } from '../../domain/shared/domain-contributor/domain-contributor.component';
+import { DomainEntryFooterComponent } from '../../domain/shared/domain-entry-footer/domain-entry-footer.component';
 
 @Component({
   selector: 'app-question-practice',
   standalone: true,
-  imports: [CommonModule, TranslocoPipe, DomainContributorComponent],
+  imports: [CommonModule, TranslocoPipe, DomainEntryFooterComponent],
   templateUrl: './question-practice.component.html',
   styleUrl: './question-practice.component.css',
 })
@@ -43,9 +43,7 @@ export class QuestionPracticeComponent {
     return question ? this.practiceService.optionsFor(question) : [];
   });
   readonly progressLabel = computed(() =>
-    this.questions().length === 0
-      ? ''
-      : `${this.currentIndex() + 1}/${this.questions().length}`,
+    this.questions().length === 0 ? '' : `${this.currentIndex() + 1}/${this.questions().length}`,
   );
 
   constructor() {
@@ -92,7 +90,9 @@ export class QuestionPracticeComponent {
       this.resetAnswerState();
     } catch (error) {
       if (requestVersion === this.requestVersion) {
-        this.errorMessage.set(error instanceof Error ? error.message : 'DOMAINS.QUESTIONS.PRACTICE.ERROR');
+        this.errorMessage.set(
+          error instanceof Error ? error.message : 'DOMAINS.QUESTIONS.PRACTICE.ERROR',
+        );
       }
     } finally {
       if (requestVersion === this.requestVersion) this.isLoading.set(false);
@@ -113,7 +113,9 @@ export class QuestionPracticeComponent {
   }
 
   async submitChoice(): Promise<void> {
-    const option = this.currentOptions().find((candidate) => candidate.id === this.selectedOptionId());
+    const option = this.currentOptions().find(
+      (candidate) => candidate.id === this.selectedOptionId(),
+    );
     if (!option) return;
     await this.saveAttempt(option.text, option.isCorrect);
   }
@@ -153,7 +155,9 @@ export class QuestionPracticeComponent {
       this.answerRevealed.set(true);
       this.isSubmitted.set(true);
     } catch (error) {
-      this.errorMessage.set(error instanceof Error ? error.message : 'DOMAINS.QUESTIONS.PRACTICE.SAVE_ERROR');
+      this.errorMessage.set(
+        error instanceof Error ? error.message : 'DOMAINS.QUESTIONS.PRACTICE.SAVE_ERROR',
+      );
     } finally {
       this.isSaving.set(false);
     }

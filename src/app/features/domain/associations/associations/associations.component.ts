@@ -32,7 +32,7 @@ import {
 import { AssociationDataService } from '../services/associations.service';
 
 @Component({
-  selector: 'app-domain-associations-1',
+  selector: 'app-domain-associations',
   imports: [
     FormsModule,
     TranslocoPipe,

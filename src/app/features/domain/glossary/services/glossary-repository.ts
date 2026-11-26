@@ -31,6 +31,7 @@ export class GlossaryRepository extends LocalDomainRepositoryAbstract<GlossaryRe
     const persistable = records.filter((record) => record.bookId);
 
     await database.transaction('rw', database.glossary, async () => {
+      await this.preserveLocalFeedState(persistable);
       await database.glossary.bulkPut(persistable);
     });
 

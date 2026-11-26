@@ -1,6 +1,6 @@
 <div class="passage-view">
   @if (isAddingEntry() || editingId() !== null) {
-    <app-passage-form-1 [form]="this" />
+    <app-passage-form [form]="this" />
   }
   @if (rows().length === 0) {
     <p class="empty-state" role="status">{{ 'COMMON.NO_ENTRIES' | transloco }}</p>
@@ -23,7 +23,7 @@
     } @else {
       <div class="passage-grid">
         @for (row of filteredRows(); track row.id) {
-          <app-passage-entry-card-1
+          <app-passage-entry-card
             [row]="row"
             [bookName]="bookName()"
             [bookAuthor]="bookAuthor()"
@@ -38,6 +38,6 @@
   }
 
   @if (selectedPassage(); as passage) {
-    <app-passage-reader-1 [passage]="passage" (closeRequested)="closeReader()" />
+    <app-passage-reader [passage]="passage" (closeRequested)="closeReader()" />
   }
 </div>
