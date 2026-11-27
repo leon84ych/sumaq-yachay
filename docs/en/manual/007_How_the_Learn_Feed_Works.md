@@ -24,7 +24,8 @@ before they are selected.
 4. The candidates are shuffled, with an effort to include different domains in each batch.
    There is no guaranteed order by oldest entry.
 
-Results arrive in batches of up to 20. Scroll toward the end to load more automatically; there is
+Results arrive in batches of up to 20, but **the feed is not limited to 20 entries overall**.
+Scroll toward the end to load more automatically; there is
 no normal load-more button. A message appears when there are no results or the feed is exhausted.
 If loading fails, use the displayed retry action. Changing the search starts a new feed, so an
 entry from the previous results can appear again if it matches the new search.
