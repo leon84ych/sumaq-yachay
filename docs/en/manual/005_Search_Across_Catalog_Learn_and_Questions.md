@@ -47,7 +47,7 @@ The **subject** selection and **Active Only** checkbox are additional Catalog-on
 
 ### Learn
 
-Learn returns **individual learning entries** across the locally available books and domains. Every displayed item must satisfy the current query. Results arrive in random batches of up to 20; **Load 20 more** continues the same filtered feed.
+Learn returns **individual learning entries** across the available books and domains. Every displayed item must satisfy the current query. Results arrive in batches of up to 20 and load automatically as you scroll. Due entries have priority; see **How the Learn Feed Works** in the documentation menu for details.
 
 Changing the search clears the previous results and starts a new filtered batch. The view briefly waits after typing before loading, so allow it to finish before judging the result count.
 

@@ -219,6 +219,20 @@
     }
   },
   "DOMAINS": {
+    "SYNC": {
+      "SYNC_OFFLINE": "La entrada {{id}} del libro {{bookId}} está guardada localmente y pendiente de sincronización. Conéctate e inicia sesión para reintentar.",
+      "SYNC_ACCOUNT": "La entrada {{id}} del libro {{bookId}} está pendiente. Inicia sesión como {{ownerEmail}} para sincronizarla.",
+      "SYNC_ACCOUNT_UNKNOWN": "La entrada {{id}} del libro {{bookId}} está pendiente. Usa el reintento para confirmar la cuenta.",
+      "SYNC_FAILED": "La entrada {{id}} del libro {{bookId}} está pendiente de sincronización. {{reason}}",
+      "SYNC_UNCERTAIN": "Se desconoce el resultado del servidor para la entrada {{id}} del libro {{bookId}}. Comprueba el servidor antes de reintentar. {{reason}}",
+      "SYNC_DEPENDENCY": "La entrada {{id}} del libro {{bookId}} no puede sincronizarse porque falta una entrada referenciada: {{reason}}.",
+      "DELETE_PENDING": "Eliminación pendiente de sincronización",
+      "DELETE_OFFLINE": "La eliminación de la entrada {{id}} del libro {{bookId}} está pendiente. Conéctate e inicia sesión para sincronizarla.",
+      "DELETE_FAILED": "La eliminación de la entrada {{id}} del libro {{bookId}} está pendiente. {{reason}}",
+      "DELETE_UNCERTAIN": "Se desconoce el resultado del servidor al eliminar la entrada {{id}} del libro {{bookId}}. Comprueba el servidor antes de reintentar. {{reason}}",
+      "DELETE_UNCERTAIN_CREATE": "La entrada {{id}} del libro {{bookId}} se eliminó localmente, pero su creación incierta podría haber dejado una copia en el servidor.",
+      "DELETE_PENDING_MODE": "Resuelve el cambio remoto pendiente de este elemento antes de eliminarlo en modo de ejemplo."
+    },
     "TAG_VALIDATION": {
       "REJECTED_PREFIX": "Las siguientes etiquetas se rechazan porque no existen en la hoja maestra",
       "REJECTED_SUFFIX": ":"
@@ -454,6 +468,17 @@
       "REFLECTION": "Para reflexionar"
     },
     "PASSAGE": {
+      "SYNC_OFFLINE": "El pasaje {{title}} ({{id}}) del libro {{bookId}} está guardado localmente y pendiente de sincronización. Conéctate e inicia sesión para reintentar.",
+      "SYNC_ACCOUNT": "El pasaje {{title}} ({{id}}) del libro {{bookId}} está pendiente. Inicia sesión como {{ownerEmail}} para sincronizarlo.",
+      "SYNC_ACCOUNT_UNKNOWN": "El pasaje {{title}} ({{id}}) del libro {{bookId}} está pendiente. Selecciona su indicador de estado para confirmar la cuenta de sincronización.",
+      "SYNC_FAILED": "El pasaje {{title}} ({{id}}) del libro {{bookId}} está guardado localmente y pendiente de sincronización. {{reason}}",
+      "SYNC_UNCERTAIN": "El pasaje {{title}} ({{id}}) del libro {{bookId}} está guardado localmente, pero se desconoce el resultado del servidor. Comprueba el servidor antes de reintentar. {{reason}}",
+      "DELETE_PENDING": "Eliminación pendiente de sincronización",
+      "DELETE_OFFLINE": "La eliminación del pasaje {{title}} ({{id}}) del libro {{bookId}} está pendiente. Conéctate e inicia sesión para sincronizar.",
+      "DELETE_FAILED": "La eliminación del pasaje {{title}} ({{id}}) del libro {{bookId}} está pendiente. {{reason}}",
+      "DELETE_UNCERTAIN": "Se desconoce el resultado del servidor al eliminar el pasaje {{title}} ({{id}}) del libro {{bookId}}. Comprueba el servidor antes de reintentar. {{reason}}",
+      "DELETE_UNCERTAIN_CREATE": "El pasaje {{title}} ({{id}}) del libro {{bookId}} se eliminó localmente, pero se desconoce el resultado de su creación y podría quedar una copia en el servidor.",
+      "DELETE_PENDING_MODE": "Resuelve el cambio remoto pendiente de este elemento antes de eliminarlo en modo de ejemplo.",
       "NEW_ENTRY_TITLE": "Agregar Nuevo Pasaje",
       "SEARCH": "Buscar pasajes por texto, autor, libro, página o etiquetas...",
       "NO_MATCHES": "Ningún pasaje coincide con la búsqueda.",
