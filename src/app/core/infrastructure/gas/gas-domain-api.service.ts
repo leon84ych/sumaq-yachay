@@ -267,7 +267,7 @@ export class GASDomainAPI<TRaw, TRowValues> extends GASAPI {
                     action: 'DELETE_ROW',
                     idToken,
                     bookId,
-                    row: bookRow,
+                    bookRow,
                     sheetName: domain,
                     itemId: itemId,
                     itemRow: itemRow

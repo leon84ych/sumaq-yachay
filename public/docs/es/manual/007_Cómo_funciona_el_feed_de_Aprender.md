@@ -24,8 +24,8 @@ filtra las entradas antes de seleccionarlas.
 4. Las entradas candidatas se mezclan y se intenta incluir distintos dominios en cada lote.
    No se garantiza un orden desde la entrada más antigua.
 
-Los resultados llegan en lotes de hasta 20. Desplázate hacia el final para cargar más
-automáticamente; no hay un botón habitual para cargar más. Se muestra un mensaje si no hay
+Los resultados llegan en lotes de hasta 20, pero **el feed no se limita a 20 entradas en total**.
+Desplázate hacia el final para cargar más automáticamente; no hay un botón habitual para cargar más. Se muestra un mensaje si no hay
 resultados o se llega al final del feed. Si la carga falla, utiliza la opción para reintentar.
 Al cambiar la búsqueda comienza un feed nuevo, por lo que una entrada anterior puede volver a
 aparecer si coincide con la nueva búsqueda.

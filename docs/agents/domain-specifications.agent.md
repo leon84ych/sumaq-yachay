@@ -281,7 +281,7 @@ Deletion must carry both row numbers:
   "action": "DELETE_ROW",
   "idToken": "...",
   "bookId": "book-id",
-  "row": 2,
+  "bookRow": 2,
   "sheetName": "INDEX",
   "itemId": "existing-item-id",
   "itemRow": 15
@@ -518,7 +518,7 @@ Before considering a domain migrated, verify all of the following:
 - Delete uses `DELETE_ROW`.
 - Create/update row identity fields are defined by the mapper and are not stripped by the API.
 - Update row objects include `bookRow`, `itemRow`, and `itemId` in addition to domain fields.
-- Delete sends `row: bookRow`, `itemRow: record.itemRow`, and `itemId: record.id`.
+- Delete sends `bookRow: record.bookRow`, `itemRow: record.itemRow`, and `itemId: record.id`.
 - Authentication and non-success responses are surfaced as errors.
 
 ### Persistence
@@ -570,7 +570,7 @@ Add focused tests for:
   row object. Derive rows from `toRaw()` and never add a generic helper that strips `id` or
   `bookId`; test the serialized body for create and update.
 - **Delete targets the wrong book:** `record.itemRow` was used as the top-level book row. Use
-  `record.bookRow` for `row` and `record.itemRow` for `itemRow`.
+  `record.bookRow` for `bookRow` and `record.itemRow` for `itemRow`.
 - **Edits create duplicates:** the component still calls `addDomainItem()` while editing.
   Branch on the original ID and send `UPDATE_ROW`.
 - **Updates cannot identify the item:** `itemId`, `bookRow`, or `itemRow` was sent only at the
