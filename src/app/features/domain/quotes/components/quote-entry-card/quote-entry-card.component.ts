@@ -5,6 +5,7 @@ import { StudyTagDirective } from '../../../../../shared/directives/study-tag.di
 import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
 import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
 import { DomainEntryFooterComponent } from '../../../shared/domain-entry-footer/domain-entry-footer.component';
+import { DomainSyncControlsComponent } from '../../../shared/domain-sync-controls/domain-sync-controls.component';
 import { QuoteRecord } from '../../model/quotes-model';
 
 @Component({
@@ -13,6 +14,7 @@ import { QuoteRecord } from '../../model/quotes-model';
     TranslocoPipe,
     DomainEntryHeaderComponent,
     DomainEntryFooterComponent,
+    DomainSyncControlsComponent,
     StudyTagDirective,
   ],
   templateUrl: './quote-entry-card.component.html',
@@ -25,6 +27,9 @@ export class QuoteEntryCardComponent {
   readonly bookName = input('');
   readonly bookAuthor = input('');
   readonly showActions = input(true);
+  readonly canRetry = input(false);
+  readonly pendingDeletion = input(false);
+  readonly retryRequested = output<QuoteRecord>();
   readonly showFeedReview = input(false);
   readonly deleteRequested = output<string>();
   readonly editRequested = output<QuoteRecord>();

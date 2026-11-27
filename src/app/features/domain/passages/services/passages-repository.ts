@@ -20,11 +20,13 @@ export class PassageRepository extends LocalDomainRepositoryAbstract<PassageReco
   }
 
   async getDomain(bookRow: number, total: number | null = null): Promise<PassageRecord[]> {
-    const raws: PassageRaw[] = await this.gasRepository.getDomain(bookRow, total);
     const database = this.localDBService.indexedDB;
-    const ownerBook = raws.some((raw) => !raw.bookId)
-      ? await database.books.where('row').equals(bookRow).first()
-      : undefined;
+    const ownerBook = await database.books.where('row').equals(bookRow).first();
+    const initialRecords = ownerBook
+      ? await database.passages.where('bookId').equals(ownerBook.id).toArray()
+      : [];
+    const initialById = new Map(initialRecords.map((record) => [record.id, JSON.stringify(record)]));
+    const raws: PassageRaw[] = await this.gasRepository.getDomain(bookRow, total);
 
     // Rows from GAS may omit the owning book; the fetch argument is the source of truth.
     const records = raws.map((raw) => ({
@@ -33,12 +35,27 @@ export class PassageRepository extends LocalDomainRepositoryAbstract<PassageReco
     }));
     const persistable = records.filter((record) => record.bookId);
 
+    const bookId = ownerBook?.id ?? persistable[0]?.bookId;
+    if (!bookId) return persistable;
+    let merged: PassageRecord[] = [];
     await database.transaction('rw', database.passages, async () => {
-      await this.preserveLocalFeedState(persistable);
-      await database.passages.bulkPut(persistable);
+      const local = await database.passages.where('bookId').equals(bookId).toArray();
+      const protectedRecords = local.filter((record) =>
+        record.syncStatus === 'pending' || record.syncStatus === 'error' ||
+        initialById.get(record.id) !== JSON.stringify(record),
+      );
+      const protectedIds = new Set(protectedRecords.map((record) => record.id));
+      const currentIds = new Set(local.map((record) => record.id));
+      const deletedIds = new Set([...initialById.keys()].filter((id) => !currentIds.has(id)));
+      const remote = persistable.filter((record) =>
+        !protectedIds.has(record.id) && !deletedIds.has(record.id),
+      );
+      await this.preserveLocalFeedState(remote);
+      await database.passages.bulkPut(remote);
+      merged = [...remote, ...protectedRecords];
     });
 
-    return persistable;
+    return merged;
   }
 
 

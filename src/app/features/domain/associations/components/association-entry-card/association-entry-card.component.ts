@@ -5,11 +5,18 @@ import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { DomainEntryCardComponent } from '../../../shared/domain-entry-card/domain-entry-card.component';
 import { DomainEntryFooterComponent } from '../../../shared/domain-entry-footer/domain-entry-footer.component';
+import { DomainSyncControlsComponent } from '../../../shared/domain-sync-controls/domain-sync-controls.component';
 import { AssociationRecord } from '../../model/associations-model';
 
 @Component({
   selector: 'app-association-entry-card',
-  imports: [TranslocoPipe, DomainEntryCardComponent, DomainEntryFooterComponent, StudyTagDirective],
+  imports: [
+    TranslocoPipe,
+    DomainEntryCardComponent,
+    DomainEntryFooterComponent,
+    DomainSyncControlsComponent,
+    StudyTagDirective,
+  ],
   templateUrl: './association-entry-card.component.html',
   styleUrl: './association-entry-card.component.css',
 })
@@ -20,6 +27,9 @@ export class AssociationEntryCardComponent {
   readonly bookName = input('');
   readonly bookAuthor = input('');
   readonly showActions = input(true);
+  readonly canRetry = input(false);
+  readonly pendingDeletion = input(false);
+  readonly retryRequested = output<AssociationRecord>();
   readonly deleteRequested = output<string>();
   readonly editRequested = output<AssociationRecord>();
   readonly permissionService = inject(PermissionService);

@@ -18,11 +18,9 @@ export class AssociationRepository extends LocalDomainRepositoryAbstract<Associa
   }
 
   async getDomain(bookRow: number, total: number | null = null): Promise<AssociationRecord[]> {
+    const snapshot = await this.snapshotForRefresh(bookRow);
     const raws: AssociationRaw[] = await this.gasRepository.getDomain(bookRow, total);
-    const database = this.localDBService.indexedDB;
-    const ownerBook = raws.some((raw) => !raw.bookId)
-      ? await database.books.where('row').equals(bookRow).first()
-      : undefined;
+    const ownerBook = snapshot.book;
 
     const records = raws.map((raw) => ({
       ...this.mapper.toRecord({ ...raw, bookId: raw.bookId || (ownerBook?.id ?? '') }),
@@ -30,12 +28,7 @@ export class AssociationRepository extends LocalDomainRepositoryAbstract<Associa
     }));
     const persistable = records.filter((record) => record.bookId);
 
-    await database.transaction('rw', database.associations, async () => {
-      await this.preserveLocalFeedState(persistable);
-      await database.associations.bulkPut(persistable);
-    });
-
-    return persistable;
+    return this.mergeRemoteRecords(persistable, snapshot);
   }
 
 

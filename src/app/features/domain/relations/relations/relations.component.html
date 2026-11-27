@@ -39,6 +39,9 @@
         @for (relation of filteredRows(); track relation.id) {
           <app-relation-entry-card
             [row]="relation"
+            [canRetry]="sync.retryableIds().has(relation.id)"
+            [pendingDeletion]="sync.pendingDeletionIds().has(relation.id)"
+            (retryRequested)="sync.retry($event)"
             [sourceCharacterName]="characterName(relation.sourceCharacterId)"
             [targetCharacterName]="characterName(relation.targetCharacterId)"
             [bookName]="bookName()"

@@ -3,10 +3,16 @@
     @if (optionsLoadState() === 'ready') {
       <app-book-event-entry-form [form]="this" />
     } @else if (optionsLoadState() === 'error') {
-      <p class="empty-state" role="alert">{{ 'DOMAINS.BOOK_EVENTS.LOADING_OPTIONS_ERROR' | transloco }}</p>
-      <button type="button" class="btn-cancel" (click)="resetForm()">{{ 'COMMON.CANCEL' | transloco }}</button>
+      <p class="empty-state" role="alert">
+        {{ 'DOMAINS.BOOK_EVENTS.LOADING_OPTIONS_ERROR' | transloco }}
+      </p>
+      <button type="button" class="btn-cancel" (click)="resetForm()">
+        {{ 'COMMON.CANCEL' | transloco }}
+      </button>
     } @else {
-      <p class="empty-state" role="status" aria-live="polite">{{ 'DOMAINS.BOOK_EVENTS.LOADING_OPTIONS' | transloco }}</p>
+      <p class="empty-state" role="status" aria-live="polite">
+        {{ 'DOMAINS.BOOK_EVENTS.LOADING_OPTIONS' | transloco }}
+      </p>
     }
   }
 
@@ -30,6 +36,9 @@
         @for (event of filteredRows(); track event.id) {
           <app-book-event-entry-card
             [row]="event"
+            [canRetry]="sync.retryableIds().has(event.id)"
+            [pendingDeletion]="sync.pendingDeletionIds().has(event.id)"
+            (retryRequested)="sync.retry($event)"
             [mainCharacterName]="characterName(event.mainCharacterId)"
             [secondaryCharacterNames]="secondaryCharacterNames(event.secondaryCharacterIds)"
             [placeName]="event.placeId ? placeName(event.placeId) : ''"

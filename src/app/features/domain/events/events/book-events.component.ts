@@ -12,7 +12,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
-import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
+import { DomainWriteView } from '../../shared/domain-repository/domain-write-view';
+import { createDomainId } from '../../shared/model/domain-shared-model';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -43,6 +44,7 @@ export class BookEventsComponent implements OnInit {
   readonly closeEntry = output<void>();
 
   readonly rows = signal<EventRecord[]>([]);
+  readonly sync = new DomainWriteView<EventRecord>('BOOK_EVENTS', this.bookId, this.rows);
   readonly characters = signal<CharacterRecord[]>([]);
   readonly places = signal<PlaceRecord[]>([]);
   readonly bookName = signal('');
@@ -72,7 +74,6 @@ export class BookEventsComponent implements OnInit {
   readonly role = this.permissionService.role;
   private readonly dataService = inject(BookEventDataService);
   private readonly globalMessageService = inject(GlobalMessageService);
-  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
 
   readonly invalidTagsDetected = computed(() => {
@@ -180,7 +181,8 @@ export class BookEventsComponent implements OnInit {
       this.bookAuthor.set(book?.author ?? '');
       this.bookRow.set(book?.row ?? null);
       await this.refreshAllowedTags();
-      this.rows.set(await this.dataService.getRecords(this.bookId()));
+      this.sync.observe();
+      this.sync.initialize(await this.dataService.getRecords(this.bookId()));
       await this.loadOptions();
     } catch (error) {
       this.showError(error, 'Failed to load book events.');
@@ -208,6 +210,13 @@ export class BookEventsComponent implements OnInit {
       ]);
       this.characters.set(characters);
       this.places.set(places);
+      this.sync.observeRelated(
+        'CHARACTER',
+        this.characters,
+        [this.newMainCharacterId],
+        this.newSecondaryCharacterIds,
+      );
+      this.sync.observeRelated('PLACES', this.places, [this.newPlaceId]);
       this.optionsLoadState.set('ready');
     } catch {
       this.optionsLoadState.set('error');
@@ -245,14 +254,14 @@ export class BookEventsComponent implements OnInit {
       return;
     }
     try {
-      await this.dataService.deleteDomainItem(record);
-      this.rows.update((rows) => rows.filter((row) => row.id !== id));
+      await this.sync.delete(record);
     } catch (error) {
       this.showError(error, 'Failed to delete book event.');
     }
   }
 
   editEntry(record: EventRecord): void {
+    if (!this.sync.startEdit(record)) return;
     this.submitted.set(false);
     this.editingId.set(record.id);
     this.newMainCharacterId.set(record.mainCharacterId);
@@ -270,6 +279,7 @@ export class BookEventsComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.sync.clearEdit();
     this.submitted.set(false);
     this.editingId.set(null);
     this.newMainCharacterId.set('');
@@ -296,7 +306,7 @@ export class BookEventsComponent implements OnInit {
     }
 
     const editingId = this.editingId();
-    const original = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
+    const original = this.sync.original(editingId);
     if (editingId && !original) {
       this.globalMessageService.showError('The book event being edited is no longer available.');
       return;
@@ -309,7 +319,7 @@ export class BookEventsComponent implements OnInit {
     }
 
     const record: EventRecord = {
-      id: editingId ?? `book_events_${Date.now()}`,
+      id: editingId ?? createDomainId(this.bookId(), 'BOOK_EVENTS'),
       bookId: this.bookId(),
       bookRow,
       itemRow: original?.itemRow ?? 0,
@@ -332,24 +342,14 @@ export class BookEventsComponent implements OnInit {
       syncStatus: 'pending',
     };
 
-    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
-      const saved = editingId
-        ? await this.dataService.updateDomainItem(record)
-        : await this.dataService.addDomainItem(record);
-      this.rows.update((rows) => {
-        const index = rows.findIndex((row) => row.id === record.id);
-        return index === -1
-          ? [...rows, saved]
-          : rows.map((row) => (row.id === record.id ? saved : row));
-      });
+      await this.sync.save(record, editingId);
       this.resetForm();
     } catch (error) {
       this.showError(error, 'Failed to save book event.');
     } finally {
       this.isSaving.set(false);
-      this.globalLoadingService.end(operation);
     }
   }
 

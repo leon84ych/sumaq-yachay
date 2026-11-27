@@ -18,11 +18,9 @@ export class CharacterRepository extends LocalDomainRepositoryAbstract<Character
   }
 
   async getDomain(bookRow: number, total: number | null = null): Promise<CharacterRecord[]> {
+    const snapshot = await this.snapshotForRefresh(bookRow);
     const raws: CharacterRaw[] = await this.gasRepository.getDomain(bookRow, total);
-    const database = this.localDBService.indexedDB;
-    const ownerBook = raws.some((raw) => !raw.bookId)
-      ? await database.books.where('row').equals(bookRow).first()
-      : undefined;
+    const ownerBook = snapshot.book;
 
     const records = raws.map((raw) => ({
       ...this.mapper.toRecord({ ...raw, bookId: raw.bookId || (ownerBook?.id ?? '') }),
@@ -30,12 +28,7 @@ export class CharacterRepository extends LocalDomainRepositoryAbstract<Character
     }));
     const persistable = records.filter((record) => record.bookId);
 
-    await database.transaction('rw', database.characters, async () => {
-      await this.preserveLocalFeedState(persistable);
-      await database.characters.bulkPut(persistable);
-    });
-
-    return persistable;
+    return this.mergeRemoteRecords(persistable, snapshot);
   }
 
 

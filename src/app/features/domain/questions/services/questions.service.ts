@@ -4,12 +4,14 @@ import { BookQueryService } from '../../index/services/book-query.service';
 import { QuestionRecord } from '../model/questions-model';
 import { QuestionQueryService } from './questions-query.service';
 import { QuestionRepository } from './questions-repository';
+import { AllDomainWriteSyncService } from '../../shared/domain-repository/all-domain-write-sync.service';
 
 @Injectable({ providedIn: 'root' })
 export class QuestionDataService {
   private readonly questionRepository = inject(QuestionRepository);
   private readonly bookQueryService = inject(BookQueryService);
   private readonly questionQueryService = inject(QuestionQueryService);
+  private readonly writeSync = inject(AllDomainWriteSyncService);
 
   async getRecords(bookId: string): Promise<QuestionRecord[]> {
     const questions = await this.questionQueryService.getQuestionsByBookId(bookId);
@@ -33,7 +35,7 @@ export class QuestionDataService {
   }
 
   addDomainItem(record: QuestionRecord): Promise<QuestionRecord> {
-    return this.questionRepository.addDomainItem(record);
+    return this.writeSync.save('QUESTIONS', record, false);
   }
 
   updateDomainItem(record: QuestionRecord): Promise<QuestionRecord> {

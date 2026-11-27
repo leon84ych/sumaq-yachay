@@ -1,4 +1,11 @@
+import type { DomainName } from '../../../catalog/book-detail/models/domain-sheet-config';
 
+let lastDomainIdTimestamp = 0;
+
+export function createDomainId(bookId: string, domain: DomainName): string {
+    lastDomainIdTimestamp = Math.max(Date.now(), lastDomainIdTimestamp + 1);
+    return `${bookId}_${domain}_${lastDomainIdTimestamp}`;
+}
 
 export type SyncStatus = 'synced' | 'pending' | 'error';
 
@@ -27,7 +34,7 @@ export const Role = {
 } as const;
 
 export interface Domain extends Record<string, unknown> {
-    id: string;             //unique identifier for the domain sheet
+    id: string;             //unique identifier for the domain entry
     bookId: string;         //stores the book ID associated with this domain sheet
     bookRow: number;        //row number of this book in master index
     tags: string[];         //list of tags associated with this domain sheet

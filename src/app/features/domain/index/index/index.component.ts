@@ -21,6 +21,7 @@ import { IndexRecord } from '../model/index-model';
 import { IndexDataService } from '../services/index.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
 import { DomainWriteSyncService } from '../../shared/domain-repository/domain-write-sync.service';
+import { createDomainId } from '../../shared/model/domain-shared-model';
 
 
 @Component({
@@ -221,7 +222,7 @@ export class IndexComponent implements OnInit {
         : undefined;
       if (editingId && !original) throw new Error('The Index entry being edited is no longer available.');
       const indexEntry: IndexRecord = {
-        id: resolvedId ?? `idx_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+        id: resolvedId ?? createDomainId(this.bookId(), 'INDEX'),
         bookRow: book.row,
         feed: original?.feed ?? 0,
         bookId: this.bookId(),

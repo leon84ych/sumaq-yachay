@@ -55,6 +55,7 @@ describe('QuestionGeneratorComponent', () => {
     expect(generatedQuestion).toHaveBeenCalledWith('Entropy', 'A measure of disorder.', 'open');
     expect(addDomainItem).toHaveBeenCalledWith(
       expect.objectContaining({
+        id: expect.stringMatching(/^book-1_QUESTIONS_\d+$/),
         bookId: 'book-1',
         bookRow: 8,
         itemRow: 0,

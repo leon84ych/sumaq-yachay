@@ -12,7 +12,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
-import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
+import { DomainWriteView } from '../../shared/domain-repository/domain-write-view';
+import { createDomainId } from '../../shared/model/domain-shared-model';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -44,6 +45,7 @@ export class ConceptsComponent implements OnInit {
 
   // Unfiltered local source of truth for this book.
   readonly rows = signal<ConceptRecord[]>([]);
+  readonly sync = new DomainWriteView<ConceptRecord>('CONCEPTS', this.bookId, this.rows);
   readonly bookName = signal('');
   readonly bookAuthor = signal('');
   readonly bookRow = signal<number | null>(null);
@@ -66,7 +68,6 @@ export class ConceptsComponent implements OnInit {
   );
 
   private readonly conceptDataService = inject(ConceptDataService);
-  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly globalMessageService = inject(GlobalMessageService);
   private readonly transloco = inject(TranslocoService);
   readonly permissionService = inject(PermissionService);
@@ -133,7 +134,8 @@ export class ConceptsComponent implements OnInit {
       this.newSource.set(this.bookName());
 
       await this.refreshAllowedTags();
-      this.rows.set(await this.conceptDataService.getRecords(this.bookId()));
+      this.sync.observe();
+      this.sync.initialize(await this.conceptDataService.getRecords(this.bookId()));
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to load concepts.';
       this.globalMessageService.showError(message);
@@ -161,8 +163,7 @@ export class ConceptsComponent implements OnInit {
     }
 
     try {
-      await this.conceptDataService.deleteDomainItem(row);
-      this.rows.update((rows) => rows.filter((item) => item.id !== id));
+      await this.sync.delete(row);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to delete concept.';
       this.globalMessageService.showError(message);
@@ -170,6 +171,7 @@ export class ConceptsComponent implements OnInit {
   }
 
   editEntry(row: ConceptRecord): void {
+    if (!this.sync.startEdit(row)) return;
     this.submitted.set(false);
     const category = row.category;
     const isBuiltInCategory = isConceptNodeCategory(category);
@@ -185,6 +187,7 @@ export class ConceptsComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.sync.clearEdit();
     this.submitted.set(false);
     this.editingId.set(null);
     this.newTerm.set('');
@@ -206,7 +209,7 @@ export class ConceptsComponent implements OnInit {
     }
 
     const editingId = this.editingId();
-    const original = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
+    const original = this.sync.original(editingId);
     if (editingId && !original) {
       this.globalMessageService.showError('The concept being edited is no longer available.');
       return;
@@ -220,7 +223,7 @@ export class ConceptsComponent implements OnInit {
 
     const selectedCategory = this.newCategory();
     const record: ConceptRecord = {
-      id: editingId ?? `concept_${Date.now()}`,
+      id: editingId ?? createDomainId(this.bookId(), 'CONCEPTS'),
       bookId: this.bookId(),
       bookRow,
       itemRow: original?.itemRow ?? 0,
@@ -234,26 +237,15 @@ export class ConceptsComponent implements OnInit {
       syncStatus: 'pending',
     };
 
-    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
-      const saved = editingId
-        ? await this.conceptDataService.updateDomainItem(record)
-        : await this.conceptDataService.addDomainItem(record);
-      this.rows.update((rows) => {
-        const existingIndex = rows.findIndex((row) => row.id === record.id);
-        if (existingIndex === -1) {
-          return [...rows, saved];
-        }
-        return rows.map((row, index) => (index === existingIndex ? saved : row));
-      });
+      await this.sync.save(record, editingId);
       this.resetForm();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to save concept.';
       this.globalMessageService.showError(message);
     } finally {
       this.isSaving.set(false);
-      this.globalLoadingService.end(operation);
     }
   }
 }

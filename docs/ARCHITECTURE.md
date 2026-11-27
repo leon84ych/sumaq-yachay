@@ -70,6 +70,7 @@
 * **Offline-First Storage:** Local persistence in browser storage using `Dexie.js` as an ORM-like wrapper over `IndexedDB`.
 * **Zero-Latency Reads:** All UI components fetch data directly from local storage using reactive queries (`liveQuery`), eliminating UI blocking during network requests.
 * **Background Synchronization:** Synchronizes with Google Apps Script asynchronously; local stores are updated in atomic transactions upon successful network response.
+* **Domain Entry IDs:** New client-created entries use `bookId_DOMAIN_timestamp`, with the configured domain name and a millisecond timestamp. IDs are monotonic within one application instance, but timestamps alone cannot guarantee uniqueness across tabs or devices. Existing IDs are unchanged. The Apps Script create response remains authoritative, so the backend must retain the supplied ID to preserve this format after synchronization.
 
 ### 4. Presentation Layer (Angular Frontend)
 * **Reactive Core:** Built with Angular signals, reactive components, and standalone design patterns.

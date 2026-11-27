@@ -112,6 +112,17 @@ describe('PassageRepository', () => {
     expect(await query.getPassagesByBookId('other-book')).toHaveLength(0);
   });
 
+  it('does not overwrite pending edits with a remote refresh', async () => {
+    const local = { ...record, id: 'p-1', title: 'Local edit', syncStatus: 'pending' as const };
+    await passages.put(local);
+    gasRepository.getDomain.mockResolvedValue([
+      new PassageGASMapper().toRaw({ ...local, title: 'Old server title', syncStatus: 'synced' }),
+    ]);
+
+    expect(await repository.getDomain(7)).toEqual([local]);
+    expect(passages.rows.get(storageKey('book-1', 'p-1'))).toEqual(local);
+  });
+
   it('writes pending first, then replaces the temporary id with the GAS id on create', async () => {
     gasRepository.addDomainItem.mockImplementation(async () => {
       expect(passages.rows.get(storageKey('book-1', 'temp-1'))?.syncStatus).toBe('pending');

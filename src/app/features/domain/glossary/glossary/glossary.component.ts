@@ -12,7 +12,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
-import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
+import { DomainWriteView } from '../../shared/domain-repository/domain-write-view';
+import { createDomainId } from '../../shared/model/domain-shared-model';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -42,6 +43,7 @@ export class GlossaryComponent implements OnInit {
   readonly closeEntry = output<void>();
 
   readonly rows = signal<GlossaryRecord[]>([]);
+  readonly sync = new DomainWriteView<GlossaryRecord>('GLOSARY', this.bookId, this.rows);
   readonly bookName = signal('');
   readonly bookAuthor = signal('');
   readonly bookRow = signal<number | null>(null);
@@ -70,7 +72,6 @@ export class GlossaryComponent implements OnInit {
   readonly source = computed(() => this.newSource().trim() || this.bookName().trim());
   private readonly glossaryDataService = inject(GlossaryDataService);
   private readonly globalMessageService = inject(GlobalMessageService);
-  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
@@ -140,7 +141,8 @@ export class GlossaryComponent implements OnInit {
       this.bookRow.set(book?.row ?? null);
       this.newLanguage.set(book?.language ?? '');
       await this.refreshAllowedTags();
-      this.rows.set(await this.glossaryDataService.getRecords(this.bookId()));
+      this.sync.observe();
+      this.sync.initialize(await this.glossaryDataService.getRecords(this.bookId()));
     } catch (error) {
       this.showError(error, 'Failed to load glossary entries.');
     }
@@ -166,14 +168,14 @@ export class GlossaryComponent implements OnInit {
     }
 
     try {
-      await this.glossaryDataService.deleteDomainItem(record);
-      this.rows.update((rows) => rows.filter((row) => row.id !== id));
+      await this.sync.delete(record);
     } catch (error) {
       this.showError(error, 'Failed to delete glossary entry.');
     }
   }
 
   editEntry(record: GlossaryRecord): void {
+    if (!this.sync.startEdit(record)) return;
     this.submitted.set(false);
     this.editingId.set(record.id);
     this.newTerm.set(record.term);
@@ -190,6 +192,7 @@ export class GlossaryComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.sync.clearEdit();
     this.submitted.set(false);
     this.editingId.set(null);
     this.newTerm.set('');
@@ -215,9 +218,11 @@ export class GlossaryComponent implements OnInit {
     }
 
     const editingId = this.editingId();
-    const original = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
+    const original = this.sync.original(editingId);
     if (editingId && !original) {
-      this.globalMessageService.showError('The glossary entry being edited is no longer available.');
+      this.globalMessageService.showError(
+        'The glossary entry being edited is no longer available.',
+      );
       return;
     }
 
@@ -228,7 +233,7 @@ export class GlossaryComponent implements OnInit {
     }
 
     const record: GlossaryRecord = {
-      id: editingId ?? `glossary_${Date.now()}`,
+      id: editingId ?? createDomainId(this.bookId(), 'GLOSARY'),
       bookId: this.bookId(),
       bookRow,
       itemRow: original?.itemRow ?? 0,
@@ -247,24 +252,19 @@ export class GlossaryComponent implements OnInit {
       syncStatus: 'pending',
     };
 
-    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
-      const saved = editingId
-        ? await this.glossaryDataService.updateDomainItem(record)
-        : await this.glossaryDataService.addDomainItem(record);
-      this.rows.update((rows) => {
-        const index = rows.findIndex((row) => row.id === record.id);
-        return index === -1
-          ? [...rows, saved]
-          : rows.map((row, rowIndex) => (rowIndex === index ? saved : row));
-      });
+      await this.sync.save(record, editingId);
       this.resetForm();
+      try {
+        await this.glossaryDataService.rememberLanguage(record.language);
+      } catch (error) {
+        this.showError(error, 'Failed to remember the language.');
+      }
     } catch (error) {
       this.showError(error, 'Failed to save glossary entry.');
     } finally {
       this.isSaving.set(false);
-      this.globalLoadingService.end(operation);
     }
   }
 

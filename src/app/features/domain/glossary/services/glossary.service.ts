@@ -34,6 +34,10 @@ export class GlossaryDataService {
     return this.glossaryQueryService.getAllowedTags(bookId);
   }
 
+  rememberLanguage(language: string): Promise<void> {
+    return this.languageService.remember(language);
+  }
+
   async addDomainItem(record: GlossaryRecord): Promise<GlossaryRecord> {
     const saved = await this.glossaryRepository.addDomainItem(record);
     await this.languageService.remember(saved.language);

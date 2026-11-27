@@ -12,7 +12,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
-import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
+import { DomainWriteView } from '../../shared/domain-repository/domain-write-view';
+import { createDomainId } from '../../shared/model/domain-shared-model';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import { matchesStudySearch } from '../../../../shared/utils/study-search';
@@ -39,6 +40,7 @@ export class QuotesComponent implements OnInit {
 
   // Unfiltered local source of truth for this book.
   readonly rows = signal<QuoteRecord[]>([]);
+  readonly sync = new DomainWriteView<QuoteRecord>('QUOTES', this.bookId, this.rows);
   readonly bookName = signal('');
   readonly bookAuthor = signal('');
   readonly bookRow = signal<number | null>(null);
@@ -59,7 +61,6 @@ export class QuotesComponent implements OnInit {
 
   private readonly quoteDataService = inject(QuoteDataService);
   private readonly globalMessageService = inject(GlobalMessageService);
-  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
@@ -132,7 +133,8 @@ export class QuotesComponent implements OnInit {
       this.newAuthor.set(this.bookAuthor());
 
       await this.refreshAllowedTags();
-      this.rows.set(await this.quoteDataService.getRecords(this.bookId()));
+      this.sync.observe();
+      this.sync.initialize(await this.quoteDataService.getRecords(this.bookId()));
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to load quotes.';
       this.globalMessageService.showError(message);
@@ -160,8 +162,7 @@ export class QuotesComponent implements OnInit {
     }
 
     try {
-      await this.quoteDataService.deleteDomainItem(row);
-      this.rows.update((rows) => rows.filter((item) => item.id !== id));
+      await this.sync.delete(row);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to delete quote.';
       this.globalMessageService.showError(message);
@@ -169,6 +170,7 @@ export class QuotesComponent implements OnInit {
   }
 
   editEntry(row: QuoteRecord): void {
+    if (!this.sync.startEdit(row)) return;
     this.submitted.set(false);
     this.editingId.set(row.id);
     this.newQuote.set(row.quote);
@@ -181,6 +183,7 @@ export class QuotesComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.sync.clearEdit();
     this.submitted.set(false);
     this.editingId.set(null);
     this.newQuote.set('');
@@ -202,7 +205,7 @@ export class QuotesComponent implements OnInit {
     }
 
     const editingId = this.editingId();
-    const original = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
+    const original = this.sync.original(editingId);
     if (editingId && !original) {
       this.globalMessageService.showError('The quote being edited is no longer available.');
       return;
@@ -215,7 +218,7 @@ export class QuotesComponent implements OnInit {
     }
 
     const record: QuoteRecord = {
-      id: editingId ?? `quote_${Date.now()}`,
+      id: editingId ?? createDomainId(this.bookId(), 'QUOTES'),
       bookId: this.bookId(),
       bookRow,
       itemRow: original?.itemRow ?? 0,
@@ -230,26 +233,15 @@ export class QuotesComponent implements OnInit {
       syncStatus: 'pending',
     };
 
-    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
-      const saved = editingId
-        ? await this.quoteDataService.updateDomainItem(record)
-        : await this.quoteDataService.addDomainItem(record);
-      this.rows.update((rows) => {
-        const existingIndex = rows.findIndex((row) => row.id === record.id);
-        if (existingIndex === -1) {
-          return [...rows, saved];
-        }
-        return rows.map((row, index) => (index === existingIndex ? saved : row));
-      });
+      await this.sync.save(record, editingId);
       this.resetForm();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to save quote.';
       this.globalMessageService.showError(message);
     } finally {
       this.isSaving.set(false);
-      this.globalLoadingService.end(operation);
     }
   }
 }

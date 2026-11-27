@@ -12,7 +12,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
-import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
+import { DomainWriteView } from '../../shared/domain-repository/domain-write-view';
+import { createDomainId } from '../../shared/model/domain-shared-model';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -52,6 +53,7 @@ export class PlacesComponent implements OnInit {
   readonly closeEntry = output<void>();
 
   readonly rows = signal<PlaceRecord[]>([]);
+  readonly sync = new DomainWriteView<PlaceRecord>('PLACES', this.bookId, this.rows);
   readonly bookName = signal('');
   readonly bookAuthor = signal('');
   readonly bookRow = signal<number | null>(null);
@@ -76,7 +78,6 @@ export class PlacesComponent implements OnInit {
 
   private readonly placeDataService = inject(PlaceDataService);
   private readonly globalMessageService = inject(GlobalMessageService);
-  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
@@ -138,7 +139,8 @@ export class PlacesComponent implements OnInit {
       this.bookAuthor.set(book?.author ?? '');
       this.bookRow.set(book?.row ?? null);
       await this.refreshAllowedTags();
-      this.rows.set(await this.placeDataService.getRecords(this.bookId()));
+      this.sync.observe();
+      this.sync.initialize(await this.placeDataService.getRecords(this.bookId()));
     } catch (error) {
       this.showError(error, 'Failed to load places.');
     }
@@ -164,14 +166,14 @@ export class PlacesComponent implements OnInit {
     }
 
     try {
-      await this.placeDataService.deleteDomainItem(record);
-      this.rows.update((rows) => rows.filter((row) => row.id !== id));
+      await this.sync.delete(record);
     } catch (error) {
       this.showError(error, 'Failed to delete place.');
     }
   }
 
   editEntry(record: PlaceRecord): void {
+    if (!this.sync.startEdit(record)) return;
     this.submitted.set(false);
     this.editingId.set(record.id);
     this.newName.set(record.name);
@@ -186,6 +188,7 @@ export class PlacesComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.sync.clearEdit();
     this.submitted.set(false);
     this.editingId.set(null);
     this.newName.set('');
@@ -209,7 +212,7 @@ export class PlacesComponent implements OnInit {
     }
 
     const editingId = this.editingId();
-    const original = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
+    const original = this.sync.original(editingId);
     if (editingId && !original) {
       this.globalMessageService.showError('The place being edited is no longer available.');
       return;
@@ -222,7 +225,7 @@ export class PlacesComponent implements OnInit {
     }
 
     const record: PlaceRecord = {
-      id: editingId ?? `places_${Date.now()}`,
+      id: editingId ?? createDomainId(this.bookId(), 'PLACES'),
       bookId: this.bookId(),
       bookRow,
       itemRow: original?.itemRow ?? 0,
@@ -239,24 +242,14 @@ export class PlacesComponent implements OnInit {
       syncStatus: 'pending',
     };
 
-    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
-      const saved = editingId
-        ? await this.placeDataService.updateDomainItem(record)
-        : await this.placeDataService.addDomainItem(record);
-      this.rows.update((rows) => {
-        const index = rows.findIndex((row) => row.id === record.id);
-        return index === -1
-          ? [...rows, saved]
-          : rows.map((row, rowIndex) => (rowIndex === index ? saved : row));
-      });
+      await this.sync.save(record, editingId);
       this.resetForm();
     } catch (error) {
       this.showError(error, 'Failed to save place.');
     } finally {
       this.isSaving.set(false);
-      this.globalLoadingService.end(operation);
     }
   }
 

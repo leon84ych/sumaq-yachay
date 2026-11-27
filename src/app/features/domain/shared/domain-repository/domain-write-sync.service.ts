@@ -3,23 +3,38 @@ import { DestroyRef, effect, inject, Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 import { ConfigService } from '../../../../core/services/config/config.service';
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
-import { liveQuery } from 'dexie';
+import { liveQuery, Table } from 'dexie';
 import { LocalDBService, PendingDomainWrite } from '../../../../shared/local-db/local-db.service';
 import { GoogleAuthService } from '../../../authentication/services/google-auth-service';
 import { IndexRecord } from '../../index/model/index-model';
 import { IndexGASRepository } from '../../index/services/index-gas-repository';
+import { PassageGASRepository } from '../../passages/services/passages-gas-repository';
+import { PassageRecord } from '../../passages/model/passages-model';
+import { Domain } from '../model/domain-shared-model';
+import { DomainName } from '../../../catalog/book-detail/models/domain-sheet-config';
 
-const DOMAIN = 'INDEX';
-const LOCK_NAME = 'sumaq-yachay-index-write-sync';
-const LEASE_KEY = 'index-write-sync-lease';
 const RETRY_DELAY = 30_000;
+const DOMAIN_TABLES: Record<DomainName, string> = {
+  INDEX: 'indexes', PASSAGES: 'passages', CONCEPTS: 'concepts', QUOTES: 'quotes',
+  CHARACTER: 'characters', PLACES: 'places', BOOK_EVENTS: 'bookEvents',
+  RELATIONS: 'relations', ASSOCIATIONS: 'associations', GLOSARY: 'glossary',
+  QUESTIONS: 'questions',
+};
+const WRITE_COMPLETED_EVENT = 'sumaq-domain-write-completed';
 
-@Injectable({ providedIn: 'root' })
-export class DomainWriteSyncService {
+@Injectable()
+export abstract class DomainWriteSyncWorker<T extends Domain> {
+  protected abstract readonly domain: DomainName;
+  protected abstract readonly table: Table<T, [string, string]>;
+  protected abstract readonly gateway: {
+    addDomainItem(record: T, signal?: AbortSignal): Promise<T>;
+    updateDomainItem(record: T, signal?: AbortSignal): Promise<T>;
+    deleteDomainItem(record: T, signal?: AbortSignal): Promise<void>;
+    getDomain(row: number): Promise<{ id: string; itemRow: number }[]>;
+  };
   private readonly database = inject(LocalDBService).indexedDB;
   private readonly config = inject(ConfigService);
   private readonly auth = inject(GoogleAuthService);
-  private readonly gateway = inject(IndexGASRepository);
   private readonly messages = inject(GlobalMessageService);
   private readonly transloco = inject(TranslocoService);
   private readonly window = inject(DOCUMENT).defaultView;
@@ -29,47 +44,55 @@ export class DomainWriteSyncService {
   private timer: ReturnType<typeof setTimeout> | undefined;
   private destroyed = false;
   private readonly replacedIds = new Map<string, string>();
+  private readonly warnedDependencies = new Set<string>();
   private readonly owner = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
   constructor() {
-    const online = () => void this.resume().catch(error => console.error('Failed to resume Index synchronization:', error));
+    const online = () => void this.resume().catch(error => console.error(`Failed to resume ${this.domain} synchronization:`, error));
+    const dependencyChanged = () => this.kick();
     this.window?.addEventListener('online', online);
+    this.window?.addEventListener(WRITE_COMPLETED_EVENT, dependencyChanged);
     this.destroyRef.onDestroy(() => {
       this.destroyed = true;
       this.window?.removeEventListener('online', online);
+      this.window?.removeEventListener(WRITE_COMPLETED_EVENT, dependencyChanged);
       if (this.timer) clearTimeout(this.timer);
     });
     effect(() => {
       this.auth.idToken();
       this.auth.currentUser?.();
       this.config.localSampleDataEnabled();
-      void this.resume().catch(error => console.error('Failed to resume Index synchronization:', error));
+      void this.resume().catch(error => console.error(`Failed to resume ${this.domain} synchronization:`, error));
     });
   }
 
-  async saveIndex(record: IndexRecord, isEdit: boolean): Promise<IndexRecord> {
+  async save(record: T, isEdit: boolean): Promise<T> {
     const sampleMode = this.config.isLocalSampleDataEnabled();
-    const indexes = this.database.indexes;
+    const indexes = this.table;
     const queue = this.database.pendingDomainWrites;
     const metadata = this.database.metadata;
     const pending = await this.database.transaction('rw', [indexes, queue, metadata], async () => {
       const alias = await metadata.get(this.aliasKey(record.bookId, record.id));
-      const pending: IndexRecord = { ...record, id: alias?.targetId ?? record.id, syncStatus: 'pending' };
-      const key: [string, string, string] = [DOMAIN, pending.bookId, pending.id];
+      const id = alias?.targetId ?? record.id;
+      const stored = isEdit ? await indexes.get([record.bookId, id]) : undefined;
+      const pending: T = this.preserveFeedState({
+        ...record, id, itemRow: record.itemRow || stored?.itemRow || 0, syncStatus: 'pending',
+      }, stored);
+      const key: [string, string, string] = [this.domain, pending.bookId, pending.id];
       const existing = await queue.get(key);
       if (existing?.operation === 'delete' || existing?.deleteAfterCreate) {
-        throw new Error(this.transloco.translate('DOMAINS.INDEX.DELETE_PENDING'));
+        throw new Error(this.transloco.translate(this.messageKey('DELETE_PENDING')));
       }
       if (existing?.ownerEmail && this.currentEmail() && !this.matchesAccount(existing)) {
-        throw new Error(this.transloco.translate('DOMAINS.INDEX.SYNC_ACCOUNT', {
-          bookId: pending.bookId, chapter: pending.chapter, theme: pending.theme,
+        throw new Error(this.transloco.translate(this.messageKey('SYNC_ACCOUNT'), {
+          bookId: pending.bookId, chapter: pending['chapter'], theme: pending['theme'], title: pending['title'],
           id: pending.id, ownerEmail: existing.ownerEmail,
         }));
       }
       await indexes.put(pending);
       if (!sampleMode) {
         await queue.put({
-          domain: DOMAIN,
+          domain: this.domain,
           bookId: pending.bookId,
           id: pending.id,
           operation: existing?.operation ?? (isEdit ? 'update' : 'create'),
@@ -86,33 +109,33 @@ export class DomainWriteSyncService {
       return pending;
     });
     if (!sampleMode) {
-      if (!this.canSend()) this.notify(pending, 'DOMAINS.INDEX.SYNC_OFFLINE');
+      if (!this.canSend()) this.notify(pending, 'SYNC_OFFLINE');
       this.kick();
     }
     return pending;
   }
 
-  async deleteIndex(record: IndexRecord): Promise<'pending' | 'deleted'> {
+  async delete(record: T): Promise<'pending' | 'deleted'> {
     const sampleMode = this.config.isLocalSampleDataEnabled();
-    const indexes = this.database.indexes;
+    const indexes = this.table;
     const queue = this.database.pendingDomainWrites;
     const metadata = this.database.metadata;
     let discardedUncertainCreate = false;
     const result = await this.database.transaction('rw', [indexes, queue, metadata], async () => {
       const alias = await metadata.get(this.aliasKey(record.bookId, record.id));
       const id = alias?.targetId ?? record.id;
-      const key: [string, string, string] = [DOMAIN, record.bookId, id];
+      const key: [string, string, string] = [this.domain, record.bookId, id];
       const current = await indexes.get([record.bookId, id]);
-      if (!current) throw new Error('The Index entry is no longer available.');
+      if (!current) throw new Error(`The ${this.domain} entry is no longer available.`);
       const existing = await queue.get(key);
       if (existing?.ownerEmail && this.currentEmail() && !this.matchesAccount(existing)) {
-        throw new Error(this.transloco.translate('DOMAINS.INDEX.SYNC_ACCOUNT', {
-          bookId: current.bookId, chapter: current.chapter, theme: current.theme,
+        throw new Error(this.transloco.translate(this.messageKey('SYNC_ACCOUNT'), {
+          bookId: current.bookId, chapter: current['chapter'], theme: current['theme'], title: current['title'],
           id: current.id, ownerEmail: existing.ownerEmail,
         }));
       }
       if (sampleMode) {
-        if (existing) throw new Error(this.transloco.translate('DOMAINS.INDEX.DELETE_PENDING_MODE'));
+        if (existing) throw new Error(this.transloco.translate(this.messageKey('DELETE_PENDING_MODE')));
         await indexes.delete([record.bookId, id]);
         return 'deleted' as const;
       }
@@ -123,10 +146,10 @@ export class DomainWriteSyncService {
         await queue.delete(key);
         return 'deleted' as const;
       }
-      const pending: IndexRecord = { ...current, syncStatus: 'pending' };
+      const pending: T = { ...current, syncStatus: 'pending' };
       await indexes.put(pending);
       await queue.put({
-        domain: DOMAIN,
+        domain: this.domain,
         bookId: pending.bookId,
         id: pending.id,
         operation: existing?.operation === 'create' ? 'create' : 'delete',
@@ -140,53 +163,53 @@ export class DomainWriteSyncService {
       });
       return 'pending' as const;
     });
-    if (discardedUncertainCreate) this.notify(record, 'DOMAINS.INDEX.DELETE_UNCERTAIN_CREATE');
+    if (discardedUncertainCreate) this.notify(record, 'DELETE_UNCERTAIN_CREATE');
     if (result === 'pending') {
-      if (!this.canSend()) this.notify(record, 'DOMAINS.INDEX.DELETE_OFFLINE');
+      if (!this.canSend()) this.notify(record, 'DELETE_OFFLINE');
       this.kick();
     }
     return result;
   }
 
-  async getIndexWrite(record: IndexRecord): Promise<PendingDomainWrite | undefined> {
-    return this.database.pendingDomainWrites.get([DOMAIN, record.bookId, record.id]);
+  async getWrite(record: T): Promise<PendingDomainWrite | undefined> {
+    return this.database.pendingDomainWrites.get([this.domain, record.bookId, record.id]);
   }
 
-  resolveIndexId(bookId: string, id: string): string {
+  resolveId(bookId: string, id: string): string {
     return this.replacedIds.get(JSON.stringify([bookId, id])) ?? id;
   }
 
-  watchIndexWrites(bookId: string, update: (writes: PendingDomainWrite[]) => void) {
+  watchWrites(bookId: string, update: (writes: PendingDomainWrite[]) => void) {
     return liveQuery(() => this.database.pendingDomainWrites.where('bookId').equals(bookId)
-      .filter(write => write.domain === DOMAIN).toArray()).subscribe({
+      .filter(write => write.domain === this.domain).toArray()).subscribe({
       next: update,
-      error: error => console.error('Failed to watch pending Index changes:', error),
+      error: error => this.messages.showError(error instanceof Error ? error.message : `Failed to watch ${this.domain} changes.`),
     });
   }
 
-  async retryIndex(record: IndexRecord, confirmAccount = false, confirmUncertain = false): Promise<void> {
+  async retry(record: T, confirmAccount = false, confirmUncertain = false): Promise<void> {
     const queue = this.database.pendingDomainWrites;
-    const write = await this.getIndexWrite(record);
+    const write = await this.getWrite(record);
     if (write?.state === 'uncertain' && (write.operation === 'create' || write.operation === 'delete') && !confirmUncertain) {
-      this.notify(record, write.operation === 'delete' ? 'DOMAINS.INDEX.DELETE_UNCERTAIN' : 'DOMAINS.INDEX.SYNC_UNCERTAIN');
+      this.notify(record, write.operation === 'delete' ? 'DELETE_UNCERTAIN' : 'SYNC_UNCERTAIN');
       return;
     }
     if (write && !write.ownerEmail) {
       if (!this.currentEmail()) {
-        this.notify(record, 'DOMAINS.INDEX.SYNC_OFFLINE');
+        this.notify(record, 'SYNC_OFFLINE');
         return;
       }
       if (!confirmAccount) {
-        this.notify(record, 'DOMAINS.INDEX.SYNC_ACCOUNT_UNKNOWN');
+        this.notify(record, 'SYNC_ACCOUNT_UNKNOWN');
         return;
       }
     }
     if (write?.ownerEmail && !this.matchesAccount(write)) {
-      this.notify(record, 'DOMAINS.INDEX.SYNC_ACCOUNT', '', write.ownerEmail);
+      this.notify(record, 'SYNC_ACCOUNT', '', write.ownerEmail);
       return;
     }
     await this.database.transaction('rw', queue, async () => {
-      const key: [string, string, string] = [DOMAIN, record.bookId, record.id];
+      const key: [string, string, string] = [this.domain, record.bookId, record.id];
       const existing = await queue.get(key);
       if (!existing || existing.state === 'sending') return;
       if (existing.ownerEmail && !this.matchesAccount(existing)) return;
@@ -195,29 +218,29 @@ export class DomainWriteSyncService {
       await queue.put({ ...existing, ownerEmail: existing.ownerEmail ?? this.currentEmail(), state: 'queued', retryAt: 0,
         ...(existing.operation === 'create' && existing.state === 'uncertain' ? { createMayExist: true } : {}) });
     });
-    if (!this.canSend()) this.notify(record, 'DOMAINS.INDEX.SYNC_OFFLINE');
+    if (!this.canSend()) this.notify(record, 'SYNC_OFFLINE');
     this.kick();
   }
 
-  async confirmIndexDeletion(record: IndexRecord, confirmAccount = false): Promise<boolean> {
+  async confirmDeletion(record: T, confirmAccount = false): Promise<boolean> {
     const queue = this.database.pendingDomainWrites;
-    const indexes = this.database.indexes;
-    const pending = await this.getIndexWrite(record);
+    const indexes = this.table;
+    const pending = await this.getWrite(record);
     if (!pending) return false;
     if (!this.currentEmail()) {
-      this.notify(record, 'DOMAINS.INDEX.SYNC_OFFLINE');
+      this.notify(record, 'SYNC_OFFLINE');
       return false;
     }
     if (pending.ownerEmail && !this.matchesAccount(pending)) {
-      this.notify(record, 'DOMAINS.INDEX.SYNC_ACCOUNT', '', pending.ownerEmail);
+      this.notify(record, 'SYNC_ACCOUNT', '', pending.ownerEmail);
       return false;
     }
     if (!pending.ownerEmail && !confirmAccount) {
-      this.notify(record, 'DOMAINS.INDEX.SYNC_ACCOUNT_UNKNOWN');
+      this.notify(record, 'SYNC_ACCOUNT_UNKNOWN');
       return false;
     }
     return this.database.transaction('rw', [queue, indexes], async () => {
-      const key: [string, string, string] = [DOMAIN, record.bookId, record.id];
+      const key: [string, string, string] = [this.domain, record.bookId, record.id];
       const write = await queue.get(key);
       if (!write || write.operation !== 'delete' || write.state !== 'uncertain') return false;
       if (!this.currentEmail() || (write.ownerEmail ? !this.matchesAccount(write) : !confirmAccount)) return false;
@@ -236,7 +259,7 @@ export class DomainWriteSyncService {
     if (!this.canSend()) return;
     const queue = this.database.pendingDomainWrites;
     await this.database.transaction('rw', queue, async () => {
-      const writes = await queue.where('[domain+state]').equals([DOMAIN, 'queued']).toArray();
+      const writes = await queue.where('[domain+state]').equals([this.domain, 'queued']).toArray();
       for (const write of writes) {
         if (this.matchesAccount(write) && write.retryAt) {
           await queue.put({ ...write, retryAt: 0 });
@@ -267,7 +290,7 @@ export class DomainWriteSyncService {
     if (this.timer) clearTimeout(this.timer);
     this.timer = setTimeout(() => {
       this.timer = undefined;
-      void this.run().catch(error => console.error('Index synchronization failed:', error));
+      void this.run().catch(error => console.error(`${this.domain} synchronization failed:`, error));
     }, delay);
   }
 
@@ -278,7 +301,7 @@ export class DomainWriteSyncService {
       const locks = this.window?.navigator.locks;
       if (locks) {
         let acquired = false;
-        await locks.request(LOCK_NAME, { ifAvailable: true }, async lock => {
+        await locks.request(`sumaq-yachay-${this.domain.toLowerCase()}-write-sync`, { ifAvailable: true }, async lock => {
           if (!lock) return;
           acquired = true;
           await this.drain(true);
@@ -304,13 +327,17 @@ export class DomainWriteSyncService {
     }
   }
 
+  private get leaseKey(): string {
+    return `${this.domain.toLowerCase()}-write-sync-lease`;
+  }
+
   private async acquireLease(): Promise<boolean> {
     const metadata = this.database.metadata;
     return this.database.transaction('rw', metadata, async () => {
-      const current = await metadata.get(LEASE_KEY);
+      const current = await metadata.get(this.leaseKey);
       if (current?.leaseOwner !== this.owner && (current?.leaseExpiresAt ?? 0) > Date.now()) return false;
       await metadata.put({
-        key: LEASE_KEY,
+        key: this.leaseKey,
         leaseOwner: this.owner,
         leaseExpiresAt: Date.now() + this.config.getGasTimeoutMs() + RETRY_DELAY,
       });
@@ -321,20 +348,20 @@ export class DomainWriteSyncService {
   private async releaseLease(): Promise<void> {
     const metadata = this.database.metadata;
     await this.database.transaction('rw', metadata, async () => {
-      if ((await metadata.get(LEASE_KEY))?.leaseOwner === this.owner) await metadata.delete(LEASE_KEY);
+      if ((await metadata.get(this.leaseKey))?.leaseOwner === this.owner) await metadata.delete(this.leaseKey);
     });
   }
 
   private async drain(exclusive: boolean, useLease = false): Promise<void> {
     const queue = this.database.pendingDomainWrites;
-    const interrupted = await queue.where('[domain+state]').equals([DOMAIN, 'sending']).toArray();
+    const interrupted = await queue.where('[domain+state]').equals([this.domain, 'sending']).toArray();
     for (const write of interrupted) {
       let discarded = false;
-      const recovered = await this.database.transaction('rw', [queue, this.database.indexes], async () => {
+      const recovered = await this.database.transaction('rw', [queue, this.table], async () => {
         const current = await queue.get([write.domain, write.bookId, write.id]);
         if (!current || current.state !== 'sending') return undefined;
         if (current.operation === 'create' && current.deleteAfterCreate) {
-          await this.database.indexes.delete([current.bookId, current.id]);
+          await this.table.delete([current.bookId, current.id]);
           await queue.delete([current.domain, current.bookId, current.id]);
           discarded = true;
           return current;
@@ -348,48 +375,106 @@ export class DomainWriteSyncService {
         return updated;
       });
       if (discarded && recovered) {
-        this.notify(recovered.record as IndexRecord, 'DOMAINS.INDEX.DELETE_UNCERTAIN_CREATE');
+        this.notify(recovered.record as T, 'DELETE_UNCERTAIN_CREATE');
       } else if (recovered?.state === 'uncertain') {
-        this.notify(recovered.record as IndexRecord,
-          recovered.operation === 'delete' ? 'DOMAINS.INDEX.DELETE_UNCERTAIN' : 'DOMAINS.INDEX.SYNC_UNCERTAIN');
+        this.notify(recovered.record as T,
+          recovered.operation === 'delete' ? 'DELETE_UNCERTAIN' : 'SYNC_UNCERTAIN');
       }
     }
 
     while (this.canSend()) {
       if (useLease && !(await this.acquireLease())) return;
-      const pending = await queue.where('[domain+state]').equals([DOMAIN, 'queued']).toArray();
+      const pending = await queue.where('[domain+state]').equals([this.domain, 'queued']).toArray();
       const eligible = pending.filter(write => this.matchesAccount(write));
       if (pending.length && !eligible.length) {
-        this.notify(pending[0].record as IndexRecord,
-          pending[0].ownerEmail ? 'DOMAINS.INDEX.SYNC_ACCOUNT' : 'DOMAINS.INDEX.SYNC_ACCOUNT_UNKNOWN',
+        this.notify(pending[0].record as T,
+          pending[0].ownerEmail ? 'SYNC_ACCOUNT' : 'SYNC_ACCOUNT_UNKNOWN',
           '', pending[0].ownerEmail);
         return;
       }
-      const ready = eligible.find(write => (write.retryAt ?? 0) <= Date.now());
-      if (!ready) {
+      const ready = eligible.filter(write => (write.retryAt ?? 0) <= Date.now());
+      if (!ready.length) {
         const nextRetry = Math.min(...eligible.map(write => write.retryAt ?? 0));
         if (Number.isFinite(nextRetry)) this.kick(Math.max(0, nextRetry - Date.now()));
         return;
       }
-      const claimed = await this.claim(ready);
-      if (claimed) await this.deliver(claimed);
+      let claimed: PendingDomainWrite | undefined;
+      for (const candidate of ready) {
+        claimed = await this.claim(candidate);
+        if (claimed) break;
+      }
+      if (!claimed) {
+        this.kick(RETRY_DELAY);
+        return;
+      }
+      await this.deliver(claimed);
     }
   }
 
   private async claim(write: PendingDomainWrite): Promise<PendingDomainWrite | undefined> {
     const queue = this.database.pendingDomainWrites;
-    return this.database.transaction('rw', queue, async () => {
+    return this.database.transaction('rw', this.database.tables, async () => {
       const key: [string, string, string] = [write.domain, write.bookId, write.id];
       const current = await queue.get(key);
       if (!current || current.state !== 'queued' || (current.retryAt ?? 0) > Date.now()) return undefined;
-      const claimed: PendingDomainWrite = { ...current, state: 'sending' };
+      const resolved = current.operation === 'delete'
+        ? current.record as T
+        : await this.resolveReferences(current.record as T);
+      if (!resolved) return undefined;
+      const local = resolved !== current.record
+        ? this.preserveFeedState(resolved, await this.table.get([current.bookId, current.id]))
+        : resolved;
+      const claimed: PendingDomainWrite = { ...current, record: local, state: 'sending' };
+      if (resolved !== current.record) await this.table.put(local);
       await queue.put(claimed);
       return claimed;
     });
   }
 
+  private async resolveReferences(record: T): Promise<T | undefined> {
+    const references: { field: string; domain: DomainName; multiple?: boolean }[] = [];
+    if (this.domain === 'RELATIONS') {
+      references.push({ field: 'sourceCharacterId', domain: 'CHARACTER' }, { field: 'targetCharacterId', domain: 'CHARACTER' });
+    } else if (this.domain === 'ASSOCIATIONS') {
+      references.push({ field: 'sourceConceptId', domain: 'CONCEPTS' }, { field: 'targetConceptId', domain: 'CONCEPTS' });
+    } else if (this.domain === 'BOOK_EVENTS') {
+      references.push({ field: 'mainCharacterId', domain: 'CHARACTER' }, { field: 'secondaryCharacterIds', domain: 'CHARACTER', multiple: true }, { field: 'placeId', domain: 'PLACES' });
+    } else if (this.domain === 'QUESTIONS' && typeof record['sourceDomain'] === 'string' &&
+      Object.hasOwn(DOMAIN_TABLES, record['sourceDomain'])) {
+      references.push({ field: 'sourceRowId', domain: record['sourceDomain'] as DomainName });
+    }
+
+    let updated = record;
+    for (const reference of references) {
+      const value = record[reference.field];
+      const ids = reference.multiple ? (Array.isArray(value) ? value : []) : [value];
+      const resolvedIds: string[] = [];
+      for (const id of ids) {
+        if (typeof id !== 'string' || !id) continue;
+        const alias = await this.database.metadata.get(`${reference.domain.toLowerCase()}-id-alias:${JSON.stringify([record.bookId, id])}`);
+        const targetId = alias?.targetId ?? id;
+        const pending = await this.database.pendingDomainWrites.get([reference.domain, record.bookId, targetId]);
+        if (pending) return undefined;
+        const existing = await this.database.table<Domain, [string, string]>(DOMAIN_TABLES[reference.domain]).get([record.bookId, targetId]);
+        if (!existing) {
+          const warning = JSON.stringify([record.bookId, record.id, reference.field, id]);
+          if (!this.warnedDependencies.has(warning)) {
+            this.warnedDependencies.add(warning);
+            this.notify(record, 'SYNC_DEPENDENCY', `${reference.domain}: ${id}`);
+          }
+          return undefined;
+        }
+        resolvedIds.push(targetId);
+      }
+      if (resolvedIds.some((id, index) => id !== ids[index])) {
+        updated = { ...updated, [reference.field]: reference.multiple ? resolvedIds : resolvedIds[0] };
+      }
+    }
+    return updated;
+  }
+
   private async deliver(write: PendingDomainWrite): Promise<void> {
-    let record = write.record as IndexRecord;
+    let record = write.record as T;
     let requestStarted = false;
     let verificationRequired = false;
     const controller = new AbortController();
@@ -435,12 +520,12 @@ export class DomainWriteSyncService {
     });
   }
 
-  private async complete(write: PendingDomainWrite, saved: IndexRecord): Promise<void> {
+  private async complete(write: PendingDomainWrite, saved: T): Promise<void> {
     const queue = this.database.pendingDomainWrites;
-    const indexes = this.database.indexes;
+    const indexes = this.table;
     const metadata = this.database.metadata;
     await this.database.transaction('rw', [queue, indexes, metadata], async () => {
-      const key: [string, string, string] = [DOMAIN, write.bookId, write.id];
+      const key: [string, string, string] = [this.domain, write.bookId, write.id];
       const current = await queue.get(key);
       if (!current) return;
       if (write.operation === 'delete') {
@@ -450,24 +535,28 @@ export class DomainWriteSyncService {
         }
         return;
       }
-      const latest = current.record as IndexRecord;
+      const latest = current.record as T;
+      const locallyStored = await indexes.get([write.bookId, write.id]);
       if (saved.id !== write.id) {
         await indexes.delete([write.bookId, write.id]);
         await queue.delete(key);
         await metadata.put({ key: this.aliasKey(write.bookId, write.id), targetId: saved.id });
       }
       if (current.operation === 'delete' || current.deleteAfterCreate) {
-        const pending: IndexRecord = { ...latest, id: saved.id, itemRow: saved.itemRow || latest.itemRow, syncStatus: 'pending' };
+        const pending: T = this.preserveFeedState(
+          { ...latest, id: saved.id, itemRow: saved.itemRow || latest.itemRow, syncStatus: 'pending' },
+          locallyStored,
+        );
         await indexes.put(pending);
         await queue.put({ ...current, id: saved.id, operation: 'delete', state: 'queued', record: pending,
           deleteAfterCreate: false, needsItemRow: true, retryAt: 0 });
       } else if (current.revision === write.revision) {
-        await indexes.put(saved);
-        await queue.delete([DOMAIN, saved.bookId, saved.id]);
+        await indexes.put(this.preserveFeedState(saved, locallyStored));
+        await queue.delete([this.domain, saved.bookId, saved.id]);
       } else {
-        const updated: IndexRecord = {
+        const updated: T = this.preserveFeedState({
           ...latest, id: saved.id, itemRow: saved.itemRow || latest.itemRow, syncStatus: 'pending',
-        };
+        }, locallyStored);
         await indexes.put(updated);
         await queue.put({
           ...current,
@@ -483,10 +572,20 @@ export class DomainWriteSyncService {
     if (saved.id !== write.id) {
       this.replacedIds.set(JSON.stringify([write.bookId, write.id]), saved.id);
     }
+    this.window?.dispatchEvent(new Event(WRITE_COMPLETED_EVENT));
   }
 
   private aliasKey(bookId: string, id: string): string {
-    return `index-id-alias:${JSON.stringify([bookId, id])}`;
+    return `${this.domain.toLowerCase()}-id-alias:${JSON.stringify([bookId, id])}`;
+  }
+
+  private preserveFeedState(record: T, stored: T | undefined): T {
+    if (!stored || this.domain === 'INDEX') return record;
+    const result = { ...record };
+    for (const key of ['affinity', 'forgotten', 'recalled', 'interval', 'easeFactor', 'complexity', 'lastSeen', 'lastReview', 'repetitions', 'history']) {
+      if (key in stored) Object.assign(result, { [key]: stored[key] });
+    }
+    return result;
   }
 
   private async fail(write: PendingDomainWrite, error: unknown, requestStarted: boolean): Promise<void> {
@@ -495,13 +594,13 @@ export class DomainWriteSyncService {
     let discarded = false;
     let discardedMayExist = false;
     let deletionSupersedesUpdate = false;
-    await this.database.transaction('rw', [queue, this.database.indexes], async () => {
-      const key: [string, string, string] = [DOMAIN, write.bookId, write.id];
+    await this.database.transaction('rw', [queue, this.table], async () => {
+      const key: [string, string, string] = [this.domain, write.bookId, write.id];
       const current = await queue.get(key);
       if (!current) return;
       if (write.operation === 'create' && current.deleteAfterCreate) {
         discardedMayExist = requestStarted || !!current.createMayExist || !!current.lastError;
-        await this.database.indexes.delete([write.bookId, write.id]);
+        await this.table.delete([write.bookId, write.id]);
         await queue.delete(key);
         discarded = true;
         return;
@@ -518,18 +617,50 @@ export class DomainWriteSyncService {
       });
     });
     if (discarded) {
-      if (discardedMayExist) this.notify(write.record as IndexRecord, 'DOMAINS.INDEX.DELETE_UNCERTAIN_CREATE', message);
+      if (discardedMayExist) this.notify(write.record as T, 'DELETE_UNCERTAIN_CREATE', message);
     } else if (!deletionSupersedesUpdate) {
       const key = write.operation === 'delete'
-        ? requestStarted ? 'DOMAINS.INDEX.DELETE_UNCERTAIN' : 'DOMAINS.INDEX.DELETE_FAILED'
-        : write.operation === 'create' && requestStarted ? 'DOMAINS.INDEX.SYNC_UNCERTAIN' : 'DOMAINS.INDEX.SYNC_FAILED';
-      this.notify(write.record as IndexRecord, key, message);
+        ? requestStarted ? 'DELETE_UNCERTAIN' : 'DELETE_FAILED'
+        : write.operation === 'create' && requestStarted ? 'SYNC_UNCERTAIN' : 'SYNC_FAILED';
+      this.notify(write.record as T, key, message);
     }
   }
 
-  private notify(record: IndexRecord, key: string, reason = '', ownerEmail = ''): void {
-    this.messages.showError(this.transloco.translate(key, {
-      bookId: record.bookId, chapter: record.chapter, theme: record.theme, id: record.id, reason, ownerEmail,
+  private notify(record: T, key: string, reason = '', ownerEmail = ''): void {
+    this.messages.showError(this.transloco.translate(this.messageKey(key), {
+      bookId: record.bookId, chapter: record['chapter'], theme: record['theme'], title: record['title'], id: record.id, reason, ownerEmail,
     }));
   }
+
+  private messageKey(key: string): string {
+    const namespace = this.domain === 'PASSAGES' ? 'PASSAGE' : this.domain === 'INDEX' ? 'INDEX' : 'SYNC';
+    return `DOMAINS.${namespace}.${key}`;
+  }
+}
+@Injectable({ providedIn: 'root' })
+export class DomainWriteSyncService extends DomainWriteSyncWorker<IndexRecord> {
+  protected readonly domain = 'INDEX' as const;
+  protected readonly table = inject(LocalDBService).indexedDB.indexes;
+  protected readonly gateway = inject(IndexGASRepository);
+
+  saveIndex(record: IndexRecord, isEdit: boolean) { return this.save(record, isEdit); }
+  deleteIndex(record: IndexRecord) { return this.delete(record); }
+  getIndexWrite(record: IndexRecord) { return this.getWrite(record); }
+  resolveIndexId(bookId: string, id: string) { return this.resolveId(bookId, id); }
+  watchIndexWrites(bookId: string, update: (writes: PendingDomainWrite[]) => void) {
+    return this.watchWrites(bookId, update);
+  }
+  retryIndex(record: IndexRecord, confirmAccount = false, confirmUncertain = false) {
+    return this.retry(record, confirmAccount, confirmUncertain);
+  }
+  confirmIndexDeletion(record: IndexRecord, confirmAccount = false) {
+    return this.confirmDeletion(record, confirmAccount);
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class PassageWriteSyncService extends DomainWriteSyncWorker<PassageRecord> {
+  protected readonly domain = 'PASSAGES' as const;
+  protected readonly table = inject(LocalDBService).indexedDB.passages;
+  protected readonly gateway = inject(PassageGASRepository);
 }
