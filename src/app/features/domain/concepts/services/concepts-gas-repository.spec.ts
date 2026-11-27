@@ -144,14 +144,14 @@ describe('ConceptGASRepository request bodies', () => {
     });
   });
 
-  it('sends DELETE_ROW with row as bookRow, itemRow and itemId as the record id', async () => {
+  it('sends DELETE_ROW with bookRow, itemRow and itemId as the record id', async () => {
     await repository.deleteDomainItem(record);
 
     expect(bodyOfLastCall()).toEqual({
       action: 'DELETE_ROW',
       idToken: 'auth-token',
       bookId: 'book-1',
-      row: 7,
+      bookRow: 7,
       sheetName: 'CONCEPTS',
       itemId: 'concept-1',
       itemRow: 15,

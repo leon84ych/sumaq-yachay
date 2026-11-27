@@ -43,7 +43,8 @@ describe('abortable domain writes', () => {
     const deletion = JSON.parse(fetchSpy.mock.calls[2][1].body as string);
     expect(create).toMatchObject({ action: 'CREATE_ROW', row: 7, rows: [{ id: 'item', itemRow: 8 }] });
     expect(update).toMatchObject({ action: 'UPDATE_ROW', row: 7, rows: [{ itemId: 'item', itemRow: 8 }] });
-    expect(deletion).toMatchObject({ action: 'DELETE_ROW', row: 7, itemId: 'item', itemRow: 8, bookId: 'book', sheetName: 'INDEX' });
+    expect(deletion).toMatchObject({ action: 'DELETE_ROW', bookRow: 7, itemId: 'item', itemRow: 8, bookId: 'book', sheetName: 'INDEX' });
+    expect(deletion).not.toHaveProperty('row');
   });
 
   it('rejects a delete without an explicit success response', async () => {

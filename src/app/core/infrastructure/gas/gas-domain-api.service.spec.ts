@@ -69,14 +69,14 @@ describe('GASDomainAPI row payloads', () => {
     });
   });
 
-  it('sends DELETE_ROW with row as the book row and itemRow as the item row', async () => {
+  it('sends DELETE_ROW with bookRow and itemRow as distinct fields', async () => {
     await api.deleteDomainItem(7, 'book-1', 'QUOTES', 'quote-1', 15);
 
     expect(bodyOfLastCall()).toEqual({
       action: 'DELETE_ROW',
       idToken: 'auth-token',
       bookId: 'book-1',
-      row: 7,
+      bookRow: 7,
       sheetName: 'QUOTES',
       itemId: 'quote-1',
       itemRow: 15,
