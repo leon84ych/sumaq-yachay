@@ -5,11 +5,18 @@ import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { DomainEntryCardComponent } from '../../../shared/domain-entry-card/domain-entry-card.component';
 import { DomainEntryFooterComponent } from '../../../shared/domain-entry-footer/domain-entry-footer.component';
+import { DomainSyncControlsComponent } from '../../../shared/domain-sync-controls/domain-sync-controls.component';
 import { CharacterRecord } from '../../model/characters-model';
 
 @Component({
   selector: 'app-character-entry-card',
-  imports: [TranslocoPipe, DomainEntryCardComponent, DomainEntryFooterComponent, StudyTagDirective],
+  imports: [
+    TranslocoPipe,
+    DomainEntryCardComponent,
+    DomainEntryFooterComponent,
+    DomainSyncControlsComponent,
+    StudyTagDirective,
+  ],
   templateUrl: './character-entry-card.component.html',
   styleUrl: './character-entry-card.component.css',
 })
@@ -19,6 +26,9 @@ export class CharacterEntryCardComponent {
   readonly bookName = input('');
   readonly bookAuthor = input('');
   readonly showActions = input(true);
+  readonly canRetry = input(false);
+  readonly pendingDeletion = input(false);
+  readonly retryRequested = output<CharacterRecord>();
   readonly showFeedReview = input(false);
   readonly contextualBookName = computed(() => this.bookName());
   readonly contextualBookAuthor = computed(() => this.bookAuthor());

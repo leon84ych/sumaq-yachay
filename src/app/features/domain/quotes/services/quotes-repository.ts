@@ -20,11 +20,9 @@ export class QuoteRepository extends LocalDomainRepositoryAbstract<QuoteRecord> 
   }
 
   async getDomain(bookRow: number, total: number | null = null): Promise<QuoteRecord[]> {
+    const snapshot = await this.snapshotForRefresh(bookRow);
     const raws: QuoteRaw[] = await this.gasRepository.getDomain(bookRow, total);
-    const database = this.localDBService.indexedDB;
-    const ownerBook = raws.some((raw) => !raw.bookId)
-      ? await database.books.where('row').equals(bookRow).first()
-      : undefined;
+    const ownerBook = snapshot.book;
 
     // Rows from GAS may omit the owning book; the fetch argument is the source of truth.
     const records = raws.map((raw) => ({
@@ -33,12 +31,7 @@ export class QuoteRepository extends LocalDomainRepositoryAbstract<QuoteRecord> 
     }));
     const persistable = records.filter((record) => record.bookId);
 
-    await database.transaction('rw', database.quotes, async () => {
-      await this.preserveLocalFeedState(persistable);
-      await database.quotes.bulkPut(persistable);
-    });
-
-    return persistable;
+    return this.mergeRemoteRecords(persistable, snapshot);
   }
 
 

@@ -1,10 +1,12 @@
+import { AllDomainWriteSyncService } from '../../shared/domain-repository/all-domain-write-sync.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
+import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
-import { LocalDBService } from '../../../../shared/local-db/local-db.service';
+import { LocalDBService, PendingDomainWrite } from '../../../../shared/local-db/local-db.service';
 import { ConceptRecord } from '../model/concepts-model';
 import { ConceptDataService } from '../services/concepts.service';
 import { ConceptsComponent } from './concepts.component';
@@ -40,6 +42,7 @@ describe('ConceptsComponent', () => {
 
   async function create(rows: ConceptRecord[]): Promise<void> {
     dataService.getRecords.mockResolvedValue(rows);
+    TestBed.inject(PermissionService).setRole('admin');
     fixture = TestBed.createComponent(ConceptsComponent);
     fixture.componentRef.setInput('bookId', 'book-1');
     component = fixture.componentInstance;
@@ -66,6 +69,22 @@ describe('ConceptsComponent', () => {
       ],
       providers: [
         { provide: ConceptDataService, useValue: dataService },
+
+        {
+          provide: AllDomainWriteSyncService,
+          useValue: {
+            resolveId: (_domain: string, _book: string, id: string) => id,
+            watchRecords: () => ({ unsubscribe: vi.fn() }),
+            watchWrites: () => ({ unsubscribe: vi.fn() }),
+            save: (_domain: string, record: unknown, isEdit: boolean) =>
+              isEdit ? dataService.updateDomainItem(record) : dataService.addDomainItem(record),
+            delete: async (_domain: string, record: unknown) => {
+              await dataService.deleteDomainItem(record);
+              return 'deleted';
+            },
+          },
+        },
+
         { provide: GlobalMessageService, useValue: { showError } },
         {
           provide: LocalDBService,
@@ -75,7 +94,6 @@ describe('ConceptsComponent', () => {
         },
       ],
     });
-    TestBed.inject(PermissionService).setRole('admin');
   });
 
   it('loads the book context and renders cards, filtering through the shared search query', async () => {
@@ -116,6 +134,7 @@ describe('ConceptsComponent', () => {
     expect(dataService.updateDomainItem).not.toHaveBeenCalled();
     expect(dataService.addDomainItem).toHaveBeenCalledWith(
       expect.objectContaining({
+        id: expect.stringMatching(/^book-1_CONCEPTS_\d+$/),
         bookId: 'book-1',
         bookRow: 7,
         itemRow: 0,
@@ -130,6 +149,63 @@ describe('ConceptsComponent', () => {
     );
     expect(component.rows()).toEqual([saved]);
     expect(component.newTerm()).toBe('');
+  });
+
+  it('closes the form before background synchronization completes and shows its result', async () => {
+    let updateRows!: (records: ConceptRecord[]) => void;
+    let finishSync!: (record: ConceptRecord) => void;
+    const response = new Promise<ConceptRecord>((resolve) => {
+      finishSync = resolve;
+    });
+    TestBed.overrideProvider(AllDomainWriteSyncService, {
+      useValue: {
+        watchRecords: (_domain: string, _book: string, update: typeof updateRows) => {
+          updateRows = update;
+          return { unsubscribe: vi.fn() };
+        },
+        watchWrites: () => ({ unsubscribe: vi.fn() }),
+        save: (_domain: string, record: ConceptRecord) => {
+          void response.then((synced) => updateRows([synced]));
+          return Promise.resolve(record);
+        },
+      },
+    });
+    await create([]);
+    component.newTerm.set('Term');
+    component.newDefinition.set('Definition');
+
+    await component.saveConcept();
+
+    expect(component.newTerm()).toBe('');
+    expect(component.rows()[0].syncStatus).toBe('pending');
+    expect(TestBed.inject(GlobalLoadingService).isLoading()).toBe(false);
+    finishSync({ ...component.rows()[0], id: 'server-id', syncStatus: 'synced' });
+    await vi.waitFor(() => expect(component.rows()[0].syncStatus).toBe('synced'));
+    expect(component.rows()[0].id).toBe('server-id');
+  });
+
+  it('disables editing and deletion while a deletion is waiting to synchronize', async () => {
+    const row = concept('c1', { syncStatus: 'pending' });
+    TestBed.overrideProvider(AllDomainWriteSyncService, {
+      useValue: {
+        watchRecords: () => ({ unsubscribe: vi.fn() }),
+        watchWrites: (_domain: string, _book: string, update: (writes: PendingDomainWrite[]) => void) => {
+          update([{
+            domain: 'CONCEPTS', bookId: row.bookId, id: row.id, record: row,
+            operation: 'delete', state: 'uncertain', revision: 1,
+          }]);
+          return { unsubscribe: vi.fn() };
+        },
+      },
+    });
+    await create([row]);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.domain-edit-button')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.domain-delete-button')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-domain-sync-controls button')).not.toBeNull();
+    component.editEntry(row);
+    expect(component.editingId()).toBeNull();
   });
 
   it('updates the original record keeping itemRow, contributor and feed when editing', async () => {

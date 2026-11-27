@@ -18,11 +18,9 @@ export class BookEventRepository extends LocalDomainRepositoryAbstract<EventReco
   }
 
   async getDomain(bookRow: number, total: number | null = null): Promise<EventRecord[]> {
+    const snapshot = await this.snapshotForRefresh(bookRow);
     const raws: BookEventRaw[] = await this.gasRepository.getDomain(bookRow, total);
-    const database = this.localDBService.indexedDB;
-    const ownerBook = raws.some((raw) => !raw.bookId)
-      ? await database.books.where('row').equals(bookRow).first()
-      : undefined;
+    const ownerBook = snapshot.book;
 
     const records = raws.map((raw, index) => {
       const record = this.mapper.toRecord({
@@ -34,12 +32,7 @@ export class BookEventRepository extends LocalDomainRepositoryAbstract<EventReco
     });
     const persistable = records.filter((record) => record.bookId);
 
-    await database.transaction('rw', database.bookEvents, async () => {
-      await this.preserveLocalFeedState(persistable);
-      await database.bookEvents.bulkPut(persistable);
-    });
-
-    return persistable;
+    return this.mergeRemoteRecords(persistable, snapshot);
   }
 
 

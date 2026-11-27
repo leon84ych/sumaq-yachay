@@ -141,6 +141,23 @@ describe('ConceptRepository', () => {
     });
   });
 
+  it('keeps edits and deletions made while a server refresh is in flight', async () => {
+    const original = { ...record, id: 'existing', syncStatus: 'synced' as const };
+    const deleted = { ...original, id: 'deleted' };
+    await concepts.put(original);
+    await concepts.put(deleted);
+    let finish!: (raws: ConceptRaw[]) => void;
+    gasRepository.getDomain.mockReturnValue(new Promise<ConceptRaw[]>((resolve) => { finish = resolve; }));
+    const refresh = repository.getDomain(7);
+    await vi.waitFor(() => expect(gasRepository.getDomain).toHaveBeenCalledOnce());
+    await concepts.put({ ...original, term: 'Local edit', syncStatus: 'pending' });
+    await concepts.delete(['book-1', 'deleted']);
+    finish([new ConceptGASMapper().toRaw(original), new ConceptGASMapper().toRaw(deleted)]);
+
+    expect(await refresh).toEqual([expect.objectContaining({ id: 'existing', term: 'Local edit' })]);
+    expect(concepts.rows.get(storageKey('book-1', 'deleted'))).toBeUndefined();
+  });
+
   it('writes pending first, then replaces the temporary id with the GAS id on create', async () => {
     gasRepository.addDomainItem.mockImplementation(async () => {
       expect(concepts.rows.get(storageKey('book-1', 'temp-1'))?.syncStatus).toBe('pending');

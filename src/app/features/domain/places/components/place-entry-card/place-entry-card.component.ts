@@ -5,6 +5,7 @@ import { parseTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.
 import { StudyTagDirective } from '../../../../../shared/directives/study-tag.directive';
 import { DomainEntryHeaderComponent } from '../../../shared/domain-entry-header/domain-entry-header.component';
 import { DomainEntryFooterComponent } from '../../../shared/domain-entry-footer/domain-entry-footer.component';
+import { DomainSyncControlsComponent } from '../../../shared/domain-sync-controls/domain-sync-controls.component';
 import { PlaceRecord } from '../../model/places-model';
 
 @Component({
@@ -13,6 +14,7 @@ import { PlaceRecord } from '../../model/places-model';
     TranslocoPipe,
     DomainEntryHeaderComponent,
     DomainEntryFooterComponent,
+    DomainSyncControlsComponent,
     StudyTagDirective,
   ],
   templateUrl: './place-entry-card.component.html',
@@ -23,6 +25,9 @@ export class PlaceEntryCardComponent {
   readonly bookName = input('');
   readonly bookAuthor = input('');
   readonly showActions = input(true);
+  readonly canRetry = input(false);
+  readonly pendingDeletion = input(false);
+  readonly retryRequested = output<PlaceRecord>();
   readonly showFeedReview = input(false);
   readonly showContext = input(true);
   readonly deleteRequested = output<string>();

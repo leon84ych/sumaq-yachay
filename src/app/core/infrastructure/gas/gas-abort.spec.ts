@@ -41,7 +41,7 @@ describe('abortable domain writes', () => {
     const create = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
     const update = JSON.parse(fetchSpy.mock.calls[1][1].body as string);
     const deletion = JSON.parse(fetchSpy.mock.calls[2][1].body as string);
-    expect(create).toMatchObject({ action: 'CREATE_ROW', row: 7, rows: [{ itemRow: 8 }] });
+    expect(create).toMatchObject({ action: 'CREATE_ROW', row: 7, rows: [{ id: 'item', itemRow: 8 }] });
     expect(update).toMatchObject({ action: 'UPDATE_ROW', row: 7, rows: [{ itemId: 'item', itemRow: 8 }] });
     expect(deletion).toMatchObject({ action: 'DELETE_ROW', row: 7, itemId: 'item', itemRow: 8, bookId: 'book', sheetName: 'INDEX' });
   });

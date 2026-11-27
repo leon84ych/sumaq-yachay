@@ -7,7 +7,8 @@ import { GlobalMessageComponent } from './core/components/global-message/global-
 import { SettingsPanelComponent } from './core/components/settings-panel/settings-panel.component';
 import { SyncComponent } from './core/components/sync/sync.component';
 import { LoginComponent } from './features/authentication/components/login/login.component';
-import { DomainWriteSyncService } from './features/domain/shared/domain-repository/domain-write-sync.service';
+import { DomainWriteSyncService, PassageWriteSyncService } from './features/domain/shared/domain-repository/domain-write-sync.service';
+import { AllDomainWriteSyncService } from './features/domain/shared/domain-repository/all-domain-write-sync.service';
 
 @Component({
   selector: 'app-root',
@@ -31,5 +32,7 @@ export class App {
 
   constructor() {
     inject(DomainWriteSyncService);
+    inject(PassageWriteSyncService);
+    inject(AllDomainWriteSyncService);
   }
 }

@@ -12,7 +12,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
-import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
+import { DomainWriteView } from '../../shared/domain-repository/domain-write-view';
+import { createDomainId } from '../../shared/model/domain-shared-model';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -43,6 +44,7 @@ export class RelationsComponent implements OnInit {
   readonly closeEntry = output<void>();
 
   readonly rows = signal<RelationRecord[]>([]);
+  readonly sync = new DomainWriteView<RelationRecord>('RELATIONS', this.bookId, this.rows);
   readonly characters = signal<CharacterRecord[]>([]);
   readonly bookName = signal('');
   readonly bookAuthor = signal('');
@@ -67,7 +69,6 @@ export class RelationsComponent implements OnInit {
   readonly role = this.permissionService.role;
   private readonly relationDataService = inject(RelationDataService);
   private readonly globalMessageService = inject(GlobalMessageService);
-  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
 
   readonly invalidTagsDetected = computed(() => {
@@ -171,7 +172,8 @@ export class RelationsComponent implements OnInit {
       this.bookAuthor.set(book?.author ?? '');
       this.bookRow.set(book?.row ?? null);
       await this.refreshAllowedTags();
-      this.rows.set(await this.relationDataService.getRecords(this.bookId()));
+      this.sync.observe();
+      this.sync.initialize(await this.relationDataService.getRecords(this.bookId()));
       await this.loadCharacterOptions();
     } catch (error) {
       this.showError(error, 'Failed to load relations.');
@@ -202,14 +204,14 @@ export class RelationsComponent implements OnInit {
     }
 
     try {
-      await this.relationDataService.deleteDomainItem(record);
-      this.rows.update((rows) => rows.filter((row) => row.id !== id));
+      await this.sync.delete(record);
     } catch (error) {
       this.showError(error, 'Failed to delete character relation.');
     }
   }
 
   editEntry(record: RelationRecord): void {
+    if (!this.sync.startEdit(record)) return;
     this.submitted.set(false);
     this.editingId.set(record.id);
     this.newSourceCharacterId.set(record.sourceCharacterId);
@@ -224,6 +226,7 @@ export class RelationsComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.sync.clearEdit();
     this.submitted.set(false);
     this.editingId.set(null);
     this.newSourceCharacterId.set('');
@@ -247,7 +250,7 @@ export class RelationsComponent implements OnInit {
     }
 
     const editingId = this.editingId();
-    const original = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
+    const original = this.sync.original(editingId);
     if (editingId && !original) {
       this.globalMessageService.showError('The relation being edited is no longer available.');
       return;
@@ -260,7 +263,7 @@ export class RelationsComponent implements OnInit {
     }
 
     const record: RelationRecord = {
-      id: editingId ?? `relations_${Date.now()}`,
+      id: editingId ?? createDomainId(this.bookId(), 'RELATIONS'),
       bookId: this.bookId(),
       bookRow,
       itemRow: original?.itemRow ?? 0,
@@ -279,24 +282,14 @@ export class RelationsComponent implements OnInit {
       syncStatus: 'pending',
     };
 
-    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
-      const saved = editingId
-        ? await this.relationDataService.updateDomainItem(record)
-        : await this.relationDataService.addDomainItem(record);
-      this.rows.update((rows) => {
-        const index = rows.findIndex((row) => row.id === record.id);
-        return index === -1
-          ? [...rows, saved]
-          : rows.map((row, rowIndex) => (rowIndex === index ? saved : row));
-      });
+      await this.sync.save(record, editingId);
       this.resetForm();
     } catch (error) {
       this.showError(error, 'Failed to save relation.');
     } finally {
       this.isSaving.set(false);
-      this.globalLoadingService.end(operation);
     }
   }
 
@@ -304,6 +297,10 @@ export class RelationsComponent implements OnInit {
     this.optionsLoadState.set('loading');
     try {
       this.characters.set(await this.relationDataService.getCharacters(this.bookId()));
+      this.sync.observeRelated('CHARACTER', this.characters, [
+        this.newSourceCharacterId,
+        this.newTargetCharacterId,
+      ]);
       this.optionsLoadState.set('ready');
     } catch {
       this.optionsLoadState.set('error');

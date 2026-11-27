@@ -6,6 +6,7 @@ import { PermissionService } from '../../../../../core/services/permission/permi
 import { normalizeTagsFromArray } from '../../../../../shared/tag-picker/tag-picker.mapper';
 import { QuestionDataService } from '../../../../domain/questions/services/questions.service';
 import { QuestionRecord, QuestionType } from '../../../../domain/questions/model/questions-model';
+import { createDomainId } from '../../../shared/model/domain-shared-model';
 
 const QUESTION_TYPES: QuestionType[] = ['flashcard', 'multiple-choice', 'true-false', 'open'];
 
@@ -73,9 +74,8 @@ export class QuestionGeneratorComponent {
         throw new Error('La IA no generó una pregunta. Inténtalo de nuevo.');
       }
 
-      const newQuestionId = `question_${Date.now()}`;
       const newQuestion: QuestionRecord = {
-          id: newQuestionId,
+          id: createDomainId(this.bookId(), 'QUESTIONS'),
           bookId: this.bookId(),
           bookRow: this.bookRow(),
           itemRow: 0,

@@ -26,6 +26,9 @@
         @for (row of filteredRows(); track row.id) {
           <app-character-entry-card
             [row]="row"
+            [canRetry]="sync.retryableIds().has(row.id)"
+            [pendingDeletion]="sync.pendingDeletionIds().has(row.id)"
+            (retryRequested)="sync.retry($event)"
             [bookName]="bookName()"
             [bookAuthor]="bookAuthor()"
             (deleteRequested)="deleteEntry($event)"

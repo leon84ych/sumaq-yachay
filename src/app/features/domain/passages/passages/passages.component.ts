@@ -1,5 +1,6 @@
 import {
   Component,
+  DestroyRef,
   OnInit,
   computed,
   effect,
@@ -12,7 +13,6 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
-import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -29,6 +29,8 @@ import {
   PassageRecord,
 } from '../model/passages-model';
 import { PassageDataService } from '../services/passages.service';
+import { PassageWriteSyncService } from '../../shared/domain-repository/domain-write-sync.service';
+import { createDomainId } from '../../shared/model/domain-shared-model';
 
 @Component({
   selector: 'app-domain-passages',
@@ -63,8 +65,11 @@ export class PassagesComponent implements OnInit {
   readonly newPage = signal('');
   readonly newTags = signal<string[]>([]);
   readonly editingId = signal<string | null>(null);
+  private readonly editingOriginal = signal<PassageRecord | null>(null);
   readonly submitted = signal(false);
   readonly isSaving = signal(false);
+  readonly retryableIds = signal<ReadonlySet<string>>(new Set());
+  readonly pendingDeletionIds = signal<ReadonlySet<string>>(new Set());
   readonly searchTerm = inject(StudySearchService).query;
   readonly passageTextMaxLength = PASSAGE_TEXT_MAX_LENGTH;
   readonly passageTextCharactersRemaining = computed(
@@ -73,7 +78,8 @@ export class PassagesComponent implements OnInit {
 
   private readonly passageDataService = inject(PassageDataService);
   private readonly globalMessageService = inject(GlobalMessageService);
-  private readonly globalLoadingService = inject(GlobalLoadingService);
+  private readonly writeSync = inject(PassageWriteSyncService);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly transloco = inject(TranslocoService);
   readonly permissionService = inject(PermissionService);
   readonly role = this.permissionService.role;
@@ -147,7 +153,19 @@ export class PassagesComponent implements OnInit {
       this.newAuthor.set(this.bookAuthor());
 
       await this.refreshAllowedTags();
-      this.rows.set(await this.passageDataService.getRecords(this.bookId()));
+      const bookId = this.bookId();
+      const recordsSubscription = this.passageDataService.watchRecords(bookId, (records) => {
+        if (this.bookId() === bookId) this.rows.set(records);
+      });
+      const writesSubscription = this.writeSync.watchWrites(bookId, (writes) => {
+        this.retryableIds.set(new Set(writes.filter((write) => write.state !== 'sending').map((write) => write.id)));
+        this.pendingDeletionIds.set(new Set(writes.filter((write) => write.operation === 'delete' || write.deleteAfterCreate).map((write) => write.id)));
+      });
+      this.destroyRef.onDestroy(() => {
+        recordsSubscription.unsubscribe();
+        writesSubscription.unsubscribe();
+      });
+      this.rows.set(await this.passageDataService.getRecords(bookId));
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to load passages.';
       this.globalMessageService.showError(message);
@@ -183,8 +201,13 @@ export class PassagesComponent implements OnInit {
     }
 
     try {
-      await this.passageDataService.deleteDomainItem(row);
-      this.rows.update((rows) => rows.filter((item) => item.id !== id));
+      const result = await this.writeSync.delete(row);
+      if (result === 'pending') {
+        this.pendingDeletionIds.update((ids) => new Set([...ids, id]));
+      }
+      this.rows.update((rows) => result === 'deleted'
+        ? rows.filter((item) => item.id !== id)
+        : rows.map((item) => item.id === id ? { ...item, syncStatus: 'pending' } : item));
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to delete passage.';
       this.globalMessageService.showError(message);
@@ -192,8 +215,10 @@ export class PassagesComponent implements OnInit {
   }
 
   editEntry(row: PassageRecord): void {
+    if (this.pendingDeletionIds().has(row.id)) return;
     this.submitted.set(false);
     this.editingId.set(row.id);
+    this.editingOriginal.set(row);
     this.newTitle.set(row.title);
     this.newPassageText.set(row.passageText);
     this.newBook.set(row.book);
@@ -206,6 +231,7 @@ export class PassagesComponent implements OnInit {
   resetForm(): void {
     this.submitted.set(false);
     this.editingId.set(null);
+    this.editingOriginal.set(null);
     this.newTitle.set('');
     this.newPassageText.set('');
     this.newBook.set(this.bookName());
@@ -225,7 +251,10 @@ export class PassagesComponent implements OnInit {
     }
 
     const editingId = this.editingId();
-    const original = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
+    const resolvedId = editingId ? this.writeSync.resolveId(this.bookId(), editingId) : null;
+    const original = editingId
+      ? this.rows().find((row) => row.id === resolvedId || row.id === editingId) ?? this.editingOriginal() ?? undefined
+      : undefined;
     if (editingId && !original) {
       this.globalMessageService.showError('The passage being edited is no longer available.');
       return;
@@ -238,7 +267,8 @@ export class PassagesComponent implements OnInit {
     }
 
     const record: PassageRecord = {
-      id: editingId ?? `passage_${Date.now()}`,
+      ...original,
+      id: resolvedId ?? createDomainId(this.bookId(), 'PASSAGES'),
       bookId: this.bookId(),
       bookRow,
       itemRow: original?.itemRow ?? 0,
@@ -253,21 +283,22 @@ export class PassagesComponent implements OnInit {
       syncStatus: 'pending',
     };
 
-    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
-      const saved = editingId
-        ? await this.passageDataService.updateDomainItem(record)
-        : await this.passageDataService.addDomainItem(record);
+      const saved = await this.passageDataService.saveLocally(record, !!editingId);
       this.rows.update((rows) => {
-        const existingIndex = rows.findIndex((row) => row.id === record.id);
+        const matchesSaved = (row: PassageRecord) =>
+          row.id === editingId || row.id === record.id || row.id === saved.id;
+        const existingIndex = rows.findIndex(matchesSaved);
         if (existingIndex === -1) {
           return [...rows, saved];
         }
-        return rows.map((row, index) => (index === existingIndex ? saved : row));
+        return rows.flatMap((row, index) =>
+          index === existingIndex ? [saved] : matchesSaved(row) ? [] : [row],
+        );
       });
       // A reader opened on the edited passage must show the saved text.
-      if (this.selectedPassage()?.id === record.id) {
+      if (this.selectedPassage()?.id === record.id || this.selectedPassage()?.id === editingId) {
         this.selectedPassage.set(saved);
       }
       this.resetForm();
@@ -276,7 +307,37 @@ export class PassagesComponent implements OnInit {
       this.globalMessageService.showError(message);
     } finally {
       this.isSaving.set(false);
-      this.globalLoadingService.end(operation);
+    }
+  }
+
+  async retryEntry(record: PassageRecord): Promise<void> {
+    try {
+      const write = await this.writeSync.getWrite(record);
+      if (!write) return;
+      const account = this.writeSync.getActiveAccount();
+      if (!account || (write.ownerEmail && write.ownerEmail !== account.toLowerCase())) {
+        await this.writeSync.retry(record);
+        return;
+      }
+      let confirmedAccount = false;
+      if (!write.ownerEmail) {
+        if (!window.confirm(this.transloco.translate('DOMAINS.INDEX.CONFIRM_SYNC_ACCOUNT', { account }))) return;
+        confirmedAccount = true;
+      }
+      if (write.state === 'uncertain' && write.operation === 'create' &&
+          !window.confirm(this.transloco.translate('DOMAINS.INDEX.CONFIRM_UNCERTAIN_RETRY'))) return;
+      if (write.state === 'uncertain' && write.operation === 'delete') {
+        if (window.confirm(this.transloco.translate('DOMAINS.INDEX.CONFIRM_DELETE_ALREADY_DONE'))) {
+          if (await this.writeSync.confirmDeletion(record, confirmedAccount)) {
+            this.rows.update((rows) => rows.filter((row) => row.id !== record.id));
+          }
+          return;
+        }
+        if (!window.confirm(this.transloco.translate('DOMAINS.INDEX.CONFIRM_UNCERTAIN_DELETE_RETRY'))) return;
+      }
+      await this.writeSync.retry(record, confirmedAccount, write.state === 'uncertain');
+    } catch (error) {
+      this.globalMessageService.showError(error instanceof Error ? error.message : 'Failed to retry synchronization.');
     }
   }
 }

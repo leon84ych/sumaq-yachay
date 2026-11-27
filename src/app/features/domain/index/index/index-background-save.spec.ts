@@ -59,7 +59,9 @@ describe('Index background saves', () => {
     component.newTheme.set('Theme');
     component.newTags.set(['#tag']);
     await component.addIndexEntry();
-    expect(saveLocally).toHaveBeenCalledWith(expect.objectContaining({ syncStatus: 'pending', chapter: 'Chapter' }), false);
+    expect(saveLocally).toHaveBeenCalledWith(expect.objectContaining({
+      id: expect.stringMatching(/^book_INDEX_\d+$/), syncStatus: 'pending', chapter: 'Chapter',
+    }), false);
     expect(closed).toHaveBeenCalledOnce();
     expect(component.rows()).toHaveLength(1);
     expect(component.rows()[0].syncStatus).toBe('pending');

@@ -23,6 +23,41 @@ export abstract class LocalDomainRepositoryAbstract<TRecord extends Domain>
 
   abstract getDomain(bookRow: number, total: number | null): Promise<TRecord[]>;
 
+  protected async snapshotForRefresh(bookRow: number) {
+    const database = this.localDBService.indexedDB;
+    const book = await database.books.where('row').equals(bookRow).first();
+    const records = book ? await this.localTable.where('bookId').equals(book.id).toArray() : [];
+    return {
+      book,
+      records: new Map(records.map((record) => [record.id, JSON.stringify(record)])),
+    };
+  }
+
+  protected async mergeRemoteRecords(
+    records: TRecord[],
+    snapshot: Awaited<ReturnType<LocalDomainRepositoryAbstract<TRecord>['snapshotForRefresh']>>,
+  ): Promise<TRecord[]> {
+    const bookId = snapshot.book?.id ?? records[0]?.bookId;
+    if (!bookId) return records;
+    const database = this.localDBService.indexedDB;
+    let merged: TRecord[] = [];
+    await database.transaction('rw', this.localTable, async () => {
+      const local = await this.localTable.where('bookId').equals(bookId).toArray();
+      const protectedRecords = local.filter((record) =>
+        record.syncStatus === 'pending' || record.syncStatus === 'error' ||
+        snapshot.records.get(record.id) !== JSON.stringify(record),
+      );
+      const protectedIds = new Set(protectedRecords.map((record) => record.id));
+      const currentIds = new Set(local.map((record) => record.id));
+      const deleted = new Set([...snapshot.records.keys()].filter((id) => !currentIds.has(id)));
+      const remote = records.filter((record) => !protectedIds.has(record.id) && !deleted.has(record.id));
+      await this.preserveLocalFeedState(remote);
+      await this.localTable.bulkPut(remote);
+      merged = [...remote, ...protectedRecords];
+    });
+    return merged;
+  }
+
   protected async preserveLocalFeedState(
     records: (TRecord & {
       lastSeen?: Date;
@@ -47,6 +82,9 @@ export abstract class LocalDomainRepositoryAbstract<TRecord extends Domain>
         const value = localRecord?.[numericField];
         if (typeof value === 'number' && Number.isFinite(value)) {
           record[numericField] = value;
+        }
+        for (const field of ['affinity', 'easeFactor', 'complexity', 'repetitions', 'history']) {
+          if (localRecord && field in localRecord) Object.assign(record, { [field]: localRecord[field] });
         }
       }
     });

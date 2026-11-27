@@ -12,7 +12,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GlobalMessageService } from '../../../../core/services/global-message.service';
-import { GlobalLoadingService } from '../../../../core/services/loading/global-loading.service';
+import { DomainWriteView } from '../../shared/domain-repository/domain-write-view';
+import { createDomainId } from '../../shared/model/domain-shared-model';
 import { PermissionService } from '../../../../core/services/permission/permission.service';
 import { StudySearchService } from '../../../../core/services/search/study-search.service';
 import {
@@ -48,6 +49,7 @@ export class AssociationsComponent implements OnInit {
   readonly closeEntry = output<void>();
 
   readonly rows = signal<AssociationRecord[]>([]);
+  readonly sync = new DomainWriteView<AssociationRecord>('ASSOCIATIONS', this.bookId, this.rows);
   readonly concepts = signal<ConceptRecord[]>([]);
   readonly bookName = signal('');
   readonly bookAuthor = signal('');
@@ -72,7 +74,6 @@ export class AssociationsComponent implements OnInit {
   readonly role = this.permissionService.role;
   private readonly associationDataService = inject(AssociationDataService);
   private readonly globalMessageService = inject(GlobalMessageService);
-  private readonly globalLoadingService = inject(GlobalLoadingService);
   private readonly transloco = inject(TranslocoService);
 
   readonly invalidTagsDetected = computed(() => {
@@ -171,7 +172,8 @@ export class AssociationsComponent implements OnInit {
       this.bookAuthor.set(book?.author ?? '');
       this.bookRow.set(book?.row ?? null);
       await this.refreshAllowedTags();
-      this.rows.set(await this.associationDataService.getRecords(this.bookId()));
+      this.sync.observe();
+      this.sync.initialize(await this.associationDataService.getRecords(this.bookId()));
       await this.loadConceptOptions();
     } catch (error) {
       this.showError(error, 'Failed to load associations.');
@@ -202,14 +204,14 @@ export class AssociationsComponent implements OnInit {
     }
 
     try {
-      await this.associationDataService.deleteDomainItem(record);
-      this.rows.update((rows) => rows.filter((row) => row.id !== id));
+      await this.sync.delete(record);
     } catch (error) {
       this.showError(error, 'Failed to delete concept association.');
     }
   }
 
   editEntry(record: AssociationRecord): void {
+    if (!this.sync.startEdit(record)) return;
     this.submitted.set(false);
     this.editingId.set(record.id);
     this.newSourceConceptId.set(record.sourceConceptId);
@@ -224,6 +226,7 @@ export class AssociationsComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.sync.clearEdit();
     this.submitted.set(false);
     this.editingId.set(null);
     this.newSourceConceptId.set('');
@@ -247,7 +250,7 @@ export class AssociationsComponent implements OnInit {
     }
 
     const editingId = this.editingId();
-    const original = editingId ? this.rows().find((row) => row.id === editingId) : undefined;
+    const original = this.sync.original(editingId);
     if (editingId && !original) {
       this.globalMessageService.showError('The association being edited is no longer available.');
       return;
@@ -260,7 +263,7 @@ export class AssociationsComponent implements OnInit {
     }
 
     const record: AssociationRecord = {
-      id: editingId ?? `associations_${Date.now()}`,
+      id: editingId ?? createDomainId(this.bookId(), 'ASSOCIATIONS'),
       bookId: this.bookId(),
       bookRow,
       itemRow: original?.itemRow ?? 0,
@@ -279,24 +282,14 @@ export class AssociationsComponent implements OnInit {
       syncStatus: 'pending',
     };
 
-    const operation = this.globalLoadingService.begin();
     this.isSaving.set(true);
     try {
-      const saved = editingId
-        ? await this.associationDataService.updateDomainItem(record)
-        : await this.associationDataService.addDomainItem(record);
-      this.rows.update((rows) => {
-        const index = rows.findIndex((row) => row.id === record.id);
-        return index === -1
-          ? [...rows, saved]
-          : rows.map((row, rowIndex) => (rowIndex === index ? saved : row));
-      });
+      await this.sync.save(record, editingId);
       this.resetForm();
     } catch (error) {
       this.showError(error, 'Failed to save association.');
     } finally {
       this.isSaving.set(false);
-      this.globalLoadingService.end(operation);
     }
   }
 
@@ -307,6 +300,10 @@ export class AssociationsComponent implements OnInit {
     this.optionsLoadState.set('loading');
     try {
       this.concepts.set(await this.associationDataService.getConcepts(this.bookId()));
+      this.sync.observeRelated('CONCEPTS', this.concepts, [
+        this.newSourceConceptId,
+        this.newTargetConceptId,
+      ]);
       this.optionsLoadState.set('ready');
     } catch {
       this.optionsLoadState.set('error');

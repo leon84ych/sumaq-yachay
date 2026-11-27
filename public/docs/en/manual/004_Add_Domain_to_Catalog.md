@@ -45,15 +45,15 @@ The selector uses the application's predefined domain types and their standard f
 4. For tag-using domains, define the needed tags in **Index** first; other domain forms validate tags against that taxonomy.
 5. Save and review the entry's synchronization indicator. Creating the domain alone does not populate it with learning entries or questions.
 
-### Index synchronization
+### Entry synchronization
 
-New and edited Index entries are saved on this device first. The form closes while synchronization runs in the background. If the connection or request fails, the entry remains pending and a message identifies the book and entry. Pending Index updates and creates that were not sent retry automatically when the app is online and you are signed in with the account that saved them; select the pending status indicator to retry an item manually.
+New and edited entries are saved on this device first. The form closes while synchronization runs in the background. If the connection or request fails, the entry remains pending and a message identifies the book and entry. Pending updates and creates that were not sent retry automatically when the app is online and you are signed in with the account that saved them; use the retry control to retry an item manually.
 
-A create request can reach the server even when its response is lost. In that case, the app does not automatically repeat it. Check the server before retrying and confirm the warning, since retrying could create a duplicate. This background workflow currently applies only to Index entries. Local Sample Data changes stay on this device.
+A create request can reach the server even when its response is lost. In that case, the app does not automatically repeat it. Check the server before retrying and confirm the warning, since retrying could create a duplicate. Local Sample Data changes stay on this device.
 
-If an entry was saved without an identifiable account, select its pending status indicator and confirm the signed-in account before it is sent.
+If an entry was saved without an identifiable account, use its retry control and confirm the signed-in account before it is sent. Entries that refer to other pending entries wait for those entries to synchronize first.
 
-When you delete an Index entry in remote mode, it remains visible as **Deletion pending synchronization** until the server confirms the deletion. The pending status indicator lets you review or retry it. Before sending a deletion, the app looks up the entry's current server row. If a delete response is lost or the entry cannot be located, check the server before using the status indicator: confirm if the entry is already gone, or verify its identity before retrying. The app does not automatically repeat an uncertain deletion.
+When you delete an entry in remote mode, it remains visible as **Deletion pending synchronization** until the server confirms the deletion. The retry control lets you review or retry it. Before sending a deletion, the app looks up the entry's current server row. If a delete response is lost or the entry cannot be located, check the server before using the retry control: confirm if the entry is already gone, or verify its identity before retrying. The app does not automatically repeat an uncertain deletion.
 
 If an unsent local creation is deleted, it is removed locally without a server request. If its create request may already have reached the server, deleting it removes the local entry and warns that a server copy may remain. In Local Sample Data mode, deletions are local only.
 

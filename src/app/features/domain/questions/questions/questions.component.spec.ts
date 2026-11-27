@@ -1,3 +1,4 @@
+import { AllDomainWriteSyncService } from '../../shared/domain-repository/all-domain-write-sync.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -72,6 +73,22 @@ describe('QuestionsComponent', () => {
       ],
       providers: [
         { provide: QuestionDataService, useValue: dataService },
+
+        {
+          provide: AllDomainWriteSyncService,
+          useValue: {
+            resolveId: (_domain: string, _book: string, id: string) => id,
+            watchRecords: () => ({ unsubscribe: vi.fn() }),
+            watchWrites: () => ({ unsubscribe: vi.fn() }),
+            save: (_domain: string, record: unknown, isEdit: boolean) =>
+              isEdit ? dataService.updateDomainItem(record) : dataService.addDomainItem(record),
+            delete: async (_domain: string, record: unknown) => {
+              await dataService.deleteDomainItem(record);
+              return 'deleted';
+            },
+          },
+        },
+
         { provide: GlobalMessageService, useValue: { showError } },
         {
           provide: LocalDBService,

@@ -34,10 +34,28 @@
     }
   </div>
 
+  <app-domain-sync-controls
+    [canRetry]="
+      canRetry() &&
+      (pendingDeletion()
+        ? showActions() && permissionService.validatePermission(role(), 'DELETE_ROW')
+        : showActions() && permissionService.validatePermission(role(), 'CREATE_ROW'))
+    "
+    [pendingDeletion]="pendingDeletion()"
+    (retryRequested)="retryRequested.emit(row())"
+  />
   <app-domain-entry-footer
     [contributor]="row().contributor"
-    [showDelete]="showActions() && permissionService.validatePermission(role(), 'DELETE_ROW')"
-    [showEdit]="showActions() && permissionService.validatePermission(role(), 'CREATE_ROW')"
+    [showDelete]="
+      !pendingDeletion() &&
+      showActions() &&
+      permissionService.validatePermission(role(), 'DELETE_ROW')
+    "
+    [showEdit]="
+      !pendingDeletion() &&
+      showActions() &&
+      permissionService.validatePermission(role(), 'CREATE_ROW')
+    "
     [exportData]="{
       id: row().id,
       domain: 'RELATIONS',

@@ -5,8 +5,18 @@
     [bookAuthor]="contextualBookAuthor()"
     [status]="row().syncStatus"
     [showContext]="showContext()"
+    [retryable]="
+      canRetry() &&
+      showActions() &&
+      permissions.validatePermission(role(), pendingDeletion() ? 'DELETE_ROW' : 'CREATE_ROW')
+    "
+    [retryLabelKey]="pendingDeletion() ? 'DOMAINS.INDEX.RETRY_DELETE' : 'COMMON.RETRY_SYNC'"
+    (retryRequested)="retryRequested.emit(row())"
   />
 
+  @if (pendingDeletion()) {
+    <p role="status">{{ 'DOMAINS.INDEX.DELETE_PENDING' | transloco }}</p>
+  }
   <header class="passage-card-header">
     <h4>{{ row().title }}</h4>
     <span class="reading-time">
@@ -40,8 +50,8 @@
   <app-domain-entry-footer
     [contributor]="row().contributor"
     [reviewData]="showFeedReview() ? { domain: 'PASSAGES', record: row() } : null"
-    [showDelete]="showActions() && permissions.validatePermission(role(), 'DELETE_ROW')"
-    [showEdit]="showActions() && permissions.validatePermission(role(), 'CREATE_ROW')"
+    [showDelete]="showActions() && !pendingDeletion() && permissions.validatePermission(role(), 'DELETE_ROW')"
+    [showEdit]="showActions() && !pendingDeletion() && permissions.validatePermission(role(), 'CREATE_ROW')"
     [exportData]="{
       id: row().id,
       domain: 'PASSAGES',

@@ -30,11 +30,25 @@
       }
     </div>
   }
+  <app-domain-sync-controls
+    [canRetry]="
+      canRetry() &&
+      (pendingDeletion()
+        ? showActions() && permissions.validatePermission(role(), 'DELETE_ROW')
+        : showActions() && permissions.validatePermission(role(), 'CREATE_ROW'))
+    "
+    [pendingDeletion]="pendingDeletion()"
+    (retryRequested)="retryRequested.emit(row())"
+  />
   <app-domain-entry-footer
     [contributor]="row().contributor"
     [reviewData]="showFeedReview() ? { domain: 'PLACES', record: row() } : null"
-    [showDelete]="showActions() && permissions.validatePermission(role(), 'DELETE_ROW')"
-    [showEdit]="showActions() && permissions.validatePermission(role(), 'CREATE_ROW')"
+    [showDelete]="
+      !pendingDeletion() && showActions() && permissions.validatePermission(role(), 'DELETE_ROW')
+    "
+    [showEdit]="
+      !pendingDeletion() && showActions() && permissions.validatePermission(role(), 'CREATE_ROW')
+    "
     [exportData]="{
       id: row().id,
       domain: 'PLACES',

@@ -19,6 +19,7 @@ import { QuestionAttemptService } from '../../../features/domain/questions/servi
 import { QuestionPracticeService } from '../../../features/domain/questions/services/question-practice.service';
 import { QuotesComponent } from '../../../features/domain/quotes/quotes/quotes.component';
 import { RelationsComponent } from '../../../features/domain/relations/relations/relations.component';
+import { AllDomainWriteSyncService } from '../../../features/domain/shared/domain-repository/all-domain-write-sync.service';
 import { IndexComponent } from '../../../features/domain/index/index/index.component';
 import { Learn } from '../../../features/learn/learn/learn.component';
 import { LearnFeedService } from '../../../features/learn/services/learn-feed.service';
@@ -67,6 +68,7 @@ describe('StudySearchService', () => {
           loadRandomBatch: loadQuestionBatch, optionsFor: () => [],
         } },
         { provide: QuestionAttemptService, useValue: {} },
+        { provide: AllDomainWriteSyncService, useValue: {} },
         { provide: TranslocoService, useValue: { translate: (key: string) => key } },
         { provide: PermissionService, useValue: {
           role: signal('admin'), validatePermission: () => true,

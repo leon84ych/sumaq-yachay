@@ -47,7 +47,7 @@ La selección de **materia** y la casilla **Solo activos** son filtros adicional
 
 ### Aprender
 
-Aprender devuelve **entradas individuales de aprendizaje** de los libros y dominios disponibles localmente. Cada elemento mostrado debe cumplir la consulta actual. Los resultados llegan en lotes aleatorios de hasta 20; la opción para cargar 20 más continúa el mismo feed filtrado.
+Aprender devuelve **entradas individuales de aprendizaje** de los libros y dominios disponibles. Cada elemento mostrado debe cumplir la consulta actual. Los resultados llegan en lotes de hasta 20 y se cargan automáticamente al desplazarte. Las entradas pendientes de repaso tienen prioridad; consulta **Cómo funciona el feed de Aprender** en el menú de documentación para más detalles.
 
 Cambiar la búsqueda borra los resultados anteriores y comienza un lote filtrado nuevo. La vista espera brevemente después de escribir antes de cargar; deja que termine antes de valorar el número de resultados.
 

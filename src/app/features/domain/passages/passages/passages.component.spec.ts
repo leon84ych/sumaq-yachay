@@ -7,6 +7,7 @@ import { StudySearchService } from '../../../../core/services/search/study-searc
 import { LocalDBService } from '../../../../shared/local-db/local-db.service';
 import { PassageRecord } from '../model/passages-model';
 import { PassageDataService } from '../services/passages.service';
+import { PassageWriteSyncService } from '../../shared/domain-repository/domain-write-sync.service';
 import { PassagesComponent } from './passages.component';
 
 const passage = (id: string, overrides: Partial<PassageRecord> = {}): PassageRecord => ({
@@ -31,9 +32,13 @@ describe('PassagesComponent', () => {
     getBookRecord: vi.fn(),
     getRecords: vi.fn(),
     getAllowedTags: vi.fn(),
-    addDomainItem: vi.fn(),
-    updateDomainItem: vi.fn(),
-    deleteDomainItem: vi.fn(),
+    saveLocally: vi.fn(),
+    watchRecords: vi.fn(),
+  };
+  const writeSync = {
+    resolveId: vi.fn((_book: string, id: string) => id),
+    watchWrites: vi.fn(),
+    delete: vi.fn(),
   };
   const showError = vi.fn();
   let fixture: ComponentFixture<PassagesComponent>;
@@ -57,6 +62,9 @@ describe('PassagesComponent', () => {
       author: 'Author One',
     });
     dataService.getAllowedTags.mockResolvedValue(['#memory']);
+    dataService.watchRecords.mockReturnValue({ unsubscribe: vi.fn() });
+    writeSync.watchWrites.mockReturnValue({ unsubscribe: vi.fn() });
+    writeSync.resolveId.mockImplementation((_book: string, id: string) => id);
 
     TestBed.configureTestingModule({
       imports: [
@@ -67,6 +75,7 @@ describe('PassagesComponent', () => {
       ],
       providers: [
         { provide: PassageDataService, useValue: dataService },
+        { provide: PassageWriteSyncService, useValue: writeSync },
         { provide: GlobalMessageService, useValue: { showError } },
         {
           provide: LocalDBService,
@@ -105,16 +114,16 @@ describe('PassagesComponent', () => {
   it('creates a passage with bookRow, itemRow 0 and normalized tags, then resets the form', async () => {
     await create([]);
     const saved = passage('gas-1', { itemRow: 0, tags: ['#memory'] });
-    dataService.addDomainItem.mockResolvedValue(saved);
+    dataService.saveLocally.mockResolvedValue(saved);
 
     component.newTitle.set('  New title ');
     component.newPassageText.set('  New text  ');
     component.newTags.set(['Memory']);
     await component.savePassage();
 
-    expect(dataService.updateDomainItem).not.toHaveBeenCalled();
-    expect(dataService.addDomainItem).toHaveBeenCalledWith(
+    expect(dataService.saveLocally).toHaveBeenCalledWith(
       expect.objectContaining({
+        id: expect.stringMatching(/^book-1_PASSAGES_\d+$/),
         bookId: 'book-1',
         bookRow: 7,
         itemRow: 0,
@@ -125,7 +134,7 @@ describe('PassagesComponent', () => {
         tags: ['#memory'],
         feed: 5,
         syncStatus: 'pending',
-      }),
+      }), false,
     );
     expect(component.rows()).toEqual([saved]);
     expect(component.newTitle()).toBe('');
@@ -135,14 +144,13 @@ describe('PassagesComponent', () => {
     const original = passage('p1', { itemRow: 15, feed: 3 });
     await create([original]);
     const updated = { ...original, title: 'Edited' };
-    dataService.updateDomainItem.mockResolvedValue(updated);
+    dataService.saveLocally.mockResolvedValue(updated);
 
     component.editEntry(original);
     component.newTitle.set('Edited');
     await component.savePassage();
 
-    expect(dataService.addDomainItem).not.toHaveBeenCalled();
-    expect(dataService.updateDomainItem).toHaveBeenCalledWith(
+    expect(dataService.saveLocally).toHaveBeenCalledWith(
       expect.objectContaining({
         id: 'p1',
         bookRow: 7,
@@ -150,10 +158,26 @@ describe('PassagesComponent', () => {
         feed: 3,
         contributor: 'admin@example.com',
         title: 'Edited',
-      }),
+      }), true,
     );
     expect(component.rows()).toEqual([updated]);
     expect(component.editingId()).toBeNull();
+  });
+
+  it('replaces a temporary row and reader when its server ID arrives during editing', async () => {
+    const original = passage('temp', { itemRow: 0 });
+    await create([original]);
+    component.openReader(original);
+    component.editEntry(original);
+    writeSync.resolveId.mockReturnValue('server-id');
+    const saved = { ...original, id: 'server-id', title: 'Edited' };
+    dataService.saveLocally.mockResolvedValue(saved);
+    component.newTitle.set('Edited');
+
+    await component.savePassage();
+
+    expect(component.rows()).toEqual([saved]);
+    expect(component.selectedPassage()).toEqual(saved);
   });
 
   it('rejects tags outside the book taxonomy', async () => {
@@ -166,18 +190,18 @@ describe('PassagesComponent', () => {
     expect(component.invalidTagsDetected()).toEqual(['#unlisted']);
     expect(component.isFormInvalid()).toBe(true);
     await component.savePassage();
-    expect(dataService.addDomainItem).not.toHaveBeenCalled();
+    expect(dataService.saveLocally).not.toHaveBeenCalled();
   });
 
   it('keeps the form state and shows an error when saving fails', async () => {
     await create([]);
-    dataService.addDomainItem.mockRejectedValue(new Error('GAS failed'));
+    dataService.saveLocally.mockRejectedValue(new Error('Storage failed'));
 
     component.newTitle.set('A title');
     component.newPassageText.set('A passage');
     await component.savePassage();
 
-    expect(showError).toHaveBeenCalledWith('GAS failed');
+    expect(showError).toHaveBeenCalledWith('Storage failed');
     expect(component.rows()).toEqual([]);
     expect(component.newPassageText()).toBe('A passage');
   });
@@ -190,13 +214,13 @@ describe('PassagesComponent', () => {
       vi.fn(() => true),
     );
 
-    dataService.deleteDomainItem.mockRejectedValueOnce(new Error('GAS failed'));
+    writeSync.delete.mockRejectedValueOnce(new Error('GAS failed'));
     await component.deleteEntry('p1');
     expect(component.rows()).toHaveLength(2);
 
-    dataService.deleteDomainItem.mockResolvedValueOnce(undefined);
+    writeSync.delete.mockResolvedValueOnce('deleted');
     await component.deleteEntry('p1');
-    expect(dataService.deleteDomainItem).toHaveBeenLastCalledWith(row);
+    expect(writeSync.delete).toHaveBeenLastCalledWith(row);
     expect(component.rows().map((item) => item.id)).toEqual(['p2']);
     vi.unstubAllGlobals();
   });
@@ -210,7 +234,7 @@ describe('PassagesComponent', () => {
 
     await component.deleteEntry('p1');
 
-    expect(dataService.deleteDomainItem).not.toHaveBeenCalled();
+    expect(writeSync.delete).not.toHaveBeenCalled();
     expect(component.rows()).toHaveLength(1);
     vi.unstubAllGlobals();
   });

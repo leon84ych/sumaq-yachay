@@ -39,6 +39,9 @@
         @for (association of filteredRows(); track association.id) {
           <app-association-entry-card
             [row]="association"
+            [canRetry]="sync.retryableIds().has(association.id)"
+            [pendingDeletion]="sync.pendingDeletionIds().has(association.id)"
+            (retryRequested)="sync.retry($event)"
             [sourceConceptName]="conceptName(association.sourceConceptId)"
             [targetConceptName]="conceptName(association.targetConceptId)"
             [bookName]="bookName()"

@@ -248,6 +248,20 @@
     }
   },
   "DOMAINS": {
+    "SYNC": {
+      "SYNC_OFFLINE": "Entry {{id}} in book {{bookId}} is saved locally and pending synchronization. Connect and sign in to retry.",
+      "SYNC_ACCOUNT": "Entry {{id}} in book {{bookId}} is pending. Sign in as {{ownerEmail}} to synchronize.",
+      "SYNC_ACCOUNT_UNKNOWN": "Entry {{id}} in book {{bookId}} is pending. Use retry to confirm the account.",
+      "SYNC_FAILED": "Entry {{id}} in book {{bookId}} is pending synchronization. {{reason}}",
+      "SYNC_UNCERTAIN": "The server result for entry {{id}} in book {{bookId}} is unknown. Check the server before retrying. {{reason}}",
+      "SYNC_DEPENDENCY": "Entry {{id}} in book {{bookId}} cannot synchronize because a referenced entry is missing: {{reason}}.",
+      "DELETE_PENDING": "Deletion pending synchronization",
+      "DELETE_OFFLINE": "Deletion of entry {{id}} in book {{bookId}} is pending. Connect and sign in to synchronize.",
+      "DELETE_FAILED": "Deletion of entry {{id}} in book {{bookId}} is pending. {{reason}}",
+      "DELETE_UNCERTAIN": "The server result for deleting entry {{id}} in book {{bookId}} is unknown. Check the server before retrying. {{reason}}",
+      "DELETE_UNCERTAIN_CREATE": "Entry {{id}} in book {{bookId}} was removed locally, but its uncertain create may have left a server copy.",
+      "DELETE_PENDING_MODE": "Resolve this item's pending remote change before deleting it in sample mode."
+    },
     "TAG_VALIDATION": {
       "REJECTED_PREFIX": "The following tags are rejected because they do not exist in the master",
       "REJECTED_SUFFIX": " sheet:"
@@ -482,6 +496,17 @@
       "REFLECTION": "A thought to keep"
     },
     "PASSAGE": {
+      "SYNC_OFFLINE": "Passage {{title}} ({{id}}) in book {{bookId}} is saved locally and pending synchronization. Connect and sign in to retry.",
+      "SYNC_ACCOUNT": "Passage {{title}} ({{id}}) in book {{bookId}} is pending. Sign in as {{ownerEmail}} to synchronize.",
+      "SYNC_ACCOUNT_UNKNOWN": "Passage {{title}} ({{id}}) in book {{bookId}} is pending. Select its status indicator to confirm the synchronization account.",
+      "SYNC_FAILED": "Passage {{title}} ({{id}}) in book {{bookId}} is saved locally and pending synchronization. {{reason}}",
+      "SYNC_UNCERTAIN": "Passage {{title}} ({{id}}) in book {{bookId}} is saved locally, but the server result is unknown. Check the server before retrying. {{reason}}",
+      "DELETE_PENDING": "Deletion pending synchronization",
+      "DELETE_OFFLINE": "Deletion of passage {{title}} ({{id}}) in book {{bookId}} is pending. Connect and sign in to synchronize.",
+      "DELETE_FAILED": "Deletion of passage {{title}} ({{id}}) in book {{bookId}} is pending. {{reason}}",
+      "DELETE_UNCERTAIN": "The server result for deleting passage {{title}} ({{id}}) in book {{bookId}} is unknown. Check the server before retrying. {{reason}}",
+      "DELETE_UNCERTAIN_CREATE": "Passage {{title}} ({{id}}) in book {{bookId}} was removed locally, but its earlier create had an unknown result and a server copy may remain.",
+      "DELETE_PENDING_MODE": "Resolve this item's pending remote change before deleting it in sample mode.",
       "NEW_ENTRY_TITLE": "Add New Passage",
       "SEARCH": "Search passages by text, author, book, page, or tags...",
       "NO_MATCHES": "No passages match your search.",

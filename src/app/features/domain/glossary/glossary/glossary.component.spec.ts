@@ -1,3 +1,4 @@
+import { AllDomainWriteSyncService } from '../../shared/domain-repository/all-domain-write-sync.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -32,6 +33,7 @@ describe('GlossaryComponent', () => {
     getBookRecord: vi.fn(),
     getRecords: vi.fn(),
     getAllowedTags: vi.fn(),
+    rememberLanguage: vi.fn(),
     addDomainItem: vi.fn(),
     updateDomainItem: vi.fn(),
     deleteDomainItem: vi.fn(),
@@ -69,8 +71,27 @@ describe('GlossaryComponent', () => {
       ],
       providers: [
         { provide: GlossaryDataService, useValue: dataService },
+
+        {
+          provide: AllDomainWriteSyncService,
+          useValue: {
+            resolveId: (_domain: string, _book: string, id: string) => id,
+            watchRecords: () => ({ unsubscribe: vi.fn() }),
+            watchWrites: () => ({ unsubscribe: vi.fn() }),
+            save: (_domain: string, record: unknown, isEdit: boolean) =>
+              isEdit ? dataService.updateDomainItem(record) : dataService.addDomainItem(record),
+            delete: async (_domain: string, record: unknown) => {
+              await dataService.deleteDomainItem(record);
+              return 'deleted';
+            },
+          },
+        },
+
         { provide: GlobalMessageService, useValue: { showError } },
-        { provide: LanguageService, useValue: { languages: signal(['English', 'Japanese', 'Japonés', 'Quechua']) } },
+        {
+          provide: LanguageService,
+          useValue: { languages: signal(['English', 'Japanese', 'Japonés', 'Quechua']) },
+        },
         {
           provide: LocalDBService,
           useValue: {
@@ -137,11 +158,20 @@ describe('GlossaryComponent', () => {
     await create([]);
     fixture.componentRef.setInput('isAddingEntry', true);
     fixture.detectChanges();
-    const languageInput = fixture.nativeElement.querySelector('#glossary-language') as HTMLInputElement;
+    const languageInput = fixture.nativeElement.querySelector(
+      '#glossary-language',
+    ) as HTMLInputElement;
     languageInput.dispatchEvent(new Event('focus'));
     fixture.detectChanges();
-    const options = [...fixture.nativeElement.querySelectorAll('[role="option"]')] as HTMLButtonElement[];
-    expect(options.map(option => option.textContent?.trim())).toEqual(['English', 'Japanese', 'Japonés', 'Quechua']);
+    const options = [
+      ...fixture.nativeElement.querySelectorAll('[role="option"]'),
+    ] as HTMLButtonElement[];
+    expect(options.map((option) => option.textContent?.trim())).toEqual([
+      'English',
+      'Japanese',
+      'Japonés',
+      'Quechua',
+    ]);
     options[2].click();
     expect(component.newLanguage()).toBe('Japonés');
     languageInput.value = 'Aymara';

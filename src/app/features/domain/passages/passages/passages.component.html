@@ -28,8 +28,11 @@
             [bookName]="bookName()"
             [bookAuthor]="bookAuthor()"
             [showContext]="true"
+            [canRetry]="retryableIds().has(row.id)"
+            [pendingDeletion]="pendingDeletionIds().has(row.id)"
             (editRequested)="editEntry($event)"
             (deleteRequested)="deleteEntry($event)"
+            (retryRequested)="retryEntry($event)"
             (readRequested)="openReader($event)"
           />
         }

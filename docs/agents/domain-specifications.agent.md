@@ -2,16 +2,17 @@
 
 ## Purpose
 
-Use this specification when migrating a legacy domain under `src/app/features/domain/` to the
-typed GAS-backed architecture under `src/app/features/domain/`.
+Use this specification when creating, migrating, or changing domains under
+`src/app/features/domain/`. Inspect current code and the user's requirements before changing it.
 
 The reference implementation is the INDEX domain:
 
 - Target feature: `src/app/features/domain/index/`
-- Legacy feature: `src/app/features/domain/domain-index/`
 - Shared GAS infrastructure: `src/app/core/infrastructure/gas/`
 - Shared domain contract: `src/app/features/domain/shared/model/domain-shared-model.ts`
 - Shared IndexedDB service: `src/app/shared/local-db/local-db.service.ts`
+- Shared write worker and registry: `src/app/features/domain/shared/domain-repository/`
+- Book and book detail: `src/app/features/catalog/book/` and `src/app/features/catalog/book-detail/`
 
 The goal is not to copy INDEX literally. The goal is to preserve each domain's business fields
 while adopting the same typed transport, persistence, CRUD, search, permission, and UI patterns.
@@ -21,17 +22,16 @@ while adopting the same typed transport, persistence, CRUD, search, permission, 
 Each migrated domain should have these layers:
 
 ```text
-component
-	-> domain data service
-		-> domain repository
-			-> GAS repository
-				-> GAS domain API
-					-> Google Apps Script
+component -> local write service/worker -> IndexedDB pending write queue
+                                       -> GAS repository -> GAS domain API -> Apps Script
+          -> domain data/query service -> local repository / IndexedDB
 ```
 
-Persistence is handled by the domain repository through `LocalDBService`/Dexie. The component
-owns presentation state with signals, while the repository owns synchronization state and
-request mapping.
+Components own presentation state with signals. `DomainWriteSyncWorker` owns durable remote
+writes; INDEX and PASSAGES use their dedicated services, while
+`AllDomainWriteSyncService` and `DomainWriteView` cover the other registered domains.
+Feature repositories handle reads and remote refresh; GAS repositories and mappers handle
+transport. Start workers independently of a mounted domain view so queued writes can resume.
 
 ### Target files
 
@@ -60,6 +60,11 @@ src/app/features/domain/concepts/
 Names may follow the domain's established convention, but responsibilities should remain
 separate.
 
+Current naming includes `features/domain/events/events/` and `EventRecord` in
+`events/model/event-model.ts`; book and book-detail live under `features/catalog/`. Domain
+component, card, form, and quiz selectors do not use the former `-1` suffix. Keep imports,
+resolver cases, templates, fixtures, and tests consistent when adding or renaming a domain.
+
 ## Model Contract
 
 All migrated records extend `Domain`:
@@ -85,11 +90,24 @@ The row fields have different meanings and must not be conflated:
 - `id`: the stable domain item identifier. It is sent separately when the backend contract
   requires it and must not be silently replaced with either row number.
 
+For new domain entries, including AI-generated questions, use
+`createDomainId(bookId, domain)` from the shared model. The format is
+`bookId_DOMAIN_timestamp`, with the actual `DomainName` (for example `BOOK_EVENTS` or
+`GLOSARY`) and a millisecond timestamp. The helper is monotonic within one application
+instance; timestamp-only IDs are not guaranteed unique across tabs, restarts, or devices.
+Edits retain the existing ID, including legacy IDs; do not migrate existing records implicitly.
+Send the ID in the create row. The user states that the backend preserves it; the client still
+uses the ID returned by GAS and handles a different returned ID through durable aliases. Verify
+the deployed backend separately rather than treating mocks as proof.
+
+Non-INDEX feed records use optional `Feed` fields; `QuestionRecord` extends `Learnable` and
+INDEX extends `Domain`. Preserve optional scheduling/review metadata when refreshing or syncing.
+
 Every raw model returned by GAS must declare the fields that the mapper needs, including
 `bookRow` when the response contains it. If GAS does not return `bookRow`, the repository must
 populate it from the `bookRow` argument used for the fetch before persisting the record.
 
-Example domain model:
+Example domain model (the feed fields are optional):
 
 ```typescript
 export interface ConceptRaw {
@@ -104,7 +122,7 @@ export interface ConceptRaw {
   contributor: string;
 }
 
-export interface ConceptRecord extends Domain {
+export interface ConceptRecord extends Feed {
   term: string;
   definition: string;
 }
@@ -130,16 +148,16 @@ Required behavior:
 2. `toRecord()` converts serialized tags into `string[]`.
 3. `toRecord()` converts raw sync status through `parseSyncStatus()`.
 4. `toRaw()` serializes tags with the shared tag mapper and preserves `bookRow`, `itemRow`,
-   `bookId`, `id`, contributor, and sync status. For update requests, the transport mapper
-   must expose `itemId` in the row object as the stable item identifier.
+   `bookId`, `id`, contributor, and sync status. Update transport must include `itemId` in
+   the row object; the shared API may add it from the stable record ID.
 5. `toRowValues()` may remain for sheet-column operations, but the shared repository request
    path uses `toRaw()` to build object-shaped `rows` payloads. Do not create a per-domain
    `rowValueKeys` list solely to reconstruct the same object.
 
 The GAS create/update row object must be derived from the typed raw definition. The transport
-API must not silently remove or rewrite `id`, `bookId`, `bookRow`, or `itemRow`. A create request
-may contain an ID when the caller provides one, or omit it when GAS is responsible for generating
-one. Updates must preserve the existing record identity and include `itemId` explicitly.
+API must not silently remove or rewrite `id`, `bookId`, `bookRow`, or `itemRow`. New domain
+creates supply the shared generated ID. Updates preserve existing identity and include `itemId`
+explicitly.
 
 ## GAS API Contract
 
@@ -183,6 +201,9 @@ New records use `CREATE_ROW`:
   "sheetName": "CONCEPTS",
   "rows": [
     {
+      "id": "book-id_CONCEPTS_1800000000000",
+      "bookId": "book-id",
+      "bookRow": 2,
       "term": "...",
       "definition": "...",
       "tags": "#tag-one|#tag-two",
@@ -196,11 +217,10 @@ New records use `CREATE_ROW`:
 ```
 
 Here top-level `row` is the owning book row. The row object's `itemRow` is the item row when it is
-known. The mapper controls whether `id` and `bookId` are present in the row object; the API must
-not strip them with a generic helper.
-
-The backend-created ID must be read from the response. The repository replaces a temporary ID
-with the returned ID before writing the synced record to IndexedDB.
+known. The typed mapper must preserve the supplied identity; the API must not strip it.
+The response ID is required and remains authoritative in the current client. If it differs,
+the worker atomically replaces the local key and records an alias; linked records must resolve
+that alias before sending. Do not silently substitute a client ID for a different server ID.
 
 ### Update
 
@@ -288,21 +308,31 @@ operations whose domain needs special identifiers, especially delete operations 
 The abstract repository should provide the common read/create/update behavior. It must not infer
 domain column order from a hand-maintained key list when `toRaw()` already defines the shape.
 
-### Local repository
+### Local persistence and background writes
 
-The feature repository is responsible for IndexedDB synchronization:
-
-- `getDomain()` maps GAS raw records, populates `bookRow` from the fetch argument when needed,
-  and bulk-persists records.
-- `addDomainItem()` writes a pending record first, sends `CREATE_ROW`, replaces a temporary ID
-  with the returned GAS ID, and stores the synced record.
-- `updateDomainItem()` writes pending state, sends `UPDATE_ROW`, stores the synced result, and
-  marks the local record as error if the request fails.
-- `deleteDomainItem()` sends `DELETE_ROW` first, then deletes the local record only after GAS
-  succeeds.
-
-Use Dexie transactions for bulk writes and related multi-step persistence. Never remove a local
-record before a remote delete succeeds unless the feature explicitly implements rollback.
+- For normal domain forms, create/update commits the local record and durable
+  `pendingDomainWrites` entry atomically, then closes/resets the form without waiting for GAS.
+  INDEX and PASSAGES have dedicated workers; the registry covers CONCEPTS, QUOTES, CHARACTER,
+  PLACES, BOOK_EVENTS, RELATIONS, ASSOCIATIONS, GLOSARY, and QUESTIONS, including generated
+  question creates. Use the existing worker/view APIs rather than a foreground repository write.
+- Preserve ownership, revision, review metadata, aliases, and pending operations across edits,
+  navigation, reload, offline periods, and startup recovery. Resume when online and authorized;
+  enforce account matching and explicit confirmation for unowned writes. Coordinate tabs with
+  the existing locks/leases and honor timeouts.
+- A confirmed delete of a synced item stays visible as pending until remote success; disable its
+  edit/delete actions. An unsent create can be removed locally. For an uncertain create/deletion,
+  follow existing warning, verification, and explicit retry/confirmation flows; do not
+  automatically repeat a potentially completed non-idempotent request.
+- Queue linked records until their referenced records are synchronized: RELATIONS references
+  CHARACTER, ASSOCIATIONS references CONCEPTS, BOOK_EVENTS references CHARACTER/PLACES, and
+  QUESTIONS can reference a recognized source domain. Resolve stored aliases before sending;
+  missing references remain queued with a surfaced message. Related form selections must follow
+  ID changes. Test ordering and ensure no pending linked ID is sent prematurely.
+- `getDomain()` maps raw records, fills missing ownership context, and persists the correct table.
+  Snapshot before a remote fetch and merge transactionally so pending/error entries, local changes
+  and deletions during the fetch, and local feed/review metadata are not overwritten or restored.
+- Sample mode performs local CRUD without GAS or authentication. Keep its persistence and seed
+  behavior distinct from the remote queue, including pending records that remain visible on reload.
 
 ### Query service
 
@@ -318,8 +348,9 @@ The migrated component should follow the signal-based INDEX pattern:
 - hierarchy/grouping is another `computed()` derived from `filteredRows`.
 - form fields use signals.
 - `input()` and `output()` replace decorator-based inputs and outputs.
-- the component calls the feature service, not `fetch()` or Dexie directly.
-- the UI updates its local rows only after a successful repository operation.
+- the component uses the feature/query service and shared write worker/view, not `fetch()` or
+  ad-hoc Dexie writes.
+- the UI reflects the successful local commit immediately and observes later synchronization.
 - failed operations display an error and retain the form/local state needed for retry.
 
 ### Required-field warnings
@@ -337,37 +368,23 @@ The migrated component should follow the signal-based INDEX pattern:
   submission guard. Required text should be included through the shared field-name/required
   translation keys.
 
-### Global loading during save
+### Save and loading behavior
 
-- Use `GlobalLoadingService.begin()` before a create or update repository operation starts.
-- End the operation with `GlobalLoadingService.end(operation)` in `finally`, including success
-  and failure paths.
-- Add an `isSaving` signal and guard create/update methods against duplicate submissions.
-- Disable Save/Update and Cancel while `isSaving` is true only if the form implementation
-  requires preventing repeat actions; never rely on disabling alone to prevent duplicate calls.
-- Render the loading indicator as a native modal `<dialog>` at the application root. Its
-  `showModal()` call must place it in the browser top layer, above native form dialogs.
-- Implement the loading dialog with `aria-live`, `aria-atomic`, `aria-busy`, and a cancellation
-  handler that prevents Escape or another close action while saving.
-- Do not use ordinary `position: fixed` stacking or `z-index` alone for this purpose: native
-  `<dialog>` elements in the top layer can cover fixed DOM overlays.
-- Close or reset the form only after a successful save. On failure, retain the form values and
-  allow retry while `isSaving` is false.
-
-For edit mode, branch on the presence of the original ID:
-
-```typescript
-const saved = this.editingId()
-  ? await this.domainService.updateDomainItem(record)
-  : await this.domainService.addDomainItem(record);
-```
+- Guard duplicate submissions with `isSaving` or the domain's equivalent for the local commit.
+- Close/reset only after the local transaction succeeds; on local failure retain form values and
+  surface the error. A later network failure leaves the entry visible and retryable; it must not
+  reopen the form or block the whole application with a global loading screen.
+- Global loading remains appropriate for explicitly foreground operations, not background domain
+  synchronization. When used, balance `begin()`/`end()` in `finally` and preserve the accessible
+  root native-dialog/top-layer behavior.
 
 For delete mode:
 
 1. Ask for confirmation.
 2. Find the complete record, including `bookRow`, `itemRow`, `bookId`, and `id`.
 3. Call the service with that record.
-4. Remove it from the rows signal only after success.
+4. Reflect the worker result: remove an unsent local create or keep a remote delete visible as
+   pending until success/explicit confirmation.
 
 Do not reconstruct a delete request from only an ID.
 
@@ -393,31 +410,58 @@ Tags have two representations:
 
 Use the shared tag mapper utilities. Do not call `.split('|')` or `.join('|')` in components.
 
+## Shared Footer, Image Export, And Card Spacing
+
+- Use `DomainEntryFooterComponent` in domain cards, Learn cards, and question practice where
+  applicable. Its left side orders permitted delete, edit, then contributor attribution. Keep
+  `PermissionService` and read-only flags authoritative; suppress edit/delete during pending
+  deletion. Contributor filtering uses the full identity even when its label is shortened.
+- Feed review controls appear on the right, immediately before image export. After a successful
+  clock/forgotten or checkmark/recalled click, disable both controls and highlight only the
+  selected action until the item leaves the UI. During a failed write, surface the error and do
+  not mark the action successful. Preserve keyboard, translated names, `aria-pressed`, and light/
+  dark states.
+- Reuse `DomainEntryExportService` and the footer's shared branded JPEG template rather than
+  implementing per-domain exports. Export data carries domain, ID, title/body, source, tags,
+  optional note and accent; preserve light/dark output, URL, shared busy state, and error
+  notification. INDEX omits export; Quotes uses the shared export, not duplicate quote/analysis
+  download buttons. Respect existing visibility/read-only flags for each context.
+- Align content, tags and footer using `--domain-entry-section-gap` from `src/styles.css`;
+  Places and Passages are the spacing reference. Quotes retains its distinct flip-card layout.
+  The Passage read action stays on the right of its tags row. Check layouts on narrow screens.
+- Catalog book cards are separate from domain footers: keep their edit/delete controls on the
+  left and active toggle on the right.
+
+## Learn Feed And Scheduling
+
+- Learn excludes INDEX and QUESTIONS. Load further distinct entries automatically as the user
+  scrolls using the existing observer/sentinel; preserve loading, retry-on-error, empty,
+  filtered-empty, and end-of-feed messages. Reset seen IDs on a new search and ignore stale
+  requests; never add a normal manual Load More action.
+- `selectLearnFeedBatch` prioritizes entries due by `lastSeen` and `interval`, while filling
+  remaining slots with not-yet-due entries when needed; it does not enforce a strict due-only
+  filter. Preserve per-domain diversity and exclusion of already-shown IDs.
+- `markAsShown` persists `lastSeen` and initializes/normalizes optional intervals to powers of two.
+  Minimum is one day; `ConfigService` defaults the configurable maximum to 256 days and accepts
+  positive power-of-two settings. If a valid interval is due and no review occurred since the
+  previous display, double it up to that configured maximum. Forgotten halves the interval to
+  the minimum; recalled doubles it to the maximum; record the appropriate count and `lastReview`.
+  Preserve scheduling fields during remote refresh and concurrent background writes.
+- Cover first display, missing/invalid values, due and not-due prioritization, elapsed time,
+  review versus no interaction, caps, failed local writes, repeated scrolling, and end-of-feed.
+
 ## Legacy-to-Target Comparison
 
-### Legacy `domain-index`
+Historical migration context only: inspect the workspace before assuming a legacy feature or
+handler still exists. Do not recreate removed paths.
 
-The legacy feature:
-
-- receives `rows` and `currentSheet` as component inputs;
-- uses `DomainIndexComponent` with `IndexRow`/`IndexDto` types;
-- delegates writes to the broad `DomainDataService.updateDomainSheetRows()` method;
-- delegates deletes to `DomainDataService.deleteDomainRow()`;
-- persists through `AppDbService.db.indexTopics`;
-- uses `DomainIndexService` as a `DomainFeatureHandler` for local loading and bulk sync;
-- normalizes tags and refreshes taxonomy after bulk persistence;
-- sends generic object rows through the older domain-data API;
-- updates the whole local row collection during edit/create operations.
-
-### GAS-backed `domain/index`
-
-The target feature:
+The current GAS-backed `domain/index`:
 
 - loads its own records through `IndexDataService` and `IndexRepository`;
 - uses typed `IndexRaw`, `IndexRecord`, and `IndexGASMapper` contracts;
 - uses `GASDomainRepositoryAbstract` and `GASDomainAPI` for shared transport behavior;
 - persists in the dedicated Dexie `indexes` table;
-- tracks pending, synced, and error states in the repository;
+- tracks durable pending writes through its background worker;
 - performs create, update, and delete operations per record;
 - derives filtering and hierarchy from signals;
 - keeps the component independent of the broad legacy `DomainDataService`.
@@ -435,19 +479,19 @@ The target feature:
 
 ## Migration Procedure
 
-For each remaining legacy domain:
+For each new or migrated domain:
 
-1. Identify the legacy row model, sheet name, headers, tags, contributor, and special fields.
+1. Identify the existing or required row model, sheet name, headers, tags, contributor, and
+   special fields.
 2. Define `*Raw` with the exact GAS response shape, including `bookId`, `bookRow`, `itemRow`, and
    `id` semantics.
 3. Define `*Record extends Domain` with typed business fields.
 4. Implement `*GASMapper` and tests for raw-to-record, record-to-raw, tags, and status.
 5. Add a typed `*GASRepository` extending `GASDomainRepositoryAbstract`.
-6. Add a feature repository that reads/writes the correct Dexie table and handles pending/error
-   synchronization.
+6. Add a feature repository that reads/merges the correct Dexie table and register durable
+   background writes with the shared worker infrastructure.
 7. Add a query service for local records scoped to the owning book.
-8. Add a feature service exposing `getRecords`, `addDomainItem`, `updateDomainItem`, and
-   `deleteDomainItem`.
+8. Add the necessary feature/query service and shared local-first write integration.
 9. Implement the standalone component with signal state, computed filtering, hierarchy/list
    rendering, and permission-aware actions.
 10. Migrate the form and card to typed `input()`/`output()` contracts.
@@ -480,26 +524,31 @@ Before considering a domain migrated, verify all of the following:
 ### Persistence
 
 - Remote reads are persisted to the correct Dexie table.
-- New records replace temporary IDs with server IDs.
-- Updates replace the existing local record.
-- Deletes remove local data only after remote success.
-- Failed writes retain an error/pending record suitable for retry.
+- New records use the shared ID format; edits preserve existing IDs; server-returned ID changes
+  are handled atomically with durable aliases and linked-reference resolution.
+- Creates and updates are committed locally with the queue before background transport; pending
+  writes survive navigation/restart and show item-specific status and retry controls.
+- Pending deletions remain visible until remote success; unsent creates can be removed locally.
+- Offline, account mismatch, uncertain requests, dependencies, and failed writes retain safe,
+  visible recovery paths. Remote refresh preserves pending and concurrently modified records.
 
 ### UI behavior
 
 - Search updates without reloading the component.
 - Tag searches match both `#tag` and unprefixed `tag` queries.
 - Empty and filtered-empty states are distinct and accessible.
-- New records appear immediately after successful creation.
-- Edited records update immediately after successful update.
-- Deleted records disappear immediately after successful deletion.
-- Form state resets only after success.
+- New and edited records appear after the local commit, without waiting for remote completion.
+- Pending remote deletions stay visible until success; local unsent creates can disappear.
+- Form state resets only after the local commit succeeds.
 - Required fields show `*` before submission and translated validation messages only after
   an invalid save attempt.
-- Global loading covers create/update operations and appears in the browser top layer above
-  native form dialogs.
+- Background create/update does not trigger a global loading screen. Foreground operations
+  retain accessible native-dialog loading behavior where appropriate.
 - Duplicate submissions are prevented while saving.
 - Permission checks remain in the template and are backed by the permission service.
+- Shared footer ordering, review selection, image export, section spacing and Quotes exception
+  work in domain, Learn and question-practice contexts.
+- Learn auto-loads distinct entries on scroll and preserves due-priority/review scheduling.
 
 ### Tests
 
@@ -509,7 +558,10 @@ Add focused tests for:
 - query scoping by `bookId`;
 - `CREATE_ROW`, `UPDATE_ROW`, and `DELETE_ROW` payload shapes;
 - `bookRow` versus `itemRow` handling;
-- IndexedDB pending/synced/error behavior;
+- local-first queue persistence, restart, retry, uncertainty, linked dependencies and refresh races;
+- generated IDs, edit identity, serialized create payload, and server response/alias handling;
+- shared footer, permission gating, review interaction, export and spacing where affected;
+- Learn scrolling, due priority, optional scheduling values and review caps where affected;
 - component filtering and successful CRUD signal updates.
 
 ## Common Failure Modes
@@ -527,13 +579,18 @@ Add focused tests for:
   table, or records were saved without `bookId`.
 - **Search appears broken:** filtered rows were stored in a writable signal and never derived
   from the query signal. Use `computed()`.
-- **Loading stays behind the form:** the loader is only a fixed `<div>` and cannot outrank a
-  native `<dialog>`. Use a native loading `<dialog>` with `showModal()` and close it in the
-  loading service lifecycle.
+- **Background saves block the screen:** the form waits for GAS or starts global loading instead
+  of closing after its local queue transaction. Use the existing background worker.
+- **Foreground loading stays behind a form:** a fixed `<div>` cannot outrank a native `<dialog>`.
+  Use the existing native loading dialog and close it in the loading-service lifecycle.
 - **Required warnings appear immediately:** field messages were rendered without a submitted
   attempt state. Show asterisks unconditionally and errors only after `submitted` becomes true.
-- **Duplicate saves occur:** no in-progress guard exists. Use `isSaving` plus
-  `GlobalLoadingService.begin()/end()` around create/update operations.
+- **Duplicate saves occur:** no local in-progress guard exists. Use `isSaving` or the domain's
+  equivalent without blocking the application during background transport.
+- **Linked writes use stale IDs:** a dependent write was sent before its parent synchronized or
+  an alias was ignored. Keep it queued and resolve persisted aliases before sending.
+- **Unsynced data disappears after refresh:** merge remote data against a pre-fetch snapshot and
+  preserve pending, changed, and deleted-during-fetch records.
 - **Tags are unreadable:** UI arrays were sent directly to GAS or raw strings were rendered
   directly. Convert at the mapper boundary.
 - **Delete fails after reload:** `bookRow` was only assigned in the component. Persist it on the
@@ -544,9 +601,9 @@ Add focused tests for:
 
 ## Agent Operating Rules
 
-When asked to migrate a domain:
+When asked to change a domain:
 
-1. Read the legacy domain end to end before editing.
+1. Read the affected domain and shared integration end to end before editing.
 2. Use `domain/index` as the architectural reference, not as a blind copy.
 3. Confirm the GAS backend field names and action names from existing API code or tests.
 4. Preserve user changes in dirty files.

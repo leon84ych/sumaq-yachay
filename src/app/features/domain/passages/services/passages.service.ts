@@ -1,4 +1,7 @@
 import { inject, Injectable } from '@angular/core';
+import { liveQuery } from 'dexie';
+import { GlobalMessageService } from '../../../../core/services/global-message.service';
+import { PassageWriteSyncService } from '../../shared/domain-repository/domain-write-sync.service';
 import { BookRecord } from '../../../catalog/book/models/book-item.model';
 import { BookQueryService } from '../../index/services/book-query.service';
 import { PassageRecord } from '../model/passages-model';
@@ -12,6 +15,8 @@ export class PassageDataService {
   private readonly passageRepository = inject(PassageRepository);
   private readonly bookQueryService = inject(BookQueryService);
   private readonly passageQueryService = inject(PassageQueryService);
+  private readonly writeSync = inject(PassageWriteSyncService);
+  private readonly messages = inject(GlobalMessageService);
 
   /** Returns locally stored passages for a book, or fetches them from GAS when none are stored. */
   async getRecords(bookId: string): Promise<PassageRecord[]> {
@@ -33,6 +38,19 @@ export class PassageDataService {
 
   getAllowedTags(bookId: string): Promise<string[]> {
     return this.passageQueryService.getAllowedTags(bookId);
+  }
+
+  watchRecords(bookId: string, update: (records: PassageRecord[]) => void) {
+    return liveQuery(() => this.passageQueryService.getPassagesByBookId(bookId)).subscribe({
+      next: update,
+      error: (error) => this.messages.showError(
+        error instanceof Error ? error.message : 'Failed to watch passages.',
+      ),
+    });
+  }
+
+  saveLocally(record: PassageRecord, isEdit: boolean): Promise<PassageRecord> {
+    return this.writeSync.save(record, isEdit);
   }
 
   addDomainItem(record: PassageRecord): Promise<PassageRecord> {

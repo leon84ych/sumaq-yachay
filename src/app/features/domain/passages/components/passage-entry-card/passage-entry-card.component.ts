@@ -30,6 +30,8 @@ export class PassageEntryCardComponent {
   readonly showFeedReview = input(false);
   readonly showReadAction = input(true);
   readonly showContext = input(false);
+  readonly canRetry = input(false);
+  readonly pendingDeletion = input(false);
   readonly readerMode = input<'external' | 'internal'>('external');
   readonly selectedPassage = signal<PassageRecord | null>(null);
   readonly contextualBookName = computed(() => this.bookName() || this.row().book);
@@ -40,6 +42,7 @@ export class PassageEntryCardComponent {
   });
   readonly editRequested = output<PassageRecord>();
   readonly deleteRequested = output<string>();
+  readonly retryRequested = output<PassageRecord>();
   readonly readRequested = output<PassageRecord>();
   readonly role = this.permissionService.role;
   readonly permissions = this.permissionService;
